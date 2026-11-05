@@ -6,11 +6,15 @@
 - Launch first in the United States.
 - Plan for adults and minors; exact supported ages remain undecided.
 
-## Proposed collaboration setup
+## November 4, 2026: shared project notebook
 
-This starter kit proposes GitHub for sharing code, designs, and project notes,
-with a separate local copy and Claude Code conversation for each collaborator.
-Mark this setup as adopted after both collaborators have verified it works.
+The user requested a shared Obsidian vault. Keep it in the GitHub project's
+`notes/` folder, so notes, designs, and future code share one workflow.
+Claude Code reads the short core notes through `CLAUDE.md`; detailed task
+handoffs go in `worklogs/`.
+
+The starter repository is published. The second computer's setup still needs
+confirmation. Each person uses their own local copy and Claude conversation.
 
 ## Decision format
 

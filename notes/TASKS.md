@@ -1,20 +1,43 @@
-# Shared tasks
+# Task board
 
-Agree on an owner before starting a task. Status can be Todo, In progress,
-Ready for review, or Done. This is a starting list, not a claim that setup is done.
+[[00 START HERE|Back to Start Here]]
 
-| Task | Owner | Status |
-| --- | --- | --- |
-| Invite the second GitHub account and accept the invitation | Unassigned | Todo |
-| Clone the repository onto both computers | Both | Todo |
-| Add this starter kit once and share it through GitHub | Unassigned | Todo |
-| Copy project-only Obsidian notes into the shared project | Unassigned | Todo |
-| Check the supplied SVG reference in design/homepage.svg | Both | Todo |
-| Open Claude Code and Obsidian on both computers | Both | Todo |
-| Try one sample note change through a branch and pull request | Both | Todo |
-| Agree on the first website task | Both | Todo |
+Choose one small task at a time. Record its owner and branch when you start.
+Planning tasks below are suggestions; ownership has not been assigned.
 
-## Work in progress
+## Setup completed
 
-For each active task, record its owner, branch name, files likely to change, and
-what counts as finished. Coordinate before both people edit the same notes.
+- [x] Create and publish the shared starter repository.
+- [x] Add the supplied homepage SVG and preview.
+- [x] Prepare a shared Obsidian vault with a Start Here page.
+- [x] Connect the short project notes to Claude's instructions.
+
+## Ready to choose
+
+- [ ] Confirm the second collaborator can download the project and open this vault.
+  Owner: unassigned. Branch: not needed for opening the vault.
+- [ ] Confirm both people can open the project in Claude Code.
+  Owner: both. Branch: not needed for opening the project.
+- [ ] Draft the homepage's phone layout and a list of screens it links to.
+  Owner: unassigned. Branch: to choose.
+- [ ] Write a one-page first-version description and main user journey.
+  Owner: unassigned. Branch: to choose.
+- [ ] Agree on supported ages and whether the prototype needs saved data.
+  Owner: both. Branch: to choose.
+- [ ] Choose website tools after agreeing on first-version scope.
+  Owner: both. Branch: to choose.
+
+## In progress
+
+No planning or implementation task has been assigned yet.
+
+## Ready for review
+
+Move a task here when its branch is ready for the other person to review.
+
+## Completed work
+
+Move finished tasks here and link their handoff note.
+
+Use [[templates/Task|The task template]]. Keep detailed notes in
+[[worklogs/README|Worklogs]]. Coordinate before both people edit this board.

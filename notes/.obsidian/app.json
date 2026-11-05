@@ -1,0 +1,8 @@
+{
+  "alwaysUpdateLinks": true,
+  "attachmentFolderPath": "attachments",
+  "newFileLocation": "current",
+  "readableLineLength": true,
+  "defaultViewMode": "preview",
+  "trashOption": "local"
+}

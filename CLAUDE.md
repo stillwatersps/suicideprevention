@@ -9,6 +9,7 @@ The intended audience includes adults and minors; exact age ranges are undecided
 Read these short shared notes at the start of a session:
 
 @notes/PROJECT.md
+@notes/STATUS.md
 @notes/TASKS.md
 @notes/DECISIONS.md
 
@@ -16,6 +17,10 @@ Read other notes and design files only when relevant to the current task.
 Inspect notes/ and design/ for existing project material before creating new files.
 Use notes/worklogs/ for concise task handoffs, with one file per task.
 Shared notes are the handoff between collaborators; conversations are separate.
+The Obsidian vault is notes/. Its entry point is notes/00 START HERE.md.
+Update notes/STATUS.md when a task changes the project state.
+Use notes/templates/ for task and handoff structures. Keep detailed worklogs
+separate from the short core notes.
 
 ## Working together
 

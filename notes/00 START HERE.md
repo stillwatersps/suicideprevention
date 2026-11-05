@@ -1,0 +1,53 @@
+---
+aliases: [Stillwater, Start Here]
+---
+
+# Stillwater
+
+Our shared notebook for building a suicide prevention website.
+
+> [!tip] Start a work session
+> Download the latest project in GitHub Desktop, read [[STATUS|Current status]],
+> and choose one task from [[TASKS|The task board]]. Record its owner before starting.
+
+## Project map
+
+| Open | What it contains |
+| --- | --- |
+| [[PROJECT\|Project brief]] | What we know and the questions still to decide |
+| [[STATUS\|Current status]] | Where we stand and the next useful step |
+| [[TASKS\|Task board]] | Completed work and tasks to choose from |
+| [[DECISIONS\|Decisions]] | What we agreed on and why |
+| [[DESIGN\|Homepage design]] | The supplied design and a preview |
+| [[WORKFLOW\|Working together]] | How to work independently and share changes |
+| [[worklogs/README\|Handoffs]] | Where to leave a summary for the other person |
+
+## Ready to use
+
+- Shared GitHub repository: `stillwatersps/suicideprevention`.
+- A local project copy on this Mac.
+- The supplied homepage SVG and its preview.
+- This Obsidian vault, with shared context for Claude Code.
+
+The website has not been implemented yet. Exact features, supported ages, and
+website tools are still undecided. The second computer's setup needs confirmation.
+
+## Next steps
+
+1. Both open this notebook and confirm you can read it.
+2. Choose one small task each in [[TASKS]].
+3. Use [[templates/Task|The task template]] to define the work.
+4. Leave a [[templates/Handoff|Short handoff]] when you finish.
+
+## Shared context
+
+Claude Code opens the whole `suicideprevention` project folder. Its `CLAUDE.md`
+imports the short brief, status, tasks, and decisions. Keep those notes accurate
+so either person's Claude session can pick up the project.
+
+GitHub shares saved files when you upload and pull them. It does not share live
+typing or automatically combine Claude conversations.
+
+> [!note] Project notebook
+> Keep project planning and fictional examples here. Personal journals,
+> credentials, and real users' health information belong outside this repository.

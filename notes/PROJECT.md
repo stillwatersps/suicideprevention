@@ -7,14 +7,15 @@
 - The initial launch country is the United States.
 - The intended audience includes adults and minors; exact ages are undecided.
 - Two collaborators will work on separate computers using Claude Code.
-- Existing project notes are in an Obsidian vault.
+- The shared Obsidian vault is the project's notes/ folder.
 - The supplied SVG is a desktop homepage reference labeled Stillwater.
 - The GitHub repository is `stillwatersps/suicideprevention`.
 - No app code has been created yet.
 
 ## Current goal
 
-Get the same shared workspace and notes working on both computers.
+Finish opening the shared workspace on both computers, then agree on the first
+website tasks. Start with [[00 START HERE]].
 
 ## To decide when planning the first build
 
@@ -26,14 +27,16 @@ Get the same shared workspace and notes working on both computers.
 
 ## Existing materials
 
-- Copy project-only Obsidian notes into this vault, preserving their structure.
+- This vault uses the project facts and materials supplied in chat. Any earlier
+  notes held by a collaborator can be added later, preserving current notes.
 - The homepage reference is `../design/homepage.svg` (1440 by 1100).
 - Its exact pasted source is `../design/source/homepage-original.txt`.
-- The existing Obsidian vault has not been supplied with this starter kit.
+- Open [[DESIGN]] for the homepage preview inside Obsidian.
 
 ## Shared conventions
 
 - Keep lasting project facts here.
+- Keep the current project state in [[STATUS]].
 - Record decisions in `DECISIONS.md`.
 - Keep task ownership and progress in `TASKS.md`.
 - Write short task handoffs in `worklogs/`.
