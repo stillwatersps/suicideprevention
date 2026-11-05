@@ -1,0 +1,28 @@
+# Credentials and local environment settings
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Personal instructions
+CLAUDE.local.md
+
+# Obsidian per-device layouts and deleted notes
+**/.obsidian/workspace.json
+**/.obsidian/workspaces.json
+**/.trash/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Common generated files; refine once the app tools are selected
+node_modules/
+dist/
+build/
+.next/
+coverage/
+*.log
+__pycache__/
+.venv/

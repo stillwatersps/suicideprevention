@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1100" viewBox="0 0 1440 1100" role="img" aria-label="Stillwater suicide prevention website homepage UI design">
+  <defs>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FAF7F3"/>
+      <stop offset="45%" stop-color="#F2E9E4"/>
+      <stop offset="100%" stop-color="#D8C6C5"/>
+    </linearGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F5E6DB"/>
+      <stop offset="55%" stop-color="#E6BEB0"/>
+      <stop offset="100%" stop-color="#8A9A8A"/>
+    </linearGradient>
+    <linearGradient id="mountain" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#A3A49A"/>
+      <stop offset="100%" stop-color="#425D50"/>
+    </linearGradient>
+    <linearGradient id="card1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E7EDE1"/>
+      <stop offset="100%" stop-color="#F6F1E9"/>
+    </linearGradient>
+    <linearGradient id="card2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EEE7EE"/>
+      <stop offset="100%" stop-color="#F7F0F0"/>
+    </linearGradient>
+    <linearGradient id="card3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F2E7DC"/>
+      <stop offset="100%" stop-color="#F8F2EA"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="5" stdDeviation="12" flood-color="#233D34" flood-opacity=".09"/>
+    </filter>
+    <clipPath id="heroClip">
+      <rect x="0" y="96" width="1440" height="470"/>
+    </clipPath>
+    <style>
+      .serif{font-family:Georgia,'Times New Roman',serif}
+      .sans{font-family:Arial,Helvetica,sans-serif}
+      .ink{fill:#213B30}
+      .body{fill:#40443F}
+      .muted{fill:#6C746C}
+      .plum{fill:#60375E}
+      .small{font-size:13px}
+      .nav{font-size:15px}
+      .eyebrow{font-size:12px;font-weight:700;letter-spacing:3px}
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1440" height="1100" fill="#FAF8F4"/>
+
+  <!-- Header -->
+  <rect width="1440" height="96" fill="#FAF8F4"/>
+  <path d="M75 32 C52 25 51 52 82 66 C83 51 81 41 75 32Z" fill="#718974"/>
+  <path d="M86 62 C85 37 103 25 114 24 C119 45 105 61 86 67Z" fill="#B6C4AE"/>
+  <text x="130" y="52" class="serif ink" font-size="35">Stillwater</text>
+  <text x="132" y="70" class="sans" font-size="9" letter-spacing="2" fill="#33433A">SUICIDE PREVENTION &amp; SUPPORT</text>
+
+  <g class="sans nav" fill="#253A30">
+    <text x="520" y="54">Get Support</text>
+    <text x="670" y="54">Resources</text>
+    <text x="807" y="54">Help Someone Else</text>
+    <text x="1020" y="54">About</text>
+  </g>
+  <g fill="none" stroke="#344B3D" stroke-width="1.5">
+    <path d="m622 49 5 5 5-5"/>
+    <path d="m765 49 5 5 5-5"/>
+    <path d="m957 49 5 5 5-5"/>
+    <path d="m1072 49 5 5 5-5"/>
+  </g>
+  <circle cx="1140" cy="48" r="20" fill="none" stroke="#D4D6CF"/>
+  <circle cx="1137" cy="45" r="6" fill="none" stroke="#263D33" stroke-width="2"/>
+  <path d="m1142 50 6 6" stroke="#263D33" stroke-width="2"/>
+  <rect x="1180" y="24" width="216" height="48" rx="24" fill="#60375E"/>
+  <text x="1288" y="54" text-anchor="middle" class="sans" font-size="15" font-weight="bold" fill="white">Get Support Now  ↗</text>
+
+  <!-- Hero -->
+  <g clip-path="url(#heroClip)">
+    <rect x="0" y="96" width="1440" height="470" fill="url(#hero)"/>
+    <rect x="650" y="96" width="790" height="470" fill="url(#sky)"/>
+    <circle cx="1150" cy="235" r="69" fill="#FBE8C9" opacity=".7"/>
+    <path d="M580 420 Q740 235 865 332 Q1040 195 1160 314 Q1300 245 1440 320 V570 H580Z" fill="#A7A19E" opacity=".38"/>
+    <path d="M580 490 Q760 335 910 390 Q1080 290 1210 365 Q1340 330 1440 370 V570 H580Z" fill="#687E73" opacity=".55"/>
+    <path d="M560 530 Q740 425 890 460 Q1070 375 1200 433 Q1340 385 1440 425 V570 H560Z" fill="url(#mountain)"/>
+    <path d="M0 96 H690 Q790 250 640 410 Q570 505 450 565 H0Z" fill="url(#hero)" opacity=".97"/>
+    <path d="M0 555 Q300 615 610 555 Q980 465 1440 550 V600 H0Z" fill="#FAF8F4"/>
+  </g>
+
+  <text x="92" y="163" class="sans eyebrow plum">SUICIDE PREVENTION &amp; CRISIS SUPPORT</text>
+  <path d="M468 159 H520" stroke="#947A8C"/>
+  <text x="90" y="243" class="serif ink" font-size="70" letter-spacing="-3">You are not alone.</text>
+  <text x="94" y="290" class="sans body" font-size="18">If you're feeling overwhelmed, in crisis, or having</text>
+  <text x="94" y="317" class="sans body" font-size="18">thoughts of suicide, compassionate support is here</text>
+  <text x="94" y="344" class="sans body" font-size="18">for you — anytime, day or night.</text>
+
+  <!-- Hero actions -->
+  <g filter="url(#shadow)">
+    <rect x="92" y="379" width="204" height="68" rx="13" fill="#315A45"/>
+    <rect x="308" y="379" width="204" height="68" rx="13" fill="#FBF9F5"/>
+    <rect x="524" y="379" width="204" height="68" rx="13" fill="#FBF9F5"/>
+  </g>
+  <g class="serif" font-size="19">
+    <text x="148" y="406" fill="white">Call 988</text>
+    <text x="363" y="406" class="ink">Text 988</text>
+    <text x="579" y="406" class="ink">Chat Online</text>
+  </g>
+  <g class="sans" font-size="12">
+    <text x="148" y="426" fill="#E8F1E9">Get support now</text>
+    <text x="363" y="426" class="body">Reach out by text</text>
+    <text x="579" y="426" class="body">Talk with a counselor</text>
+  </g>
+  <g fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M117 396 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z" stroke="#FFFFFF"/>
+    <path d="M332 396 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z" stroke="#315A45"/>
+    <rect x="542" y="396" width="27" height="20" rx="2" stroke="#315A45"/>
+    <path d="M537 421 H574" stroke="#315A45"/>
+  </g>
+  <text x="94" y="489" class="sans" font-size="15" font-weight="bold" fill="#60375E">Not in crisis? Explore resources and support  →</text>
+  <path d="M94 496 H411" stroke="#60375E"/>
+
+  <!-- Trust row -->
+  <rect x="0" y="566" width="1440" height="115" fill="#F6F4EE"/>
+  <g>
+    <circle cx="155" cy="622" r="27" fill="#E3E9DB"/>
+    <path d="M155 605 l13 5 v10 q0 12-13 19 q-13-7-13-19 v-10Z" fill="none" stroke="#315A45" stroke-width="2"/>
+    <text x="199" y="616" class="serif ink" font-size="19">Confidentiality and privacy</text>
+    <text x="199" y="638" class="sans muted" font-size="13">Learn how your information is handled.</text>
+    <path d="M500 597 V650" stroke="#D9D9D0"/>
+    <circle cx="570" cy="622" r="27" fill="#E3E9DB"/>
+    <circle cx="570" cy="622" r="14" fill="none" stroke="#315A45" stroke-width="2"/>
+    <path d="M570 611 V623 L578 627" fill="none" stroke="#315A45" stroke-width="2"/>
+    <text x="615" y="616" class="serif ink" font-size="19">Available 24/7</text>
+    <text x="615" y="638" class="sans muted" font-size="13">Trained counselors are here to listen.</text>
+    <path d="M945 597 V650" stroke="#D9D9D0"/>
+    <circle cx="1010" cy="622" r="27" fill="#E3E9DB"/>
+    <g fill="none" stroke="#315A45" stroke-width="2">
+      <circle cx="1010" cy="614" r="6"/>
+      <path d="M997 634 q0-13 13-13 q13 0 13 13"/>
+    </g>
+    <text x="1055" y="616" class="serif ink" font-size="19">For you and your loved ones</text>
+    <text x="1055" y="638" class="sans muted" font-size="13">Support for yourself or someone else.</text>
+  </g>
+
+  <!-- Resource section -->
+  <rect x="0" y="681" width="1440" height="320" fill="#FAF8F4"/>
+  <text x="95" y="743" class="sans eyebrow plum">FIND THE SUPPORT YOU NEED</text>
+  <text x="95" y="798" class="serif ink" font-size="42" letter-spacing="-1.5">How can we support</text>
+  <text x="95" y="846" class="serif ink" font-size="42" letter-spacing="-1.5">you today?</text>
+  <text x="95" y="881" class="sans body" font-size="15">Whether you're in crisis, looking for ways to cope,</text>
+  <text x="95" y="904" class="sans body" font-size="15">or supporting someone you care about, you're</text>
+  <text x="95" y="927" class="sans body" font-size="15">in the right place.</text>
+
+  <!-- Cards -->
+  <g filter="url(#shadow)">
+    <rect x="540" y="719" width="275" height="240" rx="19" fill="url(#card1)"/>
+    <rect x="831" y="719" width="275" height="240" rx="19" fill="url(#card2)"/>
+    <rect x="1122" y="719" width="275" height="240" rx="19" fill="url(#card3)"/>
+  </g>
+  <rect x="565" y="744" width="45" height="45" rx="12" fill="#D5E1D0"/>
+  <rect x="856" y="744" width="45" height="45" rx="12" fill="#E4D7E5"/>
+  <rect x="1147" y="744" width="45" height="45" rx="12" fill="#E5E2D1"/>
+  <g fill="none" stroke="#2F4D3D" stroke-width="2" stroke-linejoin="round">
+    <path d="M587 778 l-12-12 q-7-10 2-13 q6-2 10 5 q6-9 13-5 q9 6 1 15Z"/>
+    <circle cx="878" cy="757" r="5"/>
+    <path d="M866 777 q0-13 12-13 q12 0 12 13"/>
+    <path d="M1160 755 q9-5 17 1 q8-6 17-1 v23 q-9-5-17 1 q-8-6-17-1Z"/>
+    <path d="M1177 756 V779"/>
+  </g>
+  <g class="serif ink" font-size="24">
+    <text x="565" y="825">I'm having a</text>
+    <text x="565" y="853">hard time</text>
+    <text x="856" y="825">I'm worried</text>
+    <text x="856" y="853">about someone</text>
+    <text x="1147" y="825">I want to</text>
+    <text x="1147" y="853">learn more</text>
+  </g>
+  <g class="sans body" font-size="12.5">
+    <text x="565" y="885">Find immediate support and</text>
+    <text x="565" y="904">resources for difficult moments.</text>
+    <text x="856" y="885">Learn how to support a friend,</text>
+    <text x="856" y="904">family member, or loved one.</text>
+    <text x="1147" y="885">Explore coping resources and</text>
+    <text x="1147" y="904">ways to find ongoing support.</text>
+  </g>
+  <g>
+    <circle cx="784" cy="932" r="16" fill="#315A45"/>
+    <circle cx="1075" cy="932" r="16" fill="#60375E"/>
+    <circle cx="1366" cy="932" r="16" fill="#315A45"/>
+    <g stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M778 932 H790 M785 927 L790 932 L785 937"/>
+      <path d="M1069 932 H1081 M1076 927 L1081 932 L1076 937"/>
+      <path d="M1360 932 H1372 M1367 927 L1372 932 L1367 937"/>
+    </g>
+  </g>
+
+  <!-- Closing banner -->
+  <rect x="20" y="1001" width="1400" height="99" rx="38" fill="#315A45"/>
+  <text x="150" y="1065" class="serif" font-size="40" fill="#F9F7F1">You don't have to face this alone.</text>
+  <path d="M760 1026 V1081" stroke="#91A99A"/>
+  <text x="807" y="1047" class="sans" font-size="15" fill="#F4F6EF">Support is available, whenever you're ready.</text>
+  <text x="807" y="1072" class="sans" font-size="14" fill="#D6E5D9">Call or text 988, or connect online.</text>
+</svg>
