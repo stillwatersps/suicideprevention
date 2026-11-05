@@ -19,6 +19,7 @@ Our shared notebook for building a suicide prevention website.
 | [[TASKS\|Task board]] | Completed work and tasks to choose from |
 | [[DECISIONS\|Decisions]] | What we agreed on and why |
 | [[DESIGN\|Homepage design]] | The supplied design and a preview |
+| [[SAFETY\|Safety baseline]] | Crisis resources to verify and content ground rules |
 | [[WORKFLOW\|Working together]] | How to work independently and share changes |
 | [[worklogs/README\|Handoffs]] | Where to leave a summary for the other person |
 

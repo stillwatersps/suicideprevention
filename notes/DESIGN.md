@@ -28,6 +28,7 @@ source design changes.
 - Where does each navigation item or resource card lead?
 - What should happen when a visitor selects a support action?
 - Which service provides the advertised availability and counselor support?
+  See [[SAFETY]] for the crisis resources being verified.
 - What wording, readability, and accessibility checks are needed before release?
 
 These questions are open. The reference is a static drawing; website controls

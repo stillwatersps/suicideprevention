@@ -1,6 +1,6 @@
 # Current status
 
-Last updated: November 4, 2026.
+Last updated: November 5, 2026.
 
 ## Current phase
 
@@ -13,6 +13,13 @@ Shared workspace setup and early product planning.
 - The supplied Stillwater homepage SVG is in `design/homepage.svg`.
 - These notes are an Obsidian vault in `notes/`.
 - Claude Code has instructions to read the brief, status, tasks, and decisions.
+- The vault is confirmed on GitHub: a fresh download of `main` contains it.
+- GitHub Pages is on for `main`. The public link is
+  https://stillwatersps.github.io/suicideprevention/ and currently shows the
+  README, because there is no website code yet. Anything on `main` is public.
+- Draft safety ground rules and crisis resources to verify are in [[SAFETY]].
+- Planning drafts for scope and the phone layout are on the unmerged branch
+  `planning/morning-brief`.
 
 ## Still to confirm
 
@@ -20,6 +27,7 @@ Shared workspace setup and early product planning.
 - Both people have opened the local project in Claude Code.
 - First-version features and supported age ranges.
 - Website tools, saved-data needs, and hosting.
+- Whether to keep GitHub Pages public before crisis content is reviewed.
 
 ## Next useful step
 
