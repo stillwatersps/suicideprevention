@@ -32,3 +32,16 @@ computer has still not been confirmed.
 
 Review this note in a pull request to try the branch-and-review routine, then
 merge it. The other collaborator pulls `main` and opens [[00 START HERE]].
+
+## Follow-up: safety baseline and status
+
+- Added [[SAFETY]]: draft ground rules for a public suicide prevention site and
+  a table of U.S. crisis resources. The numbers are listed from memory and are
+  marked unverified until someone checks each provider's own site.
+- Updated [[STATUS]] with the vault confirmation, the public GitHub Pages link,
+  and the unmerged `planning/morning-brief` drafts.
+- Added three tasks to [[TASKS]]: review the planning drafts, verify crisis
+  resources, and decide what the public Pages link shows. Owners are unassigned.
+- Linked the new note from [[00 START HERE]] and [[DESIGN]].
+- Did not edit the `planning/morning-brief` notes; they remain the other
+  branch's work.

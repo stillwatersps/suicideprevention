@@ -26,6 +26,12 @@ Planning tasks below are suggestions; ownership has not been assigned.
   Owner: both. Branch: to choose.
 - [ ] Choose website tools after agreeing on first-version scope.
   Owner: both. Branch: to choose.
+- [ ] Review the planning drafts on `planning/morning-brief` and merge or revise.
+  Owner: both. Branch: `planning/morning-brief`.
+- [ ] Verify the crisis resources in [[SAFETY]] on each provider's site and
+  agree on the safety ground rules. Owner: unassigned. Branch: to choose.
+- [ ] Decide what the public GitHub Pages link should show until the site is ready.
+  Owner: both. Branch: to choose.
 
 ## In progress
 
