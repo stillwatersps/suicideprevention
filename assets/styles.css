@@ -47,7 +47,7 @@ strong { color: var(--ink); }
   border-radius: 4px;
 }
 
-[id] { scroll-margin-top: 88px; }
+[id] { scroll-margin-top: 96px; }
 
 /* Jump targets take focus so keyboard and screen reader users land in the right place. */
 [tabindex="-1"]:focus { outline: none; }
@@ -266,6 +266,7 @@ h1 {
 .trust-list li > span:last-child { display: flex; flex-direction: column; }
 .trust-title { font-family: var(--serif); color: var(--ink); font-size: 1.15rem; }
 .trust-text { font-size: .875rem; color: var(--muted); }
+.trust-text a { color: inherit; text-underline-offset: 3px; }
 
 /* Resources */
 .resources {
@@ -350,6 +351,7 @@ h1 {
 .site-footer h2 { font-size: 1.3rem; margin-bottom: 8px; }
 .site-footer p { font-size: .95rem; }
 .site-footer p + p { margin-top: 10px; }
+.site-footer p a { color: var(--green); font-weight: 700; text-underline-offset: 3px; }
 .site-footer .footer-note { font-weight: 700; color: var(--plum); }
 .site-footer .credit { color: var(--muted); font-size: .875rem; }
 
@@ -401,6 +403,10 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 @media (max-width: 959px) {
   .crisis-bar { position: sticky; top: 0; z-index: 60; }
   .site-header { position: relative; }
+}
+/* Very large text settings: the strip would fill too much of the screen if pinned. */
+@media (max-width: 16em) {
+  .crisis-bar { position: static; }
 }
 /* Heavily zoomed or very short screens: anything pinned would cover too much. */
 @media (max-height: 300px) {
@@ -624,8 +630,8 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 .finding { padding-top: 18px; margin-top: 18px; border-top: 1px solid var(--line); }
 .prose .finding h3 { margin-top: 0; }
 .finding .limit { color: var(--body); }
-.cite { margin-top: 4px; font-size: .95rem; color: var(--muted); }
-.cite a { display: inline-block; padding: 7px 0; color: var(--green); font-weight: 700; text-underline-offset: 3px; }
+.cite { font-size: .95rem; color: var(--muted); }
+.cite a { display: inline-block; padding: 10px 0; color: var(--green); font-weight: 700; text-underline-offset: 3px; }
 
 /* Source lists */
 .sources { display: grid; gap: 14px; margin-top: 12px; font-size: .95rem; }
