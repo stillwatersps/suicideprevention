@@ -14,8 +14,8 @@ reviewed them.**
 Claude re-read every crisis number on the provider's own page on November 6, 2026,
 Eastern time, and ran the outside link check that day. It read the longer claims and
 research during the overnight run on November 5 and 6. Most research links go to
-PubMed records, not journal pages. [How each finding was read](#how-each-finding-was-read)
-says which sources were read in full.
+PubMed records, not journal pages. "How each finding was read", below, says which
+sources were read in full.
 
 ## Page status
 
