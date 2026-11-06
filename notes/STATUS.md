@@ -15,14 +15,17 @@ and product planning continue.
 | `main` | Homepage, placeholder Get Help, Help Someone, and Research pages, and these notes | Public through GitHub Pages |
 | `claude/jolly-mayer-2m6eno` | Draft page content, site fixes, `notes/CONTENT-REVIEW.md`, and the research brief `notes/RESEARCH-BRIEF.md` | [Draft pull request 5](https://github.com/stillwatersps/suicideprevention/pull/5) into `main`. **Not merged, not on the public website** |
 | `site/phone-accessibility-content` | A second round of fixes and updated notes, on top of that branch | [Draft pull request 6](https://github.com/stillwatersps/suicideprevention/pull/6) into `claude/jolly-mayer-2m6eno`. **Not merged, not on the public website** |
+| `site/live-page-corrections` | Only the four known issues below, on the live pages, plus a handoff | [Draft pull request 8](https://github.com/stillwatersps/suicideprevention/pull/8) into `main`. **Not merged, not on the public website** |
 
-Not merged doesn't mean private: the repository is public, so anyone can read both
+Not merged doesn't mean private: the repository is public, so anyone can read them
 on GitHub. You can also read them by switching branch in GitHub Desktop; Obsidian
-shows whichever branch your project folder is on.
+shows whichever branch your project folder is on. Git refuses that switch if another
+folder on the same computer already has the branch open.
 
 Merging pull request 6 publishes nothing. Merging pull request 5 into `main`
 publishes it within about a minute, notes included, so it holds for review by both
-founders and a licensed therapist.
+founders and a licensed therapist. Pull request 8 is separate: merging it publishes
+its page corrections the same way, and no qualified person has reviewed that wording.
 
 ## In place
 
@@ -49,11 +52,13 @@ founders and a licensed therapist.
   They and the homepage are public at
   https://stillwatersps.github.io/suicideprevention/. On `main` they still need
   content. See [[worklogs/2026-11-06-claude-site-pages|the pages handoff]].
+- The handoff for this correction to the status and task notes is at
+  [[worklogs/2026-11-06-claude-main-notes-correction|the notes correction handoff]].
 
 ## Known issues on `main`
 
-Public now. Draft pull requests 5 and 6 correct each of these, but the corrections
-aren't public until those pull requests merge.
+Public now. Draft pull requests 5 and 6 correct each of these, and draft pull request
+8 corrects only these. None of those corrections is public until a pull request merges.
 
 - The footer says content "is still being reviewed", which overstates it. No
   qualified person has reviewed it.
