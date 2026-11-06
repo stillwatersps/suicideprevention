@@ -6,6 +6,9 @@
   <title>What the research shows — Stillwater</title>
   <meta name="description" content="What studies show about suicide prevention and the effects of reaching out for support.">
   <meta name="theme-color" content="#FAF8F4">
+  <!-- Not for search engines until the content has had professional review. See notes/DECISIONS.md. -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/styles.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -13,9 +16,9 @@
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1 -->
-  <div class="crisis-bar" role="note" aria-label="Crisis help">
-    <p>In crisis? <strong>Call or text 988</strong> any time. In immediate danger, <strong>call 911</strong>.</p>
-  </div>
+  <aside class="crisis-bar" aria-label="Crisis help">
+    <p>In crisis? <a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a> or <a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a> any time. In immediate danger, <a href="tel:911" aria-label="Call 911, emergency services">call 911</a>.</p>
+  </aside>
 
   <header class="site-header">
     <div class="header-inner">
@@ -37,6 +40,7 @@
 
       <nav id="site-nav" class="site-nav" aria-label="Main">
         <ul>
+          <li class="nav-home"><a href="../">Home</a></li>
           <li><a href="../get-help/">Get Help</a></li>
           <li><a href="../help-someone/">Help Someone</a></li>
           <li><a href="../research/" aria-current="page">Research</a></li>
@@ -48,10 +52,10 @@
     </div>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="page-hero" aria-labelledby="page-title">
       <div class="page-hero-inner">
-        <p class="breadcrumb"><a href="../">← Home</a></p>
+        <p class="breadcrumb"><a href="../"><span aria-hidden="true">←</span> Home</a></p>
         <p class="eyebrow">Learn more</p>
         <h1 id="page-title">What the research shows</h1>
         <p class="hero-lead">This page will share what studies say about suicide prevention and the difference that reaching out and getting support can make. Every finding will link to its source.</p>
@@ -59,34 +63,34 @@
     </section>
 
     <div class="page-body">
-      <section class="crisis-panel" id="support" aria-labelledby="crisis-title">
+      <section class="crisis-panel" id="support" tabindex="-1" aria-labelledby="crisis-title">
         <h2 id="crisis-title">Need to talk to someone now?</h2>
         <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time.</p>
         <ul class="crisis-actions" aria-label="Reach the 988 Suicide and Crisis Lifeline">
           <li>
             <a class="action action-primary" href="tel:988">
               <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
-              <span><span class="action-title">Call 988</span><span class="action-sub">Talk to someone now</span></span>
+              <span><span class="action-title">Call 988</span><span class="action-sub">Talk to a counselor</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="sms:988">
               <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
-              <span><span class="action-title">Text 988</span><span class="action-sub">Reach out by text</span></span>
+              <span><span class="action-title">Text 988</span><span class="action-sub">Text a counselor</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="https://988lifeline.org/chat/" rel="noopener">
               <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
-              <span><span class="action-title">Chat Online</span><span class="action-sub">988 Lifeline web chat</span></span>
+              <span><span class="action-title">Chat Online</span><span class="action-sub">Web chat with 988</span></span>
             </a>
           </li>
         </ul>
 
-        <p class="fallback">On a device that can't call or text? Dial or text <strong>988</strong> from any phone, or go to <strong>988lifeline.org</strong>. In immediate danger, call <strong>911</strong>.</p>
+        <p class="fallback">On a device that can't call or text? Dial or text <strong>988</strong> from any phone, or go to <a href="https://988lifeline.org/">988lifeline.org</a>. In immediate danger, call <strong>911</strong>.</p>
       </section>
 
-      <section class="page-status" aria-labelledby="status-title">
+      <section class="page-status review-note" aria-labelledby="status-title">
         <h2 id="status-title">This page is being written</h2>
         <p>It will cover:</p>
         <ul>
@@ -105,7 +109,7 @@
           <li><a href="../">Home</a></li>
           <li><a href="../get-help/">Get Help</a></li>
           <li><a href="../help-someone/">Help Someone</a></li>
-          <li><a href="../research/">Research</a></li>
+          <li><a href="../research/" aria-current="page">Research</a></li>
         </ul>
       </nav>
       <h2>About Stillwater</h2>
