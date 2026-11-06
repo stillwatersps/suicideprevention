@@ -16,9 +16,6 @@ Planning tasks below are suggestions; ownership has not been agreed.
 
 - [ ] Decide what the public GitHub Pages link should show until the site is
   reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes.
-- [ ] Correct `main`'s notes with a small notes-only pull request, no page changes,
-  so `main` stops saying pull request 4 is unmerged. Proposed by Claude. Owner:
-  unassigned, a founder decides. Merging it publishes only those notes.
 - [ ] Agree who reviews the content. Pull request 5 and [[RESEARCH-BRIEF]] name a
   licensed therapist, arranged by the founder who supplied the brief. Confirm that
   person also covers the draft pages and [[CONTENT-REVIEW]], and whether to add a
@@ -67,6 +64,11 @@ Move a task here when its branch is ready for the other person to review.
   them.
 - [ ] Verify crisis resources on provider sites. Claude read each page; see
   [[SAFETY]]. A person still needs to confirm them.
+- [ ] Correct `main`'s notes, with no page changes, so `main` stops saying pull
+  request 4 is unmerged. Owner: Claude, at the user's request. Branch:
+  `claude/charming-swartz-e8d31c`, draft pull request 7 into `main`. Not merged. A
+  founder decides: merging publishes those two notes. Its description covers the
+  conflict with pull request 5.
 
 ## Completed work
 

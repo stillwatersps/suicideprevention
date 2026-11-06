@@ -10,6 +10,7 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
 | `claude/jolly-mayer-2m6eno`, commit `5554c53` when checked | First round of phone, accessibility, and navigation fixes, draft page content, a 404 page, a check script, plus the [[RESEARCH-BRIEF]] PDF and notes, combined at a founder's request | Draft pull request 5 into `main`, **not merged, not on the public website** |
 | `site/phone-accessibility-content` | Everything above, plus a second round: fixes from an independent review, stronger site checks, and these updated notes | Draft pull request 6 into `claude/jolly-mayer-2m6eno`, so pull request 5 stays the one place to review. **Not merged, not on the public website** |
+| `claude/charming-swartz-e8d31c`, commit `1c91825` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, no page changes | Draft pull request 7 into `main`, **not merged**. Merging publishes those two notes. Its description covers the conflict with pull request 5 |
 | `planning/morning-brief` | First planning drafts | Draft pull request 1, not merged, partly out of date |
 
 Unmerged doesn't mean private. The repository is public, so anyone on GitHub can
@@ -57,7 +58,7 @@ On `main`, and public now. The task branches correct each of these:
   don't describe that, so the draft dropped it.
 - `notes/STATUS.md` and `notes/TASKS.md` on `main` still say pull request 4 is not
   merged, and page writing has not started. A session opened on `main` reads that as
-  true. See [[TASKS]] for a proposed notes-only correction.
+  true. Draft pull request 7 would correct that. See [[TASKS]].
 
 Everywhere:
 
@@ -65,8 +66,8 @@ Everywhere:
   the task branches.
 - Pages publishes every file on `main`, including these notes, so unverified or
   draft notes are public web addresses. See the open decision in [[DECISIONS]].
-- One merge publishes notes and pages together, so corrected notes can't reach
-  `main` while the pages wait for review. Same open decision.
+- Merging pull request 5 publishes notes and pages together, so its corrected notes
+  can't reach `main` while the pages wait for review. Same open decision.
 - Call and text links have never been tried on a real phone, or with VoiceOver or
   TalkBack.
 
@@ -82,7 +83,8 @@ Everywhere:
 Both founders read pull requests 5 and 6 and [[CONTENT-REVIEW]], then decide what the
 public site should show. Merging pull request 6 into `claude/jolly-mayer-2m6eno`
 doesn't publish anything. Merging pull request 5 into `main` publishes, so do that
-only after the decision.
+only after the decision. Pull request 7 is separate: merge it to correct `main`'s
+notes now, or close it.
 
 ## End-of-session update
 

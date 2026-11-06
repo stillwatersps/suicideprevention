@@ -165,7 +165,8 @@ Corrections to earlier records:
 1. Both founders read pull request 5, pull request 6, and [[CONTENT-REVIEW]].
 2. Decide what the public site shows until review. Merging pull request 6 into
    the combined branch publishes nothing. Merging pull request 5 into `main` does.
-3. Decide whether to correct `main`'s notes now with a small notes-only pull request.
+3. Decide whether to correct `main`'s notes now: merge or close draft pull request 7,
+   which changes notes only.
 4. Tap-test the call and text links on real phones, stopping at the dial or compose
    screen.
 5. Share [[CONTENT-REVIEW]] and [[RESEARCH-BRIEF]] with the licensed therapist.

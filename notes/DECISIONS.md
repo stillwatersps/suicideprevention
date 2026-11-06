@@ -96,8 +96,8 @@ such as "founder A", or by a handle the person chooses.
    repository either way. Making the repository private may affect Pages on the free
    plan, so check first. The two are also tied together the other way: one merge
    publishes notes and pages, so corrected notes can't reach `main` while pages wait
-   for review, and `main`'s notes still say pull request 4 is unmerged. A small
-   notes-only pull request would fix that for now.
+   for review, and `main`'s notes still say pull request 4 is unmerged. Draft pull
+   request 7 would fix that for now, with notes only.
 3. **Who reviews, and how does a sign-off get recorded?** A founder's brief names a
    licensed therapist. Does that review also cover the draft pages? Record the role
    and the date, never personal contact details.
