@@ -9,7 +9,7 @@ branch: site/phone-accessibility-content
 Date: November 6, 2026, Eastern time. Worked from about 11:15 p.m. on November 5.
 
 **State:** pushed to `site/phone-accessibility-content`, in draft pull request
-PR_NUMBER into `claude/jolly-mayer-2m6eno`. That branch is draft pull request 5 into
+6 into `claude/jolly-mayer-2m6eno`. That branch is draft pull request 5 into
 `main`. **Nothing is merged.** `main` is unchanged at `d610002`, so none of this is on
 the public website, though anyone can read the branch on GitHub.
 
@@ -162,8 +162,8 @@ Corrections to earlier records:
 
 ## Next step
 
-1. Both founders read pull request 5, pull request PR_NUMBER, and [[CONTENT-REVIEW]].
-2. Decide what the public site shows until review. Merging pull request PR_NUMBER into
+1. Both founders read pull request 5, pull request 6, and [[CONTENT-REVIEW]].
+2. Decide what the public site shows until review. Merging pull request 6 into
    the combined branch publishes nothing. Merging pull request 5 into `main` does.
 3. Decide whether to correct `main`'s notes now with a small notes-only pull request.
 4. Tap-test the call and text links on real phones, stopping at the dial or compose

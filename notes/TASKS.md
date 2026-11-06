@@ -60,7 +60,7 @@ Move a task here when its branch is ready for the other person to review.
 
 - [ ] Fix navigation, phone layout, and accessibility, and draft page content.
   Owner: Claude, at the user's request. Branch: `site/phone-accessibility-content`,
-  draft pull request PR_NUMBER into `claude/jolly-mayer-2m6eno`, which is draft pull
+  draft pull request 6 into `claude/jolly-mayer-2m6eno`, which is draft pull
   request 5. Handoff: [[worklogs/2026-11-06-claude-site-improvements]]. Not merged.
 - [ ] Write the Get Help, Help Someone, and Research pages. First drafts are in the
   same pull requests. They still need professional review before anyone relies on

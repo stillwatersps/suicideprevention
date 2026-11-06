@@ -76,8 +76,8 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
   doesn't mention it. A person needs to confirm it. See [[SAFETY]].
 - **Crisis content rules in `CLAUDE.md`.** That section, and importing [[SAFETY]] as a
   core note, are a proposal for both founders to confirm.
-- **The second-round pull request goes into `claude/jolly-mayer-2m6eno`, not `main`,**
-  so pull request 5 stays the one place to review. Merging it doesn't publish.
+- **Pull request 6 goes into `claude/jolly-mayer-2m6eno`, not `main`,** so pull
+  request 5 stays the one place to review. Merging it doesn't publish.
 
 ## Open decisions
 

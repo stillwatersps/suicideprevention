@@ -9,7 +9,7 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | --- | --- | --- |
 | `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
 | `claude/jolly-mayer-2m6eno`, commit `5554c53` when checked | First round of phone, accessibility, and navigation fixes, draft page content, a 404 page, a check script, plus the [[RESEARCH-BRIEF]] PDF and notes, combined at a founder's request | Draft pull request 5 into `main`, **not merged, not on the public website** |
-| `site/phone-accessibility-content` | Everything above, plus a second round: fixes from an independent review, stronger site checks, and these updated notes | Draft pull request PR_NUMBER into `claude/jolly-mayer-2m6eno`, so pull request 5 stays the one place to review. **Not merged, not on the public website** |
+| `site/phone-accessibility-content` | Everything above, plus a second round: fixes from an independent review, stronger site checks, and these updated notes | Draft pull request 6 into `claude/jolly-mayer-2m6eno`, so pull request 5 stays the one place to review. **Not merged, not on the public website** |
 | `planning/morning-brief` | First planning drafts | Draft pull request 1, not merged, partly out of date |
 
 Unmerged doesn't mean private. The repository is public, so anyone on GitHub can
@@ -79,10 +79,10 @@ Everywhere:
 
 ## Next useful step
 
-Both founders read pull request 5, the second-round pull request, and
-[[CONTENT-REVIEW]], then decide what the public site should show. Merging the second
-round into `claude/jolly-mayer-2m6eno` doesn't publish anything. Merging pull request
-5 into `main` publishes, so do that only after the decision.
+Both founders read pull requests 5 and 6 and [[CONTENT-REVIEW]], then decide what the
+public site should show. Merging pull request 6 into `claude/jolly-mayer-2m6eno`
+doesn't publish anything. Merging pull request 5 into `main` publishes, so do that
+only after the decision.
 
 ## End-of-session update
 
