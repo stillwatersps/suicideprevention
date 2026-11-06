@@ -216,7 +216,7 @@ def check_pages(failures, notes):
             if required not in bar:
                 fail(f"crisis bar is missing {required} (SAFETY rule 1)")
         actions = [link["href"] for link in page.links if ".crisis-actions" in link["within"]]
-        for required in ("tel:988", "sms:988", "https://988lifeline.org/chat/"):
+        for required in ("tel:988", "sms:988", "https://chat.988lifeline.org/"):
             if required not in actions:
                 fail(f"crisis buttons are missing {required} (SAFETY rule 2)")
         if "support" not in page.ids:
