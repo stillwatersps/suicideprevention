@@ -33,7 +33,19 @@ BANNED_PHRASES = [
     "commit suicide", "committed suicide", "commits suicide", "committing suicide",
     "successful suicide", "successful attempt", "failed suicide", "failed attempt",
     "unsuccessful attempt", "completed suicide", "suicide victim",
+    # Spanish equivalents, for the pages in es/
+    "cometer suicidio", "cometió suicidio", "cometido suicidio", "suicidio consumado",
+    "suicidio exitoso", "intento fallido", "víctima de suicidio",
 ]
+# What each language must say. Spanish pages live in es/ and are checked by the same rules.
+LANG_RULES = {
+    "en": {"not_crisis": "not a crisis service", "unreviewed": "has not reviewed", "chat": "https://chat.988lifeline.org/"},
+    "es": {"not_crisis": "no es un servicio de crisis", "unreviewed": "no ha revisado", "chat": "https://chat.988lifeline.org/?lang=es"},
+}
+
+
+def language_of(name):
+    return "es" if name.startswith("es/") else "en"
 CRISIS_WORDS = re.compile(r"\b(call|text|chat|llamar|enviar|chatear)\b", re.I)
 HIDES = re.compile(r"display\s*:\s*none|visibility\s*:\s*hidden|opacity\s*:\s*0(\.0+)?\s*(;|$)")
 
@@ -319,8 +331,10 @@ def check_pages(failures, notes):
         def fail(message, page_name=name):
             failures.append(f"{page_name}: {message}")
 
-        if page.lang != "en":
-            fail("the html tag needs lang=\"en\"")
+        lang = language_of(name)
+        rules = LANG_RULES[lang]
+        if page.lang != lang:
+            fail(f"the html tag needs lang=\"{lang}\"")
         if not page.title.strip():
             fail("missing page title")
         titles.setdefault(page.title.strip(), []).append(name)
@@ -374,7 +388,7 @@ def check_pages(failures, notes):
             if required not in bar:
                 fail(f"crisis strip is missing {required} (SAFETY rule 1)")
         actions = [link["href"] for link in page.links if ".crisis-actions" in link["within"]]
-        for required in ("tel:988", "sms:988", "https://chat.988lifeline.org/"):
+        for required in ("tel:988", "sms:988", rules["chat"]):
             if required not in actions:
                 fail(f"crisis buttons are missing {required} (SAFETY rule 2)")
         if page.hidden_crisis:
@@ -383,15 +397,20 @@ def check_pages(failures, notes):
             fail("the Get Support Now button needs a #support target")
         if "911" not in page.text:
             fail("does not mention 911 (SAFETY rule 1)")
-        if "not a crisis service" not in page.text:
+        if rules["not_crisis"] not in page.text:
             fail("does not say Stillwater is not a crisis service (SAFETY rule 3)")
-        if not any((link["href"] or "").endswith("#en-espanol") for link in page.links):
+        if lang == "en" and not any((link["href"] or "").endswith("#en-espanol") for link in page.links):
             fail("has no link to the Spanish section")
+        exits = [link for link in page.links if "quick-exit" in link["classes"]]
+        if len(exits) != 1 or not (exits[0]["href"] or "").startswith("https://"):
+            fail("needs exactly one quick exit link to an outside https page (idea B2)")
+        if not any(link["href"] and "lang-switch" in " ".join(link["within"]) for link in page.links) and name != "404.html":
+            fail("needs a link to the same page in the other language (idea B6)")
         everything = (page.text + " " + page.title + " " + " ".join(page.attribute_text)).lower()
         for phrase in BANNED_PHRASES:
             if phrase in everything:
                 fail(f"uses language safe messaging guidance avoids: \"{phrase}\" (SAFETY rule 4)")
-        if name not in NOT_DRAFT and "has not reviewed" not in page.review_note:
+        if name not in NOT_DRAFT and rules["unreviewed"] not in page.review_note:
             fail("draft page needs a visible review note saying no professional has reviewed it")
 
         for link in page.links:
@@ -433,25 +452,56 @@ def check_pages(failures, notes):
         if len(same) > 1:
             failures.append(f"duplicate page title \"{title}\": {same}")
 
-    # Every page must offer the same destinations, or at least all of them.
+    # Every page must offer the same destinations as its language's homepage.
     main_nav = {name: nav_targets(name, pages[name], "#site-nav") for name in names}
     footer = {name: nav_targets(name, pages[name], ".footer-nav") for name in names}
-    for name in names[1:]:
-        if main_nav[name] != main_nav[names[0]]:
-            failures.append(f"{name}: main menu differs from the homepage: {main_nav[name]}")
-        if footer[name] != footer[names[0]]:
-            failures.append(f"{name}: footer links differ from the homepage: {footer[name]}")
+    homes = {"en": "index.html", "es": "es/index.html"}
     for name in names:
-        if name != "404.html" and name not in main_nav[names[0]]:
+        home = homes[language_of(name)]
+        if home not in pages:
+            failures.append(f"{name}: there is no {home} for this language")
+            continue
+        if name != home:
+            if main_nav[name] != main_nav[home]:
+                failures.append(f"{name}: main menu differs from {home}: {main_nav[name]}")
+            if footer[name] != footer[home]:
+                failures.append(f"{name}: footer links differ from {home}: {footer[name]}")
+        if name != "404.html" and name not in main_nav[home] and name != home:
             failures.append(f"{name}: the main menu does not link to this page")
 
     check_assets(failures)
+    check_offline(failures)
     outside = {}
     for name, page in pages.items():
         for link in page.links:
             if (link["href"] or "").startswith(("http://", "https://")):
                 outside.setdefault(link["href"], []).append(name)
     return outside, len(names)
+
+
+def check_offline(failures):
+    """The offline worker (idea A6) may only keep this site's own files, and its list must exist."""
+    worker = ROOT / "sw.js"
+    manifest = ROOT / "manifest.webmanifest"
+    if not worker.exists() or not manifest.exists():
+        failures.append("sw.js or manifest.webmanifest is missing (idea A6)")
+        return
+    code = worker.read_text(encoding="utf-8")
+    for word in ("http://", "https://", "sendBeacon", "postMessage", "indexedDB", "localStorage"):
+        if word in code:
+            failures.append(f"sw.js: must not reach other sites or store visitor data: {word}")
+    if "url.origin !== self.location.origin" not in code:
+        failures.append("sw.js: must ignore requests to other sites")
+    listed = re.search(r"var CORE = \[(.*?)\];", code, re.S)
+    for item in re.findall(r"'([^']+)'", listed.group(1) if listed else ""):
+        target = ROOT / item
+        if item.endswith("/") or item == "./":
+            target = target / "index.html"
+        if not target.exists():
+            failures.append(f"sw.js lists a file that does not exist: {item}")
+    for icon in re.findall(r'"src":\s*"([^"]+)"', manifest.read_text(encoding="utf-8")):
+        if not (ROOT / icon).exists():
+            failures.append(f"manifest.webmanifest lists a missing icon: {icon}")
 
 
 def check_assets(failures):

@@ -49,6 +49,9 @@ Each person uses their own Claude access and conversation.
 | `get-help/`, `help-someone/`, `research/` | Other website pages |
 | `404.html` | Shown for any missing address, keeps crisis help on screen |
 | `tools/check_site.py` | Checks pages, links, and Obsidian notes |
+| `es/` | Spanish pages, an AI translation awaiting a fluent reader |
+| `sw.js`, `manifest.webmanifest`, `assets/icon-*.png` | Offline support and the home screen icon |
+| `.github/workflows/site.yml` | Runs the checks on every pull request, and publishes only the website from `main` |
 
 ## Check the website
 
@@ -68,6 +71,7 @@ computer, run `python3 -m http.server 8000` and open `http://localhost:8000/`.
 The 404 page only works fully on GitHub Pages. To see it locally, run the same command
 from the folder that holds your project folder, and open
 `http://localhost:8000/suicideprevention/404.html`.
+GitHub also runs the first check automatically on every pull request.
 Passing these checks does not replace testing on a real phone or a content
 review. `notes/CONTENT-REVIEW.md` lists what still needs a person.
 

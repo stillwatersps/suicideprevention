@@ -113,6 +113,19 @@ such as "founder A", or by a handle the person chooses.
    default, so one could be committed and published by accident. Keep them outside
    `notes/`, or in one ignored folder?
 
+## November 6, 2026: improvement ideas approved by one founder
+
+One founder approved nine ideas from [[IDEAS]]: A1, A2, A3, A4, A6, A7, B1, B2 and B6.
+**The other founder has not agreed yet.** They are built on branch
+`claude/jolly-mayer-2m6eno`, draft pull request 5, not merged. Details and the
+GitHub settings each needs are in
+[[worklogs/2026-11-06-claude-approved-ideas|the handoff]].
+
+- A2, A3 and A4 would settle open decisions 4, 2 and 5 below, once both founders
+  agree and the settings are changed.
+- B1, B2 and B6 change crisis wording, so they stay drafts until the qualified
+  reviewer, and for B6 a fluent Spanish reader, has checked them. See [[CONTENT-REVIEW]].
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

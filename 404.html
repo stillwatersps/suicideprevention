@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Page not found — Stillwater</title>
   <meta name="description" content="We can't find that page. Call or text 988 to reach the 988 Suicide &amp; Crisis Lifeline, any time.">
-  <meta name="theme-color" content="#FAF8F4">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="/suicideprevention/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/suicideprevention/assets/icon-180.png">
   <!-- Not for search engines. GitHub Pages serves this file for any missing address, so its links start at the site root. -->
   <meta name="robots" content="noindex">
   <link rel="icon" href="/suicideprevention/assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="es" href="/suicideprevention/es/">
   <link rel="stylesheet" href="/suicideprevention/assets/styles.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="quick-exit" href="https://www.weather.gov/" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg>Quick exit</a>
 
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1 -->
   <aside class="crisis-bar" aria-label="Crisis help">
@@ -56,6 +62,7 @@
   <main id="main" tabindex="-1">
     <section class="page-hero" aria-labelledby="page-title">
       <div class="page-hero-inner">
+        <p class="lang-switch"><a href="/suicideprevention/es/" hreflang="es" lang="es">Leer en español</a></p>
         <p class="eyebrow">Page not found</p>
         <h1 id="page-title">We can't find that page</h1>
         <p class="hero-lead">The link may be out of date. The options below still work, and you can reach the pages of this site from here.</p>

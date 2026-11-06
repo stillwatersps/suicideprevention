@@ -26,6 +26,10 @@ sources were read in full.
 | Help Someone (`help-someone/`) | Draft | On the page | Not reviewed |
 | Research (`research/`) | Draft | One or more links per finding | Not reviewed |
 | Page not found (`404.html`) | Crisis options and links | [[SAFETY]] | Not reviewed |
+| Spanish home (`es/`) | AI translation of Home | [[SAFETY]] | Not reviewed; no fluent reader yet |
+| Spanish Get Help (`es/obtener-ayuda/`) | AI translation, Spanish options first | English source list | Not reviewed; no fluent reader yet |
+| Spanish Help Someone (`es/ayudar-a-alguien/`) | AI translation | English source list | Not reviewed; no fluent reader yet |
+| Spanish Research (`es/investigacion/`) | Points to the English page for now | None | Not reviewed |
 
 Every draft page says so on screen. Remove those notes only after review.
 
@@ -66,6 +70,8 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Our web host logs visitors' IP addresses | Home | Privacy line in the footer | Stillwater | Tested in browser | Lawyer question |
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
 | Get Support Now | Header | Crisis options on the same page | Stillwater | Tested in browser | Founders: is the label right? |
+| Quick exit / Salida rápida | Every page, bottom right | https://www.weather.gov/ | Stillwater | Tested in browser: Back skips the page that was left | Reviewer: label, destination, and what it can't hide |
+| Llamar al 988 (marca 2) / Enviar AYUDA al 988 / Chatear en español | Spanish pages | `tel:988`, `sms:988`, chat.988lifeline.org/?lang=es | 988 Lifeline | Link format only | Phone test; fluent reader |
 | Menu | Header, phones and tablets | Opens the page list | Stillwater | Tested in browser | Real phone with a screen reader |
 | Three homepage cards | Home | Get Help, Help Someone, Research | Stillwater | Tested in browser | None |
 | Show sources | Get Help, Help Someone | Opens the source list | Stillwater | Tested in browser | None |
@@ -240,6 +246,28 @@ reviewer.
 | Pathways A and B | None. These are interactive tools and were not built | Product decision. Pathway B's saved journal conflicts with [[SAFETY]] rule 5 |
 | Pathway C | Research and Help Someone | The brief wants short modules and last-reviewed dates |
 | Universal requirements | Crisis strip, [[SAFETY]] rules | The brief says to adapt by region, and the site is U.S.-only |
+
+## Questions about the approved ideas
+
+Built at one founder's request on November 6, 2026. Wording is proposed.
+
+- **Right now box (B1).** Get Help now opens with four short steps, and four long
+  sections fold behind "Show more". Every line repeats text already on the page.
+  Are the steps right, and is anything folded that someone in crisis needs to see
+  at once? "Other ways to reach someone" stays open on purpose.
+- **Quick exit (B2).** It opens weather.gov and replaces the page in the tab's
+  history, so Back doesn't return to Stillwater. It can't clear earlier history,
+  other tabs, or saved offline copies. Should the site say that next to it? Is the
+  label right, and is weather.gov a good neutral destination?
+- **Offline copies (A6).** After one visit, the site's pages are saved on the device
+  so the numbers load without a signal. On a shared device that is a trace of the
+  visit. Is the benefit worth it, and should the privacy note mention it?
+- **Spanish (B6).** An AI translated Home, Get Help and Help Someone. A fluent
+  reader should check every line, and the reviewer should decide whether the
+  wording should avoid masculine-only forms such as "No estás solo" and "estés
+  listo". The pages use "tú", like 988's own Spanish pages. Texting steps in
+  Spanish are described as possibly different from English, because no one has
+  seen them.
 
 ## Human-only checklist
 

@@ -47,6 +47,15 @@ Planning tasks below are suggestions; ownership has not been agreed.
   the draft page text on `site/phone-accessibility-content`. [[CONTENT-REVIEW]] has a
   table comparing the two. Owner: unassigned.
 
+- [ ] GitHub settings for the approved ideas: require a second founder's approval
+  on `main` (A2), switch Pages to publish with GitHub Actions just before merging
+  pull request 5 (A3), and turn off Issues and the Wiki (A4). Owner: the repository
+  owner. Steps in [[worklogs/2026-11-06-claude-approved-ideas]].
+- [ ] A fluent Spanish reader checks the four pages in `es/`. Owner: unassigned.
+- [ ] Translate the Research page after its English version is reviewed. Owner:
+  unassigned.
+- [ ] Decide on the ideas not chosen yet in [[IDEAS]] (A5, B3, B4, B5). Owner: both.
+
 ## In progress
 
 Nothing else has been claimed. Add an owner above when you start.
@@ -74,6 +83,11 @@ Move a task here when its branch is ready for the other person to review.
   request 8 into `main`. Not merged. A founder decides: merging publishes. No qualified
   person has reviewed the wording. Its description says what to weigh, including the
   conflict with pull request 5.
+
+- [ ] Build nine approved ideas: automatic checks, website-only publishing, offline
+  support, dark mode, a shorter Get Help, quick exit, and Spanish pages. Owner:
+  Claude, at one founder's request. Branch: `claude/jolly-mayer-2m6eno`, draft pull
+  request 5. Handoff: [[worklogs/2026-11-06-claude-approved-ideas]]. Not merged.
 
 ## Completed work
 

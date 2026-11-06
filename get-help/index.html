@@ -5,15 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Getting help for yourself — Stillwater</title>
   <meta name="description" content="Ways to reach someone when you're struggling, what to expect when you contact 988, and support over time.">
-  <meta name="theme-color" content="#FAF8F4">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/icon-180.png">
   <!-- Not for search engines until the content has had professional review. See notes/DECISIONS.md. -->
   <meta name="robots" content="noindex">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="es" href="../es/obtener-ayuda/">
   <link rel="stylesheet" href="../assets/styles.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+  <a class="quick-exit" href="https://www.weather.gov/" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg>Quick exit</a>
 
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1 -->
   <aside class="crisis-bar" aria-label="Crisis help">
@@ -56,6 +62,7 @@
   <main id="main" tabindex="-1">
     <section class="page-hero" aria-labelledby="page-title">
       <div class="page-hero-inner">
+        <p class="lang-switch"><a href="../es/obtener-ayuda/" hreflang="es" lang="es">Leer en español</a></p>
         <p class="breadcrumb"><a href="../"><span aria-hidden="true">←</span> Home</a></p>
         <p class="eyebrow">For you</p>
         <h1 id="page-title">Getting help for yourself</h1>
@@ -92,6 +99,17 @@
         <p class="lang-link" lang="es"><a href="#en-espanol">Ayuda en español</a></p>
       </section>
 
+      <!-- Draft (idea B1): the short version first. Every line repeats text already on this page. -->
+      <section class="right-now" aria-labelledby="right-now-title">
+        <h2 id="right-now-title">Right now</h2>
+        <ol>
+          <li><strong>Reach out to 988</strong> with the call, text, or chat buttons above. You don't need to be sure it's an emergency. It's free and confidential.</li>
+          <li><strong>In immediate danger?</strong> <a class="tel-link" href="tel:911">Call 911</a>.</li>
+          <li><strong>If one way doesn't connect,</strong> try another: call, text, or chat.</li>
+          <li>The rest of this page can wait. Open a section below when you're ready.</li>
+        </ol>
+      </section>
+
       <aside class="page-status review-note" aria-label="Review status">
         <p><strong>Draft for review.</strong> A suicide prevention professional has not reviewed this page yet. An AI assistant drafted it and compared the phone numbers and links with each provider's website on November 6, 2026. No person has confirmed them or tried them on a phone.</p>
       </aside>
@@ -113,32 +131,35 @@
         <section id="what-to-expect" aria-labelledby="what-to-expect-title">
           <h2 id="what-to-expect-title">What happens when you reach out to 988</h2>
           <p class="lead-in">You don't need to be sure it's an emergency. The 988 Lifeline says anyone who is struggling can reach out, whether you are depressed, need to talk, or are thinking about suicide. It also takes concerns about alcohol or drug use.</p>
+          <details class="more">
+            <summary><span class="when-closed">Show more</span><span class="when-open">Show less</span><span class="visually-hidden">: What happens when you reach out to 988</span></summary>
 
-          <h3>If you call</h3>
-          <p>You'll hear a short recorded message with options, such as pressing 1 for the Veterans Crisis Line, 2 for Spanish, or 3 for LGBTQ+ youth. You don't have to press anything. If you stay on the line, you'll be connected to a local 988 center. Hold music plays while you are connected. A counselor then says hello, asks if you are safe, listens to what's going on, and shares resources that may help.</p>
+            <h3>If you call</h3>
+            <p>You'll hear a short recorded message with options, such as pressing 1 for the Veterans Crisis Line, 2 for Spanish, or 3 for LGBTQ+ youth. You don't have to press anything. If you stay on the line, you'll be connected to a local 988 center. Hold music plays while you are connected. A counselor then says hello, asks if you are safe, listens to what's going on, and shares resources that may help.</p>
 
-          <h3>If you text</h3>
-          <p>Send any message to 988. Automated messages come first. Reply NEXT to accept the terms of service, then answer a few questions that help the counselor know how to support you. You may then get a message asking you to wait. A counselor then says hello, asks if you are safe, and listens.</p>
+            <h3>If you text</h3>
+            <p>Send any message to 988. Automated messages come first. Reply NEXT to accept the terms of service, then answer a few questions that help the counselor know how to support you. You may then get a message asking you to wait. A counselor then says hello, asks if you are safe, and listens.</p>
 
-          <h3>If you chat online</h3>
-          <p>The chat opens with a short form that helps the counselor know how to support you. It asks for your zip code, whether you are having thoughts of suicide, and how upset you feel. A phone number is optional. Starting the chat accepts the terms of service. You then wait to be connected to a counselor.</p>
+            <h3>If you chat online</h3>
+            <p>The chat opens with a short form that helps the counselor know how to support you. It asks for your zip code, whether you are having thoughts of suicide, and how upset you feel. A phone number is optional. Starting the chat accepts the terms of service. You then wait to be connected to a counselor.</p>
 
-          <h3>What it costs</h3>
-          <p>Contacting 988 is free, and you don't need insurance. Your phone carrier may still charge for calls or texts if your plan doesn't include unlimited use. If a counselor sends emergency services, you may get a bill, for example for an ambulance or hospital care. Services they refer you to may charge too, so ask about fees first.</p>
+            <h3>What it costs</h3>
+            <p>Contacting 988 is free, and you don't need insurance. Your phone carrier may still charge for calls or texts if your plan doesn't include unlimited use. If a counselor sends emergency services, you may get a bill, for example for an ambulance or hospital care. Services they refer you to may charge too, so ask about fees first.</p>
 
-          <h3>If you can't get through</h3>
-          <p>Try another way. If a call doesn't connect, try text or chat. If texting is busy, try a call or chat. In an emergency, call 911.</p>
+            <h3>If you can't get through</h3>
+            <p>Try another way. If a call doesn't connect, try text or chat. If texting is busy, try a call or chat. In an emergency, call 911.</p>
 
-          <h3>What stays private</h3>
-          <p>The 988 Lifeline says conversations are confidential, but contacting it isn't anonymous. You don't have to give your name or your exact location to get support. The counselor has your phone number if you call or text, or your IP address if you chat. In rare emergencies they must give this to 911, and 911 may ask your phone or internet company for your exact location.</p>
-          <p>Counselors take notes, and centers keep records for at least three years. Call recordings or chat and text transcripts may be used to improve the service. You can ask a counselor not to share your personal information. The Lifeline's <a href="https://988lifeline.org/confidentiality/">confidentiality statement</a> lists when information can be shared, including when someone is at imminent risk of harm, when the law requires it, or when you agree.</p>
-          <p>On a shared phone or computer, visits to this site can show up in browser history, and calls or texts can show up in phone logs. Whether a call appears on a phone bill depends on the carrier.</p>
+            <h3>What stays private</h3>
+            <p>The 988 Lifeline says conversations are confidential, but contacting it isn't anonymous. You don't have to give your name or your exact location to get support. The counselor has your phone number if you call or text, or your IP address if you chat. In rare emergencies they must give this to 911, and 911 may ask your phone or internet company for your exact location.</p>
+            <p>Counselors take notes, and centers keep records for at least three years. Call recordings or chat and text transcripts may be used to improve the service. You can ask a counselor not to share your personal information. The Lifeline's <a href="https://988lifeline.org/confidentiality/">confidentiality statement</a> lists when information can be shared, including when someone is at imminent risk of harm, when the law requires it, or when you agree.</p>
+            <p>On a shared phone or computer, visits to this site can show up in browser history, and calls or texts can show up in phone logs. Whether a call appears on a phone bill depends on the carrier.</p>
 
-          <h3>When emergency services get involved</h3>
-          <p>The 988 Lifeline is separate from 911, and SAMHSA says most crises are managed by counselors working with you, without involving law enforcement. The Lifeline recommends that counselors contact emergency services, which can mean 911, police, or a sheriff, only if someone is in danger of being hurt right now or very soon and they can't work out a safer plan together. It reports that fewer than 2 in 100 calls involve emergency services, and that more than half of those happen with the caller's consent.</p>
-          <p>This is a recommendation, not a guarantee. The Lifeline's terms say that if a counselor believes there is an immediate threat to someone's physical safety, you may not get a say: they may ask for 911 or a mobile crisis team to come to your location, and can share your information without your permission. If you need help because of an immediate threat to your safety, the terms ask you to call 911 first.</p>
+            <h3>When emergency services get involved</h3>
+            <p>The 988 Lifeline is separate from 911, and SAMHSA says most crises are managed by counselors working with you, without involving law enforcement. The Lifeline recommends that counselors contact emergency services, which can mean 911, police, or a sheriff, only if someone is in danger of being hurt right now or very soon and they can't work out a safer plan together. It reports that fewer than 2 in 100 calls involve emergency services, and that more than half of those happen with the caller's consent.</p>
+            <p>This is a recommendation, not a guarantee. The Lifeline's terms say that if a counselor believes there is an immediate threat to someone's physical safety, you may not get a say: they may ask for 911 or a mobile crisis team to come to your location, and can share your information without your permission. If you need help because of an immediate threat to your safety, the terms ask you to call 911 first.</p>
 
-          <p class="provider-note">These details come from the 988 Lifeline's website and SAMHSA, and can change. Stillwater does not run 988 and cannot see who contacts it.</p>
+            <p class="provider-note">These details come from the 988 Lifeline's website and SAMHSA, and can change. Stillwater does not run 988 and cannot see who contacts it.</p>
+          </details>
         </section>
 
         <section id="other-ways" aria-labelledby="other-ways-title">
@@ -216,37 +237,46 @@
         <section id="over-time" aria-labelledby="over-time-title">
           <h2 id="over-time-title">Support over time</h2>
           <p>A crisis line can help with a hard moment. Longer-term care can help with what is behind it. The National Institute of Mental Health (NIMH) says effective treatments are available for people at risk of suicide. These include kinds of talk therapy, such as cognitive behavioral therapy and dialectical behavior therapy. The American Foundation for Suicide Prevention says recovery is possible with evidence-based treatment for depression and other mental health conditions.</p>
-          <ul>
-            <li><strong>Talk to a health care provider.</strong> If you have a doctor or nurse you see, you can bring up your mental health yourself, and they can refer you to a specialist. NIMH has <a href="https://www.nimh.nih.gov/health/publications/tips-for-talking-with-your-health-care-provider">tips for that conversation</a>.</li>
-            <li><strong>Search for care near you.</strong> SAMHSA describes <a href="https://findtreatment.gov/">FindTreatment.gov</a> as a confidential and anonymous treatment finder.</li>
-            <li><strong>Call for a referral.</strong> SAMHSA's National Helpline, <a href="tel:+18006624357">1-800-662-4357</a>, offers free treatment referrals and information, 24/7, in English and Spanish. It does not provide counseling and is not a crisis line. For Spanish, choose the option to speak with a national representative. TTY: <a href="tel:+18004874889">1-800-487-4889</a>.</li>
-          </ul>
+          <details class="more">
+            <summary><span class="when-closed">Show more</span><span class="when-open">Show less</span><span class="visually-hidden">: Support over time</span></summary>
+            <ul>
+              <li><strong>Talk to a health care provider.</strong> If you have a doctor or nurse you see, you can bring up your mental health yourself, and they can refer you to a specialist. NIMH has <a href="https://www.nimh.nih.gov/health/publications/tips-for-talking-with-your-health-care-provider">tips for that conversation</a>.</li>
+              <li><strong>Search for care near you.</strong> SAMHSA describes <a href="https://findtreatment.gov/">FindTreatment.gov</a> as a confidential and anonymous treatment finder.</li>
+              <li><strong>Call for a referral.</strong> SAMHSA's National Helpline, <a href="tel:+18006624357">1-800-662-4357</a>, offers free treatment referrals and information, 24/7, in English and Spanish. It does not provide counseling and is not a crisis line. For Spanish, choose the option to speak with a national representative. TTY: <a href="tel:+18004874889">1-800-487-4889</a>.</li>
+            </ul>
+          </details>
         </section>
 
         <section id="hard-moment" aria-labelledby="hard-moment-title">
           <h2 id="hard-moment-title">Planning for a hard moment</h2>
           <p>A safety plan is a short written list of what to do when things get hard, made ahead of time so you don't have to work it out during a crisis. A therapist or other mental health professional can help you make one. A plan does not replace professional care.</p>
-          <p>NIMH says research has shown that safety plans can help lower a person's risk of acting on suicidal thoughts. Some of this research paired the plan with clinician contact and follow-up, so it doesn't show what a plan made alone would do. For children and teens, a review of brief programs built around a safety plan found no clear benefit. <a href="../research/#safety-plans">See what the research shows about safety plans</a>.</p>
-          <p>A safety plan usually includes:</p>
-          <ul>
-            <li>Your own warning signs that things are getting harder</li>
-            <li>Things you can do on your own to get through it</li>
-            <li>People and places that take your mind off it</li>
-            <li>Family or friends you can reach out to</li>
-            <li>Professionals and crisis lines you can contact</li>
-            <li>Ways to make your surroundings safer</li>
-          </ul>
-          <p>You don't have to work through a list before asking for help. You can call or text 988, or call 911 in an emergency, at any point.</p>
-          <p>The developers of the Stanley-Brown Safety Plan offer <a href="https://suicidesafetyplan.com/wp-content/uploads/2024/12/Stanley-Brown-Safety-Plan-05-02-2024.pdf">a form (PDF)</a> for personal use. Stillwater does not see or save what you write on it. A copy on a shared device, or on paper, could be seen by others, so keep it somewhere you feel safe.</p>
+          <details class="more">
+            <summary><span class="when-closed">Show more</span><span class="when-open">Show less</span><span class="visually-hidden">: Planning for a hard moment</span></summary>
+            <p>NIMH says research has shown that safety plans can help lower a person's risk of acting on suicidal thoughts. Some of this research paired the plan with clinician contact and follow-up, so it doesn't show what a plan made alone would do. For children and teens, a review of brief programs built around a safety plan found no clear benefit. <a href="../research/#safety-plans">See what the research shows about safety plans</a>.</p>
+            <p>A safety plan usually includes:</p>
+            <ul>
+              <li>Your own warning signs that things are getting harder</li>
+              <li>Things you can do on your own to get through it</li>
+              <li>People and places that take your mind off it</li>
+              <li>Family or friends you can reach out to</li>
+              <li>Professionals and crisis lines you can contact</li>
+              <li>Ways to make your surroundings safer</li>
+            </ul>
+            <p>You don't have to work through a list before asking for help. You can call or text 988, or call 911 in an emergency, at any point.</p>
+            <p>The developers of the Stanley-Brown Safety Plan offer <a href="https://suicidesafetyplan.com/wp-content/uploads/2024/12/Stanley-Brown-Safety-Plan-05-02-2024.pdf">a form (PDF)</a> for personal use. Stillwater does not see or save what you write on it. A copy on a shared device, or on paper, could be seen by others, so keep it somewhere you feel safe.</p>
+          </details>
         </section>
 
         <section id="under-18" aria-labelledby="under-18-title">
           <h2 id="under-18-title">If you're under 18</h2>
           <p>You can call or text 988 yourself, even if there is no adult you can tell. Its rules don't set a minimum age, and you don't have to give your name or age to get support. It can help to save 988 in your phone now, in case you need it later.</p>
-          <p>It can also help to tell an adult you trust, such as a parent or guardian, a relative, a teacher, a coach, a spiritual leader, or a doctor. It's okay to ask what they can keep private first.</p>
-          <p>If you tell a school counselor you are thinking about suicide, expect them to tell a parent or guardian. Their national association treats this as required, even for students who are 18. If a parent's abuse or neglect is the reason, the counselor contacts child protective services instead.</p>
-          <p>Crisis lines keep conversations confidential, with limits. The 988 Lifeline says it may share information with 911, police, or a mobile crisis team, without your permission, if someone is in danger of being hurt very soon, or if a young person is being abused or neglected under state law. The Trevor Project and Crisis Text Line have similar limits. The Trevor Project says it won't tell parents or guardians unless the law or a subpoena requires it.</p>
-          <p>A small number of crisis centers bill insurance and may ask for your details. You can say no and still get support. If you give them and a claim is filed, a parent or guardian could get an insurance statement.</p>
+          <details class="more">
+            <summary><span class="when-closed">Show more</span><span class="when-open">Show less</span><span class="visually-hidden">: If you're under 18</span></summary>
+            <p>It can also help to tell an adult you trust, such as a parent or guardian, a relative, a teacher, a coach, a spiritual leader, or a doctor. It's okay to ask what they can keep private first.</p>
+            <p>If you tell a school counselor you are thinking about suicide, expect them to tell a parent or guardian. Their national association treats this as required, even for students who are 18. If a parent's abuse or neglect is the reason, the counselor contacts child protective services instead.</p>
+            <p>Crisis lines keep conversations confidential, with limits. The 988 Lifeline says it may share information with 911, police, or a mobile crisis team, without your permission, if someone is in danger of being hurt very soon, or if a young person is being abused or neglected under state law. The Trevor Project and Crisis Text Line have similar limits. The Trevor Project says it won't tell parents or guardians unless the law or a subpoena requires it.</p>
+            <p>A small number of crisis centers bill insurance and may ask for your details. You can say no and still get support. If you give them and a claim is filed, a parent or guardian could get an insurance statement.</p>
+          </details>
         </section>
 
         <section id="sources" aria-labelledby="sources-title">
