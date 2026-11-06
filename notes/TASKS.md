@@ -3,7 +3,7 @@
 [[00 START HERE|Back to Start Here]]
 
 Choose one small task at a time. Record its owner and branch when you start.
-Planning tasks below are suggestions unless an owner is named.
+Planning tasks below are suggestions; ownership has not been agreed.
 
 ## Setup completed
 
@@ -16,13 +16,23 @@ Planning tasks below are suggestions unless an owner is named.
 
 - [ ] Decide what the public GitHub Pages link should show until the site is
   reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes.
-- [ ] Find a qualified suicide prevention reviewer. Owner: unassigned.
-  [[CONTENT-REVIEW]] lists what to ask.
+- [ ] Correct `main`'s notes with a small notes-only pull request, no page changes,
+  so `main` stops saying pull request 4 is unmerged. Proposed by Claude. Owner:
+  unassigned, a founder decides. Merging it publishes only those notes.
+- [ ] Agree who reviews the content. Pull request 5 and [[RESEARCH-BRIEF]] name a
+  licensed therapist, arranged by the founder who supplied the brief. Confirm that
+  person also covers the draft pages and [[CONTENT-REVIEW]], and whether to add a
+  suicide prevention specialist, someone with lived experience, or someone who works
+  with young people. Owner: unassigned.
 - [ ] Tap-test call and text links on a real iPhone and Android phone, stopping at
   the dial or compose screen. Owner: unassigned. Checklist in [[CONTENT-REVIEW]].
 - [ ] Read each crisis resource in [[SAFETY]] on the provider's site and fill in
   "Person confirmed". Owner: unassigned.
-- [ ] Agree on the safety ground rules in [[SAFETY]]. Owner: both.
+- [ ] Confirm the 988 LGBTQ+ youth option (press 3, PRIDE to 988) with 988, including
+  its age range and any chat route. The draft Get Help page lists it. Owner:
+  unassigned. See [[SAFETY]].
+- [ ] Agree on the safety ground rules in [[SAFETY]]. Owner: unassigned, needs both
+  founders' agreement.
 - [ ] Confirm both people can download the project, open this vault, and open the
   project in Claude Code. Owner: both. Branch: not needed.
 - [ ] Write a one-page first-version description and main user journey.
@@ -33,12 +43,12 @@ Planning tasks below are suggestions unless an owner is named.
   Owner: both. Branch: to choose.
 - [ ] Review the planning drafts on `planning/morning-brief` and merge or revise.
   They predate the website. Owner: both. Branch: `planning/morning-brief`.
-
 - [ ] Licensed therapist reviews [[RESEARCH-BRIEF]] and fills in its review
   tracker. Owner: the founder who supplied the brief arranges it. Branch: not
   needed for the review; record results on a task branch.
 - [ ] After review, put approved sections on the website and reconcile them with
-  the draft page text on `site/phone-accessibility-content`. Owner: unassigned.
+  the draft page text on `site/phone-accessibility-content`. [[CONTENT-REVIEW]] has a
+  table comparing the two. Owner: unassigned.
 
 ## In progress
 
@@ -50,10 +60,10 @@ Move a task here when its branch is ready for the other person to review.
 
 - [ ] Fix navigation, phone layout, and accessibility, and draft page content.
   Owner: Claude, at the user's request. Branch: `site/phone-accessibility-content`,
-  draft pull request 5 (combined with the research brief). Handoff:
-  [[worklogs/2026-11-06-claude-site-improvements]]. Not merged: merging publishes.
+  draft pull request PR_NUMBER into `claude/jolly-mayer-2m6eno`, which is draft pull
+  request 5. Handoff: [[worklogs/2026-11-06-claude-site-improvements]]. Not merged.
 - [ ] Write the Get Help, Help Someone, and Research pages. First drafts are in the
-  same pull request. They still need professional review before anyone relies on
+  same pull requests. They still need professional review before anyone relies on
   them.
 - [ ] Verify crisis resources on provider sites. Claude read each page; see
   [[SAFETY]]. A person still needs to confirm them.

@@ -46,7 +46,7 @@ separate from the short core notes.
   remote updates, and local changes. Update a clean default branch with a
   fast-forward only when doing so preserves local work. Do not discard or
   automatically stash someone else's files to make a sync succeed.
-- After downloading changes, explicitly reread the four core notes above and
+- After downloading changes, explicitly reread the core notes listed above and
   relevant recent worklogs. An existing conversation may still contain an older
   snapshot; reconcile it with the current files before proceeding.
 - During a meaningful task, keep a short task-specific note in notes/worklogs/.
@@ -63,14 +63,16 @@ separate from the short core notes.
 
 ## Crisis content rules
 
+Proposed on a task branch, for both founders to confirm. Follow them until then.
+
 - Never place test calls, send test texts, start chats, or submit forms on a crisis
   service, on any page or device.
 - Take crisis numbers and claims from the provider's own page, and record the page
   and date in notes/SAFETY.md. Never write them from memory.
 - Read every source you cite. Keep draft health content marked for review, and do
   not describe it as reviewed until a qualified person has signed off.
-- Merging into main publishes the website. Do not merge crisis wording without a
-  founder's review.
+- Merging into main publishes the website. Do not merge crisis wording without both
+  founders' review, until open decision 4 in notes/DECISIONS.md is settled.
 - Everything on main, and in this public repository, is public. Keep personal names,
   email addresses, and local file paths out of notes and pull requests.
 - Before sharing a website change, run `python3 tools/check_site.py`.

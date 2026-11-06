@@ -31,7 +31,8 @@ pages. It keeps the drawing's colors, type, and layout at 1440 pixels wide, and
 changes these on purpose:
 
 - A real sunset photo replaces the illustration.
-- A crisis strip with working call and text links sits at the top of every page.
+- A crisis strip with call and text links sits at the top of every page. The links
+  have not been tried on a real phone yet.
 - Text and buttons stay on the cream panel at every width, never over the photo.
 - The white crisis buttons have a thin green edge so they stand out.
 - The header has a menu button on phones and tablets. Search and the menu arrows
