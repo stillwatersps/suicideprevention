@@ -69,6 +69,11 @@ Move a task here when its branch is ready for the other person to review.
   `claude/charming-swartz-e8d31c`, draft pull request 7 into `main`. Not merged. A
   founder decides: merging publishes those two notes. Its description covers the
   conflict with pull request 5.
+- [ ] Correct the four known problems on the live pages, with no draft content. Owner:
+  Claude, at the user's request. Branch: `site/live-page-corrections`, draft pull
+  request 8 into `main`. Not merged. A founder decides: merging publishes. No qualified
+  person has reviewed the wording. Its description says what to weigh, including the
+  conflict with pull request 5.
 
 ## Completed work
 

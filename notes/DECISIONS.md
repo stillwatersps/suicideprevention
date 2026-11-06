@@ -89,7 +89,8 @@ such as "founder A", or by a handle the person chooses.
    results, cut it to one page with 988, 911, and what Stillwater is, or turn Pages
    off. Claude's suggestion: one of the last two until a reviewer has signed off,
    because reaching 988 and 911 is the part that helps most and the drafts carry the
-   most risk.
+   most risk. Draft pull request 8 corrects only the four known problems on the live
+   pages, so it doesn't settle this.
 2. **Should the website be published without the notes?** Pages now serves every file
    on `main`, including these notes and `CLAUDE.md`. Moving the site to a `docs`
    folder or a deploy step would stop that. The notes would stay in the public

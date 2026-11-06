@@ -159,6 +159,9 @@ Corrections to earlier records:
 - This branch's first notes said the 988 LGBTQ+ youth option was left off because
   official pages disagreed. They don't: 988 lists it, and SAMHSA's older FAQ is silent.
   It is now on the Get Help page as a draft for a person to confirm.
+- [[CONTENT-REVIEW]] said the Help Someone urgent note follows SAMHSA's order. It doesn't:
+  SAMHSA lists 988 right after 911, and staying with the person further down. That review
+  note now says so. The page text is unchanged, for the reviewer to decide.
 
 ## Next step
 
@@ -167,6 +170,8 @@ Corrections to earlier records:
    the combined branch publishes nothing. Merging pull request 5 into `main` does.
 3. Decide whether to correct `main`'s notes now: merge or close draft pull request 7,
    which changes notes only.
-4. Tap-test the call and text links on real phones, stopping at the dial or compose
+4. Decide whether to correct the four known problems on the live pages now: merge or
+   close draft pull request 8.
+5. Tap-test the call and text links on real phones, stopping at the dial or compose
    screen.
-5. Share [[CONTENT-REVIEW]] and [[RESEARCH-BRIEF]] with the licensed therapist.
+6. Share [[CONTENT-REVIEW]] and [[RESEARCH-BRIEF]] with the licensed therapist.

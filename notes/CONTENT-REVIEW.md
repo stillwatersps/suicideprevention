@@ -134,11 +134,12 @@ Wording is proposed. Nothing here is clinical advice.
 
 **Help Someone**
 
-- The urgent note follows SAMHSA's order: call 911 if danger seems imminent, stay with
-  them or make sure another caring person is there, and you can also call or text 988.
-  "If it is safe" is Claude's addition, not SAMHSA's. Is the order right, and should
-  that phrase stay? No general official page describes calling 988 together, so the
-  page no longer tells people to.
+- The urgent note doesn't follow SAMHSA's order. SAMHSA's Suicide Prevention page, read
+  November 6, lists calling 911 if danger seems imminent, then calling or texting 988,
+  and further down staying with the person or making sure another caring person is
+  there. The note puts staying second and 988 last. "If it is safe" is Claude's addition,
+  not SAMHSA's. Is the order right, and should that phrase stay? No general official
+  page describes calling 988 together, so the page no longer tells people to.
 - The warning signs follow NIMH's 2025 list with no urgent tier, because official
   sources sort urgent signs differently. Is that right?
 - Sources differ on when not to leave someone alone. The general rule on the page

@@ -11,6 +11,7 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | `claude/jolly-mayer-2m6eno`, commit `5554c53` when checked | First round of phone, accessibility, and navigation fixes, draft page content, a 404 page, a check script, plus the [[RESEARCH-BRIEF]] PDF and notes, combined at a founder's request | Draft pull request 5 into `main`, **not merged, not on the public website** |
 | `site/phone-accessibility-content` | Everything above, plus a second round: fixes from an independent review, stronger site checks, and these updated notes | Draft pull request 6 into `claude/jolly-mayer-2m6eno`, so pull request 5 stays the one place to review. **Not merged, not on the public website** |
 | `claude/charming-swartz-e8d31c`, commit `1c91825` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, no page changes | Draft pull request 7 into `main`, **not merged**. Merging publishes those two notes. Its description covers the conflict with pull request 5 |
+| `site/live-page-corrections`, commit `f523d0f` when checked | Only the first four known issues below, on the four live pages, plus a handoff. No draft content | Draft pull request 8 into `main`, **not merged**. Merging publishes those page changes and the handoff. Its description covers the conflict with pull request 5 |
 | `planning/morning-brief` | First planning drafts | Draft pull request 1, not merged, partly out of date |
 
 Unmerged doesn't mean private. The repository is public, so anyone on GitHub can
@@ -48,7 +49,8 @@ branches. Product decisions and professional review have not happened yet.
 
 ## Known issues
 
-On `main`, and public now. The task branches correct each of these:
+On `main`, and public now. The task branches correct each of these, and draft pull
+request 8 would correct the first four on its own:
 
 - The footer says content "is still being reviewed", which overstates it.
 - Pages have no `noindex` tag, so search engines may list them.
@@ -83,8 +85,9 @@ Everywhere:
 Both founders read pull requests 5 and 6 and [[CONTENT-REVIEW]], then decide what the
 public site should show. Merging pull request 6 into `claude/jolly-mayer-2m6eno`
 doesn't publish anything. Merging pull request 5 into `main` publishes, so do that
-only after the decision. Pull request 7 is separate: merge it to correct `main`'s
-notes now, or close it.
+only after the decision. Pull requests 7 and 8 are separate, and merging either one
+publishes it: 7 corrects `main`'s notes, and 8 corrects the four problems on its pages.
+Merge or close each one.
 
 ## End-of-session update
 
