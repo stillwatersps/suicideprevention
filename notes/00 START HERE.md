@@ -19,7 +19,8 @@ Our shared notebook for building a suicide prevention website.
 | [[TASKS\|Task board]] | Completed work and tasks to choose from |
 | [[DECISIONS\|Decisions]] | What we agreed on and why |
 | [[DESIGN\|Homepage design]] | The supplied design and a preview |
-| [[SAFETY\|Safety baseline]] | Crisis resources to verify and content ground rules |
+| [[SAFETY\|Safety baseline]] | Crisis resources and content ground rules |
+| [[CONTENT-REVIEW\|Content review]] | What each control does and what a reviewer needs to check |
 | [[WORKFLOW\|Working together]] | How to work independently and share changes |
 | [[SHARED-MEMORY\|Our shared second brain]] | How both Claude sessions and Obsidian stay current |
 | [[worklogs/README\|Handoffs]] | Where to leave a summary for the other person |
@@ -31,9 +32,9 @@ Our shared notebook for building a suicide prevention website.
 - The supplied homepage SVG and its preview.
 - This Obsidian vault, with shared context for Claude Code.
 
-A first homepage has been merged into shared main. Exact product features,
-supported ages, and data needs remain undecided. The second computer's current
-sync state still needs confirmation.
+The website is on shared main and public as an early preview. No qualified person
+has reviewed its content yet. Exact product features, supported ages, and data needs
+remain undecided. [[STATUS]] says what is on main and what is on a task branch.
 
 ## Next steps
 

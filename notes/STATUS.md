@@ -1,49 +1,61 @@
 # Current status
 
-Repository state checked: November 5, 2026.
+Checked November 6, 2026, on the task branch named below. A note inside a pull
+request can't say when it merged, so check GitHub if this looks out of date.
+
+## What is where
+
+| Where | What | State |
+| --- | --- | --- |
+| `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
+| `site/phone-accessibility-content` | Phone, accessibility, and navigation fixes, draft page content, a 404 page, a check script, and these updated notes | Pushed to GitHub, draft pull request PR_NUMBER, **not merged, not on the public website** |
+| `planning/morning-brief` | First planning drafts | Draft pull request 1, not merged, partly out of date |
+
+Your Obsidian shows whichever branch your project folder is on. Notes on an
+unmerged branch appear only after that branch is merged and you download `main`.
 
 ## Current phase
 
-First homepage built; shared project memory and product planning.
+A public early preview of the website, with unreviewed draft content waiting on a
+task branch. Product decisions and professional review have not happened yet.
 
-## In place
+## In place on main
 
-- The shared starter repository is saved on GitHub.
-- A local clone is available on this Mac.
-- The supplied Stillwater homepage SVG is in `design/homepage.svg`.
-- These notes are an Obsidian vault in `notes/`.
-- Claude Code has instructions to read the brief, status, tasks, and decisions.
-- The vault is confirmed on GitHub: a fresh download of `main` contains it.
-- The first homepage is merged into shared `main` through pull request #3.
-  It uses HTML, CSS, a small navigation script, and the sunset photo assets.
-- GitHub Pages is configured for `main` at
-  https://stillwatersps.github.io/suicideprevention/. The Pages API reported
-  `built` when checked. Content review and product readiness are separate tasks.
-- Draft safety ground rules and crisis resources to verify are in [[SAFETY]].
-- Planning drafts for scope and the phone layout are on the unmerged branch
-  `planning/morning-brief`.
-- The first homepage's earlier handoff is at
-  [[worklogs/2026-11-06-claude-homepage-first-build|the homepage handoff]].
-- Both Claude sessions use saved project notes as the shared reference;
-  [[SHARED-MEMORY]] explains the save, upload, download, and reread loop.
-- Placeholder pages Get Help, Help Someone and Research, linked from the menu,
-  homepage cards and every footer, are on branch `claude/jolly-mayer-2m6eno`
-  in pull request #4, **not yet merged**. They need content. See
-  [[worklogs/2026-11-06-claude-site-pages|the pages handoff]].
+- The shared repository, the Obsidian vault in `notes/`, and Claude's instructions.
+- The supplied design in `design/homepage.svg`.
+- Homepage and three placeholder pages, merged through pull requests 3 and 4 and
+  public at https://stillwatersps.github.io/suicideprevention/.
+- [[SHARED-MEMORY]] explains how notes reach the other computer.
+
+## On the task branch, waiting for review
+
+- See [[worklogs/2026-11-06-claude-site-improvements|the handoff]] for what changed
+  and what was checked.
+- Draft content on all three pages, marked for review. [[CONTENT-REVIEW]] lists
+  every control and every question for a qualified reviewer.
+- [[SAFETY]] now records each crisis resource and where it was read.
+- Pages ask search engines not to list them. This is a proposal in [[DECISIONS]].
+
+## Known issues
+
+- No qualified person has reviewed any crisis or health wording, on `main` or on
+  the task branch. The live site's footer says content "is still being reviewed",
+  which overstates it. The task branch corrects that line.
+- Pages publishes every file on `main`, including these notes, so unverified or
+  draft notes are public web addresses. See the open decision in [[DECISIONS]].
+- Call and text links have never been tried on a real phone.
 
 ## Still to confirm
 
-- The other collaborator has downloaded the latest project and opened this vault.
-- Both people have opened the local project in Claude Code.
-- First-version features and supported age ranges.
-- Saved-data needs, future website tools, and content review ownership.
-- Whether to keep GitHub Pages public before crisis content is reviewed.
+- Both people have the latest project on their computers and can open this vault.
+- What the public site should show until review.
+- Who reviews crisis content, and who re-checks the numbers.
+- First-version scope, supported ages, and saved-data needs.
 
 ## Next useful step
 
-Both people download the latest shared main branch and ask their active Claude
-session to reread the core notes and recent handoffs. Then review the first
-homepage and choose separate next tasks from [[TASKS]].
+Both founders read the draft pull request and [[CONTENT-REVIEW]], then decide what
+the public site should show. Merging publishes, so merge only after that decision.
 
 ## End-of-session update
 

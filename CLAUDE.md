@@ -12,6 +12,7 @@ Read these short shared notes at the start of a session:
 @notes/STATUS.md
 @notes/TASKS.md
 @notes/DECISIONS.md
+@notes/SAFETY.md
 
 Read other notes and design files only when relevant to the current task.
 Inspect notes/ and design/ for existing project material before creating new files.
@@ -56,6 +57,20 @@ separate from the short core notes.
   shared main. Do not tell the other collaborator it is on main without checking.
 - Save concise project summaries, not raw conversations or private account
   memory. For the human-readable sync loop, see notes/SHARED-MEMORY.md.
+
+## Crisis content rules
+
+- Never place test calls, send test texts, start chats, or submit forms on a crisis
+  service, on any page or device.
+- Take crisis numbers and claims from the provider's own page, and record the page
+  and date in notes/SAFETY.md. Never write them from memory.
+- Read every source you cite. Keep draft health content marked for review, and do
+  not describe it as reviewed until a qualified person has signed off.
+- Merging into main publishes the website. Do not merge crisis wording without a
+  founder's review.
+- Everything on main, and in this public repository, is public. Keep personal names,
+  email addresses, and local file paths out of notes and pull requests.
+- Before sharing a website change, run `python3 tools/check_site.py`.
 
 ## Current project state
 
