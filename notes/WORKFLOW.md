@@ -46,6 +46,9 @@ editing the same file and use separate handoff files.
 Ask Claude to read `CLAUDE.md` and the shared notes before working. At the end,
 ask it to update the status, relevant decisions, and task handoff. The notes are
 the written handoff; Claude conversations remain separate.
+An already-open Claude session should reread the core notes and recent handoffs
+after downloading someone else's changes. See [[SHARED-MEMORY|Our shared second brain]]
+for exactly what is shared and what still needs a push or pull.
 
 ## If the other computer looks out of date
 

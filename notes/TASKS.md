@@ -39,13 +39,14 @@ No planning or implementation task has been assigned yet.
 
 Move a task here when its branch is ready for the other person to review.
 
-- [ ] Build the first homepage, phone layout included, with a real photo.
-  Owner: Claude, at the user's request. Branch: `claude/jolly-mayer-2m6eno`.
-  Handoff: [[worklogs/2026-11-06-claude-homepage-first-build]].
-
 ## Completed work
 
 Move finished tasks here and link their handoff note.
+
+- [x] Merge the first homepage, phone layout included, with a real photo.
+  Built by Claude at the user's request; merged through pull request #3.
+  Handoff: [[worklogs/2026-11-06-claude-homepage-first-build]].
+  This records the merge, not clinical review or production readiness.
 
 Use [[templates/Task|The task template]]. Keep detailed notes in
 [[worklogs/README|Worklogs]]. Coordinate before both people edit this board.

@@ -10,20 +10,21 @@
 - The shared Obsidian vault is the project's notes/ folder.
 - The supplied SVG is a desktop homepage reference labeled Stillwater.
 - The GitHub repository is `stillwatersps/suicideprevention`.
-- No app code has been created yet.
+- A first homepage exists on shared main, implemented with HTML, CSS, and a
+  small navigation script. This is an initial build, not a completed product.
 
 ## Current goal
 
-Finish opening the shared workspace on both computers, then agree on the first
-website tasks. Start with [[00 START HERE]].
+Keep both computers' shared notes current, review the first homepage, and agree
+on the next website tasks. Start with [[00 START HERE]] and [[SHARED-MEMORY]].
 
-## To decide when planning the first build
+## Open product decisions
 
 - The main user need and the first complete user journey.
 - The first set of screens and what each button does.
 - The exact age range, including whether children under 13 are included.
 - Whether the prototype needs accounts or saved information.
-- The website tools and how to run it on each computer.
+- Any additional website tools, saved-data needs, and how to run checks on each computer.
 
 ## Existing materials
 

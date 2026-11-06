@@ -1,10 +1,10 @@
 # Current status
 
-Last updated: November 6, 2026.
+Repository state checked: November 5, 2026.
 
 ## Current phase
 
-Early product planning and a first homepage build.
+First homepage built; shared project memory and product planning.
 
 ## In place
 
@@ -14,29 +14,32 @@ Early product planning and a first homepage build.
 - These notes are an Obsidian vault in `notes/`.
 - Claude Code has instructions to read the brief, status, tasks, and decisions.
 - The vault is confirmed on GitHub: a fresh download of `main` contains it.
-- GitHub Pages is on for `main`. The public link is
-  https://stillwatersps.github.io/suicideprevention/ and currently shows the
-  README, because there is no website code yet. Anything on `main` is public.
+- The first homepage is merged into shared `main` through pull request #3.
+  It uses HTML, CSS, a small navigation script, and the sunset photo assets.
+- GitHub Pages is configured for `main` at
+  https://stillwatersps.github.io/suicideprevention/. The Pages API reported
+  `built` when checked. Content review and product readiness are separate tasks.
 - Draft safety ground rules and crisis resources to verify are in [[SAFETY]].
 - Planning drafts for scope and the phone layout are on the unmerged branch
   `planning/morning-brief`.
-- A first homepage (plain HTML and CSS, with a real public-domain photo) is
-  built on branch `claude/jolly-mayer-2m6eno`, awaiting review. Merging it
-  makes it the public GitHub Pages site. See
+- The first homepage's earlier handoff is at
   [[worklogs/2026-11-06-claude-homepage-first-build|the homepage handoff]].
+- Both Claude sessions use saved project notes as the shared reference;
+  [[SHARED-MEMORY]] explains the save, upload, download, and reread loop.
 
 ## Still to confirm
 
 - The other collaborator has downloaded the latest project and opened this vault.
 - Both people have opened the local project in Claude Code.
 - First-version features and supported age ranges.
-- Website tools, saved-data needs, and hosting.
+- Saved-data needs, future website tools, and content review ownership.
 - Whether to keep GitHub Pages public before crisis content is reviewed.
 
 ## Next useful step
 
-Confirm both people can open [[00 START HERE|Start Here]]. Then choose separate
-planning tasks in [[TASKS]] before beginning the website implementation.
+Both people download the latest shared main branch and ask their active Claude
+session to reread the core notes and recent handoffs. Then review the first
+homepage and choose separate next tasks from [[TASKS]].
 
 ## End-of-session update
 
