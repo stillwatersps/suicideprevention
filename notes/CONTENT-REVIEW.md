@@ -29,13 +29,27 @@ sources were read in full.
 | Spanish home (`es/`) | AI translation of Home | [[SAFETY]] | Not reviewed; no fluent reader yet |
 | Spanish Get Help (`es/obtener-ayuda/`) | AI translation, Spanish options first | English source list | Not reviewed; no fluent reader yet |
 | Spanish Help Someone (`es/ayudar-a-alguien/`) | AI translation | English source list | Not reviewed; no fluent reader yet |
-| Spanish Research (`es/investigacion/`) | Myths and facts in Spanish; the rest points to the English page | Links to other pages | Not reviewed |
+| Spanish Research (`es/investigacion/`) | AI translation of the whole page | English citations | Not reviewed; no fluent reader yet |
 | For Teens (`teens/`) | Draft, repeats Get Help and Help Someone text | On the page | Not reviewed; ages undecided |
 | Spanish For Teens (`es/adolescentes/`) | AI translation | English source list | Not reviewed; no fluent reader yet |
 | Wallet card (`card/`) | Draft card and poster from [[SAFETY]] | [[SAFETY]] | Not reviewed; don't hand out yet |
 | Spanish wallet card (`es/tarjeta/`) | AI translation | [[SAFETY]] | Not reviewed; no fluent reader yet |
+| Not sure (`not-sure/`) | Draft, from Pathway A and NIMH and SAMHSA pages | On the page | Not reviewed |
+| Spanish Not sure (`es/que-siento/`) | AI translation | On the page | Not reviewed; no fluent reader yet |
+| After a loss (`after-a-loss/`) | Draft, from AFSP, SAVE, TAPS and the CDC | On the page | Not reviewed; needs someone with lived experience of loss |
+| Spanish After a loss (`es/despues-de-una-perdida/`) | AI translation | On the page | Not reviewed; no fluent reader yet |
+| About and privacy (`about/`) | Draft; behavior described was tested in a browser | On the page | Not reviewed; needs a lawyer |
+| Spanish About (`es/acerca-de/`) | AI translation | On the page | Not reviewed; no fluent reader yet |
 
 Every draft page says so on screen. Remove those notes only after review.
+
+## Review records
+
+`tools/check_site.py` reads this section, along with the review list on the About pages. Add one line per
+finished review, with the page or section, the reviewer's role, the date, and the result.
+Never add personal contact details. Update the list on the About pages at the same time.
+
+- No review has been recorded.
 
 ## What each control does
 
@@ -74,7 +88,8 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Our web host logs visitors' IP addresses | Home | Privacy line in the footer | Stillwater | Tested in browser | Lawyer question |
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
 | Get Support Now | Header | Crisis options on the same page | Stillwater | Tested in browser | Founders: is the label right? |
-| Quick exit / Salida rápida | Every page, bottom right | https://www.weather.gov/ | Stillwater | Tested in browser: Back skips the page that was left | Reviewer: label, destination, and what it can't hide |
+| Quick exit / Salida rápida | Every page, bottom right | https://www.weather.gov/ | Stillwater | Tested in browser: Back skips the page that was left, but can still reach earlier Stillwater pages | Reviewer: label, destination, and what it can't hide |
+| Save 988 to your contacts / Guarda el 988 en tus contactos | Get Help, For Teens, Wallet card, About, and their Spanish twins | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` | Stillwater | File checked. See `notes/worklogs/2026-11-06-claude-first-version.md` for phone tests | Save on a real iPhone and Android phone |
 | Llamar al 988 (marca 2) / Enviar AYUDA al 988 / Chatear en español | Spanish pages | `tel:988`, `sms:988`, chat.988lifeline.org/?lang=es | 988 Lifeline | Link format only | Phone test; fluent reader |
 | Menu | Header, phones and tablets | Opens the page list | Stillwater | Tested in browser | Real phone with a screen reader |
 | Three homepage cards | Home | Get Help, Help Someone, Research | Stillwater | Tested in browser | None |
@@ -259,10 +274,11 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   sections fold behind "Show more". Every line repeats text already on the page.
   Are the steps right, and is anything folded that someone in crisis needs to see
   at once? "Other ways to reach someone" stays open on purpose.
-- **Quick exit (B2).** It opens weather.gov and replaces the page in the tab's
-  history, so Back doesn't return to Stillwater. It can't clear earlier history,
-  other tabs, or saved offline copies. Should the site say that next to it? Is the
-  label right, and is weather.gov a good neutral destination?
+- **Quick exit (B2).** It opens weather.gov and replaces only the current page in the
+  tab's history. Back can still reach Stillwater pages opened earlier in that tab. It
+  can't clear earlier history, other tabs, or saved offline copies. The About pages say
+  so; should the button itself say more? Is the label right, and is weather.gov a good
+  neutral destination?
 - **Offline copies (A6).** After one visit, the site's pages are saved on the device
   so the numbers load without a signal. On a shared device that is a trace of the
   visit. Is the benefit worth it, and should the privacy note mention it?
@@ -288,6 +304,35 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
 - **Long sentences (C4).** `python3 tools/check_readability.py` lists 56 sentences
   over 25 words. Most explain when 988 may involve emergency services. Can they be
   shortened without losing accuracy?
+
+## Questions about the first-version additions
+
+Built on November 6, 2026, at one founder's request, on branch `site/first-version-build`.
+The other founder hasn't agreed yet. Wording is proposed.
+
+- **Not sure what you're feeling? (B3).** The page has no typing, saving, or scores: a person
+  taps to open short notes on five feelings. The heading and opening come from Pathway A in
+  the brief. Pathway B's journal was not built. 988 and 911 come first on the page. Is a
+  reflection page right for someone in crisis at all? Should "Numb or empty" send people to
+  988 this directly? Are the 2-week and "gets in the way" thresholds, taken from NIMH's
+  descriptions of depression and anxiety, safe to show outside a clinician's visit?
+- **After a loss (B4).** "It's not your fault" is a heading. TAPS says it, and the CDC says
+  suicide has no single cause, but someone may feel the site can't know their situation. Is the
+  wording right? The list of feelings is AFSP's, including relief and thoughts of suicide.
+  Should it say more about thoughts of suicide after a loss? The trauma paragraph sits inside a
+  fold on purpose, with no details of any death. Is that right? The page lists outside groups
+  that Stillwater hasn't vetted, and AFSP and SAVE say they don't vet groups either. Someone with
+  lived experience of loss should read this page.
+- **Save 988 to contacts (A5).** A contact on a shared phone can be seen by others, and the page
+  says so. Should the button appear on the teen page?
+- **About and privacy.** It says plainly that nobody at Stillwater watches the site and there is
+  no way to send a message. A lawyer should read this page too.
+- **Quick exit limits.** Testing showed that Back can still reach earlier Stillwater pages in the
+  same tab, because only the current page is replaced. The About pages now say so. An earlier note
+  said Back doesn't return to Stillwater, which was only true when one page had been opened.
+- **Spanish Research page.** It was translated before the English version was reviewed, at a
+  founder's request, so that the Spanish pages are complete for review. If the English changes,
+  the Spanish must change too.
 
 ## Human-only checklist
 

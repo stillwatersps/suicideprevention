@@ -88,6 +88,7 @@ class Page(html.parser.HTMLParser):
         self.mains = 0
         self.first_focusable = None
         self.review_note = ""
+        self.status_values = []
         self._open_links = []
         self._heading_text = None
 
@@ -213,6 +214,8 @@ class Page(html.parser.HTMLParser):
         if any("hidden" in attrs for _, attrs in self.stack):
             return
         self.text_parts.append(data)
+        if self.stack and "status-value" in self.stack[-1][1].get("class", "").split() and data.strip():
+            self.status_values.append(data.strip())
         if self._heading_text is not None:
             self._heading_text += data
         for link in self._open_links:
@@ -410,6 +413,8 @@ def check_pages(failures, notes):
         for phrase in BANNED_PHRASES:
             if phrase in everything:
                 fail(f"uses language safe messaging guidance avoids: \"{phrase}\" (SAFETY rule 4)")
+        if ("print-area" in page.classes) != ("print-page" in page.classes):
+            fail("the print-area and the print-page class on body go together, or printing comes out blank")
         if name not in NOT_DRAFT and rules["unreviewed"] not in page.review_note:
             fail("draft page needs a visible review note saying no professional has reviewed it")
 
@@ -470,7 +475,10 @@ def check_pages(failures, notes):
             failures.append(f"{name}: neither the main menu nor the footer links to this page")
 
     check_assets(failures)
-    check_offline(failures)
+    check_offline(failures, names)
+    check_publish_list(failures, names)
+    check_contact_cards(failures, numbers)
+    check_review_status(failures, pages)
     outside = {}
     for name, page in pages.items():
         for link in page.links:
@@ -479,7 +487,88 @@ def check_pages(failures, notes):
     return outside, len(names)
 
 
-def check_offline(failures):
+# Words that would claim a review. They are refused until a review is on record in notes/CONTENT-REVIEW.md.
+REVIEW_CLAIMS = re.compile(r"\b(reviewed by|approved by|clinically (reviewed|approved)|revisado por|aprobado por|revisada por|aprobada por)\b", re.I)
+ABOUT_SECTIONS = ("what-this-is", "review-status", "privacy", "quick-exit", "offline", "contact-card")
+
+
+def review_records():
+    """Lines recorded under "## Review records" in notes/CONTENT-REVIEW.md, other than the placeholder."""
+    text = (ROOT / "notes" / "CONTENT-REVIEW.md").read_text(encoding="utf-8")
+    if "## Review records" not in text:
+        return None
+    section = text.split("## Review records", 1)[1].split("\n## ", 1)[0]
+    return [line for line in section.splitlines() if line.startswith("- ") and "No review has been recorded" not in line]
+
+
+def check_review_status(failures, pages):
+    """The site may not claim a review that isn't recorded, and the About pages must stay complete."""
+    records = review_records()
+    if records is None:
+        failures.append("notes/CONTENT-REVIEW.md: needs a \"## Review records\" section")
+        return
+    for name, page in pages.items():
+        everything = page.text + " " + " ".join(page.attribute_text)
+        if not records:
+            match = REVIEW_CLAIMS.search(everything)
+            if match:
+                failures.append(f"{name}: says \"{match.group(0)}\" but no review is recorded in notes/CONTENT-REVIEW.md")
+    pending = {"about/index.html": "Pending", "es/acerca-de/index.html": "Pendiente"}
+    for about, word in pending.items():
+        page = pages.get(about)
+        if not page:
+            failures.append(f"{about}: this page is missing")
+            continue
+        for section in ABOUT_SECTIONS:
+            if section not in page.ids:
+                failures.append(f"{about}: needs a section with the id \"{section}\"")
+        lang = language_of(about)
+        listed = {resolve(about, link["href"])[0] for link in page.links
+                  if ".status-list" in link["within"] and resolve(about, link["href"])}
+        for name in pages:
+            if language_of(name) == lang and name != "404.html" and name not in listed:
+                failures.append(f"{about}: the review table does not list {name}")
+        if not records and page.status_values.count(word) != 2 * len(listed):
+            failures.append(f"{about}: every page must show {word} until a review is recorded")
+
+
+def check_contact_cards(failures, numbers):
+    """Contact cards hold only numbers recorded in notes/SAFETY.md, in valid vCard form."""
+    cards = sorted((ROOT / "assets").glob("*.vcf"))
+    if not cards:
+        failures.append("assets: no contact cards (idea A5)")
+    for path in cards:
+        raw = path.read_bytes()
+        if re.search(rb"(?<!\r)\n", raw):
+            failures.append(f"{path.name}: vCard lines must end in CRLF; check .gitattributes")
+        lines = raw.decode("utf-8").split("\r\n")
+        if lines[0] != "BEGIN:VCARD" or "VERSION:3.0" not in lines or "END:VCARD" not in lines:
+            failures.append(f"{path.name}: not a valid vCard 3.0")
+        phones = [line.split(":", 1)[1] for line in lines if line.startswith("TEL")]
+        if not phones:
+            failures.append(f"{path.name}: has no phone number")
+        for phone in phones:
+            if phone_digits(phone) not in numbers:
+                failures.append(f"{path.name}: {phone} is not a number recorded in notes/SAFETY.md")
+        if any(len(line.encode("utf-8")) > 75 for line in lines):
+            failures.append(f"{path.name}: vCard lines must be folded at 75 bytes")
+
+
+def check_publish_list(failures, names):
+    """Every page's top-level folder and file must be in the workflow's publish list."""
+    workflow = (ROOT / ".github" / "workflows" / "site.yml").read_text(encoding="utf-8")
+    match = re.search(r"for item in ([^;]+); do", workflow)
+    if not match:
+        failures.append(".github/workflows/site.yml: publish list not found")
+        return
+    published = set(match.group(1).split())
+    for name in names:
+        top = name.split("/", 1)[0]
+        if top not in published:
+            failures.append(f"{name}: {top} is not in the publish list in .github/workflows/site.yml")
+
+
+def check_offline(failures, names=()):
     """The offline worker (idea A6) may only keep this site's own files, and its list must exist."""
     worker = ROOT / "sw.js"
     manifest = ROOT / "manifest.webmanifest"
@@ -499,6 +588,14 @@ def check_offline(failures):
             target = target / "index.html"
         if not target.exists():
             failures.append(f"sw.js lists a file that does not exist: {item}")
+    listed_items = set(re.findall(r"'([^']+)'", listed.group(1) if listed else ""))
+    for name in names:
+        entry = "./" if name == "index.html" else (name[: -len("index.html")] if name.endswith("/index.html") else name)
+        if entry not in listed_items:
+            failures.append(f"sw.js: {name} is not in the offline list (CORE), so it won't open offline")
+    for path in sorted((ROOT / "assets").glob("*.vcf")):
+        if f"assets/{path.name}" not in listed_items:
+            failures.append(f"sw.js: assets/{path.name} is not in the offline list (CORE)")
     for icon in re.findall(r'"src":\s*"([^"]+)"', manifest.read_text(encoding="utf-8")):
         if not (ROOT / icon).exists():
             failures.append(f"manifest.webmanifest lists a missing icon: {icon}")

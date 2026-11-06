@@ -103,6 +103,21 @@
   navigator.serviceWorker.register(new URL('sw.js', root).href, { scope: root.pathname }).catch(function () {});
 })();
 
+// Printing: folded sections print open, then go back to how they were.
+(function () {
+  var reopened = [];
+  window.addEventListener('beforeprint', function () {
+    reopened = Array.prototype.filter.call(document.querySelectorAll('details:not([open])'), function (fold) {
+      fold.open = true;
+      return true;
+    });
+  });
+  window.addEventListener('afterprint', function () {
+    reopened.forEach(function (fold) { fold.open = false; });
+    reopened = [];
+  });
+})();
+
 // Print button on the wallet card page. Hidden until JavaScript can run it.
 (function () {
   var button = document.querySelector('.print-button');

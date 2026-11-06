@@ -20,7 +20,8 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 7rem; }
+/* The bottom padding keeps a focused link clear of the Quick exit button. */
+html { scroll-behavior: smooth; scroll-padding-top: 7rem; scroll-padding-bottom: 5.5rem; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -503,7 +504,7 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 .page-hero h1 { font-size: clamp(2rem, 7vw, 3.6rem); margin: 8px 0 10px; }
 .page-hero .hero-lead { font-size: 1.05rem; }
 .breadcrumb { font-size: .95rem; margin-bottom: 8px; }
-.breadcrumb a { display: inline-block; padding: 12px 0; margin: -12px 0; color: var(--plum); font-weight: 700; text-underline-offset: 4px; }
+.breadcrumb a { display: inline-block; padding: 11px 0; color: var(--plum); font-weight: 700; text-underline-offset: 4px; }
 
 .page-body {
   display: grid;
@@ -546,7 +547,7 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   text-underline-offset: 4px;
 }
 .footer-nav a[aria-current="page"] { color: var(--plum); }
-.urgent a { display: inline-block; padding: 5px 2px; color: inherit; text-underline-offset: 3px; white-space: nowrap; }
+.urgent a { display: inline-block; padding: 5px 2px; color: inherit; text-underline-offset: 3px; }
 .urgent {
   margin-top: 12px;
   padding: 10px 14px;
@@ -612,6 +613,8 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 .pill:hover { background: var(--green-soft); }
 .page-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
@@ -675,7 +678,7 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 }
 
 /* Language switch (English / Español) at the top of each page */
-.lang-switch { margin-bottom: 6px; font-size: .95rem; }
+.lang-switch { font-size: .95rem; }
 .lang-switch a { display: inline-block; padding: 11px 0; color: var(--green); font-weight: 700; text-underline-offset: 4px; }
 
 /* Quick exit: always on screen, leaves for a neutral site. Draft; see notes/CONTENT-REVIEW.md. */
@@ -802,6 +805,47 @@ body { padding-bottom: 76px; }
   .hero-curve { fill: #1D2420; }
 }
 
+/* Saving the 988 contact */
+.save-contact { margin-top: 14px; }
+
+/* "Not sure" page: tap to open. No typing, nothing saved. */
+.feelings { display: grid; gap: 10px; margin-top: 14px; }
+.feeling { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-soft); }
+.feeling > summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 54px;
+  padding: 10px 16px;
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  border-radius: var(--radius);
+}
+.feeling > summary::-webkit-details-marker { display: none; }
+.feeling > summary::before {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+.feeling[open] > summary::before { transform: rotate(45deg); }
+.feeling-body { padding: 0 16px 16px; }
+.next-steps { display: grid; gap: 14px; margin-top: 12px; }
+.next-steps li { padding-left: 14px; border-left: 3px solid var(--green-soft); }
+
+/* About page: what has been reviewed */
+.status-list { display: grid; margin-top: 14px; }
+.status-list li { padding: 12px 0; border-top: 1px solid var(--line); }
+.status-list li:last-child { border-bottom: 1px solid var(--line); }
+.status-line { display: block; font-size: .95rem; color: var(--body); }
+.status-value { font-weight: 700; color: var(--ink); }
+
 /* Printable wallet cards and poster (idea D2) */
 .print-area { display: grid; gap: 18px; max-width: 52rem; }
 .print-area > h2 { font-size: 1.35rem; }
@@ -824,7 +868,7 @@ body { padding-bottom: 76px; }
 .pc-big { font-family: var(--serif); font-size: 1.6rem; line-height: 1.1; color: #1B2A22; }
 .pc-poster .pc-big { font-size: clamp(2.2rem, 7vw, 3.4rem); }
 .pc-urgent { font-weight: 700; }
-.pc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 12px; }
+.pc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr)); gap: 12px; }
 .pc-card { padding: 14px 16px; border-radius: 10px; font-size: .85rem; line-height: 1.35; display: grid; gap: 4px; }
 .pc-card .pc-kicker { font-size: 1rem; }
 .pc-card .pc-big { font-size: 1.35rem; }
@@ -834,13 +878,27 @@ body { padding-bottom: 76px; }
 
 @media print {
   @page { margin: 12mm; }
-  /* Print only the poster and the cards; they carry the crisis numbers themselves. */
-  body { background: #fff; padding: 0; }
-  body > :not(main) { display: none !important; }
-  main > :not(.page-body) { display: none !important; }
-  .page-body > :not(.print-area) { display: none !important; }
-  .page-body { padding: 0; }
-  .print-actions, .no-print-heading { display: none !important; }
+  /* Any page: plain text on white, with the crisis line, and without on-screen controls. */
+  :root { color-scheme: light; --bg: #fff; --bg-soft: #fff; --ink: #000; --body: #111; --muted: #333; --plum: #000; --green: #000; --line: #999; }
+  body { background: #fff; color: #111; padding: 0; }
+  .quick-exit, .skip-link, .menu-button, .header-cta, .site-nav, .toc, .hero-photo, .hero-curve, .lang-switch, .lang-link, .breadcrumb, .text-link, .print-actions { display: none !important; }
+  .crisis-bar { position: static; background: #fff; color: #000; border: 1px solid #000; }
+  .crisis-bar a { color: #000; }
+  .site-header { position: static; border-bottom: 1px solid #999; }
+  .hero, .page-hero, .right-now, .card, .closing, .service, .page-status, .action, .action-primary, .pill { background: #fff !important; box-shadow: none !important; color: #000 !important; }
+  .action-primary .action-sub, .closing-title, .closing-sub, .closing a { color: #000 !important; }
+  .closing { border: 1px solid #000; }
+  .card-arrow { display: none; }
+  h2, h3, summary { break-after: avoid; }
+  li, .service, .finding { break-inside: avoid; }
+  .more > summary, .source-toggle > summary { display: none; }
+
+  /* The wallet card pages: only the poster and the cards, which carry the crisis numbers themselves. */
+  .print-page > :not(main) { display: none !important; }
+  .print-page main > :not(.page-body) { display: none !important; }
+  .print-page .page-body > :not(.print-area) { display: none !important; }
+  .print-page .page-body { padding: 0; }
+  .print-page .no-print-heading { display: none !important; }
   .pc-poster { break-after: page; border-width: 3px; min-height: 240mm; align-content: center; padding: 18mm; font-size: 14pt; }
   .pc-poster .pc-big { font-size: 46pt; }
   .pc-poster .pc-kicker { font-size: 28pt; }
