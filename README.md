@@ -42,6 +42,12 @@ Each person uses their own Claude access and conversation.
 
 ## Work independently
 
+The shared second-brain guide is `notes/SHARED-MEMORY.md`. Claude saves progress,
+decisions, and handoffs in the notes; those notes travel with the task through
+GitHub. After downloading updates, Obsidian refreshes them and an active Claude
+session should reread them. GitHub pushes and pulls are still required; this is
+not automatic conversation synchronization.
+
 Download the latest default branch, create a task branch, and work on one agreed
 task. Update the relevant notes and handoff, commit and upload, then have the
 other person review and merge. Both download the merged work before starting

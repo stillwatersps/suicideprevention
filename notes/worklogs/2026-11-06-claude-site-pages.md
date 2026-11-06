@@ -51,6 +51,15 @@ update all four `index.html` files.
   its study or to an official summary.
 - All page content should follow safe messaging guidance in [[SAFETY]].
 
+## Sync record
+
+- November 6, 2026: pull request #4 opened. The other collaborator then added
+  the shared-memory routine directly to `main` (commit `def6389`). Merged that
+  `main` into this branch. Their `STATUS` and `TASKS` text was kept and this
+  task's lines were added to it; nothing of theirs was removed.
+- State at that point: pushed to `claude/jolly-mayer-2m6eno`, **not merged
+  into `main`**.
+
 ## Next step
 
 Write the content for each page. See the new tasks in [[TASKS]].

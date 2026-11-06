@@ -36,10 +36,31 @@ separate from the short core notes.
 - Do not overwrite someone else's notes to resolve a conflict; preserve both
   contributions and reconcile them.
 
-## Current stage
+## Shared memory routine
 
-Workspace setup only. No website framework, database, or hosting is selected.
-There is no app code and no app build or test command yet.
-Work on the user's current task; select implementation tools when building begins.
+- At the start of work, fetch the shared repository and check the current branch,
+  remote updates, and local changes. Update a clean default branch with a
+  fast-forward only when doing so preserves local work. Do not discard or
+  automatically stash someone else's files to make a sync succeed.
+- After downloading changes, explicitly reread the four core notes above and
+  relevant recent worklogs. An existing conversation may still contain an older
+  snapshot; reconcile it with the current files before proceeding.
+- During a meaningful task, keep a short task-specific note in notes/worklogs/.
+  Record the owner, branch, changed files, decisions, checks, open issues, and
+  next step. Record partial progress before a long session ends.
+- Keep notes/STATUS.md and notes/TASKS.md accurate. Add confirmed decisions to
+  notes/DECISIONS.md; label proposals and unfinished work clearly.
+- Include the relevant notes with the task's code/design changes when saving and
+  sharing that task. Stage named project files, not unrelated or personal notes.
+- Report whether work is local only, pushed to a task branch, or merged into
+  shared main. Do not tell the other collaborator it is on main without checking.
+- Save concise project summaries, not raw conversations or private account
+  memory. For the human-readable sync loop, see notes/SHARED-MEMORY.md.
+
+## Current project state
+
+Read notes/STATUS.md, README.md, and the current files for the phase and any
+available run/check instructions. Verify old handoffs against the current branch
+instead of assuming their descriptions still apply.
 Keep credentials, personal journals, and real users' health information out of
 this repository. Use fictional examples for prototypes.

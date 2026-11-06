@@ -21,6 +21,7 @@ Our shared notebook for building a suicide prevention website.
 | [[DESIGN\|Homepage design]] | The supplied design and a preview |
 | [[SAFETY\|Safety baseline]] | Crisis resources to verify and content ground rules |
 | [[WORKFLOW\|Working together]] | How to work independently and share changes |
+| [[SHARED-MEMORY\|Our shared second brain]] | How both Claude sessions and Obsidian stay current |
 | [[worklogs/README\|Handoffs]] | Where to leave a summary for the other person |
 
 ## Ready to use
@@ -30,8 +31,9 @@ Our shared notebook for building a suicide prevention website.
 - The supplied homepage SVG and its preview.
 - This Obsidian vault, with shared context for Claude Code.
 
-The website has not been implemented yet. Exact features, supported ages, and
-website tools are still undecided. The second computer's setup needs confirmation.
+A first homepage has been merged into shared main. Exact product features,
+supported ages, and data needs remain undecided. The second computer's current
+sync state still needs confirmation.
 
 ## Next steps
 
