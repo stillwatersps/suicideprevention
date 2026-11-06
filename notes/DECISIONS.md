@@ -136,6 +136,30 @@ so they stay drafts for the reviewer. D3, a page for teens, was built before
 supported ages are decided; the page says so. Details in
 [[worklogs/2026-11-06-claude-second-batch|the handoff]].
 
+## November 6, 2026: first version finished for testing and review
+
+The founder who hadn't yet weighed in asked Claude to finish the first version in one
+session, using the work already on `claude/jolly-mayer-2m6eno`, so the site can be tested on
+phones and given to human reviewers. This asks for testing and review, not publishing. **It
+settles none of the open decisions below, and nothing is agreed to go live.** The first
+founder hasn't seen the additions, and neither founder has agreed to the other's list.
+
+Built as drafts on `site/first-version-build`, draft pull request {PR}: A5, B3, B4, B5, and C1
+from [[IDEAS]], an About and privacy page, and the rest of the Spanish Research page. Details
+are in [[worklogs/2026-11-06-claude-first-version|the handoff]]. Choices Claude made, all easy
+to reverse:
+
+- **Not sure page has nothing to type.** Tapping opens short notes. No answers, no score, no
+  saving, and no form, which keeps [[SAFETY]] rule 5 intact. Pathway B's journal was not built.
+- **The Research page was translated before review.** Earlier notes planned to wait. The founder
+  asked for complete Spanish pages so they can be reviewed. If the English changes, so must this.
+- **About became a page.** The first scope listed one, and quick exit and offline limits
+  needed a place. The footer stays short and links to it. "About" in the menu goes there.
+- **Two packets, not one.** The therapist gets English pages and the brief. A fluent Spanish
+  reader gets the Spanish pages. Packets record a role and a date, never contact details.
+- **Two pages appear in the phone menu only.** They don't fit the desktop header, where they
+  stay in the footer and on the homepage.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

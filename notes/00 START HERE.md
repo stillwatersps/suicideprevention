@@ -24,6 +24,8 @@ Our shared notebook for building a suicide prevention website.
 | [[RESEARCH-BRIEF\|Research brief]] | Research and website copy, awaiting therapist review |
 | [[IDEAS\|Ideas]] | Improvement ideas and which ones are approved |
 | [[USER-TEST\|User test plan]] | A small, safe test with made-up situations |
+| [[PHONE-TEST\|Phone test]] | How to open the draft site on your own phone |
+| `review-packet/` folder | Printable packets for the therapist and a fluent Spanish reader |
 | [[WORKFLOW\|Working together]] | How to work independently and share changes |
 | [[SHARED-MEMORY\|Our shared second brain]] | How both Claude sessions and Obsidian stay current |
 | [[worklogs/README\|Handoffs]] | Where to leave a summary for the other person |

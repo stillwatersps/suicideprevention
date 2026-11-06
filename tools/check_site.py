@@ -527,7 +527,7 @@ def check_review_status(failures, pages):
                   if ".status-list" in link["within"] and resolve(about, link["href"])}
         for name in pages:
             if language_of(name) == lang and name != "404.html" and name not in listed:
-                failures.append(f"{about}: the review table does not list {name}")
+                failures.append(f"{about}: the review list does not list {name}")
         if not records and page.status_values.count(word) != 2 * len(listed):
             failures.append(f"{about}: every page must show {word} until a review is recorded")
 
@@ -637,6 +637,22 @@ def check_links(outside, failures, notes):
             failures.append(f"outside link failed ({status}): {url}")
 
 
+def check_packets(notes):
+    """The review packets are built from the pages, so say when they need rebuilding."""
+    stamp = ROOT / "notes" / "review-packet" / "FINGERPRINT.txt"
+    if not stamp.exists():
+        notes.append("no review packets yet: python3 tools/make_review_packet.py")
+        return
+    try:
+        sys.path.insert(0, str(ROOT / "tools"))
+        from make_review_packet import fingerprint
+    except Exception as error:  # the packet tool is optional here
+        notes.append(f"could not check the review packets: {error}")
+        return
+    if fingerprint() != stamp.read_text(encoding="utf-8").strip():
+        notes.append("the review packets are out of date: python3 tools/make_review_packet.py")
+
+
 def run_git(*args):
     """Lists files with git, or returns None if git is not available here."""
     try:
@@ -689,6 +705,7 @@ def main():
     failures, notes = [], []
     outside, count = check_pages(failures, notes)
     check_notes(failures)
+    check_packets(notes)
     print(f"Checked {count} pages. {len(outside)} different outside links.")
     if args.check_links:
         check_links(outside, failures, notes)

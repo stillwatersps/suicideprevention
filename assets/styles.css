@@ -482,9 +482,10 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .site-nav a { padding: 10px 8px; }
 }
 
-.nav-home { display: none; }
+/* Extra menu items that only fit in the phone and tablet menu. They stay in the desktop footer. */
+.nav-home, .nav-phone { display: none; }
 @media (max-width: 959px) {
-  .nav-home { display: block; }
+  .nav-home, .nav-phone { display: block; }
 }
 
 /* Current page in the navigation */
@@ -847,7 +848,7 @@ body { padding-bottom: 76px; }
 .status-value { font-weight: 700; color: var(--ink); }
 
 /* Printable wallet cards and poster (idea D2) */
-.print-area { display: grid; gap: 18px; max-width: 52rem; }
+.print-area { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; max-width: 52rem; }
 .print-area > h2 { font-size: 1.35rem; }
 .print-button {
   min-height: 48px;
@@ -860,7 +861,7 @@ body { padding-bottom: 76px; }
   font-weight: 700;
   cursor: pointer;
 }
-.pc-poster, .pc-card { background: #fff; color: #1B2A22; border: 2px solid #315A45; }
+.pc-poster, .pc-card { background: #fff; color: #1B2A22; border: 2px solid #315A45; overflow-wrap: anywhere; }
 .pc-poster { padding: 28px; border-radius: var(--radius); display: grid; gap: 10px; }
 .pc-poster ul { list-style: disc; padding-left: 1.3em; display: grid; gap: 6px; }
 .pc-kicker { font-family: var(--serif); font-size: 1.3rem; color: #315A45; }
@@ -888,7 +889,8 @@ body { padding-bottom: 76px; }
   .hero, .page-hero, .right-now, .card, .closing, .service, .page-status, .action, .action-primary, .pill { background: #fff !important; box-shadow: none !important; color: #000 !important; }
   .action-primary .action-sub, .closing-title, .closing-sub, .closing a { color: #000 !important; }
   .closing { border: 1px solid #000; }
-  .card-arrow { display: none; }
+  .card-arrow, .save-contact, .save-contact + .provider-note { display: none !important; }
+  .action-primary svg { stroke: #000 !important; }
   h2, h3, summary { break-after: avoid; }
   li, .service, .finding { break-inside: avoid; }
   .more > summary, .source-toggle > summary { display: none; }

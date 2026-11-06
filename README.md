@@ -55,6 +55,12 @@ Each person uses their own Claude access and conversation.
 | `.github/workflows/monitor.yml` | Daily: the live site shows its crisis help. Monthly: every outside link still opens |
 | `tools/check_live.py`, `tools/check_readability.py` | Live-site check, and a plain-language report |
 | `teens/`, `card/` | For Teens page, and printable wallet cards and poster |
+| `not-sure/`, `after-a-loss/`, `about/` | Not sure what you're feeling?, After a loss, and About and privacy |
+| `assets/*.vcf` | Contact cards for saving 988 to a phone |
+| `tools/preview_server.py` | Serves the site the way GitHub Pages will, on this computer or a phone on the same Wi-Fi |
+| `tools/test_browser.py`, `tools/browser.py` | Browser tests, using Python and the Chrome already on the computer |
+| `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader |
+| `notes/PHONE-TEST.md` | How to test on a real phone |
 
 ## Check the website
 
@@ -69,11 +75,27 @@ python3 tools/check_site.py
 python3 tools/check_site.py --check-links
 ```
 
-The second command also loads every outside link. To see the site on your own
-computer, run `python3 -m http.server 8000` and open `http://localhost:8000/`.
-The 404 page only works fully on GitHub Pages. To see it locally, run the same command
-from the folder that holds your project folder, and open
-`http://localhost:8000/suicideprevention/404.html`.
+The second command also loads every outside link. To see the site the way GitHub Pages
+will serve it, including the 404 page:
+
+```bash
+python3 tools/preview_server.py
+```
+
+Then open `http://localhost:8000/suicideprevention/`. To test on a phone, see
+`notes/PHONE-TEST.md`. To test in a real browser, if Google Chrome is installed:
+
+```bash
+python3 tools/test_browser.py
+```
+
+It takes a few minutes, uses a throwaway Chrome profile, and never calls, texts, or
+submits anything. If you change a page, rebuild the review packets:
+
+```bash
+python3 tools/make_review_packet.py
+```
+
 GitHub also runs the first check automatically on every pull request.
 Passing these checks does not replace testing on a real phone or a content
 review. `notes/CONTENT-REVIEW.md` lists what still needs a person.

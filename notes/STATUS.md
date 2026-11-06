@@ -9,8 +9,9 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | --- | --- | --- |
 | `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
 | `claude/jolly-mayer-2m6eno` | Everything below from `site/phone-accessibility-content`, the [[RESEARCH-BRIEF]] PDF and notes, and improvement ideas one founder approved: Spanish pages, quick exit, dark mode, offline support, a shorter Get Help, automatic checks, website-only publishing, live-site monitoring, a readability report, myths and facts, printable wallet cards, and a teen page. See [[worklogs/2026-11-06-claude-approved-ideas\|first batch]] and [[worklogs/2026-11-06-claude-second-batch\|second batch]] | Draft pull request 5 into `main`, **not merged, not on the public website** |
-| `site/phone-accessibility-content` | Everything above, plus a second round: fixes from an independent review, stronger site checks, and these updated notes | Merged into `claude/jolly-mayer-2m6eno` on November 6, 2026, at a founder's request, so pull request 6 is closed by that merge. Pull request 5 is the one place to review. **Not on the public website** |
-| `claude/charming-swartz-e8d31c`, commit `1c91825` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, no page changes | Draft pull request 7 into `main`, **not merged**. Merging publishes those two notes. Its description covers the conflict with pull request 5 |
+| `site/first-version-build` | Everything on the branch above, plus the rest of the first version: Not sure what you're feeling?, After a loss, About and privacy, saving 988 to contacts, review status, the full Spanish Research page, review packets, phone test steps, and browser tests. See [[worklogs/2026-11-06-claude-first-version|the handoff]] | Draft pull request {PR} into `claude/jolly-mayer-2m6eno`. Merging it publishes nothing. **Not merged, not on the public website** |
+| `site/phone-accessibility-content` | A second round: fixes from an independent review, stronger site checks, and updated notes | Merged into `claude/jolly-mayer-2m6eno` on November 6, 2026, at a founder's request, so pull request 6 is closed by that merge. Pull request 5 is the one place to review. **Not on the public website** |
+| `claude/charming-swartz-e8d31c`, commit `88584e5` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, plus a handoff, no page changes | Draft pull request 7 into `main`, **not merged**. Merging publishes those two notes. Its description covers the conflict with pull request 5 |
 | `site/live-page-corrections`, commit `f523d0f` when checked | Only the first four known issues below, on the four live pages, plus a handoff. No draft content | Draft pull request 8 into `main`, **not merged**. Merging publishes those page changes and the handoff. Its description covers the conflict with pull request 5 |
 | `planning/morning-brief` | First planning drafts | Draft pull request 1, not merged, partly out of date |
 
@@ -23,8 +24,9 @@ GitHub. On `main` you won't see them until the branch is merged and you download
 
 ## Current phase
 
-A public early preview of the website, with unreviewed draft content waiting on task
-branches. Product decisions and professional review have not happened yet.
+`main` is a public early preview. A complete first version, with unreviewed draft content, is
+on a task branch, ready for phone testing and human review. It is not ready for the public.
+Product decisions and professional review have not happened yet.
 
 ## In place on main
 
@@ -47,17 +49,24 @@ branches. Product decisions and professional review have not happened yet.
   alongside [[CONTENT-REVIEW]]; both cover the same three pages, and the page text
   did not come from the brief.
 
+- A complete first version on `site/first-version-build`: 19 pages in English and Spanish.
+  [[PHONE-TEST]] says how to try it on a phone. `notes/review-packet/` has printable packets
+  for the licensed therapist and a fluent Spanish reader. See
+  [[worklogs/2026-11-06-claude-first-version|the handoff]] for what was and wasn't tested.
+
 ## Known issues
 
 - Offline support (idea A6) saves copies of this site's pages on a visitor's phone or
   computer. On a shared device that is another trace of the visit, like browser
   history, and Quick exit can't remove it. A question for the reviewer in
   [[CONTENT-REVIEW]].
-- The Spanish pages are an AI translation no fluent reader has checked, and the
-  Research page is still mostly English only.
+- The Spanish pages are an AI translation no fluent reader has checked. Many outside
+  sources and services they point to are in English only.
+- Quick exit only replaces the current page. Back can still reach Stillwater pages opened
+  earlier in that tab, as testing showed. The About pages say so.
 - The teen page and the wallet cards are drafts. Supported ages are undecided, and
   the cards should not be printed for handing out until reviewed.
-- 56 sentences on the pages are over 25 words, mostly about when 988 involves
+- Many sentences on the pages are over 25 words, mostly about when 988 involves
   emergency services. `tools/check_readability.py` lists them for the reviewer.
 
 On `main`, and public now. The task branches correct each of these, and draft pull
@@ -93,12 +102,16 @@ Everywhere:
 
 ## Next useful step
 
-Both founders read pull requests 5 and 6 and [[CONTENT-REVIEW]], then decide what the
-public site should show. Merging pull request 6 into `claude/jolly-mayer-2m6eno`
-doesn't publish anything. Merging pull request 5 into `main` publishes, so do that
-only after the decision. Pull requests 7 and 8 are separate, and merging either one
-publishes it: 7 corrects `main`'s notes, and 8 corrects the four problems on its pages.
-Merge or close each one.
+1. Try the first version on a real phone, using [[PHONE-TEST]].
+2. Both founders read pull request {PR}, [[IDEAS]], and the open decisions in [[DECISIONS]],
+   and decide what the public site should show until review.
+3. Give `notes/review-packet/stillwater-review-packet.pdf` to the licensed therapist, and the
+   Spanish packet to a fluent reader. Record results in "Review records" in [[CONTENT-REVIEW]].
+
+Merging pull request {PR} into `claude/jolly-mayer-2m6eno` publishes nothing. Merging pull
+request 5 into `main` publishes everything, so do that only after the decision and review. Pull
+requests 7 and 8 are separate, and merging either one publishes it: 7 corrects `main`'s notes,
+and 8 corrects four problems on its pages. Merge or close each one.
 
 ## End-of-session update
 

@@ -18,6 +18,7 @@ import pathlib
 import re
 import socket
 import socketserver
+import subprocess
 import sys
 import urllib.parse
 
@@ -115,8 +116,21 @@ def make_server(host="127.0.0.1", port=0, root=ROOT, cache_control="no-cache", l
 
 
 def lan_addresses():
-    """This computer's address on the local network, found without sending any data out."""
+    """This computer's addresses on the local network. VPN tunnels are skipped, since a phone can't use them."""
     found = []
+    try:
+        output = subprocess.run(["ifconfig"], capture_output=True, text=True, check=True).stdout
+    except (OSError, subprocess.CalledProcessError):
+        output = ""
+    interface = ""
+    for line in output.splitlines():
+        if line and not line[0].isspace():
+            interface = line.split(":", 1)[0]
+        match = re.match(r"\s+inet (\d+\.\d+\.\d+\.\d+)", line)
+        if match and re.match(r"(en|eth|wl)", interface) and re.match(r"(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)", match.group(1)):
+            found.append(match.group(1))
+    if found:
+        return found
     probe = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         # A UDP "connect" only picks a route. Nothing is sent.
@@ -147,6 +161,7 @@ def main():
         if not addresses:
             print("No Wi-Fi address found. Check that this computer is on a network.")
         print("If macOS asks whether to allow incoming connections, choose Allow.")
+        print("If the phone can't connect, a VPN on either device may be blocking local traffic.")
         print("Offline support can't be tested this way: it needs HTTPS or localhost.")
     print("Press Control-C to stop.", flush=True)
     try:

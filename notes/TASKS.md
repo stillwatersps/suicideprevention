@@ -51,10 +51,15 @@ Planning tasks below are suggestions; ownership has not been agreed.
   on `main` (A2), switch Pages to publish with GitHub Actions just before merging
   pull request 5 (A3), and turn off Issues and the Wiki (A4). Owner: the repository
   owner. Steps in [[worklogs/2026-11-06-claude-approved-ideas]].
-- [ ] A fluent Spanish reader checks the four pages in `es/`. Owner: unassigned.
-- [ ] Translate the Research page after its English version is reviewed. Owner:
-  unassigned.
-- [ ] Decide on the ideas not chosen yet in [[IDEAS]] (A5, B3, B4, B5, C1, D4). Owner: both.
+- [ ] A fluent Spanish reader checks all nine pages in `es/`, using
+  `notes/review-packet/stillwater-spanish-review-packet.pdf`. Owner: unassigned.
+- [ ] Give `notes/review-packet/stillwater-review-packet.pdf` to the licensed therapist, and
+  record the results in [[CONTENT-REVIEW]]. Owner: the founder arranging the review.
+- [ ] Someone with lived experience of a suicide loss reads After a loss. Owner: unassigned.
+- [ ] A lawyer reads About and privacy. Owner: unassigned.
+- [ ] Try the first version on a real iPhone and Android phone, using [[PHONE-TEST]]. Owner:
+  both.
+- [ ] Decide on idea D4, recovery stories, in [[IDEAS]]. Owner: both.
 - [ ] Close or keep draft pull requests 1, 7 and 8 (idea C5). Owner: the founder who
   opened them. Pull request 5 now covers what 7 and 8 fix.
 - [ ] Run the small user test in [[USER-TEST]] after the reviewer approves the plan.
@@ -82,7 +87,7 @@ Move a task here when its branch is ready for the other person to review.
 - [ ] Correct `main`'s notes, with no page changes, so `main` stops saying pull
   request 4 is unmerged. Owner: Claude, at the user's request. Branch:
   `claude/charming-swartz-e8d31c`, draft pull request 7 into `main`. Not merged. A
-  founder decides: merging publishes those two notes. Its description covers the
+  founder decides: merging publishes those notes. Its description covers the
   conflict with pull request 5.
 - [ ] Correct the four known problems on the live pages, with no draft content. Owner:
   Claude, at the user's request. Branch: `site/live-page-corrections`, draft pull
@@ -99,6 +104,12 @@ Move a task here when its branch is ready for the other person to review.
   myths and facts, printable wallet cards, a teen page, and a user test plan. Owner:
   Claude, at one founder's request. Branch: `claude/jolly-mayer-2m6eno`, draft pull
   request 5. Handoff: [[worklogs/2026-11-06-claude-second-batch]]. Not merged.
+
+- [ ] Finish the first version for testing and review: Not sure page, After a loss page, About
+  and privacy page, save 988 to contacts, review status, Spanish Research page, review packets,
+  browser tests, and phone test steps. Owner: Claude, at one founder's request. Branch:
+  `site/first-version-build`, draft pull request {PR} into `claude/jolly-mayer-2m6eno`. Handoff:
+  [[worklogs/2026-11-06-claude-first-version]]. Not merged. No qualified person has reviewed it.
 
 ## Completed work
 

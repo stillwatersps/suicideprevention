@@ -940,9 +940,34 @@ def test_print(browser, site, pages, report, screens=None):
             report.fail("print", page, "the printed page does not show 988")
         if state["hasExit"]:
             report.fail("print", page, "Quick exit would print")
+        if state["isCard"]:
+            cut = tab.js("""Array.prototype.filter.call(document.querySelectorAll('.pc-card'), function (c) {
+                return c.scrollHeight > c.clientHeight + 1 || c.scrollWidth > c.clientWidth + 1; }).length""")
+            if cut:
+                report.fail("print", page, f"text is cut off on {cut} printed wallet cards")
+        # A phone or computer in dark mode still prints dark text on white.
+        tab.media(dark=True, media="print")
+        tab.browser.pump(0.02)
+        for item in tab.js(AUDIT_JS)["contrast"]:
+            report.fail("print", page, f"low contrast in print from dark mode: {item}")
         tab.media()
+        tab.goto(site.url(page))
+        folds = tab.js("""(function () {
+            window.__printEvents = [];
+            window.addEventListener('beforeprint', function () {
+                window.__printEvents.push(document.querySelectorAll('details:not([open])').length);
+            });
+            window.addEventListener('afterprint', function () { window.__printEvents.push('after'); });
+            return document.querySelectorAll('details:not([open])').length;
+        })()""")
         path = workdir / (page.replace("/", "_") + ".pdf")
         tab.pdf(path)
+        tab.browser.pump(0.1)
+        events = tab.js("window.__printEvents")
+        if folds and (not events or events[0] != 0):
+            report.fail("print", page, f"folded sections were not opened for printing: {events}")
+        if folds and tab.js("document.querySelectorAll('details:not([open])').length") != folds:
+            report.fail("print", page, "folded sections did not go back to closed after printing")
         pages_printed = count_pdf_pages(path)
         if pages_printed < 1:
             report.fail("print", page, "the PDF has no pages")
@@ -961,13 +986,23 @@ def test_print(browser, site, pages, report, screens=None):
 def test_contact(browser, site, pages, report):
     numbers = allowed_numbers()
     cards = set()
+    destinations = {}
     for page in pages:
         _, body, _, _ = fetch(site.url(page))
         parser = LinkParser()
         parser.feed(body.decode("utf-8"))
+        # Call and text links are read, never followed.
+        for link in parser.links:
+            if link.startswith(("tel:", "sms:")):
+                destinations[link] = destinations.get(link, 0) + 1
+                if phone_digits(link.split("?")[0]) in numbers:
+                    report.ok("contact")
+                else:
+                    report.fail("contact", page, f"{link} is not a number recorded in notes/SAFETY.md")
         for link in parser.links:
             if link.split("?")[0].endswith(".vcf"):
                 cards.add(urllib.parse.urljoin(site.url(page), link))
+    print("  Call and text links, read and never followed: " + ", ".join(f"{k} ({v})" for k, v in sorted(destinations.items())))
     if not cards:
         report.fail("contact", "(site)", "no page links to a contact card")
     for card in sorted(cards):
