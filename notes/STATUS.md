@@ -1,10 +1,10 @@
 # Current status
 
-Last updated: November 5, 2026.
+Last updated: November 6, 2026.
 
 ## Current phase
 
-Shared workspace setup and early product planning.
+Early product planning and a first homepage build.
 
 ## In place
 
@@ -20,6 +20,10 @@ Shared workspace setup and early product planning.
 - Draft safety ground rules and crisis resources to verify are in [[SAFETY]].
 - Planning drafts for scope and the phone layout are on the unmerged branch
   `planning/morning-brief`.
+- A first homepage (plain HTML and CSS, with a real public-domain photo) is
+  built on branch `claude/jolly-mayer-2m6eno`, awaiting review. Merging it
+  makes it the public GitHub Pages site. See
+  [[worklogs/2026-11-06-claude-homepage-first-build|the homepage handoff]].
 
 ## Still to confirm
 

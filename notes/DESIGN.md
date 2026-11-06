@@ -12,7 +12,9 @@
 - Exact original pasted source: `design/source/homepage-original.txt`.
 - The image above is a copy of `design/homepage-preview.png`.
 
-The SVG in `design/` is the source design. Update this reference image when the
+The SVG in `design/` is the source design. In the built homepage
+(`index.html`), the illustrated sunset and hills are replaced by a real
+public-domain photo of a Joshua tree at sunset (National Park Service). Update this reference image when the
 source design changes.
 
 ## Visual direction

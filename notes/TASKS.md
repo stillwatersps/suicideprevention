@@ -18,8 +18,6 @@ Planning tasks below are suggestions; ownership has not been assigned.
   Owner: unassigned. Branch: not needed for opening the vault.
 - [ ] Confirm both people can open the project in Claude Code.
   Owner: both. Branch: not needed for opening the project.
-- [ ] Draft the homepage's phone layout and a list of screens it links to.
-  Owner: unassigned. Branch: to choose.
 - [ ] Write a one-page first-version description and main user journey.
   Owner: unassigned. Branch: to choose.
 - [ ] Agree on supported ages and whether the prototype needs saved data.
@@ -40,6 +38,10 @@ No planning or implementation task has been assigned yet.
 ## Ready for review
 
 Move a task here when its branch is ready for the other person to review.
+
+- [ ] Build the first homepage, phone layout included, with a real photo.
+  Owner: Claude, at the user's request. Branch: `claude/jolly-mayer-2m6eno`.
+  Handoff: [[worklogs/2026-11-06-claude-homepage-first-build]].
 
 ## Completed work
 
