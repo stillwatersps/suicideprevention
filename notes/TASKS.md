@@ -108,7 +108,7 @@ Move a task here when its branch is ready for the other person to review.
 - [ ] Finish the first version for testing and review: Not sure page, After a loss page, About
   and privacy page, save 988 to contacts, review status, Spanish Research page, review packets,
   browser tests, and phone test steps. Owner: Claude, at one founder's request. Branch:
-  `site/first-version-build`, draft pull request {PR} into `claude/jolly-mayer-2m6eno`. Handoff:
+  `site/first-version-build`, draft pull request 9 into `claude/jolly-mayer-2m6eno`. Handoff:
   [[worklogs/2026-11-06-claude-first-version]]. Not merged. No qualified person has reviewed it.
 
 ## Completed work

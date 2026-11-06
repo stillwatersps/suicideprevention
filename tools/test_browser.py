@@ -616,6 +616,22 @@ def test_menu(browser, site, pages, report):
         report.fail("menu", "index.html", "following a menu link did not lead to the page with the menu closed")
     else:
         report.ok("menu")
+    # On a short screen, the menu scrolls, so its last link can still be reached.
+    tab.resize(844, 390, True)
+    tab.goto(home)
+    guard_click(tab, ".menu-button")
+    reach = tab.js("""(function () {
+        var links = document.querySelectorAll('#site-nav a');
+        var last = links[links.length - 1];
+        last.scrollIntoView({block: 'end', behavior: 'instant'});
+        var r = last.getBoundingClientRect();
+        return {bottom: r.bottom, vh: innerHeight, top: r.top, count: links.length};
+    })()""")
+    if reach["bottom"] > reach["vh"] + 1 or reach["top"] < 0:
+        report.fail("menu", "index.html", f"the last menu link can't be reached in landscape: {reach}")
+    else:
+        report.ok("menu")
+    tab.resize(390, 844, True)
     # Rotating to the desktop width resets the menu.
     tab.goto(home)
     guard_click(tab, ".menu-button")

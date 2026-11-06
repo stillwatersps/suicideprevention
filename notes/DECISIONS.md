@@ -144,7 +144,7 @@ phones and given to human reviewers. This asks for testing and review, not publi
 settles none of the open decisions below, and nothing is agreed to go live.** The first
 founder hasn't seen the additions, and neither founder has agreed to the other's list.
 
-Built as drafts on `site/first-version-build`, draft pull request {PR}: A5, B3, B4, B5, and C1
+Built as drafts on `site/first-version-build`, draft pull request 9: A5, B3, B4, B5, and C1
 from [[IDEAS]], an About and privacy page, and the rest of the Spanish Research page. Details
 are in [[worklogs/2026-11-06-claude-first-version|the handoff]]. Choices Claude made, all easy
 to reverse:

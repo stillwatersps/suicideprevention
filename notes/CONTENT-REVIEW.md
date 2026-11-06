@@ -244,6 +244,13 @@ No block or browser check was bypassed.
 | Stories of coping | Niederkrotenthaler 2022 | Abstract; full text blocked | How soon after the stories outcomes were measured |
 | What this page can't tell you | van der Burgt 2024 | Abstract, full text searched for specific points | |
 
+### How the first-version pages' sources were read
+
+Claude read these on November 6, 2026, in a real browser where possible, and one separate AI
+session checked about 112 statements against them. Neither is human review. Not read in full: the
+AFSP booklets and toolkits, which are image-only flipbooks, so the pages only link to them. 988's
+old loss survivors page now answers "not found", so it isn't cited.
+
 ## How the pages compare with the research brief
 
 [[RESEARCH-BRIEF]] and the draft pages were written separately. **The page text did
@@ -314,8 +321,8 @@ The other founder hasn't agreed yet. Wording is proposed.
   taps to open short notes on five feelings. The heading and opening come from Pathway A in
   the brief. Pathway B's journal was not built. 988 and 911 come first on the page. Is a
   reflection page right for someone in crisis at all? Should "Numb or empty" send people to
-  988 this directly? Are the 2-week and "gets in the way" thresholds, taken from NIMH's
-  descriptions of depression and anxiety, safe to show outside a clinician's visit?
+  988 this directly? The page avoids NIMH's diagnostic definitions, and keeps only its advice
+  to talk to a provider if a low mood doesn't go away. Is that right?
 - **After a loss (B4).** "It's not your fault" is a heading. TAPS says it, and the CDC says
   suicide has no single cause, but someone may feel the site can't know their situation. Is the
   wording right? The list of feelings is AFSP's, including relief and thoughts of suicide.
@@ -330,6 +337,11 @@ The other founder hasn't agreed yet. Wording is proposed.
 - **Quick exit limits.** Testing showed that Back can still reach earlier Stillwater pages in the
   same tab, because only the current page is replaced. The About pages now say so. An earlier note
   said Back doesn't return to Stillwater, which was only true when one page had been opened.
+- **For Teens, from an independent AI check.** "Its rules don't set a minimum age" rests on
+  finding no age limit in 988's terms and privacy policy, not on 988 saying so. "It is separate
+  from The Trevor Project" has no source on the page; [[SAFETY]] explains where it comes from.
+  Telling a teen to expect a school counselor to tell a parent is accurate, but could deter them.
+  Should it say why, and that 988 stays available?
 - **Spanish Research page.** It was translated before the English version was reviewed, at a
   founder's request, so that the Spanish pages are complete for review. If the English changes,
   the Spanish must change too.

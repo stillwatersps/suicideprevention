@@ -391,7 +391,8 @@ ul { margin: 0 0 6pt; padding-left: 16pt; }
 li { margin-bottom: 2pt; }
 table { width: 100%; border-collapse: collapse; margin: 6pt 0 10pt; font-size: 9pt; }
 th, td { border: 1px solid #999; padding: 3pt 4pt; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
-th { background: #EEF2EA; }
+th { background: #EEF2EA; overflow-wrap: normal; }
+.signoff td { overflow-wrap: normal; }
 code { font: 8.5pt Menlo, Consolas, monospace; }
 .lede { font-size: 12pt; }
 .banner { border: 2px solid #60375E; padding: 8pt 10pt; margin: 10pt 0; }
@@ -500,7 +501,7 @@ def therapist_packet(today, stamp):
     parts.append("<p>Text from the crisis strip, header, crisis buttons, and footer is in Part 1. Folded sections are shown open. Links show their full address, so they can be checked from paper.</p>")
     for name, prefix, label in ENGLISH:
         address = "" if name == "404.html" else name.replace("index.html", "")
-        parts.append(f"<h3>Page: {esc(label)}</h3><p class=\"small\">Address: {esc(PREVIEW + address) if name != '404.html' else 'shown for any address that does not exist'}. Numbers start with {prefix}.</p>")
+        parts.append(f"<h3>Page: {esc(label)}</h3><p class=\"small\">Address once published: {esc(PREVIEW + address) if name != '404.html' else 'shown for any address that does not exist'}. Numbers start with {prefix}.</p>")
         parts.append(render_blocks(page_blocks(name), prefix, numbering, counters, "en"))
 
     parts.append("<h2>Part 3: Research brief</h2>")
@@ -582,7 +583,7 @@ def spanish_packet(today, stamp):
     parts.append("<p>Las secciones plegadas se muestran abiertas. Los enlaces muestran la dirección completa. La versión en inglés de cada página está en el otro paquete.</p>")
     for name, prefix, label, english in SPANISH:
         address = name.replace("index.html", "")
-        parts.append(f"<h3>Página: {esc(label)}</h3><p class=\"small\">Dirección: {esc(PREVIEW + address)}. En inglés: {esc(PREVIEW + (english if english != 'index.html' else ''))}. Los números empiezan con {prefix}.</p>")
+        parts.append(f"<h3>Página: {esc(label)}</h3><p class=\"small\">Dirección cuando se publique: {esc(PREVIEW + address)}. En inglés: {esc(PREVIEW + (english if english != 'index.html' else ''))}. Los números empiezan con {prefix}.</p>")
         parts.append(render_blocks(page_blocks(name), prefix, numbering, counters, "es"))
     parts.append("<h2>Parte 3: Decisiones y firma</h2>")
     parts.append("<p>Anote su función y la fecha, por ejemplo \"traductora médica, noviembre de 2026\". Por favor, no escriba su nombre ni sus datos de contacto.</p>")

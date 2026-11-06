@@ -370,7 +370,7 @@ h1 {
   .js .menu-button { display: inline-flex; }
   .js .site-nav { display: none; }
   .js .site-nav.is-open { display: block; }
-  .site-nav { position: absolute; top: 100%; left: 0; right: 0; max-height: calc(100vh - 88px); overflow-y: auto; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
+  .site-nav { position: absolute; top: 100%; left: 0; right: 0; max-height: calc(100vh - 88px); max-height: calc(100dvh - 88px); overflow-y: auto; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
   .header-inner { flex-wrap: wrap; }
   .site-nav ul { flex-direction: column; gap: 0; padding: 8px var(--gutter) 16px; }
   .site-nav a { padding: 14px 4px; border-bottom: 1px solid #EEECE5; border-radius: 0; }
