@@ -8,8 +8,8 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | Where | What | State |
 | --- | --- | --- |
 | `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
-| `site/phone-accessibility-content` | Phone, accessibility, and navigation fixes, draft page content, a 404 page, a check script, and these updated notes | Pushed to GitHub, draft pull request PR_NUMBER, **not merged, not on the public website** |
-| `claude/jolly-mayer-2m6eno` | Everything on `site/phone-accessibility-content` plus the [[RESEARCH-BRIEF]] PDF and notes, combined at a founder's request | Pushed to GitHub, **not merged, not on the public website** |
+| `site/phone-accessibility-content` | Phone, accessibility, and navigation fixes, draft page content, a 404 page, a check script, and these updated notes | Pushed to GitHub, draft pull request 5 (combined with the research brief), **not merged, not on the public website** |
+| `claude/jolly-mayer-2m6eno` | Everything on `site/phone-accessibility-content` plus the [[RESEARCH-BRIEF]] PDF and notes, combined at a founder's request | Pushed to GitHub, draft pull request 5, **not merged, not on the public website** |
 | `planning/morning-brief` | First planning drafts | Draft pull request 1, not merged, partly out of date |
 
 Your Obsidian shows whichever branch your project folder is on. Notes on an

@@ -50,4 +50,6 @@ section's result in the tracker, then move approved text onto the pages.
   [[00 START HERE]] and [[STATUS]]; the other session's text was kept and the
   research brief lines were added to it. `python3 tools/check_site.py` passed
   (5 pages).
-- State: pushed to `claude/jolly-mayer-2m6eno`, not merged into `main`.
+- State: pushed to `claude/jolly-mayer-2m6eno` and opened as draft pull request 5.
+  The founder chose not to merge until both founders agree and the therapist
+  has reviewed the content. Not on `main`.
