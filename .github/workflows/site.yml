@@ -30,9 +30,20 @@ jobs:
       - name: Plain-language report (information only)
         run: python3 tools/check_readability.py
 
+  browser:
+    name: Test in a real browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test every page in Chrome
+        env:
+          STILLWATER_CHROME_NO_SANDBOX: "1"
+        run: python3 tools/test_browser.py
+
   publish:
     name: Publish the website only
-    needs: check
+    needs: [check, browser]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:

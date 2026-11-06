@@ -97,10 +97,46 @@
 (function () {
   var local = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
   if (!('serviceWorker' in navigator) || (location.protocol !== 'https:' && !local)) return;
+  // Respect a person's data-saving setting, since this downloads the whole site in the background.
+  if (navigator.connection && navigator.connection.saveData) return;
   var script = document.currentScript || document.querySelector('script[src$="menu.js"]');
   if (!script) return;
   var root = new URL('../', script.src);
-  navigator.serviceWorker.register(new URL('sw.js', root).href, { scope: root.pathname }).catch(function () {});
+  function register() {
+    navigator.serviceWorker.register(new URL('sw.js', root).href, { scope: root.pathname }).catch(function () {});
+  }
+  // Wait until the page has loaded, so saving files never slows down the crisis numbers.
+  if (document.readyState === 'complete') {
+    register();
+  } else {
+    window.addEventListener('load', register);
+  }
+})();
+
+// With no connection, say that this may be a saved copy, and what still needs service.
+(function () {
+  var main = document.getElementById('main');
+  if (!main) return;
+  var spanish = document.documentElement.lang === 'es';
+  var text = spanish
+    ? 'Estás sin conexión. Esta puede ser una copia guardada, así que podría estar desactualizada. Llamar y enviar textos requieren servicio telefónico.'
+    : "You're offline. This may be a saved copy, so it could be out of date. Calling and texting need phone service.";
+  var note = null;
+  function update() {
+    if (navigator.onLine === false && !note) {
+      note = document.createElement('p');
+      note.className = 'offline-note';
+      note.setAttribute('role', 'status');
+      note.textContent = text;
+      main.insertBefore(note, main.firstChild);
+    } else if (navigator.onLine !== false && note) {
+      note.parentNode.removeChild(note);
+      note = null;
+    }
+  }
+  window.addEventListener('online', update);
+  window.addEventListener('offline', update);
+  update();
 })();
 
 // Printing: folded sections print open, then go back to how they were.

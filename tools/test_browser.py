@@ -18,6 +18,7 @@ nothing about whether the content is right. See notes/CONTENT-REVIEW.md.
 """
 import argparse
 import base64
+import html
 import html.parser
 import json
 import pathlib
@@ -59,7 +60,7 @@ TEXT_SIZES = [
 ]
 GROUPS = [
     "links", "matrix", "textsize", "keyboard", "menu", "jumps", "folds", "language",
-    "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "offline",
+    "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "offline", "speed", "modes",
 ]
 SAFE_CLICKS = """
 document.addEventListener('click', function (event) {
@@ -72,7 +73,7 @@ document.addEventListener('click', function (event) {
 AUDIT_JS = r"""
 (function () {
   var out = {hscroll: null, offscreen: [], clipped: [], smallTargets: [], tinyTargets: [], overlaps: [],
-             brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: []};
+             brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: []};
   function shown(el) {
     var s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none') return false;
@@ -121,6 +122,13 @@ AUDIT_JS = r"""
     var label = name(el) + ' is ' + Math.round(r.width) + 'x' + Math.round(r.height);
     if (r.height < 24 || r.width < 24) out.tinyTargets.push(label);
     else if (r.height < 44 && !el.closest('p, li') ) out.smallTargets.push(label);
+  });
+  // A link inside a sentence must look like a link without relying on color.
+  controls.forEach(function (el) {
+    if (el.tagName.toLowerCase() !== 'a' || getComputedStyle(el).display !== 'inline' || el.classList.contains('card-link')) return;
+    var holder = el.closest('p, li');
+    if (!holder || holder.textContent.trim().length <= el.textContent.trim().length) return;
+    if (getComputedStyle(el).textDecorationLine.indexOf('underline') < 0) out.colorOnlyLinks.push(name(el));
   });
   // Controls that overlap each other.
   var boxes = controls.filter(function (el) {
@@ -296,8 +304,7 @@ class Site:
         threading.Thread(target=self.server.serve_forever, daemon=True).start()
 
     def stop(self):
-        self.server.shutdown()
-        self.server.server_close()
+        self.server.close_everything()
 
     @property
     def base(self):
@@ -441,7 +448,8 @@ def apply_audit(result, group, page, where, report, phone):
     if result["hscroll"]:
         report.fail(group, page, f"scrolls sideways ({result['hscroll'][0]} > {result['hscroll'][1]})", where)
     for key, label in (("offscreen", "runs off the screen"), ("clipped", "text cut off"), ("overlaps", "controls overlap"),
-                       ("brokenImages", "image did not load"), ("contrast", "low contrast"), ("unnamed", "control has no name")):
+                       ("brokenImages", "image did not load"), ("contrast", "low contrast"), ("unnamed", "control has no name"),
+                       ("colorOnlyLinks", "link in a sentence has no underline")):
         for item in result[key]:
             report.fail(group, page, f"{label}: {item}", where)
     for item in result["tinyTargets"]:
@@ -945,7 +953,7 @@ def test_print(browser, site, pages, report, screens=None):
             continue
         tab.media(media="print")
         tab.goto(site.url(page))
-        state = tab.js("""({main: document.querySelector('main').innerText.trim().length,
+        state = tab.js("""({main: document.querySelector('main').getBoundingClientRect().height > 0 ? document.body.innerText.trim().length : 0,
             onScreen: 0,
             has988: /988/.test(document.body.innerText),
             hasExit: !!(document.querySelector('.quick-exit') && getComputedStyle(document.querySelector('.quick-exit')).display !== 'none'),
@@ -1091,7 +1099,9 @@ def copy_site(target):
 
 
 WAIT_FOR_WORKER = """(async function () {
-    var reg = await navigator.serviceWorker.ready;
+    var timeout = new Promise(function (done) { setTimeout(function () { done(null); }, 15000); });
+    var reg = await Promise.race([navigator.serviceWorker.ready, timeout]);
+    if (!reg) return {scope: '', controlled: false, names: [], saved: []};
     for (var i = 0; i < 100 && !navigator.serviceWorker.controller; i++) await new Promise(function (r) { setTimeout(r, 50); });
     var names = await caches.keys();
     var saved = [];
@@ -1115,12 +1125,33 @@ def test_offline(browser, site_ignored, pages, report):
         print(f"  Offline: after one visit, {len(set(state['saved']))} files are saved in {state['names']}.")
         if not state["controlled"]:
             report.fail("offline", "(worker)", "the worker did not take control after the first visit")
+            site.stop()
+            return
         if state["scope"] != site.base:
             report.fail("offline", "(worker)", f"worker scope is {state['scope']}")
+        titles = {}
+        for page in pages:
+            parser = re.search(r"<title>(.*?)</title>", fetch(site.url(page))[1].decode("utf-8"), re.S)
+            titles[page] = html.unescape(parser.group(1)) if parser else ""
         outside = [u for u in state["saved"] if not u.startswith(site.base)]
         if outside:
             report.fail("offline", "(worker)", f"saved something from another site: {outside}")
-        saved_pages = [p for p in pages if site.url(p) in state["saved"]]
+
+        # The page says so when the device reports no connection, in its own language.
+        for page, word in (("index.html", "offline"), ("es/index.html", "sin conexi")):
+            tab.goto(site.url(page))
+            if tab.js("!!document.querySelector('.offline-note')"):
+                report.fail("offline", page, "the offline notice shows with a connection")
+            tab.send("Network.emulateNetworkConditions", {"offline": True, "latency": 0, "downloadThroughput": -1, "uploadThroughput": -1})
+            tab.browser.pump(0.3)
+            notice = tab.js("(document.querySelector('main > .offline-note') || {}).textContent || ''")
+            if word not in notice.lower():
+                report.fail("offline", page, f"no offline notice in the page's language: {notice!r}")
+            tab.send("Network.emulateNetworkConditions", {"offline": False, "latency": 0, "downloadThroughput": -1, "uploadThroughput": -1})
+            tab.browser.pump(0.3)
+            if tab.js("!!document.querySelector('.offline-note')"):
+                report.fail("offline", page, "the offline notice stays after the connection returns")
+            report.ok("offline")
 
         site.stop()  # The computer's connection to the site is now gone.
         for page in pages:
@@ -1131,7 +1162,7 @@ def test_offline(browser, site_ignored, pages, report):
                 sms: !!document.querySelector('.crisis-bar a[href="sms:988"]'),
                 styled: getComputedStyle(document.body).fontFamily.indexOf('Arial') >= 0,
                 broken: Array.prototype.filter.call(document.images, function (i) { return i.complete && i.naturalWidth === 0; }).map(function (i) { return i.currentSrc || i.src; })})""")
-            if status != 200 or not info["tel"] or not info["sms"]:
+            if status != 200 or not info["tel"] or not info["sms"] or info["title"] != titles[page]:
                 report.fail("offline", page, f"not available offline after one visit: status {status}, {info}")
             elif not info["styled"]:
                 report.fail("offline", page, "opens offline without its styles")
@@ -1198,6 +1229,83 @@ def test_offline(browser, site_ignored, pages, report):
         shutil.rmtree(workdir, ignore_errors=True)
 
 
+# ---------------------------------------------------------------- speed on a poor connection
+
+# Chrome's "Slow 3G" settings, and a phone about 4 times slower than this computer.
+SLOW_NETWORK = {"offline": False, "latency": 2000, "downloadThroughput": 50000, "uploadThroughput": 50000}
+# How long the crisis numbers may take to appear on that connection, for a first-time visitor. See notes/worklogs.
+FIRST_PAINT_LIMIT_MS = 9000
+PAGE_WEIGHT_LIMIT_BYTES = 250000
+
+
+def test_speed(browser, site, pages, report):
+    context = browser.call("Target.createBrowserContext")["browserContextId"]
+    worst = {}
+    try:
+        for page in pages:
+            tab = new_tab(browser, 390, 844, True, scale=3, context=context)
+            tab.send("Network.setCacheDisabled", {"cacheDisabled": True})
+            tab.send("Network.emulateNetworkConditions", SLOW_NETWORK)
+            tab.send("Emulation.setCPUThrottlingRate", {"rate": 4})
+            # The worker would serve later pages from its copy, so measure a true first visit.
+            tab.send("Network.setBypassServiceWorker", {"bypass": True})
+            tab.goto(site.url(page), timeout=120, settle=0.2)
+            timing = tab.js("""(function () {
+                var paint = performance.getEntriesByName('first-contentful-paint')[0];
+                var bar = document.querySelector('.crisis-bar a[href="tel:988"]');
+                var box = bar ? bar.getBoundingClientRect() : {height: 0, top: -1};
+                return {paint: paint ? Math.round(paint.startTime) : null, bar: box.height > 0 && box.top >= 0};
+            })()""")
+            bytes_loaded = sum(
+                event["params"].get("encodedDataLength", 0) for event in browser.events
+                if event.get("sessionId") == tab.session and event["method"] == "Network.loadingFinished"
+            )
+            worst[page] = (timing["paint"], bytes_loaded)
+            if not timing["bar"]:
+                report.fail("speed", page, "the crisis strip is not on screen after loading")
+            if timing["paint"] is None or timing["paint"] > FIRST_PAINT_LIMIT_MS:
+                report.fail("speed", page, f"first paint took {timing['paint']} ms on a slow connection (limit {FIRST_PAINT_LIMIT_MS})")
+            elif bytes_loaded > PAGE_WEIGHT_LIMIT_BYTES:
+                report.fail("speed", page, f"{bytes_loaded // 1024} KB loaded (limit {PAGE_WEIGHT_LIMIT_BYTES // 1024})")
+            else:
+                report.ok("speed")
+            tab.close()
+    finally:
+        browser.call("Target.disposeBrowserContext", {"browserContextId": context})
+    slowest = max(worst.items(), key=lambda item: item[1][0] or 0)
+    heaviest = max(worst.items(), key=lambda item: item[1][1])
+    print(f"  Slow connection, first visit: slowest paint {slowest[1][0]} ms ({slowest[0]}), heaviest {heaviest[1][1] // 1024} KB ({heaviest[0]}).")
+
+
+# ---------------------------------------------------------------- high contrast modes
+
+
+def test_modes(browser, site, pages, report):
+    """Windows high contrast and "increase contrast" settings: nothing may vanish or overlap."""
+    tab = new_tab(browser)
+    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("desktop 1440x900", 1440, 900, False)):
+        tab.resize(width, height, phone)
+        for extra in ({"forced-colors": "active"}, {"prefers-contrast": "more"}):
+            where = f"{label}, {list(extra.items())[0][0]}"
+            tab.media(extra=extra, reduced=True)
+            for page in pages:
+                tab.goto(site.url(page))
+                tab.js(OPEN_ALL)
+                result = tab.js(AUDIT_JS)
+                # Forced colors replaces the page's colors, so these measurements don't apply.
+                if "forced-colors" in extra:
+                    result["contrast"] = []
+                apply_audit(result, "modes", page, where, report, False)
+                gone = tab.js("""Array.prototype.filter.call(document.querySelectorAll('.action svg, .quick-exit svg, .menu-button svg'), function (svg) {
+                    var s = getComputedStyle(svg);
+                    return s.display === 'none' || s.visibility === 'hidden' || s.stroke === 'none';
+                }).length""")
+                if gone:
+                    report.fail("modes", page, f"{gone} control icons disappear", where)
+    tab.media()
+    tab.close()
+
+
 # ---------------------------------------------------------------- screenshots
 
 
@@ -1244,7 +1352,7 @@ def main():
         "matrix": test_matrix, "textsize": test_textsize, "keyboard": test_keyboard, "menu": test_menu,
         "jumps": test_jumps, "folds": test_folds, "language": test_language, "quickexit": test_quickexit,
         "reducedmotion": test_reducedmotion, "nojs": test_nojs, "print": test_print, "contact": test_contact,
-        "a11ytree": test_a11ytree, "offline": test_offline,
+        "a11ytree": test_a11ytree, "offline": test_offline, "speed": test_speed, "modes": test_modes,
     }
     try:
         for group in groups:

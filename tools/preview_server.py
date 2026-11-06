@@ -109,6 +109,36 @@ class Server(socketserver.ThreadingMixIn, http.server.HTTPServer):
     daemon_threads = True
     allow_reuse_address = True
 
+    def __init__(self, *args, **kwargs):
+        self.open_connections = set()
+        super().__init__(*args, **kwargs)
+
+    def get_request(self):
+        connection, address = super().get_request()
+        self.open_connections.add(connection)
+        return connection, address
+
+    def shutdown_request(self, request):
+        self.open_connections.discard(request)
+        super().shutdown_request(request)
+
+    def close_everything(self):
+        """Stops listening and cuts open connections, so a browser really can't reach the site."""
+        self.shutdown()
+        for connection in list(self.open_connections):
+            try:
+                connection.shutdown(socket.SHUT_RDWR)
+            except OSError:
+                pass
+            connection.close()
+        self.open_connections.clear()
+        self.server_close()
+
+    def handle_error(self, request, client_address):
+        # A browser closing its connection isn't a problem worth printing.
+        if not isinstance(sys.exc_info()[1], (ConnectionError, OSError)):
+            super().handle_error(request, client_address)
+
 
 def make_server(host="127.0.0.1", port=0, root=ROOT, cache_control="no-cache", log=False):
     """Used by tools/test_browser.py as well. Port 0 picks any free port."""

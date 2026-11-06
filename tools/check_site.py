@@ -12,6 +12,8 @@ accessible, safe, or true. See notes/CONTENT-REVIEW.md for what needs a person.
 Git is used if it is installed, to tell project notes from private ones.
 """
 import argparse
+import base64
+import hashlib
 import html.parser
 import pathlib
 import re
@@ -29,6 +31,11 @@ NOT_DRAFT = {"index.html", "404.html"}
 SITE_ROOT = "/suicideprevention/"
 ALLOWED_INLINE_SCRIPT = "document.documentElement.classList.add('js');"
 ALLOWED_ONERROR = "document.documentElement.classList.remove('js')"
+# Every page repeats this. The hashes must match the two allowed bits of inline script above.
+CSP_RULE = (
+    "default-src 'none'; script-src 'self' '{script}' '{handler}' 'unsafe-hashes'; style-src 'self'; img-src 'self'; "
+    "connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'"
+)
 BANNED_PHRASES = [
     "commit suicide", "committed suicide", "commits suicide", "committing suicide",
     "successful suicide", "successful attempt", "failed suicide", "failed attempt",
@@ -48,6 +55,14 @@ def language_of(name):
     return "es" if name.startswith("es/") else "en"
 CRISIS_WORDS = re.compile(r"\b(call|text|chat|llamar|enviar|chatear)\b", re.I)
 HIDES = re.compile(r"display\s*:\s*none|visibility\s*:\s*hidden|opacity\s*:\s*0(\.0+)?\s*(;|$)")
+
+
+def csp_hash(text):
+    return "sha256-" + base64.b64encode(hashlib.sha256(text.encode()).digest()).decode()
+
+
+def expected_csp():
+    return CSP_RULE.format(script=csp_hash(ALLOWED_INLINE_SCRIPT), handler=csp_hash(ALLOWED_ONERROR))
 
 
 def digits_of(text):
@@ -89,6 +104,7 @@ class Page(html.parser.HTMLParser):
         self.first_focusable = None
         self.review_note = ""
         self.status_values = []
+        self.csp = None
         self._open_links = []
         self._heading_text = None
 
@@ -135,6 +151,8 @@ class Page(html.parser.HTMLParser):
             self.lang = attrs.get("lang")
         elif tag == "main":
             self.mains += 1
+        elif tag == "meta" and attrs.get("http-equiv", "").lower() == "content-security-policy":
+            self.csp = attrs.get("content", "")
         elif tag == "meta" and attrs.get("name"):
             self.metas[attrs["name"]] = attrs.get("content", "")
             if attrs["name"] == "description":
@@ -348,6 +366,10 @@ def check_pages(failures, notes):
             fail("the viewport tag blocks zooming")
         if "description" not in page.metas:
             fail("missing description")
+        if page.csp != expected_csp():
+            fail("the Content-Security-Policy tag is missing or differs from CSP_RULE in tools/check_site.py")
+        if page.metas.get("referrer") != "no-referrer":
+            fail("needs <meta name=\"referrer\" content=\"no-referrer\"> so other sites aren't told where a visitor came from")
         if page.metas.get("robots") != "noindex":
             notes.append(f"{name}: search engines may index this page")
         if page.headings.count(1) != 1:

@@ -806,6 +806,9 @@ body { padding-bottom: 76px; }
   .hero-curve { fill: #1D2420; }
 }
 
+/* Shown only with no connection */
+.offline-note { padding: 10px var(--gutter); background: var(--plum-soft); color: var(--ink); font-size: .95rem; }
+
 /* Saving the 988 contact */
 .save-contact { margin-top: 14px; }
 
@@ -882,7 +885,7 @@ body { padding-bottom: 76px; }
   /* Any page: plain text on white, with the crisis line, and without on-screen controls. */
   :root { color-scheme: light; --bg: #fff; --bg-soft: #fff; --ink: #000; --body: #111; --muted: #333; --plum: #000; --green: #000; --line: #999; }
   body { background: #fff; color: #111; padding: 0; }
-  .quick-exit, .skip-link, .menu-button, .header-cta, .site-nav, .toc, .hero-photo, .hero-curve, .lang-switch, .lang-link, .breadcrumb, .text-link, .print-actions { display: none !important; }
+  .quick-exit, .skip-link, .menu-button, .header-cta, .site-nav, .toc, .offline-note, .hero-photo, .hero-curve, .lang-switch, .lang-link, .breadcrumb, .text-link, .print-actions { display: none !important; }
   .crisis-bar { position: static; background: #fff; color: #000; border: 1px solid #000; }
   .crisis-bar a { color: #000; }
   .site-header { position: static; border-bottom: 1px solid #999; }

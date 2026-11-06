@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
+  <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-/x7W7R75k8Roq0WaVRQX9blP4OufE5xbAdzklGxsgpw=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Acerca de y privacidad — Stillwater</title>
   <meta name="description" content="Qué es Stillwater, qué guarda, qué no puede ocultar, y qué se ha revisado y qué no.">
@@ -172,7 +175,7 @@
           <ul>
             <li><strong>Lo que funciona sin conexión.</strong> Después de esa primera visita, las páginas de este sitio pueden abrirse sin conexión, en inglés y en español. Una dirección que no se guardó muestra la página de "no encontrada", que tiene los números de crisis.</li>
             <li><strong>Lo que no funciona.</strong> Llamar y enviar textos requieren servicio telefónico. El chat y los enlaces a otros sitios requieren conexión a internet.</li>
-            <li><strong>Cómo llegan las actualizaciones.</strong> Con conexión, el sitio intenta primero mostrar la versión más nueva, que puede tardar unos 10 minutos en aparecer. Una copia guardada solo se usa cuando la versión más nueva no puede cargar, así que podría estar desactualizada. Si un número no funciona, prueba el 911 u otra opción de esta página.</li>
+            <li><strong>Cómo llegan las actualizaciones.</strong> Con conexión, el sitio intenta primero mostrar la versión más nueva, que puede tardar unos 10 minutos en aparecer. Una copia guardada solo se usa cuando la versión más nueva no puede cargar, así que podría estar desactualizada. Cuando tu aparato indica que no hay conexión, la página lo dice. Si un número no funciona, prueba el 911 u otra opción de esta página.</li>
             <li><strong>No dependas solo de esto.</strong> Los navegadores pueden borrar las copias guardadas, por ejemplo cuando un aparato tiene poco espacio o no has usado el sitio por un tiempo. Tener el 988 en tus contactos o en una <a href="../tarjeta/">tarjeta</a> no depende de esto.</li>
             <li><strong>Tu privacidad.</strong> Las copias guardadas se quedan en tu aparato. No se envía nada a Stillwater, pero en un aparato compartido son un rastro de tu visita, y la Salida rápida no puede quitarlas. Sí se quitan al borrar los datos de sitios web en la configuración de tu navegador.</li>
           </ul>

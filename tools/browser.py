@@ -145,9 +145,12 @@ class Browser:
         if not self.chrome:
             raise RuntimeError("Google Chrome or Chromium was not found.")
         self.profile = tempfile.mkdtemp(prefix="stillwater-chrome-")
+        # GitHub's Linux runners don't allow Chrome's sandbox. Nothing else should set this.
+        sandbox = ["--no-sandbox"] if os.environ.get("STILLWATER_CHROME_NO_SANDBOX") else []
         self.process = subprocess.Popen(
             [
                 self.chrome,
+                *sandbox,
                 "--headless=new",
                 "--remote-debugging-port=0",
                 f"--user-data-dir={self.profile}",
@@ -277,14 +280,14 @@ class Tab:
         })
         self.send("Emulation.setTouchEmulationEnabled", {"enabled": mobile})
 
-    def media(self, dark=False, reduced=False, media=""):
-        self.send("Emulation.setEmulatedMedia", {
-            "media": media,
-            "features": [
-                {"name": "prefers-color-scheme", "value": "dark" if dark else "light"},
-                {"name": "prefers-reduced-motion", "value": "reduce" if reduced else "no-preference"},
-            ],
-        })
+    def media(self, dark=False, reduced=False, media="", extra=None):
+        features = [
+            {"name": "prefers-color-scheme", "value": "dark" if dark else "light"},
+            {"name": "prefers-reduced-motion", "value": "reduce" if reduced else "no-preference"},
+        ]
+        for name, value in (extra or {}).items():
+            features.append({"name": name, "value": value})
+        self.send("Emulation.setEmulatedMedia", {"media": media, "features": features})
 
     def clear_events(self):
         self.browser.events = [e for e in self.browser.events if e.get("sessionId") != self.session]

@@ -2,6 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
+  <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-/x7W7R75k8Roq0WaVRQX9blP4OufE5xbAdzklGxsgpw=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Imprimir una tarjeta — Stillwater</title>
   <meta name="description" content="Tarjetas para la billetera y un cartel para imprimir, con la Línea 988 en español y el 911.">
