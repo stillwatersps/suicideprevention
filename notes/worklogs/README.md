@@ -1,7 +1,8 @@
 # Task handoffs
 
-Create one short Markdown note per task, with a distinctive filename such as
-`yourname-home-screen.md`. Separate files reduce simultaneous edits to one log.
+Create one short Markdown note per task, with a dated, distinctive filename such
+as `2026-11-06-yourname-home-screen.md`. Separate files reduce simultaneous edits
+to one log.
 
 Include:
 

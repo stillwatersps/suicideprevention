@@ -41,3 +41,13 @@ Date: November 6, 2026.
 
 Share the PDF or [[RESEARCH-BRIEF]] with the licensed therapist. Record each
 section's result in the tracker, then move approved text onto the pages.
+
+## Sync record
+
+- November 6, 2026: at a founder's request to keep the work together, merged
+  `site/phone-accessibility-content` (the other session's page drafts, 404 page,
+  check script and updated notes) into this branch. Conflicts were only in
+  [[00 START HERE]] and [[STATUS]]; the other session's text was kept and the
+  research brief lines were added to it. `python3 tools/check_site.py` passed
+  (5 pages).
+- State: pushed to `claude/jolly-mayer-2m6eno`, not merged into `main`.

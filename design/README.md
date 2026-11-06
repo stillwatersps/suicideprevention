@@ -14,9 +14,10 @@ text, geometry, and colors were preserved.
 - A warm cream background, forest green and plum accents, serif headings, and
   sans-serif body text.
 
-The phone layout and destination pages remain to be designed. This is a static
-visual reference; buttons and links are not functioning website controls.
-Before implementation, confirm which service the round-the-clock availability
-and counselor wording refers to, so the website describes its role accurately.
+This is a static visual reference; its buttons and links do not work. The phone
+layout and the destination pages were built directly in the website rather than
+drawn here. `notes/DESIGN.md` lists where the website differs from this drawing.
+The drawing's round-the-clock and counselor wording describes the 988 Lifeline,
+so the website names that service instead of implying Stillwater provides it.
 
 Design assets are shared through GitHub alongside the project notes and code.

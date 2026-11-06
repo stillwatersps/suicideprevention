@@ -1,8 +1,11 @@
 # Stillwater shared project
 
-Shared workspace for planning a phone-friendly suicide prevention website.
-It contains a design reference, an Obsidian vault, and Claude Code instructions.
-App implementation has not begun.
+Shared workspace for a phone-friendly suicide prevention website.
+It contains the website (plain HTML, CSS, and one small script), a design
+reference, an Obsidian vault, and Claude Code instructions.
+GitHub Pages publishes the `main` branch as a public website, so merging into
+`main` publishes. The content has not had professional review yet; see
+`notes/STATUS.md` for the current state.
 
 ## Open the shared notebook
 
@@ -39,6 +42,25 @@ Each person uses their own Claude access and conversation.
 | `design/` | Supplied SVG and original pasted source |
 | `index.html`, `assets/` | The homepage, served by GitHub Pages |
 | `get-help/`, `help-someone/`, `research/` | Other website pages |
+| `404.html` | Shown for any missing address, keeps crisis help on screen |
+| `tools/check_site.py` | Checks pages, links, and Obsidian notes |
+
+## Check the website
+
+Run these from the project folder. They need only Python 3 and change nothing.
+
+```bash
+python3 tools/check_site.py
+```
+
+```bash
+python3 tools/check_site.py --check-links
+```
+
+The second command also loads every outside link. To see the site on your own
+computer, run `python3 -m http.server 8000` and open `http://localhost:8000/`.
+Passing these checks does not replace testing on a real phone or a content
+review. `notes/CONTENT-REVIEW.md` lists what still needs a person.
 
 ## Work independently
 

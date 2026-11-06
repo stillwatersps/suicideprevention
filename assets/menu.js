@@ -4,23 +4,55 @@
   var nav = document.getElementById('site-nav');
   if (!button || !nav) return;
 
+  function isOpen() {
+    return button.getAttribute('aria-expanded') === 'true';
+  }
+
   function setOpen(open) {
     button.setAttribute('aria-expanded', String(open));
     nav.classList.toggle('is-open', open);
   }
 
   button.addEventListener('click', function () {
-    setOpen(button.getAttribute('aria-expanded') !== 'true');
+    setOpen(!isOpen());
   });
 
-  // Close after choosing a link, or with Escape, returning focus to the button.
+  // Close after choosing a link.
   nav.addEventListener('click', function (event) {
     if (event.target.closest('a')) setOpen(false);
   });
+
+  // Escape closes the menu and returns focus to the button.
   document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+    if (event.key === 'Escape' && isOpen()) {
       setOpen(false);
       button.focus();
     }
   });
+
+  // Tapping anywhere else closes the menu.
+  document.addEventListener('click', function (event) {
+    if (isOpen() && !nav.contains(event.target) && !button.contains(event.target)) {
+      setOpen(false);
+    }
+  });
+
+  // Tabbing past the last link closes the menu, so it never covers the focused item.
+  nav.addEventListener('focusout', function (event) {
+    var next = event.relatedTarget;
+    if (isOpen() && next && !nav.contains(next) && next !== button) {
+      setOpen(false);
+    }
+  });
+
+  // The desktop header has no menu button, so reset the state when the layout changes.
+  var desktop = window.matchMedia('(min-width: 960px)');
+  function resetOnDesktop() {
+    if (desktop.matches) setOpen(false);
+  }
+  if (desktop.addEventListener) {
+    desktop.addEventListener('change', resetOnDesktop);
+  } else if (desktop.addListener) {
+    desktop.addListener(resetOnDesktop);
+  }
 })();

@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Getting help for yourself — Stillwater</title>
-  <meta name="description" content="Options for getting support when you're struggling, and what to expect when you reach out.">
+  <meta name="description" content="Ways to reach someone when you're struggling, what to expect when you contact 988, and support over time.">
   <meta name="theme-color" content="#FAF8F4">
+  <!-- Not for search engines until the content has had professional review. See notes/DECISIONS.md. -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../assets/styles.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -13,9 +16,9 @@
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1 -->
-  <div class="crisis-bar" role="note" aria-label="Crisis help">
-    <p>In crisis? <strong>Call or text 988</strong> any time. In immediate danger, <strong>call 911</strong>.</p>
-  </div>
+  <aside class="crisis-bar" aria-label="Crisis help">
+    <p>Need help now? <a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a> or <a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a> any time. In immediate danger, <a href="tel:911" aria-label="Call 911, emergency services">call 911</a>.</p>
+  </aside>
 
   <header class="site-header">
     <div class="header-inner">
@@ -37,6 +40,7 @@
 
       <nav id="site-nav" class="site-nav" aria-label="Main">
         <ul>
+          <li class="nav-home"><a href="../">Home</a></li>
           <li><a href="../get-help/" aria-current="page">Get Help</a></li>
           <li><a href="../help-someone/">Help Someone</a></li>
           <li><a href="../research/">Research</a></li>
@@ -48,53 +52,216 @@
     </div>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="page-hero" aria-labelledby="page-title">
       <div class="page-hero-inner">
-        <p class="breadcrumb"><a href="../">← Home</a></p>
+        <p class="breadcrumb"><a href="../"><span aria-hidden="true">←</span> Home</a></p>
         <p class="eyebrow">For you</p>
         <h1 id="page-title">Getting help for yourself</h1>
-        <p class="hero-lead">If you're struggling or having thoughts of suicide, reaching out is a strong first step. This page will walk you through your options and what to expect when you ask for help.</p>
+        <p class="hero-lead">If you're struggling or having thoughts of suicide, you don't have to handle it alone. Here are ways to reach someone and what to expect.</p>
       </div>
     </section>
 
     <div class="page-body">
-      <section class="crisis-panel" id="support" aria-labelledby="crisis-title">
+      <section class="crisis-panel" id="support" tabindex="-1" aria-labelledby="crisis-title">
         <h2 id="crisis-title">Need to talk to someone now?</h2>
-        <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time.</p>
         <ul class="crisis-actions" aria-label="Reach the 988 Suicide and Crisis Lifeline">
           <li>
             <a class="action action-primary" href="tel:988">
               <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
-              <span><span class="action-title">Call 988</span><span class="action-sub">Talk to someone now</span></span>
+              <span><span class="action-title">Call 988</span><span class="action-sub">Talk to a counselor</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="sms:988">
               <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
-              <span><span class="action-title">Text 988</span><span class="action-sub">Reach out by text</span></span>
+              <span><span class="action-title">Text 988</span><span class="action-sub">Text a counselor</span></span>
             </a>
           </li>
           <li>
-            <a class="action" href="https://988lifeline.org/chat/" rel="noopener">
+            <a class="action" href="https://chat.988lifeline.org/">
               <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
-              <span><span class="action-title">Chat Online</span><span class="action-sub">988 Lifeline web chat</span></span>
+              <span><span class="action-title">Chat Online</span><span class="action-sub">Web chat with 988</span></span>
             </a>
           </li>
         </ul>
 
-        <p class="fallback">On a device that can't call or text? Dial or text <strong>988</strong> from any phone, or go to <strong>988lifeline.org</strong>. In immediate danger, call <strong>911</strong>.</p>
+        <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. It is a separate service from Stillwater.</p>
+        <p class="fallback">On a device that can't call or text? Call or text <strong>988</strong> from a phone, or go to <a href="https://988lifeline.org/">988lifeline.org</a>. In immediate danger, call <strong>911</strong>.</p>
       </section>
 
-      <section class="page-status" aria-labelledby="status-title">
-        <h2 id="status-title">This page is being written</h2>
-        <p>It will cover:</p>
+      <aside class="page-status review-note" aria-label="Review status">
+        <p><strong>Draft for review.</strong> A suicide prevention professional has not reviewed this page yet. Phone numbers and links were checked on each provider's own website on November 6, 2026.</p>
+      </aside>
+
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">On this page</h2>
         <ul>
-            <li>What happens when you call, text, or chat with 988</li>
-            <li>Other ways to get support, now and over time</li>
-            <li>Small steps that can help you get through a hard moment</li>
+          <li><a href="#what-to-expect">What happens when you reach out to 988</a></li>
+          <li><a href="#other-ways">Other ways to reach someone</a></li>
+          <li><a href="#over-time">Support over time</a></li>
+          <li><a href="#hard-moment">Planning for a hard moment</a></li>
+          <li><a href="#under-18">If you're under 18</a></li>
+          <li><a href="#sources">Sources</a></li>
         </ul>
-      </section>
+      </nav>
+
+      <div class="prose">
+        <section id="what-to-expect" aria-labelledby="what-to-expect-title">
+          <h2 id="what-to-expect-title">What happens when you reach out to 988</h2>
+          <p class="lead-in">You don't need to be sure it's an emergency. The 988 Lifeline says anyone who is struggling can reach out, whether you are depressed, need to talk, or are thinking about suicide. It also takes concerns about alcohol or drug use.</p>
+
+          <h3>If you call</h3>
+          <p>You'll hear a short recorded message with options, such as pressing 1 for the Veterans Crisis Line or 2 for Spanish. Hold music plays while you are connected, so stay on the line. A counselor then says hello, asks if you are safe, listens to what's going on, and shares resources that may help.</p>
+
+          <h3>If you text</h3>
+          <p>Send any message to 988. Automated messages come first: you agree to the terms of service, answer a brief survey, and get a message asking you to wait. A counselor then says hello, asks if you are safe, and listens.</p>
+
+          <h3>If you chat online</h3>
+          <p>The chat opens with a short form. It asks for your zip code, whether you are having thoughts of suicide, and how upset you feel. A phone number is optional. You then wait to be connected to a counselor.</p>
+
+          <h3>What it costs</h3>
+          <p>Contacting 988 is free, and you don't need insurance. Your phone carrier may still charge for calls or texts if your plan doesn't include unlimited use.</p>
+
+          <h3>If you can't get through</h3>
+          <p>Try another way. If a call doesn't connect, try text or chat. If texting is busy, try a call or chat. In an emergency, call 911.</p>
+
+          <h3>What stays private</h3>
+          <p>The 988 Lifeline says conversations are confidential, which is not the same as anonymous. You don't have to say who you are or where you are. Counselors take notes, and call recordings or chat and text transcripts may be used to improve the service. The Lifeline's <a href="https://988lifeline.org/confidentiality/">confidentiality statement</a> lists when information can be shared, including when someone is at imminent risk of harm, when the law requires it, or when you agree.</p>
+          <p>On a shared phone or computer, visits to this site can show up in browser history, and calls or texts can show up in phone logs. Whether a call appears on a phone bill depends on the carrier.</p>
+
+          <h3>When emergency services get involved</h3>
+          <p>The 988 Lifeline is separate from 911. It says counselors contact emergency services only when someone is at imminent risk of harm and a less invasive plan for their safety can't be worked out with them. It reports that fewer than 2 in 100 calls involve emergency services, and that more than half of those happen with the caller's consent.</p>
+
+          <p class="provider-note">These details come from the 988 Lifeline's website and can change. Stillwater does not run 988 and cannot see who contacts it.</p>
+        </section>
+
+        <section id="other-ways" aria-labelledby="other-ways-title">
+          <h2 id="other-ways-title">Other ways to reach someone</h2>
+          <p>These are separate services with their own rules. Stillwater does not run them.</p>
+
+          <ul class="service-list">
+            <li class="service" lang="es">
+              <h3>En español</h3>
+              <p>Para hablar con un consejero de la Línea 988 en español, marca 988 y luego presiona 2. Para enviar un mensaje de texto, escribe AYUDA al 988. También puedes chatear en español.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:988">Llamar al 988</a>
+                <a class="pill" href="sms:988">Enviar texto al 988</a>
+                <a class="pill" href="https://chat.988lifeline.org/?lang=es">Chatear en español</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>Deaf or hard of hearing</h3>
+              <p>You can reach the 988 Lifeline by videophone, by text, or by chat. TTY users can use a preferred relay service or dial 711, then 988.</p>
+              <p class="service-links">
+                <a class="pill" href="https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/">988 options for Deaf and hard of hearing people</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>Other languages</h3>
+              <p>Call 988 and ask for an interpreter, or say the name of your language. The 988 Lifeline offers more than 240 languages this way, on voice calls only.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:988">Call 988</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>Veterans Crisis Line</h3>
+              <p>For veterans, service members, National Guard and Reserve members, and the people who support them. Free, confidential, and available 24/7. You don't need to be enrolled in VA benefits or health care.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:988">Call 988, then press 1</a>
+                <a class="pill" href="sms:838255">Text 838255</a>
+                <a class="pill" href="https://www.veteranscrisisline.net/get-help-now/chat/">Veterans Crisis Line chat</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>The Trevor Project</h3>
+              <p>For LGBTQ+ young people. Trained counselors by phone, text, or chat, free and confidential, 24/7. Message and data rates may apply to texts.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:+18664887386">Call 1-866-488-7386</a>
+                <a class="pill" href="sms:678678">Text START to 678-678</a>
+                <a class="pill" href="https://www.thetrevorproject.org/get-help/">Trevor Project chat and TTY</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>Crisis Text Line</h3>
+              <p>Trained volunteer crisis counselors by text, free and confidential, 24/7, anywhere in the United States. Message and data rates may apply.</p>
+              <p class="service-links">
+                <a class="pill" href="sms:741741">Text HOME to 741741</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>911</h3>
+              <p>If you or someone else is in immediate danger, call 911. Texting 911 only works in some places, and the FCC advises making a voice call if you can. If you text 911 where it isn't available, you should get an automatic message telling you to use another way.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:911">Call 911</a>
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        <section id="over-time" aria-labelledby="over-time-title">
+          <h2 id="over-time-title">Support over time</h2>
+          <p>A crisis line can help with a hard moment. Longer-term care can help with what is behind it. The National Institute of Mental Health (NIMH) says effective treatments are available for people at risk of suicide, including kinds of talk therapy such as cognitive behavioral therapy and dialectical behavior therapy. The American Foundation for Suicide Prevention says recovery is possible.</p>
+          <ul>
+            <li><strong>Talk to a health care provider.</strong> If you have a doctor or nurse you see, you can bring up your mental health yourself, and they can refer you to a specialist. NIMH has <a href="https://www.nimh.nih.gov/health/publications/tips-for-talking-with-your-health-care-provider">tips for that conversation</a>.</li>
+            <li><strong>Search for care near you.</strong> <a href="https://findtreatment.gov/">FindTreatment.gov</a> is a confidential and anonymous treatment finder.</li>
+            <li><strong>Call for a referral.</strong> SAMHSA's National Helpline, <a href="tel:+18006624357">1-800-662-4357</a>, offers free treatment referrals and information, 24/7, in English and Spanish. It does not provide counseling and is not a crisis line.</li>
+          </ul>
+        </section>
+
+        <section id="hard-moment" aria-labelledby="hard-moment-title">
+          <h2 id="hard-moment-title">Planning for a hard moment</h2>
+          <p>A safety plan is a short written list of what to do when things get hard, made ahead of time so you don't have to work it out during a crisis. NIMH says research has shown that safety plans can help lower a person's risk of acting on suicidal thoughts. A therapist or other mental health professional can help you make one. A plan does not replace professional care.</p>
+          <p>A safety plan usually includes:</p>
+          <ul>
+            <li>Your own warning signs that things are getting harder</li>
+            <li>Things you can do on your own to get through it</li>
+            <li>People and places that take your mind off it</li>
+            <li>Family or friends you can reach out to</li>
+            <li>Professionals and crisis lines you can contact</li>
+            <li>Ways to make your surroundings safer</li>
+          </ul>
+          <p>You don't have to work through a list before asking for help. You can call or text 988, or call 911 in an emergency, at any point.</p>
+          <p>The developers of one widely studied plan offer the <a href="https://suicidesafetyplan.com/wp-content/uploads/2024/12/Stanley-Brown-Safety-Plan-05-02-2024.pdf">Stanley-Brown Safety Plan form (PDF)</a> for personal use. Anything you write on it stays with you. Stillwater does not see or save it.</p>
+        </section>
+
+        <section id="under-18" aria-labelledby="under-18-title">
+          <h2 id="under-18-title">If you're under 18</h2>
+          <p>You can contact these services yourself. The 988 Lifeline's terms set no age requirement, and you don't have to give your name or age to get support. It can help to save 988 in your phone now, in case you need it later.</p>
+          <p>It can also help to tell an adult you trust, such as a parent or guardian, a relative, a teacher, a school counselor, a coach, a spiritual leader, or a doctor.</p>
+          <p>Conversations are confidential, with limits. The 988 Lifeline says it may share information if someone is at imminent risk of harm, or if a minor is being abused or neglected as state law defines it. School counselors and other school staff may need to tell a parent or guardian if they are worried about your safety. It's okay to ask what someone can keep private.</p>
+        </section>
+
+        <section id="sources" aria-labelledby="sources-title">
+          <h2 id="sources-title">Sources</h2>
+          <p>Checked November 6, 2026. Stillwater wrote these summaries. The organizations listed here have not reviewed or endorsed them.</p>
+          <details class="source-toggle">
+            <summary>Show all 20 sources</summary>
+            <ul class="sources">
+              <li><a href="https://988lifeline.org/get-help/what-to-expect/">What to Expect</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/get-help/">Get Help</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/faq/texting-the-988-lifeline/">Texting the 988 Lifeline (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/faq/calling-the-988-lifeline/">Calling the 988 Lifeline (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/confidentiality/">Confidentiality</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/terms-of-service/">Terms of Service</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/faq/about-us/faq-does-vibrant-use-police-intervention-for-callers-texters-and-chatters-to-the-988-lifeline/">Emergency services (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://www.samhsa.gov/mental-health/988/faqs">988 Frequently Asked Questions</a>, Substance Abuse and Mental Health Services Administration (SAMHSA)</li>
+              <li><a href="https://www.veteranscrisisline.net/">Veterans Crisis Line</a>, U.S. Department of Veterans Affairs</li>
+              <li><a href="https://www.thetrevorproject.org/get-help/">Get Help</a>, The Trevor Project</li>
+              <li><a href="https://www.crisistextline.org/">Crisis Text Line</a></li>
+              <li><a href="https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911">Text to 911: What You Need to Know</a>, Federal Communications Commission</li>
+              <li><a href="https://www.nimh.nih.gov/health/publications/suicide-faq">Frequently Asked Questions About Suicide</a>, National Institute of Mental Health</li>
+              <li><a href="https://www.nimh.nih.gov/health/topics/child-and-adolescent-mental-health">Child and Adolescent Mental Health</a>, National Institute of Mental Health</li>
+              <li><a href="https://www.samhsa.gov/find-help/helplines/national-helpline">National Helpline</a>, SAMHSA</li>
+              <li><a href="https://www.samhsa.gov/mental-health/what-is-mental-health/how-to-talk/young-people">For Young People Looking for Help</a>, SAMHSA</li>
+              <li><a href="https://afsp.org/after-an-attempt/">After an attempt</a>, American Foundation for Suicide Prevention</li>
+              <li><a href="https://afsp.org/story/afsp-statement-on-the-importance-of-antidepressants-and-evidence-based-treatment">Statement on evidence-based treatment</a>, American Foundation for Suicide Prevention</li>
+              <li><a href="https://suicidesafetyplan.com/">Stanley-Brown Safety Planning Intervention</a></li>
+              <li><a href="https://www.schoolcounselor.org/Standards-Positions/Position-Statements/ASCA-Position-Statements/The-School-Counselor-and-Suicide-Risk-Assessment">The School Counselor and Suicide Risk Assessment</a>, American School Counselor Association</li>
+            </ul>
+          </details>
+        </section>
+      </div>
     </div>
   </main>
 
@@ -103,14 +270,15 @@
       <nav class="footer-nav" aria-label="All pages">
         <ul>
           <li><a href="../">Home</a></li>
-          <li><a href="../get-help/">Get Help</a></li>
+          <li><a href="../get-help/" aria-current="page">Get Help</a></li>
           <li><a href="../help-someone/">Help Someone</a></li>
           <li><a href="../research/">Research</a></li>
         </ul>
       </nav>
       <h2>About Stillwater</h2>
-      <p>Stillwater is an early project to help people in the United States find suicide prevention support. Stillwater is not a crisis service. The calling, texting, and chat options on this site connect you to the 988 Suicide &amp; Crisis Lifeline. If you or someone else is in immediate danger, call 911.</p>
-      <p class="footer-note">Early preview. Content is still being reviewed.</p>
+      <p>Stillwater is an early project to help people in the United States find suicide prevention support. Stillwater is not a crisis service. The call, text, and chat links on this site connect you to outside services, such as the 988 Suicide &amp; Crisis Lifeline. If you or someone else is in immediate danger, call 911.</p>
+      <p>Privacy: this site has no sign-ups, forms, analytics, or cookies. It is hosted on GitHub Pages, and <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub says it logs and stores visitors' IP addresses</a> for security.</p>
+      <p class="footer-note">Early preview. A suicide prevention professional has not reviewed this content yet. Crisis phone numbers and links were last checked on November 6, 2026.</p>
     </div>
   </footer>
 
