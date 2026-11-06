@@ -2,7 +2,7 @@
 
 ## Confirmed
 
-- We are starting a suicide prevention app idea.
+- This is a suicide prevention project that started as an app idea.
 - The first version will be a phone-friendly website.
 - The initial launch country is the United States.
 - The intended audience includes adults and minors; exact ages are undecided.

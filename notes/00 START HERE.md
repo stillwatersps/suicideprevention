@@ -17,7 +17,7 @@ Our shared notebook for building a suicide prevention website.
 | [[PROJECT\|Project brief]] | What we know and the questions still to decide |
 | [[STATUS\|Current status]] | Where we stand and the next useful step |
 | [[TASKS\|Task board]] | Completed work and tasks to choose from |
-| [[DECISIONS\|Decisions]] | What we agreed on and why |
+| [[DECISIONS\|Decisions]] | What we agreed, what is proposed, and what is still open |
 | [[DESIGN\|Homepage design]] | The supplied design and a preview |
 | [[SAFETY\|Safety baseline]] | Crisis resources and content ground rules |
 | [[CONTENT-REVIEW\|Content review]] | What each control does and what a reviewer needs to check |
@@ -29,7 +29,7 @@ Our shared notebook for building a suicide prevention website.
 ## Ready to use
 
 - Shared GitHub repository: `stillwatersps/suicideprevention`.
-- A local project copy on this Mac.
+- A local project copy on each person's computer.
 - The supplied homepage SVG and its preview.
 - This Obsidian vault, with shared context for Claude Code.
 
@@ -47,8 +47,8 @@ remain undecided. [[STATUS]] says what is on main and what is on a task branch.
 ## Shared context
 
 Claude Code opens the whole `suicideprevention` project folder. Its `CLAUDE.md`
-imports the short brief, status, tasks, and decisions. Keep those notes accurate
-so either person's Claude session can pick up the project.
+imports the short brief, status, tasks, decisions, and safety baseline. Keep those
+notes accurate so either person's Claude session can pick up the project.
 
 GitHub shares saved files when you upload and pull them. It does not share live
 typing or automatically combine Claude conversations.

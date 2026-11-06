@@ -9,8 +9,13 @@ status: draft for review
 
 What the website says and does, where each claim comes from, and what still needs
 a person. Claude drafted the page text and these notes. **No qualified person has
-reviewed them.** Sources and numbers were read by Claude on the provider's or
-journal's own page on November 5 and 6, 2026.
+reviewed them.**
+
+Claude re-read every crisis number on the provider's own page on November 6, 2026,
+Eastern time, and ran the outside link check that day. It read the longer claims and
+research during the overnight run on November 5 and 6. Most research links go to
+PubMed records, not journal pages. "How each finding was read", below, says which
+sources were read in full.
 
 ## Page status
 
@@ -19,36 +24,54 @@ journal's own page on November 5 and 6, 2026.
 | Home (`index.html`) | Links out, role wording | [[SAFETY]] | Not reviewed |
 | Get Help (`get-help/`) | Draft | On the page | Not reviewed |
 | Help Someone (`help-someone/`) | Draft | On the page | Not reviewed |
-| Research (`research/`) | Draft | One link per finding | Not reviewed |
+| Research (`research/`) | Draft | One or more links per finding | Not reviewed |
 | Page not found (`404.html`) | Crisis options and links | [[SAFETY]] | Not reviewed |
 
 Every draft page says so on screen. Remove those notes only after review.
 
 ## What each control does
 
+"Link format only" means nobody has tapped it on a phone. The phone test for all of
+these: tap, stop at the dial or compose screen, and cancel.
+
 | Control | Where | Goes to | Provider | Checked | Needs a person |
 | --- | --- | --- | --- | --- | --- |
-| Call 988 | Crisis strip, buttons, banner | `tel:988` | 988 Lifeline | Link format only | Phone test, stop at dial screen |
-| Text 988 | Crisis strip, buttons, banner | `sms:988` | 988 Lifeline | Link format only | Phone test, stop at compose screen |
-| Call 911 | Crisis strip, Get Help, Help Someone | `tel:911` | Local 911 | Link format only | Phone test, stop at dial screen. Decide whether it should be a link at all |
-| Chat Online | Buttons, banner | chat.988lifeline.org | 988 Lifeline | Page opens; form not submitted | Open on a phone |
-| Chatear en español | Get Help | chat.988lifeline.org/?lang=es | 988 Lifeline | Page opens in Spanish; form not submitted | Spanish reviewer |
+| Call 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `tel:988` | 988 Lifeline | Link format only | Phone test |
+| Text 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `sms:988` | 988 Lifeline | Link format only | Phone test |
+| Call 911 | Crisis strip, Get Help, Help Someone urgent note | `tel:911` | Local 911 | Link format only | Phone test. Decide whether it should be a link at all |
+| Chat Online | Buttons, closing banner | chat.988lifeline.org | 988 Lifeline | Page opens; form not submitted | Open on a phone |
+| Ayuda en español | Every page | Spanish block on Get Help | Stillwater | Tested in browser | Spanish reviewer |
+| Llamar al 988 | Get Help, Spanish block | `tel:988` | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
+| Enviar AYUDA al 988 | Get Help, Spanish block | `sms:988`, message blank | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
+| Chatear en español | Get Help, Spanish block | chat.988lifeline.org/?lang=es | 988 Lifeline | Page opens in Spanish; form not submitted | Spanish reviewer |
 | 988lifeline.org | Fallback line | 988lifeline.org | 988 Lifeline | Page opens | None |
+| Confidentiality statement | Get Help | 988's page | 988 Lifeline | Page opens | None |
 | 988 options for Deaf and hard of hearing people | Get Help | 988's page | 988 Lifeline | Page opens | Deaf reviewer or Deaf-led organization |
+| Call 988 (other languages) | Get Help | `tel:988` | 988 Lifeline | Link format only | Phone test |
 | Call 988, then press 1 | Get Help | `tel:988` | Veterans Crisis Line | Link format only | Phone test |
 | Text 838255 | Get Help | `sms:838255` | Veterans Crisis Line | Link format only | Phone test |
 | Veterans Crisis Line chat | Get Help | VCL chat page | Veterans Crisis Line | Page opens | None |
+| Call 988, then press 3 | Get Help | `tel:988` | 988 LGBTQ+ youth service | Link format only | Phone test. Confirm the option with 988 |
+| Text PRIDE to 988 | Get Help | `sms:988`, message blank | 988 LGBTQ+ youth service | Link format only | Phone test. Confirm the option with 988 |
 | Call 1-866-488-7386 | Get Help | `tel:+18664887386` | The Trevor Project | Link format only | Phone test |
-| Text START to 678-678 | Get Help | `sms:678678` | The Trevor Project | Link format only | Phone test |
+| Text START to 678-678 | Get Help | `sms:678678`, message blank | The Trevor Project | Link format only | Phone test |
 | Trevor Project chat and TTY | Get Help | Trevor's help page | The Trevor Project | Page opens | None |
-| Text HOME to 741741 | Get Help | `sms:741741` | Crisis Text Line | Link format only | Phone test |
+| Text HOME to 741741 | Get Help | `sms:741741`, message blank | Crisis Text Line | Link format only | Phone test |
+| Crisis Text Line website | Get Help | crisistextline.org | Crisis Text Line | Page opens | None |
 | 1-800-662-4357 | Get Help | `tel:+18006624357` | SAMHSA | Link format only | Phone test |
+| 1-800-487-4889 (TTY) | Get Help | `tel:+18004874889` | SAMHSA | Link format only | Phone test |
+| FindTreatment.gov | Get Help | findtreatment.gov | SAMHSA | Page opens | None |
+| A form (PDF) | Get Help | Stanley-Brown safety plan PDF | Its developers | File loads | See the question on permission |
+| How this works on different platforms | Help Someone | 988's social media page | 988 Lifeline | Page opens | None |
+| Our web host logs visitors' IP addresses | Home | Privacy line in the footer | Stillwater | Tested in browser | Lawyer question |
+| GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
 | Get Support Now | Header | Crisis options on the same page | Stillwater | Tested in browser | Founders: is the label right? |
 | Menu | Header, phones and tablets | Opens the page list | Stillwater | Tested in browser | Real phone with a screen reader |
 | Three homepage cards | Home | Get Help, Help Someone, Research | Stillwater | Tested in browser | None |
+| Show sources | Get Help, Help Someone | Opens the source list | Stillwater | Tested in browser | None |
 
 Text and chat with a crisis service start with automated steps. Texting asks you
-to accept terms and answer a survey. Chat asks for a zip code, whether you are
+to accept terms and answer a few questions. Chat asks for a zip code, whether you are
 having thoughts of suicide, and how upset you feel. The Get Help page says so.
 
 ## Questions for the qualified reviewer
@@ -62,45 +85,80 @@ Wording is proposed. Nothing here is clinical advice.
   Are these better?
 - Should 911 be a tap-to-call link in the pinned strip? Phones ask before calling,
   but an accidental tap is possible, and some people fear a police response.
-- Should the header button keep the design's "Get Support Now"? It does not say who
-  provides the support.
+- The header's "Suicide prevention & support" tagline and "Get Support Now" button
+  both come from the supplied design. Both read as if Stillwater provides support, and
+  the button doesn't say who does. Claude's suggestion: "Find suicide prevention
+  support" and "Call or text 988".
+- The text links open a blank message (`sms:741741`, `sms:678678`, and `sms:988` for
+  AYUDA and PRIDE), so a person in distress has to remember the keyword. The label on
+  the button is all that reminds them. Is that acceptable?
+- Is the privacy wording right? The homepage says "Stillwater has no sign-ups, forms,
+  or tracking. Our web host logs visitors' IP addresses." Each footer says "no
+  sign-ups, forms, analytics, or cookies" and links GitHub's statement. A lawyer should
+  read this too.
+- Footers and draft notes say an AI assistant drafted the content and compared numbers
+  and links with each provider's website. Is that the right way to say it, and should
+  it stay after review?
 
 **Get Help**
 
 - Is it right to tell people that 988 counselors may contact emergency services,
-  with 988's own figure of fewer than 2 in 100 calls? It is honest, but could it
-  put someone off calling?
+  with 988's own figure of fewer than 2 in 100 calls? The page also says, from 988's
+  terms, that you may not get a say, and that the terms ask you to call 911 first for
+  an immediate threat. It is honest, but could it put someone off calling?
+- Should the page list the 988 LGBTQ+ youth option (press 3, PRIDE to 988), and how?
+  988's own pages list it, none states an age range or chat route, and SAMHSA's older
+  FAQ doesn't mention it. The Trevor Project is not part of it, so the page lists them
+  apart. See [[SAFETY]].
 - Is the description of a safety plan suitable for someone making one alone? The
   developers present it as made with a clinician, and evidence for teens using one
   alone is thin. See the Research page.
 - The Stanley-Brown developers require written permission to reword their form or
   put it into a website. The page describes safety plans in general and links to
   their PDF. Is that enough? Should the project ask them?
-- Should the page add a note about shared devices and phone bills in more detail,
-  or a quick-exit button?
+- Should the page add more about shared devices and phone bills, or a quick-exit
+  button?
 
 **Under 18**
 
 - What should minors be told about confidentiality? The page says conversations
-  are confidential with limits, and that school staff may need to tell a parent or
-  guardian. The American School Counselor Association treats telling parents as
-  essential, except where a parent's abuse or neglect is the concern.
+  are confidential with limits. It tells them to expect a school counselor to tell a
+  parent or guardian, because the American School Counselor Association calls that
+  "non-negotiable", even at 18. The exception is when a parent's abuse or neglect is
+  the reason, when the counselor contacts child protective services. Could this wording
+  put a teen off telling a counselor?
 - 988's terms mention insurance statements that could reach a parent when a center
-  bills insurance. Should the page say so?
+  bills insurance. The page says so. Is that the right level of detail?
 - What should a teen do if no trusted adult is available, or home is not safe?
 - A lawyer should look at minors' privacy and the under-13 question.
 
 **Help Someone**
 
-- The urgent note was reworded to follow SAMHSA: call 911 if danger seems imminent,
-  stay with them or make sure another caring person is there, and you can also
-  call or text 988. Is the order right? No general official page describes calling
-  988 together, so the page no longer tells people to.
+- The urgent note doesn't follow SAMHSA's order. SAMHSA's Suicide Prevention page, read
+  November 6, lists calling 911 if danger seems imminent, then calling or texting 988,
+  and further down staying with the person or making sure another caring person is
+  there. The note puts staying second and 988 last. "If it is safe" is Claude's addition,
+  not SAMHSA's. Is the order right, and should that phrase stay? No general official
+  page describes calling 988 together, so the page no longer tells people to.
 - The warning signs follow NIMH's 2025 list with no urgent tier, because official
   sources sort urgent signs differently. Is that right?
-- Sources differ on when not to leave someone alone. The page follows NIMH: when
-  they say they are going to end their life. Is that the right threshold?
-- The page keeps safety advice general and names no items. Is it specific enough?
+- Sources differ on when not to leave someone alone. The general rule on the page
+  follows NIMH: when they say they are going to end their life. The National
+  Association of School Psychologists sets a much lower bar for young people showing
+  signs, with constant supervision. The parent paragraph sits between the two: stay
+  close when a child has a plan or can't stop thinking about ending their life. Are
+  these the right thresholds?
+- The page keeps safety advice general and names no items: "remove or safely store
+  anything they could use to hurt themselves". NIMH, SAMHSA, 988, and the school
+  psychologists all tell helpers to remove means. Is it specific enough? The page's
+  advice is from those sources, and the Research page has no study of steps at home.
+  One review turned up during checking, Spitzer 2024 (PMID 38324739, not read in
+  full), reports most studies of counseling families on this at high risk of bias.
+- Some sources listed on this page, such as the VA caregiver toolkit, name specific
+  items. Nobody has checked every source link for this. Should they stay linked?
+- For a young person whose friend told them by text or online, the page says to keep
+  talking if you can while you get an adult, or call or text 988. That wording is
+  Claude's, because the sources don't cover it. Is it right?
 
 **Research**
 
@@ -108,14 +166,80 @@ Wording is proposed. Nothing here is clinical advice.
   number against its source.
 - Is it right to include the study on news coverage of celebrity deaths? It is
   worded without figures and says it does not apply to talking with someone.
+- Two papers are cited without links because they name methods. Should they be linked?
+  Open these knowing that: Steeg 2025,
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC12699607/, and the BMJ 2020 review,
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC7190013/. The other research and source
+  links were not all checked for this.
+- The page dropped a figure: about 4 in 10 interviewed callers had suicidal thoughts
+  again by the interview, about two weeks later on average (Gould 2025, 40.8%). A
+  figure with no step can read as "calling doesn't last", so the page says "Some people
+  had suicidal thoughts again later" and says they can reach out again. Was that right?
+- Albaum 2025: the printed result for suicidal thoughts (Hedges g 0.11, 95% CI 0.01 to
+  0.21) excludes zero and sits on the side favoring the comparison group, while the
+  authors call it not significant. Figure 2A shows the same. The page says a benefit
+  has not been shown and that the studies can't settle small effects in either
+  direction. Please read the figure, and consider asking the authors.
+- Steeg 2025: evidence is weak for one policy area studied mainly in the U.S. The page
+  only says strength varies by approach. Should it say more, for a U.S. site?
+- Studies of messages alone are mixed, including Witt 2021, Skopp 2023, and Reger 2024
+  and 2026. The page gives one such trial (Comtois). Should it say more?
 - Evidence moved recently: the caring messages trial was published November 2, 2026,
-  and the 988 mortality letter has published responses. Recheck before release.
+  and the 988 mortality paper has published letters and a reply. Recheck before release.
 
 **Spanish**
 
 - A fluent Spanish speaker should check the Spanish block on Get Help. Claude wrote
-  it from 988's English and Spanish pages. Spanish pages do not name a key to press;
-  the "press 2" comes from English pages.
+  it from 988's English and Spanish pages.
+
+## How each finding was read
+
+Claude read these, not a person. "Summary tool" means a fetch tool that returns a
+summary instead of the raw page, so treat fine detail as second-hand. PubMed records
+came through NCBI's official service, because PubMed's web pages show a browser check.
+No block or browser check was bypassed.
+
+| Finding | Source | How it was read | Still unconfirmed |
+| --- | --- | --- | --- |
+| Many callers say the call helped | Gould 2025 | Full text | |
+| Studies of crisis lines are limited | Hoffberg 2020 | Full text | |
+| Early research since 988 | Patel 2026 | Summary tool, PubMed record | Fine detail |
+| Early research since 988 | Letters from Herring and Purtle, authors' reply | PubMed records, journal previews | Purtle and the reply showed only a preview |
+| Asking does not raise thoughts | Polihronis 2022 | Abstract; full text blocked | "Pooled 8 randomized trials" is likely right but unconfirmed. The abstract says 8 studies were pooled and, separately, that 8 RCTs gave the strongest evidence |
+| Asking does not raise thoughts | McGuire 2026 | Abstract | |
+| Safety planning in adults | Nuij 2021 | Full text, University of Glasgow copy; journal page blocked | |
+| Safety planning in children and teens | Albaum 2025, corrected 2026 | Full text and Figure 2; correction through summary tool | The question above |
+| Follow-up after an attempt | Homan 2026 | Full text | |
+| Follow-up after an attempt | Comtois 2026 | Summary tool, PubMed abstract for the main numbers. The journal page showed a browser check on November 6, not bypassed | Recruitment and control-care wording. A person should open it |
+| Safer surroundings | Steeg 2025 | Full text, method details not recorded | |
+| Treatment | Witt 2021 | Abstract and plain-language summary | |
+| Treatment | Sim 2025 | Abstract | |
+| Treatment | Cottrell 2026 | Abstract; full report blocked | Comparison groups, and the direction of its suicidal thoughts exception at 6 months |
+| News coverage | BMJ 2020 review | Full text, method details not recorded | |
+| Stories of coping | Niederkrotenthaler 2022 | Abstract; full text blocked | How soon after the stories outcomes were measured |
+| What this page can't tell you | van der Burgt 2024 | Abstract, full text searched for specific points | |
+
+## How the pages compare with the research brief
+
+[[RESEARCH-BRIEF]] and the draft pages were written separately. **The page text did
+not come from the brief,** and nothing from the brief is on the website. Review them
+together and pick one wording for each page. This is Claude's comparison, for the
+reviewer.
+
+| Brief section | Closest draft on the pages | To settle |
+| --- | --- | --- |
+| 1. Understanding suicide | None. Help Someone and Research cover asking about suicide | Add definitions and myths? |
+| 2. Causes and risk factors | None | Add this? [[SAFETY]] says not to name a single cause |
+| 3. Warning signs | Help Someone, signs and five steps | The drafts follow NIMH's list, and the brief's list differs. Choose one |
+| 3. Urgent support | Crisis strip and buttons | Same direction |
+| 4. Families, schools, communities | Help Someone: child or teen, look after yourself | The drafts say nothing about grief after a suicide or support for schools afterward. Add this? |
+| 5. Evidence-based prevention | Research page | The brief covers levels and WHO's LIVE LIFE. The drafts cover single findings with limits |
+| 6. Treatment and recovery | Get Help: support over time, safety plans. Research: treatment | Same direction. The brief calls a safety plan collaborative |
+| 7. Statistics | None. The drafts use no population statistics | The brief's numbers need rechecking, and [[SAFETY]] asks for few |
+| 8. Technology and website design | Project guidance | Matches [[SAFETY]] rules |
+| Pathways A and B | None. These are interactive tools and were not built | Product decision. Pathway B's saved journal conflicts with [[SAFETY]] rule 5 |
+| Pathway C | Research and Help Someone | The brief wants short modules and last-reviewed dates |
+| Universal requirements | Crisis strip, [[SAFETY]] rules | The brief says to adapt by region, and the site is U.S.-only |
 
 ## Human-only checklist
 
@@ -123,9 +247,12 @@ Wording is proposed. Nothing here is clinical advice.
 - [ ] Find a qualified suicide prevention reviewer, and if possible someone with
       lived experience and someone who works with young people.
 - [ ] Tap-test every phone and text link on a real iPhone and Android phone. Stop at
-      the dial or compose screen and cancel. Never complete a call or text.
+      the dial or compose screen and cancel. Never complete a call or text. Note
+      whether the text links open with a blank message.
 - [ ] Test with VoiceOver and TalkBack, large text settings, and a slow connection.
 - [ ] Read each provider page in [[SAFETY]] and fill in "Person confirmed".
+- [ ] Open the sources marked unconfirmed in the table above, and the Comtois journal
+      page, in an ordinary browser.
 - [ ] Ask a lawyer: who is the publisher, what disclaimers are needed, minors and
       under-13 privacy, and whether the host's IP logging matters.
 - [ ] Check the name Stillwater against existing organizations and trademarks before

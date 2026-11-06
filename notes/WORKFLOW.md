@@ -21,8 +21,9 @@ copy once. Neither person needs to create another empty vault.
    changes are available in GitHub Desktop.
 3. Read [[STATUS]] and [[TASKS]]. Agree who owns the next task.
 4. Create a task branch, for example `planning/mobile-layout`.
-5. Copy [[templates/Task|The task template]] into `worklogs/` using a distinctive
-   filename such as `yourname-mobile-layout.md`.
+5. Copy [[templates/Task|The task template]] into `worklogs/` using a dated,
+   distinctive filename such as `2026-11-06-mobile-layout.md`. Leave personal names
+   out of it, because anything merged into `main` is public.
 6. Work with Claude Code, Obsidian, or your design tools.
 
 The built-in Templates feature is configured to use `templates/`. You can also

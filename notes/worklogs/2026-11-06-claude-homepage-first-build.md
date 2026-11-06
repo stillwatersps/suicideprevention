@@ -13,7 +13,8 @@ Date: November 6, 2026.
 - Built the homepage from `design/homepage.svg` as plain HTML and CSS with no
   build step: `index.html`, `assets/styles.css`, `assets/menu.js`.
   GitHub Pages serves it as-is. `.nojekyll` stops Pages from also turning the
-  Markdown notes into web pages.
+  Markdown notes into web pages. (Correction added November 6: the notes are still
+  public, as raw files such as `/notes/SAFETY.md`. See [[DECISIONS]], open decision 2.)
 - Replaced the illustrated sunset and hills with a real photo: "Joshua tree at
   sunset in Queen Valley" by Emily Hassell, National Park Service. It is public
   domain (no attribution required); it is credited in the footer anyway.

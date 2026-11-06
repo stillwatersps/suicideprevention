@@ -37,13 +37,15 @@
     }
   });
 
-  // Tabbing past the last link closes the menu, so it never covers the focused item.
-  nav.addEventListener('focusout', function (event) {
+  // Tabbing out of the menu, in either direction, closes it so it never covers the focused item.
+  function closeIfFocusLeft(event) {
     var next = event.relatedTarget;
     if (isOpen() && next && !nav.contains(next) && next !== button) {
       setOpen(false);
     }
-  });
+  }
+  nav.addEventListener('focusout', closeIfFocusLeft);
+  button.addEventListener('focusout', closeIfFocusLeft);
 
   // The desktop header has no menu button, so reset the state when the layout changes.
   var desktop = window.matchMedia('(min-width: 960px)');

@@ -1,8 +1,9 @@
 # Task handoffs
 
 Create one short Markdown note per task, with a dated, distinctive filename such
-as `2026-11-06-yourname-home-screen.md`. Separate files reduce simultaneous edits
-to one log.
+as `2026-11-06-home-screen.md`. Separate files reduce simultaneous edits to one log.
+Use Eastern dates, or mark a date as UTC. This repository is public, so name owners
+by role, such as "founder A", or by a handle the person chooses, not a personal name.
 
 Include:
 

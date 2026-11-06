@@ -22,7 +22,8 @@ is needed for this GitHub workflow.
 ## Open in Claude Code
 
 Select the whole local `suicideprevention` project folder containing `CLAUDE.md`.
-Claude's instructions import the brief, status, task board, and decisions.
+Claude's instructions import the brief, status, task board, decisions, and safety
+baseline.
 Each person uses their own Claude access and conversation.
 
 ## What is inside
@@ -34,9 +35,13 @@ Each person uses their own Claude access and conversation.
 | `notes/PROJECT.md` | Project brief |
 | `notes/STATUS.md` | Current progress and next steps |
 | `notes/TASKS.md` | Task board |
-| `notes/DECISIONS.md` | Lasting decisions |
+| `notes/DECISIONS.md` | Decisions, proposals, and open questions |
+| `notes/SAFETY.md` | Crisis resources, where each was read, and content ground rules |
+| `notes/CONTENT-REVIEW.md` | Every crisis control, and questions for a qualified reviewer |
+| `notes/RESEARCH-BRIEF.md` | Founder-supplied research and website copy, awaiting review |
 | `notes/DESIGN.md` | Homepage preview and design questions |
 | `notes/WORKFLOW.md` | Collaboration instructions |
+| `notes/SHARED-MEMORY.md` | How notes reach the other person and their Claude session |
 | `notes/templates/` | Task and handoff templates |
 | `notes/worklogs/` | Detailed handoffs |
 | `design/` | Supplied SVG and original pasted source |
@@ -47,7 +52,8 @@ Each person uses their own Claude access and conversation.
 
 ## Check the website
 
-Run these from the project folder. They need only Python 3 and change nothing.
+Run these from the project folder. They need only Python 3, use git if it is there,
+and change nothing.
 
 ```bash
 python3 tools/check_site.py
@@ -59,6 +65,9 @@ python3 tools/check_site.py --check-links
 
 The second command also loads every outside link. To see the site on your own
 computer, run `python3 -m http.server 8000` and open `http://localhost:8000/`.
+The 404 page only works fully on GitHub Pages. To see it locally, run the same command
+from the folder that holds your project folder, and open
+`http://localhost:8000/suicideprevention/404.html`.
 Passing these checks does not replace testing on a real phone or a content
 review. `notes/CONTENT-REVIEW.md` lists what still needs a person.
 

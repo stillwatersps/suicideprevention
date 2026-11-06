@@ -8,17 +8,23 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | Where | What | State |
 | --- | --- | --- |
 | `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
-| `site/phone-accessibility-content` | Phone, accessibility, and navigation fixes, draft page content, a 404 page, a check script, and these updated notes | Pushed to GitHub, draft pull request 5 (combined with the research brief), **not merged, not on the public website** |
-| `claude/jolly-mayer-2m6eno` | Everything on `site/phone-accessibility-content` plus the [[RESEARCH-BRIEF]] PDF and notes, combined at a founder's request | Pushed to GitHub, draft pull request 5, **not merged, not on the public website** |
+| `claude/jolly-mayer-2m6eno`, commit `5554c53` when checked | First round of phone, accessibility, and navigation fixes, draft page content, a 404 page, a check script, plus the [[RESEARCH-BRIEF]] PDF and notes, combined at a founder's request | Draft pull request 5 into `main`, **not merged, not on the public website** |
+| `site/phone-accessibility-content` | Everything above, plus a second round: fixes from an independent review, stronger site checks, and these updated notes | Draft pull request 6 into `claude/jolly-mayer-2m6eno`, so pull request 5 stays the one place to review. **Not merged, not on the public website** |
+| `claude/charming-swartz-e8d31c`, commit `1c91825` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, no page changes | Draft pull request 7 into `main`, **not merged**. Merging publishes those two notes. Its description covers the conflict with pull request 5 |
+| `site/live-page-corrections`, commit `f523d0f` when checked | Only the first four known issues below, on the four live pages, plus a handoff. No draft content | Draft pull request 8 into `main`, **not merged**. Merging publishes those page changes and the handoff. Its description covers the conflict with pull request 5 |
 | `planning/morning-brief` | First planning drafts | Draft pull request 1, not merged, partly out of date |
 
-Your Obsidian shows whichever branch your project folder is on. Notes on an
-unmerged branch appear only after that branch is merged and you download `main`.
+Unmerged doesn't mean private. The repository is public, so anyone on GitHub can
+read every branch.
+
+Your Obsidian shows whichever branch your project folder is on. To read these notes
+before merging, switch your project to that branch in GitHub Desktop, or read them on
+GitHub. On `main` you won't see them until the branch is merged and you download `main`.
 
 ## Current phase
 
-A public early preview of the website, with unreviewed draft content waiting on a
-task branch. Product decisions and professional review have not happened yet.
+A public early preview of the website, with unreviewed draft content waiting on task
+branches. Product decisions and professional review have not happened yet.
 
 ## In place on main
 
@@ -28,26 +34,44 @@ task branch. Product decisions and professional review have not happened yet.
   public at https://stillwatersps.github.io/suicideprevention/.
 - [[SHARED-MEMORY]] explains how notes reach the other computer.
 
-## On the task branch, waiting for review
+## On the task branches, waiting for review
 
 - See [[worklogs/2026-11-06-claude-site-improvements|the handoff]] for what changed
   and what was checked.
 - Draft content on all three pages, marked for review. [[CONTENT-REVIEW]] lists
-  every control and every question for a qualified reviewer.
+  every call, text, and chat control, and every question for a qualified reviewer.
 - [[SAFETY]] now records each crisis resource and where it was read.
 - Pages ask search engines not to list them. This is a proposal in [[DECISIONS]].
 - A founder-supplied research and website-copy brief (PDF plus a searchable copy)
   is in [[RESEARCH-BRIEF]], awaiting a licensed therapist's review. Review it
-  alongside [[CONTENT-REVIEW]]; both cover the same three pages.
+  alongside [[CONTENT-REVIEW]]; both cover the same three pages, and the page text
+  did not come from the brief.
 
 ## Known issues
 
+On `main`, and public now. The task branches correct each of these, and draft pull
+request 8 would correct the first four on its own:
+
+- The footer says content "is still being reviewed", which overstates it.
+- Pages have no `noindex` tag, so search engines may list them.
+- The homepage says "Privacy first" and doesn't mention that the web host logs
+  visitors' IP addresses.
+- Help Someone says to "call or text 988 together". The official pages Claude read
+  don't describe that, so the draft dropped it.
+- `notes/STATUS.md` and `notes/TASKS.md` on `main` still say pull request 4 is not
+  merged, and page writing has not started. A session opened on `main` reads that as
+  true. Draft pull request 7 would correct that. See [[TASKS]].
+
+Everywhere:
+
 - No qualified person has reviewed any crisis or health wording, on `main` or on
-  the task branch. The live site's footer says content "is still being reviewed",
-  which overstates it. The task branch corrects that line.
+  the task branches.
 - Pages publishes every file on `main`, including these notes, so unverified or
   draft notes are public web addresses. See the open decision in [[DECISIONS]].
-- Call and text links have never been tried on a real phone.
+- Merging pull request 5 publishes notes and pages together, so its corrected notes
+  can't reach `main` while the pages wait for review. Same open decision.
+- Call and text links have never been tried on a real phone, or with VoiceOver or
+  TalkBack.
 
 ## Still to confirm
 
@@ -58,8 +82,12 @@ task branch. Product decisions and professional review have not happened yet.
 
 ## Next useful step
 
-Both founders read the draft pull request and [[CONTENT-REVIEW]], then decide what
-the public site should show. Merging publishes, so merge only after that decision.
+Both founders read pull requests 5 and 6 and [[CONTENT-REVIEW]], then decide what the
+public site should show. Merging pull request 6 into `claude/jolly-mayer-2m6eno`
+doesn't publish anything. Merging pull request 5 into `main` publishes, so do that
+only after the decision. Pull requests 7 and 8 are separate, and merging either one
+publishes it: 7 corrects `main`'s notes, and 8 corrects the four problems on its pages.
+Merge or close each one.
 
 ## End-of-session update
 

@@ -17,7 +17,8 @@ text, geometry, and colors were preserved.
 This is a static visual reference; its buttons and links do not work. The phone
 layout and the destination pages were built directly in the website rather than
 drawn here. `notes/DESIGN.md` lists where the website differs from this drawing.
-The drawing's round-the-clock and counselor wording describes the 988 Lifeline,
-so the website names that service instead of implying Stillwater provides it.
+The website treats the drawing's round-the-clock and counselor wording as describing
+the 988 Lifeline, and names that service instead of implying Stillwater provides it.
+Founders to confirm.
 
 Design assets are shared through GitHub alongside the project notes and code.
