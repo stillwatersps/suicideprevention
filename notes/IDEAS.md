@@ -36,7 +36,32 @@ wording also need the licensed reviewer (see [[RESEARCH-BRIEF]] and
 | B5 | "Last reviewed" date and reviewer role on every page | The brief asks for it, and it shows visitors the content is checked | Not chosen yet (Nov 6, 2026) |
 | B6 | Spanish versions of the main pages | 988 offers Spanish support; the site has one Spanish section. Needs a fluent reviewer | Approved by one founder, Nov 6, 2026. Built on draft pull request 5 |
 
+## Second batch, November 6, 2026
+
+Proposed by Claude after the first nine were built. None is approved yet.
+
+### Group C: helps the review and keeps the site working
+
+| # | Idea | Why | Founder decision |
+| --- | --- | --- | --- |
+| C1 | A review packet for the therapist: every draft sentence on the site and in [[RESEARCH-BRIEF]], numbered, as one printable document with space for notes | Reviewing four web pages, two languages and a PDF is hard. One packet makes the review faster and the sign-off easy to record | |
+| C2 | Monthly automatic link check: GitHub opens every crisis and source link once a month and flags any that break | [[SAFETY]] proposes monthly rechecks. This catches a moved 988 page before a visitor does | |
+| C3 | Daily check that the live site loads and its crisis strip is there | Finds out within a day if a publish or a GitHub problem breaks the site | |
+| C4 | Plain-language check: flag sentences that are long or hard to read | The audience includes minors and people in distress. Some draft paragraphs are long | |
+| C5 | Close or merge the old draft pull requests (1, 7, 8) | Pull request 5 now covers what 7 and 8 fix. Fewer open pull requests means less confusion | |
+| C6 | A short test with 3 to 5 people using made-up situations, such as "find how to text for help in Spanish" | Shows whether real people can find help fast, before launch. Nobody shares anything personal | |
+
+### Group D: new content, needs the licensed reviewer
+
+| # | Idea | Why | Founder decision |
+| --- | --- | --- | --- |
+| D1 | "Myths and facts" section, from section 1 of [[RESEARCH-BRIEF]] | For example, asking someone about suicide does not plant the idea. Clears up fears that stop people from helping | |
+| D2 | Printable wallet card or poster with 988, 911 and the Spanish options | Schools, clinics and families can hand it out. Works without a phone or a signal | |
+| D3 | A page for teens, once supported ages are decided | Young people need their own wording about trusted adults, school, and privacy | |
+| D4 | Recovery stories from people with lived experience, with consent and safe messaging | Safe messaging guidance recommends hope and recovery stories. Needs a careful consent process | |
+
 ## Not proposed
 
 Accounts, saved journals, AI chat, and risk scores. They conflict with [[SAFETY]]
-rule 5 and the brief's own limits.
+rule 5 and the brief's own limits. Also not proposed: a "Was this helpful?" button or
+any feedback form, because it would collect data from visitors who may be in distress.
