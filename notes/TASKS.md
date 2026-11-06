@@ -30,6 +30,15 @@ Planning tasks below are suggestions; ownership has not been assigned.
   agree on the safety ground rules. Owner: unassigned. Branch: to choose.
 - [ ] Decide what the public GitHub Pages link should show until the site is ready.
   Owner: both. Branch: to choose.
+- [ ] Write the Get Help page (`get-help/index.html`): options for getting
+  support and what to expect. Owner: unassigned. Branch: to choose.
+  Starts after pull request #4 merges.
+- [ ] Write the Help Someone page (`help-someone/index.html`): warning signs,
+  how to ask, how to connect someone to help. Owner: unassigned. Branch: to choose.
+  Starts after pull request #4 merges.
+- [ ] Write the Research page (`research/index.html`) with a linked source for
+  every finding. Owner: unassigned. Branch: to choose.
+  Starts after pull request #4 merges.
 
 ## In progress
 
@@ -38,6 +47,10 @@ No planning or implementation task has been assigned yet.
 ## Ready for review
 
 Move a task here when its branch is ready for the other person to review.
+
+- [ ] Add placeholder pages and link them from the menu, cards and footer.
+  Owner: Claude, at the user's request. Branch: `claude/jolly-mayer-2m6eno`,
+  pull request #4. Handoff: [[worklogs/2026-11-06-claude-site-pages]].
 
 ## Completed work
 
