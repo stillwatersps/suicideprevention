@@ -60,7 +60,7 @@ TEXT_SIZES = [
 ]
 GROUPS = [
     "links", "matrix", "textsize", "keyboard", "menu", "jumps", "folds", "language",
-    "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "offline", "speed", "modes",
+    "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "offline", "speed", "modes", "privacy",
 ]
 SAFE_CLICKS = """
 document.addEventListener('click', function (event) {
@@ -1306,6 +1306,53 @@ def test_modes(browser, site, pages, report):
     tab.close()
 
 
+# ---------------------------------------------------------------- privacy claims
+
+
+def test_privacy(browser, site, pages, report):
+    """What the About pages promise: nothing stored about visitors, nothing from other sites, no referrer."""
+    tab = new_tab(browser, 390, 844, True)
+    for page in pages:
+        tab.goto(site.url(page))
+        stored = tab.js("""(async function () {
+            var databases = indexedDB.databases ? await indexedDB.databases() : [];
+            return {cookie: document.cookie, local: localStorage.length, session: sessionStorage.length, databases: databases.length};
+        })()""")
+        if stored["cookie"] or stored["local"] or stored["session"] or stored["databases"]:
+            report.fail("privacy", page, f"the page stores something: {stored}")
+        # Nothing reaches the network here: the policy refuses the request first.
+        blocked = tab.js("""new Promise(function (done) {
+            document.addEventListener('securitypolicyviolation', function () { done(true); }, {once: true});
+            new Image().src = 'https://example.com/planted.png';
+            setTimeout(function () { done(false); }, 800);
+        })""")
+        if not blocked:
+            report.fail("privacy", page, "the content security policy doesn't block loading from another site")
+        else:
+            report.ok("privacy")
+    tab.close()
+
+    # Following an outside link doesn't tell that site where the visitor came from. A stand-in answers.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", {"patterns": [{"urlPattern": "https://988lifeline.org/*"}]})
+    tab.goto(site.url("get-help/index.html"))
+    if not guard_click(tab, ".fallback a[href='https://988lifeline.org/']"):
+        report.fail("privacy", "get-help/index.html", "the link to 988lifeline.org is not on screen")
+    else:
+        event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+        headers = {key.lower(): value for key, value in event["params"]["request"]["headers"].items()}
+        tab.send("Fetch.fulfillRequest", {
+            "requestId": event["params"]["requestId"], "responseCode": 200,
+            "responseHeaders": [{"name": "Content-Type", "value": "text/html"}],
+            "body": base64.b64encode(b"<!doctype html><title>Stand-in</title>").decode(),
+        })
+        if "referer" in headers:
+            report.fail("privacy", "get-help/index.html", f"an outside site is told the visitor came from here: {headers['referer']}")
+        else:
+            report.ok("privacy")
+    tab.close()
+
+
 # ---------------------------------------------------------------- screenshots
 
 
@@ -1352,7 +1399,7 @@ def main():
         "matrix": test_matrix, "textsize": test_textsize, "keyboard": test_keyboard, "menu": test_menu,
         "jumps": test_jumps, "folds": test_folds, "language": test_language, "quickexit": test_quickexit,
         "reducedmotion": test_reducedmotion, "nojs": test_nojs, "print": test_print, "contact": test_contact,
-        "a11ytree": test_a11ytree, "offline": test_offline, "speed": test_speed, "modes": test_modes,
+        "a11ytree": test_a11ytree, "offline": test_offline, "speed": test_speed, "modes": test_modes, "privacy": test_privacy,
     }
     try:
         for group in groups:
