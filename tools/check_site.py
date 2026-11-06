@@ -7,8 +7,9 @@ Run from the project folder:
     python3 tools/check_site.py --check-links   # also load every outside link
 
 It never calls, texts, or submits anything. Phone and text links are only read.
-Passing means the structure is consistent. It is not an accessibility audit or
-a content review: see notes/SAFETY.md for what still needs a person.
+Passing means the structure is consistent: it does not show that a page is
+accessible, safe, or true. See notes/CONTENT-REVIEW.md for what needs a person.
+Git is used if it is installed, to tell project notes from private ones.
 """
 import argparse
 import html.parser
@@ -21,16 +22,29 @@ import urllib.parse
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-PAGES = ["index.html", "get-help/index.html", "help-someone/index.html", "research/index.html", "404.html"]
-# Pages whose content has not had professional review must say so.
-DRAFT_PAGES = {"get-help/index.html", "help-someone/index.html", "research/index.html"}
+NOT_SITE = {"notes", "design", "tools", ".git", ".claude", "node_modules"}
+# These two pages have no draft health content, so they need no review note.
+NOT_DRAFT = {"index.html", "404.html"}
 # 404.html is served from any address, so it alone links from the site root.
 SITE_ROOT = "/suicideprevention/"
+ALLOWED_INLINE_SCRIPT = "document.documentElement.classList.add('js');"
+ALLOWED_ONERROR = "document.documentElement.classList.remove('js')"
 BANNED_PHRASES = [
     "commit suicide", "committed suicide", "commits suicide", "committing suicide",
     "successful suicide", "successful attempt", "failed suicide", "failed attempt",
     "unsuccessful attempt", "completed suicide", "suicide victim",
 ]
+CRISIS_WORDS = re.compile(r"\b(call|text|chat|llamar|enviar|chatear)\b", re.I)
+HIDES = re.compile(r"display\s*:\s*none|visibility\s*:\s*hidden|opacity\s*:\s*0(\.0+)?\s*(;|$)")
+
+
+def digits_of(text):
+    return re.sub(r"[^0-9]", "", text or "")
+
+
+def phone_digits(text):
+    digits = digits_of(text)
+    return digits[1:] if len(digits) == 11 and digits.startswith("1") else digits
 
 
 class Page(html.parser.HTMLParser):
@@ -45,15 +59,25 @@ class Page(html.parser.HTMLParser):
         self.lang = None
         self.metas = {}
         self.headings = []
+        self.empty_headings = 0
         self.images_without_alt = []
-        self.links = []  # dicts: href, text, label, classes, within
-        self.scripts = []
-        self.stylesheets = []
-        self.icons = []
+        self.links = []
+        self.local_files = []
+        self.third_party = []
+        self.inline_scripts = []
+        self.bad_handlers = []
         self.forbidden = []
         self.text_parts = []
+        self.attribute_text = []
         self.classes = set()
+        self.aria_refs = []
+        self.hidden_crisis = []
+        self.balance_errors = []
+        self.mains = 0
+        self.first_focusable = None
+        self.review_note = ""
         self._open_links = []
+        self._heading_text = None
 
     def _within(self):
         names = []
@@ -64,35 +88,74 @@ class Page(html.parser.HTMLParser):
                 names.append("#" + attrs["id"])
         return names
 
+    def _note_url(self, url):
+        parts = urllib.parse.urlsplit(url)
+        if parts.scheme or parts.netloc:
+            self.third_party.append(url)
+        elif url:
+            self.local_files.append(url)
+
     def handle_starttag(self, tag, attrs):
         attrs = {k: (v or "") for k, v in attrs}
         if attrs.get("id"):
             if attrs["id"] in self.ids:
                 self.duplicate_ids.add(attrs["id"])
             self.ids.add(attrs["id"])
-        self.classes.update(attrs.get("class", "").split())
+        classes = attrs.get("class", "").split()
+        self.classes.update(classes)
+        for key in ("aria-labelledby", "aria-controls"):
+            if attrs.get(key):
+                self.aria_refs.extend((key, value) for value in attrs[key].split())
+        for key in ("alt", "aria-label"):
+            if attrs.get(key):
+                self.attribute_text.append(attrs[key])
+        for key, value in attrs.items():
+            if key.startswith("on") and not (key == "onerror" and value == ALLOWED_ONERROR):
+                self.bad_handlers.append(f"{tag} {key}")
+        within = self._within() + [tag] + ["." + c for c in classes]
+        is_crisis = any(n in within for n in (".crisis-bar", ".crisis-actions"))
+        if is_crisis and ("hidden" in attrs or attrs.get("aria-hidden") == "true") and tag != "svg" and "svg" not in within[:-1]:
+            if tag != "span" or "hidden" in attrs:
+                self.hidden_crisis.append(tag)
+
         if tag == "html":
             self.lang = attrs.get("lang")
+        elif tag == "main":
+            self.mains += 1
         elif tag == "meta" and attrs.get("name"):
             self.metas[attrs["name"]] = attrs.get("content", "")
+            if attrs["name"] == "description":
+                self.attribute_text.append(attrs.get("content", ""))
         elif tag == "img" and "alt" not in attrs:
             self.images_without_alt.append(attrs.get("src", "?"))
-        elif tag == "script" and attrs.get("src"):
-            self.scripts.append(attrs["src"])
-        elif tag == "link" and attrs.get("rel") == "stylesheet":
-            self.stylesheets.append(attrs.get("href", ""))
-        elif tag == "link" and attrs.get("rel") == "icon":
-            self.icons.append(attrs.get("href", ""))
-        elif tag in {"form", "input", "select", "textarea", "iframe", "embed", "object"}:
+        elif tag in {"form", "input", "select", "textarea", "iframe", "embed", "object", "video", "audio"}:
             self.forbidden.append(tag)
         elif re.fullmatch(r"h[1-6]", tag):
             self.headings.append(int(tag[1]))
+            self._heading_text = ""
+
+        if tag == "link" and attrs.get("href"):
+            self._note_url(attrs["href"])
+        for key in ("src", "poster", "data"):
+            if tag != "a" and attrs.get(key):
+                self._note_url(attrs[key])
+        for key in ("srcset", "imagesrcset"):
+            for candidate in attrs.get(key, "").split(","):
+                if candidate.strip():
+                    self._note_url(candidate.split()[0])
+        if attrs.get("ping"):
+            self.third_party.append(attrs["ping"])
+        if tag == "script" and not attrs.get("src"):
+            self.inline_scripts.append("")
+
+        if tag in {"a", "button", "summary"} and self.first_focusable is None:
+            self.first_focusable = attrs.get("href", tag)
         if tag == "a":
             link = {
                 "href": attrs.get("href"),
                 "text": "",
                 "label": attrs.get("aria-label", ""),
-                "classes": attrs.get("class", "").split(),
+                "classes": classes,
                 "within": self._within(),
                 "current": attrs.get("aria-current", ""),
             }
@@ -101,37 +164,79 @@ class Page(html.parser.HTMLParser):
         if tag not in self.VOID:
             self.stack.append((tag, attrs))
 
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag not in self.VOID and self.stack and self.stack[-1][0] == tag:
+            self.stack.pop()
+
     def handle_endtag(self, tag):
         if tag == "a" and self._open_links:
             self._open_links.pop()
+        if re.fullmatch(r"h[1-6]", tag) and self._heading_text is not None:
+            if not self._heading_text.strip():
+                self.empty_headings += 1
+            self._heading_text = None
+        if tag in self.VOID:
+            return
+        if self.stack and self.stack[-1][0] == tag:
+            self.stack.pop()
+            return
+        self.balance_errors.append(f"unexpected </{tag}>")
         for i in range(len(self.stack) - 1, -1, -1):
             if self.stack[i][0] == tag:
                 del self.stack[i:]
                 break
 
     def handle_data(self, data):
-        in_tags = [t for t, _ in self.stack]
-        if in_tags and in_tags[-1] == "title":
+        tags = [t for t, _ in self.stack]
+        if tags and tags[-1] == "title":
             self.title += data
-        if "script" in in_tags or "style" in in_tags or "svg" in in_tags or "title" in in_tags:
+            return
+        if "script" in tags:
+            if self.inline_scripts and data.strip() and not self.stack[-1][1].get("src"):
+                self.inline_scripts[-1] += data.strip()
+            return
+        if "style" in tags or "svg" in tags:
+            return
+        if any("hidden" in attrs for _, attrs in self.stack):
             return
         self.text_parts.append(data)
+        if self._heading_text is not None:
+            self._heading_text += data
         for link in self._open_links:
             link["text"] += data
+        if any("review-note" in attrs.get("class", "").split() for _, attrs in self.stack):
+            self.review_note += data
+
+    def close(self):
+        super().close()
+        for tag, _ in self.stack:
+            self.balance_errors.append(f"<{tag}> is never closed")
 
     @property
     def text(self):
         return re.sub(r"\s+", " ", " ".join(self.text_parts))
 
 
+def find_pages():
+    """Every web page in the project, homepage first, so new pages cannot escape the checks."""
+    found = []
+    for path in ROOT.rglob("*.html"):
+        relative = path.relative_to(ROOT)
+        if relative.parts[0] not in NOT_SITE:
+            found.append(str(relative).replace("\\", "/"))
+    return sorted(found, key=lambda name: (name != "index.html", name))
+
+
 def load(name):
     page = Page()
     page.feed((ROOT / name).read_text(encoding="utf-8"))
+    page.close()
     return page
 
 
 def resolve(name, href):
-    """Return (target page name or None, fragment) for a local link, or None if it is not local."""
+    """Return (target page name or MISSING:..., fragment) for a local link, or None if it is not local."""
     parts = urllib.parse.urlsplit(href)
     if parts.scheme or parts.netloc:
         return None
@@ -144,7 +249,6 @@ def resolve(name, href):
         return (name, parts.fragment)
     else:
         rel = pathlib.PurePosixPath(str(pathlib.PurePosixPath(name).parent / path))
-    # Normalise ../ without touching the disk.
     pieces = []
     for piece in rel.parts:
         if piece == "..":
@@ -173,8 +277,43 @@ def nav_targets(name, page, marker):
     return found
 
 
+def allowed_numbers():
+    """Whole numbers from the resource table in notes/SAFETY.md, the single place they are recorded."""
+    safety = (ROOT / "notes" / "SAFETY.md").read_text(encoding="utf-8")
+    section = safety.split("## U.S. crisis resources", 1)[-1].split("###", 1)[0]
+    numbers = set()
+    for line in section.splitlines():
+        cells = line.split("|")
+        if len(cells) > 3 and not set(cells[2].strip()) <= {"-", " "}:
+            for match in re.findall(r"\b1-\d{3}-\d{3}-\d{4}\b|\b\d{3}-\d{3}\b|\b\d{3,6}\b", cells[2]):
+                numbers.add(phone_digits(match))
+    numbers.discard("240")  # a count of languages in that table, not a number to dial
+    return numbers
+
+
+def check_phone_link(name, link, numbers, fail):
+    href = link["href"]
+    digits = phone_digits(href.split("?")[0])
+    if not digits:
+        fail(f"{href} has no number")
+        return
+    if digits not in numbers:
+        fail(f"{href} is not a number recorded in notes/SAFETY.md")
+    visible, label = link["text"], link["label"]
+    labelled = False
+    for words in (visible, label):
+        if digits_of(words):
+            labelled = True
+            if digits not in digits_of(words):
+                fail(f"link \"{words.strip()}\" does not match its destination {href}")
+    if not labelled:
+        fail(f"phone or text link \"{visible.strip()}\" does not say which number it uses")
+
+
 def check_pages(failures, notes):
-    pages = {name: load(name) for name in PAGES}
+    names = find_pages()
+    pages = {name: load(name) for name in names}
+    numbers = allowed_numbers()
     titles = {}
     for name, page in pages.items():
         def fail(message, page_name=name):
@@ -185,63 +324,96 @@ def check_pages(failures, notes):
         if not page.title.strip():
             fail("missing page title")
         titles.setdefault(page.title.strip(), []).append(name)
-        if "viewport" not in page.metas:
+        viewport = page.metas.get("viewport", "")
+        if not viewport:
             fail("missing viewport meta tag")
+        if "user-scalable=no" in viewport.replace(" ", "") or "maximum-scale" in viewport:
+            fail("the viewport tag blocks zooming")
         if "description" not in page.metas:
             fail("missing description")
-        if not page.icons:
-            fail("missing favicon link")
         if page.metas.get("robots") != "noindex":
             notes.append(f"{name}: search engines may index this page")
         if page.headings.count(1) != 1:
             fail(f"needs exactly one h1, found {page.headings.count(1)}")
+        if page.headings and page.headings[0] != 1:
+            fail(f"the first heading is h{page.headings[0]}, not h1")
         for before, after in zip(page.headings, page.headings[1:]):
             if after > before + 1:
                 fail(f"heading level jumps from h{before} to h{after}")
+        if page.empty_headings:
+            fail("has an empty heading")
         if page.images_without_alt:
             fail(f"images without alt text: {page.images_without_alt}")
         if page.duplicate_ids:
             fail(f"duplicate ids: {sorted(page.duplicate_ids)}")
         if page.forbidden:
             fail(f"data-collecting or embedded elements (SAFETY rule 5): {sorted(set(page.forbidden))}")
-        for url in page.scripts + page.stylesheets + page.icons:
-            if urllib.parse.urlsplit(url).netloc:
-                fail(f"loads something from another site (SAFETY rule 5): {url}")
-        if not any(link["href"] == "#main" for link in page.links) or "main" not in page.ids:
-            fail("missing skip link to #main")
+        if page.third_party:
+            fail(f"loads something from another site (SAFETY rule 5): {page.third_party}")
+        for script in page.inline_scripts:
+            if script != ALLOWED_INLINE_SCRIPT:
+                fail(f"unexpected inline script (SAFETY rule 5): {script[:60]}")
+        if page.bad_handlers:
+            fail(f"inline event handlers: {page.bad_handlers}")
+        for url in page.local_files:
+            target = resolve(name, url)
+            if target and target[0].startswith("MISSING:"):
+                fail(f"file does not exist: {url}")
+        for key, value in page.aria_refs:
+            if value not in page.ids:
+                fail(f"{key} points to a missing id: {value}")
+        if page.balance_errors:
+            fail(f"broken HTML: {page.balance_errors[:3]}")
+        if page.mains != 1:
+            fail(f"needs exactly one main landmark, found {page.mains}")
+        if "main" not in page.ids or page.first_focusable != "#main":
+            fail("the first focusable item must be a skip link to #main")
 
-        hrefs = [link["href"] for link in page.links]
         bar = [link["href"] for link in page.links if ".crisis-bar" in link["within"]]
         for required in ("tel:988", "sms:988", "tel:911"):
             if required not in bar:
-                fail(f"crisis bar is missing {required} (SAFETY rule 1)")
+                fail(f"crisis strip is missing {required} (SAFETY rule 1)")
         actions = [link["href"] for link in page.links if ".crisis-actions" in link["within"]]
         for required in ("tel:988", "sms:988", "https://chat.988lifeline.org/"):
             if required not in actions:
                 fail(f"crisis buttons are missing {required} (SAFETY rule 2)")
+        if page.hidden_crisis:
+            fail(f"crisis controls are hidden (SAFETY rule 1): {page.hidden_crisis}")
         if "support" not in page.ids:
             fail("the Get Support Now button needs a #support target")
         if "911" not in page.text:
             fail("does not mention 911 (SAFETY rule 1)")
         if "not a crisis service" not in page.text:
             fail("does not say Stillwater is not a crisis service (SAFETY rule 3)")
-        lowered = page.text.lower()
+        if not any((link["href"] or "").endswith("#en-espanol") for link in page.links):
+            fail("has no link to the Spanish section")
+        everything = (page.text + " " + page.title + " " + " ".join(page.attribute_text)).lower()
         for phrase in BANNED_PHRASES:
-            if phrase in lowered:
+            if phrase in everything:
                 fail(f"uses language safe messaging guidance avoids: \"{phrase}\" (SAFETY rule 4)")
-        if name in DRAFT_PAGES and "review-note" not in page.classes:
-            fail("draft page needs a visible review note")
+        if name not in NOT_DRAFT and "has not reviewed" not in page.review_note:
+            fail("draft page needs a visible review note saying no professional has reviewed it")
 
         for link in page.links:
             href = link["href"]
             label = (link["label"] or link["text"]).strip()
             if not label:
                 fail(f"link with no text: {href}")
-            if href is None or href == "":
+            if not href:
                 fail(f"link \"{label}\" has an empty href")
                 continue
             if label.lower() in {"click here", "here", "read more", "more", "link"}:
                 fail(f"link text does not describe the destination: \"{label}\"")
+            if link["label"] and link["text"].strip().lower() not in link["label"].lower():
+                fail(f"link label \"{link['label']}\" leaves out its visible words \"{link['text'].strip()}\"")
+            if href.startswith("javascript:"):
+                fail(f"link \"{label}\" uses javascript:")
+                continue
+            if href.startswith("#") and CRISIS_WORDS.search(label) and len(href) == 1:
+                fail(f"crisis link \"{label}\" goes nowhere")
+            if href.startswith(("tel:", "sms:")):
+                check_phone_link(name, link, numbers, fail)
+                continue
             target = resolve(name, href)
             if target is None:
                 continue
@@ -250,44 +422,51 @@ def check_pages(failures, notes):
             if target[0].startswith("MISSING:"):
                 fail(f"broken link: {href}")
                 continue
+            if link["current"] and target[0] != name:
+                fail(f"aria-current is on a link to another page: {href}")
             if target[1]:
-                other = pages.get(target[0])
-                if other is None:
-                    other = load(target[0])
+                other = pages.get(target[0]) or load(target[0])
                 if target[1] not in other.ids:
                     fail(f"link points to a missing section: {href}")
 
-    for title, names in titles.items():
-        if len(names) > 1:
-            failures.append(f"duplicate page title \"{title}\": {names}")
+    for title, same in titles.items():
+        if len(same) > 1:
+            failures.append(f"duplicate page title \"{title}\": {same}")
 
-    # Every page must offer the same destinations.
-    expected_main = {name: nav_targets(name, pages[name], "#site-nav") for name in PAGES}
-    expected_footer = {name: nav_targets(name, pages[name], ".footer-nav") for name in PAGES}
-    baseline_main = expected_main[PAGES[0]]
-    baseline_footer = expected_footer[PAGES[0]]
-    for name in PAGES[1:]:
-        if expected_main[name] != baseline_main:
-            failures.append(f"{name}: main menu differs from the homepage: {expected_main[name]}")
-        if expected_footer[name] != baseline_footer:
-            failures.append(f"{name}: footer links differ from the homepage: {expected_footer[name]}")
+    # Every page must offer the same destinations, or at least all of them.
+    main_nav = {name: nav_targets(name, pages[name], "#site-nav") for name in names}
+    footer = {name: nav_targets(name, pages[name], ".footer-nav") for name in names}
+    for name in names[1:]:
+        if main_nav[name] != main_nav[names[0]]:
+            failures.append(f"{name}: main menu differs from the homepage: {main_nav[name]}")
+        if footer[name] != footer[names[0]]:
+            failures.append(f"{name}: footer links differ from the homepage: {footer[name]}")
+    for name in names:
+        if name != "404.html" and name not in main_nav[names[0]]:
+            failures.append(f"{name}: the main menu does not link to this page")
 
-    # Every phone number or short code in a link must be recorded in the safety notes.
-    safety = (ROOT / "notes" / "SAFETY.md").read_text(encoding="utf-8")
-    safety_digits = re.sub(r"[^0-9]", "", safety)
+    check_assets(failures)
     outside = {}
     for name, page in pages.items():
         for link in page.links:
-            href = link["href"] or ""
-            if href.startswith(("tel:", "sms:")):
-                digits = re.sub(r"[^0-9]", "", href.split("?")[0])
-                if digits.startswith("1") and len(digits) == 11:
-                    digits = digits[1:]
-                if digits not in safety_digits:
-                    failures.append(f"{name}: {href} is not recorded in notes/SAFETY.md")
-            elif href.startswith(("http://", "https://")):
-                outside.setdefault(href, []).append(name)
-    return outside
+            if (link["href"] or "").startswith(("http://", "https://")):
+                outside.setdefault(link["href"], []).append(name)
+    return outside, len(names)
+
+
+def check_assets(failures):
+    for path in sorted((ROOT / "assets").glob("*.css")):
+        css = path.read_text(encoding="utf-8")
+        for match in re.finditer(r"url\(\s*['\"]?(https?:)?//|@import", css):
+            failures.append(f"{path.name}: loads something from another site (SAFETY rule 5): {match.group(0)}")
+        for selector, declarations in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
+            if re.search(r"\.crisis-(bar|actions)\b|\.action\b", selector) and HIDES.search(declarations):
+                failures.append(f"{path.name}: hides crisis controls (SAFETY rule 1): {selector.strip()}")
+    for path in sorted((ROOT / "assets").glob("*.js")):
+        script = path.read_text(encoding="utf-8")
+        for word in ("http://", "https://", "fetch(", "XMLHttpRequest", "sendBeacon", "localStorage", "document.cookie"):
+            if word in script:
+                failures.append(f"{path.name}: sends or stores data (SAFETY rule 5): {word}")
 
 
 def check_links(outside, failures, notes):
@@ -311,39 +490,48 @@ def check_links(outside, failures, notes):
             failures.append(f"outside link failed ({status}): {url}")
 
 
-def check_notes(failures):
-    """Every Obsidian [[link]] in a project note must point to a note or attachment that exists."""
+def run_git(*args):
+    """Lists files with git, or returns None if git is not available here."""
     try:
-        listed = subprocess.run(
-            ["git", "ls-files", "--cached", "--others", "--exclude-standard", "notes"],
-            cwd=ROOT, capture_output=True, text=True, check=True,
-        ).stdout.splitlines()
+        done = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, check=True)
     except (OSError, subprocess.CalledProcessError):
-        listed = [str(p.relative_to(ROOT)) for p in (ROOT / "notes").rglob("*") if p.is_file()]
-    # Notes that git does not track on this computer can be personal, so they are not read.
-    tracked = subprocess.run(
-        ["git", "ls-files", "--cached", "notes"], cwd=ROOT, capture_output=True, text=True,
-    ).stdout.splitlines() or listed
+        return None
+    return done.stdout.splitlines()
+
+
+def check_notes(failures):
+    """Every Obsidian [[link]] in a project note must point to a note or attachment the project shares.
+
+    A link to a note that only exists on this computer would be broken for the other
+    founder, so only tracked files and the shared note folders count. Other untracked
+    files in the vault may be private, so they are not read.
+    """
+    tracked = run_git("ls-files", "--cached", "notes")
+    if tracked is None:
+        everything = [str(p.relative_to(ROOT)).replace("\\", "/") for p in (ROOT / "notes").rglob("*") if p.is_file()]
+        tracked, shared_new = everything, []
+    else:
+        others = run_git("ls-files", "--others", "--exclude-standard", "notes") or []
+        shared_new = [i for i in others if i.startswith(("notes/worklogs/", "notes/planning/", "notes/templates/"))]
     known = set()
-    for item in listed:
+    for item in tracked + shared_new:
         relative = item[len("notes/"):]
-        known.add(relative)
-        known.add(relative[:-3] if relative.endswith(".md") else relative)
         stem = pathlib.PurePosixPath(relative).name
-        known.add(stem)
-        known.add(stem[:-3] if stem.endswith(".md") else stem)
+        for form in (relative, stem):
+            known.add(form)
+            known.add(form[:-3] if form.endswith(".md") else form)
     pattern = re.compile(r"!?\[\[([^\]]+?)\]\]")
-    for item in tracked + [i for i in listed if i not in tracked and _is_project_note(i)]:
+    for item in tracked + shared_new:
         if not item.endswith(".md"):
             continue
-        for match in pattern.finditer((ROOT / item).read_text(encoding="utf-8")):
+        path = ROOT / item
+        if not path.exists():
+            failures.append(f"{item}: this tracked note has been deleted or renamed without being committed")
+            continue
+        for match in pattern.finditer(path.read_text(encoding="utf-8")):
             target = re.split(r"\\?\|", match.group(1))[0].split("#")[0].strip()
             if target and target not in known:
                 failures.append(f"{item}: Obsidian link points to nothing: [[{target}]]")
-
-
-def _is_project_note(item):
-    return item.startswith(("notes/worklogs/", "notes/planning/", "notes/templates/"))
 
 
 def main():
@@ -352,9 +540,9 @@ def main():
     args = parser.parse_args()
 
     failures, notes = [], []
-    outside = check_pages(failures, notes)
+    outside, count = check_pages(failures, notes)
     check_notes(failures)
-    print(f"Checked {len(PAGES)} pages. {len(outside)} different outside links.")
+    print(f"Checked {count} pages. {len(outside)} different outside links.")
     if args.check_links:
         check_links(outside, failures, notes)
     for note in notes:
@@ -364,7 +552,7 @@ def main():
     if failures:
         print(f"{len(failures)} problem(s) found.")
         return 1
-    print("All checks passed.")
+    print("All checks passed. This does not replace a real phone test or a content review.")
     return 0
 
 
