@@ -501,6 +501,7 @@ def check_pages(failures, notes):
     check_publish_list(failures, names)
     check_contact_cards(failures, numbers)
     check_review_status(failures, pages)
+    check_dates(failures, pages)
     outside = {}
     for name, page in pages.items():
         for link in page.links:
@@ -552,6 +553,22 @@ def check_review_status(failures, pages):
                 failures.append(f"{about}: the review list does not list {name}")
         if not records and page.status_values.count(word) != 2 * len(listed):
             failures.append(f"{about}: every page must show {word} until a review is recorded")
+
+
+DATE_EN = re.compile(r"(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, 20\d\d")
+DATE_ES = re.compile(r"\d{1,2} de (?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre) de 20\d\d")
+
+
+def check_dates(failures, pages):
+    """Every page shows the same "last checked" date, so a re-check can't update only some of them."""
+    for lang, pattern in (("en", DATE_EN), ("es", DATE_ES)):
+        seen = {}
+        for name, page in pages.items():
+            if language_of(name) == lang:
+                for date in pattern.findall(page.text):
+                    seen.setdefault(date, []).append(name)
+        if len(seen) > 1:
+            failures.append(f"pages show different dates ({lang}): {sorted(seen)}. Use tools/set_checked_date.py")
 
 
 def check_contact_cards(failures, numbers):

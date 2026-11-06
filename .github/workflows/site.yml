@@ -54,6 +54,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      # Stops unreviewed crisis content going live by accident. See notes/LAUNCH-CHECKLIST.md.
+      - name: Check that reviews are on record
+        env:
+          PUBLISH_UNREVIEWED: ${{ vars.PUBLISH_UNREVIEWED }}
+        run: python3 tools/launch_gate.py --publish
       - name: Copy only the website files
         run: |
           mkdir _site
