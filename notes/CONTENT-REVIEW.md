@@ -29,7 +29,11 @@ sources were read in full.
 | Spanish home (`es/`) | AI translation of Home | [[SAFETY]] | Not reviewed; no fluent reader yet |
 | Spanish Get Help (`es/obtener-ayuda/`) | AI translation, Spanish options first | English source list | Not reviewed; no fluent reader yet |
 | Spanish Help Someone (`es/ayudar-a-alguien/`) | AI translation | English source list | Not reviewed; no fluent reader yet |
-| Spanish Research (`es/investigacion/`) | Points to the English page for now | None | Not reviewed |
+| Spanish Research (`es/investigacion/`) | Myths and facts in Spanish; the rest points to the English page | Links to other pages | Not reviewed |
+| For Teens (`teens/`) | Draft, repeats Get Help and Help Someone text | On the page | Not reviewed; ages undecided |
+| Spanish For Teens (`es/adolescentes/`) | AI translation | English source list | Not reviewed; no fluent reader yet |
+| Wallet card (`card/`) | Draft card and poster from [[SAFETY]] | [[SAFETY]] | Not reviewed; don't hand out yet |
+| Spanish wallet card (`es/tarjeta/`) | AI translation | [[SAFETY]] | Not reviewed; no fluent reader yet |
 
 Every draft page says so on screen. Remove those notes only after review.
 
@@ -268,6 +272,22 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   listo". The pages use "tú", like 988's own Spanish pages. Texting steps in
   Spanish are described as possibly different from English, because no one has
   seen them.
+
+## Questions about the second batch
+
+- **Myths and facts (D1),** at the top of Research. Each heading states the fact,
+  and the myth comes second, because repeating a myth as a headline can make it
+  stick. Is that the right format? Is "Most 988 calls don't involve emergency
+  services" helpful, or could it read as a promise?
+- **Wallet card and poster (D2).** The printed text comes only from the [[SAFETY]]
+  table. Is the selection right (988, Spanish, veterans, The Trevor Project, Deaf
+  and hard of hearing, 911)? Should the card name Stillwater at all?
+- **For Teens (D3).** Built before ages are decided. Every paragraph repeats text
+  from Get Help or Help Someone. What should a teen read first? What if no adult
+  feels safe? A lawyer should look at the privacy wording for minors.
+- **Long sentences (C4).** `python3 tools/check_readability.py` lists 56 sentences
+  over 25 words. Most explain when 988 may involve emergency services. Can they be
+  shortened without losing accuracy?
 
 ## Human-only checklist
 

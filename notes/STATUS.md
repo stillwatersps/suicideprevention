@@ -8,7 +8,7 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | Where | What | State |
 | --- | --- | --- |
 | `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
-| `claude/jolly-mayer-2m6eno` | Everything below from `site/phone-accessibility-content`, the [[RESEARCH-BRIEF]] PDF and notes, and nine improvement ideas one founder approved: Spanish pages, quick exit, dark mode, offline support, a shorter Get Help, automatic checks, and publishing only the website. See [[worklogs/2026-11-06-claude-approved-ideas\|the handoff]] | Draft pull request 5 into `main`, **not merged, not on the public website** |
+| `claude/jolly-mayer-2m6eno` | Everything below from `site/phone-accessibility-content`, the [[RESEARCH-BRIEF]] PDF and notes, and improvement ideas one founder approved: Spanish pages, quick exit, dark mode, offline support, a shorter Get Help, automatic checks, website-only publishing, live-site monitoring, a readability report, myths and facts, printable wallet cards, and a teen page. See [[worklogs/2026-11-06-claude-approved-ideas\|first batch]] and [[worklogs/2026-11-06-claude-second-batch\|second batch]] | Draft pull request 5 into `main`, **not merged, not on the public website** |
 | `site/phone-accessibility-content` | Everything above, plus a second round: fixes from an independent review, stronger site checks, and these updated notes | Merged into `claude/jolly-mayer-2m6eno` on November 6, 2026, at a founder's request, so pull request 6 is closed by that merge. Pull request 5 is the one place to review. **Not on the public website** |
 | `claude/charming-swartz-e8d31c`, commit `1c91825` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, no page changes | Draft pull request 7 into `main`, **not merged**. Merging publishes those two notes. Its description covers the conflict with pull request 5 |
 | `site/live-page-corrections`, commit `f523d0f` when checked | Only the first four known issues below, on the four live pages, plus a handoff. No draft content | Draft pull request 8 into `main`, **not merged**. Merging publishes those page changes and the handoff. Its description covers the conflict with pull request 5 |
@@ -54,7 +54,11 @@ branches. Product decisions and professional review have not happened yet.
   history, and Quick exit can't remove it. A question for the reviewer in
   [[CONTENT-REVIEW]].
 - The Spanish pages are an AI translation no fluent reader has checked, and the
-  Research page is still English only.
+  Research page is still mostly English only.
+- The teen page and the wallet cards are drafts. Supported ages are undecided, and
+  the cards should not be printed for handing out until reviewed.
+- 56 sentences on the pages are over 25 words, mostly about when 988 involves
+  emergency services. `tools/check_readability.py` lists them for the reviewer.
 
 On `main`, and public now. The task branches correct each of these, and draft pull
 request 8 would correct the first four on its own:

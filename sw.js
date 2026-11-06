@@ -4,16 +4,20 @@
 // stores nothing about visitors. Always tries the network first, so updates
 // appear as soon as there is a connection; the copy is only a fallback.
 // Change VERSION whenever the list of core files changes.
-var VERSION = 'stillwater-v1';
+var VERSION = 'stillwater-v2';
 var CORE = [
   './',
   'get-help/',
   'help-someone/',
   'research/',
+  'teens/',
+  'card/',
   'es/',
   'es/obtener-ayuda/',
   'es/ayudar-a-alguien/',
   'es/investigacion/',
+  'es/adolescentes/',
+  'es/tarjeta/',
   '404.html',
   'assets/styles.css',
   'assets/menu.js',

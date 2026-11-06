@@ -466,8 +466,8 @@ def check_pages(failures, notes):
                 failures.append(f"{name}: main menu differs from {home}: {main_nav[name]}")
             if footer[name] != footer[home]:
                 failures.append(f"{name}: footer links differ from {home}: {footer[name]}")
-        if name != "404.html" and name not in main_nav[home] and name != home:
-            failures.append(f"{name}: the main menu does not link to this page")
+        if name != "404.html" and name != home and name not in main_nav[home] and name not in footer[home]:
+            failures.append(f"{name}: neither the main menu nor the footer links to this page")
 
     check_assets(failures)
     check_offline(failures)

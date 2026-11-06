@@ -27,6 +27,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run the site checks
         run: python3 tools/check_site.py
+      - name: Plain-language report (information only)
+        run: python3 tools/check_readability.py
 
   publish:
     name: Publish the website only
@@ -45,7 +47,7 @@ jobs:
         run: |
           mkdir _site
           # The website, and nothing else. Notes, designs, tools and instructions stay out.
-          for item in index.html 404.html sw.js manifest.webmanifest .nojekyll assets get-help help-someone research es; do
+          for item in index.html 404.html sw.js manifest.webmanifest .nojekyll assets get-help help-someone teens research card es; do
             cp -R "$item" _site/
           done
           # Stop if a new page exists in the project but was not copied.

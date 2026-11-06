@@ -52,6 +52,9 @@ Each person uses their own Claude access and conversation.
 | `es/` | Spanish pages, an AI translation awaiting a fluent reader |
 | `sw.js`, `manifest.webmanifest`, `assets/icon-*.png` | Offline support and the home screen icon |
 | `.github/workflows/site.yml` | Runs the checks on every pull request, and publishes only the website from `main` |
+| `.github/workflows/monitor.yml` | Daily: the live site shows its crisis help. Monthly: every outside link still opens |
+| `tools/check_live.py`, `tools/check_readability.py` | Live-site check, and a plain-language report |
+| `teens/`, `card/` | For Teens page, and printable wallet cards and poster |
 
 ## Check the website
 

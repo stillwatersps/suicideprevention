@@ -102,3 +102,11 @@
   var root = new URL('../', script.src);
   navigator.serviceWorker.register(new URL('sw.js', root).href, { scope: root.pathname }).catch(function () {});
 })();
+
+// Print button on the wallet card page. Hidden until JavaScript can run it.
+(function () {
+  var button = document.querySelector('.print-button');
+  if (!button || !window.print) return;
+  button.hidden = false;
+  button.addEventListener('click', function () { window.print(); });
+})();

@@ -126,6 +126,16 @@ GitHub settings each needs are in
 - B1, B2 and B6 change crisis wording, so they stay drafts until the qualified
   reviewer, and for B6 a fluent Spanish reader, has checked them. See [[CONTENT-REVIEW]].
 
+## November 6, 2026: second batch approved by one founder
+
+One founder approved C2, C3, C4, C5, C6, D1, D2 and D3 from [[IDEAS]]. **The other
+founder has not agreed yet.** Built on draft pull request 5, not merged, except:
+C5 (closing pull requests 1, 7 and 8) is on hold because the other founder opened
+them, and C6 is a plan in [[USER-TEST]], not yet run. D1 to D3 add health wording,
+so they stay drafts for the reviewer. D3, a page for teens, was built before
+supported ages are decided; the page says so. Details in
+[[worklogs/2026-11-06-claude-second-batch|the handoff]].
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

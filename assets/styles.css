@@ -801,3 +801,52 @@ body { padding-bottom: 76px; }
   .hero { background: #1D2420; }
   .hero-curve { fill: #1D2420; }
 }
+
+/* Printable wallet cards and poster (idea D2) */
+.print-area { display: grid; gap: 18px; max-width: 52rem; }
+.print-area > h2 { font-size: 1.35rem; }
+.print-button {
+  min-height: 48px;
+  padding: 0 28px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--green);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.pc-poster, .pc-card { background: #fff; color: #1B2A22; border: 2px solid #315A45; }
+.pc-poster { padding: 28px; border-radius: var(--radius); display: grid; gap: 10px; }
+.pc-poster ul { list-style: disc; padding-left: 1.3em; display: grid; gap: 6px; }
+.pc-kicker { font-family: var(--serif); font-size: 1.3rem; color: #315A45; }
+.pc-poster .pc-kicker { font-size: 2rem; }
+.pc-big { font-family: var(--serif); font-size: 1.6rem; line-height: 1.1; color: #1B2A22; }
+.pc-poster .pc-big { font-size: clamp(2.2rem, 7vw, 3.4rem); }
+.pc-urgent { font-weight: 700; }
+.pc-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 12px; }
+.pc-card { padding: 14px 16px; border-radius: 10px; font-size: .85rem; line-height: 1.35; display: grid; gap: 4px; }
+.pc-card .pc-kicker { font-size: 1rem; }
+.pc-card .pc-big { font-size: 1.35rem; }
+@media (prefers-color-scheme: dark) {
+  .print-button { background: #2E5A44; }
+}
+
+@media print {
+  @page { margin: 12mm; }
+  /* Print only the poster and the cards; they carry the crisis numbers themselves. */
+  body { background: #fff; padding: 0; }
+  body > :not(main) { display: none !important; }
+  main > :not(.page-body) { display: none !important; }
+  .page-body > :not(.print-area) { display: none !important; }
+  .page-body { padding: 0; }
+  .print-actions, .no-print-heading { display: none !important; }
+  .pc-poster { break-after: page; border-width: 3px; min-height: 240mm; align-content: center; padding: 18mm; font-size: 14pt; }
+  .pc-poster .pc-big { font-size: 46pt; }
+  .pc-poster .pc-kicker { font-size: 28pt; }
+  /* Standard wallet size, 3.5 by 2 inches, with dashed cut lines. */
+  .pc-cards { grid-template-columns: repeat(2, 3.5in); gap: 0; justify-content: center; }
+  .pc-card { width: 3.5in; height: 2in; overflow: hidden; border: 1px dashed #777; border-radius: 0; padding: 8pt 10pt; font-size: 7.5pt; gap: 2pt; break-inside: avoid; }
+  .pc-card .pc-kicker { font-size: 9pt; }
+  .pc-card .pc-big { font-size: 15pt; }
+}

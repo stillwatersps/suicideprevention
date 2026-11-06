@@ -54,7 +54,13 @@ Planning tasks below are suggestions; ownership has not been agreed.
 - [ ] A fluent Spanish reader checks the four pages in `es/`. Owner: unassigned.
 - [ ] Translate the Research page after its English version is reviewed. Owner:
   unassigned.
-- [ ] Decide on the ideas not chosen yet in [[IDEAS]] (A5, B3, B4, B5). Owner: both.
+- [ ] Decide on the ideas not chosen yet in [[IDEAS]] (A5, B3, B4, B5, C1, D4). Owner: both.
+- [ ] Close or keep draft pull requests 1, 7 and 8 (idea C5). Owner: the founder who
+  opened them. Pull request 5 now covers what 7 and 8 fix.
+- [ ] Run the small user test in [[USER-TEST]] after the reviewer approves the plan.
+  Owner: unassigned.
+- [ ] Turn on GitHub notifications for failed workflow runs, so the daily and monthly
+  checks reach a founder. Owner: both.
 
 ## In progress
 
@@ -88,6 +94,11 @@ Move a task here when its branch is ready for the other person to review.
   support, dark mode, a shorter Get Help, quick exit, and Spanish pages. Owner:
   Claude, at one founder's request. Branch: `claude/jolly-mayer-2m6eno`, draft pull
   request 5. Handoff: [[worklogs/2026-11-06-claude-approved-ideas]]. Not merged.
+
+- [ ] Build the second batch: live-site and link monitoring, a readability report,
+  myths and facts, printable wallet cards, a teen page, and a user test plan. Owner:
+  Claude, at one founder's request. Branch: `claude/jolly-mayer-2m6eno`, draft pull
+  request 5. Handoff: [[worklogs/2026-11-06-claude-second-batch]]. Not merged.
 
 ## Completed work
 

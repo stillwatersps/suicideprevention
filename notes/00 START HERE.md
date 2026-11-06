@@ -22,6 +22,8 @@ Our shared notebook for building a suicide prevention website.
 | [[SAFETY\|Safety baseline]] | Crisis resources and content ground rules |
 | [[CONTENT-REVIEW\|Content review]] | What each control does and what a reviewer needs to check |
 | [[RESEARCH-BRIEF\|Research brief]] | Research and website copy, awaiting therapist review |
+| [[IDEAS\|Ideas]] | Improvement ideas and which ones are approved |
+| [[USER-TEST\|User test plan]] | A small, safe test with made-up situations |
 | [[WORKFLOW\|Working together]] | How to work independently and share changes |
 | [[SHARED-MEMORY\|Our shared second brain]] | How both Claude sessions and Obsidian stay current |
 | [[worklogs/README\|Handoffs]] | Where to leave a summary for the other person |
