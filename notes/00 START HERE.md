@@ -20,6 +20,7 @@ Our shared notebook for building a suicide prevention website.
 | [[DECISIONS\|Decisions]] | What we agreed on and why |
 | [[DESIGN\|Homepage design]] | The supplied design and a preview |
 | [[SAFETY\|Safety baseline]] | Crisis resources to verify and content ground rules |
+| [[RESEARCH-BRIEF\|Research brief]] | Research and website copy, awaiting therapist review |
 | [[WORKFLOW\|Working together]] | How to work independently and share changes |
 | [[SHARED-MEMORY\|Our shared second brain]] | How both Claude sessions and Obsidian stay current |
 | [[worklogs/README\|Handoffs]] | Where to leave a summary for the other person |

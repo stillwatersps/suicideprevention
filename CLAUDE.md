@@ -14,6 +14,9 @@ Read these short shared notes at the start of a session:
 @notes/DECISIONS.md
 
 Read other notes and design files only when relevant to the current task.
+For any health, crisis, or research wording on the website, read
+notes/RESEARCH-BRIEF.md first. Publish a section only after its review tracker
+shows approval by a licensed reviewer; until then, label any use of it as a draft.
 Inspect notes/ and design/ for existing project material before creating new files.
 Use notes/worklogs/ for concise task handoffs, with one file per task.
 Shared notes are the handoff between collaborators; conversations are separate.

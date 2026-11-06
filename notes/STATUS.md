@@ -26,9 +26,12 @@ First homepage built; shared project memory and product planning.
   [[worklogs/2026-11-06-claude-homepage-first-build|the homepage handoff]].
 - Both Claude sessions use saved project notes as the shared reference;
   [[SHARED-MEMORY]] explains the save, upload, download, and reread loop.
+- A research and website-copy brief (PDF plus a searchable copy) is in
+  [[RESEARCH-BRIEF]], awaiting review by a licensed therapist before any of it
+  is published. Added on branch `claude/jolly-mayer-2m6eno`.
 - Placeholder pages Get Help, Help Someone and Research, linked from the menu,
-  homepage cards and every footer, are on branch `claude/jolly-mayer-2m6eno`
-  in pull request #4, **not yet merged**. They need content. See
+  homepage cards and every footer, were merged through pull request #4 and are
+  public. They need content. See
   [[worklogs/2026-11-06-claude-site-pages|the pages handoff]].
 
 ## Still to confirm

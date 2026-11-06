@@ -40,6 +40,12 @@ Planning tasks below are suggestions; ownership has not been assigned.
   every finding. Owner: unassigned. Branch: to choose.
   Starts after pull request #4 merges.
 
+- [ ] Licensed therapist reviews [[RESEARCH-BRIEF]] and fills in its review
+  tracker. Owner: the founder who supplied the brief arranges it. Branch: not
+  needed for the review; record results on a task branch.
+- [ ] After review, put approved sections on the website and reconcile them with
+  the draft page text on `site/phone-accessibility-content`. Owner: unassigned.
+
 ## In progress
 
 No planning or implementation task has been assigned yet.
