@@ -37,6 +37,7 @@ Each person uses their own Claude access and conversation.
 | `notes/templates/` | Task and handoff templates |
 | `notes/worklogs/` | Detailed handoffs |
 | `design/` | Supplied SVG and original pasted source |
+| `index.html`, `assets/` | The homepage, served by GitHub Pages |
 
 ## Work independently
 
