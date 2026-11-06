@@ -27,6 +27,7 @@ Our shared notebook for building a suicide prevention website.
 | [[FOUNDER-BRIEF\|Founder brief]] | Decisions needed from both founders, with recommendations |
 | [[LAUNCH-CHECKLIST\|Launch checklist]] | Everything between now and a public launch, in order |
 | [[REVIEWER-NOTES\|Reviewer notes]] | Drafts to send each reviewer |
+| [[SHORTER-SENTENCES\|Shorter sentences]] | Proposed plain-language rewrites, for the reviewer |
 | [[UPKEEP\|Upkeep]] | Monthly checks, and what to do if a crisis number changes |
 | [[PHONE-TEST\|Phone test]] | How to open the draft site on your own phone |
 | `review-packet/` folder | Printable packets for the therapist and a fluent Spanish reader |

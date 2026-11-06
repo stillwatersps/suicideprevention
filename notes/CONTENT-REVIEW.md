@@ -308,9 +308,9 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
 - **For Teens (D3).** Built before ages are decided. Every paragraph repeats text
   from Get Help or Help Someone. What should a teen read first? What if no adult
   feels safe? A lawyer should look at the privacy wording for minors.
-- **Long sentences (C4).** `python3 tools/check_readability.py` lists 56 sentences
-  over 25 words. Most explain when 988 may involve emergency services. Can they be
-  shortened without losing accuracy?
+- **Long sentences (C4).** `python3 tools/check_readability.py` lists sentences over 25
+  words. Most explain when 988 may involve emergency services. [[SHORTER-SENTENCES]] has
+  proposed rewrites. The pages haven't changed. Can they be shortened without losing accuracy?
 
 ## Questions about the first-version additions
 

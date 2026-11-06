@@ -437,7 +437,7 @@ def document(title, body):
 
 def fingerprint():
     digest = hashlib.sha256()
-    names = [p for p in find_pages()] + ["notes/RESEARCH-BRIEF.md", "notes/CONTENT-REVIEW.md", "notes/SAFETY.md"]
+    names = [p for p in find_pages()] + ["notes/RESEARCH-BRIEF.md", "notes/CONTENT-REVIEW.md", "notes/SAFETY.md", "notes/SHORTER-SENTENCES.md"]
     for name in sorted(names):
         digest.update(name.encode())
         digest.update((ROOT / name).read_bytes())
@@ -477,7 +477,8 @@ def therapist_packet(today, stamp):
 <li>Part 4: Crisis resources, and what each button does</li>
 <li>Part 5: Questions written for you</li>
 <li>Part 6: How the research was read, and how the pages compare with the brief</li>
-<li>Part 7: Decisions and sign-off</li>
+<li>Part 7: Proposed shorter sentences, optional</li>
+<li>Part 8: Decisions and sign-off</li>
 </ul>
 <p>The Spanish pages are in a separate packet for a fluent reader.</p>
 <p><strong>How to record feedback:</strong></p>
@@ -486,7 +487,7 @@ def therapist_packet(today, stamp):
 <li><strong>Refer to sentences by number.</strong> Every sentence has a number, such as HELP-12. In the Notes line, write something like "HELP-12: change to ...". Writing on the page is fine.</li>
 <li><strong>Repeated sentences.</strong> A gray sentence marked "same as" repeats an earlier one. A decision on the first applies to all of them.</li>
 <li><strong>Answer the questions in Part 5</strong> if you can. Skip any that aren't yours to answer.</li>
-<li><strong>Finish with Part 7.</strong> It records your decisions, your role, and the date. Please don't write personal contact details in this packet. It may be stored in a public project.</li>
+<li><strong>Finish with Part 8.</strong> It records your decisions, your role, and the date. Please don't write personal contact details in this packet. It may be stored in a public project.</li>
 </ul>
 <p>You can use a pen on paper, or add notes to the PDF in a PDF app. Return it to the founder who gave it to you.</p>
 <div class="urgent"><strong>If anything here could cause harm, please say so first.</strong> Use this box, or tell the founders right away, for anything that should come down or change before anything else happens.<span class="answer"></span><span class="answer"></span></div>
@@ -532,7 +533,12 @@ def therapist_packet(today, stamp):
     parts.append("<h3>How the pages compare with the research brief</h3>")
     parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "How the pages compare with the research brief")))
 
-    parts.append("<h2>Part 7: Decisions and sign-off</h2>")
+    parts.append("<h2>Part 7: Proposed shorter sentences</h2>")
+    parts.append("<p>Optional. These are AI-drafted rewrites of the longest sentences. The pages have not changed. Mark any you accept.</p>")
+    shorter = (ROOT / "notes" / "SHORTER-SENTENCES.md").read_text(encoding="utf-8")
+    parts.append(markdown("## " + shorter.split("## ", 1)[1]))
+
+    parts.append("<h2>Part 8: Decisions and sign-off</h2>")
     parts.append("<p>Please record your role and the date, such as \"licensed clinical social worker, November 2026\". Please don't write your name, license number, or contact details here. The founders will keep any such record outside the project.</p>")
     sections = [label for _, _, label in ENGLISH] + ["Text on every page (Part 1)"]
     tracker = re.findall(r"^\| ([^|]+?) \| [^|]+ \| Not reviewed", note_section("notes/RESEARCH-BRIEF.md", "Review tracker"), re.M)
