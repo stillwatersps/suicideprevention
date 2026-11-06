@@ -15,15 +15,15 @@ Early product planning and a first homepage build.
 - Claude Code has instructions to read the brief, status, tasks, and decisions.
 - The vault is confirmed on GitHub: a fresh download of `main` contains it.
 - GitHub Pages is on for `main`. The public link is
-  https://stillwatersps.github.io/suicideprevention/ and currently shows the
-  README, because there is no website code yet. Anything on `main` is public.
+  https://stillwatersps.github.io/suicideprevention/. Anything on `main` is public.
 - Draft safety ground rules and crisis resources to verify are in [[SAFETY]].
 - Planning drafts for scope and the phone layout are on the unmerged branch
   `planning/morning-brief`.
-- A first homepage (plain HTML and CSS, with a real public-domain photo) is
-  built on branch `claude/jolly-mayer-2m6eno`, awaiting review. Merging it
-  makes it the public GitHub Pages site. See
-  [[worklogs/2026-11-06-claude-homepage-first-build|the homepage handoff]].
+- The homepage (plain HTML and CSS, with a real public-domain photo) is merged
+  and public. See [[worklogs/2026-11-06-claude-homepage-first-build|the homepage handoff]].
+- Placeholder pages Get Help, Help Someone and Research are linked from the
+  menu, homepage cards and footer. They need content. See
+  [[worklogs/2026-11-06-claude-site-pages|the pages handoff]].
 
 ## Still to confirm
 
