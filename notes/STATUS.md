@@ -13,8 +13,8 @@ and product planning continue.
 | Where | What | State |
 | --- | --- | --- |
 | `main` | Homepage, placeholder Get Help, Help Someone, and Research pages, and these notes | Public through GitHub Pages |
-| `claude/jolly-mayer-2m6eno` | Draft page content, site fixes, `notes/CONTENT-REVIEW.md`, and the research brief `notes/RESEARCH-BRIEF.md` | [Draft pull request 5](https://github.com/stillwatersps/suicideprevention/pull/5) into `main`. **Not merged, not on the public website** |
-| `site/phone-accessibility-content` | A second round of fixes and updated notes, on top of that branch | [Draft pull request 6](https://github.com/stillwatersps/suicideprevention/pull/6) into `claude/jolly-mayer-2m6eno`. **Not merged, not on the public website** |
+| `claude/jolly-mayer-2m6eno` | Draft page content, Spanish pages, a teen page, wallet cards, quick exit, offline support, automatic checks, `notes/CONTENT-REVIEW.md`, and the research brief `notes/RESEARCH-BRIEF.md`. Pull request 6 has merged into this branch | [Draft pull request 5](https://github.com/stillwatersps/suicideprevention/pull/5) into `main`. **Not merged, not on the public website** |
+| `site/first-version-build` | The rest of the first version, for phone testing and human review: new pages, review packets, and browser tests | [Draft pull request 9](https://github.com/stillwatersps/suicideprevention/pull/9) into `claude/jolly-mayer-2m6eno`. **Not merged, not on the public website** |
 | `site/live-page-corrections` | Only the four known issues below, on the live pages, plus a handoff | [Draft pull request 8](https://github.com/stillwatersps/suicideprevention/pull/8) into `main`. **Not merged, not on the public website** |
 
 Not merged doesn't mean private: the repository is public, so anyone can read them
@@ -22,7 +22,7 @@ on GitHub. You can also read them by switching branch in GitHub Desktop; Obsidia
 shows whichever branch your project folder is on. Git refuses that switch if another
 folder on the same computer already has the branch open.
 
-Merging pull request 6 publishes nothing. Merging pull request 5 into `main`
+Merging pull request 9 publishes nothing. Merging pull request 5 into `main`
 publishes it within about a minute, notes included, so it holds for review by both
 founders and a licensed therapist. Pull request 8 is separate: merging it publishes
 its page corrections the same way, and no qualified person has reviewed that wording.
@@ -57,8 +57,8 @@ its page corrections the same way, and no qualified person has reviewed that wor
 
 ## Known issues on `main`
 
-Public now. Draft pull requests 5 and 6 correct each of these, and draft pull request
-8 corrects only these. None of those corrections is public until a pull request merges.
+Public now. Draft pull request 5 corrects each of these, and draft pull request 8
+corrects only these. None of those corrections is public until a pull request merges.
 
 - The footer says content "is still being reviewed", which overstates it. No
   qualified person has reviewed it.
@@ -81,7 +81,7 @@ Public now. Draft pull requests 5 and 6 correct each of these, and draft pull re
 
 Both people download the latest shared main branch and ask their active Claude
 session to reread the core notes and recent handoffs. Then read draft pull
-requests 5 and 6, review the public pages, and choose separate next tasks from
+requests 5 and 9, review the public pages, and choose separate next tasks from
 [[TASKS]].
 
 ## End-of-session update

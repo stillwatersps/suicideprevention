@@ -15,9 +15,9 @@ a founder has merged it.
 ## Why
 
 `main`'s notes said pull request 4 wasn't merged and page writing hadn't started. A
-Claude session opened on `main` would read that as true. Draft pull requests 5 and 6
-have corrected notes, but merging them also publishes draft pages that are waiting
-for review. So this pull request corrects the notes on their own.
+Claude session opened on `main` would read that as true. Draft pull request 5 has
+corrected notes, but merging it also publishes draft pages that are waiting for
+review. So this pull request corrects the notes on their own.
 
 ## Completed
 
@@ -25,7 +25,7 @@ for review. So this pull request corrects the notes on their own.
   "What is where" and "Known issues on `main`". Updates the date, phase, and next
   step, and links this note.
 - [[TASKS]]: moves pull request 4 to completed work. Moves the three page tasks to
-  ready for review, and says first drafts are in draft pull requests 5 and 6 and that
+  ready for review, and says first drafts are in draft pull requests 5 and 9 and that
   no qualified person has reviewed them.
 - This note. The task first allowed only the two notes above. A founder then asked
   for this note so the work's context shows in Obsidian.
@@ -47,13 +47,13 @@ No page text changed.
 | Check | Result |
 | --- | --- |
 | Base | `main` stayed at `d610002` from start to finish |
-| Pull requests, using `gh` | 3 and 4 merged. 5, 6, 7, and 8 are open drafts |
+| Pull requests, using `gh` | 3, 4, and 6 merged. 1, 5, 7, 8, and 9 are open drafts |
 | Public site | Homepage, three placeholder pages, and `notes/STATUS.md` all load. The Pages API reported `built` at `d610002` |
 | Known issues on `main` | Footer wording on all four pages. No robots tag on any page, and no `robots.txt`. "Privacy first" on the homepage, and no page mentions logs or IP addresses. "call or text 988 together" on Help Someone |
 | Web host | GitHub's Pages documentation says it logs and stores visitors' IP addresses |
-| Draft corrections | The heads of pull requests 5, 6, and 8 each change all four known issues |
+| Draft corrections | The heads of pull requests 5, 8, and 9 each change all four known issues |
 | Obsidian links | `tools/check_site.py` isn't on `main`, so a throwaway script checked every link in these notes against `main`'s files. All resolve, and none points to a note that exists only on a branch |
-| Later merges, simulated | With the heads of pull requests 5 and 6: conflicts in `STATUS` and `TASKS` only. With the head of pull request 8: no conflicts |
+| Later merges, simulated | With the heads of pull requests 5 and 9: conflicts in `STATUS` and `TASKS` only. With the head of pull request 8: no conflicts |
 | Branch switch | Git refused to switch a folder to a branch another folder had open. GitHub Desktop itself wasn't tried |
 
 ## Not checked
@@ -79,7 +79,7 @@ A founder merges or closes pull request 7.
 
 - **If it merges:** click "Pull origin" in GitHub Desktop to see it in Obsidian.
 - **When pull request 5 merges later:** keep its text in `STATUS` and `TASKS` when
-  GitHub shows the conflict. This note stays. Lines in pull request 6's notes that call
+  GitHub shows the conflict. This note stays. Lines in pull request 5's notes that call
   this pull request unmerged will then need updating.
 - **If pull request 8 merges:** update the four known issues in `STATUS`, whichever
   merges first.

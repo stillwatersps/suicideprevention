@@ -40,10 +40,10 @@ No planning or implementation task has been assigned yet.
 Move a task here when its branch is ready for the other person to review.
 
 First drafts of the three pages below are in draft pull request 5 (branch
-`claude/jolly-mayer-2m6eno`, into `main`) and draft pull request 6 (branch
-`site/phone-accessibility-content`, into that branch). No qualified person has
-reviewed them. Neither pull request is merged, so the drafts are not on the public
-website. See [[STATUS]].
+`claude/jolly-mayer-2m6eno`, into `main`), with later changes in draft pull request 9
+(branch `site/first-version-build`, into that branch). No qualified person has reviewed
+them. Neither pull request is merged, so the drafts are not on the public website. See
+[[STATUS]].
 
 - [ ] Write the Get Help page (`get-help/index.html`): options for getting
   support and what to expect. Owner: unassigned.
