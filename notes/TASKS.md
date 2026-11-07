@@ -130,6 +130,14 @@ Move a task here when its branch is ready for the other person to review.
   into `claude/jolly-mayer-2m6eno`. Handoff: [[worklogs/2026-11-07-claude-first-version-finish]].
   Not merged. No qualified person has reviewed it.
 
+- [ ] Redesign the site's look: a public-signage system with bold system type, a forest-green
+  help sign on every page with an amber Call 988 button, a numbered index on Home, and a reading
+  layout with a contents column on wide screens. No wording, links, or behavior changed. Owner:
+  Claude, at one founder's request. Branch: `site/signage-redesign`, a draft pull request into
+  `site/first-version-finish`. Merging it publishes nothing. Handoff:
+  [[worklogs/2026-11-07-claude-signage-redesign]]. Not merged. Both founders should look at it
+  on a real phone.
+
 ## Completed work
 
 Move finished tasks here and link their handoff note.

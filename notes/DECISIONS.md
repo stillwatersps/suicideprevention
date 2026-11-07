@@ -194,6 +194,25 @@ Once Pages publishes with GitHub Actions, `tools/launch_gate.py` stops the publi
 reviews are recorded. Claude built it as a proposal. Neither founder's agreement is recorded. See
 [[LAUNCH-CHECKLIST]].
 
+## November 7, 2026: new visual design, proposed
+
+One founder asked Claude for a complete redesign that doesn't look like a generic template.
+Branch `site/signage-redesign`, a draft pull request into `site/first-version-finish`, not merged.
+**The other founder's agreement isn't recorded.** What it proposes:
+
+- **Public-service signage, not soft cards.** Bold system type set large, flat color blocks,
+  square corners, fine and heavy rules. No gradients, shadows on content, icon tiles, rounded
+  pastel cards, or spaced capital labels.
+- **One recurring help sign.** Home's opening and every page's crisis panel are the same
+  forest-green block, so call, text, and chat look the same everywhere.
+- **Amber marks the strongest action.** Call 988 is amber with dark text, taken from the
+  photo's sunset. Amber is also the focus ring on green. Plum appears only in the
+  draft-for-review notice.
+- **System fonts only.** The phone's own sans for everything, and the serif wordmark kept.
+  Nothing loads from another site, so privacy and offline copies are unchanged.
+- **Wording, links, and behavior unchanged.** Every review fingerprint is the same as before.
+  Wording a reviewer might change is listed in [[worklogs/2026-11-07-claude-signage-redesign]].
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
