@@ -13,8 +13,10 @@ Git is used if it is installed, to tell project notes from private ones.
 """
 import argparse
 import base64
+import datetime
 import hashlib
 import html.parser
+import os
 import pathlib
 import re
 import subprocess
@@ -100,6 +102,8 @@ class Page(html.parser.HTMLParser):
         self.bad_handlers = []
         self.forbidden = []
         self.text_parts = []
+        # The same text without the review list on the About pages, which has its own check.
+        self.claim_parts = []
         self.attribute_text = []
         self.classes = set()
         self.aria_refs = []
@@ -237,6 +241,8 @@ class Page(html.parser.HTMLParser):
         if any("hidden" in attrs for _, attrs in self.stack):
             return
         self.text_parts.append(data)
+        if not any("status-list" in attrs.get("class", "").split() for _, attrs in self.stack):
+            self.claim_parts.append(data)
         if self.stack and "status-value" in self.stack[-1][1].get("class", "").split() and data.strip():
             self.status_values.append(data.strip())
         if self._heading_text is not None:
@@ -254,6 +260,10 @@ class Page(html.parser.HTMLParser):
     @property
     def text(self):
         return re.sub(r"\s+", " ", " ".join(self.text_parts))
+
+    @property
+    def claim_text(self):
+        return re.sub(r"\s+", " ", " ".join(self.claim_parts))
 
 
 def find_pages():
@@ -315,12 +325,32 @@ def nav_targets(name, page, marker):
     return found
 
 
-def allowed_numbers():
-    """Whole numbers from the resource table in notes/SAFETY.md, the single place they are recorded."""
+def safety_table():
+    """The rows of the resource table in notes/SAFETY.md, the single place crisis details are recorded."""
     safety = (ROOT / "notes" / "SAFETY.md").read_text(encoding="utf-8")
     section = safety.split("## U.S. crisis resources", 1)[-1].split("###", 1)[0]
+    return [line for line in section.splitlines() if line.startswith("|")]
+
+
+def crisis_hosts():
+    """The web addresses of the crisis services in notes/SAFETY.md's table, such as 988lifeline.org."""
+    hosts = set()
+    for line in safety_table():
+        for host in re.findall(r"\b((?:[a-z0-9-]+\.)+(?:org|gov|net|com))\b", line.lower()):
+            hosts.add(host[4:] if host.startswith("www.") else host)
+    return hosts
+
+
+def is_crisis_host(url):
+    host = (urllib.parse.urlsplit(url).hostname or "").lower()
+    host = host[4:] if host.startswith("www.") else host
+    return any(host == known or host.endswith("." + known) for known in crisis_hosts())
+
+
+def allowed_numbers():
+    """Whole numbers from the resource table in notes/SAFETY.md, the single place they are recorded."""
     numbers = set()
-    for line in section.splitlines():
+    for line in safety_table():
         cells = line.split("|")
         if len(cells) > 3 and not set(cells[2].strip()) <= {"-", " "}:
             for match in re.findall(r"\b1-\d{3}-\d{3}-\d{4}\b|\b\d{3}-\d{3}\b|\b\d{3,6}\b", cells[2]):
@@ -515,9 +545,31 @@ def check_pages(failures, notes):
     return outside, len(names)
 
 
-# Words that would claim a review. They are refused until a review is on record in notes/CONTENT-REVIEW.md.
-REVIEW_CLAIMS = re.compile(r"\b(reviewed by|approved by|clinically (reviewed|approved)|revisado por|aprobado por|revisada por|aprobada por)\b", re.I)
+# Words that would claim a review. A page may use them only once its own review, and the review of the
+# text on every page, are recorded as approved in notes/CONTENT-REVIEW.md. "has not reviewed" and
+# "no ha sido revisado" don't match.
+REVIEW_CLAIMS = re.compile(
+    r"\b(reviewed by|approved by|vetted by|reviewed and approved|clinically (reviewed|approved)"
+    r"|(medically|professionally|clinically|clinician|expert|doctor|therapist|psychologist)[- ](reviewed|approved|vetted)"
+    r"|(page|site|content|text|information|wording) (has been|was|is) (reviewed|approved)"
+    r"|revisad[oa]s? por|aprobad[oa]s? por|revisad[oa]s? y aprobad[oa]s?"
+    r"|(médica|clínica|profesional)mente (revisad|aprobad)[oa]s?"
+    r"|(página|sitio|contenido|texto|información) (ha sido|fue|está) (revisad|aprobad)[oa]s?)\b", re.I)
 ABOUT_SECTIONS = ("what-this-is", "review-status", "privacy", "quick-exit", "offline", "contact-card")
+
+# A review record in notes/CONTENT-REVIEW.md is one line in exactly this form:
+#   - Get Help: licensed clinical social worker, 2026-12-01, approved with changes, changes made
+# The section is a page's name in the review packets (or its address, such as get-help/), the text on
+# every page, or the wording outside the page text. Only these two results count as an approval.
+RECORD_FORM = re.compile(r"^- (?P<section>[^:]+): (?P<role>.+?), (?P<date>\d{4}-\d{2}-\d{2}), (?P<result>.+?)\.?\s*$")
+RECORD_EXAMPLE = "- Get Help: licensed clinical social worker, 2026-12-01, approved"
+APPROVED = {"approved", "approved with changes, changes made"}
+# Any of these words in the role or the result means it is not a full approval.
+NOT_APPROVED = re.compile(r"\b(not|no|yet|waiting|pending|only|partly|partial|except|until|but)\b", re.I)
+# English pages need a clinician. Spanish pages need a fluent reader. One never counts for the other.
+CLINICIAN = re.compile(r"clinic|therap|counsel|psycholog|psychiatr|social worker", re.I)
+FLUENT_READER = re.compile(r"spanish|español|hispanohablante|translat|traduct|fluent|bilingual|bilingüe|interpret", re.I)
+EVERY_PAGE = {"en": "(text on every page)", "es": "(texto en cada página)"}
 
 
 def review_records():
@@ -529,18 +581,86 @@ def review_records():
     return [line for line in section.splitlines() if line.startswith("- ") and "No review has been recorded" not in line]
 
 
+def review_sections():
+    """Each part a reviewer signs off, as (name, page, language), named as in the review packets."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_review_packet  # here, not at the top, because that file uses this one
+    found = [(label, page, "en") for page, _, label in make_review_packet.ENGLISH]
+    found += [(label, page, "es") for page, _, label, _ in make_review_packet.SPANISH]
+    return found + [("Text on every page", EVERY_PAGE["en"], "en"), ("Texto en cada página", EVERY_PAGE["es"], "es"),
+                    ("Wording outside the page text", "(wording outside the page text)", "en"),
+                    ("Texto fuera de las páginas", "(texto fuera de las páginas)", "es")]
+
+
+def read_review_records(lines):
+    """Reads review records strictly. Returns (records, lines that don't count because of their form)."""
+    names = {}
+    for label, page, lang in review_sections():
+        for name in (label, page, page[: -len("index.html")] if page.endswith("index.html") else page):
+            if name:
+                names[name.lower()] = (page, lang)
+    records, unreadable = [], []
+    for line in lines:
+        match = RECORD_FORM.match(line.strip())
+        section = match and re.sub(r"\s*\((part|parte) \d\)$", "", match.group("section").strip().strip("\"“”").lower())
+        try:
+            date = datetime.date.fromisoformat(match.group("date")) if match else None
+        except ValueError:
+            date = None
+        if not match or section not in names or not date:
+            unreadable.append(line)
+            continue
+        page, lang = names[section]
+        role, result = match.group("role").strip(), match.group("result").strip()
+        approved = result.lower() in APPROVED and not NOT_APPROVED.search(role + " " + result)
+        records.append({"page": page, "lang": lang, "role": role, "date": date, "approved": approved, "line": line})
+    return records, unreadable
+
+
+def latest_review(records, page, lang):
+    """The newest record for a page or section by the kind of reviewer it needs, or None.
+    On the same date, a record that isn't an approval wins."""
+    needs = CLINICIAN if lang == "en" else FLUENT_READER
+    mine = [r for r in records if r["page"] == page and r["lang"] == lang and needs.search(r["role"])]
+    return max(mine, key=lambda r: (r["date"], not r["approved"])) if mine else None
+
+
+def is_approved(records, page, lang):
+    found = latest_review(records, page, lang)
+    return bool(found and found["approved"])
+
+
+def page_twins(pages):
+    """Each page's twin in the other language, from its language switch."""
+    twins = {}
+    for name, page in pages.items():
+        for link in page.links:
+            if link["href"] and "lang-switch" in " ".join(link["within"]):
+                target = resolve(name, link["href"])
+                if target and not target[0].startswith("MISSING:"):
+                    twins[name] = target[0]
+    return twins
+
+
 def check_review_status(failures, pages):
     """The site may not claim a review that isn't recorded, and the About pages must stay complete."""
-    records = review_records()
-    if records is None:
+    lines = review_records()
+    if lines is None:
         failures.append("notes/CONTENT-REVIEW.md: needs a \"## Review records\" section")
         return
+    records, unreadable = read_review_records(lines)
+    for line in unreadable:
+        failures.append(f"notes/CONTENT-REVIEW.md: this review record doesn't count, because it isn't in the form "
+                        f"\"{RECORD_EXAMPLE}\" with a page name from the review packets: {line}")
+    twins = page_twins(pages)
     for name, page in pages.items():
-        everything = page.text + " " + " ".join(page.attribute_text)
-        if not records:
-            match = REVIEW_CLAIMS.search(everything)
-            if match:
-                failures.append(f"{name}: says \"{match.group(0)}\" but no review is recorded in notes/CONTENT-REVIEW.md")
+        lang = language_of(name)
+        allowed = is_approved(records, name, lang) and is_approved(records, EVERY_PAGE[lang], lang)
+        if lang == "es":  # a Spanish page also needs its English original's clinical review
+            allowed = allowed and is_approved(records, twins.get(name), "en") and is_approved(records, EVERY_PAGE["en"], "en")
+        match = REVIEW_CLAIMS.search(page.claim_text + " " + " ".join(page.attribute_text))
+        if match and not allowed:
+            failures.append(f"{name}: says \"{match.group(0)}\" but no approval of this page is recorded in notes/CONTENT-REVIEW.md")
     pending = {"about/index.html": "Pending", "es/acerca-de/index.html": "Pendiente"}
     for about, word in pending.items():
         page = pages.get(about)
@@ -551,29 +671,48 @@ def check_review_status(failures, pages):
             if section not in page.ids:
                 failures.append(f"{about}: needs a section with the id \"{section}\"")
         lang = language_of(about)
-        listed = {resolve(about, link["href"])[0] for link in page.links
-                  if ".status-list" in link["within"] and resolve(about, link["href"])}
+        listed = [resolve(about, link["href"])[0] for link in page.links
+                  if ".status-list" in link["within"] and resolve(about, link["href"])]
         for name in pages:
             if language_of(name) == lang and name != "404.html" and name not in listed:
                 failures.append(f"{about}: the review list does not list {name}")
-        if not records and page.status_values.count(word) != 2 * len(listed):
-            failures.append(f"{about}: every page must show {word} until a review is recorded")
+        # Each page in the list shows two results: its clinical review, then its Spanish review.
+        if len(page.status_values) != 2 * len(listed):
+            failures.append(f"{about}: each page in the review list needs two results, clinical then Spanish")
+            continue
+        for index, name in enumerate(listed):
+            english, spanish = (name, twins.get(name)) if lang == "en" else (twins.get(name), name)
+            clinical, translation = page.status_values[2 * index: 2 * index + 2]
+            if clinical != word and not latest_review(records, english, "en"):
+                failures.append(f"{about}: {name} must show {word} for its clinical review until one is recorded")
+            if translation != word and not latest_review(records, spanish, "es"):
+                failures.append(f"{about}: {name} must show {word} for its Spanish review until one is recorded")
 
 
 DATE_EN = re.compile(r"(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, 20\d\d")
 DATE_ES = re.compile(r"\d{1,2} de (?:enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|octubre|noviembre|diciembre) de 20\d\d")
 
 
+def date_kind(text_before):
+    """Whether a date dates the crisis numbers and links, or a list of sources. Reads the sentence
+    the date ends, given the text just before it."""
+    sentence = re.split(r"[.!?]\s", text_before[-400:])[-1]
+    return "crisis details" if re.search(r"provider|proveedor", sentence) else "sources"
+
+
 def check_dates(failures, pages):
-    """Every page shows the same "last checked" date, so a re-check can't update only some of them."""
+    """Every page shows the same date for each kind of check, so a re-check can't update only some pages.
+    The crisis details and the source lists are checked on their own schedules, so each has its own date."""
     for lang, pattern in (("en", DATE_EN), ("es", DATE_ES)):
         seen = {}
         for name, page in pages.items():
             if language_of(name) == lang:
-                for date in pattern.findall(page.text):
-                    seen.setdefault(date, []).append(name)
-        if len(seen) > 1:
-            failures.append(f"pages show different dates ({lang}): {sorted(seen)}. Use tools/set_checked_date.py")
+                for match in pattern.finditer(page.text):
+                    kind = date_kind(page.text[: match.start()])
+                    seen.setdefault(kind, {}).setdefault(match.group(0), []).append(name)
+        for kind, dates in sorted(seen.items()):
+            if len(dates) > 1:
+                failures.append(f"pages show different dates for the {kind} ({lang}): {sorted(dates)}. Use tools/set_checked_date.py")
 
 
 def check_contact_cards(failures, numbers):
@@ -596,6 +735,16 @@ def check_contact_cards(failures, numbers):
                 failures.append(f"{path.name}: {phone} is not a number recorded in notes/SAFETY.md")
         if any(len(line.encode("utf-8")) > 75 for line in lines):
             failures.append(f"{path.name}: vCard lines must be folded at 75 bytes")
+        # The note and web address are saved to a person's phone too, and can stay there for years.
+        # A long line continues on the next one, which starts with a space.
+        unfolded = re.sub(r"\r\n[ \t]", "", raw.decode("utf-8")).split("\r\n")
+        for line in unfolded:
+            if line.startswith("NOTE"):
+                for number in re.findall(r"\b1-\d{3}-\d{3}-\d{4}\b|\b\d{3}-\d{3}\b|\d{3,}", line):
+                    if phone_digits(number) not in numbers:
+                        failures.append(f"{path.name}: the note has {number}, which is not a number recorded in notes/SAFETY.md")
+            if line.startswith("URL") and not is_crisis_host(line.split(":", 1)[1]):
+                failures.append(f"{path.name}: {line} is not the website of a service in notes/SAFETY.md")
 
 
 def check_publish_list(failures, names):
@@ -651,7 +800,8 @@ def check_assets(failures):
         for match in re.finditer(r"url\(\s*['\"]?(https?:)?//|@import", css):
             failures.append(f"{path.name}: loads something from another site (SAFETY rule 5): {match.group(0)}")
         for selector, declarations in re.findall(r"([^{}]+)\{([^{}]*)\}", css):
-            if re.search(r"\.crisis-(bar|actions)\b|\.action\b", selector) and HIDES.search(declarations):
+            # The strip is an aside, so a rule for every aside reaches it too.
+            if re.search(r"\.crisis-(bar|actions)\b|\.action\b|\baside\b", selector) and HIDES.search(declarations):
                 failures.append(f"{path.name}: hides crisis controls (SAFETY rule 1): {selector.strip()}")
     for path in sorted((ROOT / "assets").glob("*.js")):
         script = path.read_text(encoding="utf-8")
@@ -660,25 +810,53 @@ def check_assets(failures):
                 failures.append(f"{path.name}: sends or stores data (SAFETY rule 5): {word}")
 
 
+# Crisis services known to refuse scripts: two answer 403, and findtreatment.gov gives scripts, even
+# Chrome, a nearly empty page. A person checks these in a browser instead.
+KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov", "findtreatment.gov"}
+
+
+def open_link(url):
+    """Returns (status, final address, error). Status None means the site couldn't be reached."""
+    request = urllib.request.Request(url, headers={"User-Agent": "Tidelight link check"})
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            return response.status, response.geturl(), None
+    except urllib.error.HTTPError as error:
+        return error.code, url, None
+    except Exception as error:  # network problems are reported, never hidden
+        return None, url, error
+
+
 def check_links(outside, failures, notes):
-    """Loads each outside link. A provider may block scripts, so 403 and 429 are reported, not failed."""
+    """Loads each outside link. Many sites block scripts, so 403, 429 and 503 are reported, not failed.
+    A crisis service from notes/SAFETY.md is stricter: after one retry, a site that can't be reached or
+    answers with a server error fails, and so does a block from one not in KNOWN_BLOCKERS."""
     for url in sorted(outside):
-        request = urllib.request.Request(url, headers={"User-Agent": "Tidelight link check"})
-        try:
-            with urllib.request.urlopen(request, timeout=30) as response:
-                final = response.geturl()
-                status = response.status
-        except urllib.error.HTTPError as error:
-            status, final = error.code, url
-        except Exception as error:  # network problems are reported, not hidden
-            notes.append(f"could not check {url}: {error}")
+        status, final, error = open_link(url)
+        if status is None or status >= 500:
+            status, final, error = open_link(url)  # one retry, for a passing hiccup
+        crisis = is_crisis_host(url)
+        if status is None:
+            message = f"could not reach {url}: {error}"
+            (failures if crisis else notes).append(("crisis service " if crisis else "") + message)
             continue
         moved = f" -> {final}" if final.rstrip("/") != url.rstrip("/") else ""
         print(f"  {status} {url}{moved}")
-        if status in (403, 429, 503):
+        host = urllib.parse.urlsplit(url).hostname
+        if crisis and (status >= 500 or (status in (403, 429) and host not in KNOWN_BLOCKERS)):
+            failures.append(f"crisis service link failed ({status}): {url}")
+        elif status in (403, 429, 503):
             notes.append(f"{url} blocked this script ({status}); check it in a browser")
         elif status >= 400:
             failures.append(f"outside link failed ({status}): {url}")
+
+
+def write_job_summary(title, lines):
+    """On GitHub, also put notes and failures on the run's summary page, so nobody has to open the log."""
+    summary = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary and lines:
+        with open(summary, "a", encoding="utf-8") as out:
+            out.write(f"### {title}\n\n" + "".join(f"- {line}\n" for line in lines) + "\n")
 
 
 def check_packets(notes):
@@ -757,6 +935,7 @@ def main():
         print(f"NOTE: {note}")
     for failure in failures:
         print(f"FAIL: {failure}")
+    write_job_summary("Site check", [f"NOTE: {n}" for n in notes] + [f"FAIL: {f}" for f in failures])
     if failures:
         print(f"{len(failures)} problem(s) found.")
         return 1

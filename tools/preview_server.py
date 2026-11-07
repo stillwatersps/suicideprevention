@@ -4,14 +4,22 @@
     python3 tools/preview_server.py               # this computer only
     python3 tools/preview_server.py --lan         # also phones on the same Wi-Fi
     python3 tools/preview_server.py --port 8123
+    python3 tools/preview_server.py --no-cache    # show edits at once, unlike the real site
 
 The site appears under /suicideprevention/, like the real address. Only the files the
 publish step copies are served, so notes and tools stay out, exactly as they will once
 Pages publishes with GitHub Actions. A missing address gets 404.html with a 404 status.
 
+Like GitHub Pages, it lets browsers keep a copy for 10 minutes, and sends a fingerprint of each
+file (an ETag) and its date, so a browser can ask whether it changed. So an edited page can take
+up to 10 minutes to show, as on the real site. To see edits at once while working on the pages,
+use --no-cache.
+
 It needs only Python 3 and sends nothing anywhere. Stop it with Control-C.
 """
 import argparse
+import email.utils
+import hashlib
 import http.server
 import mimetypes
 import pathlib
@@ -24,6 +32,8 @@ import urllib.parse
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = "/suicideprevention/"
+# What GitHub Pages sends, as read from the live site's answers in November 2026.
+PAGES_CACHE = "max-age=600"
 # GitHub Pages takes its types from mime-db. These are the ones Python might get wrong.
 TYPES = {
     ".vcf": "text/x-vcard",
@@ -57,16 +67,37 @@ def make_handler(root, cache_control, log):
             if log:
                 sys.stderr.write("  %s %s\n" % (self.address_string(), format % args))
 
-        def _send(self, status, body, content_type, head_only, extra=None):
+        def _send(self, status, body, content_type, head_only, extra=None, modified=None):
+            headers = {"Cache-Control": cache_control}
+            if status == 200:
+                # A fingerprint and a date, so a browser can ask whether its copy is still current.
+                headers["ETag"] = '"' + hashlib.sha1(body).hexdigest()[:16] + '"'
+                if modified is not None:
+                    headers["Last-Modified"] = email.utils.formatdate(modified, usegmt=True)
+                if self._unchanged(headers["ETag"], modified):
+                    status, body = 304, b""
             self.send_response(status)
-            self.send_header("Content-Type", content_type)
+            if status != 304:
+                self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(body)))
-            self.send_header("Cache-Control", cache_control)
-            for key, value in (extra or {}).items():
+            for key, value in dict(headers, **(extra or {})).items():
                 self.send_header(key, value)
             self.end_headers()
             if not head_only:
                 self.wfile.write(body)
+
+        def _unchanged(self, etag, modified):
+            """True if the browser already has this version, so a short "not modified" answer will do."""
+            asked = self.headers.get("If-None-Match")
+            if asked:
+                return asked.strip() == "*" or etag in [tag.strip() for tag in asked.split(",")]
+            since = self.headers.get("If-Modified-Since")
+            if since and modified is not None:
+                try:
+                    return int(modified) <= email.utils.parsedate_to_datetime(since).timestamp()
+                except (TypeError, ValueError):
+                    return False
+            return False
 
         def _not_found(self, head_only):
             body = (root / "404.html").read_bytes()
@@ -94,7 +125,7 @@ def make_handler(root, cache_control, log):
                 return self._not_found(head_only)
             suffix = target.suffix.lower()
             kind = TYPES.get(suffix) or mimetypes.guess_type(target.name)[0] or "application/octet-stream"
-            self._send(200, target.read_bytes(), kind, head_only)
+            self._send(200, target.read_bytes(), kind, head_only, modified=target.stat().st_mtime)
 
         def do_GET(self):
             self._serve(False)
@@ -140,8 +171,9 @@ class Server(socketserver.ThreadingMixIn, http.server.HTTPServer):
             super().handle_error(request, client_address)
 
 
-def make_server(host="127.0.0.1", port=0, root=ROOT, cache_control="no-cache", log=False):
-    """Used by tools/test_browser.py as well. Port 0 picks any free port."""
+def make_server(host="127.0.0.1", port=0, root=ROOT, cache_control=PAGES_CACHE, log=False):
+    """Used by tools/test_browser.py as well. Port 0 picks any free port. It caches like GitHub
+    Pages unless told otherwise, so tests see what visitors will."""
     return Server((host, port), make_handler(pathlib.Path(root), cache_control, log))
 
 
@@ -178,10 +210,11 @@ def main():
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--lan", action="store_true", help="let phones on the same Wi-Fi open it")
     parser.add_argument("--quiet", action="store_true", help="don't print each request")
+    parser.add_argument("--no-cache", action="store_true", help="show edited pages at once, unlike the real site")
     args = parser.parse_args()
 
     host = "0.0.0.0" if args.lan else "127.0.0.1"
-    server = make_server(host, args.port, log=not args.quiet)
+    server = make_server(host, args.port, cache_control="no-cache" if args.no_cache else PAGES_CACHE, log=not args.quiet)
     port = server.server_address[1]
     print(f"On this computer: http://localhost:{port}{BASE}")
     if args.lan:
@@ -193,6 +226,8 @@ def main():
         print("If macOS asks whether to allow incoming connections, choose Allow.")
         print("If the phone can't connect, a VPN on either device may be blocking local traffic.")
         print("Offline support can't be tested this way: it needs HTTPS or localhost.")
+    if not args.no_cache:
+        print("Like GitHub Pages, browsers may keep a page for 10 minutes. Use --no-cache to see edits at once.")
     print("Press Control-C to stop.", flush=True)
     try:
         server.serve_forever()

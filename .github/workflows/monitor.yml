@@ -32,9 +32,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Open every outside link
-        # Some providers block automated checks (403); those are listed for a person to open, not failed.
+        # Some sites block automated checks (403); those are listed for a person to open, not failed.
+        # A crisis service that can't be reached, after one retry, fails the run.
         run: python3 tools/check_site.py --check-links
       - name: Check crisis details on each provider's page
+        # Runs even if a link above failed, so one dead research link can't skip the crisis numbers.
+        if: ${{ !cancelled() }}
         env:
           TIDELIGHT_CHROME_NO_SANDBOX: "1"
         run: python3 tools/check_crisis_sources.py
