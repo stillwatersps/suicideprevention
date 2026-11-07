@@ -1,0 +1,232 @@
+/* The one-page crisis preview. Used by index.html, get-help/, help-someone/,
+   research/ and 404.html. No scripts, fonts, or files from other sites.
+   Every text color here meets at least 7:1 contrast with its background. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #FAF8F4;
+  --text: #2E332F;
+  --heading: #213B30;
+  --muted: #4A524B;
+  --line: #CDD2C8;
+  --link: #60375E;
+  --focus: #60375E;
+  --main-bg: #315A45;
+  --main-text: #FFFFFF;
+  --main-hover: #24473A;
+  --plain-bg: #FFFFFF;
+  --plain-text: #213B30;
+  --plain-border: #315A45;
+  --plain-hover: #EEF3EC;
+  --urgent-bg: #60375E;
+  --urgent-text: #FFFFFF;
+  --urgent-hover: #4E2C4C;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #131915;
+    --text: #E2E7DF;
+    --heading: #F3F5F0;
+    --muted: #C0C8BD;
+    --line: #46524A;
+    --link: #E8C9E6;
+    --focus: #FFFFFF;
+    --main-bg: #A8D5B9;
+    --main-text: #10221A;
+    --main-hover: #C3E4CF;
+    --plain-bg: #1B231E;
+    --plain-text: #F3F5F0;
+    --plain-border: #A8D5B9;
+    --plain-hover: #25302A;
+    --urgent-bg: #E8C9E6;
+    --urgent-text: #2B1229;
+    --urgent-hover: #F2DCF0;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+main, footer {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+main { padding-top: 24px; }
+
+h1, h2, h3 {
+  margin: 0;
+  color: var(--heading);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  line-height: 1.2;
+}
+h1 { font-size: 2rem; letter-spacing: -0.01em; }
+h2 { margin-top: 36px; font-size: 1.5rem; }
+h3 { margin-top: 24px; font-size: 1.25rem; }
+
+p { margin: 12px 0 0; }
+
+a { color: var(--link); text-underline-offset: 4px; }
+
+a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* The heading and the jump to Spanish share a row when there is room. */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 16px;
+}
+.lang-jump {
+  display: inline-block;
+  min-height: 44px;
+  padding: 10px 0;
+  font-weight: 700;
+}
+
+.lead { font-size: 1.125rem; }
+
+/* Call, text, and chat links, shown as large buttons. */
+.actions {
+  display: grid;
+  gap: 12px;
+  max-width: 30rem;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 3.5rem;
+  padding: 12px 20px;
+  border: 2px solid var(--plain-border);
+  border-radius: 12px;
+  background: var(--plain-bg);
+  color: var(--plain-text);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.action:hover { background: var(--plain-hover); }
+/* A chat link's address, on its own line under the label. */
+.address { font-size: 0.9375rem; font-weight: 400; }
+.action-main {
+  border-color: var(--main-bg);
+  background: var(--main-bg);
+  color: var(--main-text);
+}
+.action-main:hover { border-color: var(--main-hover); background: var(--main-hover); }
+.action-911 {
+  border-color: var(--urgent-bg);
+  background: var(--urgent-bg);
+  color: var(--urgent-text);
+}
+.action-911:hover { border-color: var(--urgent-hover); background: var(--urgent-hover); }
+
+.hint, .note, .notice { color: var(--muted); font-size: 1rem; }
+.notice { margin-top: 8px; }
+
+footer {
+  margin-top: 40px;
+  padding-top: 8px;
+  padding-bottom: 40px;
+  border-top: 1px solid var(--line);
+}
+footer h2 { margin-top: 16px; font-size: 1.25rem; }
+footer p { font-size: 1rem; }
+.more { margin-top: 4px; }
+.more a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+}
+
+@media (min-width: 30rem) {
+  h1 { font-size: 2.25rem; }
+}
+
+@media (min-width: 48rem) and (min-height: 30rem) {
+  main { padding-top: 48px; }
+  h1 { font-size: 2.75rem; }
+}
+
+/* Short screens, such as a phone on its side: keep Call 988 on the first screen. */
+@media (max-height: 420px) {
+  main { padding-top: 12px; }
+  h1 { font-size: 1.875rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  :root {
+    --bg: #FFFFFF;
+    --text: #000000;
+    --heading: #000000;
+    --muted: #000000;
+    --line: #000000;
+    --link: #000000;
+    --main-bg: #FFFFFF;
+    --main-text: #000000;
+    --plain-bg: #FFFFFF;
+    --plain-text: #000000;
+    --plain-border: #000000;
+    --urgent-bg: #FFFFFF;
+    --urgent-text: #000000;
+  }
+  body { font-size: 12pt; }
+  main, footer { max-width: none; padding-left: 0; padding-right: 0; }
+  main { padding-top: 0; }
+  h1 { font-size: 24pt; }
+  .lang-jump { display: none; }
+  .actions { gap: 6pt; }
+  .action, .action-main, .action-911 {
+    align-items: flex-start;
+    min-height: 0;
+    padding: 6pt 10pt;
+    border: 1pt solid #000000;
+    background: #FFFFFF;
+    color: #000000;
+    text-align: left;
+  }
+  .more a { display: inline; min-height: 0; }
+  .print-url::after {
+    content: " (" attr(href) ")";
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+  section, footer, .actions { break-inside: avoid; }
+}
