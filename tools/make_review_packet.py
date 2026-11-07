@@ -604,6 +604,8 @@ def therapist_packet(today, stamp):
     parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "Questions about the approved ideas")))
     parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "Questions about the second batch")))
     parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "Questions about the first-version additions")))
+    parts.append("<h3>Questions from the November 7 audit</h3>")
+    parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "Questions from the November 7 audit")))
     parts.append("<h3>Questions about the research brief</h3>")
     parts.append(markdown(note_section("notes/RESEARCH-BRIEF.md", "Questions for the reviewer from Claude")))
     parts.append('<h3>Your answers</h3>' + '<span class="answer"></span>' * 14)
