@@ -66,6 +66,15 @@ def menu_never_closes(copy):
     replace("assets/menu.js", "    if (isOpen() && next && !nav.contains(next) && next !== button) {", "    if (false) {")(copy)
 
 
+def quick_exit_plain_link(copy):
+    # A changed inline script no longer matches the page's policy, so it can't run: a plain link.
+    replace("get-help/index.html", "location.replace(a.href);", "location.href = a.href;")(copy)
+
+
+def quick_exit_no_blank(copy):
+    replace("get-help/index.html", "document.documentElement.hidden=true;", "")(copy)
+
+
 # Name, bug, test group, pages to test, words the failure must contain.
 BUGS = [
     ("sideways scrolling", append_css("body { min-width: 500px; }"), "matrix", "get-help", "scrolls sideways"),
@@ -85,7 +94,18 @@ BUGS = [
     ("a section link hidden by the strip", append_css("html { scroll-padding-top: 0; }"), "jumps", "get-help", "behind the pinned area"),
     ("a folded section that won't open from a link", replace("assets/menu.js", "    if (own) own.open = true;", ""), "folds", "get-help", "leaves it folded"),
     ("a wrong language link", replace("get-help/index.html", '../es/obtener-ayuda/" hreflang="es"', '../es/ayudar-a-alguien/" hreflang="es"'), "language", "get-help", "does not lead back"),
-    ("Quick exit leaving the page in history", replace("assets/menu.js", "window.location.replace(exit.href);", "window.location.href = exit.href;"), "quickexit", "get-help", "stayed in the tab's history"),
+    ("Quick exit leaving the page in history", quick_exit_plain_link, "quickexit", "get-help", "stayed in the tab's history"),
+    ("Quick exit leaving the page on screen", quick_exit_no_blank, "quickexit", "get-help", "stays on screen"),
+    ("Quick exit floating over crisis buttons", append_css("@media (max-width: 959px) { .quick-exit { position: fixed !important; right: 8px; bottom: 8px; } }"), "quickexit", "get-help", "not inside the pinned strip"),
+    ("Quick exit too close to Call 911", append_css("@media (max-width: 959px) { .quick-exit { margin-left: 0 !important; } .strip-911 { flex: none !important; } .crisis-bar { justify-content: flex-start !important; column-gap: 0 !important; } }"), "quickexit", "get-help", "too close to call 911"),
+    ("crisis strip links too small to tap", append_css("@media (max-width: 959px) { .crisis-bar p a { min-height: 0 !important; padding: 0 !important; } }"), "matrix", "get-help", "crisis strip tap target"),
+    ("a garbled address stopping the script", replace("assets/menu.js", "      return; // A garbled address.", "      throw error; // A garbled address."), "jumps", "get-help", "garbled address"),
+    ("Back showing which feeling was opened", replace("assets/menu.js", "    fold.open = false;\n  });\n});", "  });\n});"), "privacy", "not-sure", "which feeling was opened"),
+    ("a long wait for a saved copy on a weak signal", replace("sw.js", "var WAIT_MS = 3000;", "var WAIT_MS = 600000;"), "offline", "get-help", "weak signal"),
+    ("waiting again on every file on a weak signal", replace("sw.js", "Date.now() < stalledUntil ? 0 : WAIT_MS", "WAIT_MS"), "offline", "get-help", "weak signal"),
+    ("a server error hiding the saved copy", replace("sw.js", "response.status >= 500 ?", "response.status >= 999 ?"), "offline", "get-help", "server error hides"),
+    ("a correction lost to the browser's cache", replace("sw.js", "return new Request(path, { cache: 'reload' });", "return path;"), "offline", "get-help", "browser's cache"),
+    ("addresses saved with their query", replace("sw.js", "var key = url.origin + url.pathname;", "var key = request.url;"), "offline", "get-help", "saved with its query"),
     ("motion ignoring the setting", replace("assets/styles.css", "@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }", ""), "reducedmotion", "get-help", "still moves"),
     ("a menu that needs JavaScript", append_css("html:not(.js) .site-nav { display: none; }"), "nojs", "get-help", "layout without JavaScript"),
     ("blank printouts", append_css("@media print { main { display: none; } }"), "print", "get-help", "prints almost nothing"),

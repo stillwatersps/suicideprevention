@@ -75,20 +75,31 @@ strong { color: var(--ink); }
 
 /* Crisis bar */
 .crisis-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  column-gap: .3em;
   background: var(--green);
   color: #F4F6EF;
   font-size: .9rem;
   text-align: center;
   padding: 4px var(--gutter);
 }
-.crisis-bar a {
+.crisis-bar p { margin: 0; }
+/* After "Get Support Now": ring the crisis buttons, so the tap has a visible result even
+   when they were already on screen. */
+#support:target .action { outline: 3px solid var(--plum); outline-offset: 2px; }
+.crisis-bar p a {
   display: inline-block;
   padding: 5px 2px;
   color: #fff;
   font-weight: 700;
   text-underline-offset: 3px;
 }
-.crisis-bar a:focus-visible { outline-color: #fff; outline-offset: 0; }
+.crisis-bar p a:focus-visible { outline-color: #fff; outline-offset: 0; }
+.strip-988 { order: 1; }
+.strip-911 { order: 2; }
 
 /* Header */
 .site-header {
@@ -409,10 +420,24 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .header-cta { order: 3; flex: 1 0 100%; max-width: none; }
 }
 /* Phones and tablets: the crisis line stays pinned so help is always one tap away.
-   The header scrolls away, which keeps the pinned area small. */
+   The header scrolls away, which keeps the pinned area small. Each link is a full-size
+   tap target, and the 911 link gets its own row, away from the 988 links. */
 @media (max-width: 959px) {
-  .crisis-bar { position: sticky; top: 0; z-index: 60; }
+  .crisis-bar { position: sticky; top: 0; z-index: 60; padding: 2px 8px; }
+  .crisis-bar p a { min-height: 44px; padding: 11px 0; line-height: 1.4; }
   .site-header { position: relative; }
+}
+@media (max-width: 47.4em) {
+  .crisis-bar { text-align: left; }
+  .strip-988 { flex: 1 0 100%; }
+  .strip-911 { flex: 1 1 0; min-width: 0; }
+}
+@media (max-width: 24em) {
+  .crisis-bar { font-size: .85rem; }
+}
+/* Fewer words where space is tight. The numbers and links always stay. */
+@media (max-width: 30em), (max-height: 30em) {
+  .strip-extra { display: none; }
 }
 /* Very large text settings: the strip would fill too much of the screen if pinned. */
 @media (max-width: 16em) {
@@ -709,6 +734,27 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 }
 /* Room at the bottom so the button never covers the last line of a page. */
 body { padding-bottom: 76px; }
+/* Wherever the crisis line is pinned, Quick exit rides inside it. It never sits on top of
+   anything there, so a tap aimed at a crisis button can't land on it by accident. */
+@media (max-width: 959px) and (min-width: 16.01em) and (min-height: 18.76em) {
+  .quick-exit {
+    position: static;
+    order: 3;
+    flex: none;
+    margin-left: 12px;
+    min-height: 44px;
+    padding: 0 12px;
+    gap: 6px;
+    font-size: .9rem;
+    box-shadow: none;
+  }
+  .quick-exit:focus-visible { outline-color: #fff; outline-offset: 1px; }
+  body { padding-bottom: 0; }
+}
+@media (max-width: 30em) {
+  .exit-extra { display: none; }
+  .quick-exit { text-transform: capitalize; }
+}
 
 /* Get Help: the short version first */
 .right-now {
@@ -887,7 +933,7 @@ body { padding-bottom: 76px; }
   body { background: #fff; color: #111; padding: 0; }
   .quick-exit, .skip-link, .menu-button, .header-cta, .site-nav, .toc, .offline-note, .hero-photo, .hero-curve, .lang-switch, .lang-link, .breadcrumb, .text-link, .print-actions { display: none !important; }
   .crisis-bar { position: static; background: #fff; color: #000; border: 1px solid #000; }
-  .crisis-bar a { color: #000; }
+  .crisis-bar p a { color: #000; }
   .site-header { position: static; border-bottom: 1px solid #999; }
   .hero, .page-hero, .right-now, .card, .closing, .service, .page-status, .action, .action-primary, .pill { background: #fff !important; box-shadow: none !important; color: #000 !important; }
   .action-primary .action-sub, .closing-title, .closing-sub, .closing a { color: #000 !important; }

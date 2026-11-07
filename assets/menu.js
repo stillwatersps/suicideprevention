@@ -1,5 +1,6 @@
-// Site script: the phone menu, quick exit, folded sections, and offline support.
-// It sends nothing anywhere and stores nothing about the visitor.
+// Site script: the phone menu, folded sections, and offline support.
+// It sends nothing anywhere. The only thing it asks a browser to keep is the offline copy
+// of this site's own files. See sw.js.
 
 // Opens and closes the phone navigation menu.
 (function () {
@@ -62,21 +63,28 @@
   }
 })();
 
-// Quick exit: leave for the neutral page in the link, replacing this page in the
-// tab's history so Back does not return here. Without JavaScript the link still works.
-(function () {
-  var exit = document.querySelector('.quick-exit');
-  if (!exit) return;
-  exit.addEventListener('click', function (event) {
-    event.preventDefault();
-    window.location.replace(exit.href);
+// Quick exit's click handler is the small script in each page's head, so it works from the
+// first moment. It blanks the page while the neutral site loads. If a browser ever brings
+// this page back, show it again rather than leaving it blank.
+// Feelings opened on the Not sure page close when leaving it, so Back doesn't show them.
+window.addEventListener('pageshow', function () {
+  document.documentElement.hidden = false;
+});
+window.addEventListener('pagehide', function () {
+  Array.prototype.forEach.call(document.querySelectorAll('details.feeling[open]'), function (fold) {
+    fold.open = false;
   });
-})();
+});
 
 // Folded sections: open the one a link points to, so "On this page" links always land on visible text.
 (function () {
   function openTarget() {
-    var id = decodeURIComponent(window.location.hash.slice(1));
+    var id;
+    try {
+      id = decodeURIComponent(window.location.hash.slice(1));
+    } catch (error) {
+      return; // A garbled address. Nothing to open, and the rest of this script must still run.
+    }
     var target = id && document.getElementById(id);
     if (!target) return;
     // Open any fold around the target, and a section's own "Show more" fold.

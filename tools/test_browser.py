@@ -20,6 +20,7 @@ import argparse
 import base64
 import html
 import html.parser
+import http.server
 import json
 import pathlib
 import re
@@ -37,7 +38,7 @@ ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
 from browser import Browser, Tab, find_chrome  # noqa: E402
 from check_site import allowed_numbers, find_pages, phone_digits  # noqa: E402
-from preview_server import BASE, make_server, published_items  # noqa: E402
+from preview_server import BASE, Server, make_server, published_items  # noqa: E402
 
 # name, width, height, phone-style viewport
 VIEWPORTS = [
@@ -73,7 +74,7 @@ document.addEventListener('click', function (event) {
 AUDIT_JS = r"""
 (function () {
   var out = {hscroll: null, offscreen: [], clipped: [], smallTargets: [], tinyTargets: [], overlaps: [],
-             brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: []};
+             brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: [], stripTargets: []};
   function shown(el) {
     var s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none') return false;
@@ -118,6 +119,10 @@ AUDIT_JS = r"""
     var r = el.getBoundingClientRect();
     var inline = s.display === 'inline';
     if (el.classList.contains('card-link')) return;  // its tap area is the whole card
+    // The pinned strip is the one control that is always on screen, so it gets full-size targets.
+    if (el.closest('.crisis-bar') && getComputedStyle(el.closest('.crisis-bar')).position === 'sticky' && r.height < 44) {
+      out.stripTargets.push(name(el) + ' is ' + Math.round(r.width) + 'x' + Math.round(r.height));
+    }
     if (inline) return;
     var label = name(el) + ' is ' + Math.round(r.width) + 'x' + Math.round(r.height);
     if (r.height < 24 || r.width < 24) out.tinyTargets.push(label);
@@ -132,7 +137,7 @@ AUDIT_JS = r"""
   });
   // Controls that overlap each other.
   var boxes = controls.filter(function (el) {
-    return !el.classList.contains('quick-exit') && getComputedStyle(el).position !== 'fixed';
+    return getComputedStyle(el).position !== 'fixed';
   }).map(function (el) { return {el: el, r: el.getClientRects()[0] || el.getBoundingClientRect()}; });
   for (var i = 0; i < boxes.length; i++) {
     for (var j = i + 1; j < boxes.length; j++) {
@@ -230,7 +235,8 @@ AUDIT_JS = r"""
   if (bar && getComputedStyle(bar).position === 'sticky') covered = bar.getBoundingClientRect().height;
   out.pinned = Math.round(100 * covered / innerHeight);
   window.scrollTo({top: de.scrollHeight, behavior: 'instant'});
-  if (exit && shown(exit)) {
+  // Inside the pinned strip, content scrolls under the strip by design. This is for the floating button.
+  if (exit && shown(exit) && getComputedStyle(exit).position === 'fixed') {
     var er = exit.getBoundingClientRect();
     Array.prototype.slice.call(document.querySelectorAll('main *, footer *')).forEach(function (el) {
       if (el.closest('svg') || hiddenOnPurpose(el) || !shown(el)) return;
@@ -292,14 +298,15 @@ class Report:
 class Site:
     """A local server for the project, or for a temporary copy of it."""
 
-    def __init__(self, root=ROOT, port=0):
+    def __init__(self, root=ROOT, port=0, cache_control="no-cache"):
         self.root = pathlib.Path(root)
         self.port = port
+        self.cache_control = cache_control
         self.server = None
         self.start()
 
     def start(self):
-        self.server = make_server("127.0.0.1", self.port, self.root)
+        self.server = make_server("127.0.0.1", self.port, self.root, self.cache_control)
         self.port = self.server.server_address[1]
         threading.Thread(target=self.server.serve_forever, daemon=True).start()
 
@@ -314,6 +321,42 @@ class Site:
         if page == "404.html":
             return self.base + "no-such-page/at-all"
         return self.base + (page[: -len("index.html")] if page.endswith("index.html") else page)
+
+
+class BadHost:
+    """Takes over the site's address when the real server is stopped: it answers every
+    request with a server error, or accepts the connection and never answers, like a
+    very weak signal. A local stand-in, not a real cell network."""
+
+    def __init__(self, port, stall):
+        release = threading.Event()
+
+        class Handler(http.server.BaseHTTPRequestHandler):
+            protocol_version = "HTTP/1.1"
+
+            def log_message(self, format, *args):
+                pass
+
+            def do_GET(self):
+                if stall:
+                    release.wait(300)
+                    self.close_connection = True
+                    return
+                body = b"<!doctype html><title>Stand-in host error</title><p>Host error"
+                self.send_response(503)
+                self.send_header("Content-Type", "text/html")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+
+        self.release = release
+        self.server = Server(("127.0.0.1", port), Handler)
+        threading.Thread(target=self.server.serve_forever, daemon=True).start()
+
+    def stop(self):
+        self.release.set()
+        self.server.close_everything()
 
 
 def new_tab(browser, *args, **kwargs):
@@ -452,6 +495,8 @@ def apply_audit(result, group, page, where, report, phone):
                        ("colorOnlyLinks", "link in a sentence has no underline")):
         for item in result[key]:
             report.fail(group, page, f"{label}: {item}", where)
+    for item in result["stripTargets"]:
+        report.fail(group, page, f"crisis strip tap target under 44px: {item}", where)
     for item in result["tinyTargets"]:
         report.fail(group, page, f"tap target under 24px: {item}", where)
     if phone:
@@ -687,6 +732,14 @@ def test_jumps(browser, site, pages, report):
                     report.fail("jumps", page, f"{fragment} leaves its target below the screen", label)
                 else:
                     report.ok("jumps")
+    # A garbled address must not stop the page's script, which also sets up offline support.
+    tab.resize(390, 844, True)
+    tab.goto(site.url("get-help/index.html") + "#%E0%A4%A")
+    found = [p for p in tab.problems() if "URI" in p or "script" in p.lower()]
+    if found:
+        report.fail("jumps", "get-help/index.html", f"a garbled address causes a script error: {found[:2]}")
+    else:
+        report.ok("jumps")
     tab.close()
 
 
@@ -807,11 +860,33 @@ def test_quickexit(browser, site, pages, report):
             tab.goto(site.url(page))
             box = tab.js("""(function () {
                 var e = document.querySelector('.quick-exit');
-                var r = e.getBoundingClientRect();
-                return {x: r.left, y: r.top, w: r.width, h: r.height, fixed: getComputedStyle(e).position === 'fixed', href: e.href, vw: innerWidth, vh: innerHeight};
+                var bar = document.querySelector('.crisis-bar');
+                var pinnedInStrip = getComputedStyle(bar).position === 'sticky';
+                var reasons = [];
+                var de = document.documentElement;
+                [0, de.scrollHeight / 2, de.scrollHeight].forEach(function (top) {
+                    window.scrollTo({top: top, behavior: 'instant'});
+                    var r = e.getBoundingClientRect();
+                    var at = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+                    if (r.top < 0 || r.bottom > innerHeight || r.left < 0 || r.right > innerWidth) reasons.push('off screen at ' + Math.round(top));
+                    else if (!at || !e.contains(at)) reasons.push('covered at ' + Math.round(top));
+                    if (pinnedInStrip) {
+                        var b = bar.getBoundingClientRect();
+                        if (!bar.contains(e) || getComputedStyle(e).position === 'fixed' || r.top < b.top || r.bottom > b.bottom) reasons.push('not inside the pinned strip');
+                    } else if (getComputedStyle(e).position !== 'fixed') {
+                        reasons.push('neither pinned in the strip nor fixed to the screen');
+                    }
+                });
+                window.scrollTo({top: 0, behavior: 'instant'});
+                // A tap aimed at Call 911 must not land on Quick exit.
+                var q = e.getBoundingClientRect();
+                var c = bar.querySelector('a[href="tel:911"]').getBoundingClientRect();
+                var sameRow = q.top < c.bottom && c.top < q.bottom;
+                if (pinnedInStrip && sameRow && q.left - c.right < 8 && c.left - q.right < 8) reasons.push('too close to Call 911');
+                return {reasons: Array.from(new Set(reasons)), href: e.href};
             })()""")
-            if not box["fixed"] or box["y"] + box["h"] > box["vh"] or box["x"] < 0 or box["x"] + box["w"] > box["vw"]:
-                report.fail("quickexit", page, f"Quick exit is not fully on screen: {box}", label)
+            for reason in box["reasons"]:
+                report.fail("quickexit", page, f"Quick exit is {reason}", label)
             before = tab.send("Page.getNavigationHistory")
             count_before = len(before["entries"])
             url = follow_quick_exit(tab)
@@ -825,7 +900,68 @@ def test_quickexit(browser, site, pages, report):
                 report.ok("quickexit")
             tab.close()
 
+    # The page goes blank at once, even if the neutral site is slow to answer.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", pattern)
+    tab.goto(help_page)
+    # Chrome holds back questions to a page while it navigates to another site, so the page reports for itself.
+    tab.js("""document.addEventListener('click', function () {
+        console.info('exit-check:' + getComputedStyle(document.documentElement).display);
+    })""")
+    tab.clear_events()
+    guard_click(tab, ".quick-exit")
+    event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+    said = [arg.get("value", "") for e in tab.browser.events if e.get("sessionId") == tab.session and e["method"] == "Runtime.consoleAPICalled"
+            for arg in e["params"]["args"]]
+    if "exit-check:none" not in said:
+        report.fail("quickexit", "get-help/index.html", f"the page stays on screen while weather.gov loads: {said}")
+    else:
+        report.ok("quickexit")
+    tab.send("Fetch.failRequest", {"requestId": event["params"]["requestId"], "errorReason": "Aborted"})
+    tab.close()
+
+    # It works from the first moment, before the page's script file has arrived.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", {"patterns": pattern["patterns"] + [{"urlPattern": "*/assets/menu.js"}]})
+    tab.send("Network.setBypassServiceWorker", {"bypass": True})  # or the worker's request can't be held
+    tab.clear_events()
+    tab.send("Page.navigate", {"url": help_page})
+    held = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+    if "menu.js" not in held["params"]["request"]["url"]:
+        report.fail("quickexit", "get-help/index.html", f"expected the script file to load first: {held['params']['request']['url']}")
+    tab.browser.pump(0.5)
+    before = len(tab.send("Page.getNavigationHistory")["entries"])
+    guard_click(tab, ".quick-exit")
+    event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+    tab.send("Fetch.fulfillRequest", {
+        "requestId": event["params"]["requestId"], "responseCode": 200,
+        "responseHeaders": [{"name": "Content-Type", "value": "text/html"}],
+        "body": base64.b64encode(b"<!doctype html><title>Stand-in</title>").decode(),
+    })
+    tab.browser.pump(0.5)
+    _, entries = history_entries(tab)
+    if help_page in entries or len(entries) != before:
+        report.fail("quickexit", "get-help/index.html", f"a tap before the script file loads leaves the page in history: {entries}")
+    else:
+        report.ok("quickexit")
+    tab.close()
+
     # What it can't do, so the site's wording can stay accurate.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", pattern)
+    tab.goto(help_page)
+    guard_click(tab, ".toc a")
+    tab.browser.pump(0.3)
+    follow_quick_exit(tab)
+    _, entries = history_entries(tab)
+    print(f"  Quick exit after a link within the page: history is {entries}")
+    if help_page not in entries:
+        report.fail("quickexit", "get-help/index.html", "expected the page to stay in history after a link within it; the site's wording needs another look")
+    else:
+        report.note("quickexit", "(limit)", "after a link within a page, Back from weather.gov reaches that page, and the About pages say so")
+        report.ok("quickexit")
+    tab.close()
+
     tab = new_tab(browser, 390, 844, True)
     tab.send("Fetch.enable", pattern)
     tab.goto(home)
@@ -1220,9 +1356,120 @@ def test_offline(browser, site_ignored, pages, report):
             report.fail("offline", "(updates)", f"a new VERSION did not replace the old saved files: {names}")
         else:
             report.ok("offline")
+        # An address with a ?query is saved under its plain address, so nothing extra is kept.
+        tab.goto(site.url("research/index.html") + "?utm_source=planted#what-helps")
+        tab.browser.pump(0.5)
+        state = tab.js(WAIT_FOR_WORKER)
+        extra = [u for u in state["saved"] if "?" in u or "#" in u]
+        if extra:
+            report.fail("offline", "(worker)", f"an address was saved with its query: {extra[:2]}")
+        else:
+            report.ok("offline")
         site.stop()
+        status = tab.goto(site.url("research/index.html") + "?utm_source=planted")
+        if tab.js("document.title") != titles["research/index.html"]:
+            report.fail("offline", "research/index.html", f"not available offline with a query in the address: status {status}")
+        else:
+            report.ok("offline")
+
+        check_bad_hosts(tab, site, titles, report)
         # Outside links aren't saved, so they can't open offline, and that includes chat.
         print("  Offline: call and text links only open the phone's own apps; chat and outside sites need a connection.")
+    finally:
+        tab.close()
+        browser.call("Target.disposeBrowserContext", {"browserContextId": context})
+        shutil.rmtree(workdir, ignore_errors=True)
+    check_correction_beats_browser_cache(browser, report)
+
+
+SHOWS_CRISIS_HELP = """({title: document.title, tel: !!document.querySelector('.crisis-bar a[href="tel:988"]'),
+    sms: !!document.querySelector('.crisis-bar a[href="sms:988"]'),
+    styled: getComputedStyle(document.body).fontFamily.indexOf('Arial') >= 0})"""
+# A saved copy after about 3 seconds, allowing for a slow test machine.
+STALLED_LIMIT_S = 8
+# After that, the next page shouldn't have to wait out the 3 seconds again.
+STALLED_AGAIN_LIMIT_S = 2.5
+
+
+def check_bad_hosts(tab, site, titles, report):
+    """A visitor who has been here before, when the host misbehaves."""
+    # The host answers with a server error. Saved pages show, not the error page.
+    host = BadHost(site.port, stall=False)
+    try:
+        for page in ("get-help/index.html", "es/obtener-ayuda/index.html"):
+            tab.goto(site.url(page))
+            info = tab.js(SHOWS_CRISIS_HELP)
+            if info["title"] != titles[page] or not info["tel"] or not info["styled"]:
+                report.fail("offline", page, f"a server error hides the saved copy: {info}")
+            else:
+                report.ok("offline")
+        tab.goto(site.base + "never/saved/")
+        info = tab.js(SHOWS_CRISIS_HELP)
+        if not info["tel"] or not info["sms"]:
+            report.fail("offline", "(unknown address)", f"a server error on an unsaved address shows no crisis numbers: {info}")
+        else:
+            report.ok("offline")
+    finally:
+        host.stop()
+
+    # The host accepts the connection and never answers. A saved copy shows soon anyway.
+    host = BadHost(site.port, stall=True)
+    try:
+        for page, limit in (("get-help/index.html", STALLED_LIMIT_S), ("es/obtener-ayuda/index.html", STALLED_AGAIN_LIMIT_S)):
+            started = time.monotonic()
+            try:
+                tab.goto(site.url(page), timeout=max(limit * 3, 25))
+                elapsed = time.monotonic() - started
+            except Exception as error:  # noqa: BLE001 - a timeout here is the failure being tested for
+                report.fail("offline", page, f"with a weak signal the page never opened: {error}")
+                continue
+            info = tab.js(SHOWS_CRISIS_HELP)
+            print(f"  Offline: with a host that never answers, {page} showed its saved copy in {elapsed:.1f} s.")
+            if info["title"] != titles[page] or not info["tel"] or not info["styled"]:
+                report.fail("offline", page, f"with a weak signal the saved copy didn't show: {info}")
+            elif elapsed > limit:
+                report.fail("offline", page, f"with a weak signal the saved copy took {elapsed:.1f} s, over {limit} s")
+            else:
+                report.ok("offline")
+    finally:
+        host.stop()
+
+
+def check_correction_beats_browser_cache(browser, report):
+    """A corrected crisis number must reach saved copies, even for a visitor who loaded the
+    old page minutes ago and still has it in the browser's short-term cache."""
+    workdir = tempfile.mkdtemp(prefix="stillwater-correct-")
+    site_root = pathlib.Path(workdir) / "site"
+    site_root.mkdir()
+    copy_site(site_root)
+    site = Site(site_root, cache_control="public, max-age=600")
+    context = browser.call("Target.createBrowserContext")["browserContextId"]
+    tab = new_tab(browser, 390, 844, True, context=context)
+    try:
+        tab.goto(site.base)
+        tab.js(WAIT_FOR_WORKER)
+        tab.goto(site.url("get-help/index.html"))
+        target = site_root / "get-help" / "index.html"
+        target.write_text(target.read_text(encoding="utf-8").replace("</h1>", " CORRECTED-MARKER</h1>", 1), encoding="utf-8")
+        worker = site_root / "sw.js"
+        worker.write_text(re.sub(r"stillwater-v\d+", "stillwater-v999", worker.read_text(encoding="utf-8")), encoding="utf-8")
+        tab.goto(site.base)
+        tab.js("navigator.serviceWorker.getRegistration().then(function (r) { return r.update(); })")
+        names = []
+        for _ in range(60):
+            tab.browser.pump(0.1)
+            names = tab.js("caches.keys()")
+            if names == ["stillwater-v999"]:
+                break
+        if names != ["stillwater-v999"]:
+            report.fail("offline", "(updates)", f"the new VERSION did not install: {names}")
+            return
+        site.stop()
+        tab.goto(site.url("get-help/index.html"))
+        if "CORRECTED-MARKER" not in tab.js("document.querySelector('h1').textContent"):
+            report.fail("offline", "(updates)", "a correction did not reach the saved copy, because the browser's cache was used")
+        else:
+            report.ok("offline")
     finally:
         tab.close()
         browser.call("Target.disposeBrowserContext", {"browserContextId": context})
@@ -1331,6 +1578,32 @@ def test_privacy(browser, site, pages, report):
         else:
             report.ok("privacy")
     tab.close()
+
+    # Going Back doesn't show which feeling was opened. Only real clicks, so the browser keeps the page.
+    if any(p.startswith("not-sure") for p in pages):
+        tab = new_tab(browser, 390, 844, True)
+        tab.goto(site.url("not-sure/index.html"))
+        guard_click(tab, "details.feeling > summary")
+        opened = tab.js("document.querySelectorAll('details.feeling[open]').length")
+        tab.js("window.stillwaterMarker = 1")
+        tab.clear_events()
+        guard_click(tab, ".next-steps a[href^=\"../\"]")
+        tab.browser.wait_for("Page.loadEventFired", tab.session, 15)
+        tab.clear_events()
+        tab.js("history.back()")
+        tab.browser.pump(1)
+        after = tab.js("""({open: document.querySelectorAll('details.feeling[open]').length, kept: window.stillwaterMarker === 1,
+            hidden: document.documentElement.hidden, at: location.pathname})""")
+        print(f"  Privacy: after Back, the browser {'kept the page in memory' if after['kept'] else 'loaded the page again'}, with {after['open']} feelings open.")
+        if not opened or "not-sure" not in after["at"]:
+            report.fail("privacy", "not-sure/index.html", f"the test could not open a feeling and return to it: {opened}, {after}")
+        elif after["open"]:
+            report.fail("privacy", "not-sure/index.html", "Back shows which feeling was opened")
+        elif after["hidden"]:
+            report.fail("privacy", "not-sure/index.html", "the page came back blank")
+        else:
+            report.ok("privacy")
+        tab.close()
 
     # Following an outside link doesn't tell that site where the visitor came from. A stand-in answers.
     tab = new_tab(browser, 390, 844, True)

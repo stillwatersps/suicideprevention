@@ -29,7 +29,12 @@ NOT_SITE = {"notes", "design", "tools", ".git", ".claude", "node_modules"}
 NOT_DRAFT = {"index.html", "404.html"}
 # 404.html is served from any address, so it alone links from the site root.
 SITE_ROOT = "/suicideprevention/"
-ALLOWED_INLINE_SCRIPT = "document.documentElement.classList.add('js');"
+# The Quick exit part is inline so it works from the first moment, even before assets/menu.js has loaded.
+ALLOWED_INLINE_SCRIPT = (
+    "document.documentElement.classList.add('js');"
+    "document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');"
+    "if(a){e.preventDefault();document.documentElement.hidden=true;location.replace(a.href);}});"
+)
 ALLOWED_ONERROR = "document.documentElement.classList.remove('js')"
 # Every page repeats this. The hashes must match the two allowed bits of inline script above.
 CSP_RULE = (
