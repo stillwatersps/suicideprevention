@@ -31,7 +31,7 @@ from preview_server import BASE, make_server  # noqa: E402
 from test_browser import AUDIT_JS  # noqa: E402
 
 # Width, height, dark mode.
-SIZES = [(390, 844, False), (320, 568, False), (844, 390, False), (768, 1024, False), (1440, 900, False), (390, 844, True)]
+SIZES = [(390, 844, False), (320, 568, False), (750, 292, False), (844, 390, False), (768, 1024, False), (1440, 900, False), (390, 844, True)]
 AUDIT_KEYS = {
     "hscroll": "scrolls sideways", "offscreen": "runs off the screen", "clipped": "text cut off", "overlaps": "controls overlap",
     "brokenImages": "image did not load", "contrast": "low contrast", "unnamed": "control has no name",

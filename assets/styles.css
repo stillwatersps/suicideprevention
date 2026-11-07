@@ -427,7 +427,8 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .crisis-bar p a { min-height: 44px; padding: 11px 0; line-height: 1.4; }
   .site-header { position: relative; }
 }
-@media (max-width: 47.4em) {
+/* Two rows on narrow screens. A phone on its side is short but wide enough for one row. */
+@media (max-width: 43.99em), (max-width: 47.4em) and (min-height: 30.01em) {
   .crisis-bar { text-align: left; }
   .strip-988 { flex: 1 0 100%; }
   .strip-911 { flex: 1 1 0; min-width: 0; }
@@ -443,8 +444,9 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 @media (max-width: 16em) {
   .crisis-bar { position: static; }
 }
-/* Heavily zoomed or very short screens: anything pinned would cover too much. */
-@media (max-height: 18.75em) {
+/* Heavily zoomed or very short screens: anything pinned would cover too much. A phone on
+   its side still pins the one-row strip: Safari on an iPhone 17 measures 750 by 292 there. */
+@media (max-height: 18.75em) and (max-width: 43.99em), (max-height: 15em) {
   .crisis-bar { position: static; }
   .site-header { position: relative; }
 }
@@ -736,7 +738,8 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 body { padding-bottom: 76px; }
 /* Wherever the crisis line is pinned, Quick exit rides inside it. It never sits on top of
    anything there, so a tap aimed at a crisis button can't land on it by accident. */
-@media (max-width: 959px) and (min-width: 16.01em) and (min-height: 18.76em) {
+@media (max-width: 959px) and (min-width: 16.01em) and (min-height: 18.76em),
+       (max-width: 959px) and (min-width: 44em) and (min-height: 15.01em) {
   .quick-exit {
     position: static;
     order: 3;
@@ -751,7 +754,7 @@ body { padding-bottom: 76px; }
   .quick-exit:focus-visible { outline-color: #fff; outline-offset: 1px; }
   body { padding-bottom: 0; }
 }
-@media (max-width: 30em) {
+@media (max-width: 30em), (max-width: 47.4em) and (max-height: 30em) {
   .exit-extra { display: none; }
   .quick-exit { text-transform: capitalize; }
 }

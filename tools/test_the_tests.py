@@ -100,6 +100,7 @@ BUGS = [
     ("a blank page after coming back from Quick exit", replace("assets/menu.js", "if (document.visibilityState === 'visible') showPageAgain();", ""), "quickexit", "get-help", "leaves it blank"),
     ("Quick exit floating over crisis buttons", append_css("@media (max-width: 959px) { .quick-exit { position: fixed !important; right: 8px; bottom: 8px; } }"), "quickexit", "get-help", "not inside the pinned strip"),
     ("Quick exit too close to Call 911", append_css("@media (max-width: 959px) { .quick-exit { margin-left: 0 !important; } .strip-911 { flex: none !important; } .crisis-bar { justify-content: flex-start !important; column-gap: 0 !important; } }"), "quickexit", "get-help", "too close to call 911"),
+    ("crisis strip not pinned on a phone on its side", append_css("@media (max-height: 18.75em) { .crisis-bar { position: static !important; } }"), "matrix", "get-help", "crisis strip is not pinned"),
     ("crisis strip links too small to tap", append_css("@media (max-width: 959px) { .crisis-bar p a { min-height: 0 !important; padding: 0 !important; } }"), "matrix", "get-help", "crisis strip tap target"),
     ("a garbled address stopping the script", replace("assets/menu.js", "      return; // A garbled address.", "      throw error; // A garbled address."), "jumps", "get-help", "garbled address"),
     ("Back showing which feeling was opened", replace("assets/menu.js", "    fold.open = false;\n  });\n});", "  });\n});"), "privacy", "not-sure", "which feeling was opened"),

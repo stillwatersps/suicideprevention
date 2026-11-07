@@ -43,7 +43,10 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
 - **Crisis strip pinned on phones and tablets.** Up to 959 px wide, the crisis strip
   stays on screen while the header scrolls away. It stops pinning on very narrow
   screens (16em wide or less, about 256 px) and very short ones (300 px tall or
-  less), where it would fill the screen. At 960 px and wider it scrolls away and the
+  less), where it would fill the screen. A phone on its side still pins it, as one row,
+  down to 240 px tall when the screen is at least 704 px wide: Safari on an iPhone 17
+  measures 750 by 292 there, so the 300 px rule had left 988 and 911 off screen after
+  scrolling. Found in the iOS Simulator on November 7, 2026. At 960 px and wider it scrolls away and the
   sticky header's button stays, which takes two steps to start a call. Why: on phones,
   the header's button took two taps.
 - **Crisis strip uses links.** Call 988, text 988, and call 911 can be tapped. Why:

@@ -47,6 +47,9 @@ VIEWPORTS = [
     ("phone 390x844", 390, 844, True),
     ("phone 430x932", 430, 932, True),
     ("phone landscape 568x320", 568, 320, True),
+    # Safari on an iPhone 17 on its side, as measured in the iOS Simulator: its toolbars take
+    # the rest, and page layout keeps this height even when they shrink.
+    ("phone landscape 750x292", 750, 292, True),
     ("phone landscape 844x390", 844, 390, True),
     ("tablet 768x1024", 768, 1024, True),
     ("tablet landscape 1024x768", 1024, 768, True),
@@ -54,6 +57,11 @@ VIEWPORTS = [
     ("desktop 1440x900", 1440, 900, False),
     ("400% zoom of 1280x900", 320, 225, False),
 ]
+# Where the crisis strip must stay pinned, so 988 and 911 are always one tap away.
+MUST_PIN = {
+    "phone 320x568", "phone 375x667", "phone 390x844", "phone 430x932",
+    "phone landscape 568x320", "phone landscape 750x292", "phone landscape 844x390", "tablet 768x1024",
+}
 TEXT_SIZES = [
     ("phone 320x568", 320, 568),
     ("phone 390x844", 390, 844),
@@ -528,7 +536,10 @@ def test_matrix(browser, site, pages, report, screens=None):
                 if closed_scroll:
                     report.fail("matrix", page, "scrolls sideways with sections closed", where)
                 tab.js(OPEN_ALL)
-                apply_audit(tab.js(AUDIT_JS), "matrix", page, where, report, phone)
+                result = tab.js(AUDIT_JS)
+                if label in MUST_PIN and not result["pinned"]:
+                    report.fail("matrix", page, "the crisis strip is not pinned", where)
+                apply_audit(result, "matrix", page, where, report, phone)
     tab.close()
 
 
