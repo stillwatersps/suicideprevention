@@ -22,6 +22,10 @@
 
 /* The bottom padding keeps a focused link clear of the Quick exit button. */
 html { scroll-behavior: smooth; scroll-padding-top: 7rem; scroll-padding-bottom: 5.5rem; }
+/* Under 360px the pinned strip can take three or four rows, so jump links stop lower. Only
+   where the strip pins: on a very short screen it scrolls away, and this would push a link
+   to the bottom edge. */
+@media (max-width: 22.4em) and (min-height: 18.76em) { html { scroll-padding-top: 12rem; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -378,7 +382,7 @@ h1 {
 .site-footer .credit { color: var(--muted); font-size: .875rem; }
 
 /* Phone menu: hidden only when JavaScript can open it */
-@media (max-width: 959px) {
+@media (max-width: 959px), (max-width: 59.9375em) {
   .js .menu-button { display: inline-flex; }
   .js .site-nav { display: none; }
   .js .site-nav.is-open { display: block; }
@@ -389,7 +393,7 @@ h1 {
   .header-cta { min-height: 44px; padding: 0 16px; font-size: .9rem; }
 }
 html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
-@media (max-width: 959px) {
+@media (max-width: 959px), (max-width: 59.9375em) {
   html:not(.js) .header-inner { flex-wrap: wrap; }
   html:not(.js) .site-nav { order: 3; width: 100%; }
   html:not(.js) .site-nav ul { flex-direction: row; flex-wrap: wrap; padding: 0; }
@@ -468,8 +472,10 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .hero-photo { height: 320px; }
 }
 
-/* Desktop: photo on the right, cream curve over its left edge, like the design */
-@media (min-width: 960px) {
+/* Desktop: photo on the right, cream curve over its left edge, like the design. Each desktop
+   width is also set in em, so larger text settings get the phone and tablet header and layout
+   instead of a desktop header that runs off the screen. */
+@media (min-width: 960px) and (min-width: 60em) {
   .hero { min-height: 520px; justify-content: center; background: #F4ECE7; }
   .hero-photo {
     position: absolute;
@@ -500,25 +506,26 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .footer-inner { margin: 0 auto 0 0; }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (min-width: 75em) {
   .hero-curve { width: 55%; }
   .hero-content { width: 52%; }
 }
 
 /* The design's width: three buttons in a row, icon beside the text. */
-@media (min-width: 1440px) {
+@media (min-width: 1440px) and (min-width: 90em) {
   .hero-content { width: 760px; }
   .crisis-actions { grid-template-columns: repeat(3, 204px); }
   .action { flex-direction: row; align-items: center; }
 }
 
-@media (min-width: 960px) and (max-width: 1199px) {
+@media (min-width: 960px) and (min-width: 60em) and (max-width: 1199px),
+       (min-width: 960px) and (min-width: 60em) and (max-width: 74.9375em) {
   .site-nav a { padding: 10px 8px; }
 }
 
 /* Extra menu items that only fit in the phone and tablet menu. They stay in the desktop footer. */
 .nav-home, .nav-phone { display: none; }
-@media (max-width: 959px) {
+@media (max-width: 959px), (max-width: 59.9375em) {
   .nav-home, .nav-phone { display: block; }
 }
 
@@ -858,7 +865,7 @@ body { padding-bottom: 76px; }
   .quick-exit:focus-visible { outline-color: #fff; }
   .skip-link { background: #EAF1EB; color: #131915; }
 }
-@media (prefers-color-scheme: dark) and (min-width: 960px) {
+@media (prefers-color-scheme: dark) and (min-width: 960px) and (min-width: 60em) {
   .hero { background: #1D2420; }
   .hero-curve { fill: #1D2420; }
 }

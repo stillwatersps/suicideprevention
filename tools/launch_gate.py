@@ -62,7 +62,7 @@ def content_checks():
     rows = [line for line in safety.splitlines() if line.startswith("|") and not line.startswith(("| Resource", "| ---"))]
     unconfirmed = [line.split("|")[1].strip() for line in rows if not line.rstrip().rstrip("|").split("|")[-1].strip()]
     tracker = read("notes/RESEARCH-BRIEF.md").split("## Review tracker", 1)[-1].split("## ", 1)[0]
-    brief_open = tracker.count("Not reviewed")
+    brief_open = len(re.findall(r"^\|.*\| Not reviewed \|", tracker, re.M))
     pending = sum(read(p).count('class="status-value">Pending') + read(p).count('class="status-value">Pendiente') for p in pages)
     phone_notes = [p.name for p in (ROOT / "notes" / "worklogs").glob("*phone*.md")]
     decisions = read("notes/DECISIONS.md")

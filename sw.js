@@ -39,7 +39,8 @@ var CORE = [
   'assets/images/joshua-tree-sunset-1600.webp',
   'assets/988-lifeline.vcf',
   'assets/988-linea-es.vcf',
-  'manifest.webmanifest'
+  'manifest.webmanifest',
+  'es/manifest.webmanifest'
 ];
 
 // How long to wait for the network before showing a saved copy, if there is one.

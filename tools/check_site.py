@@ -34,6 +34,7 @@ SITE_ROOT = "/suicideprevention/"
 # The Quick exit part is inline so it works from the first moment, even before assets/menu.js has loaded.
 ALLOWED_INLINE_SCRIPT = (
     "document.documentElement.classList.add('js');"
+    "setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);"
     "document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');"
     "if(a){e.preventDefault();document.documentElement.hidden=true;location.replace(a.href);}});"
 )

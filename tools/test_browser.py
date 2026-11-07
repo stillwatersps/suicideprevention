@@ -63,9 +63,12 @@ MUST_PIN = {
     "phone landscape 568x320", "phone landscape 750x292", "phone landscape 844x390", "tablet 768x1024",
 }
 TEXT_SIZES = [
-    ("phone 320x568", 320, 568),
-    ("phone 390x844", 390, 844),
-    ("phone landscape 844x390", 844, 390),
+    ("phone 320x568", 320, 568, True),
+    ("phone 390x844", 390, 844, True),
+    ("phone landscape 844x390", 844, 390, True),
+    # Larger text on a desktop width must get a header that fits, not one that runs off the screen.
+    ("tablet landscape 1024x768", 1024, 768, True),
+    ("laptop 1280x800", 1280, 800, False),
 ]
 GROUPS = [
     "links", "matrix", "textsize", "keyboard", "menu", "jumps", "folds", "language",
@@ -610,8 +613,8 @@ def test_matrix(browser, site, pages, report, screens=None):
 def test_textsize(browser, site, pages, report):
     """Changes the browser's default font size, as a person's text size setting does."""
     tab = new_tab(browser)
-    for label, width, height in TEXT_SIZES:
-        tab.resize(width, height, True)
+    for label, width, height, phone in TEXT_SIZES:
+        tab.resize(width, height, phone)
         for percent in (150, 200):
             tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16 * percent // 100, "fixed": 13 * percent // 100}})
             where = f"{label}, text at {percent}%"
@@ -779,7 +782,7 @@ def test_jumps(browser, site, pages, report):
     """Every jump link lands on visible text, not behind the pinned strip."""
     tab = new_tab(browser)
     tab.media(reduced=True)
-    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("phone landscape 844x390", 844, 390, True), ("desktop 1440x900", 1440, 900, False)):
+    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("narrow phone 300x568", 300, 568, True), ("phone landscape 844x390", 844, 390, True), ("desktop 1440x900", 1440, 900, False)):
         tab.resize(width, height, phone)
         for page in pages:
             tab.goto(site.url(page))
@@ -1020,15 +1023,22 @@ def test_quickexit(browser, site, pages, report):
     tab.send("Fetch.failRequest", {"requestId": event["params"]["requestId"], "errorReason": "Aborted"})
     tab.close()
 
-    # Coming back to a blanked page, as in a home screen app, shows it again.
-    tab = new_tab(browser, 390, 844, True)
-    tab.goto(help_page)
-    back = tab.js("""(function () {
+    # Coming back to a blanked page shows it again only in a Home Screen app. In a browser tab,
+    # switching apps while weather.gov loads must not show the page that was left.
+    blank_and_return = """(function () {
         document.documentElement.hidden = true;
         document.dispatchEvent(new Event('visibilitychange'));
         return document.documentElement.hidden;
-    })()""")
-    if back:
+    })()"""
+    tab = new_tab(browser, 390, 844, True)
+    tab.goto(help_page)
+    if not tab.js(blank_and_return):
+        report.fail("quickexit", "get-help/index.html", "switching apps during Quick exit shows the page that was left again")
+    else:
+        report.ok("quickexit")
+    # Chrome's DevTools can't switch on Home Screen mode, so set the flag iPhones use for it.
+    tab.js("Object.defineProperty(navigator, 'standalone', {value: true, configurable: true})")
+    if tab.js(blank_and_return):
         report.fail("quickexit", "get-help/index.html", "coming back to the page after Quick exit leaves it blank")
     else:
         report.ok("quickexit")

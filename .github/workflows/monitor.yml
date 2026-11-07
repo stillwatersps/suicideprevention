@@ -1,10 +1,11 @@
 # Keeps an eye on the public website (ideas C2 and C3).
 # - Every day: the live site loads, and every page still shows its crisis help.
-# - Once a month: every outside link, including 988 and other crisis services, still opens.
+# - Once a month: every outside link that allows automated checks still opens (the rest are listed
+#   for a person), and each crisis provider's page that can be read still shows our details.
 # Scheduled runs only start once this file is on main. GitHub pauses schedules in a
 # public repository after 60 days with no commits; re-enable them under Actions if so.
-# A failed run shows a red mark under Actions, and GitHub notifies the account that
-# last changed the schedule lines below.
+# A failed run shows a red mark under Actions. GitHub notifies one account: the one that
+# created this workflow, or whoever last changed the schedule lines below or re-enabled it.
 name: Monitor
 
 on:

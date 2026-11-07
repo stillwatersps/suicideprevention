@@ -4,6 +4,8 @@
 
 // Opens and closes the phone navigation menu.
 (function () {
+  // The head script waits 3 seconds for this, then shows the page list as plain links instead.
+  window.tidelightMenuReady = true;
   var button = document.querySelector('.menu-button');
   var nav = document.getElementById('site-nav');
   if (!button || !nav) return;
@@ -52,7 +54,7 @@
   button.addEventListener('focusout', closeIfFocusLeft);
 
   // The desktop header has no menu button, so reset the state when the layout changes.
-  var desktop = window.matchMedia('(min-width: 960px)');
+  var desktop = window.matchMedia('(min-width: 960px) and (min-width: 60em)');
   function resetOnDesktop() {
     if (desktop.matches) setOpen(false);
   }
@@ -64,15 +66,21 @@
 })();
 
 // Quick exit's click handler is the small script in each page's head, so it works from the
-// first moment. It blanks the page while the neutral site loads. If a person ever comes back
-// to this page, for example in a home screen app with no address bar, show it again, because
-// a blank page with no way out is worse. A person waiting for the neutral site sees no change.
+// first moment. It blanks the page while the neutral site loads. Show the page again only when
+// a person really comes back to it: with Back, or in a Home Screen app, where weather.gov can
+// open on top and a blank app with no address bar would leave no way out. In a browser tab,
+// switching apps and returning before weather.gov appears keeps the page blank, so Quick exit
+// isn't undone in front of someone else.
 function showPageAgain() {
   document.documentElement.hidden = false;
 }
+function isHomeScreenApp() {
+  return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+    window.navigator.standalone === true;
+}
 window.addEventListener('pageshow', showPageAgain);
 document.addEventListener('visibilitychange', function () {
-  if (document.visibilityState === 'visible') showPageAgain();
+  if (document.visibilityState === 'visible' && isHomeScreenApp()) showPageAgain();
 });
 
 // Feelings opened on the Not sure page close when leaving it, so Back doesn't show them.
@@ -136,16 +144,23 @@ window.addEventListener('pagehide', function () {
     ? 'Estás sin conexión. Esta puede ser una copia guardada, así que podría estar desactualizada. Llamar y enviar textos requieren servicio telefónico.'
     : "You're offline. This may be a saved copy, so it could be out of date. Calling and texting need phone service.";
   var note = null;
+  // A screen reader announces a change only in a live region that was already on the page, so an
+  // empty one waits from the start and gets the words when the connection drops.
+  var live = document.createElement('p');
+  live.className = 'visually-hidden';
+  live.setAttribute('role', 'status');
+  document.body.appendChild(live);
   function update() {
     if (navigator.onLine === false && !note) {
       note = document.createElement('p');
       note.className = 'offline-note';
-      note.setAttribute('role', 'status');
       note.textContent = text;
       main.insertBefore(note, main.firstChild);
+      live.textContent = text;
     } else if (navigator.onLine !== false && note) {
       note.parentNode.removeChild(note);
       note = null;
+      live.textContent = '';
     }
   }
   window.addEventListener('online', update);
@@ -173,5 +188,7 @@ window.addEventListener('pagehide', function () {
   var button = document.querySelector('.print-button');
   if (!button || !window.print) return;
   button.hidden = false;
+  var hint = document.querySelector('.print-hint');
+  if (hint) hint.hidden = false;
   button.addEventListener('click', function () { window.print(); });
 })();

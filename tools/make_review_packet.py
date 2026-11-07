@@ -567,7 +567,7 @@ def therapist_packet(today, stamp):
 </ul>
 <p>You can use a pen on paper, or add notes to the PDF in a PDF app. Return it to the founder who gave it to you.</p>
 <div class="urgent"><strong>If anything here could cause harm, please say so first.</strong> Use this box, or tell the founders right away, for anything that should come down or change before anything else happens.<span class="answer"></span><span class="answer"></span></div>
-<p class="small" style="margin-top:8pt">You can see the draft website as it looks on a screen if a founder shares a preview link. The draft pages are not on the public website yet. Parts of an older version are public at {PREVIEW}.</p>
+<p class="small" style="margin-top:8pt">You can see the draft website on a screen if you meet a founder in person. Otherwise this packet is how to read it. The draft pages are not on the public website yet. Parts of an older version are public at {PREVIEW}.</p>
 """)
 
     parts.append("<h2>Part 1: Text that appears on every page</h2>")
@@ -586,7 +586,7 @@ def therapist_packet(today, stamp):
     parts.append(render_blocks(outside_blocks(english_names, "en"), "OUTSIDE", numbering, counters, "en"))
 
     parts.append("<h2>Part 4: Research brief</h2>")
-    parts.append("<p>A founder supplied this brief. The website's draft text was written separately and did not come from it, so please read both. The unchanged PDF is in the project at <code>notes/attachments/research-and-website-copy-2026-11.pdf</code>.</p>")
+    parts.append("<p>A founder supplied this brief. The first drafts of Get Help, Help Someone, and Research were written separately from it. The Not sure page uses Pathway A's heading, opening paragraph, and prompt word for word. Please read both. The unchanged PDF is in the project at <code>notes/attachments/research-and-website-copy-2026-11.pdf</code>.</p>")
     parts.append(render_blocks(brief_blocks(), "BRIEF", numbering, counters, "en"))
     parts.append("<h3>Tracker for the brief</h3>")
     parts.append(markdown(note_section("notes/RESEARCH-BRIEF.md", "Review tracker")))
