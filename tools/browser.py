@@ -306,8 +306,9 @@ class Tab:
             self.browser.pump(settle)
         status = None
         for event in self.browser.events:
+            # Only the page itself. A frame inside a page is a document too, and may answer differently.
             if (event.get("sessionId") == self.session and event["method"] == "Network.responseReceived"
-                    and event["params"].get("type") == "Document"):
+                    and event["params"].get("type") == "Document" and event["params"].get("frameId") == result.get("frameId")):
                 status = event["params"]["response"]["status"]
         return status
 

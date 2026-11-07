@@ -37,6 +37,7 @@ AUDIT_KEYS = {
     "brokenImages": "image did not load", "contrast": "low contrast", "unnamed": "control has no name",
     "tinyTargets": "tap target under 24px", "stripTargets": "crisis strip tap target under 44px",
     "exitCovers": "Quick exit covers something", "colorOnlyLinks": "link in a sentence has no underline",
+    "exitCoversTop": "Quick exit covers a crisis link at the top of the page", "deadCrisis": "a crisis link can't be tapped",
 }
 
 SWIFT = r"""

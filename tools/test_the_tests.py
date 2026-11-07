@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""Proves the browser tests can fail: plants one bug at a time and expects them to catch it.
+"""Proves the checks can fail: plants one bug at a time and expects the checks to catch it.
 
     python3 tools/test_the_tests.py
+    python3 tools/test_the_tests.py --only "crisis strip"   # only bugs whose name has this text
 
 Each bug goes into a throwaway copy of the project, never the real files. A test that can't
-fail proves nothing, so run this after changing tools/test_browser.py. Needs Python and Chrome.
+fail proves nothing, so run this after changing tools/test_browser.py, tools/check_site.py,
+tools/launch_gate.py, or tools/check_crisis_sources.py. Needs Python and Chrome. It reads no
+outside website: the checks of other tools run offline, on made-up cases.
 """
+import argparse
 import pathlib
 import re
 import shutil
@@ -14,7 +18,15 @@ import sys
 import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SKIP = shutil.ignore_patterns(".git", "__pycache__", "review-packet", "qa-first-version", "*.pdf")
+_SKIP_NAMES = shutil.ignore_patterns(".git", "__pycache__", "review-packet", "qa-first-version", "*.pdf")
+
+
+def SKIP(folder, names):
+    """What not to copy. PDFs are left out, except the notes' attachments, which notes link to."""
+    skipped = _SKIP_NAMES(folder, names)
+    if pathlib.Path(folder).name == "attachments":
+        skipped = {name for name in skipped if not name.endswith(".pdf")}
+    return skipped
 
 
 def replace(path, old, new):
@@ -124,47 +136,87 @@ BUGS = [
     ("no content security policy", regex("get-help/index.html", r'<meta http-equiv="Content-Security-Policy"[^>]*>', ""), "privacy", "get-help", "doesn't block loading"),
     ("telling outside sites where a visitor came from", regex("get-help/index.html", r'<meta name="referrer"[^>]*>', '<meta name="referrer" content="unsafe-url">'), "privacy", "get-help", "is told the visitor came from here"),
     ("icons vanishing in high contrast", append_css("@media (forced-colors: active) { .action svg { display: none; } }"), "modes", "get-help", "icons disappear"),
+    ("crisis links that can't be tapped", append_css(".crisis-bar a, .action, .crisis-actions a, .pill { pointer-events: none; }"), "matrix", "get-help", "can't be tapped"),
+    ("the crisis strip scrolling away on phones", append_css(".crisis-bar { position: static !important; }"), "matrix", "get-help", "scrolls off the screen"),
+    # !important, because the strip's own class rule would otherwise win and nothing would be hidden.
+    ("the crisis strip hidden on wide screens", append_css("@media (min-width: 960px) { body > aside { display: none !important; } }"), "matrix", "get-help", "not on screen at the top"),
+    ("the crisis strip hidden in dark mode", append_css("@media (prefers-color-scheme: dark) { body > aside { display: none !important; } }"), "matrix", "get-help", "not on screen at the top"),
+    ("Quick exit covering crisis buttons on the first screen", append_css("@media (min-width: 960px) { .quick-exit { inset: 0 !important; width: auto !important; height: auto !important; } }"), "matrix", "get-help", "covers a crisis link at the top"),
+    ("a fold that won't open from another page's link", replace("assets/menu.js", "  openTarget();\n})();", "})();"), "folds", "get-help", "leaves it folded"),
+    ("an error a moment after loading", replace("assets/menu.js", "// Opens and closes the phone navigation menu.", "setTimeout(function () { throw new Error('planted late'); }, 200);"), "matrix", "get-help", "planted late"),
+    ("an error from tapping the menu button", replace("assets/menu.js", "    setOpen(!isOpen());", "    setOpen(!isOpen()); throw new Error('planted in the menu');"), "menu", "get-help", "planted in the menu"),
+    ("photos left out of the offline list", replace("sw.js", "  'assets/images/joshua-tree-sunset-800.webp',\n  'assets/images/joshua-tree-sunset-1600.webp',\n", ""), "offline", "index.html", "image missing offline"),
+]
+
+# Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.
+# The publish gate and the monthly crisis check test themselves on made-up cases, offline.
+COMMAND_BUGS = [
+    ("a review claimed with none recorded", replace("get-help/index.html", "<h1", "<p>Medically reviewed and approved.</p><h1"), ["tools/check_site.py"], "no approval of this page"),
+    ("a wrong number in a contact card's note", replace_bytes("assets/988-lifeline.vcf", b"call 911", b"call 811"), ["tools/check_site.py"], "not a number recorded"),
+    ("a contact card pointing to another site", replace_bytes("assets/988-lifeline.vcf", b"URL:https://988lifeline.org/", b"URL:https://example.com/"), ["tools/check_site.py"], "not the website of a service"),
+    ("the crisis strip hidden by a rule for every aside", append_css("@media (min-width: 960px) { body > aside { display: none !important; } }"), ["tools/check_site.py"], "hides crisis controls"),
+    ("the publish gate taking 'not approved' as approval", replace("tools/check_site.py", 'approved = result.lower() in APPROVED and not NOT_APPROVED.search(role + " " + result)', 'approved = "approved" in result.lower()'), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the publish gate taking one page's review for all", replace("tools/check_site.py", 'mine = [r for r in records if r["page"] == page and r["lang"] == lang and needs.search(r["role"])]', 'mine = [r for r in records if needs.search(r["role"])]'), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the monthly check throwing away a good read", replace("tools/check_crisis_sources.py", "if is_real_read(b_status, b_text) or not is_real_read(status, text):", "if True:"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
+    ("keywords matched as ordinary words", replace("tools/check_crisis_sources.py", "    if isinstance(option, Word):", "    if False:"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
 ]
 
 
 def run(copy, group, pages):
-    done = subprocess.run(
-        [sys.executable, "tools/test_browser.py", "--only", group, "--pages", pages],
-        cwd=copy, capture_output=True, text=True, timeout=400,
-    )
+    return run_command(copy, ["tools/test_browser.py", "--only", group, "--pages", pages])
+
+
+def run_command(copy, command):
+    done = subprocess.run([sys.executable, *command], cwd=copy, capture_output=True, text=True, timeout=400)
     return done.returncode, done.stdout + done.stderr
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--only", default="", help="only the planted bugs whose name contains this text")
+    args = parser.parse_args()
+    browser_bugs = [bug for bug in BUGS if args.only.lower() in bug[0].lower()]
+    command_bugs = [bug for bug in COMMAND_BUGS if args.only.lower() in bug[0].lower()]
     missed = []
     with tempfile.TemporaryDirectory(prefix="tidelight-bugs-") as folder:
         base = pathlib.Path(folder) / "clean"
         shutil.copytree(ROOT, base, ignore=SKIP)
         # The untouched copy must pass the same tests, or a failure proves nothing.
-        groups = sorted({(group, pages) for _, _, group, pages, _ in BUGS})
+        groups = sorted({(group, pages) for _, _, group, pages, _ in browser_bugs})
+        commands = sorted({tuple(command) for _, _, command, _ in command_bugs})
         for group, pages in groups:
             code, output = run(base, group, pages)
             if code != 0:
                 print(f"NOT CLEAN: the untouched copy fails {group} on {pages}")
                 print(output[-1500:])
                 return 2
-        print(f"The untouched copy passes all {len(groups)} test groups used below.")
-        for name, bug, group, pages, words in BUGS:
+        for command in commands:
+            code, output = run_command(base, list(command))
+            if code != 0:
+                print(f"NOT CLEAN: the untouched copy fails {' '.join(command)}")
+                print(output[-1500:])
+                return 2
+        print(f"The untouched copy passes all {len(groups)} test groups and {len(commands)} other checks used below.")
+        planted = [(name, bug, ["tools/test_browser.py", "--only", group, "--pages", pages], words, group)
+                   for name, bug, group, pages, words in browser_bugs]
+        planted += [(name, bug, command, words, " ".join(command)) for name, bug, command, words in command_bugs]
+        for name, bug, command, words, label in planted:
             copy = pathlib.Path(folder) / "bug"
             shutil.rmtree(copy, ignore_errors=True)
             shutil.copytree(ROOT, copy, ignore=SKIP)
             bug(copy)
-            code, output = run(copy, group, pages)
+            code, output = run_command(copy, command)
             caught = code != 0 and words.lower() in output.lower()
-            print(f"  {'caught' if caught else 'MISSED'}: {name} ({group})", flush=True)
+            print(f"  {'caught' if caught else 'MISSED'}: {name} ({label})", flush=True)
             if not caught:
                 missed.append(name)
-                print("    " + "\n    ".join(line for line in output.strip().splitlines() if "FAIL" in line or "Error" in line)[:900])
+                print("    " + "\n    ".join(line for line in output.strip().splitlines() if "FAIL" in line or "Error" in line or "WRONG" in line)[:900])
     print()
+    total = len(planted)
     if missed:
-        print(f"{len(missed)} of {len(BUGS)} planted bugs were missed: {missed}")
+        print(f"{len(missed)} of {total} planted bugs were missed: {missed}")
         return 1
-    print(f"All {len(BUGS)} planted bugs were caught.")
+    print(f"All {total} planted bugs were caught.")
     return 0
 
 

@@ -18,6 +18,7 @@ import datetime
 import hashlib
 import html
 import html.parser
+import json
 import pathlib
 import re
 import sys
@@ -54,8 +55,13 @@ SPANISH = [
     ("es/acerca-de/index.html", "E-ABOUT", "Acerca de y privacidad", "about/"),
 ]
 BLOCK = {"h1", "h2", "h3", "h4", "p", "li", "summary", "dt", "dd", "caption"}
-SKIP_CLASSES = {"visually-hidden", "lang-switch", "breadcrumb", "toc", "print-actions", "card-arrow", "card-icon", "skip-link"}
+# Fold labels ("Show more", "Show less") are buttons, not content, so they get no number.
+SKIP_CLASSES = {"visually-hidden", "lang-switch", "breadcrumb", "toc", "print-actions", "card-arrow", "card-icon", "skip-link",
+                "when-closed", "when-open"}
 SHARED_CLASSES = {"crisis-bar", "crisis-panel", "site-footer", "site-header", "quick-exit"}
+# Parts of one control or line that show as separate pieces on screen, such as a button's title and
+# its smaller second line. A " | " keeps them apart, so the packet doesn't show "Call 988Talk to a counselor".
+PART_CLASSES = {"action-sub", "trust-text", "status-line", "brand-tag"}
 ABBREVIATIONS = ["U.S.", "e.g.", "i.e.", "Dr.", "Nov.", "vs.", "EE. UU.", "a.m.", "p.m.", "No."]
 
 
@@ -64,7 +70,8 @@ def split_sentences(text):
     for short in ABBREVIATIONS:
         protected = protected.replace(short, short.replace(".", "\u0001"))
     protected = re.sub(r"(\d)\.(\d)", "\\1\u0001\\2", protected)
-    parts = re.split(r"(?<=[.!?])[\"”']?\s+(?=[A-ZÁÉÍÓÚÑ¿¡\"“(0-9])", protected)
+    # Split after the end of a sentence, keeping a closing quote mark with the sentence it ends.
+    parts = re.split(r"(?:(?<=[.!?])|(?<=[.!?][\"”']))\s+(?=[A-ZÁÉÍÓÚÑ¿¡\"“(0-9])", protected)
     return [part.replace("\u0001", ".").strip() for part in parts if part.strip()]
 
 
@@ -80,6 +87,8 @@ class Extractor(html.parser.HTMLParser):
         self.current = None
         self.title = ""
         self.link = None
+        # Wording a visitor meets outside the page text: (kind, text), such as a screen reader's name for a link.
+        self.outside = []
 
     def _classes(self):
         found = set()
@@ -95,6 +104,10 @@ class Extractor(html.parser.HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        if tag == "meta" and attrs.get("name") == "description" and attrs.get("content"):
+            self.outside.append(("description", attrs["content"]))
+        if attrs.get("aria-label"):
+            self.outside.append(("aria-label", attrs["aria-label"]))
         if tag in self.VOID:
             if tag == "img" and attrs.get("alt") and not self._hidden():
                 self.blocks.append({"tag": "img", "text": "Image description: " + attrs["alt"], "links": [], "classes": self._classes(), "ids": self._ids()})
@@ -102,13 +115,20 @@ class Extractor(html.parser.HTMLParser):
         self.stack.append((tag, attrs))
         if self._hidden():
             return
-        # A list item that holds its own headings and paragraphs is only a container.
-        if tag in BLOCK and self.current is not None and self.current["tag"] == "li" and not self.current["text"].strip():
+        # A list item, or a link, that holds its own headings and paragraphs is only a container.
+        if tag in BLOCK and self.current is not None and self.current["tag"] in ("li", "a") and not self.current["text"].strip():
             self.current = None
         if tag in BLOCK and self.current is None:
             self.current = {"tag": tag, "text": "", "links": [], "classes": self._classes(), "ids": self._ids()}
+        # A link outside any paragraph or list, such as the header's button, is a block of its own.
+        if tag == "a" and self.current is None:
+            self.current = {"tag": "a", "text": "", "links": [], "classes": self._classes(), "ids": self._ids()}
+        classes = set((attrs.get("class") or "").split())
+        for holder in (self.current, self.link):
+            if holder is not None and classes & PART_CLASSES and holder["text"].strip():
+                holder["text"] = holder["text"].rstrip() + " | "
         if tag == "a" and self.current is not None:
-            if "pill" in (attrs.get("class") or "").split() and self.current["text"].strip():
+            if "pill" in classes and self.current["text"].strip():
                 self.current["text"] += " | "
             self.link = {"text": "", "href": attrs.get("href") or ""}
 
@@ -252,6 +272,59 @@ def page_blocks(name):
                 continue
         own.append(block)
     return own
+
+
+def offline_notices():
+    """The notice assets/menu.js shows with no connection, as {"en": ..., "es": ...}."""
+    script = (ROOT / "assets" / "menu.js").read_text(encoding="utf-8")
+    match = re.search(r"spanish\s*\?\s*'((?:[^'\\]|\\.)*)'\s*:\s*\"((?:[^\"\\]|\\.)*)\"", script)
+    if not match:
+        raise SystemExit("Couldn't find the offline notice in assets/menu.js. Update offline_notices() in tools/make_review_packet.py.")
+    return {"es": match.group(1), "en": match.group(2)}
+
+
+def card_fields(path):
+    """A contact card's name and note, with long lines joined and vCard escapes removed."""
+    text = re.sub(r"\r?\n[ \t]", "", path.read_text(encoding="utf-8"))
+    fields = dict(line.split(":", 1) for line in text.splitlines() if ":" in line)
+    return [(key, re.sub(r"\\([,;\\])", r"\1", fields[key])) for key in ("FN", "NOTE") if fields.get(key)]
+
+
+def outside_blocks(names, lang):
+    """Wording people meet outside the page text: a page's description in search results and link
+    previews, the names a screen reader says, the offline notice, the contact card saved to a phone,
+    and, in English, the name and description used when the site is added to a home screen."""
+    es = lang == "es"
+    blocks = []
+
+    def heading(text):
+        blocks.append({"tag": "h2", "text": text, "links": [], "classes": set(), "ids": []})
+
+    def item(text):
+        blocks.append({"tag": "li", "text": text, "links": [], "classes": set(), "ids": []})
+
+    for kind, title in (("description", "Descripción en buscadores y vistas previas de enlaces" if es else "Description in search results and link previews"),
+                        ("aria-label", "Nombres que dice un lector de pantalla" if es else "Names a screen reader says")):
+        heading(title)
+        seen = []
+        for name in names:
+            for found, text in read_page(name).outside:
+                if found == kind and text not in seen:
+                    seen.append(text)
+                    item(text)
+    heading("Aviso sin conexión" if es else "Notice shown with no connection")
+    item(offline_notices()[lang])
+    for path in sorted((ROOT / "assets").glob("*.vcf")):
+        if path.stem.endswith("-es") == es:
+            heading(("Tarjeta de contacto que se guarda en el teléfono: " if es else "Contact card saved to a phone: ") + path.name)
+            for key, text in card_fields(path):
+                item(("Nombre: " if es else "Name: ") + text if key == "FN" else text)
+    if not es:
+        manifest = json.loads((ROOT / "manifest.webmanifest").read_text(encoding="utf-8"))
+        heading("Name and description when the site is added to a home screen")
+        for key in ("name", "short_name", "description"):
+            item(manifest[key])
+    return blocks
 
 
 def shared_blocks(names):
@@ -437,7 +510,9 @@ def document(title, body):
 
 def fingerprint():
     digest = hashlib.sha256()
-    names = [p for p in find_pages()] + ["notes/RESEARCH-BRIEF.md", "notes/CONTENT-REVIEW.md", "notes/SAFETY.md", "notes/SHORTER-SENTENCES.md"]
+    names = [p for p in find_pages()] + ["notes/RESEARCH-BRIEF.md", "notes/CONTENT-REVIEW.md", "notes/SAFETY.md", "notes/SHORTER-SENTENCES.md",
+                                         "assets/menu.js", "manifest.webmanifest"]
+    names += [f"assets/{card.name}" for card in (ROOT / "assets").glob("*.vcf")]
     for name in sorted(names):
         digest.update(name.encode())
         digest.update((ROOT / name).read_bytes())
@@ -473,12 +548,13 @@ def therapist_packet(today, stamp):
 <ul>
 <li>Part 1: Text that appears on every page</li>
 <li>Part 2: Each English page, sentence by sentence, with its source links</li>
-<li>Part 3: The founder-supplied research brief</li>
-<li>Part 4: Crisis resources, and what each button does</li>
-<li>Part 5: Questions written for you</li>
-<li>Part 6: How the research was read, and how the pages compare with the brief</li>
-<li>Part 7: Proposed shorter sentences, optional</li>
-<li>Part 8: Decisions and sign-off</li>
+<li>Part 3: Wording outside the page text, such as what a screen reader says and the contact card</li>
+<li>Part 4: The founder-supplied research brief</li>
+<li>Part 5: Crisis resources, and what each button does</li>
+<li>Part 6: Questions written for you</li>
+<li>Part 7: How the research was read, and how the pages compare with the brief</li>
+<li>Part 8: Proposed shorter sentences, optional</li>
+<li>Part 9: Decisions and sign-off</li>
 </ul>
 <p>The Spanish pages are in a separate packet for a fluent reader.</p>
 <p><strong>How to record feedback:</strong></p>
@@ -486,8 +562,8 @@ def therapist_packet(today, stamp):
 <li><strong>Mark each section.</strong> Each section ends with a box: OK as written, OK with changes, or Not for the website.</li>
 <li><strong>Refer to sentences by number.</strong> Every sentence has a number, such as HELP-12. In the Notes line, write something like "HELP-12: change to ...". Writing on the page is fine.</li>
 <li><strong>Repeated sentences.</strong> A gray sentence marked "same as" repeats an earlier one. A decision on the first applies to all of them.</li>
-<li><strong>Answer the questions in Part 5</strong> if you can. Skip any that aren't yours to answer.</li>
-<li><strong>Finish with Part 8.</strong> It records your decisions, your role, and the date. Please don't write personal contact details in this packet. It may be stored in a public project.</li>
+<li><strong>Answer the questions in Part 6</strong> if you can. Skip any that aren't yours to answer.</li>
+<li><strong>Finish with Part 9.</strong> It records your decisions, your role, and the date. Please don't write personal contact details in this packet. It may be stored in a public project.</li>
 </ul>
 <p>You can use a pen on paper, or add notes to the PDF in a PDF app. Return it to the founder who gave it to you.</p>
 <div class="urgent"><strong>If anything here could cause harm, please say so first.</strong> Use this box, or tell the founders right away, for anything that should come down or change before anything else happens.<span class="answer"></span><span class="answer"></span></div>
@@ -505,20 +581,24 @@ def therapist_packet(today, stamp):
         parts.append(f"<h3>Page: {esc(label)}</h3><p class=\"small\">Address once published: {esc(PREVIEW + address) if name != '404.html' else 'shown for any address that does not exist'}. Numbers start with {prefix}.</p>")
         parts.append(render_blocks(page_blocks(name), prefix, numbering, counters, "en"))
 
-    parts.append("<h2>Part 3: Research brief</h2>")
+    parts.append("<h2>Part 3: Wording outside the page text</h2>")
+    parts.append("<p>People meet this wording outside the text of each page: a page's description in search results and link previews, the names a screen reader says for links and areas, the notice shown with no connection, the contact card saved to a phone, and the name used when the site is added to a home screen.</p>")
+    parts.append(render_blocks(outside_blocks(english_names, "en"), "OUTSIDE", numbering, counters, "en"))
+
+    parts.append("<h2>Part 4: Research brief</h2>")
     parts.append("<p>A founder supplied this brief. The website's draft text was written separately and did not come from it, so please read both. The unchanged PDF is in the project at <code>notes/attachments/research-and-website-copy-2026-11.pdf</code>.</p>")
     parts.append(render_blocks(brief_blocks(), "BRIEF", numbering, counters, "en"))
     parts.append("<h3>Tracker for the brief</h3>")
     parts.append(markdown(note_section("notes/RESEARCH-BRIEF.md", "Review tracker")))
 
-    parts.append("<h2>Part 4: Crisis resources and what each button does</h2>")
+    parts.append("<h2>Part 5: Crisis resources and what each button does</h2>")
     parts.append("<p>An AI assistant read these on each provider's page. No person has confirmed them. No call, text, or chat was placed.</p>")
     parts.append("<h3>Crisis resources</h3>")
     parts.append(markdown(note_section("notes/SAFETY.md", "U.S. crisis resources")))
     parts.append("<h3>What each control does</h3>")
     parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "What each control does")))
 
-    parts.append("<h2>Part 5: Questions written for you</h2>")
+    parts.append("<h2>Part 6: Questions written for you</h2>")
     parts.append("<p>These are suggestions from an AI assistant, not decisions. Use the blank lines, or write on the notes pages at the end.</p>")
     parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "Questions for the qualified reviewer")))
     parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "Questions about the approved ideas")))
@@ -528,19 +608,19 @@ def therapist_packet(today, stamp):
     parts.append(markdown(note_section("notes/RESEARCH-BRIEF.md", "Questions for the reviewer from Claude")))
     parts.append('<h3>Your answers</h3>' + '<span class="answer"></span>' * 14)
 
-    parts.append("<h2>Part 6: How the research was read</h2>")
+    parts.append("<h2>Part 7: How the research was read</h2>")
     parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "How each finding was read")))
     parts.append("<h3>How the pages compare with the research brief</h3>")
     parts.append(markdown(note_section("notes/CONTENT-REVIEW.md", "How the pages compare with the research brief")))
 
-    parts.append("<h2>Part 7: Proposed shorter sentences</h2>")
+    parts.append("<h2>Part 8: Proposed shorter sentences</h2>")
     parts.append("<p>Optional. These are AI-drafted rewrites of the longest sentences. The pages have not changed. Mark any you accept.</p>")
     shorter = (ROOT / "notes" / "SHORTER-SENTENCES.md").read_text(encoding="utf-8")
     parts.append(markdown("## " + shorter.split("## ", 1)[1]))
 
-    parts.append("<h2>Part 8: Decisions and sign-off</h2>")
+    parts.append("<h2>Part 9: Decisions and sign-off</h2>")
     parts.append("<p>Please record your role and the date, such as \"licensed clinical social worker, November 2026\". Please don't write your name, license number, or contact details here. The founders will keep any such record outside the project.</p>")
-    sections = [label for _, _, label in ENGLISH] + ["Text on every page (Part 1)"]
+    sections = [label for _, _, label in ENGLISH] + ["Text on every page (Part 1)", "Wording outside the page text (Part 3)"]
     tracker = re.findall(r"^\| ([^|]+?) \| [^|]+ \| Not reviewed", note_section("notes/RESEARCH-BRIEF.md", "Review tracker"), re.M)
     parts.append("<h3>The website</h3>" + signoff_table(sections, "en"))
     parts.append("<h3>The research brief</h3>" + signoff_table(["Brief: " + t for t in tracker], "en"))
@@ -552,7 +632,7 @@ def therapist_packet(today, stamp):
 <p><strong>Date:</strong><span class="write"></span></p>
 <h3>For the founders, after the review</h3>
 <ul>
-<li>Copy each result into "Review records" in <code>notes/CONTENT-REVIEW.md</code>, and the tracker in <code>notes/RESEARCH-BRIEF.md</code>. Use the role and date only.</li>
+<li>Copy each result into "Review records" in <code>notes/CONTENT-REVIEW.md</code>, one line per section in this form: "- Get Help: licensed clinical social worker, 2026-12-01, approved". Only "approved", or "approved with changes, changes made", lets the site publish. Also fill in the tracker in <code>notes/RESEARCH-BRIEF.md</code>. Use the role and date only.</li>
 <li>Make the changes on a task branch, and show the reviewer anything that changed a safety message.</li>
 <li>Update the review list on the About pages. Remove a page's draft note only after its review is recorded.</li>
 <li>Keep any signed copy with personal details outside this public project.</li>
@@ -591,9 +671,12 @@ def spanish_packet(today, stamp):
         address = name.replace("index.html", "")
         parts.append(f"<h3>Página: {esc(label)}</h3><p class=\"small\">Dirección cuando se publique: {esc(PREVIEW + address)}. En inglés: {esc(PREVIEW + (english if english != 'index.html' else ''))}. Los números empiezan con {prefix}.</p>")
         parts.append(render_blocks(page_blocks(name), prefix, numbering, counters, "es"))
-    parts.append("<h2>Parte 3: Decisiones y firma</h2>")
+    parts.append("<h2>Parte 3: Texto fuera de las páginas</h2>")
+    parts.append("<p>Este texto aparece fuera del texto de cada página: la descripción en buscadores y vistas previas de enlaces, los nombres que dice un lector de pantalla, el aviso sin conexión y la tarjeta de contacto que se guarda en el teléfono.</p>")
+    parts.append(render_blocks(outside_blocks(names, "es"), "E-OUTSIDE", numbering, counters, "es"))
+    parts.append("<h2>Parte 4: Decisiones y firma</h2>")
     parts.append("<p>Anote su función y la fecha, por ejemplo \"traductora médica, noviembre de 2026\". Por favor, no escriba su nombre ni sus datos de contacto.</p>")
-    parts.append(signoff_table([label for _, _, label, _ in SPANISH] + ["Texto en cada página (Parte 1)"], "es"))
+    parts.append(signoff_table([label for _, _, label, _ in SPANISH] + ["Texto en cada página (Parte 1)", "Texto fuera de las páginas (Parte 3)"], "es"))
     parts.append("""<p>Otros comentarios:</p><span class="answer"></span><span class="answer"></span><span class="answer"></span>
 <p><strong>Función de quien revisa:</strong><span class="write"></span></p>
 <p><strong>Fecha:</strong><span class="write"></span></p>""")
@@ -638,7 +721,6 @@ def main():
         ("tidelight-review-packet", therapist_packet(today, stamp), "Tidelight content review packet"),
         ("tidelight-spanish-review-packet", spanish_packet(today, stamp), "Tidelight Spanish review packet"),
     )
-    (OUT / "FINGERPRINT.txt").write_text(stamp + "\n", encoding="utf-8")
     for name, text, label in builds:
         path = OUT / f"{name}.html"
         path.write_text(text, encoding="utf-8")
@@ -647,6 +729,12 @@ def main():
             pdf = OUT / f"{name}.pdf"
             make_pdf(path, pdf, label)
             print(f"wrote {pdf.relative_to(ROOT)} ({pdf.stat().st_size // 1024} KB)")
+    # The fingerprint goes last, and only once the PDFs are rebuilt too, because the PDFs are what
+    # reviewers are given. Until then, tools/check_site.py keeps saying the packets are out of date.
+    if args.no_pdf:
+        print("The PDFs were not rebuilt, so they still show the old wording. Don't hand them out; build them with Chrome.")
+        return 0
+    (OUT / "FINGERPRINT.txt").write_text(stamp + "\n", encoding="utf-8")
     return 0
 
 

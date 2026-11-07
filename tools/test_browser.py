@@ -38,7 +38,7 @@ ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
 from browser import Browser, Tab, find_chrome  # noqa: E402
 from check_site import allowed_numbers, find_pages, phone_digits  # noqa: E402
-from preview_server import BASE, Server, make_server, published_items  # noqa: E402
+from preview_server import BASE, PAGES_CACHE, Server, make_server, published_items  # noqa: E402
 
 # name, width, height, phone-style viewport
 VIEWPORTS = [
@@ -82,7 +82,8 @@ document.addEventListener('click', function (event) {
 AUDIT_JS = r"""
 (function () {
   var out = {hscroll: null, offscreen: [], clipped: [], smallTargets: [], tinyTargets: [], overlaps: [],
-             brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: [], stripTargets: []};
+             brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: [], stripTargets: [],
+             deadCrisis: [], exitCoversTop: [], stripTop: false, stripBottom: false, headerBottom: false};
   function shown(el) {
     var s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none') return false;
@@ -131,10 +132,10 @@ AUDIT_JS = r"""
     if (el.closest('.crisis-bar') && getComputedStyle(el.closest('.crisis-bar')).position === 'sticky' && r.height < 44) {
       out.stripTargets.push(name(el) + ' is ' + Math.round(r.width) + 'x' + Math.round(r.height));
     }
-    if (inline) return;
+    if (inline) return;  // a link inside a sentence
     var label = name(el) + ' is ' + Math.round(r.width) + 'x' + Math.round(r.height);
     if (r.height < 24 || r.width < 24) out.tinyTargets.push(label);
-    else if (r.height < 44 && !el.closest('p, li') ) out.smallTargets.push(label);
+    else if (r.height < 44) out.smallTargets.push(label);
   });
   // A link inside a sentence must look like a link without relying on color.
   controls.forEach(function (el) {
@@ -243,7 +244,47 @@ AUDIT_JS = r"""
   var covered = 0;
   if (bar && getComputedStyle(bar).position === 'sticky') covered = bar.getBoundingClientRect().height;
   out.pinned = Math.round(100 * covered / innerHeight);
+  // The crisis strip's Call 988 is on screen, and can be seen, at the top of the page.
+  function inView(el) {
+    if (!el || !shown(el)) return false;
+    var r = el.getBoundingClientRect();
+    return r.top >= 0 && r.bottom <= innerHeight + 1 && r.left >= 0 && r.right <= innerWidth + 1;
+  }
+  var call = document.querySelector('.crisis-bar a[href="tel:988"]');
+  out.stripTop = inView(call);
+  var crisisLinks = Array.prototype.slice.call(document.querySelectorAll('a[href^="tel:"], a[href^="sms:"], .crisis-actions a'))
+    .filter(function (el) {
+      if (el.closest('details:not([open])') && !el.closest('summary')) return false;  // folded away, whatever boxes a browser reports
+      return !hiddenOnPurpose(el) && shown(el);
+    });
+  // A floating Quick exit must not cover a crisis link on the first screen.
+  if (exit && shown(exit) && getComputedStyle(exit).position === 'fixed') {
+    var pill = exit.getBoundingClientRect();
+    crisisLinks.forEach(function (el) {
+      Array.prototype.forEach.call(el.getClientRects(), function (r) {
+        var w = Math.min(pill.right, r.right) - Math.max(pill.left, r.left);
+        var h = Math.min(pill.bottom, r.bottom) - Math.max(pill.top, r.top);
+        if (w > 1 && h > 1 && out.exitCoversTop.indexOf(name(el)) < 0) out.exitCoversTop.push(name(el));
+      });
+    });
+  }
+  // Every crisis link can receive a tap: nothing lies on top of it, at its middle or near either end.
+  // Nothing is clicked. The page is only asked what is at each point.
+  crisisLinks.forEach(function (el) {
+    el.scrollIntoView({block: 'center', behavior: 'instant'});
+    var r = el.getClientRects()[0] || el.getBoundingClientRect();
+    var y = Math.min(Math.max(r.top + r.height / 2, 0), innerHeight - 1);
+    var dead = null;
+    [r.left + 3, r.left + r.width / 2, r.right - 3].forEach(function (x) {
+      var hit = document.elementFromPoint(Math.min(Math.max(x, 0), innerWidth - 1), y);
+      if (!dead && !(hit && (hit === el || el.contains(hit)))) dead = hit ? 'is under ' + name(hit) : 'is off the screen';
+    });
+    if (dead) out.deadCrisis.push(name(el) + ' ' + dead);
+  });
   window.scrollTo({top: de.scrollHeight, behavior: 'instant'});
+  // Scrolled to the end: the pinned strip, or on a wide screen the header's button, is still on screen.
+  out.stripBottom = inView(call);
+  out.headerBottom = inView(document.querySelector('.site-header .header-cta'));
   // Inside the pinned strip, content scrolls under the strip by design. This is for the floating button.
   if (exit && shown(exit) && getComputedStyle(exit).position === 'fixed') {
     var er = exit.getBoundingClientRect();
@@ -305,9 +346,9 @@ class Report:
 
 
 class Site:
-    """A local server for the project, or for a temporary copy of it."""
+    """A local server for the project, or for a temporary copy of it. It caches like GitHub Pages."""
 
-    def __init__(self, root=ROOT, port=0, cache_control="no-cache"):
+    def __init__(self, root=ROOT, port=0, cache_control=PAGES_CACHE):
         self.root = pathlib.Path(root)
         self.port = port
         self.cache_control = cache_control
@@ -393,6 +434,16 @@ def page_problems(tab, page, site):
         found = [p for p in found if "status of 404" not in p]
     outside = [u for u in tab.requested_urls() if not u.startswith((site.base, "data:"))]
     return found + [f"contacted another site: {u}" for u in outside]
+
+
+def report_after_use(tab, group, page, site, report, where=""):
+    """After tapping or typing on a page, and before leaving it: script errors since it loaded, and any
+    test click that landed on a call or text link, which the page's guard stopped."""
+    for problem in page_problems(tab, page, site):
+        report.fail(group, page, problem, where)
+    blocked = tab.js("window.__blockedCrisisClick || ''")
+    if blocked:
+        report.fail(group, page, f"a test click landed on a crisis link and was stopped: {blocked}", where)
 
 
 # ---------------------------------------------------------------- links, files, paths
@@ -513,6 +564,10 @@ def apply_audit(result, group, page, where, report, phone):
             report.note(group, page, f"tap target under the project's 44px aim: {item}", where)
     for item in result["exitCovers"]:
         report.fail(group, page, f"Quick exit covers something at the page's end: {item}", where)
+    for item in result["exitCoversTop"]:
+        report.fail(group, page, f"Quick exit covers a crisis link at the top of the page: {item}", where)
+    for item in result["deadCrisis"]:
+        report.fail(group, page, f"a crisis link can't be tapped (SAFETY rule 2): {item}", where)
     if result["pinned"] and result["pinned"] > 30:
         report.note(group, page, f"the pinned crisis strip covers {result['pinned']}% of the screen", where)
     report.ok(group)
@@ -526,7 +581,9 @@ def test_matrix(browser, site, pages, report, screens=None):
             tab.media(dark=dark)
             where = f"{label}, {'dark' if dark else 'light'}"
             for page in pages:
-                status = tab.goto(site.url(page))
+                # The first time each page loads, wait longer, so an error a moment after loading shows.
+                first = (label, dark) == (VIEWPORTS[0][0], False)
+                status = tab.goto(site.url(page), settle=0.6 if first else 0.05)
                 if status != (404 if page == "404.html" else 200):
                     report.fail("matrix", page, f"page answered {status}", where)
                 for problem in page_problems(tab, page, site):
@@ -539,6 +596,13 @@ def test_matrix(browser, site, pages, report, screens=None):
                 result = tab.js(AUDIT_JS)
                 if label in MUST_PIN and not result["pinned"]:
                     report.fail("matrix", page, "the crisis strip is not pinned", where)
+                # SAFETY rule 1: crisis help is always one tap away, at every size and in both color schemes.
+                if not result["stripTop"]:
+                    report.fail("matrix", page, "the crisis strip's Call 988 is not on screen at the top of the page", where)
+                if label in MUST_PIN and not result["stripBottom"]:
+                    report.fail("matrix", page, "the crisis strip's Call 988 scrolls off the screen", where)
+                if width >= 960 and not result["headerBottom"]:
+                    report.fail("matrix", page, "the header's Get Support Now button scrolls off the screen", where)
                 apply_audit(result, "matrix", page, where, report, phone)
     tab.close()
 
@@ -620,6 +684,7 @@ def test_keyboard(browser, site, pages, report):
                 report.fail("keyboard", page, "the first Tab does not land on the skip link", label)
             elif len(seen) > 1 and "quick-exit" not in seen[1]["cls"]:
                 report.note("keyboard", page, "Quick exit is not the second Tab stop", label)
+            report_after_use(tab, "keyboard", page, site, report, label)
             # The skip link moves focus to the main content.
             tab.goto(site.url(page))
             tab.tab_key()
@@ -670,6 +735,7 @@ def test_menu(browser, site, pages, report):
         tab.browser.pump(0.02)
         if tab.js(state)["expanded"] != "false":
             report.fail("menu", page, "tapping outside did not close the menu")
+        report_after_use(tab, "menu", page, site, report)
         report.ok("menu")
     # Following a link leads to the page and leaves the menu closed there.
     home = site.url("index.html")
@@ -744,6 +810,7 @@ def test_jumps(browser, site, pages, report):
                     report.fail("jumps", page, f"{fragment} leaves its target below the screen", label)
                 else:
                     report.ok("jumps")
+            report_after_use(tab, "jumps", page, site, report, label)
     # A garbled address must not stop the page's script, which also sets up offline support.
     tab.resize(390, 844, True)
     tab.goto(site.url("get-help/index.html") + "#%E0%A4%A")
@@ -785,11 +852,15 @@ def test_folds(browser, site, pages, report):
             if tab.js(f"document.querySelectorAll('details')[{index}].open"):
                 report.fail("folds", page, f"fold {index + 1} did not close when tapped again")
             report.ok("folds")
+        report_after_use(tab, "folds", page, site, report)
         # Links to something inside a fold, from a page's contents list and from a direct address.
         targets = tab.js("""Array.prototype.filter.call(document.querySelectorAll('details [id], section[id]'), function (el) {
                 return el.closest('details') || el.querySelector(':scope > details.more');
             }).map(function (el) { return el.id; })""")
         for target in targets:
+            # A blank page first, so this is a fresh load of the address, as from a link on another
+            # page, not only a change of the #part.
+            tab.goto("about:blank")
             tab.goto(site.url(page) + "#" + target)
             opened = tab.js(f"""(function () {{
                 var t = document.getElementById({json.dumps(target)});
@@ -799,6 +870,23 @@ def test_folds(browser, site, pages, report):
             }})()""")
             if not opened["outer"] or not opened["own"] or opened["h"] < 1:
                 report.fail("folds", page, f"opening #{target} directly leaves it folded: {opened}")
+            else:
+                report.ok("folds")
+            report_after_use(tab, "folds", page, site, report)
+        # And from a link within the page, which changes only the #part.
+        if targets:
+            tab.goto(site.url(page))
+            target = targets[0]
+            opened = tab.js(f"""new Promise(function (done) {{
+                location.hash = {json.dumps('#' + target)};
+                requestAnimationFrame(function () {{
+                    var t = document.getElementById({json.dumps(target)});
+                    var outer = t.closest('details'), own = t.querySelector(':scope > details.more');
+                    done({{outer: !outer || outer.open, own: !own || own.open}});
+                }});
+            }})""")
+            if not opened["outer"] or not opened["own"]:
+                report.fail("folds", page, f"a link within the page to #{target} leaves it folded: {opened}")
             else:
                 report.ok("folds")
     tab.close()
@@ -1011,8 +1099,13 @@ def test_quickexit(browser, site, pages, report):
     tab.send("Emulation.setScriptExecutionDisabled", {"value": True})
     tab.goto(help_page)
     tab.send("Emulation.setScriptExecutionDisabled", {"value": False})
-    box = tab.js("""(function () { var r = document.querySelector('.quick-exit').getBoundingClientRect();
-        return {x: r.left + r.width / 2, y: r.top + r.height / 2}; })()""")
+    # With scripts off, the page's guard against call and text links can't run, so this click is only
+    # made if Quick exit is what lies on top at that point.
+    box = tab.js("""(function () { var e = document.querySelector('.quick-exit'), r = e.getBoundingClientRect();
+        var x = r.left + r.width / 2, y = r.top + r.height / 2, hit = document.elementFromPoint(x, y);
+        return {x: x, y: y, onTop: !!(hit && hit.closest('.quick-exit') === e)}; })()""")
+    if not box["onTop"]:
+        raise RuntimeError("refusing to click: Quick exit is not on top at its own middle, and a crisis link may be")
     tab.send("Emulation.setScriptExecutionDisabled", {"value": True})
     tab.click_at(box["x"], box["y"])
     event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
@@ -1300,23 +1393,11 @@ def test_offline(browser, site_ignored, pages, report):
         if outside:
             report.fail("offline", "(worker)", f"saved something from another site: {outside}")
 
-        # The page says so when the device reports no connection, in its own language.
-        for page, word in (("index.html", "offline"), ("es/index.html", "sin conexi")):
-            tab.goto(site.url(page))
-            if tab.js("!!document.querySelector('.offline-note')"):
-                report.fail("offline", page, "the offline notice shows with a connection")
-            tab.send("Network.emulateNetworkConditions", {"offline": True, "latency": 0, "downloadThroughput": -1, "uploadThroughput": -1})
-            tab.browser.pump(0.3)
-            notice = tab.js("(document.querySelector('main > .offline-note') || {}).textContent || ''")
-            if word not in notice.lower():
-                report.fail("offline", page, f"no offline notice in the page's language: {notice!r}")
-            tab.send("Network.emulateNetworkConditions", {"offline": False, "latency": 0, "downloadThroughput": -1, "uploadThroughput": -1})
-            tab.browser.pump(0.3)
-            if tab.js("!!document.querySelector('.offline-note')"):
-                report.fail("offline", page, "the offline notice stays after the connection returns")
-            report.ok("offline")
-
+        # Really one visit: the connection goes at once, so nothing else is loaded first. The browser's
+        # own 10-minute copies are cleared, as they would have run out by a later day, so only the
+        # worker's saved copies can show.
         site.stop()  # The computer's connection to the site is now gone.
+        tab.send("Network.clearBrowserCache")
         for page in pages:
             if page == "404.html":
                 continue
@@ -1351,13 +1432,38 @@ def test_offline(browser, site_ignored, pages, report):
                 else:
                     report.ok("offline")
 
-        # The site comes back with a changed page: the very next visit shows the new text.
+        # The page says so when the device reports no connection, in its own language.
+        site.start()
+        for page, word in (("index.html", "offline"), ("es/index.html", "sin conexi")):
+            tab.goto(site.url(page))
+            if tab.js("!!document.querySelector('.offline-note')"):
+                report.fail("offline", page, "the offline notice shows with a connection")
+            tab.send("Network.emulateNetworkConditions", {"offline": True, "latency": 0, "downloadThroughput": -1, "uploadThroughput": -1})
+            tab.browser.pump(0.3)
+            notice = tab.js("(document.querySelector('main > .offline-note') || {}).textContent || ''")
+            if word not in notice.lower():
+                report.fail("offline", page, f"no offline notice in the page's language: {notice!r}")
+            tab.send("Network.emulateNetworkConditions", {"offline": False, "latency": 0, "downloadThroughput": -1, "uploadThroughput": -1})
+            tab.browser.pump(0.3)
+            if tab.js("!!document.querySelector('.offline-note')"):
+                report.fail("offline", page, "the offline notice stays after the connection returns")
+            report.ok("offline")
+
+        # The site comes back with a changed page. Like GitHub Pages, the server lets the browser keep a
+        # copy for 10 minutes, so a visitor who loaded the page recently may see the old text until then,
+        # as the About pages say. After that, the next visit shows the new text and refreshes the saved copy.
+        tab.goto(site.url("get-help/index.html"))
+        site.stop()
         target = site_root / "get-help" / "index.html"
         target.write_text(target.read_text(encoding="utf-8").replace("</h1>", " UPDATE-MARKER</h1>", 1), encoding="utf-8")
         site.start()
         tab.goto(site.url("get-help/index.html"))
         if "UPDATE-MARKER" not in tab.js("document.querySelector('h1').textContent"):
-            report.fail("offline", "(updates)", "a changed page does not show on the first visit back online")
+            report.note("offline", "(limit)", "a changed page can take up to 10 minutes to show to someone who loaded it recently, and the About pages say so")
+        tab.send("Network.clearBrowserCache")  # stands in for the 10 minutes passing
+        tab.goto(site.url("get-help/index.html"))
+        if "UPDATE-MARKER" not in tab.js("document.querySelector('h1').textContent"):
+            report.fail("offline", "(updates)", "a changed page does not show once the browser's 10-minute copy has run out")
         else:
             report.ok("offline")
         tab.browser.pump(0.3)
@@ -1379,8 +1485,13 @@ def test_offline(browser, site_ignored, pages, report):
             names = tab.js("caches.keys()")
             if names == ["tidelight-v999"]:
                 break
+        # The new saved files must hold the new text, not only have the new name.
+        saved = tab.js(f"""caches.open('tidelight-v999').then(function (c) {{ return c.match({json.dumps(site.url('get-help/index.html'))}); }})
+            .then(function (r) {{ return r ? r.text() : ''; }})""") if names == ["tidelight-v999"] else ""
         if names != ["tidelight-v999"]:
             report.fail("offline", "(updates)", f"a new VERSION did not replace the old saved files: {names}")
+        elif "UPDATE-MARKER" not in (saved or ""):
+            report.fail("offline", "(updates)", "a new VERSION saved an old copy of a changed page")
         else:
             report.ok("offline")
         # An address with a ?query is saved under its plain address, so nothing extra is kept.
@@ -1393,6 +1504,7 @@ def test_offline(browser, site_ignored, pages, report):
         else:
             report.ok("offline")
         site.stop()
+        tab.send("Network.clearBrowserCache")
         status = tab.goto(site.url("research/index.html") + "?utm_source=planted")
         if tab.js("document.title") != titles["research/index.html"]:
             report.fail("offline", "research/index.html", f"not available offline with a query in the address: status {status}")
@@ -1419,8 +1531,10 @@ STALLED_AGAIN_LIMIT_S = 2.5
 
 
 def check_bad_hosts(tab, site, titles, report):
-    """A visitor who has been here before, when the host misbehaves."""
+    """A visitor who has been here before, when the host misbehaves. The browser's own 10-minute
+    copies are cleared first, as on a later day, so only the worker can show a saved copy."""
     # The host answers with a server error. Saved pages show, not the error page.
+    tab.send("Network.clearBrowserCache")
     host = BadHost(site.port, stall=False)
     try:
         for page in ("get-help/index.html", "es/obtener-ayuda/index.html"):
@@ -1440,6 +1554,7 @@ def check_bad_hosts(tab, site, titles, report):
         host.stop()
 
     # The host accepts the connection and never answers. A saved copy shows soon anyway.
+    tab.send("Network.clearBrowserCache")
     host = BadHost(site.port, stall=True)
     try:
         for page, limit in (("get-help/index.html", STALLED_LIMIT_S), ("es/obtener-ayuda/index.html", STALLED_AGAIN_LIMIT_S)):
