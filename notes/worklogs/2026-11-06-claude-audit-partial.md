@@ -1,13 +1,15 @@
 ---
 type: handoff
-status: unverified AI findings, not applied
+status: AI findings, partly applied
 ---
 
 # Partial audit results, not yet verified
 
 [[00 START HERE|Back to Start Here]]
 
-The usage limit stopped this audit before it finished. These are raw findings from AI auditors. **Most were not independently checked, none is applied, and some may be wrong.** Check each against its source before acting. No qualified person has reviewed them.
+The usage limit stopped this audit before it finished. These are raw findings from AI auditors. **Some may be wrong.** Check each against its source before acting. No qualified person has reviewed them.
+
+Update, November 7, 2026: the claims-research, crisis-details, claims-help-someone, and claims-get-help findings have been checked, and the ones that held up are applied, apart from the two items listed in [[worklogs/2026-11-06-claude-first-version|the handoff]]. Everything else below is still not applied.
 
 ## claims-get-help (12)
 
