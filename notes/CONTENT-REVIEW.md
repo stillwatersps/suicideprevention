@@ -145,7 +145,10 @@ Wording is proposed. Nothing here is clinical advice.
   their chosen names and pronouns. It says HHS did not answer directly, and the 988 pages
   read don't say. What, if anything, should this card say for those young people? Which
   service should come first on Get Help? For Teens lists The Trevor Project first. A person
-  should read the article and ask 988.
+  should read the article and ask 988. The Trevor Project's October 1, 2026 statement says a
+  June 9, 2026 letter to Congress confirmed the restart and noted the service must comply with
+  what The Trevor Project calls an anti-transgender executive order. The letter itself was not
+  read, and no 988 or SAMHSA page read says what this means for callers. Ask 988 or SAMHSA.
 - Is the description of a safety plan suitable for someone making one alone? The
   developers present it as made with a clinician, and evidence for teens using one
   alone is thin. See the Research page.
@@ -174,8 +177,27 @@ Wording is proposed. Nothing here is clinical advice.
   November 6, lists calling 911 if danger seems imminent, then calling or texting 988,
   and further down staying with the person or making sure another caring person is
   there. The note puts staying second and 988 last. "If it is safe" is Claude's addition,
-  not SAMHSA's. Is the order right, and should that phrase stay? No general official
-  page describes calling 988 together, so the page no longer tells people to.
+  not SAMHSA's. Is the order right, and should that phrase stay? "If it is safe" or "if you
+  can do it safely" appears in three more sentences on this page, and on For Teens and the
+  Spanish pages, so please make one decision for all of them. The national pages Claude read
+  don't describe calling 988 together, so the page no longer tells people to. At least one
+  state health department's 988 FAQ does: Nebraska's
+  (https://dhhs.ne.gov/Pages/988-Frequently-Asked-Questions.aspx). It suggests offering to sit
+  with the person while they call, text, or chat, if they are open to it. The same FAQ gives a
+  veterans menu option that differs from the national press 1, so it isn't a source for
+  numbers. Should the page offer this?
+- No page says what to do if someone has already tried to end their life or has already hurt
+  themselves. SAMHSA's FAQ lists an attempt in progress first among reasons to call 911, and
+  the VA toolkit says 911 or the nearest emergency room. Should step 3 add a plain line for
+  this, and should the site mention the emergency room at all?
+- The page gives one trigger two thresholds. The general list says to stay and call 911, or
+  call or text 988, when someone says they are going to end their life. The young person's
+  paragraph, here and on For Teens, says to "call 911 if it's an emergency", which asks a
+  young person to judge. That wording tracks NIMH and SAMHSA, and "treat it as an emergency"
+  would go further than any source read. Which should young people get?
+- For a worrying post, the page offers 911 and the site's safety team. 911 needs a location,
+  and a reader often won't know where the person is. No source read says what to do then.
+  Should it mention calling or texting 988 for advice, or telling a trusted adult?
 - The warning signs follow NIMH's 2025 list with no urgent tier, because official
   sources sort urgent signs differently. Is that right?
 - Sources differ on when not to leave someone alone. The general rule on the page
@@ -190,8 +212,17 @@ Wording is proposed. Nothing here is clinical advice.
   advice is from those sources, and the Research page has no study of steps at home.
   One review turned up during checking, Spitzer 2024 (PMID 38324739, not read in
   full), reports most studies of counseling families on this at high risk of bias.
-- Some sources listed on this page, such as the VA caregiver toolkit, name specific
-  items. Nobody has checked every source link for this. Should they stay linked?
+- Some sources listed on this page name specific items. A separate AI keyword check of all 13
+  sources, which can miss things and did not cover images, found mentions in six: the VA caregiver
+  toolkit most of all, then NIMH's FAQ, 988's Help Someone Else page, the American Academy of Child
+  and Adolescent Psychiatry, the school psychologists' page, and SAMHSA's 988 FAQ. Get
+  Help and Not sure also link NIMH's FAQ, and the page relies on it for treatment and safety plan
+  claims. Should each stay linked, sit behind a note, or be replaced? Removing one could remove
+  the support for a claim, so please decide link by link.
+- The school psychologists' page calls suicide the leading cause of death among school-age
+  youth, and two other sources here say second-leading, for different age ranges. The site
+  repeats none of these figures and nobody has checked them against CDC data. Don't quote one
+  without checking.
 - For a young person whose friend told them by text or online, the page says to keep
   talking if you can while you get an adult, or call or text 988. That wording is
   Claude's, because the sources don't cover it. Is it right?
@@ -375,7 +406,8 @@ The other founder hasn't agreed yet. Wording is proposed.
   said Back doesn't return to Stillwater, which was only true when one page had been opened.
 - **For Teens, from an independent AI check.** "Its rules don't set a minimum age" rests on
   finding no age limit in 988's terms and privacy policy, not on 988 saying so. "It is separate
-  from The Trevor Project" has no source on the page; [[SAFETY]] explains where it comes from.
+  from The Trevor Project" now cites The Trevor Project's October 1, 2026 statement. That statement
+  also gives a national figure on LGBTQ+ youth and suicide. Should the pages link to it?
   Telling a teen to expect a school counselor to tell a parent is accurate, but could deter them.
   Should it say why, and that 988 stays available?
 - **Spanish Research page.** It was translated before the English version was reviewed, at a
