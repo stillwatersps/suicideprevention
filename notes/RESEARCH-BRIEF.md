@@ -11,8 +11,9 @@ added: 2026-11-06
 
 > [!warning] Not yet reviewed
 > A founder supplied this brief on November 6, 2026. A licensed therapist will
-> review it before any of it goes on the website. Until the tracker below shows
-> a section as approved, treat its wording as a draft.
+> review it before any of it goes on the public website. The draft Not sure page
+> already uses Pathway A's wording, marked as a draft. Until the tracker below
+> shows a section as approved, treat its wording as a draft.
 
 The original PDF is kept unchanged. The full text is copied below so Obsidian
 search and Claude can use it. **If the two ever differ, the PDF is the original.**
@@ -35,7 +36,7 @@ the section would appear; nothing is published from this note yet.
 | 6. Treatment and recovery | Get Help | Not reviewed | |
 | 7. Statistics | Research | Not reviewed | Recheck every number before publishing |
 | 8. Technology and website design | Project guidance, not page copy | Not reviewed | |
-| Pathway A: Navigate your thoughts | New interactive page, needs a product decision | Not reviewed | |
+| Pathway A: Navigate your thoughts | Not sure page, built as a draft. Needs a product decision | Not reviewed | |
 | Pathway B: Work through your thoughts | New interactive page, needs a product decision | Not reviewed | |
 | Pathway C: Learn about suicide | Research | Not reviewed | |
 | Universal safety requirements | Whole site; compare with [[SAFETY]] | Not reviewed | |
@@ -50,12 +51,14 @@ These come from comparing the brief with the current site and [[SAFETY]]. They
 are suggestions, not decisions.
 
 1. **Pathways A and B are interactive tools, not just text.** Pathway B offers to
-   "save privately" a journal entry. The site currently collects nothing ([[SAFETY]]
-   rule 5), and the brief itself says to avoid collecting journal text by default.
+   "save privately" a journal entry. The site has no forms or accounts, and its web host
+   logs visitors' IP addresses ([[SAFETY]] rule 5). The brief itself says to avoid
+   collecting journal text by default.
    Should Pathway B work only on the visitor's own device with nothing sent
    anywhere, or wait until the founders decide about saved data?
-2. **Is a reflection tool appropriate for someone in crisis?** Should Pathways A
-   and B show 988 and 911 before the first question, not only alongside it?
+2. **Is a reflection page appropriate for someone in crisis?** The Not sure page,
+   built from Pathway A, shows 988 and 911 before its first question. Is that order
+   right? Should Pathway B do the same if it is built?
 3. **Minors.** Section 3 says to involve "a trusted adult for young people." What
    should a young person do if no adult feels safe? Supported ages are undecided.
 4. **Statistics (section 7).** The brief gives WHO's figure of more than 720,000
@@ -63,10 +66,10 @@ are suggestions, not decisions.
    the numbers, and how often?
 5. **Region.** The brief says to "adapt resources by visitor region." The site is
    U.S.-only. Should international visitors be pointed elsewhere?
-6. **Overlap with other drafts.** Branch `site/phone-accessibility-content` has
-   separate draft text for all three pages with its own reviewer questions in
-   `notes/CONTENT-REVIEW.md` on that branch. Review both together and pick one
-   wording for each page.
+6. **Overlap with the draft pages.** Most of the draft website was written separately
+   from this brief, but the Not sure page uses Pathway A's wording. [[CONTENT-REVIEW]]
+   compares the two, section by section, with its own questions for the reviewer.
+   Review both together and pick one wording for each page.
 
 ## Full text of the brief
 

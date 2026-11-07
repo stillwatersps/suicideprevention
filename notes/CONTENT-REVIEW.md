@@ -62,7 +62,7 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Text 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `sms:988` | 988 Lifeline | Link format only | Phone test |
 | Call 911 | Crisis strip, Get Help, For Teens, Not sure, After a loss, Help Someone urgent note, and their Spanish twins | `tel:911` | Local 911 | Link format only | Phone test. Decide whether it should be a link at all |
 | Chat Online | Buttons, closing banner | chat.988lifeline.org | 988 Lifeline | Page opens; form not submitted | Open on a phone |
-| Ayuda en español | Every page | Spanish block on Get Help | Tidelight | Tested in browser | Spanish reviewer |
+| Ayuda en español | Every English page | Spanish block on Get Help | Tidelight | Tested in browser | Spanish reviewer |
 | Llamar al 988 y marcar 2 | Get Help, Spanish block; Spanish Get Help | `tel:988` | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
 | Enviar AYUDA al 988 | Get Help, Spanish block | `sms:988`, message blank | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
 | Chatear en español | Get Help, Spanish block | chat.988lifeline.org/?lang=es | 988 Lifeline | Page opens in Spanish; form not submitted | Spanish reviewer |
@@ -89,11 +89,13 @@ these: tap, stop at the dial or compose screen, and cancel.
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
 | Get Support Now | Header | Crisis options on the same page | Tidelight | Tested in browser | Founders: is the label right? |
 | Quick exit / Salida rápida | Every page. In the pinned strip on phones and tablets, bottom right on desktops | https://www.weather.gov/ | Tidelight | Tested in browser: the page goes blank at once, and Back skips the page that was left. Back can still reach earlier Tidelight pages, and that page too after a link within it | Reviewer: label, destination, placement, and what it can't hide |
-| Save 988 to your contacts / Guarda el 988 en tus contactos | Get Help, For Teens, Wallet card, About, and their Spanish twins | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` | Tidelight | File checked. See `notes/worklogs/2026-11-06-claude-first-version.md` for phone tests | Save on a real iPhone and Android phone |
-| Llamar al 988 (marca 2) / Enviar AYUDA al 988 / Chatear en español | Spanish pages | `tel:988`, `sms:988`, chat.988lifeline.org/?lang=es | 988 Lifeline | Link format only | Phone test; fluent reader |
+| Save 988 to your contacts / Guarda el 988 en tus contactos | Get Help, For Teens, Wallet card, About, and their Spanish twins | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` | Tidelight | File checked. Not tried on a phone | Save on a real iPhone and Android phone |
+| Llamar al 988, marca 2 para español / Texto al 988, escribe AYUDA / Chatear en línea / Llama al 988 / envía AYUDA al 988 / llama al 911 | Crisis strip and buttons on every Spanish page, and inside sentences on some | `tel:988`, `sms:988`, `tel:911`, chat.988lifeline.org/?lang=es | 988 Lifeline; local 911 | Link format only | Phone test; fluent reader |
+| Llamar al 988 (otros idiomas) / Llamar al 988 y marcar 1 / Texto al 838255 / Chat de la Línea de Crisis para Veteranos / Llamar al 1-800-662-4357 / 1-800-487-4889 (TTY) / Llamar al 911 | Spanish Get Help | `tel:988`, `sms:838255`, `veteranscrisisline.net/es/como-ayudamos/chat/`, `tel:+18006624357`, `tel:+18004874889`, `tel:911` | 988 Lifeline; Veterans Crisis Line; SAMHSA; local 911 | Link format only | Phone test; fluent reader |
+| Llamar al 988 y marcar 3 / Enviar PRIDE al 988 / Llamar al 1-866-488-7386 / Enviar START al 678-678 / Enviar HOME al 741741 / Llama al 911 | Spanish Get Help and Spanish For Teens | `tel:988`, `sms:988`, `tel:+18664887386`, `sms:678678`, `sms:741741`, `tel:911` | 988 LGBTQ+ youth service; The Trevor Project; Crisis Text Line; local 911 | Link format only | Phone test; fluent reader. Confirm the 988 option with 988 |
 | Menu | Header, phones and tablets | Opens the page list | Tidelight | Tested in browser | Real phone with a screen reader |
-| Three homepage cards | Home | Get Help, Help Someone, Research | Tidelight | Tested in browser | None |
-| Show sources | Get Help, Help Someone | Opens the source list | Tidelight | Tested in browser | None |
+| Five homepage cards | Home | Get Help, Help Someone, Research, Not sure, After a loss | Tidelight | Tested in browser | None |
+| Show sources / Ver fuentes / Mostrar fuentes | Get Help, Help Someone, For Teens, Not sure, After a loss, About, and their Spanish twins | Opens the source list | Tidelight | Tested in browser | None |
 
 Text and chat with a crisis service start with automated steps. Texting asks you
 to accept terms and answer a few questions. The Get Help page says chat asks for a zip
@@ -320,23 +322,25 @@ old loss survivors page now answers "not found", so it isn't cited.
 
 ## How the pages compare with the research brief
 
-[[RESEARCH-BRIEF]] and the draft pages were written separately. **The page text did
-not come from the brief,** and nothing from the brief is on the website. Review them
-together and pick one wording for each page. This is Claude's comparison, for the
-reviewer.
+The first drafts of Get Help, Help Someone, and Research were written separately from
+[[RESEARCH-BRIEF]]. The Not sure page uses it directly: its heading, opening paragraph, and
+prompt are Pathway A's, word for word. [[IDEAS]] also names section 1 as the start of the
+Research myths and section 4 as the reason for After a loss, but their wording comes from
+other sources. All of this is draft, and the tracker shows no section approved. Review them
+together and pick one wording for each page. This is Claude's comparison, for the reviewer.
 
 | Brief section | Closest draft on the pages | To settle |
 | --- | --- | --- |
-| 1. Understanding suicide | None. Help Someone and Research cover asking about suicide | Add definitions and myths? |
+| 1. Understanding suicide | Research: Myths and facts. Help Someone and Research also cover asking about suicide | Add definitions? |
 | 2. Causes and risk factors | None | Add this? [[SAFETY]] says not to name a single cause |
 | 3. Warning signs | Help Someone, signs and five steps | The drafts follow NIMH's list, and the brief's list differs. Choose one |
 | 3. Urgent support | Crisis strip and buttons | Same direction |
-| 4. Families, schools, communities | Help Someone: child or teen, look after yourself | The drafts say nothing about grief after a suicide or support for schools afterward. Add this? |
+| 4. Families, schools, communities | After a loss. Help Someone: child or teen, look after yourself | Compare the wording |
 | 5. Evidence-based prevention | Research page | The brief covers levels and WHO's LIVE LIFE. The drafts cover single findings with limits |
 | 6. Treatment and recovery | Get Help: support over time, safety plans. Research: treatment | Same direction. The brief calls a safety plan collaborative |
 | 7. Statistics | None. The drafts use no population statistics | The brief's numbers need rechecking, and [[SAFETY]] asks for few |
 | 8. Technology and website design | Project guidance | Matches [[SAFETY]] rules |
-| Pathways A and B | None. These are interactive tools and were not built | Product decision. Pathway B's saved journal conflicts with [[SAFETY]] rule 5 |
+| Pathways A and B | Pathway A: Not sure page, tap to open, nothing to type. Pathway B: not built | Is a reflection page right at all? Pathway B's saved journal conflicts with [[SAFETY]] rule 5 |
 | Pathway C | Research and Help Someone | The brief wants short modules and last-reviewed dates |
 | Universal requirements | Crisis strip, [[SAFETY]] rules | The brief says to adapt by region, and the site is U.S.-only |
 
@@ -355,8 +359,8 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   neutral destination?
 - **Offline copies (A6).** After one visit, the site's pages are saved on the device
   so the numbers load without a signal. On a shared device that is a trace of the
-  visit. Is the benefit worth it, and should the privacy note mention it?
-- **Spanish (B6).** An AI translated Home, Get Help and Help Someone. A fluent
+  visit. Is the benefit worth it, and is what the About pages and footers say about it enough?
+- **Spanish (B6).** An AI translated all nine pages in `es/`. A fluent
   reader should check every line, and the reviewer should decide whether the
   wording should avoid masculine-only forms such as "No estás solo" and "estés
   listo". The pages use "tú", like 988's own Spanish pages. Texting steps in
@@ -376,11 +380,13 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   for LGBTQ+ young people. That line also leaves out SAMHSA's instruction to select the
   option to speak with a national representative for Spanish. Which lines should the Spanish
   poster carry? A fluent reader should weigh in too.
-- **For Teens (D3).** Built before ages are decided. Every paragraph repeats text
-  from Get Help or Help Someone. What should a teen read first? What if no adult
+- **For Teens (D3).** Built before ages are decided. Most of the text repeats Get Help or
+  Help Someone, and the packet marks repeats. The opening and the Quick exit line are new.
+  What should a teen read first? What if no adult
   feels safe? A lawyer should look at the privacy wording for minors.
 - **Long sentences (C4).** `python3 tools/check_readability.py` lists sentences over 25
-  words. Most explain when 988 may involve emergency services. [[SHORTER-SENTENCES]] has
+  words. Many are research summaries, and the longest explain when 988 may involve emergency
+  services. [[SHORTER-SENTENCES]] has
   proposed rewrites. The pages haven't changed. Can they be shortened without losing accuracy?
 
 ## Questions about the first-version additions
@@ -392,8 +398,9 @@ The other founder hasn't agreed yet. Wording is proposed.
   taps to open short notes on five feelings. The heading and opening come from Pathway A in
   the brief. Pathway B's journal was not built. 988 and 911 come first on the page. Is a
   reflection page right for someone in crisis at all? Should "Numb or empty" send people to
-  988 this directly? The page avoids NIMH's diagnostic definitions, and keeps only its advice
-  to talk to a provider if a low mood doesn't go away. Is that right?
+  988 this directly? The page leaves out NIMH's full diagnostic definitions. It keeps NIMH's
+  advice on when to talk to a provider, and names a lasting "empty" mood as a sign of
+  depression. Is that right?
 - **After a loss (B4).** "It's not your fault" is a heading. TAPS says it, and the CDC says
   suicide has no single cause, but someone may feel the site can't know their situation. Is the
   wording right? The list of feelings is AFSP's, including relief and thoughts of suicide.

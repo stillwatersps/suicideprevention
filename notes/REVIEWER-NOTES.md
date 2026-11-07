@@ -15,7 +15,9 @@ message itself. Every reviewer should know that the content was drafted by AI an
 
 > We're building Tidelight, a free website to help people in the U.S. find suicide prevention support, for adults
 > and young people. It isn't a crisis service. It points people to the 988 Lifeline and others. An AI assistant
-> drafted the pages, so no clinician has reviewed them, and nothing goes to the public until someone qualified has.
+> drafted the pages, and no clinician has reviewed them. An early version, with 988 and 911 details and placeholder
+> pages, is already public, and the project's files are in a public repository. We don't plan to publish these
+> draft pages until someone qualified has reviewed them.
 >
 > The attached packet has every sentence numbered, with its sources. Each section has a box for your decision, and
 > there's a list of questions we'd especially value your view on. Please start with anything that could cause harm.
@@ -23,7 +25,9 @@ message itself. Every reviewer should know that the content was drafted by AI an
 >
 > Please record your role and the date, not your name or contact details, since the packet may be stored publicly.
 
-Send: `review-packet/tidelight-review-packet.pdf`. Also offer the draft site through [[PHONE-TEST]].
+Send: `review-packet/tidelight-review-packet.pdf`. If you meet in person, you can also show the draft site using
+[[PHONE-TEST]]. For a remote reviewer, the packet is the way to see it, unless both founders agree to a temporary
+tunnel.
 
 ## Fluent Spanish reader
 
@@ -34,6 +38,7 @@ Send: `review-packet/tidelight-review-packet.pdf`. Also offer the draft site thr
 >
 > Please don't call or text any crisis line to check it. The attached packet numbers each sentence. Medical or
 > crisis translation experience would help. If you notice something that seems clinically wrong, please tell us.
+> The project's files are in a public repository, so please don't write anything personal in what you send back.
 
 Send: `review-packet/tidelight-spanish-review-packet.pdf`. The content is about suicide, so give them the choice
 to say no, with no reason needed.
@@ -43,6 +48,8 @@ to say no, with no reason needed.
 > We've drafted a page for people who have lost someone to suicide, using guidance from suicide prevention
 > organizations. Nobody with lived experience has read it. You can say no, stop at any time, and you don't need to tell
 > us anything about your own life. Would anything here hurt to read? Is anything missing that would have helped?
+> An AI assistant drafted this, and the project's files are in a public repository, so please don't write anything
+> personal in what you send back.
 
 Send: the "After a loss" pages from the packet. Choose someone whose loss isn't recent, and offer support, such as 988,
 in the message. A clinician may be able to advise you on how to ask. Don't record anything personal in this project.
@@ -51,6 +58,8 @@ in the message. A clinician may be able to advise you on how to ask. Don't recor
 
 > We've drafted a page for teens, and it covers reaching out on their own, trusted adults, and what stays private. We
 > need to know whether it's accurate and would feel safe to a 14-year-old, including one with no safe adult at home.
+> An AI assistant drafted this, and the project's files are in a public repository, so please don't write anything
+> personal in what you send back.
 
 Send: the For Teens pages from the packet, and the "If you're under 18" part of Get Help. The questions are in
 [[CONTENT-REVIEW]].
@@ -61,6 +70,8 @@ Send: the For Teens pages from the packet, and the "If you're under 18" part of 
 > and its host logs IP addresses. We'd like advice on who the publisher should be, what disclaimers it needs, liability
 > for health information, what it can say about privacy and confidentiality, minors and under-13 privacy, the use of
 > other organizations' names and links, and the name Tidelight.
+> An AI assistant drafted this, and the project's files are in a public repository, so please don't write anything
+> personal in what you send back.
 
 Send: the About and privacy pages, the For Teens pages, and the "Human-only checklist" in [[CONTENT-REVIEW]].
 
@@ -68,6 +79,8 @@ Send: the About and privacy pages, the For Teens pages, and the "Human-only chec
 
 > We list ways for Deaf and hard of hearing people to reach crisis support on a draft website. Are they correct, clearly
 > explained, and in the right order? Is anything missing?
+> An AI assistant drafted this, and the project's files are in a public repository, so please don't write anything
+> personal in what you send back.
 
 Send: the "Deaf or hard of hearing" part of Get Help, and the wallet card.
 

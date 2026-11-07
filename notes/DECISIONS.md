@@ -85,7 +85,10 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
 ## Open decisions
 
 For both founders, ideally with a qualified reviewer. Record the answer, who agreed,
-and why at the end of this note. This repository is public, so record people by role,
+and why at the end of this note. Then change that item below to plain text starting with
+"Settled", with no bold, such as "4. Settled. See the end of this note." `tools/launch_gate.py`
+counts only bold items as open. Keep the numbers, because other notes refer to them. This
+repository is public, so record people by role,
 such as "founder A", or by a handle the person chooses.
 
 1. **What should the public site show until review?** Keep the preview out of search
@@ -125,7 +128,7 @@ One founder approved nine ideas from [[IDEAS]]: A1, A2, A3, A4, A6, A7, B1, B2 a
 GitHub settings each needs are in
 [[worklogs/2026-11-06-claude-approved-ideas|the handoff]].
 
-- A2, A3 and A4 would settle open decisions 4, 2 and 5 below, once both founders
+- A2, A3 and A4 would settle open decisions 4, 2 and 5 above, once both founders
   agree and the settings are changed.
 - B1, B2 and B6 change crisis wording, so they stay drafts until the qualified
   reviewer, and for B6 a fluent Spanish reader, has checked them. See [[CONTENT-REVIEW]].
@@ -145,7 +148,7 @@ supported ages are decided; the page says so. Details in
 The founder who hadn't yet weighed in asked Claude to finish the first version in one
 session, using the work already on `claude/jolly-mayer-2m6eno`, so the site can be tested on
 phones and given to human reviewers. This asks for testing and review, not publishing. **It
-settles none of the open decisions below, and nothing is agreed to go live.** The first
+settles none of the open decisions above, and nothing is agreed to go live.** The first
 founder hasn't seen the additions, and neither founder has agreed to the other's list.
 
 Built as drafts on `site/first-version-build`, draft pull request 9: A5, B3, B4, B5, and C1
@@ -179,6 +182,12 @@ request 5, not merged. What changed:
 
 Still open: check Tidelight against existing organizations and trademarks before
 buying a domain or printing cards.
+
+## Recorded November 7, 2026: publish safety check, proposed
+
+Once Pages publishes with GitHub Actions, `tools/launch_gate.py` stops the publish step until
+reviews are recorded. Claude built it as a proposal. Neither founder's agreement is recorded. See
+[[LAUNCH-CHECKLIST]].
 
 ## Decision format
 

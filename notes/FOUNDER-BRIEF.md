@@ -20,7 +20,7 @@ reviewed", which isn't true yet.
 | --- | --- | --- |
 | A. Merge pull request 8 | Takes minutes. Fixes the four known problems | Still public with no review |
 | B. One page with 988, 911, and what Tidelight is | Keeps the part that helps most, with the least risk | Needs a small build |
-| C. Turn GitHub Pages off | No unreviewed content anywhere | Nothing to show anyone |
+| C. Turn GitHub Pages off | No unreviewed website. The drafts stay readable in the public repository | Nothing to show anyone |
 | D. Leave it as it is | No work | The site keeps saying something untrue |
 
 **Recommendation:** A today, because it corrects something untrue, then decide between B and C. The notes on
@@ -37,7 +37,7 @@ reviewed", which isn't true yet.
 | 5 | Do you both accept the built ideas in [[IDEAS]]? | Read them together. Each founder approved a different list, and neither has agreed to the other's | Nothing is agreed until you both say so |
 | 6 | Should merging need the other founder's approval? | Yes | Merging publishes within about a minute, and `main` has no protection |
 | 7 | Should the site publish without the notes? | Yes, with GitHub Actions. The workflow is built and needs one setting | Every note on `main` has a public address today |
-| 8 | Keep the publish safety check? | Yes, until reviews are recorded | It stops unreviewed content going live by accident. See [[LAUNCH-CHECKLIST]] |
+| 8 | Keep the publish safety check? | Yes, until reviews are recorded | Once Pages is set to GitHub Actions, it stops publishing until reviews are recorded. Until that setting changes it does nothing, and merging pull request 5 publishes every page and note. See [[LAUNCH-CHECKLIST]] |
 | 9 | What if someone contacts the project in crisis? | Turn off Issues and the Wiki, and add no contact route until you have a plan and a person to answer | A message nobody sees could do real harm |
 | 10 | Who is the publisher? Is Tidelight the final name? | Ask a lawyer, and check trademarks before buying a domain | Both affect what the site must say |
 | 11 | A custom domain? | Decide after the name. It changes the page-not-found links and the checks | The current address includes `/suicideprevention/` |

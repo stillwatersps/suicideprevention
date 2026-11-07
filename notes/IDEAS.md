@@ -7,8 +7,8 @@ status: proposals awaiting founder approval
 
 [[00 START HERE|Back to Start Here]]
 
-Proposed by Claude on November 6, 2026, after checking every page. **One founder approved nine on November 6, 2026; the other founder
-has not weighed in yet.** Mark each one Approved, Not now, or No, with who agreed and the
+Proposed by Claude on November 6, 2026, after checking every page. **Each founder approved or asked for a different list on November 6, 2026, and
+neither has agreed to the other's yet.** Mark each one Approved, Not now, or No, with who agreed and the
 date, and move approved ones to [[TASKS]]. Ideas that change crisis or health
 wording also need the licensed reviewer (see [[RESEARCH-BRIEF]] and
 [[CONTENT-REVIEW]]).
@@ -39,7 +39,7 @@ wording also need the licensed reviewer (see [[RESEARCH-BRIEF]] and
 ## Second batch, November 6, 2026
 
 Proposed by Claude after the first nine were built. One founder approved C2 to C6 and
-D1 to D3 on November 6, 2026; the other founder has not weighed in yet.
+D1 to D3 on November 6, 2026. The other founder hasn't agreed to them yet.
 
 ### Group C: helps the review and keeps the site working
 

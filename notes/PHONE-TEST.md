@@ -76,8 +76,8 @@ Once a test address has HTTPS, also check:
 
 ## Writing down results
 
-Add results to a new note in `worklogs/`, with the phone model, the iOS or Android version, and
-what you tried. Then tick the matching lines in the "Human-only checklist" in [[CONTENT-REVIEW]].
+Add results to a new note in `worklogs/`, with "phone" in its file name so `tools/launch_gate.py`
+finds it. Give the phone model, the iOS or Android version, and what you tried. Then tick the matching lines in the "Human-only checklist" in [[CONTENT-REVIEW]].
 Don't write that something was tested on a phone unless it was.
 
 ## What each kind of test can and can't show

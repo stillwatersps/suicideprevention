@@ -15,27 +15,34 @@ Agree on an owner for each part, by role. Claude drafted this, and no one has ag
 Treat this as urgent. Wrong crisis details can cost someone the chance to reach help.
 
 1. **Confirm it** on the provider's own page. Never test by calling or texting a crisis line.
-2. **Find every place it appears:**
+2. **Find every place it appears.** Search for both the printed form and the digits-only form, because some
+   lines have only one. For example:
 
    ```bash
-   grep -rn "THE-OLD-NUMBER" --include=index.html --include=*.vcf --include=404.html .
+   grep -rnE "866-488-7386|8664887386" --include='*.html' --include='*.vcf' --include='*.py' --include='*.md' .
    ```
 
-3. **Change it everywhere,** in English and Spanish: pages, wallet cards, contact cards in `assets/`, and the
-   table in [[SAFETY]].
-4. **Check it:** run `python3 tools/check_site.py` and `python3 tools/test_browser.py`.
-5. **Publish it.** A wrong number shouldn't wait for a full review. Agree in advance who can approve this
-   kind of fix alone. That is an open question in [[SAFETY]].
-6. **Change `VERSION` in `sw.js`,** so saved copies get replaced the next time a visitor opens the site with a
+3. **Change it everywhere,** in English and Spanish: pages, wallet cards, contact cards in `assets/`, the
+   table in [[SAFETY]], the control table in [[CONTENT-REVIEW]], and any file in `tools/` that names it.
+   Leave old handoffs in `worklogs/` as they are. The review packets are rebuilt in step 5.
+4. **Change `VERSION` in `sw.js`,** so saved copies get replaced the next time a visitor opens the site with a
    connection. Copies on devices that don't come back to the site keep the old number.
-7. **Rebuild the packets** with `python3 tools/make_review_packet.py`, and write a short note in `worklogs/`.
+5. **Rebuild the packets** with `python3 tools/make_review_packet.py`, and write a short note in `worklogs/`.
+6. **Check it:** run `python3 tools/check_site.py` and `python3 tools/test_browser.py`.
+7. **Publish it.** A wrong number shouldn't wait for a full review. Agree in advance who can approve this
+   kind of fix alone. That is an open question in [[SAFETY]]. If no reviews are on record yet, the publish
+   step stops this fix too, so add `PUBLISH_UNREVIEWED` again before merging, as [[LAUNCH-CHECKLIST]]
+   describes, then delete it. Once Pages publishes with GitHub Actions, publishing waits for the checks and
+   browser tests, which took about 7 minutes on recent pull request runs, and pages can stay cached for up
+   to 10 minutes after that.
 8. **Tell the reviewer** if the wording changed, not only the number.
 
 ## If the site goes down
 
 The daily check under the Actions tab will fail. Crisis lines still work without this site. Check
 [GitHub's status page](https://www.githubstatus.com/), then the latest "Site" run. To undo a bad change, revert
-its merge on GitHub, and the previous version publishes again.
+its merge on GitHub, and the previous version publishes again. If no reviews are on record yet, add
+`PUBLISH_UNREVIEWED` first, as [[LAUNCH-CHECKLIST]] describes.
 
 ## Automatic checks
 
@@ -43,16 +50,19 @@ its merge on GitHub, and the previous version publishes again.
 | --- | --- | --- | --- |
 | Site checks and browser tests | Every pull request, and before publishing | Links, crisis numbers, layout, keyboard, offline, and more | Whoever opened the pull request |
 | Live site | Daily | Every page loads and shows 988, 911, and the "not a crisis service" line | Unassigned |
-| Outside links and provider pages | Monthly, on the 1st | Every link opens, and each provider's page still shows our details | Unassigned |
+| Outside links and provider pages | Monthly, on the 1st | Every link that allows automated checks still opens, and the rest are listed for a person to open. Each provider page the check can read still shows our details | Unassigned |
 
-Turn on GitHub notifications for failed runs. Scheduled runs stop after 60 days without a commit in a public
+GitHub sends a scheduled workflow's failure notices to one account: the one that created the workflow, last
+changed its schedule lines, or re-enabled it. That founder checks their notification settings, and the other
+checks the Actions tab on a set day. Scheduled runs stop after 60 days without a commit in a public
 repository, so check the Actions tab now and then.
 
 ## Monthly, about 30 minutes
 
 - [ ] Read the monthly run. Open any page it says a person must check.
 - [ ] A person reads each provider's page and updates "Read on" and "Person confirmed" in [[SAFETY]].
-- [ ] Update the date on the pages, only after that check:
+- [ ] Update the date on the pages, only after that check. The tool changes only the date, so first make sure
+  the sentence around it says who did the check:
 
   ```bash
   python3 tools/set_checked_date.py OLD-DATE NEW-DATE --apply

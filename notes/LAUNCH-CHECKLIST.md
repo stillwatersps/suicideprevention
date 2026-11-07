@@ -18,7 +18,9 @@ It reads what people have recorded in the notes and on GitHub. It can't judge wh
 
 ## 1. Decide together
 
-Read [[FOUNDER-BRIEF]] first. It gives the choices and a recommendation for each.
+Read [[FOUNDER-BRIEF]] first. It gives the choices and a recommendation for each. Record each answer at the end
+of [[DECISIONS]]. Then change that item under "Open decisions" to plain text starting with "Settled", with no
+bold, so `tools/launch_gate.py` stops counting it. Keep its number, because other notes refer to it.
 
 - [ ] What the public site shows until review
 - [ ] Who reviews, and how a sign-off is recorded
@@ -83,20 +85,26 @@ python3 tools/set_checked_date.py 2026-11-06 2026-12-07 --apply
 
 ## 6. Remove the draft labels, only after review
 
-- [ ] Remove each page's draft note once its review is recorded.
+- [ ] Remove each page's draft note once its review is recorded. Removing a note makes `tools/check_site.py`
+  fail, which stops publishing, so that check must change first.
 - [ ] Update the review list on the About pages with each reviewer's role and the date.
 - [ ] Remove the `noindex` tag, if both founders want search engines to list the site.
 - [ ] Reword the footers, which say no professional has reviewed the content.
+- [ ] Reword every line saying an AI assistant compared the numbers, or that no person has confirmed them or
+  tried them on a phone. They are in the footers, the draft notes, and the About pages, in English and Spanish.
 
 ## 7. GitHub settings, done by the repository owner
 
 Steps are in [[worklogs/2026-11-06-claude-approved-ideas]].
 
-- [ ] Require the other founder's approval on `main`.
+- [ ] Require the other founder's approval on `main`, with a branch protection rule, not a ruleset, because
+  `tools/launch_gate.py` only reads branch protection rules.
 - [ ] Turn off Issues and the Wiki.
 - [ ] Set Pages to publish with GitHub Actions, right before merging. Until then, Pages publishes every
   file on `main`, notes included.
-- [ ] Turn on notifications for failed workflow runs.
+- [ ] Agree which founder's account gets failed-run notices from the daily and monthly checks. GitHub sends
+  them to one account only. That founder checks their notification settings, and the other checks the Actions
+  tab on a set day. See [[UPKEEP]].
 
 ## 8. Merge and publish
 
@@ -110,13 +118,16 @@ Steps are in [[worklogs/2026-11-06-claude-approved-ideas]].
 
 ### The publish safety check
 
-Once Pages publishes with GitHub Actions, the publish step stops if no clinical review and fluent Spanish
-review are on record, so a merge can't put unreviewed crisis content live by accident. The current
-published site stays up when this happens.
+Once Pages publishes with GitHub Actions, the publish step stops until "Review records" in [[CONTENT-REVIEW]]
+has a line with a clinical role and the word "approved", and a line with a Spanish or fluent-reader word and
+"approved". One line can count as both. It doesn't check that every page was reviewed, so a person must
+confirm that every review is done before merging. The current published site stays up when this step stops.
 
 To publish anyway, for an agreed early preview, both founders agree first. Then the owner adds a repository
 variable under Settings, Secrets and variables, Actions, Variables. Name it `PUBLISH_UNREVIEWED`, with the
-value `both founders agreed`. Delete it afterward.
+value `both founders agreed`. Delete it afterward. While no reviews are on record, each later publish stops
+at this check too, including a fix to a crisis number or a revert. For that fix, both founders agree, add the
+variable again before merging it, then delete it after it publishes.
 
 This check is itself a proposal. To remove it, delete the "Check that reviews are on record" step from
 `.github/workflows/site.yml`.
