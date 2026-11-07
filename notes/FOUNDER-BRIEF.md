@@ -48,6 +48,20 @@ AI auditors raised these on November 7, 2026. They are suggestions, not decision
 
 ### From the November 7 audit: before any publishing
 
+- **Make the publish check binding on both of you.** `main` has no protection, and both of you are
+  repository admins, so either one can publish alone, by pushing a review record, setting
+  `PUBLISH_UNREVIEWED`, or removing the check. The planned rule for `main` (idea A2) needs "Do not
+  allow bypassing the above settings" turned on, or it doesn't bind admins. Also turn on "Require
+  approval of the most recent reviewable push", and require both "Check the website" and "Test in a
+  real browser". The surest step: in Settings, Environments, `github-pages`, add the other founder as
+  a required reviewer with "Prevent self-review" on. Delete `PUBLISH_UNREVIEWED` as soon as it's no
+  longer needed.
+- **No other Pages site in this organization.** Every Pages site in `stillwatersps` shares
+  Tidelight's web address origin, so a script on another one could read or replace the offline copies
+  of crisis pages. Today Tidelight is the only one, but members may create more. An organization
+  owner can turn that off in the organization's Pages settings. A custom domain later gives Tidelight
+  its own origin.
+
 - **Commit email privacy.** Public commit details on `main` show a founder's first name with an
   email address at a personal domain, from three merges made with GitHub's merge button, and four
   other commits show an Apple relay address, so before any further merge both founders turn on "Keep
