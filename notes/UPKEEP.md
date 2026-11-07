@@ -84,4 +84,11 @@ repository, so check the Actions tab now and then.
 - Keep personal names, contact details, and real people's health information out of this public project.
 - Don't describe anything as reviewed until a qualified person has signed off.
 - When you print or share the site's address, use the form that ends in a slash. Offline, the form without it shows
-  the browser's error page, with no crisis numbers.
+  the browser's error page, with no crisis numbers. Page addresses without the slash, such as `.../get-help`, go to
+  the saved page.
+
+## If offline support is ever removed
+
+Don't just delete `sw.js`. Browsers that already have it keep it, and its saved copies, with no end date. Instead,
+replace `sw.js` with a short one that deletes every `tidelight-` and `stillwater-` saved copy when it starts, unregisters
+itself, and leaves every request alone. Keep that file published for some months. Ask Claude Code to write it.

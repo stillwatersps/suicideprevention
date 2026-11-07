@@ -87,9 +87,17 @@ function savedCopy(key) {
 function fallback(key, isPage, response) {
   return savedCopy(key).then(function (copy) {
     if (copy) return copy;
-    // A page that was never saved: the "page not found" page has the crisis numbers and
-    // works from any address.
-    return isPage ? savedCopy('404.html') : undefined;
+    if (!isPage) return undefined;
+    // An address typed without its final slash, such as .../get-help: send the browser to the
+    // address with the slash, as GitHub Pages does, so the saved page's links and style work.
+    var last = key.slice(key.lastIndexOf('/') + 1);
+    var withSlash = last && last.indexOf('.') < 0 ? savedCopy(key + '/') : Promise.resolve(undefined);
+    return withSlash.then(function (page) {
+      if (page) return Response.redirect(key + '/', 301);
+      // A page that was never saved: the "page not found" page has the crisis numbers and
+      // works from any address.
+      return savedCopy('404.html');
+    });
   }).then(function (copy) {
     return copy || response || Response.error();
   });

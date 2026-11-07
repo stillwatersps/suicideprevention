@@ -26,6 +26,8 @@ html { scroll-behavior: smooth; scroll-padding-top: 7rem; scroll-padding-bottom:
    where the strip pins: on a very short screen it scrolls away, and this would push a link
    to the bottom edge. */
 @media (max-width: 22.4em) and (min-height: 18.76em) { html { scroll-padding-top: 12rem; } }
+/* The Spanish strip's longer wording wraps to a third row on mid-size screens. */
+@media (min-width: 30.01em) and (max-width: 38em) and (min-height: 30.01em) { html[lang="es"] { scroll-padding-top: 8.5rem; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -395,6 +397,11 @@ h1 {
   .site-nav a { padding: 14px 4px; border-bottom: 1px solid #EEECE5; border-radius: 0; }
   .header-cta { min-height: 44px; padding: 0 16px; font-size: .9rem; }
 }
+/* Wide screens with large text get this menu under a header that stays put, so the menu
+   scrolls inside itself there, or its last items would be out of reach. */
+@media (min-width: 960px) and (max-width: 59.9375em) {
+  .site-nav { max-height: calc(100vh - 100%); max-height: calc(100dvh - 100%); overflow-y: auto; }
+}
 html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 @media (max-width: 959px), (max-width: 59.9375em) {
   html:not(.js) .header-inner { flex-wrap: wrap; }
@@ -441,8 +448,11 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .strip-988 { flex: 1 0 100%; }
   .strip-911 { flex: 1 1 0; min-width: 0; }
 }
-/* A small gap between the rows on taller screens, so a tap on a 988 link is less likely to
-   land on call 911. Short screens keep every pixel. */
+/* A gap between the rows, so a tap on a 988 link is less likely to land on call 911: 4px
+   wherever the strip pins, and 6px on taller screens. */
+@media (max-width: 959px) and (min-height: 18.76em) {
+  .crisis-bar { row-gap: 4px; }
+}
 @media (max-width: 959px) and (min-height: 30.01em) {
   /* Up to 959px, because the Spanish strip wraps on tablets too, with Quick exit under a 988 link. */
   .crisis-bar { row-gap: 6px; }

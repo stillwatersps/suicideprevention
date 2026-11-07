@@ -49,7 +49,9 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
   scrolling. Found in the iOS Simulator on November 7, 2026. These limits are set in em, so
   they grow with a larger text setting: at 150% text, 16em is 384 px and 18.75em is 450 px.
   Then the strip scrolls away and only Quick exit stays on screen, even where the strip would
-  take a small part of it. Whether larger text should still pin the strip is open. At 960 px and wider it scrolls away and the
+  take a small part of it. Whether larger text should still pin the strip is open. Known limit: short screens 568 to
+  703 px wide and 300 px tall or less, such as older phones on their side, don't pin it, because
+  the Spanish strip needs two rows there. At 960 px and wider it scrolls away and the
   sticky header's button stays, which takes two steps to start a call. Why: on phones,
   the header's button took two taps.
 - **Crisis strip uses links.** Call 988, text 988, and call 911 can be tapped. Why:
