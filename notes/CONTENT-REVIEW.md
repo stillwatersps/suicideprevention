@@ -24,10 +24,10 @@ sources were read in full.
 | Home (`index.html`) | Links out, role wording | [[SAFETY]] | Not reviewed |
 | Get Help (`get-help/`) | Draft | On the page | Not reviewed |
 | Help Someone (`help-someone/`) | Draft | On the page | Not reviewed |
-| Research (`research/`) | Draft | One or more links per finding | Not reviewed |
+| Research (`research/`) | Draft | On the page. Each finding names its source. Two papers have no link on purpose, and the myths section links to other Stillwater pages | Not reviewed |
 | Page not found (`404.html`) | Crisis options and links | [[SAFETY]] | Not reviewed |
 | Spanish home (`es/`) | AI translation of Home | [[SAFETY]] | Not reviewed; no fluent reader yet |
-| Spanish Get Help (`es/obtener-ayuda/`) | AI translation, Spanish options first | English source list | Not reviewed; no fluent reader yet |
+| Spanish Get Help (`es/obtener-ayuda/`) | AI translation, Spanish options first | Source list on the page, mostly in English | Not reviewed; no fluent reader yet |
 | Spanish Help Someone (`es/ayudar-a-alguien/`) | AI translation | English source list | Not reviewed; no fluent reader yet |
 | Spanish Research (`es/investigacion/`) | AI translation of the whole page | English citations | Not reviewed; no fluent reader yet |
 | For Teens (`teens/`) | Draft, repeats Get Help and Help Someone text | On the page | Not reviewed; ages undecided |
@@ -60,10 +60,10 @@ these: tap, stop at the dial or compose screen, and cancel.
 | --- | --- | --- | --- | --- | --- |
 | Call 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `tel:988` | 988 Lifeline | Link format only | Phone test |
 | Text 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `sms:988` | 988 Lifeline | Link format only | Phone test |
-| Call 911 | Crisis strip, Get Help, Help Someone urgent note | `tel:911` | Local 911 | Link format only | Phone test. Decide whether it should be a link at all |
+| Call 911 | Crisis strip, Get Help, For Teens, Not sure, After a loss, Help Someone urgent note, and their Spanish twins | `tel:911` | Local 911 | Link format only | Phone test. Decide whether it should be a link at all |
 | Chat Online | Buttons, closing banner | chat.988lifeline.org | 988 Lifeline | Page opens; form not submitted | Open on a phone |
 | Ayuda en español | Every page | Spanish block on Get Help | Stillwater | Tested in browser | Spanish reviewer |
-| Llamar al 988 | Get Help, Spanish block | `tel:988` | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
+| Llamar al 988 y marcar 2 | Get Help, Spanish block; Spanish Get Help | `tel:988` | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
 | Enviar AYUDA al 988 | Get Help, Spanish block | `sms:988`, message blank | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
 | Chatear en español | Get Help, Spanish block | chat.988lifeline.org/?lang=es | 988 Lifeline | Page opens in Spanish; form not submitted | Spanish reviewer |
 | 988lifeline.org | Fallback line | 988lifeline.org | 988 Lifeline | Page opens | None |
@@ -73,12 +73,12 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Call 988, then press 1 | Get Help | `tel:988` | Veterans Crisis Line | Link format only | Phone test |
 | Text 838255 | Get Help | `sms:838255` | Veterans Crisis Line | Link format only | Phone test |
 | Veterans Crisis Line chat | Get Help | VCL chat page | Veterans Crisis Line | Page opens | None |
-| Call 988, then press 3 | Get Help | `tel:988` | 988 LGBTQ+ youth service | Link format only | Phone test. Confirm the option with 988 |
-| Text PRIDE to 988 | Get Help | `sms:988`, message blank | 988 LGBTQ+ youth service | Link format only | Phone test. Confirm the option with 988 |
-| Call 1-866-488-7386 | Get Help | `tel:+18664887386` | The Trevor Project | Link format only | Phone test |
-| Text START to 678-678 | Get Help | `sms:678678`, message blank | The Trevor Project | Link format only | Phone test |
+| Call 988, then press 3 | Get Help, For Teens, and their Spanish twins | `tel:988` | 988 LGBTQ+ youth service | Link format only | Phone test. Confirm the option with 988 |
+| Text PRIDE to 988 | Get Help, For Teens, and their Spanish twins | `sms:988`, message blank | 988 LGBTQ+ youth service | Link format only | Phone test. Confirm the option with 988 |
+| Call 1-866-488-7386 | Get Help, For Teens, and their Spanish twins | `tel:+18664887386` | The Trevor Project | Link format only | Phone test |
+| Text START to 678-678 | Get Help, For Teens, and their Spanish twins | `sms:678678`, message blank | The Trevor Project | Link format only | Phone test |
 | Trevor Project chat and TTY | Get Help | Trevor's help page | The Trevor Project | Page opens | None |
-| Text HOME to 741741 | Get Help | `sms:741741`, message blank | Crisis Text Line | Link format only | Phone test |
+| Text HOME to 741741 | Get Help, For Teens, and their Spanish twins | `sms:741741`, message blank | Crisis Text Line | Link format only | Phone test |
 | Crisis Text Line website | Get Help | crisistextline.org | Crisis Text Line | Page opens | None |
 | 1-800-662-4357 | Get Help | `tel:+18006624357` | SAMHSA | Link format only | Phone test |
 | 1-800-487-4889 (TTY) | Get Help | `tel:+18004874889` | SAMHSA | Link format only | Phone test |
@@ -88,7 +88,7 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Our web host logs visitors' IP addresses | Home | Privacy line in the footer | Stillwater | Tested in browser | Lawyer question |
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
 | Get Support Now | Header | Crisis options on the same page | Stillwater | Tested in browser | Founders: is the label right? |
-| Quick exit / Salida rápida | Every page, bottom right | https://www.weather.gov/ | Stillwater | Tested in browser: Back skips the page that was left, but can still reach earlier Stillwater pages | Reviewer: label, destination, and what it can't hide |
+| Quick exit / Salida rápida | Every page. In the pinned strip on phones and tablets, bottom right on desktops | https://www.weather.gov/ | Stillwater | Tested in browser: the page goes blank at once, and Back skips the page that was left. Back can still reach earlier Stillwater pages, and that page too after a link within it | Reviewer: label, destination, placement, and what it can't hide |
 | Save 988 to your contacts / Guarda el 988 en tus contactos | Get Help, For Teens, Wallet card, About, and their Spanish twins | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` | Stillwater | File checked. See `notes/worklogs/2026-11-06-claude-first-version.md` for phone tests | Save on a real iPhone and Android phone |
 | Llamar al 988 (marca 2) / Enviar AYUDA al 988 / Chatear en español | Spanish pages | `tel:988`, `sms:988`, chat.988lifeline.org/?lang=es | 988 Lifeline | Link format only | Phone test; fluent reader |
 | Menu | Header, phones and tablets | Opens the page list | Stillwater | Tested in browser | Real phone with a screen reader |
@@ -96,8 +96,10 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Show sources | Get Help, Help Someone | Opens the source list | Stillwater | Tested in browser | None |
 
 Text and chat with a crisis service start with automated steps. Texting asks you
-to accept terms and answer a few questions. Chat asks for a zip code, whether you are
-having thoughts of suicide, and how upset you feel. The Get Help page says so.
+to accept terms and answer a few questions. The Get Help page says chat asks for a zip
+code, whether you are having thoughts of suicide, and how upset you feel. A later check
+could not confirm those details, because the chat page showed a security check. A person
+needs to open it.
 
 ## Questions for the qualified reviewer
 
@@ -115,8 +117,12 @@ Wording is proposed. Nothing here is clinical advice.
   the button doesn't say who does. Claude's suggestion: "Find suicide prevention
   support" and "Call or text 988".
 - The text links open a blank message (`sms:741741`, `sms:678678`, and `sms:988` for
-  AYUDA and PRIDE), so a person in distress has to remember the keyword. The label on
-  the button is all that reminds them. Is that acceptable?
+  AYUDA and PRIDE). For START, AYUDA, and PRIDE, a person in distress has to remember the
+  word, and the label on the button is all that reminds them. That isn't so for 741741:
+  Crisis Text Line says the first message can say anything, and that a word like HOME helps
+  it know how you found it. Its own website buttons fill in a word with a link that has a
+  body (`sms:741741?&body=HOME`). Is a blank message acceptable, and should these links
+  fill in the word too?
 - Is the privacy wording right? The homepage says "Stillwater has no sign-ups, forms,
   or tracking. Our web host logs visitors' IP addresses." Each footer says "no
   sign-ups, forms, analytics, or cookies" and links GitHub's statement. A lawyer should
@@ -134,15 +140,20 @@ Wording is proposed. Nothing here is clinical advice.
 - Should the page list the 988 LGBTQ+ youth option (press 3, PRIDE to 988), and how?
   988's own pages list it, none states an age range or chat route, and SAMHSA's older
   FAQ doesn't mention it. The Trevor Project is not part of it, so the page lists them
-  apart. See [[SAFETY]].
+  apart. See [[SAFETY]]. The Advocate reported on October 1, 2026 that HHS was asked whether
+  counselors would recognize transgender and nonbinary young people's identities and use
+  their chosen names and pronouns. It says HHS did not answer directly, and the 988 pages
+  read don't say. What, if anything, should this card say for those young people? Which
+  service should come first on Get Help? For Teens lists The Trevor Project first. A person
+  should read the article and ask 988.
 - Is the description of a safety plan suitable for someone making one alone? The
   developers present it as made with a clinician, and evidence for teens using one
   alone is thin. See the Research page.
 - The Stanley-Brown developers require written permission to reword their form or
   put it into a website. The page describes safety plans in general and links to
   their PDF. Is that enough? Should the project ask them?
-- Should the page add more about shared devices and phone bills, or a quick-exit
-  button?
+- The page now has a short paragraph on shared devices and phone bills, and a Quick exit
+  button. Is that enough?
 
 **Under 18**
 
@@ -211,11 +222,32 @@ Wording is proposed. Nothing here is clinical advice.
   and 2026. The page gives one such trial (Comtois). Should it say more?
 - Evidence moved recently: the caring messages trial was published November 2, 2026,
   and the 988 mortality paper has published letters and a reply. Recheck before release.
+- A commentary published with the caring messages trial (PMID 42970295, read only through
+  the summary tool) raises low power and a scale validated in younger people, and calls it
+  premature to conclude that the messages don't work. Should the limit line say so?
+- Witt 2021 gives higher certainty ratings to two other therapies, each resting on one or
+  two trials, and the authors call for more study. The page names only cognitive behavioral
+  therapy, whose effect wasn't seen at the end of treatment. Should it say more?
+- The myth "Effective help exists, and recovery is possible" links to a section that calls
+  the evidence uncertain. That section's heading and limit line explain why, but is the
+  link's wording enough of a bridge?
+- A large trial published October 28, 2026 (PMID 42946687) compared calls and two-way texts
+  after a suicidal crisis, with 723 teens and 797 adults, on top of usual care, with no group
+  that went without this follow-up. It isn't on the page, and nothing on the page is wrong
+  because of it. Should it be added at the recheck?
+- A letter and an authors' reply exist on the adult safety planning review (PMID 35354503).
+  Nobody has read them, because the journal blocked the check. A person should open them.
+- Gould 2025 was funded through a SAMHSA grant by way of a Vibrant contract, one author is
+  affiliated with Vibrant, callers were paid $50 for the interview, and the authors declare
+  no conflicts. Should the limit line say so, for a study of a service this site recommends?
 
 **Spanish**
 
 - A fluent Spanish speaker should check the Spanish block on Get Help. Claude wrote
   it from 988's English and Spanish pages.
+- 988's undated Spanish FAQs say its LGBTQ+ youth service and TTY aren't available in
+  Spanish. The Spanish pages now say so, and give the Spanish route. 988's Spanish Deaf page
+  still gives relay or 711 for TTY. Ask 988 which holds, and whether the FAQs are current.
 
 ## How each finding was read
 
@@ -235,13 +267,13 @@ No block or browser check was bypassed.
 | Safety planning in adults | Nuij 2021 | Full text, University of Glasgow copy; journal page blocked | |
 | Safety planning in children and teens | Albaum 2025, corrected 2026 | Full text and Figure 2; correction through summary tool | The question above |
 | Follow-up after an attempt | Homan 2026 | Full text | |
-| Follow-up after an attempt | Comtois 2026 | Summary tool, PubMed abstract for the main numbers. The journal page showed a browser check on November 6, not bypassed | Recruitment and control-care wording. A person should open it |
+| Follow-up after an attempt | Comtois 2026 | PubMed abstract for the main numbers. Journal page through the summary tool on November 6. In a real browser it showed a browser check, not bypassed | Recruitment and control-care wording are second-hand. A person should open it |
 | Safer surroundings | Steeg 2025 | Full text, method details not recorded | |
 | Treatment | Witt 2021 | Abstract and plain-language summary | |
 | Treatment | Sim 2025 | Abstract | |
-| Treatment | Cottrell 2026 | Abstract; full report blocked | Comparison groups, and the direction of its suicidal thoughts exception at 6 months |
+| Treatment | Cottrell 2026 | Abstract; full report blocked | The direction of its suicidal thoughts exception at 6 months |
 | News coverage | BMJ 2020 review | Full text, method details not recorded | |
-| Stories of coping | Niederkrotenthaler 2022 | Abstract; full text blocked | How soon after the stories outcomes were measured |
+| Stories of coping | Niederkrotenthaler 2022 | Full text, University of Melbourne repository copy; journal page blocked | |
 | What this page can't tell you | van der Burgt 2024 | Abstract, full text searched for specific points | |
 
 ### How the first-version pages' sources were read
@@ -304,7 +336,11 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   services" helpful, or could it read as a promise?
 - **Wallet card and poster (D2).** The printed text comes only from the [[SAFETY]]
   table. Is the selection right (988, Spanish, veterans, The Trevor Project, Deaf
-  and hard of hearing, 911)? Should the card name Stillwater at all?
+  and hard of hearing, 911)? Should the card name Stillwater at all? The Spanish poster has
+  a SAMHSA referral line where the English poster has The Trevor Project, so it has no line
+  for LGBTQ+ young people. That line also leaves out SAMHSA's instruction to select the
+  option to speak with a national representative for Spanish. Which lines should the Spanish
+  poster carry? A fluent reader should weigh in too.
 - **For Teens (D3).** Built before ages are decided. Every paragraph repeats text
   from Get Help or Help Someone. What should a teen read first? What if no adult
   feels safe? A lawyer should look at the privacy wording for minors.
@@ -356,6 +392,10 @@ The other founder hasn't agreed yet. Wording is proposed.
       whether the text links open with a blank message.
 - [ ] Test with VoiceOver and TalkBack, large text settings, and a slow connection.
 - [ ] Read each provider page in [[SAFETY]] and fill in "Person confirmed".
+- [ ] Open chat.988lifeline.org and chat.988lifeline.org/?lang=es on a phone, without
+      submitting anything. Compare the form's questions with Get Help, and note whether a
+      security check appears first. Repeat this whenever the numbers are rechecked, because
+      the automatic check can't read these pages.
 - [ ] Open the sources marked unconfirmed in the table above, and the Comtois journal
       page, in an ordinary browser.
 - [ ] Ask a lawyer: who is the publisher, what disclaimers are needed, minors and
