@@ -1,0 +1,1722 @@
+#!/usr/bin/env python3
+"""Tests the website in a real browser, served the way GitHub Pages will serve it.
+
+    python3 tools/test_browser.py                    # everything, a few minutes
+    python3 tools/test_browser.py --only keyboard    # one group; see GROUPS below
+    python3 tools/test_browser.py --pages get-help/  # only pages whose path has this text
+    python3 tools/test_browser.py --screens DIR      # also save phone screenshots
+
+Needs Python 3 and Google Chrome or Chromium. Chrome runs with a throwaway profile.
+
+It never calls, texts, chats, or submits anything: clicks on call and text links are
+refused here and blocked in the page. Quick exit is tested against a stand-in for
+weather.gov, so no outside site is contacted.
+
+Passing shows the pages behave as tested in desktop Chrome, including its phone-size
+emulation. It is not a test on a real phone or with a screen reader, and it says
+nothing about whether the content is right. See notes/CONTENT-REVIEW.md.
+"""
+import argparse
+import base64
+import html
+import html.parser
+import http.server
+import json
+import pathlib
+import re
+import shutil
+import sys
+import tempfile
+import threading
+import time
+import urllib.error
+import urllib.parse
+import urllib.request
+
+TOOLS = pathlib.Path(__file__).resolve().parent
+ROOT = TOOLS.parent
+sys.path.insert(0, str(TOOLS))
+from browser import Browser, Tab, find_chrome  # noqa: E402
+from check_site import allowed_numbers, find_pages, phone_digits  # noqa: E402
+from preview_server import BASE, Server, make_server, published_items  # noqa: E402
+
+# name, width, height, phone-style viewport
+VIEWPORTS = [
+    ("phone 320x568", 320, 568, True),
+    ("phone 375x667", 375, 667, True),
+    ("phone 390x844", 390, 844, True),
+    ("phone 430x932", 430, 932, True),
+    ("phone landscape 568x320", 568, 320, True),
+    ("phone landscape 844x390", 844, 390, True),
+    ("tablet 768x1024", 768, 1024, True),
+    ("tablet landscape 1024x768", 1024, 768, True),
+    ("laptop 1280x800", 1280, 800, False),
+    ("desktop 1440x900", 1440, 900, False),
+    ("400% zoom of 1280x900", 320, 225, False),
+]
+TEXT_SIZES = [
+    ("phone 320x568", 320, 568),
+    ("phone 390x844", 390, 844),
+    ("phone landscape 844x390", 844, 390),
+]
+GROUPS = [
+    "links", "matrix", "textsize", "keyboard", "menu", "jumps", "folds", "language",
+    "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "offline", "speed", "modes", "privacy",
+]
+SAFE_CLICKS = """
+document.addEventListener('click', function (event) {
+  var link = event.target.closest && event.target.closest('a[href^="tel:"], a[href^="sms:"]');
+  if (link) { event.preventDefault(); event.stopPropagation(); window.__blockedCrisisClick = link.href; }
+}, true);
+"""
+
+# Reads the page and reports layout, contrast, and naming problems. Runs inside the page.
+AUDIT_JS = r"""
+(function () {
+  var out = {hscroll: null, offscreen: [], clipped: [], smallTargets: [], tinyTargets: [], overlaps: [],
+             brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: [], stripTargets: []};
+  function shown(el) {
+    var s = getComputedStyle(el);
+    if (s.visibility === 'hidden' || s.display === 'none') return false;
+    var r = el.getBoundingClientRect();
+    return r.width > 1 && r.height > 1;
+  }
+  function hiddenOnPurpose(el) {
+    return !!el.closest('.visually-hidden, .skip-link');
+  }
+  function name(el) {
+    var cls = el.className && el.className.baseVal === undefined && el.className ? '.' + String(el.className).trim().split(/\s+/).join('.') : '';
+    var text = (el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40);
+    return el.tagName.toLowerCase() + cls + (text ? ' "' + text + '"' : '');
+  }
+  var de = document.documentElement;
+  if (de.scrollWidth > de.clientWidth + 1) out.hscroll = [de.scrollWidth, de.clientWidth];
+
+  var all = Array.prototype.slice.call(document.querySelectorAll('body *'));
+  all.forEach(function (el) {
+    if (el.closest('svg') && el.tagName.toLowerCase() !== 'svg') return;
+    if (hiddenOnPurpose(el) || !shown(el)) return;
+    var r = el.getBoundingClientRect();
+    if (r.right > de.clientWidth + 1 || r.left < -1) {
+      // Inside a sideways-scrolling area is fine; nothing here should scroll sideways though.
+      out.offscreen.push(name(el) + ' spans ' + Math.round(r.left) + ' to ' + Math.round(r.right));
+    }
+    var s = getComputedStyle(el);
+    if ((s.overflowX === 'hidden' || s.overflowX === 'clip') && el.scrollWidth > el.clientWidth + 1 && el.textContent.trim()) {
+      out.clipped.push(name(el) + ' cuts off sideways: ' + el.scrollWidth + ' > ' + el.clientWidth);
+    }
+    if ((s.overflowY === 'hidden' || s.overflowY === 'clip') && el.scrollHeight > el.clientHeight + 3 && el.textContent.trim()) {
+      out.clipped.push(name(el) + ' cuts off vertically: ' + el.scrollHeight + ' > ' + el.clientHeight);
+    }
+  });
+
+  // Tap targets. Links inside a sentence are exempt, as in WCAG 2.5.8.
+  var controls = Array.prototype.slice.call(document.querySelectorAll('a[href], button:not([hidden]), summary')).filter(function (el) {
+    return !hiddenOnPurpose(el) && shown(el);
+  });
+  controls.forEach(function (el) {
+    var s = getComputedStyle(el);
+    var r = el.getBoundingClientRect();
+    var inline = s.display === 'inline';
+    if (el.classList.contains('card-link')) return;  // its tap area is the whole card
+    // The pinned strip is the one control that is always on screen, so it gets full-size targets.
+    if (el.closest('.crisis-bar') && getComputedStyle(el.closest('.crisis-bar')).position === 'sticky' && r.height < 44) {
+      out.stripTargets.push(name(el) + ' is ' + Math.round(r.width) + 'x' + Math.round(r.height));
+    }
+    if (inline) return;
+    var label = name(el) + ' is ' + Math.round(r.width) + 'x' + Math.round(r.height);
+    if (r.height < 24 || r.width < 24) out.tinyTargets.push(label);
+    else if (r.height < 44 && !el.closest('p, li') ) out.smallTargets.push(label);
+  });
+  // A link inside a sentence must look like a link without relying on color.
+  controls.forEach(function (el) {
+    if (el.tagName.toLowerCase() !== 'a' || getComputedStyle(el).display !== 'inline' || el.classList.contains('card-link')) return;
+    var holder = el.closest('p, li');
+    if (!holder || holder.textContent.trim().length <= el.textContent.trim().length) return;
+    if (getComputedStyle(el).textDecorationLine.indexOf('underline') < 0) out.colorOnlyLinks.push(name(el));
+  });
+  // Controls that overlap each other.
+  var boxes = controls.filter(function (el) {
+    if (el.closest('details:not([open])') && !el.closest('summary')) return false;  // folded away, whatever boxes a browser reports
+    return getComputedStyle(el).position !== 'fixed';
+  }).map(function (el) { return {el: el, r: el.getClientRects()[0] || el.getBoundingClientRect()}; });
+  for (var i = 0; i < boxes.length; i++) {
+    for (var j = i + 1; j < boxes.length; j++) {
+      var a = boxes[i], b = boxes[j];
+      if (a.el.contains(b.el) || b.el.contains(a.el)) continue;
+      var w = Math.min(a.r.right, b.r.right) - Math.max(a.r.left, b.r.left);
+      var h = Math.min(a.r.bottom, b.r.bottom) - Math.max(a.r.top, b.r.top);
+      if (w > 2 && h > 2) out.overlaps.push(name(a.el) + ' overlaps ' + name(b.el));
+    }
+  }
+
+  Array.prototype.slice.call(document.images).forEach(function (img) {
+    if (!img.complete || img.naturalWidth === 0) out.brokenImages.push(img.currentSrc || img.src);
+  });
+
+  // Contrast, against the color or every gradient stop behind the text.
+  function parse(color) {
+    var m = color.match(/rgba?\(([^)]+)\)/);
+    if (!m) return null;
+    var p = m[1].split(/[ ,\/]+/).map(parseFloat);
+    return {r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1};
+  }
+  function over(top, under) {
+    var a = top.a;
+    return {r: top.r * a + under.r * (1 - a), g: top.g * a + under.g * (1 - a), b: top.b * a + under.b * (1 - a), a: 1};
+  }
+  function lum(c) {
+    function f(v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+  }
+  function ratio(a, b) {
+    var x = lum(a), y = lum(b);
+    return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+  }
+  function backgrounds(el) {
+    // Layers from the element outward, stopping at the first opaque one.
+    var layers = [];
+    for (var node = el; node; node = node.parentElement) {
+      var s = getComputedStyle(node);
+      if (s.backgroundImage && s.backgroundImage !== 'none') {
+        var stops = s.backgroundImage.match(/rgba?\([^)]+\)/g);
+        if (stops) { layers.push(stops.map(parse)); if (stops.map(parse).every(function (c) { return c.a === 1; })) return layers; }
+      }
+      var c = parse(s.backgroundColor);
+      if (c && c.a > 0) { layers.push([c]); if (c.a === 1) return layers; }
+    }
+    layers.push([{r: 255, g: 255, b: 255, a: 1}]);
+    return layers;
+  }
+  function combos(layers) {
+    var result = layers[layers.length - 1].slice();
+    for (var i = layers.length - 2; i >= 0; i--) {
+      var next = [];
+      layers[i].forEach(function (t) { result.forEach(function (u) { next.push(over(t, u)); }); });
+      result = next.slice(0, 40);
+    }
+    return result;
+  }
+  var seen = {};
+  var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  while (walker.nextNode()) {
+    var text = walker.currentNode;
+    if (!text.nodeValue.trim()) continue;
+    var parent = text.parentElement;
+    if (!parent || parent.closest('script, style, svg, noscript') || hiddenOnPurpose(parent) || !shown(parent)) continue;
+    var s = getComputedStyle(parent);
+    var fg = parse(s.color);
+    if (!fg) continue;
+    var size = parseFloat(s.fontSize);
+    var bold = parseInt(s.fontWeight, 10) >= 700;
+    var need = (size >= 24 || (size >= 18.66 && bold)) ? 3 : 4.5;
+    var worst = 99, bg = null;
+    combos(backgrounds(parent)).forEach(function (c) {
+      var value = ratio(fg.a < 1 ? over(fg, c) : fg, c);
+      if (value < worst) { worst = value; bg = c; }
+    });
+    if (worst < need) {
+      var key = s.color + '|' + Math.round(worst * 100);
+      if (!seen[key]) {
+        seen[key] = 1;
+        out.contrast.push(worst.toFixed(2) + ':1 (needs ' + need + ') on ' + name(parent));
+      }
+    }
+  }
+
+  Array.prototype.slice.call(document.querySelectorAll('a[href], button:not([hidden]), summary')).forEach(function (el) {
+    var label = (el.getAttribute('aria-label') || el.textContent || '').trim();
+    if (!label && !el.querySelector('img[alt]:not([alt=""])')) out.unnamed.push(el.outerHTML.slice(0, 80));
+  });
+
+  // How much of the screen stays covered by pinned things, and what Quick exit covers at the page's end.
+  var bar = document.querySelector('.crisis-bar');
+  var exit = document.querySelector('.quick-exit');
+  var covered = 0;
+  if (bar && getComputedStyle(bar).position === 'sticky') covered = bar.getBoundingClientRect().height;
+  out.pinned = Math.round(100 * covered / innerHeight);
+  window.scrollTo({top: de.scrollHeight, behavior: 'instant'});
+  // Inside the pinned strip, content scrolls under the strip by design. This is for the floating button.
+  if (exit && shown(exit) && getComputedStyle(exit).position === 'fixed') {
+    var er = exit.getBoundingClientRect();
+    Array.prototype.slice.call(document.querySelectorAll('main *, footer *')).forEach(function (el) {
+      if (el.closest('svg') || hiddenOnPurpose(el) || !shown(el)) return;
+      var hasOwnText = Array.prototype.some.call(el.childNodes, function (n) { return n.nodeType === 3 && n.nodeValue.trim(); });
+      if (!hasOwnText && !el.matches('a, button, summary')) return;
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      Array.prototype.forEach.call(range.getClientRects(), function (r) {
+        var w = Math.min(er.right, r.right) - Math.max(er.left, r.left);
+        var h = Math.min(er.bottom, r.bottom) - Math.max(er.top, r.top);
+        if (w > 1 && h > 1 && out.exitCovers.indexOf(name(el)) < 0) out.exitCovers.push(name(el));
+      });
+    });
+  }
+  window.scrollTo({top: 0, behavior: 'instant'});
+  return out;
+})()
+"""
+
+OPEN_ALL = "document.querySelectorAll('details').forEach(function (d) { d.open = true; });"
+
+
+class Report:
+    def __init__(self):
+        self.failures = {}
+        self.notes = {}
+        self.passed = {}
+
+    def fail(self, group, page, message, where=""):
+        self.failures.setdefault((group, page, message), []).append(where)
+
+    def note(self, group, page, message, where=""):
+        self.notes.setdefault((group, page, message), []).append(where)
+
+    def ok(self, group, count=1):
+        self.passed[group] = self.passed.get(group, 0) + count
+
+    def print_summary(self):
+        for kind, items in (("NOTE", self.notes), ("FAIL", self.failures)):
+            for (group, page, message), wheres in sorted(items.items()):
+                places = sorted(set(w for w in wheres if w))
+                suffix = ""
+                if places:
+                    suffix = " [" + ", ".join(places[:4]) + (f", and {len(places) - 4} more" if len(places) > 4 else "") + "]"
+                print(f"{kind} {group}: {page}: {message}{suffix}")
+        print()
+        for group in GROUPS:
+            if group in self.passed or any(k[0] == group for k in self.failures):
+                bad = sum(1 for k in self.failures if k[0] == group)
+                print(f"  {group:14} {self.passed.get(group, 0):6} checks passed, {bad} distinct failures")
+        return len(self.failures)
+
+    def to_json(self):
+        def rows(items):
+            return [{"group": g, "page": p, "message": m, "where": sorted(set(w))} for (g, p, m), w in sorted(items.items())]
+        return {"passed": self.passed, "failures": rows(self.failures), "notes": rows(self.notes)}
+
+
+class Site:
+    """A local server for the project, or for a temporary copy of it."""
+
+    def __init__(self, root=ROOT, port=0, cache_control="no-cache"):
+        self.root = pathlib.Path(root)
+        self.port = port
+        self.cache_control = cache_control
+        self.server = None
+        self.start()
+
+    def start(self):
+        self.server = make_server("127.0.0.1", self.port, self.root, self.cache_control)
+        self.port = self.server.server_address[1]
+        threading.Thread(target=self.server.serve_forever, daemon=True).start()
+
+    def stop(self):
+        self.server.close_everything()
+
+    @property
+    def base(self):
+        return f"http://127.0.0.1:{self.port}{BASE}"
+
+    def url(self, page):
+        if page == "404.html":
+            return self.base + "no-such-page/at-all"
+        return self.base + (page[: -len("index.html")] if page.endswith("index.html") else page)
+
+
+class BadHost:
+    """Takes over the site's address when the real server is stopped: it answers every
+    request with a server error, or accepts the connection and never answers, like a
+    very weak signal. A local stand-in, not a real cell network."""
+
+    def __init__(self, port, stall):
+        release = threading.Event()
+
+        class Handler(http.server.BaseHTTPRequestHandler):
+            protocol_version = "HTTP/1.1"
+
+            def log_message(self, format, *args):
+                pass
+
+            def do_GET(self):
+                if stall:
+                    release.wait(300)
+                    self.close_connection = True
+                    return
+                body = b"<!doctype html><title>Stand-in host error</title><p>Host error"
+                self.send_response(503)
+                self.send_header("Content-Type", "text/html")
+                self.send_header("Content-Length", str(len(body)))
+                self.send_header("Cache-Control", "no-store")
+                self.end_headers()
+                self.wfile.write(body)
+
+        self.release = release
+        self.server = Server(("127.0.0.1", port), Handler)
+        threading.Thread(target=self.server.serve_forever, daemon=True).start()
+
+    def stop(self):
+        self.release.set()
+        self.server.close_everything()
+
+
+def new_tab(browser, *args, **kwargs):
+    tab = Tab(browser, *args, **kwargs)
+    tab.send("Page.addScriptToEvaluateOnNewDocument", {"source": SAFE_CLICKS})
+    return tab
+
+
+def guard_click(tab, selector):
+    """Refuses to click a call or text link, here as well as in the page."""
+    href = tab.js(f"""(function () {{
+        var el = document.querySelector({json.dumps(selector)});
+        var link = el && el.closest('a');
+        return link ? link.getAttribute('href') : '';
+    }})()""")
+    if href and href.startswith(("tel:", "sms:")):
+        raise RuntimeError(f"refusing to click a crisis link: {href}")
+    return tab.click(selector)
+
+
+def page_problems(tab, page, site):
+    """Console and network trouble, except the 404 status the 404 page is supposed to have."""
+    found = tab.problems()
+    if page == "404.html":
+        found = [p for p in found if "status of 404" not in p]
+    outside = [u for u in tab.requested_urls() if not u.startswith((site.base, "data:"))]
+    return found + [f"contacted another site: {u}" for u in outside]
+
+
+# ---------------------------------------------------------------- links, files, paths
+
+
+class LinkParser(html.parser.HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.urls = []
+        self.ids = set()
+        self.links = []
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if attrs.get("id"):
+            self.ids.add(attrs["id"])
+        for key in ("href", "src"):
+            if attrs.get(key):
+                self.urls.append(attrs[key])
+        for key in ("srcset", "imagesrcset"):
+            for candidate in (attrs.get(key) or "").split(","):
+                if candidate.strip():
+                    self.urls.append(candidate.split()[0])
+        if tag == "a" and attrs.get("href"):
+            self.links.append(attrs["href"])
+
+
+def fetch(url):
+    try:
+        with urllib.request.urlopen(url, timeout=20) as response:
+            return response.status, response.read(), response.headers.get("Content-Type", ""), response.geturl()
+    except urllib.error.HTTPError as error:
+        return error.code, error.read(), error.headers.get("Content-Type", ""), url
+
+
+def test_links(site, pages, report):
+    parsed = {}
+    urls = {}
+    for page in pages:
+        status, body, kind, _ = fetch(site.url(page))
+        if status != (404 if page == "404.html" else 200):
+            report.fail("links", page, f"page answered {status}")
+        if "text/html" not in kind:
+            report.fail("links", page, f"page has content type {kind}")
+        parser = LinkParser()
+        parser.feed(body.decode("utf-8"))
+        parsed[page] = parser
+        urls[page] = site.url(page)
+    checked = {}
+    for page, parser in parsed.items():
+        for url in parser.urls:
+            split = urllib.parse.urlsplit(url)
+            if split.scheme in ("http", "https", "tel", "sms", "mailto"):
+                continue
+            if url.startswith("#"):
+                if url[1:] and url[1:] not in parser.ids:
+                    report.fail("links", page, f"{url} points to a missing section")
+                else:
+                    report.ok("links")
+                continue
+            target = urllib.parse.urljoin(urls[page], url)
+            bare, fragment = urllib.parse.urldefrag(target)
+            if bare not in checked:
+                checked[bare] = fetch(bare)
+            status, body, kind, final = checked[bare]
+            if status != 200:
+                report.fail("links", page, f"{url} answered {status}")
+                continue
+            report.ok("links")
+            if fragment:
+                inner = LinkParser()
+                if "text/html" in kind:
+                    inner.feed(body.decode("utf-8"))
+                if fragment not in inner.ids:
+                    report.fail("links", page, f"{url} points to a missing section")
+            if bare.endswith((".html", "/")) and "text/html" not in kind:
+                report.fail("links", page, f"{url} has content type {kind}")
+    # The address the real site will use, with and without its trailing slash.
+    for page in pages:
+        if page.endswith("/index.html"):
+            status, _, _, final = fetch(site.url(page).rstrip("/"))
+            if status != 200 or not final.endswith("/"):
+                report.fail("links", page, "address without a trailing slash does not lead to the page")
+            else:
+                report.ok("links")
+    # Nothing but the website is served.
+    for private in ("notes/STATUS.md", "CLAUDE.md", "tools/check_site.py", ".github/workflows/site.yml", "README.md", "design/homepage.svg"):
+        status, _, _, _ = fetch(site.base + private)
+        if status != 404:
+            report.fail("links", private, f"would be published (answered {status})")
+        else:
+            report.ok("links")
+    worker = fetch(site.base + "sw.js")
+    if "javascript" not in worker[2]:
+        report.fail("links", "sw.js", f"content type {worker[2]}")
+    manifest = json.loads(fetch(site.base + "manifest.webmanifest")[1])
+    if not manifest["start_url"].startswith(".") or not manifest["scope"].startswith("."):
+        report.fail("links", "manifest.webmanifest", "start_url and scope must be relative for the /suicideprevention/ path")
+
+
+# ---------------------------------------------------------------- layout, contrast, naming
+
+
+def apply_audit(result, group, page, where, report, phone):
+    if result["hscroll"]:
+        report.fail(group, page, f"scrolls sideways ({result['hscroll'][0]} > {result['hscroll'][1]})", where)
+    for key, label in (("offscreen", "runs off the screen"), ("clipped", "text cut off"), ("overlaps", "controls overlap"),
+                       ("brokenImages", "image did not load"), ("contrast", "low contrast"), ("unnamed", "control has no name"),
+                       ("colorOnlyLinks", "link in a sentence has no underline")):
+        for item in result[key]:
+            report.fail(group, page, f"{label}: {item}", where)
+    for item in result["stripTargets"]:
+        report.fail(group, page, f"crisis strip tap target under 44px: {item}", where)
+    for item in result["tinyTargets"]:
+        report.fail(group, page, f"tap target under 24px: {item}", where)
+    if phone:
+        for item in result["smallTargets"]:
+            report.note(group, page, f"tap target under the project's 44px aim: {item}", where)
+    for item in result["exitCovers"]:
+        report.fail(group, page, f"Quick exit covers something at the page's end: {item}", where)
+    if result["pinned"] and result["pinned"] > 30:
+        report.note(group, page, f"the pinned crisis strip covers {result['pinned']}% of the screen", where)
+    report.ok(group)
+
+
+def test_matrix(browser, site, pages, report, screens=None):
+    tab = new_tab(browser)
+    for label, width, height, phone in VIEWPORTS:
+        tab.resize(width, height, phone)
+        for dark in (False, True):
+            tab.media(dark=dark)
+            where = f"{label}, {'dark' if dark else 'light'}"
+            for page in pages:
+                status = tab.goto(site.url(page))
+                if status != (404 if page == "404.html" else 200):
+                    report.fail("matrix", page, f"page answered {status}", where)
+                for problem in page_problems(tab, page, site):
+                    report.fail("matrix", page, problem, where)
+                # Closed sections first, then everything open.
+                closed_scroll = tab.js("document.documentElement.scrollWidth > document.documentElement.clientWidth + 1")
+                if closed_scroll:
+                    report.fail("matrix", page, "scrolls sideways with sections closed", where)
+                tab.js(OPEN_ALL)
+                apply_audit(tab.js(AUDIT_JS), "matrix", page, where, report, phone)
+    tab.close()
+
+
+def test_textsize(browser, site, pages, report):
+    """Changes the browser's default font size, as a person's text size setting does."""
+    tab = new_tab(browser)
+    for label, width, height in TEXT_SIZES:
+        tab.resize(width, height, True)
+        for percent in (150, 200):
+            tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16 * percent // 100, "fixed": 13 * percent // 100}})
+            where = f"{label}, text at {percent}%"
+            for page in pages:
+                tab.goto(site.url(page))
+                tab.js(OPEN_ALL)
+                tab.browser.pump(0.02)
+                apply_audit(tab.js(AUDIT_JS), "textsize", page, where, report, False)
+    tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16, "fixed": 13}})
+    tab.close()
+
+
+# ---------------------------------------------------------------- keyboard and focus
+
+FOCUS_JS = r"""
+(function () {
+  var el = document.activeElement;
+  if (!el || el === document.body) return {none: true};
+  var s = getComputedStyle(el);
+  var after = getComputedStyle(el, '::after');
+  var ring = (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) >= 2) ||
+             (after.outlineStyle !== 'none' && parseFloat(after.outlineWidth) >= 2) || s.boxShadow !== 'none' && s.boxShadow.indexOf('0px 0px 0px') >= 0;
+  var r = el.getClientRects()[0] || el.getBoundingClientRect();
+  var x = r.left + r.width / 2, y = r.top + r.height / 2;
+  var hit = document.elementFromPoint(Math.min(x, innerWidth - 1), Math.min(Math.max(y, 0), innerHeight - 1));
+  var covered = !hit || !(hit === el || el.contains(hit) || hit.contains(el) || hit.closest('.card') === el.closest('.card') && el.closest('.card'));
+  return {
+    tag: el.tagName.toLowerCase(),
+    cls: String(el.className || ''),
+    text: (el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 40),
+    href: el.getAttribute('href') || '',
+    ring: ring,
+    inView: r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth,
+    covered: covered,
+    coveredBy: hit ? (hit.tagName.toLowerCase() + (hit.className ? '.' + String(hit.className).split(' ')[0] : '')) : '',
+    top: Math.round(r.top),
+    bottom: Math.round(r.bottom)
+  };
+})()
+"""
+
+
+def test_keyboard(browser, site, pages, report):
+    tab = new_tab(browser)
+    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("desktop 1440x900", 1440, 900, False)):
+        tab.resize(width, height, phone)
+        tab.media(reduced=True)
+        for page in pages:
+            tab.goto(site.url(page))
+            tab.js(OPEN_ALL)
+            count = tab.js("""Array.prototype.filter.call(document.querySelectorAll('a[href], button:not([hidden]), summary'),
+                function (el) { var r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 || el.classList.contains('skip-link'); }).length""")
+            seen = []
+            for step in range(count + 2):
+                tab.tab_key()
+                state = tab.js(FOCUS_JS)
+                if state.get("none"):
+                    continue
+                seen.append(state)
+                where = label
+                what = f"{state['tag']} \"{state['text']}\""
+                if not state["ring"]:
+                    report.fail("keyboard", page, f"no visible focus ring on {what}", where)
+                if not state["inView"]:
+                    report.fail("keyboard", page, f"focused item is off screen: {what} ({state['top']} to {state['bottom']})", where)
+                elif state["covered"]:
+                    report.fail("keyboard", page, f"focused item is covered by {state['coveredBy']}: {what}", where)
+                report.ok("keyboard")
+            if not seen or "skip-link" not in seen[0]["cls"]:
+                report.fail("keyboard", page, "the first Tab does not land on the skip link", label)
+            elif len(seen) > 1 and "quick-exit" not in seen[1]["cls"]:
+                report.note("keyboard", page, "Quick exit is not the second Tab stop", label)
+            # The skip link moves focus to the main content.
+            tab.goto(site.url(page))
+            tab.tab_key()
+            tab.press("Enter", "Enter", 13)
+            tab.browser.pump(0.05)
+            if tab.js("document.activeElement && document.activeElement.id") != "main":
+                report.fail("keyboard", page, "the skip link does not move focus to the main content", label)
+            else:
+                report.ok("keyboard")
+            # Shift+Tab goes backward.
+            tab.goto(site.url(page))
+            tab.tab_key()
+            tab.tab_key()
+            tab.tab_key(shift=True)
+            if "skip-link" not in (tab.js(FOCUS_JS).get("cls") or ""):
+                report.fail("keyboard", page, "Shift+Tab does not go back", label)
+            else:
+                report.ok("keyboard")
+    tab.close()
+
+
+def test_menu(browser, site, pages, report):
+    tab = new_tab(browser, 390, 844, True)
+    state = """(function () {
+        var b = document.querySelector('.menu-button'), n = document.getElementById('site-nav');
+        return {expanded: b.getAttribute('aria-expanded'), shown: getComputedStyle(n).display !== 'none',
+                links: Array.prototype.filter.call(n.querySelectorAll('a'), function (a) {
+                    var r = a.getBoundingClientRect(); return r.height > 0; }).length,
+                focusOnButton: document.activeElement === b};
+    })()"""
+    for page in pages:
+        tab.goto(site.url(page))
+        start = tab.js(state)
+        if start["expanded"] != "false" or start["shown"]:
+            report.fail("menu", page, "the phone menu does not start closed")
+        if not guard_click(tab, ".menu-button"):
+            report.fail("menu", page, "the menu button is not on screen")
+            continue
+        opened = tab.js(state)
+        if opened["expanded"] != "true" or not opened["shown"] or opened["links"] < 5:
+            report.fail("menu", page, f"the menu did not open: {opened}")
+        tab.press("Escape", "Escape", 27)
+        closed = tab.js(state)
+        if closed["expanded"] != "false" or closed["shown"] or not closed["focusOnButton"]:
+            report.fail("menu", page, f"Escape did not close the menu and return focus: {closed}")
+        guard_click(tab, ".menu-button")
+        tab.click_at(5, 800)  # outside the menu
+        tab.browser.pump(0.02)
+        if tab.js(state)["expanded"] != "false":
+            report.fail("menu", page, "tapping outside did not close the menu")
+        report.ok("menu")
+    # Following a link leads to the page and leaves the menu closed there.
+    home = site.url("index.html")
+    tab.goto(home)
+    guard_click(tab, ".menu-button")
+    guard_click(tab, "#site-nav a[href='get-help/']")
+    tab.browser.wait_for("Page.loadEventFired", tab.session, 15)
+    if not tab.js("location.pathname").endswith("/get-help/") or tab.js(state)["shown"]:
+        report.fail("menu", "index.html", "following a menu link did not lead to the page with the menu closed")
+    else:
+        report.ok("menu")
+    # On a short screen, the menu scrolls, so its last link can still be reached.
+    tab.resize(844, 390, True)
+    tab.goto(home)
+    guard_click(tab, ".menu-button")
+    reach = tab.js("""(function () {
+        var links = document.querySelectorAll('#site-nav a');
+        var last = links[links.length - 1];
+        last.scrollIntoView({block: 'end', behavior: 'instant'});
+        var r = last.getBoundingClientRect();
+        return {bottom: r.bottom, vh: innerHeight, top: r.top, count: links.length};
+    })()""")
+    if reach["bottom"] > reach["vh"] + 1 or reach["top"] < 0:
+        report.fail("menu", "index.html", f"the last menu link can't be reached in landscape: {reach}")
+    else:
+        report.ok("menu")
+    tab.resize(390, 844, True)
+    # Rotating to the desktop width resets the menu.
+    tab.goto(home)
+    guard_click(tab, ".menu-button")
+    tab.resize(1280, 800, False)
+    tab.browser.pump(0.05)
+    if tab.js("document.querySelector('.menu-button').getAttribute('aria-expanded')") != "false":
+        report.fail("menu", "index.html", "the menu stays open after the layout changes to desktop")
+    else:
+        report.ok("menu")
+    tab.close()
+
+
+def test_jumps(browser, site, pages, report):
+    """Every jump link lands on visible text, not behind the pinned strip."""
+    tab = new_tab(browser)
+    tab.media(reduced=True)
+    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("phone landscape 844x390", 844, 390, True), ("desktop 1440x900", 1440, 900, False)):
+        tab.resize(width, height, phone)
+        for page in pages:
+            tab.goto(site.url(page))
+            hashes = tab.js("""Array.from(new Set(Array.prototype.map.call(document.querySelectorAll('a[href^="#"]'),
+                function (a) { return a.getAttribute('href'); }))).filter(function (h) { return h.length > 1; })""")
+            for fragment in hashes:
+                result = tab.js(f"""(function () {{
+                    var target = document.getElementById({json.dumps(fragment[1:])});
+                    if (!target) return {{missing: true}};
+                    location.hash = {json.dumps(fragment)};
+                    return new Promise(function (done) {{ requestAnimationFrame(function () {{ requestAnimationFrame(function () {{
+                        var r = target.getBoundingClientRect();
+                        var bar = document.querySelector('.crisis-bar');
+                        var pinned = 0;
+                        if (getComputedStyle(bar).position === 'sticky') pinned = bar.getBoundingClientRect().bottom;
+                        var head = document.querySelector('.site-header');
+                        if (getComputedStyle(head).position === 'sticky') pinned = Math.max(pinned, head.getBoundingClientRect().bottom);
+                        done({{top: Math.round(r.top), height: Math.round(r.height), pinned: Math.round(pinned), vh: innerHeight, atEnd: innerHeight + scrollY >= document.documentElement.scrollHeight - 2}});
+                    }}); }}); }});
+                }})()""")
+                if result.get("missing"):
+                    report.fail("jumps", page, f"{fragment} has no target", label)
+                elif result["height"] < 1:
+                    report.fail("jumps", page, f"{fragment} lands on something hidden", label)
+                elif result["top"] < result["pinned"] - 1:
+                    report.fail("jumps", page, f"{fragment} lands behind the pinned area (top {result['top']}, pinned to {result['pinned']})", label)
+                elif result["top"] > result["vh"] and not result["atEnd"]:
+                    report.fail("jumps", page, f"{fragment} leaves its target below the screen", label)
+                else:
+                    report.ok("jumps")
+    # A garbled address must not stop the page's script, which also sets up offline support.
+    tab.resize(390, 844, True)
+    tab.goto(site.url("get-help/index.html") + "#%E0%A4%A")
+    found = [p for p in tab.problems() if "URI" in p or "script" in p.lower()]
+    if found:
+        report.fail("jumps", "get-help/index.html", f"a garbled address causes a script error: {found[:2]}")
+    else:
+        report.ok("jumps")
+    tab.close()
+
+
+def test_folds(browser, site, pages, report):
+    tab = new_tab(browser, 390, 844, True)
+    tab.media(reduced=True)
+    for page in pages:
+        tab.goto(site.url(page))
+        folds = tab.js("document.querySelectorAll('details').length")
+        if not folds:
+            continue
+        open_at_start = tab.js("document.querySelectorAll('details[open]').length")
+        if open_at_start:
+            report.fail("folds", page, f"{open_at_start} folded sections start open")
+        # A real click opens and closes each fold's summary.
+        for index in range(folds):
+            box = tab.js(f"""(function () {{
+                var s = document.querySelectorAll('details > summary')[{index}];
+                s.scrollIntoView({{block: 'center', behavior: 'instant'}});
+                var r = s.getBoundingClientRect();
+                return {{x: r.left + Math.min(r.width / 2, 40), y: r.top + r.height / 2, h: r.height}};
+            }})()""")
+            if box["h"] < 44:
+                report.fail("folds", page, f"fold {index + 1} is under 44px tall to tap ({box['h']})")
+            tab.click_at(box["x"], box["y"])
+            tab.browser.pump(0.01)
+            if not tab.js(f"document.querySelectorAll('details')[{index}].open"):
+                report.fail("folds", page, f"fold {index + 1} did not open when tapped")
+            tab.click_at(box["x"], box["y"])
+            tab.browser.pump(0.01)
+            if tab.js(f"document.querySelectorAll('details')[{index}].open"):
+                report.fail("folds", page, f"fold {index + 1} did not close when tapped again")
+            report.ok("folds")
+        # Links to something inside a fold, from a page's contents list and from a direct address.
+        targets = tab.js("""Array.prototype.filter.call(document.querySelectorAll('details [id], section[id]'), function (el) {
+                return el.closest('details') || el.querySelector(':scope > details.more');
+            }).map(function (el) { return el.id; })""")
+        for target in targets:
+            tab.goto(site.url(page) + "#" + target)
+            opened = tab.js(f"""(function () {{
+                var t = document.getElementById({json.dumps(target)});
+                var outer = t.closest('details');
+                var own = t.querySelector(':scope > details.more');
+                return {{outer: !outer || outer.open, own: !own || own.open, h: t.getBoundingClientRect().height}};
+            }})()""")
+            if not opened["outer"] or not opened["own"] or opened["h"] < 1:
+                report.fail("folds", page, f"opening #{target} directly leaves it folded: {opened}")
+            else:
+                report.ok("folds")
+    tab.close()
+
+
+def test_language(browser, site, pages, report):
+    tab = new_tab(browser, 390, 844, True)
+    pairs = {}
+    for page in pages:
+        tab.goto(site.url(page))
+        info = tab.js("""(function () {
+            var a = document.querySelector('.lang-switch a');
+            return {lang: document.documentElement.lang, href: a && a.href, hreflang: a && a.getAttribute('hreflang'),
+                    linkLang: a && a.getAttribute('lang'), text: a && a.textContent.trim()};
+        })()""")
+        if not info["href"]:
+            report.fail("language", page, "no language switch")
+            continue
+        want = "es" if page.startswith("es/") else "en"
+        if info["lang"] != want:
+            report.fail("language", page, f"html lang is {info['lang']}")
+        other = "en" if want == "es" else "es"
+        if info["hreflang"] != other or info["linkLang"] != other:
+            report.fail("language", page, f"switch should be marked {other}: {info}")
+        guard_click(tab, ".lang-switch a")
+        tab.browser.wait_for("Page.loadEventFired", tab.session, 15)
+        landed = tab.js("""({lang: document.documentElement.lang, back: (document.querySelector('.lang-switch a') || {}).href || '', url: location.href})""")
+        if landed["lang"] != other:
+            report.fail("language", page, f"the switch led to a page in {landed['lang']}: {landed['url']}")
+        pairs[page] = (site.url(page), landed["url"], landed["back"])
+        if page != "404.html" and landed["back"].rstrip("/") != site.url(page).rstrip("/"):
+            report.fail("language", page, f"the other language's switch does not lead back: {landed['back']}")
+        else:
+            report.ok("language")
+    tab.close()
+
+
+# ---------------------------------------------------------------- quick exit
+
+
+def follow_quick_exit(tab):
+    """Clicks Quick exit and answers the request for weather.gov with a stand-in page."""
+    if not guard_click(tab, ".quick-exit"):
+        raise RuntimeError("Quick exit is not on screen")
+    event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+    url = event["params"]["request"]["url"]
+    tab.send("Fetch.fulfillRequest", {
+        "requestId": event["params"]["requestId"],
+        "responseCode": 200,
+        "responseHeaders": [{"name": "Content-Type", "value": "text/html"}],
+        "body": base64.b64encode(b"<!doctype html><title>Stand-in for weather.gov</title>").decode(),
+    })
+    tab.browser.wait_for("Page.loadEventFired", tab.session, 15)
+    return url
+
+
+def history_entries(tab):
+    history = tab.send("Page.getNavigationHistory")
+    return history["currentIndex"], [entry["url"] for entry in history["entries"]]
+
+
+def test_quickexit(browser, site, pages, report):
+    home, help_page = site.url("index.html"), site.url("get-help/index.html")
+    pattern = {"patterns": [{"urlPattern": "https://www.weather.gov/*"}]}
+
+    # On every page, Quick exit is on screen, first after the skip link, and replaces the page.
+    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("phone landscape 844x390", 844, 390, True), ("desktop 1440x900", 1440, 900, False)):
+        for page in pages:
+            tab = new_tab(browser, width, height, phone)
+            tab.send("Fetch.enable", pattern)
+            tab.goto(site.url(page))
+            box = tab.js("""(function () {
+                var e = document.querySelector('.quick-exit');
+                var bar = document.querySelector('.crisis-bar');
+                var pinnedInStrip = getComputedStyle(bar).position === 'sticky';
+                var reasons = [];
+                var de = document.documentElement;
+                [0, de.scrollHeight / 2, de.scrollHeight].forEach(function (top) {
+                    window.scrollTo({top: top, behavior: 'instant'});
+                    var r = e.getBoundingClientRect();
+                    var at = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+                    if (r.top < 0 || r.bottom > innerHeight || r.left < 0 || r.right > innerWidth) reasons.push('off screen at ' + Math.round(top));
+                    else if (!at || !e.contains(at)) reasons.push('covered at ' + Math.round(top));
+                    if (pinnedInStrip) {
+                        var b = bar.getBoundingClientRect();
+                        if (!bar.contains(e) || getComputedStyle(e).position === 'fixed' || r.top < b.top || r.bottom > b.bottom) reasons.push('not inside the pinned strip');
+                    } else if (getComputedStyle(e).position !== 'fixed') {
+                        reasons.push('neither pinned in the strip nor fixed to the screen');
+                    }
+                });
+                window.scrollTo({top: 0, behavior: 'instant'});
+                // A tap aimed at Call 911 must not land on Quick exit.
+                var q = e.getBoundingClientRect();
+                var c = bar.querySelector('a[href="tel:911"]').getBoundingClientRect();
+                var sameRow = q.top < c.bottom && c.top < q.bottom;
+                if (pinnedInStrip && sameRow && q.left - c.right < 8 && c.left - q.right < 8) reasons.push('too close to Call 911');
+                return {reasons: Array.from(new Set(reasons)), href: e.href};
+            })()""")
+            for reason in box["reasons"]:
+                report.fail("quickexit", page, f"Quick exit is {reason}", label)
+            before = tab.send("Page.getNavigationHistory")
+            count_before = len(before["entries"])
+            url = follow_quick_exit(tab)
+            index, entries = history_entries(tab)
+            address = site.url(page)
+            if not url.startswith("https://www.weather.gov/"):
+                report.fail("quickexit", page, f"Quick exit led to {url}", label)
+            if len(entries) != count_before or any(e.startswith(address) for e in entries):
+                report.fail("quickexit", page, f"the page stayed in the tab's history: {entries}", label)
+            else:
+                report.ok("quickexit")
+            tab.close()
+
+    # The page goes blank at once, even if the neutral site is slow to answer.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", pattern)
+    tab.goto(help_page)
+    # Chrome holds back questions to a page while it navigates to another site, so the page reports for itself.
+    tab.js("""document.addEventListener('click', function () {
+        console.info('exit-check:' + getComputedStyle(document.documentElement).display);
+    })""")
+    tab.clear_events()
+    guard_click(tab, ".quick-exit")
+    event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+    said = [arg.get("value", "") for e in tab.browser.events if e.get("sessionId") == tab.session and e["method"] == "Runtime.consoleAPICalled"
+            for arg in e["params"]["args"]]
+    if "exit-check:none" not in said:
+        report.fail("quickexit", "get-help/index.html", f"the page stays on screen while weather.gov loads: {said}")
+    else:
+        report.ok("quickexit")
+    tab.send("Fetch.failRequest", {"requestId": event["params"]["requestId"], "errorReason": "Aborted"})
+    tab.close()
+
+    # Coming back to a blanked page, as in a home screen app, shows it again.
+    tab = new_tab(browser, 390, 844, True)
+    tab.goto(help_page)
+    back = tab.js("""(function () {
+        document.documentElement.hidden = true;
+        document.dispatchEvent(new Event('visibilitychange'));
+        return document.documentElement.hidden;
+    })()""")
+    if back:
+        report.fail("quickexit", "get-help/index.html", "coming back to the page after Quick exit leaves it blank")
+    else:
+        report.ok("quickexit")
+    tab.close()
+
+    # It works from the first moment, before the page's script file has arrived.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", {"patterns": pattern["patterns"] + [{"urlPattern": "*/assets/menu.js"}]})
+    tab.send("Network.setBypassServiceWorker", {"bypass": True})  # or the worker's request can't be held
+    tab.clear_events()
+    tab.send("Page.navigate", {"url": help_page})
+    held = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+    if "menu.js" not in held["params"]["request"]["url"]:
+        report.fail("quickexit", "get-help/index.html", f"expected the script file to load first: {held['params']['request']['url']}")
+    tab.browser.pump(0.5)
+    before = len(tab.send("Page.getNavigationHistory")["entries"])
+    guard_click(tab, ".quick-exit")
+    event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+    tab.send("Fetch.fulfillRequest", {
+        "requestId": event["params"]["requestId"], "responseCode": 200,
+        "responseHeaders": [{"name": "Content-Type", "value": "text/html"}],
+        "body": base64.b64encode(b"<!doctype html><title>Stand-in</title>").decode(),
+    })
+    tab.browser.pump(0.5)
+    _, entries = history_entries(tab)
+    if help_page in entries or len(entries) != before:
+        report.fail("quickexit", "get-help/index.html", f"a tap before the script file loads leaves the page in history: {entries}")
+    else:
+        report.ok("quickexit")
+    tab.close()
+
+    # What it can't do, so the site's wording can stay accurate.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", pattern)
+    tab.goto(help_page)
+    guard_click(tab, ".toc a")
+    tab.browser.pump(0.3)
+    follow_quick_exit(tab)
+    _, entries = history_entries(tab)
+    print(f"  Quick exit after a link within the page: history is {entries}")
+    if help_page not in entries:
+        report.fail("quickexit", "get-help/index.html", "expected the page to stay in history after a link within it; the site's wording needs another look")
+    else:
+        report.note("quickexit", "(limit)", "after a link within a page, Back from weather.gov reaches that page, and the About pages say so")
+        report.ok("quickexit")
+    tab.close()
+
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", pattern)
+    tab.goto(home)
+    tab.js("location.href = 'get-help/'")
+    tab.browser.wait_for("Page.loadEventFired", tab.session, 15)
+    follow_quick_exit(tab)
+    index, entries = history_entries(tab)
+    print(f"  Quick exit after visiting two pages: history is {entries}, at {index}")
+    if help_page in entries:
+        report.fail("quickexit", "get-help/index.html", "Quick exit left the current page in history")
+    if home not in entries:
+        report.fail("quickexit", "index.html", "expected the earlier page to stay in history; the site's wording needs another look")
+    else:
+        report.note("quickexit", "(limit)", "the page before stays in history, so Back from weather.gov reaches the earlier Tidelight page")
+        report.ok("quickexit")
+    tab.close()
+
+    # Without JavaScript it is a plain link. It still leaves, but the page stays in history.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", pattern)
+    tab.send("Emulation.setScriptExecutionDisabled", {"value": True})
+    tab.goto(help_page)
+    tab.send("Emulation.setScriptExecutionDisabled", {"value": False})
+    box = tab.js("""(function () { var r = document.querySelector('.quick-exit').getBoundingClientRect();
+        return {x: r.left + r.width / 2, y: r.top + r.height / 2}; })()""")
+    tab.send("Emulation.setScriptExecutionDisabled", {"value": True})
+    tab.click_at(box["x"], box["y"])
+    event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+    tab.send("Fetch.fulfillRequest", {
+        "requestId": event["params"]["requestId"], "responseCode": 200,
+        "responseHeaders": [{"name": "Content-Type", "value": "text/html"}],
+        "body": base64.b64encode(b"<!doctype html><title>Stand-in</title>").decode(),
+    })
+    tab.browser.wait_for("Page.loadEventFired", tab.session, 15)
+    _, entries = history_entries(tab)
+    tab.send("Emulation.setScriptExecutionDisabled", {"value": False})
+    if help_page in entries:
+        report.note("quickexit", "(limit)", "without JavaScript, Quick exit is a plain link and the page stays in history")
+        report.ok("quickexit")
+    else:
+        report.fail("quickexit", "get-help/index.html", "expected the page to stay in history without JavaScript; the site's wording needs another look")
+    tab.close()
+
+    # With no connection, weather.gov can't load. The tab still leaves Tidelight for the browser's error page.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", pattern)
+    tab.goto(help_page)
+    guard_click(tab, ".quick-exit")
+    event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+    tab.send("Fetch.failRequest", {"requestId": event["params"]["requestId"], "errorReason": "InternetDisconnected"})
+    tab.browser.pump(0.5)
+    index, entries = history_entries(tab)
+    shown = tab.js("location.href")
+    if help_page in entries[index:index + 1] and shown == help_page:
+        report.note("quickexit", "(limit)", "with no connection, the Tidelight page stays on screen")
+    else:
+        report.note("quickexit", "(limit)", f"with no connection, the tab shows the browser's error page ({shown[:40]})")
+    print(f"  Quick exit with no connection: history is {entries}, at {index}; the tab shows {shown}")
+    report.ok("quickexit")
+    tab.close()
+
+
+def test_reducedmotion(browser, site, pages, report):
+    tab = new_tab(browser, 390, 844, True)
+    for page in pages:
+        tab.media(reduced=True)
+        tab.goto(site.url(page))
+        state = tab.js("""({scroll: getComputedStyle(document.documentElement).scrollBehavior,
+            animations: document.getAnimations().length,
+            moving: Array.prototype.filter.call(document.querySelectorAll('*'), function (el) {
+                var s = getComputedStyle(el);
+                return s.animationName !== 'none' || parseFloat(s.transitionDuration) > 0;
+            }).length})""")
+        if state["scroll"] != "auto" or state["animations"] or state["moving"]:
+            report.fail("reducedmotion", page, f"something still moves with reduced motion on: {state}")
+        else:
+            report.ok("reducedmotion")
+        tab.media(reduced=False)
+        tab.goto(site.url(page))
+        if tab.js("getComputedStyle(document.documentElement).scrollBehavior") != "smooth":
+            report.note("reducedmotion", page, "smooth scrolling is off even without the setting")
+    tab.close()
+
+
+def test_nojs(browser, site, pages, report):
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Emulation.setScriptExecutionDisabled", {"value": True})
+    for page in pages:
+        tab.goto(site.url(page))
+        tab.browser.pump(0.02)
+        # With scripts off, read the page from Python's side through the DOM domain.
+        root = tab.send("DOM.getDocument", {"depth": -1})["root"]
+        html_text = tab.send("DOM.getOuterHTML", {"nodeId": root["nodeId"]})["outerHTML"]
+        for needle in ('href="tel:988"', 'href="sms:988"', 'href="tel:911"', 'class="quick-exit"'):
+            if needle not in html_text:
+                report.fail("nojs", page, f"missing without JavaScript: {needle}")
+        # Is the navigation on screen with no menu button?
+        script_state = tab.send("Runtime.evaluate", {
+            "expression": """({hasJsClass: document.documentElement.classList.contains('js'),
+                navShown: getComputedStyle(document.getElementById('site-nav')).display !== 'none',
+                buttonShown: getComputedStyle(document.querySelector('.menu-button')).display !== 'none',
+                printShown: !!document.querySelector('.print-button:not([hidden])'),
+                hscroll: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1})""",
+            "returnByValue": True,
+        })
+        value = script_state["result"].get("value")
+        if value:
+            if value["hasJsClass"] or not value["navShown"] or value["buttonShown"] or value["printShown"] or value["hscroll"]:
+                report.fail("nojs", page, f"layout without JavaScript is wrong: {value}")
+        report.ok("nojs")
+    tab.send("Emulation.setScriptExecutionDisabled", {"value": False})
+    tab.close()
+
+
+def count_pdf_pages(path):
+    data = pathlib.Path(path).read_bytes()
+    return len(re.findall(rb"/Type\s*/Page[^s]", data))
+
+
+def test_print(browser, site, pages, report, screens=None):
+    tab = new_tab(browser, 1280, 800, False)
+    workdir = pathlib.Path(tempfile.mkdtemp(prefix="tidelight-print-"))
+    for page in pages:
+        if page == "404.html":
+            continue
+        tab.media(media="print")
+        tab.goto(site.url(page))
+        state = tab.js("""({main: document.querySelector('main').getBoundingClientRect().height > 0 ? document.body.innerText.trim().length : 0,
+            onScreen: 0,
+            has988: /988/.test(document.body.innerText),
+            hasExit: !!(document.querySelector('.quick-exit') && getComputedStyle(document.querySelector('.quick-exit')).display !== 'none'),
+            isCard: !!document.querySelector('.print-area')})""")
+        if state["main"] < 200:
+            report.fail("print", page, f"prints almost nothing ({state['main']} characters)")
+        if not state["has988"]:
+            report.fail("print", page, "the printed page does not show 988")
+        if state["hasExit"]:
+            report.fail("print", page, "Quick exit would print")
+        if state["isCard"]:
+            cut = tab.js("""Array.prototype.filter.call(document.querySelectorAll('.pc-card'), function (c) {
+                return c.scrollHeight > c.clientHeight + 1 || c.scrollWidth > c.clientWidth + 1; }).length""")
+            if cut:
+                report.fail("print", page, f"text is cut off on {cut} printed wallet cards")
+        # A phone or computer in dark mode still prints dark text on white.
+        tab.media(dark=True, media="print")
+        tab.browser.pump(0.02)
+        for item in tab.js(AUDIT_JS)["contrast"]:
+            report.fail("print", page, f"low contrast in print from dark mode: {item}")
+        tab.media()
+        tab.goto(site.url(page))
+        folds = tab.js("""(function () {
+            window.__printEvents = [];
+            window.addEventListener('beforeprint', function () {
+                window.__printEvents.push(document.querySelectorAll('details:not([open])').length);
+            });
+            window.addEventListener('afterprint', function () { window.__printEvents.push('after'); });
+            return document.querySelectorAll('details:not([open])').length;
+        })()""")
+        path = workdir / (page.replace("/", "_") + ".pdf")
+        tab.pdf(path)
+        tab.browser.pump(0.1)
+        events = tab.js("window.__printEvents")
+        if folds and (not events or events[0] != 0):
+            report.fail("print", page, f"folded sections were not opened for printing: {events}")
+        if folds and tab.js("document.querySelectorAll('details:not([open])').length") != folds:
+            report.fail("print", page, "folded sections did not go back to closed after printing")
+        pages_printed = count_pdf_pages(path)
+        if pages_printed < 1:
+            report.fail("print", page, "the PDF has no pages")
+        if state["isCard"] and pages_printed != 2:
+            report.fail("print", page, f"the wallet card page should print on 2 pages, got {pages_printed}")
+        report.ok("print")
+        if screens:
+            shutil.copy(path, pathlib.Path(screens) / path.name)
+    shutil.rmtree(workdir, ignore_errors=True)
+    tab.close()
+
+
+# ---------------------------------------------------------------- contact cards
+
+
+def test_contact(browser, site, pages, report):
+    numbers = allowed_numbers()
+    cards = set()
+    destinations = {}
+    for page in pages:
+        _, body, _, _ = fetch(site.url(page))
+        parser = LinkParser()
+        parser.feed(body.decode("utf-8"))
+        # Call and text links are read, never followed.
+        for link in parser.links:
+            if link.startswith(("tel:", "sms:")):
+                destinations[link] = destinations.get(link, 0) + 1
+                if phone_digits(link.split("?")[0]) in numbers:
+                    report.ok("contact")
+                else:
+                    report.fail("contact", page, f"{link} is not a number recorded in notes/SAFETY.md")
+        for link in parser.links:
+            if link.split("?")[0].endswith(".vcf"):
+                cards.add(urllib.parse.urljoin(site.url(page), link))
+    print("  Call and text links, read and never followed: " + ", ".join(f"{k} ({v})" for k, v in sorted(destinations.items())))
+    if not cards:
+        report.fail("contact", "(site)", "no page links to a contact card")
+    for card in sorted(cards):
+        status, body, kind, _ = fetch(card)
+        name = card.rsplit("/", 1)[-1]
+        if status != 200:
+            report.fail("contact", name, f"answered {status}")
+            continue
+        if "vcard" not in kind:
+            report.fail("contact", name, f"content type is {kind}")
+        text = body.decode("utf-8")
+        if "\r\n" not in text or re.search(r"(?<!\r)\n", text):
+            report.fail("contact", name, "vCard lines must end in CRLF")
+        lines = text.split("\r\n")
+        if lines[0] != "BEGIN:VCARD" or "END:VCARD" not in lines or "VERSION:3.0" not in lines:
+            report.fail("contact", name, "not a valid vCard 3.0")
+        fields = dict(line.split(":", 1) for line in lines if ":" in line)
+        phones = [v for k, v in fields.items() if k.startswith("TEL")]
+        if not phones:
+            report.fail("contact", name, "has no phone number")
+        for phone in phones:
+            if phone_digits(phone) not in numbers:
+                report.fail("contact", name, f"{phone} is not recorded in notes/SAFETY.md")
+        if not fields.get("FN"):
+            report.fail("contact", name, "has no name")
+        report.ok("contact")
+
+
+def test_a11ytree(browser, site, pages, report):
+    """Reads what a screen reader would be given. It is not a screen reader test."""
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Accessibility.enable")
+    for page in pages:
+        tab.goto(site.url(page))
+        tab.js(OPEN_ALL)
+        nodes = tab.send("Accessibility.getFullAXTree")["nodes"]
+        names = {}
+        roles = {}
+        for node in nodes:
+            if node.get("ignored"):
+                continue
+            role = node.get("role", {}).get("value", "")
+            name = node.get("name", {}).get("value", "")
+            roles[role] = roles.get(role, 0) + 1
+            if role in ("link", "button", "DisclosureTriangle", "image", "img") and not str(name).strip():
+                report.fail("a11ytree", page, f"{role} has no accessible name")
+            names.setdefault(role, []).append(name)
+        for required in ("main", "banner", "contentinfo", "navigation", "heading", "link"):
+            if not roles.get(required):
+                report.fail("a11ytree", page, f"no {required} in the accessibility tree")
+        if roles.get("main", 0) != 1:
+            report.fail("a11ytree", page, f"{roles.get('main', 0)} main regions")
+        report.ok("a11ytree")
+    tab.close()
+
+
+# ---------------------------------------------------------------- offline
+
+
+def copy_site(target):
+    target = pathlib.Path(target)
+    (target / ".github" / "workflows").mkdir(parents=True)
+    shutil.copy(ROOT / ".github" / "workflows" / "site.yml", target / ".github" / "workflows" / "site.yml")
+    for item in published_items():
+        source = ROOT / item
+        if source.is_dir():
+            shutil.copytree(source, target / item)
+        else:
+            shutil.copy(source, target / item)
+
+
+WAIT_FOR_WORKER = """(async function () {
+    var timeout = new Promise(function (done) { setTimeout(function () { done(null); }, 15000); });
+    var reg = await Promise.race([navigator.serviceWorker.ready, timeout]);
+    if (!reg) return {scope: '', controlled: false, names: [], saved: []};
+    for (var i = 0; i < 100 && !navigator.serviceWorker.controller; i++) await new Promise(function (r) { setTimeout(r, 50); });
+    var names = await caches.keys();
+    var saved = [];
+    for (var n of names) { (await (await caches.open(n)).keys()).forEach(function (q) { saved.push(q.url); }); }
+    return {scope: reg.scope, controlled: !!navigator.serviceWorker.controller, names: names, saved: saved};
+})()"""
+
+
+def test_offline(browser, site_ignored, pages, report):
+    workdir = tempfile.mkdtemp(prefix="tidelight-offline-")
+    site_root = pathlib.Path(workdir) / "site"
+    site_root.mkdir()
+    copy_site(site_root)
+    site = Site(site_root)
+    context = browser.call("Target.createBrowserContext")["browserContextId"]
+    # An iPhone's screen has 3 device pixels per CSS pixel, so the larger photo is the one it picks.
+    tab = new_tab(browser, 390, 844, True, scale=3, context=context)
+    try:
+        tab.goto(site.base)
+        state = tab.js(WAIT_FOR_WORKER)
+        print(f"  Offline: after one visit, {len(set(state['saved']))} files are saved in {state['names']}.")
+        if not state["controlled"]:
+            report.fail("offline", "(worker)", "the worker did not take control after the first visit")
+            site.stop()
+            return
+        if state["scope"] != site.base:
+            report.fail("offline", "(worker)", f"worker scope is {state['scope']}")
+        titles = {}
+        # The checks further down always use these three pages, whichever pages were asked for.
+        for page in set(pages) | {"research/index.html", "get-help/index.html", "es/obtener-ayuda/index.html"}:
+            parser = re.search(r"<title>(.*?)</title>", fetch(site.url(page))[1].decode("utf-8"), re.S)
+            titles[page] = html.unescape(parser.group(1)) if parser else ""
+        outside = [u for u in state["saved"] if not u.startswith(site.base)]
+        if outside:
+            report.fail("offline", "(worker)", f"saved something from another site: {outside}")
+
+        # The page says so when the device reports no connection, in its own language.
+        for page, word in (("index.html", "offline"), ("es/index.html", "sin conexi")):
+            tab.goto(site.url(page))
+            if tab.js("!!document.querySelector('.offline-note')"):
+                report.fail("offline", page, "the offline notice shows with a connection")
+            tab.send("Network.emulateNetworkConditions", {"offline": True, "latency": 0, "downloadThroughput": -1, "uploadThroughput": -1})
+            tab.browser.pump(0.3)
+            notice = tab.js("(document.querySelector('main > .offline-note') || {}).textContent || ''")
+            if word not in notice.lower():
+                report.fail("offline", page, f"no offline notice in the page's language: {notice!r}")
+            tab.send("Network.emulateNetworkConditions", {"offline": False, "latency": 0, "downloadThroughput": -1, "uploadThroughput": -1})
+            tab.browser.pump(0.3)
+            if tab.js("!!document.querySelector('.offline-note')"):
+                report.fail("offline", page, "the offline notice stays after the connection returns")
+            report.ok("offline")
+
+        site.stop()  # The computer's connection to the site is now gone.
+        for page in pages:
+            if page == "404.html":
+                continue
+            status = tab.goto(site.url(page))
+            info = tab.js("""({title: document.title, tel: !!document.querySelector('.crisis-bar a[href="tel:988"]'),
+                sms: !!document.querySelector('.crisis-bar a[href="sms:988"]'),
+                styled: getComputedStyle(document.body).fontFamily.indexOf('Arial') >= 0,
+                broken: Array.prototype.filter.call(document.images, function (i) { return i.complete && i.naturalWidth === 0; }).map(function (i) { return i.currentSrc || i.src; })})""")
+            if status != 200 or not info["tel"] or not info["sms"] or info["title"] != titles[page]:
+                report.fail("offline", page, f"not available offline after one visit: status {status}, {info}")
+            elif not info["styled"]:
+                report.fail("offline", page, "opens offline without its styles")
+            elif info["broken"]:
+                report.fail("offline", page, f"image missing offline: {info['broken']}")
+            else:
+                report.ok("offline")
+        # An address that was never saved shows the page-not-found page, with the crisis numbers.
+        status = tab.goto(site.base + "never/saved/")
+        info = tab.js("""({title: document.title, tel: !!document.querySelector('.crisis-bar a[href="tel:988"]'),
+            styled: getComputedStyle(document.body).fontFamily.indexOf('Arial') >= 0})""")
+        if not info["tel"] or not info["styled"]:
+            report.fail("offline", "(unknown address)", f"offline fallback failed: status {status}, {info}")
+        else:
+            report.ok("offline")
+        # Contact cards are saved too, if the site links to any.
+        for page in ("get-help/index.html",):
+            cards = [u for u in state["saved"] if u.endswith(".vcf")]
+            for card in cards:
+                got = tab.js(f"fetch({json.dumps(card)}).then(function (r) {{ return r.ok ? r.text() : ''; }})")
+                if "BEGIN:VCARD" not in (got or ""):
+                    report.fail("offline", card.rsplit("/", 1)[-1], "the contact card is not available offline")
+                else:
+                    report.ok("offline")
+
+        # The site comes back with a changed page: the very next visit shows the new text.
+        target = site_root / "get-help" / "index.html"
+        target.write_text(target.read_text(encoding="utf-8").replace("</h1>", " UPDATE-MARKER</h1>", 1), encoding="utf-8")
+        site.start()
+        tab.goto(site.url("get-help/index.html"))
+        if "UPDATE-MARKER" not in tab.js("document.querySelector('h1').textContent"):
+            report.fail("offline", "(updates)", "a changed page does not show on the first visit back online")
+        else:
+            report.ok("offline")
+        tab.browser.pump(0.3)
+        site.stop()
+        tab.goto(site.url("get-help/index.html"))
+        if "UPDATE-MARKER" not in tab.js("document.querySelector('h1').textContent"):
+            report.fail("offline", "(updates)", "the saved copy was not refreshed by the online visit")
+        else:
+            report.ok("offline")
+        # Pages visited offline before the update and not since keep the old copy until a visit, or a new VERSION.
+        worker = site_root / "sw.js"
+        worker.write_text(re.sub(r"tidelight-v\d+", "tidelight-v999", worker.read_text(encoding="utf-8")), encoding="utf-8")
+        site.start()
+        tab.goto(site.base)
+        tab.js("navigator.serviceWorker.getRegistration().then(function (r) { return r.update(); })")
+        names = []
+        for _ in range(60):
+            tab.browser.pump(0.1)
+            names = tab.js("caches.keys()")
+            if names == ["tidelight-v999"]:
+                break
+        if names != ["tidelight-v999"]:
+            report.fail("offline", "(updates)", f"a new VERSION did not replace the old saved files: {names}")
+        else:
+            report.ok("offline")
+        # An address with a ?query is saved under its plain address, so nothing extra is kept.
+        tab.goto(site.url("research/index.html") + "?utm_source=planted#what-helps")
+        tab.browser.pump(0.5)
+        state = tab.js(WAIT_FOR_WORKER)
+        extra = [u for u in state["saved"] if "?" in u or "#" in u]
+        if extra:
+            report.fail("offline", "(worker)", f"an address was saved with its query: {extra[:2]}")
+        else:
+            report.ok("offline")
+        site.stop()
+        status = tab.goto(site.url("research/index.html") + "?utm_source=planted")
+        if tab.js("document.title") != titles["research/index.html"]:
+            report.fail("offline", "research/index.html", f"not available offline with a query in the address: status {status}")
+        else:
+            report.ok("offline")
+
+        check_bad_hosts(tab, site, titles, report)
+        # Outside links aren't saved, so they can't open offline, and that includes chat.
+        print("  Offline: call and text links only open the phone's own apps; chat and outside sites need a connection.")
+    finally:
+        tab.close()
+        browser.call("Target.disposeBrowserContext", {"browserContextId": context})
+        shutil.rmtree(workdir, ignore_errors=True)
+    check_correction_beats_browser_cache(browser, report)
+
+
+SHOWS_CRISIS_HELP = """({title: document.title, tel: !!document.querySelector('.crisis-bar a[href="tel:988"]'),
+    sms: !!document.querySelector('.crisis-bar a[href="sms:988"]'),
+    styled: getComputedStyle(document.body).fontFamily.indexOf('Arial') >= 0})"""
+# A saved copy after about 3 seconds, allowing for a slow test machine.
+STALLED_LIMIT_S = 8
+# After that, the next page shouldn't have to wait out the 3 seconds again.
+STALLED_AGAIN_LIMIT_S = 2.5
+
+
+def check_bad_hosts(tab, site, titles, report):
+    """A visitor who has been here before, when the host misbehaves."""
+    # The host answers with a server error. Saved pages show, not the error page.
+    host = BadHost(site.port, stall=False)
+    try:
+        for page in ("get-help/index.html", "es/obtener-ayuda/index.html"):
+            tab.goto(site.url(page))
+            info = tab.js(SHOWS_CRISIS_HELP)
+            if info["title"] != titles[page] or not info["tel"] or not info["styled"]:
+                report.fail("offline", page, f"a server error hides the saved copy: {info}")
+            else:
+                report.ok("offline")
+        tab.goto(site.base + "never/saved/")
+        info = tab.js(SHOWS_CRISIS_HELP)
+        if not info["tel"] or not info["sms"]:
+            report.fail("offline", "(unknown address)", f"a server error on an unsaved address shows no crisis numbers: {info}")
+        else:
+            report.ok("offline")
+    finally:
+        host.stop()
+
+    # The host accepts the connection and never answers. A saved copy shows soon anyway.
+    host = BadHost(site.port, stall=True)
+    try:
+        for page, limit in (("get-help/index.html", STALLED_LIMIT_S), ("es/obtener-ayuda/index.html", STALLED_AGAIN_LIMIT_S)):
+            started = time.monotonic()
+            try:
+                tab.goto(site.url(page), timeout=max(limit * 3, 25))
+                elapsed = time.monotonic() - started
+            except Exception as error:  # noqa: BLE001 - a timeout here is the failure being tested for
+                report.fail("offline", page, f"with a weak signal the page never opened: {error}")
+                continue
+            info = tab.js(SHOWS_CRISIS_HELP)
+            print(f"  Offline: with a host that never answers, {page} showed its saved copy in {elapsed:.1f} s.")
+            if info["title"] != titles[page] or not info["tel"] or not info["styled"]:
+                report.fail("offline", page, f"with a weak signal the saved copy didn't show: {info}")
+            elif elapsed > limit:
+                report.fail("offline", page, f"with a weak signal the saved copy took {elapsed:.1f} s, over {limit} s")
+            else:
+                report.ok("offline")
+    finally:
+        host.stop()
+
+
+def check_correction_beats_browser_cache(browser, report):
+    """A corrected crisis number must reach saved copies, even for a visitor who loaded the
+    old page minutes ago and still has it in the browser's short-term cache."""
+    workdir = tempfile.mkdtemp(prefix="tidelight-correct-")
+    site_root = pathlib.Path(workdir) / "site"
+    site_root.mkdir()
+    copy_site(site_root)
+    site = Site(site_root, cache_control="public, max-age=600")
+    context = browser.call("Target.createBrowserContext")["browserContextId"]
+    tab = new_tab(browser, 390, 844, True, context=context)
+    try:
+        tab.goto(site.base)
+        tab.js(WAIT_FOR_WORKER)
+        tab.goto(site.url("get-help/index.html"))
+        target = site_root / "get-help" / "index.html"
+        target.write_text(target.read_text(encoding="utf-8").replace("</h1>", " CORRECTED-MARKER</h1>", 1), encoding="utf-8")
+        worker = site_root / "sw.js"
+        worker.write_text(re.sub(r"tidelight-v\d+", "tidelight-v999", worker.read_text(encoding="utf-8")), encoding="utf-8")
+        tab.goto(site.base)
+        tab.js("navigator.serviceWorker.getRegistration().then(function (r) { return r.update(); })")
+        names = []
+        for _ in range(60):
+            tab.browser.pump(0.1)
+            names = tab.js("caches.keys()")
+            if names == ["tidelight-v999"]:
+                break
+        if names != ["tidelight-v999"]:
+            report.fail("offline", "(updates)", f"the new VERSION did not install: {names}")
+            return
+        site.stop()
+        tab.goto(site.url("get-help/index.html"))
+        if "CORRECTED-MARKER" not in tab.js("document.querySelector('h1').textContent"):
+            report.fail("offline", "(updates)", "a correction did not reach the saved copy, because the browser's cache was used")
+        else:
+            report.ok("offline")
+    finally:
+        tab.close()
+        browser.call("Target.disposeBrowserContext", {"browserContextId": context})
+        shutil.rmtree(workdir, ignore_errors=True)
+
+
+# ---------------------------------------------------------------- speed on a poor connection
+
+# Chrome's "Slow 3G" settings, and a phone about 4 times slower than this computer.
+SLOW_NETWORK = {"offline": False, "latency": 2000, "downloadThroughput": 50000, "uploadThroughput": 50000}
+# How long the crisis numbers may take to appear on that connection, for a first-time visitor. See notes/worklogs.
+FIRST_PAINT_LIMIT_MS = 9000
+PAGE_WEIGHT_LIMIT_BYTES = 250000
+
+
+def test_speed(browser, site, pages, report):
+    context = browser.call("Target.createBrowserContext")["browserContextId"]
+    worst = {}
+    try:
+        for page in pages:
+            tab = new_tab(browser, 390, 844, True, scale=3, context=context)
+            tab.send("Network.setCacheDisabled", {"cacheDisabled": True})
+            tab.send("Network.emulateNetworkConditions", SLOW_NETWORK)
+            tab.send("Emulation.setCPUThrottlingRate", {"rate": 4})
+            # The worker would serve later pages from its copy, so measure a true first visit.
+            tab.send("Network.setBypassServiceWorker", {"bypass": True})
+            tab.goto(site.url(page), timeout=120, settle=0.2)
+            timing = tab.js("""(function () {
+                var paint = performance.getEntriesByName('first-contentful-paint')[0];
+                var bar = document.querySelector('.crisis-bar a[href="tel:988"]');
+                var box = bar ? bar.getBoundingClientRect() : {height: 0, top: -1};
+                return {paint: paint ? Math.round(paint.startTime) : null, bar: box.height > 0 && box.top >= 0};
+            })()""")
+            bytes_loaded = sum(
+                event["params"].get("encodedDataLength", 0) for event in browser.events
+                if event.get("sessionId") == tab.session and event["method"] == "Network.loadingFinished"
+            )
+            worst[page] = (timing["paint"], bytes_loaded)
+            if not timing["bar"]:
+                report.fail("speed", page, "the crisis strip is not on screen after loading")
+            if timing["paint"] is None or timing["paint"] > FIRST_PAINT_LIMIT_MS:
+                report.fail("speed", page, f"first paint took {timing['paint']} ms on a slow connection (limit {FIRST_PAINT_LIMIT_MS})")
+            elif bytes_loaded > PAGE_WEIGHT_LIMIT_BYTES:
+                report.fail("speed", page, f"{bytes_loaded // 1024} KB loaded (limit {PAGE_WEIGHT_LIMIT_BYTES // 1024})")
+            else:
+                report.ok("speed")
+            tab.close()
+    finally:
+        browser.call("Target.disposeBrowserContext", {"browserContextId": context})
+    slowest = max(worst.items(), key=lambda item: item[1][0] or 0)
+    heaviest = max(worst.items(), key=lambda item: item[1][1])
+    print(f"  Slow connection, first visit: slowest paint {slowest[1][0]} ms ({slowest[0]}), heaviest {heaviest[1][1] // 1024} KB ({heaviest[0]}).")
+
+
+# ---------------------------------------------------------------- high contrast modes
+
+
+def test_modes(browser, site, pages, report):
+    """Windows high contrast and "increase contrast" settings: nothing may vanish or overlap."""
+    tab = new_tab(browser)
+    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("desktop 1440x900", 1440, 900, False)):
+        tab.resize(width, height, phone)
+        for extra in ({"forced-colors": "active"}, {"prefers-contrast": "more"}):
+            where = f"{label}, {list(extra.items())[0][0]}"
+            tab.media(extra=extra, reduced=True)
+            for page in pages:
+                tab.goto(site.url(page))
+                tab.js(OPEN_ALL)
+                result = tab.js(AUDIT_JS)
+                # Forced colors replaces the page's colors, so these measurements don't apply.
+                if "forced-colors" in extra:
+                    result["contrast"] = []
+                apply_audit(result, "modes", page, where, report, False)
+                gone = tab.js("""Array.prototype.filter.call(document.querySelectorAll('.action svg, .quick-exit svg, .menu-button svg'), function (svg) {
+                    var s = getComputedStyle(svg);
+                    return s.display === 'none' || s.visibility === 'hidden' || s.stroke === 'none';
+                }).length""")
+                if gone:
+                    report.fail("modes", page, f"{gone} control icons disappear", where)
+    tab.media()
+    tab.close()
+
+
+# ---------------------------------------------------------------- privacy claims
+
+
+def test_privacy(browser, site, pages, report):
+    """What the About pages promise: nothing stored about visitors, nothing from other sites, no referrer."""
+    tab = new_tab(browser, 390, 844, True)
+    for page in pages:
+        tab.goto(site.url(page))
+        stored = tab.js("""(async function () {
+            var databases = indexedDB.databases ? await indexedDB.databases() : [];
+            return {cookie: document.cookie, local: localStorage.length, session: sessionStorage.length, databases: databases.length};
+        })()""")
+        if stored["cookie"] or stored["local"] or stored["session"] or stored["databases"]:
+            report.fail("privacy", page, f"the page stores something: {stored}")
+        # Nothing reaches the network here: the policy refuses the request first.
+        blocked = tab.js("""new Promise(function (done) {
+            document.addEventListener('securitypolicyviolation', function () { done(true); }, {once: true});
+            new Image().src = 'https://example.com/planted.png';
+            setTimeout(function () { done(false); }, 800);
+        })""")
+        if not blocked:
+            report.fail("privacy", page, "the content security policy doesn't block loading from another site")
+        else:
+            report.ok("privacy")
+    tab.close()
+
+    # Going Back doesn't show which feeling was opened. Only real clicks, so the browser keeps the page.
+    if any(p.startswith("not-sure") for p in pages):
+        tab = new_tab(browser, 390, 844, True)
+        tab.goto(site.url("not-sure/index.html"))
+        guard_click(tab, "details.feeling > summary")
+        opened = tab.js("document.querySelectorAll('details.feeling[open]').length")
+        tab.js("window.tidelightMarker = 1")
+        tab.clear_events()
+        guard_click(tab, ".next-steps a[href^=\"../\"]")
+        tab.browser.wait_for("Page.loadEventFired", tab.session, 15)
+        tab.clear_events()
+        tab.js("history.back()")
+        tab.browser.pump(1)
+        after = tab.js("""({open: document.querySelectorAll('details.feeling[open]').length, kept: window.tidelightMarker === 1,
+            hidden: document.documentElement.hidden, at: location.pathname})""")
+        print(f"  Privacy: after Back, the browser {'kept the page in memory' if after['kept'] else 'loaded the page again'}, with {after['open']} feelings open.")
+        if not opened or "not-sure" not in after["at"]:
+            report.fail("privacy", "not-sure/index.html", f"the test could not open a feeling and return to it: {opened}, {after}")
+        elif after["open"]:
+            report.fail("privacy", "not-sure/index.html", "Back shows which feeling was opened")
+        elif after["hidden"]:
+            report.fail("privacy", "not-sure/index.html", "the page came back blank")
+        else:
+            report.ok("privacy")
+        tab.close()
+
+    # Following an outside link doesn't tell that site where the visitor came from. A stand-in answers.
+    tab = new_tab(browser, 390, 844, True)
+    tab.send("Fetch.enable", {"patterns": [{"urlPattern": "https://988lifeline.org/*"}]})
+    tab.goto(site.url("get-help/index.html"))
+    if not guard_click(tab, ".fallback a[href='https://988lifeline.org/']"):
+        report.fail("privacy", "get-help/index.html", "the link to 988lifeline.org is not on screen")
+    else:
+        event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+        headers = {key.lower(): value for key, value in event["params"]["request"]["headers"].items()}
+        tab.send("Fetch.fulfillRequest", {
+            "requestId": event["params"]["requestId"], "responseCode": 200,
+            "responseHeaders": [{"name": "Content-Type", "value": "text/html"}],
+            "body": base64.b64encode(b"<!doctype html><title>Stand-in</title>").decode(),
+        })
+        if "referer" in headers:
+            report.fail("privacy", "get-help/index.html", f"an outside site is told the visitor came from here: {headers['referer']}")
+        else:
+            report.ok("privacy")
+    tab.close()
+
+
+# ---------------------------------------------------------------- screenshots
+
+
+def take_screenshots(browser, site, pages, directory):
+    directory = pathlib.Path(directory)
+    directory.mkdir(parents=True, exist_ok=True)
+    tab = new_tab(browser, 390, 844, True, scale=2)
+    for dark in (False, True):
+        tab.media(dark=dark, reduced=True)
+        suffix = "dark" if dark else "light"
+        for page in pages:
+            tab.goto(site.url(page))
+            name = page.replace("/index.html", "").replace("/", "-").replace(".html", "") or "home"
+            name = "home" if page == "index.html" else name
+            tab.screenshot(directory / f"{name}-phone-{suffix}.png")
+    tab.close()
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Test the website in a real browser.")
+    parser.add_argument("--only", default=",".join(GROUPS), help="comma-separated groups: " + ", ".join(GROUPS))
+    parser.add_argument("--pages", default="", help="only pages whose path contains this text")
+    parser.add_argument("--screens", default="", help="save phone screenshots in this folder")
+    parser.add_argument("--out", default="", help="write the results as JSON to this file")
+    args = parser.parse_args()
+
+    if not find_chrome():
+        print("Google Chrome or Chromium was not found, so nothing was tested.")
+        return 2
+    pages = find_pages()
+    if args.pages:
+        pages = [p for p in pages if any(piece in p for piece in args.pages.split(","))]
+    groups = [g.strip() for g in args.only.split(",") if g.strip()]
+    unknown = [g for g in groups if g not in GROUPS]
+    if unknown:
+        print(f"Unknown groups: {unknown}")
+        return 2
+
+    site = Site()
+    browser = Browser()
+    print(browser.call("Browser.getVersion")["product"], "at", site.base)
+    report = Report()
+    functions = {
+        "matrix": test_matrix, "textsize": test_textsize, "keyboard": test_keyboard, "menu": test_menu,
+        "jumps": test_jumps, "folds": test_folds, "language": test_language, "quickexit": test_quickexit,
+        "reducedmotion": test_reducedmotion, "nojs": test_nojs, "print": test_print, "contact": test_contact,
+        "a11ytree": test_a11ytree, "offline": test_offline, "speed": test_speed, "modes": test_modes, "privacy": test_privacy,
+    }
+    try:
+        for group in groups:
+            started = time.time()
+            if group == "links":
+                test_links(site, pages, report)
+            else:
+                functions[group](browser, site, pages, report)
+            print(f"  {group} took {time.time() - started:.0f}s", flush=True)
+        if args.screens:
+            take_screenshots(browser, site, pages, args.screens)
+    finally:
+        browser.close()
+        try:
+            site.stop()
+        except Exception:
+            pass
+    print()
+    failures = report.print_summary()
+    if args.out:
+        pathlib.Path(args.out).write_text(json.dumps(report.to_json(), indent=1), encoding="utf-8")
+    if failures:
+        print(f"\n{failures} distinct problem(s). This covers desktop Chrome and its phone-size emulation only.")
+        return 1
+    print("\nAll browser checks passed. This covers desktop Chrome and its phone-size emulation only,")
+    print("not a real phone, not a screen reader, and not whether the content is right.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -1,8 +1,11 @@
-# Stillwater shared project
+# Tidelight shared project
 
-Shared workspace for planning a phone-friendly suicide prevention website.
-It contains a design reference, an Obsidian vault, and Claude Code instructions.
-App implementation has not begun.
+Shared workspace for a phone-friendly suicide prevention website.
+It contains the website (plain HTML, CSS, and one small script), a design
+reference, an Obsidian vault, and Claude Code instructions.
+GitHub Pages publishes the `main` branch as a public website, so merging into
+`main` publishes. The content has not had professional review yet; see
+`notes/STATUS.md` for the current state.
 
 ## Open the shared notebook
 
@@ -19,7 +22,8 @@ is needed for this GitHub workflow.
 ## Open in Claude Code
 
 Select the whole local `suicideprevention` project folder containing `CLAUDE.md`.
-Claude's instructions import the brief, status, task board, and decisions.
+Claude's instructions import the brief, status, task board, decisions, and safety
+baseline.
 Each person uses their own Claude access and conversation.
 
 ## What is inside
@@ -31,14 +35,75 @@ Each person uses their own Claude access and conversation.
 | `notes/PROJECT.md` | Project brief |
 | `notes/STATUS.md` | Current progress and next steps |
 | `notes/TASKS.md` | Task board |
-| `notes/DECISIONS.md` | Lasting decisions |
+| `notes/DECISIONS.md` | Decisions, proposals, and open questions |
+| `notes/SAFETY.md` | Crisis resources, where each was read, and content ground rules |
+| `notes/CONTENT-REVIEW.md` | Every crisis control, and questions for a qualified reviewer |
+| `notes/RESEARCH-BRIEF.md` | Founder-supplied research and website copy, awaiting review |
 | `notes/DESIGN.md` | Homepage preview and design questions |
 | `notes/WORKFLOW.md` | Collaboration instructions |
+| `notes/SHARED-MEMORY.md` | How notes reach the other person and their Claude session |
 | `notes/templates/` | Task and handoff templates |
 | `notes/worklogs/` | Detailed handoffs |
 | `design/` | Supplied SVG and original pasted source |
 | `index.html`, `assets/` | The homepage, served by GitHub Pages |
 | `get-help/`, `help-someone/`, `research/` | Other website pages |
+| `404.html` | Shown for any missing address, keeps crisis help on screen |
+| `tools/check_site.py` | Checks pages, links, and Obsidian notes |
+| `es/` | Spanish pages, an AI translation awaiting a fluent reader |
+| `sw.js`, `manifest.webmanifest`, `assets/icon-*.png` | Offline support and the home screen icon |
+| `.github/workflows/site.yml` | Runs the checks on every pull request, and publishes only the website from `main` |
+| `.github/workflows/monitor.yml` | Daily: the live site shows its crisis help. Monthly: every outside link still opens |
+| `tools/check_live.py`, `tools/check_readability.py` | Live-site check, and a plain-language report |
+| `teens/`, `card/` | For Teens page, and printable wallet cards and poster |
+| `not-sure/`, `after-a-loss/`, `about/` | Not sure what you're feeling?, After a loss, and About and privacy |
+| `assets/*.vcf` | Contact cards for saving 988 to a phone |
+| `tools/preview_server.py` | Serves the site the way GitHub Pages will, on this computer or a phone on the same Wi-Fi |
+| `tools/test_browser.py`, `tools/browser.py` | Browser tests, using Python and the Chrome already on the computer |
+| `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader |
+| `notes/PHONE-TEST.md` | How to test on a real phone |
+| `notes/FOUNDER-BRIEF.md`, `notes/LAUNCH-CHECKLIST.md`, `notes/REVIEWER-NOTES.md`, `notes/UPKEEP.md` | Decisions, the path to launch, notes for reviewers, and upkeep |
+| `tools/launch_gate.py` | Shows what's still in the way of launching, and stops publishing without recorded reviews |
+| `tools/check_crisis_sources.py` | Checks that each provider's page still shows our crisis details |
+| `tools/set_checked_date.py` | Updates the "last checked" date on every page, after a real re-check |
+| `tools/test_the_tests.py` | Plants bugs in a copy of the site to prove the browser tests catch them |
+
+## Check the website
+
+Run these from the project folder. They need only Python 3, use git if it is there,
+and change nothing.
+
+```bash
+python3 tools/check_site.py
+```
+
+```bash
+python3 tools/check_site.py --check-links
+```
+
+The second command also loads every outside link. To see the site the way GitHub Pages
+will serve it, including the 404 page:
+
+```bash
+python3 tools/preview_server.py
+```
+
+Then open `http://localhost:8000/suicideprevention/`. To test on a phone, see
+`notes/PHONE-TEST.md`. To test in a real browser, if Google Chrome is installed:
+
+```bash
+python3 tools/test_browser.py
+```
+
+It takes a few minutes, uses a throwaway Chrome profile, and never calls, texts, or
+submits anything. If you change a page, rebuild the review packets:
+
+```bash
+python3 tools/make_review_packet.py
+```
+
+GitHub also runs the first check automatically on every pull request.
+Passing these checks does not replace testing on a real phone or a content
+review. `notes/CONTENT-REVIEW.md` lists what still needs a person.
 
 ## Work independently
 

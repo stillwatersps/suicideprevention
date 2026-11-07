@@ -12,8 +12,12 @@ Read these short shared notes at the start of a session:
 @notes/STATUS.md
 @notes/TASKS.md
 @notes/DECISIONS.md
+@notes/SAFETY.md
 
 Read other notes and design files only when relevant to the current task.
+For any health, crisis, or research wording on the website, read
+notes/RESEARCH-BRIEF.md first. Publish a section only after its review tracker
+shows approval by a licensed reviewer; until then, label any use of it as a draft.
 Inspect notes/ and design/ for existing project material before creating new files.
 Use notes/worklogs/ for concise task handoffs, with one file per task.
 Shared notes are the handoff between collaborators; conversations are separate.
@@ -42,7 +46,7 @@ separate from the short core notes.
   remote updates, and local changes. Update a clean default branch with a
   fast-forward only when doing so preserves local work. Do not discard or
   automatically stash someone else's files to make a sync succeed.
-- After downloading changes, explicitly reread the four core notes above and
+- After downloading changes, explicitly reread the core notes listed above and
   relevant recent worklogs. An existing conversation may still contain an older
   snapshot; reconcile it with the current files before proceeding.
 - During a meaningful task, keep a short task-specific note in notes/worklogs/.
@@ -56,6 +60,31 @@ separate from the short core notes.
   shared main. Do not tell the other collaborator it is on main without checking.
 - Save concise project summaries, not raw conversations or private account
   memory. For the human-readable sync loop, see notes/SHARED-MEMORY.md.
+
+## Crisis content rules
+
+Proposed on a task branch, for both founders to confirm. Follow them until then.
+
+- Never place test calls, send test texts, start chats, or submit forms on a crisis
+  service, on any page or device.
+- Take crisis numbers and claims from the provider's own page, and record the page
+  and date in notes/SAFETY.md. Never write them from memory.
+- Read every source you cite. Keep draft health content marked for review, and do
+  not describe it as reviewed until a qualified person has signed off.
+- Merging into main publishes the website. Do not merge crisis wording without both
+  founders' review, until open decision 4 in notes/DECISIONS.md is settled.
+- Everything on main, and in this public repository, is public. Keep personal names,
+  email addresses, and local file paths out of notes and pull requests.
+- Before sharing a website change, run `python3 tools/check_site.py`.
+- Each English page has a Spanish twin in es/. Change both together, and keep the
+  Spanish pages marked as an unreviewed AI translation until a fluent reader signs off.
+- When adding a page, add it to the CORE list in sw.js (and change its VERSION) and,
+  for a new top-level folder, to the copy list in .github/workflows/site.yml. Also add it
+  to the review list on the About pages and to tools/make_review_packet.py.
+- Before sharing a page change, also run `python3 tools/test_browser.py` if Chrome is
+  installed, and rebuild the packets with `python3 tools/make_review_packet.py`.
+- Never say something was tested on a phone unless it was. Keep desktop browser, phone-size
+  emulation, iOS Simulator, and real phone results apart. See notes/PHONE-TEST.md.
 
 ## Current project state
 

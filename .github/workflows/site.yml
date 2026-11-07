@@ -1,0 +1,84 @@
+# Checks the website on every pull request (idea A1), and publishes only the
+# website, not the notes, when main changes (idea A3). Publishing waits for the
+# checks, so a broken crisis link cannot go live.
+#
+# For the publish step to be used, GitHub Pages must be set to "GitHub Actions"
+# in the repository's Settings > Pages. See notes/worklogs/2026-11-06-claude-approved-ideas.md.
+name: Site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Check the website
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run the site checks
+        run: python3 tools/check_site.py
+      - name: Plain-language report (information only)
+        run: python3 tools/check_readability.py
+
+  browser:
+    name: Test in a real browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test every page in Chrome
+        env:
+          TIDELIGHT_CHROME_NO_SANDBOX: "1"
+        run: python3 tools/test_browser.py
+
+  publish:
+    name: Publish the website only
+    needs: [check, browser]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      # Stops unreviewed crisis content going live by accident. See notes/LAUNCH-CHECKLIST.md.
+      - name: Check that reviews are on record
+        env:
+          PUBLISH_UNREVIEWED: ${{ vars.PUBLISH_UNREVIEWED }}
+        run: python3 tools/launch_gate.py --publish
+      - name: Copy only the website files
+        run: |
+          mkdir _site
+          # The website, and nothing else. Notes, designs, tools and instructions stay out.
+          for item in index.html 404.html sw.js manifest.webmanifest .nojekyll assets get-help help-someone teens research card es not-sure after-a-loss about; do
+            cp -R "$item" _site/
+          done
+          # Stop if a new page exists in the project but was not copied.
+          find . -name '*.html' -not -path './_site/*' -not -path './notes/*' -not -path './design/*' -not -path './tools/*' -not -path './.git/*' | sed 's#^\./##' | sort > expected.txt
+          (cd _site && find . -name '*.html' | sed 's#^\./##' | sort) > published.txt
+          if ! diff expected.txt published.txt; then
+            echo "A page is missing from the published site. Add its folder to the list above."
+            exit 1
+          fi
+          if find _site -name '*.md' | grep -q .; then
+            echo "A notes file would be published. Stopping."
+            exit 1
+          fi
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

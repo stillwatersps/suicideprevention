@@ -21,8 +21,9 @@ copy once. Neither person needs to create another empty vault.
    changes are available in GitHub Desktop.
 3. Read [[STATUS]] and [[TASKS]]. Agree who owns the next task.
 4. Create a task branch, for example `planning/mobile-layout`.
-5. Copy [[templates/Task|The task template]] into `worklogs/` using a distinctive
-   filename such as `yourname-mobile-layout.md`.
+5. Copy [[templates/Task|The task template]] into `worklogs/` using a dated,
+   distinctive filename such as `2026-11-06-mobile-layout.md`. Leave personal names
+   out of it, because anything merged into `main` is public.
 6. Work with Claude Code, Obsidian, or your design tools.
 
 The built-in Templates feature is configured to use `templates/`. You can also
@@ -36,10 +37,15 @@ editing the same file and use separate handoff files.
 1. Update the task and relevant decisions.
 2. Write a summary using [[templates/Handoff|The handoff template]].
 3. Update [[STATUS]] with what the next person needs to know.
-4. Review the changed files in GitHub Desktop, enter a summary, and commit.
+4. Review the changed files in GitHub Desktop, enter a summary, and commit. Desktop
+   selects every changed file by default, so untick anything personal. The vault
+   folder can hold private notes, and anything committed to `main` becomes public.
 5. Publish or push the branch, then create a pull request.
 6. Have the other collaborator review it and combine it with the shared project.
-7. Both download the updated default branch before starting the next task.
+   Merging publishes the website within about a minute.
+7. After a merge, update [[STATUS]] and [[TASKS]] to say so. A note inside a pull
+   request can't say it merged.
+8. Both download the updated default branch before starting the next task.
 
 ## Claude session reminder
 

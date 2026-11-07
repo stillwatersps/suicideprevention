@@ -28,11 +28,11 @@ what changed and why, with references to the affected files.
 | [[PROJECT]] | Lasting purpose, audience, and scope |
 | [[STATUS]] | What currently exists, known issues, and next step |
 | [[TASKS]] | Task ownership and progress |
-| [[DECISIONS]] | Agreed decisions and their reasons |
+| [[DECISIONS]] | Agreed decisions, proposals, and open questions, labelled |
 | [[worklogs/README\|Task handoffs]] | Changed files, branch, checks, partial progress, and next action |
 
-Claude's shared instructions already import the four short core notes. They
-also ask Claude to update progress and handoff notes as it works.
+Claude's shared instructions already import the short core notes. They also ask
+Claude to update progress and handoff notes as it works.
 
 ## The two habits that keep both people current
 
@@ -43,10 +43,12 @@ the updated status, decisions, tasks, and recent handoffs before continuing.
 
 **When sharing finished work:** Save the progress note with the task's changes,
 commit and push the task branch, then review and merge it into shared main.
-The other person downloads main before starting their next task.
+Merging publishes the website, notes included. The other person downloads main
+before starting their next task.
 
 Uploading a task branch alone does not change the other person's main branch.
 If work needs to be seen before merging, share its branch name explicitly.
+The other person can switch to that branch in GitHub Desktop, or read it on GitHub.
 
 ## What is automatic
 
