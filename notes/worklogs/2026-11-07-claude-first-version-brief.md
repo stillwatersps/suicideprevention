@@ -11,7 +11,7 @@ Date: November 7, 2026, Eastern time.
 ## Completed
 
 - New [[FIRST-VERSION]]: what the first version is and isn't, eight main journeys, and one line
-  per page, in about 600 words. It is a proposal, not agreed by both founders.
+  per page, in about 650 words. It is a proposal, not agreed by both founders.
 - Linked it from [[00 START HERE]] and from the goal in [[PROJECT]].
 - In [[TASKS]], moved "Write a one-page first-version description and main user journey" to
   "Ready for review".
@@ -21,10 +21,25 @@ Date: November 7, 2026, Eastern time.
 
 - Read every English page, and the Spanish Home and Get Help, and described only what they show.
   The crisis details in the note match the table in [[SAFETY]]. Nothing was tested on a phone.
+  A separate AI review then found two mistakes. See "Corrected after review" below.
 - `python3 tools/check_site.py`: "Checked 19 pages. 112 different outside links. All checks passed."
   With a broken link planted in [[FIRST-VERSION]] for a moment, it failed on that link, so it does
   read the new note.
 - No page changed, so the browser tests and review packets weren't rerun.
+
+## Corrected after review
+
+Both mistakes were checked against the pages first. No page changed.
+
+- The crisis journey said Home adds **Chat Online**. All ten English pages have it, with Call 988
+  and Text 988: Home under **You are not alone**, the others in a **Need to talk to someone now?**
+  box. The journey now says so. It also names the short box near the top of Get Help, For Teens,
+  After a loss, and Not sure.
+- The no-signal journey said **Save 988 to your contacts** and the **Wallet card** don't need saved
+  pages. Both are files on this site, so with no signal they open only from saved copies. It now
+  says a contact saved earlier, or a printed card, doesn't depend on them. The About page says the
+  same.
+- `python3 tools/check_site.py` passed again afterward.
 
 ## Decisions and open questions
 

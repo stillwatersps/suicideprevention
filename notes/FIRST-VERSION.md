@@ -30,7 +30,10 @@ Suicide & Crisis Lifeline and 911.
 
 1. Every English page starts with **Call 988**, **text 988**, and **call 911**. On phones this
    strip usually stays on screen.
-2. Home adds **Chat Online**. **Get Help** has a short **Right now** box near the top.
+2. Below it, Home's **You are not alone** section and every other page's
+   **Need to talk to someone now?** box offer **Call 988**, **Text 988**, and **Chat Online**.
+3. **Get Help**, **For Teens**, and **After a loss** also have a short **Right now** box near the
+   top. **Not sure what you're feeling?** has one too, headed **If you're thinking about suicide**.
 
 **Someone worried about another person**
 
@@ -66,8 +69,8 @@ Suicide & Crisis Lifeline and 911.
 
 1. After one visit on a secure connection, the browser may save every page. Copies can be out of
    date.
-2. Calls and texts still need phone service. **Save 988 to your contacts** and the **Wallet card**
-   don't need saved pages.
+2. Calls and texts still need phone service. A contact saved earlier with
+   **Save 988 to your contacts**, or a printed **Wallet card**, doesn't depend on saved pages.
 
 **Someone Deaf or hard of hearing**
 
