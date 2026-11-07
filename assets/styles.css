@@ -254,6 +254,7 @@ h1 {
 
 .fallback { font-size: .95rem; color: var(--body); max-width: 40em; }
 .fallback a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
+.fallback + .fallback { margin-top: 8px; }
 .lang-link a { display: inline-block; padding: 12px 0; color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
 
 .text-link {
@@ -432,6 +433,11 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .crisis-bar { text-align: left; }
   .strip-988 { flex: 1 0 100%; }
   .strip-911 { flex: 1 1 0; min-width: 0; }
+}
+/* A small gap between the rows on taller screens, so a tap on a 988 link is less likely to
+   land on call 911. Short screens keep every pixel. */
+@media (max-width: 47.4em) and (min-height: 30.01em) {
+  .crisis-bar { row-gap: 6px; }
 }
 @media (max-width: 24em) {
   .crisis-bar { font-size: .85rem; }

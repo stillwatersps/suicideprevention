@@ -88,7 +88,7 @@ these: tap, stop at the dial or compose screen, and cancel.
 | How this works on different platforms | Help Someone | 988's social media page | 988 Lifeline | Page opens | None |
 | Our web host logs visitors' IP addresses | Home | Privacy section of the About page | Tidelight | Tested in browser | Lawyer question |
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
-| Get Support Now | Header | Crisis options on the same page | Tidelight | Tested in browser | Founders: is the label right? |
+| Get Support Now | Header | Crisis options on the same page. On Home it rings the three buttons already on screen; on other pages it jumps to them | Tidelight | Tested in browser | Founders: is the label right? |
 | Quick exit / Salida rápida | Every page. In the pinned strip on phones and tablets, bottom right on desktops | https://www.weather.gov/ | Tidelight | Tested in browser: the page goes blank at once, and Back skips the page that was left. Back can still reach earlier Tidelight pages, and that page too after a link within it | Reviewer: label, destination, placement, and what it can't hide |
 | Save 988 to your contacts / Guarda el 988 en tus contactos | Get Help, For Teens, Wallet card, About, and their Spanish twins | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` | Tidelight | File checked. Not tried on a phone | Save on a real iPhone and Android phone |
 | Llamar al 988, marca 2 para español / Texto al 988, escribe AYUDA / Chatear en línea / Llama al 988 / envía AYUDA al 988 / llama al 911 | Crisis strip and buttons on every Spanish page, and inside sentences on some | `tel:988`, `sms:988`, `tel:911`, chat.988lifeline.org/?lang=es | 988 Lifeline; local 911 | Link format only | Phone test; fluent reader |
@@ -355,8 +355,10 @@ together and pick one wording for each page. This is Claude's comparison, for th
 
 Built at one founder's request on November 6, 2026. Wording is proposed.
 
-- **Right now box (B1).** Get Help now opens with four short steps, and four long
-  sections fold behind "Show more". Every line repeats text already on the page.
+- **Right now box (B1).** Get Help has four short steps in a box below the crisis buttons
+  and their notes, with call, text, and chat links in the first step, and four long sections
+  fold behind "Show more". On a phone the box is on the second screen. Every line repeats text
+  already on the page.
   Are the steps right, and is anything folded that someone in crisis needs to see
   at once? "Other ways to reach someone" stays open on purpose.
 - **Quick exit (B2).** It opens weather.gov and replaces only the current page in the
