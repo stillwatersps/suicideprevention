@@ -123,6 +123,11 @@ shows until review. Then give the packets to the therapist and a fluent Spanish 
 
 The usage limit stopped this session early. Done and pushed: content security policy and no-referrer on every page, offline notice, Spanish crisis text on the page-not-found page, slow-network, high-contrast, and privacy tests, 33 planted bugs caught, browser tests on pull requests, launch check and publish safety check, monthly crisis source check, date tool, [[FOUNDER-BRIEF]], [[LAUNCH-CHECKLIST]], [[REVIEWER-NOTES]], [[UPKEEP]], [[SHORTER-SENTENCES]].
 
+**Update, November 7, 2026: everything in the "Not done" list below was finished on
+`site/first-version-finish`, draft pull request 10. See
+[[worklogs/2026-11-07-claude-first-version-finish]].** Also corrected there: the AFSP flipbooks
+are not image-only; each page's text is stored alongside, and each has a PDF.
+
 **The usage limit stopped work again on November 7, 2026.** Pushed since the note above: the crisis strip redesign with Quick exit inside it on phones, saved-copy timing for weak signal, a WebKit test for Macs, and source-checked corrections to Research, Get Help, Help Someone, For Teens, the wallet card, and the Spanish crisis details.
 
 **Not done:**

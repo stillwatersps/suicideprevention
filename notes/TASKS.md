@@ -60,7 +60,7 @@ Planning tasks below are suggestions; ownership has not been agreed.
 - [ ] Someone with lived experience of a suicide loss reads After a loss. Owner: unassigned.
 - [ ] A lawyer reads About and privacy. Owner: unassigned.
 - [ ] Try the first version on a real iPhone and Android phone, using [[PHONE-TEST]]. Owner:
-  both.
+  both. The iOS Simulator run on November 7 doesn't replace this.
 - [ ] Decide on idea D4, recovery stories, in [[IDEAS]]. Owner: both.
 - [ ] Close or keep draft pull requests 1, 7 and 8 (idea C5). Owner: the founder who
   opened them. Pull request 5 now covers what 7 and 8 fix.
@@ -119,8 +119,16 @@ Move a task here when its branch is ready for the other person to review.
 - [ ] Finish the first version for testing and review: Not sure page, After a loss page, About
   and privacy page, save 988 to contacts, review status, Spanish Research page, review packets,
   browser tests, and phone test steps. Owner: Claude, at one founder's request. Branch:
-  `site/first-version-build`, draft pull request 9 into `claude/jolly-mayer-2m6eno`. Handoff:
-  [[worklogs/2026-11-06-claude-first-version]]. Not merged. No qualified person has reviewed it.
+  `site/first-version-build`, pull request 9 into `claude/jolly-mayer-2m6eno`. Handoff:
+  [[worklogs/2026-11-06-claude-first-version]]. Merged into that branch on November 7, 2026, at a
+  founder's request. Not on `main`. No qualified person has reviewed it.
+
+- [ ] Finish the first version's audit, tests, and notes: every checked audit finding applied in
+  both languages, three code reviews and their fixes, iOS Simulator tests and the landscape fix
+  they found, a stricter publish check, and the audit's questions for the reviewer. Owner:
+  Claude, at one founder's request. Branch: `site/first-version-finish`, draft pull request 10
+  into `claude/jolly-mayer-2m6eno`. Handoff: [[worklogs/2026-11-07-claude-first-version-finish]].
+  Not merged. No qualified person has reviewed it.
 
 ## Completed work
 
