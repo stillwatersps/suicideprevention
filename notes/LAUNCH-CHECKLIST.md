@@ -31,27 +31,43 @@ bold, so `tools/launch_gate.py` stops counting it. Keep its number, because othe
 
 ## 2. Human review
 
-Give each person the matching note in [[REVIEWER-NOTES]]. Record each result in "Review records" in
-[[CONTENT-REVIEW]]: the section, the reviewer's role, the date, and the result. Never add personal
-contact details to this public project.
+Give each person the matching note in [[REVIEWER-NOTES]]. Never add personal contact details to this
+public project.
 
-- [ ] Licensed therapist: `review-packet/tidelight-review-packet.pdf`
-- [ ] Fluent Spanish reader: `review-packet/tidelight-spanish-review-packet.pdf`
-- [ ] Someone with lived experience of a suicide loss: After a loss
-- [ ] Someone who works with young people: For Teens
-- [ ] A lawyer: About and privacy, minors, and who the publisher is
-- [ ] Deaf reviewer or Deaf-led organization: the Deaf and hard of hearing options
+The licensed therapist's and the Spanish reader's results go under "Review records" in [[CONTENT-REVIEW]],
+one line for each section of the packet's sign-off table, in exactly this form:
+
+`- Get Help: licensed clinical social worker, 2026-12-01, approved, a1b2c3d4e5f6`
+
+That is the section's name as the table prints it, the reviewer's role, the date as YYYY-MM-DD, the result,
+and the section's fingerprint from the table. "Review records" in [[CONTENT-REVIEW]] explains each part,
+which roles count, and what to do when a fingerprint no longer matches.
+
+Everyone else's results go under "Other reviews" in [[CONTENT-REVIEW]], which the publish step never reads.
+
+- [ ] Licensed therapist: `review-packet/tidelight-review-packet.pdf`. Results under "Review records"
+- [ ] Fluent Spanish reader: `review-packet/tidelight-spanish-review-packet.pdf`. Results under "Review records"
+- [ ] Someone with lived experience of a suicide loss: After a loss. Results under "Other reviews"
+- [ ] Someone who works with young people: For Teens. Results under "Other reviews"
+- [ ] A lawyer: About and privacy, minors, and who the publisher is. Results under "Other reviews"
+- [ ] Deaf reviewer or Deaf-led organization: the Deaf and hard of hearing options. Results under "Other reviews"
 
 ## 3. Make the changes
 
 - [ ] Make reviewers' changes on a task branch, and show the reviewer anything that changed a safety message.
 - [ ] Update the Spanish twin of every changed English page.
-- [ ] Run `python3 tools/make_review_packet.py` again if a reviewer needs to see changes.
+- [ ] Run `python3 tools/make_review_packet.py` again. Any change to a section gives it a new fingerprint, so
+  its approval stops counting until the reviewer has seen the change and a new line is recorded.
 
 ## 4. Test on real devices
 
-Follow [[PHONE-TEST]]. Add a note to `worklogs/` with "phone" in its name. Never complete a call or text
-to a crisis line.
+Follow [[PHONE-TEST]]. Never complete a call or text to a crisis line. Record each phone in a note in
+`worklogs/` with one line in exactly this form:
+
+`Real phone test: iPhone 15, iOS 26.1, 2026-12-02, every check passed`
+
+That is the phone, its system and version, the date, and the result. `tools/launch_gate.py` counts only these
+lines. It never counts a Simulator or phone-size emulation note, or a result such as "not yet" or "pending".
 
 - [ ] iPhone, Safari: every check in the table, including VoiceOver
 - [ ] Android, Chrome: every check, including TalkBack
@@ -60,7 +76,8 @@ to a crisis line.
 
 ## 5. Confirm the facts
 
-- [ ] A person reads each provider's page and fills in "Person confirmed" in [[SAFETY]].
+- [ ] A person reads each provider's page and fills in "Person confirmed" in [[SAFETY]] with who, by role,
+  and the date, such as "founder A, 2026-12-01". "Not yet" or "pending" doesn't count.
 - [ ] Confirm the 988 LGBTQ+ youth option with 988, including its age range and any chat route.
 - [ ] Run the current checks:
 
@@ -85,6 +102,11 @@ python3 tools/set_checked_date.py 2026-11-06 2026-12-07 --apply
 
 ## 6. Remove the draft labels, only after review
 
+Every change below changes the text of the pages, so every section gets a new fingerprint and the earlier
+approvals stop counting. Make all of these changes on one task branch, rebuild the packets, ask the reviewers
+to approve the final text, and add new lines with the new fingerprints to "Review records" before merging.
+Until those lines are there, `tools/check_site.py` fails if the About pages say "Approved", which is expected.
+
 - [ ] Remove each page's draft note once its review is recorded. Removing a note makes `tools/check_site.py`
   fail, which stops publishing, so that check must change first.
 - [ ] Update the review list on the About pages with each reviewer's role and the date.
@@ -97,8 +119,9 @@ python3 tools/set_checked_date.py 2026-11-06 2026-12-07 --apply
 
 Steps are in [[worklogs/2026-11-06-claude-approved-ideas]].
 
-- [ ] Require the other founder's approval on `main`, with a branch protection rule, not a ruleset, because
-  `tools/launch_gate.py` only reads branch protection rules.
+- [ ] Require the other founder's approval on `main`, with a branch protection rule or a ruleset.
+  `tools/launch_gate.py` reads both. Reading a branch protection rule needs the owner's access, so if the
+  tool says it couldn't read this, check it by hand.
 - [ ] Turn off Issues and the Wiki.
 - [ ] Set Pages to publish with GitHub Actions, right before merging. Until then, Pages publishes every
   file on `main`, notes included.
@@ -116,18 +139,40 @@ Steps are in [[worklogs/2026-11-06-claude-approved-ideas]].
    should appear, with the crisis numbers, not GitHub's own page.
 6. The next day, confirm the daily monitor passed.
 
+If the "Site" run stops at the review check, the old site stays public, notes included, because Pages keeps
+showing the last thing it published. So step 4 fails too. Either fix the records and use "Re-run failed jobs"
+on the stopped run, or turn Pages off until a publish succeeds.
+
 ### The publish safety check
 
-Once Pages publishes with GitHub Actions, the publish step stops until "Review records" in [[CONTENT-REVIEW]]
-has a line with a clinical role and the word "approved", and a line with a Spanish or fluent-reader word and
-"approved". One line can count as both. It doesn't check that every page was reviewed, so a person must
-confirm that every review is done before merging. The current published site stays up when this step stops.
+Once Pages publishes with GitHub Actions, the publish step runs `python3 tools/launch_gate.py --publish`.
+It stops publishing unless all of these hold:
+
+- Every page has a section in the review packets.
+- Every line under "Review records" in [[CONTENT-REVIEW]] can be read, and none is dated after today.
+- Every English section's newest line by a licensed clinician approves it, and every Spanish section's newest
+  line by a fluent or native Spanish reader approves it. The Spanish sections include the Spanish lines on
+  the "page not found" page. That is 12 English and 12 Spanish lines, one per section, in the form shown in
+  section 2 above.
+- Each of those approvals ends with the fingerprint of the section's current text.
+
+Lines by any other reviewer, and anything under "Other reviews", are never counted. Run
+`python3 tools/launch_gate.py` on a computer to see which sections are missing and why. The current published
+site stays up when this step stops.
+
+A line that can't be read also makes `tools/check_site.py` fail. That stops every publish, even with the
+variable below, so run it after adding lines.
+
+After any change to a page, its fingerprint changes and publishing stops until the change is reviewed and
+recorded. That includes a fix to a crisis number. For an urgent fix, use the variable below, then record the
+review afterward.
 
 To publish anyway, for an agreed early preview, both founders agree first. Then the owner adds a repository
 variable under Settings, Secrets and variables, Actions, Variables. Name it `PUBLISH_UNREVIEWED`, with the
-value `both founders agreed`. Delete it afterward. While no reviews are on record, each later publish stops
-at this check too, including a fix to a crisis number or a revert. For that fix, both founders agree, add the
-variable again before merging it, then delete it after it publishes.
+value `both founders agreed`. If the publish already stopped, use "Re-run failed jobs" on that run instead of
+pushing again. Delete the variable afterward. While any section isn't approved for its current text, each
+later publish stops at this check too, including a fix to a crisis number or a revert. For that fix, both
+founders agree, add the variable again before merging it, then delete it after it publishes.
 
 This check is itself a proposal. To remove it, delete the "Check that reviews are on record" step from
 `.github/workflows/site.yml`.

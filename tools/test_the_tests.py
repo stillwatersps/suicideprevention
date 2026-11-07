@@ -6,7 +6,7 @@
 
 Each bug goes into a throwaway copy of the project, never the real files. A test that can't
 fail proves nothing, so run this after changing tools/test_browser.py, tools/check_site.py,
-tools/launch_gate.py, or tools/check_crisis_sources.py. Needs Python and Chrome. It reads no
+tools/launch_gate.py, tools/make_review_packet.py, or tools/check_crisis_sources.py. Needs Python and Chrome. It reads no
 outside website: the checks of other tools run offline, on made-up cases.
 """
 import argparse
@@ -87,6 +87,14 @@ def quick_exit_no_blank(copy):
     replace("get-help/index.html", "document.documentElement.hidden=true;", "")(copy)
 
 
+def about_claims_approval_after_rejection(copy):
+    # A clinician's rejection is on record, yet the About page says the page is approved.
+    replace("notes/CONTENT-REVIEW.md", "- No review has been recorded.",
+            "- Get Help: licensed clinical social worker, 2026-11-01, not for the website")(copy)
+    replace("about/index.html", '<a href="../get-help/">Get Help</a><span class="status-line">Clinical review: <span class="status-value">Pending</span>',
+            '<a href="../get-help/">Get Help</a><span class="status-line">Clinical review: <span class="status-value">Approved</span>')(copy)
+
+
 # Name, bug, test group, pages to test, words the failure must contain.
 BUGS = [
     ("sideways scrolling", append_css("body { min-width: 500px; }"), "matrix", "get-help", "scrolls sideways"),
@@ -157,7 +165,24 @@ COMMAND_BUGS = [
     ("a contact card pointing to another site", replace_bytes("assets/988-lifeline.vcf", b"URL:https://988lifeline.org/", b"URL:https://example.com/"), ["tools/check_site.py"], "not the website of a service"),
     ("the crisis strip hidden by a rule for every aside", append_css("@media (min-width: 960px) { body > aside { display: none !important; } }"), ["tools/check_site.py"], "hides crisis controls"),
     ("the publish gate taking 'not approved' as approval", replace("tools/check_site.py", 'approved = result.lower() in APPROVED and not NOT_APPROVED.search(role + " " + result)', 'approved = "approved" in result.lower()'), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
-    ("the publish gate taking one page's review for all", replace("tools/check_site.py", 'mine = [r for r in records if r["page"] == page and r["lang"] == lang and needs.search(r["role"])]', 'mine = [r for r in records if needs.search(r["role"])]'), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the publish gate taking one page's review for all", replace("tools/check_site.py", 'mine = [r for r in records if r["page"] == page and r["lang"] == lang and lang in r["kinds"]]', 'mine = [r for r in records if lang in r["kinds"]]'), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    # Each rule of the publish gate has a made-up case in its self-test that fails without the rule.
+    ("the publish gate ignoring text changed after approval", replace("tools/check_site.py", '    if found["fingerprint"] != current:', "    if False:"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the publish gate letting a lawyer override a clinician", replace("tools/check_site.py", 'mine = [r for r in records if r["page"] == page and r["lang"] == lang and lang in r["kinds"]]', 'mine = [r for r in records if r["page"] == page and r["lang"] == lang]'), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the publish gate accepting a school or AI role as clinical", replace("tools/check_site.py", "    if CLINICAL_ROLE.search(role) and not NOT_CLINICAL.search(role):", "    if CLINICAL_ROLE.search(role):"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the publish gate accepting machine translation as a Spanish reader", replace("tools/check_site.py", "    if SPANISH_ROLE.search(role) and not NOT_SPANISH.search(role):", "    if SPANISH_ROLE.search(role):"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the publish gate accepting a record dated in the future", replace("tools/check_site.py", "        if date > today:", "        if False:"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the publish gate ignoring a record it can't read", replace("tools/launch_gate.py", '("Every line under \\"Review records\\" can be read", not unreadable,', '("Every line under \\"Review records\\" can be read", True,'), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the publish gate ignoring a page with no review section", replace("tools/launch_gate.py", "missing_pages = missing_sections(find_pages() if pages is None else pages)", "missing_pages = []"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the launch list counting a Simulator note as a phone test", replace("tools/launch_gate.py", '        if NOT_A_PHONE.search(name) or NOT_A_PHONE.search(text.split("\\n", 1)[0]):', "        if False:"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the launch list counting a 'not yet' phone result", replace("tools/launch_gate.py", ' or NOT_DONE.search(match.group("result"))', ""), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the launch list counting 'not yet' as a person's confirmation", replace("tools/launch_gate.py", "    return bool(cell and DATE_IN_CELL.search(cell) and not NOT_DONE.search(cell))", "    return bool(cell)"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("a page left out of the review packets", replace("tools/make_review_packet.py", '    ("card/index.html", "CARD", "Wallet card and poster"),\n', ""), ["tools/check_site.py"], "has no section in the review packets"),
+    ("the 404 page's Spanish lines left out of the Spanish packet", replace("tools/make_review_packet.py", '    ("404.html", "E-NOTFOUND", "Página no encontrada"),\n', ""), ["tools/check_site.py"], "Spanish lines and no Spanish twin"),
+    ("the About page claiming approval after a rejection", about_claims_approval_after_rejection, ["tools/check_site.py"], "isn't an approval of the current text"),
+    ("a review claimed as 'has reviewed'", replace("get-help/index.html", "<h1", "<p>A licensed therapist has reviewed every page.</p><h1"), ["tools/check_site.py"], "no approval of this page"),
+    ("a review claimed in Spanish as 'revisó'", replace("es/obtener-ayuda/index.html", "<h1", "<p>Una terapeuta con licencia revisó cada página.</p><h1"), ["tools/check_site.py"], "no approval of this page"),
+    ("a future-dated review record", replace("notes/CONTENT-REVIEW.md", "- No review has been recorded.", "- Get Help: licensed clinical social worker, 2062-12-01, not for the website"), ["tools/check_site.py"], "the date is after today"),
     ("the monthly check throwing away a good read", replace("tools/check_crisis_sources.py", "if is_real_read(b_status, b_text) or not is_real_read(status, text):", "if True:"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
     ("keywords matched as ordinary words", replace("tools/check_crisis_sources.py", "    if isinstance(option, Word):", "    if False:"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
 ]

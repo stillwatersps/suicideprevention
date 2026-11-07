@@ -536,7 +536,7 @@ def check_pages(failures, notes):
     check_offline(failures, names)
     check_publish_list(failures, names)
     check_contact_cards(failures, numbers)
-    check_review_status(failures, pages)
+    check_review_status(failures, pages, notes)
     check_dates(failures, pages)
     outside = {}
     for name, page in pages.items():
@@ -550,31 +550,91 @@ def check_pages(failures, notes):
 # text on every page, are recorded as approved in notes/CONTENT-REVIEW.md. "has not reviewed" and
 # "no ha sido revisado" don't match.
 REVIEW_CLAIMS = re.compile(
-    r"\b(reviewed by|approved by|vetted by|reviewed and approved|clinically (reviewed|approved)"
-    r"|(medically|professionally|clinically|clinician|expert|doctor|therapist|psychologist)[- ](reviewed|approved|vetted)"
+    r"\b(reviewed by|approved by|vetted by|validated by|reviewed and approved|clinically (reviewed|approved|validated)"
+    r"|(medically|professionally|clinically|clinician|expert|doctor|therapist|psychologist)[- ](reviewed|approved|vetted|validated)"
     r"|(page|site|content|text|information|wording) (has been|was|is) (reviewed|approved)"
-    r"|revisad[oa]s? por|aprobad[oa]s? por|revisad[oa]s? y aprobad[oa]s?"
-    r"|(médica|clínica|profesional)mente (revisad|aprobad)[oa]s?"
+    r"|checked by (a|an|our) (licensed|clinician|clinical|therapist|psychologist|psychiatrist|counsel+or|social worker|professional|doctor|expert)"
+    r"|revisad[oa]s? por|aprobad[oa]s? por|validad[oa]s? por|revisad[oa]s? y aprobad[oa]s?"
+    r"|(médica|clínica|profesional)mente (revisad|aprobad|validad)[oa]s?"
     r"|(página|sitio|contenido|texto|información) (ha sido|fue|está) (revisad|aprobad)[oa]s?)\b", re.I)
+# Sentences that say someone has done a review, such as "A licensed therapist has reviewed every page" or
+# "Una terapeuta revisó cada página". They count unless the same sentence denies it first, as in "No
+# licensed clinician has reviewed this site yet" or "ninguna persona hispanohablante la ha revisado".
+REVIEW_DONE = re.compile(
+    r"\b(has|have|had) (now |already |fully |carefully )?(reviewed|approved|vetted|checked|validated)\b"
+    r"|\b(reviewed|approved|vetted|checked) (this|these|every|each|all|the|its|our)\b"
+    r"|(?<!\bse )\b(ha|han|había|habían) (revisado|aprobado|validado|comprobado)\b"
+    r"|(?<!\bse )\b(revisó|revisaron|aprobó|aprobaron|validó|validaron) (este|esta|estos|estas|cada|todo|toda|todos|todas|el|la|los|las|su|sus|nuestro|nuestra)\b",
+    re.I)
+DENIED = re.compile(r"\b(no|not|never|nobody|none|neither|nor|yet to|ningún|ninguna|ninguno|nadie|nunca|ni|tampoco|sin)\b", re.I)
+
+
+def review_claim(text):
+    """The first words in the text that claim a review, or None."""
+    match = REVIEW_CLAIMS.search(text)
+    if match:
+        return match.group(0)
+    for match in REVIEW_DONE.finditer(text):
+        sentence = re.split(r"[.!?;:]\s", text[: match.start()])[-1]
+        if not DENIED.search(sentence):
+            return match.group(0)
+    return None
+
+
 ABOUT_SECTIONS = ("what-this-is", "review-status", "privacy", "quick-exit", "offline", "contact-card")
+# What the About pages' review list may show for a section whose newest record isn't an approval of its
+# current text. Until a record exists, only the first one.
+NOT_YET_STATUS = {"en": ("Pending", "Changes needed", "Not approved"), "es": ("Pendiente", "Cambios pedidos", "No aprobada")}
 
 # A review record in notes/CONTENT-REVIEW.md is one line in exactly this form:
-#   - Get Help: licensed clinical social worker, 2026-12-01, approved with changes, changes made
-# The section is a page's name in the review packets (or its address, such as get-help/), the text on
-# every page, or the wording outside the page text. Only these two results count as an approval.
-RECORD_FORM = re.compile(r"^- (?P<section>[^:]+): (?P<role>.+?), (?P<date>\d{4}-\d{2}-\d{2}), (?P<result>.+?)\.?\s*$")
-RECORD_EXAMPLE = "- Get Help: licensed clinical social worker, 2026-12-01, approved"
+#   - Get Help: licensed clinical social worker, 2026-12-01, approved, a1b2c3d4e5f6
+# The section is a section's name in the review packets' sign-off tables, or a page's address, such as
+# get-help/. The last part is the section's fingerprint, printed beside it in the sign-off table. It is
+# made from the section's text, so an approval only counts for the text the reviewer read. Only these two
+# results count as an approval.
+RECORD_FORM = re.compile(r"^- (?P<section>[^:]+): (?P<role>.+?), (?P<date>\d{4}-\d{2}-\d{2}), (?P<result>.+?)"
+                         r"(?:, (?P<fingerprint>[0-9a-fA-F]{12}))?\.?\s*$")
+RECORD_EXAMPLE = "- Get Help: licensed clinical social worker, 2026-12-01, approved, a1b2c3d4e5f6"
 APPROVED = {"approved", "approved with changes, changes made"}
 # Any of these words in the role or the result means it is not a full approval.
 NOT_APPROVED = re.compile(r"\b(not|no|yet|waiting|pending|only|partly|partial|except|until|but)\b", re.I)
-# English pages need a clinician. Spanish pages need a fluent reader. One never counts for the other.
-CLINICIAN = re.compile(r"clinic|therap|counsel|psycholog|psychiatr|social worker", re.I)
-FLUENT_READER = re.compile(r"spanish|español|hispanohablante|translat|traduct|fluent|bilingual|bilingüe|interpret", re.I)
+# English sections need a licensed mental health professional, and Spanish sections a fluent or native
+# Spanish reader. Only these roles count, and one never counts for the other. A record by anyone else is
+# left out completely, so it can neither approve a section nor hide an earlier rejection.
+CLINICAL_ROLE = re.compile(
+    r"\b(licensed clinical social worker|LCSW|licensed professional counsell?or|LPC|licensed mental health counsell?or|LMHC"
+    r"|licensed marriage and family therapist|LMFT|psychologist|psychiatrist|psychiatric (mental health )?nurse practitioner"
+    r"|PMHNP|licensed therapist|licensed counsell?or)\b", re.I)
+NOT_CLINICAL = re.compile(
+    r"\b(legal|lawyer|attorney|counsel|physical|occupational|speech|school|volunteer|non-?clinical|unlicensed|non-?licensed"
+    r"|not|AI|A\.I|artificial intelligence|chatbot|bot|student|intern|trainee)\b", re.I)
+SPANISH_ROLE = re.compile(
+    r"\b((fluent|native)( or (fluent|native))? Spanish (reader|speaker)|hispanohablante|hablante nativ[oa] de español"
+    r"|(lector|lectora) (nativ[oa]|fluid[oa]) de español|(lector|lectora|hablante) con español (nativo|fluido))\b", re.I)
+NOT_SPANISH = re.compile(
+    r"\b(AI|A\.I|IA|artificial|machine|máquina|automatic|automated|automática|automático|software|program|programa|app"
+    r"|bot|chatbot|non-?native|no nativ[oa]|not|no)\b", re.I)
 EVERY_PAGE = {"en": "(text on every page)", "es": "(texto en cada página)"}
+OUTSIDE_TEXT = {"en": "(wording outside the page text)", "es": "(texto fuera de las páginas)"}
+# The sign-off tables name these two sections with the part of the packet they are in.
+SIGNOFF_NAMES = {"text on every page (part 1)": (EVERY_PAGE["en"], "en"), "texto en cada página (parte 1)": (EVERY_PAGE["es"], "es"),
+                 "wording outside the page text (part 3)": (OUTSIDE_TEXT["en"], "en"),
+                 "texto fuera de las páginas (parte 3)": (OUTSIDE_TEXT["es"], "es")}
+
+
+def reviewer_kinds(role):
+    """Which sections a reviewer's role can approve: "en" for a licensed clinician, "es" for a fluent reader."""
+    kinds = set()
+    if CLINICAL_ROLE.search(role) and not NOT_CLINICAL.search(role):
+        kinds.add("en")
+    if SPANISH_ROLE.search(role) and not NOT_SPANISH.search(role):
+        kinds.add("es")
+    return kinds
 
 
 def review_records():
-    """Lines recorded under "## Review records" in notes/CONTENT-REVIEW.md, other than the placeholder."""
+    """Lines recorded under "## Review records" in notes/CONTENT-REVIEW.md, other than the placeholder.
+    The section ends at the next "## " heading, so lines under "## Other reviews" are never read."""
     text = (ROOT / "notes" / "CONTENT-REVIEW.md").read_text(encoding="utf-8")
     if "## Review records" not in text:
         return None
@@ -588,47 +648,129 @@ def review_sections():
     import make_review_packet  # here, not at the top, because that file uses this one
     found = [(label, page, "en") for page, _, label in make_review_packet.ENGLISH]
     found += [(label, page, "es") for page, _, label, _ in make_review_packet.SPANISH]
+    found += [(label, page, "es") for page, _, label in make_review_packet.SPANISH_ON_ENGLISH]
     return found + [("Text on every page", EVERY_PAGE["en"], "en"), ("Texto en cada página", EVERY_PAGE["es"], "es"),
-                    ("Wording outside the page text", "(wording outside the page text)", "en"),
-                    ("Texto fuera de las páginas", "(texto fuera de las páginas)", "es")]
+                    ("Wording outside the page text", OUTSIDE_TEXT["en"], "en"),
+                    ("Texto fuera de las páginas", OUTSIDE_TEXT["es"], "es")]
 
 
-def read_review_records(lines):
-    """Reads review records strictly. Returns (records, lines that don't count because of their form)."""
-    names = {}
+_FINGERPRINTS = {}
+
+
+def section_fingerprint(page, lang):
+    """A section's fingerprint now, made from its text as the review packets show it."""
+    if (page, lang) not in _FINGERPRINTS:
+        sys.path.insert(0, str(ROOT / "tools"))
+        import make_review_packet
+        missing = page.endswith(".html") and not (ROOT / page).exists()  # never matches a record
+        _FINGERPRINTS[(page, lang)] = "page missing" if missing else make_review_packet.section_fingerprint(page, lang)
+    return _FINGERPRINTS[(page, lang)]
+
+
+def section_names():
+    """Every name a record may use for a section, lower-cased, mapped to (page, language). An address
+    shared by two sections, such as 404.html, names neither, so the record must use the section's name."""
+    found = {}
     for label, page, lang in review_sections():
-        for name in (label, page, page[: -len("index.html")] if page.endswith("index.html") else page):
+        names = {label, page}
+        if page.endswith("index.html"):
+            names.add(page[: -len("index.html")])
+        for name in names:
             if name:
-                names[name.lower()] = (page, lang)
+                found.setdefault(name.lower(), set()).add((page, lang))
+    for name, section in SIGNOFF_NAMES.items():
+        found.setdefault(name, set()).add(section)
+    return {name: sections.pop() for name, sections in found.items() if len(sections) == 1}
+
+
+def read_review_records(lines, today=None):
+    """Reads review records strictly. Returns (records, [(line, why it doesn't count)]).
+    A record dated after today doesn't count: it is almost always a typing mistake."""
+    today = today or datetime.date.today()
+    names = section_names()
     records, unreadable = [], []
-    for line in lines:
+    for index, line in enumerate(lines):
         match = RECORD_FORM.match(line.strip())
-        section = match and re.sub(r"\s*\((part|parte) \d\)$", "", match.group("section").strip().strip("\"“”").lower())
+        section = match and match.group("section").strip().strip("\"“”").lower()
         try:
             date = datetime.date.fromisoformat(match.group("date")) if match else None
         except ValueError:
             date = None
-        if not match or section not in names or not date:
-            unreadable.append(line)
+        if not match:
+            unreadable.append((line, f"it isn't in the form \"{RECORD_EXAMPLE}\""))
+            continue
+        if section not in names:
+            unreadable.append((line, "the section isn't named as in the review packets' sign-off tables"))
+            continue
+        if not date:
+            unreadable.append((line, "the date isn't a real date in the form YYYY-MM-DD"))
+            continue
+        if date > today:
+            unreadable.append((line, f"the date is after today ({today.isoformat()})"))
             continue
         page, lang = names[section]
         role, result = match.group("role").strip(), match.group("result").strip()
         approved = result.lower() in APPROVED and not NOT_APPROVED.search(role + " " + result)
-        records.append({"page": page, "lang": lang, "role": role, "date": date, "approved": approved, "line": line})
+        fingerprint = (match.group("fingerprint") or "").lower() or None
+        records.append({"page": page, "lang": lang, "role": role, "kinds": reviewer_kinds(role), "date": date,
+                        "approved": approved, "fingerprint": fingerprint, "line": line, "index": index})
     return records, unreadable
 
 
+def ignored_records(records):
+    """Records by a reviewer who can't approve that section, such as a lawyer, so they are left out."""
+    return [r for r in records if r["lang"] not in r["kinds"]]
+
+
 def latest_review(records, page, lang):
-    """The newest record for a page or section by the kind of reviewer it needs, or None.
-    On the same date, a record that isn't an approval wins."""
-    needs = CLINICIAN if lang == "en" else FLUENT_READER
-    mine = [r for r in records if r["page"] == page and r["lang"] == lang and needs.search(r["role"])]
-    return max(mine, key=lambda r: (r["date"], not r["approved"])) if mine else None
+    """The newest record for a page or section by the kind of reviewer it needs, or None. Records by
+    anyone else are left out. On the same date, a record that isn't an approval wins, then the later line."""
+    mine = [r for r in records if r["page"] == page and r["lang"] == lang and lang in r["kinds"]]
+    return max(mine, key=lambda r: (r["date"], not r["approved"], r["index"])) if mine else None
+
+
+def review_state(records, page, lang):
+    """(approved, why not). Approved only if the newest record by the right kind of reviewer is an
+    approval, and its fingerprint matches the section's text now."""
+    found = latest_review(records, page, lang)
+    if not found:
+        return False, "no record by a " + ("licensed clinician" if lang == "en" else "fluent Spanish reader")
+    if not found["approved"]:
+        return False, f"the newest record, from {found['date']}, isn't an approval"
+    if not found["fingerprint"]:
+        return False, f"the approval from {found['date']} has no fingerprint"
+    current = section_fingerprint(page, lang)
+    if found["fingerprint"] != current:
+        return False, (f"the text changed after the approval from {found['date']}: it was approved as "
+                       f"{found['fingerprint']}, and is {current} now")
+    return True, ""
 
 
 def is_approved(records, page, lang):
-    found = latest_review(records, page, lang)
-    return bool(found and found["approved"])
+    return review_state(records, page, lang)[0]
+
+
+def missing_sections(names):
+    """Pages the publish step could never ask a reviewer about, with what is missing for each."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_review_packet
+    covered = {(page, lang) for _, page, lang in review_sections()}
+    missing = []
+    for name in names:
+        if (name, language_of(name)) not in covered:
+            missing.append(f"{name} has no section in the review packets")
+        elif language_of(name) == "en" and (name, "es") not in covered and not has_spanish_twin(name) \
+                and make_review_packet.spanish_lines(name):
+            missing.append(f"{name} has Spanish lines and no Spanish twin, but no Spanish section in the review packets")
+    return missing
+
+
+def has_spanish_twin(name):
+    """Whether a page's language switch leads to a Spanish page whose own switch leads back to it."""
+    twin = page_twins({name: load(name)}).get(name)
+    if not twin or not (ROOT / twin).exists():
+        return False
+    return page_twins({twin: load(twin)}).get(twin) == name
 
 
 def page_twins(pages):
@@ -643,25 +785,43 @@ def page_twins(pages):
     return twins
 
 
-def check_review_status(failures, pages):
-    """The site may not claim a review that isn't recorded, and the About pages must stay complete."""
+def check_review_status(failures, pages, notes=None):
+    """Every page has a review section, the site may not claim a review that isn't recorded, and the
+    About pages must stay complete and truthful."""
+    notes = [] if notes is None else notes
+    for problem in missing_sections(pages):
+        failures.append(f"{problem}, so the publish step would never ask for its review. Add it to ENGLISH, SPANISH "
+                        "or SPANISH_ON_ENGLISH in tools/make_review_packet.py")
+    covered = {(page, lang) for _, page, lang in review_sections()}
+    for label, page, lang in review_sections():
+        if page.endswith(".html") and page not in pages:
+            failures.append(f"tools/make_review_packet.py: the section \"{label}\" is for {page}, which doesn't exist")
     lines = review_records()
     if lines is None:
         failures.append("notes/CONTENT-REVIEW.md: needs a \"## Review records\" section")
         return
     records, unreadable = read_review_records(lines)
-    for line in unreadable:
-        failures.append(f"notes/CONTENT-REVIEW.md: this review record doesn't count, because it isn't in the form "
-                        f"\"{RECORD_EXAMPLE}\" with a page name from the review packets: {line}")
+    for line, why in unreadable:
+        failures.append(f"notes/CONTENT-REVIEW.md: this review record doesn't count, because {why}: {line}")
+    for record in ignored_records(records):
+        notes.append(f"notes/CONTENT-REVIEW.md: this record doesn't count for the publish step, because a "
+                     f"\"{record['role']}\" can't approve this section. Move it under \"## Other reviews\": {record['line']}")
+    for label, page, lang in review_sections():
+        newest = latest_review(records, page, lang)
+        approved, why = review_state(records, page, lang)
+        if newest and newest["approved"] and not approved:  # a normal state after an edit; the publish step stops
+            notes.append(f"{label}: its approval doesn't count until it's recorded again, because {why}")
     twins = page_twins(pages)
     for name, page in pages.items():
         lang = language_of(name)
         allowed = is_approved(records, name, lang) and is_approved(records, EVERY_PAGE[lang], lang)
         if lang == "es":  # a Spanish page also needs its English original's clinical review
             allowed = allowed and is_approved(records, twins.get(name), "en") and is_approved(records, EVERY_PAGE["en"], "en")
-        match = REVIEW_CLAIMS.search(page.claim_text + " " + " ".join(page.attribute_text))
-        if match and not allowed:
-            failures.append(f"{name}: says \"{match.group(0)}\" but no approval of this page is recorded in notes/CONTENT-REVIEW.md")
+        if lang == "en" and (name, "es") in covered:  # and an English page's own Spanish lines, a fluent reader's
+            allowed = allowed and is_approved(records, name, "es")
+        claim = review_claim(page.claim_text + " " + " ".join(page.attribute_text))
+        if claim and not allowed:
+            failures.append(f"{name}: says \"{claim}\" but no approval of this page's current text is recorded in notes/CONTENT-REVIEW.md")
     pending = {"about/index.html": "Pending", "es/acerca-de/index.html": "Pendiente"}
     for about, word in pending.items():
         page = pages.get(about)
@@ -683,11 +843,17 @@ def check_review_status(failures, pages):
             continue
         for index, name in enumerate(listed):
             english, spanish = (name, twins.get(name)) if lang == "en" else (twins.get(name), name)
-            clinical, translation = page.status_values[2 * index: 2 * index + 2]
-            if clinical != word and not latest_review(records, english, "en"):
-                failures.append(f"{about}: {name} must show {word} for its clinical review until one is recorded")
-            if translation != word and not latest_review(records, spanish, "es"):
-                failures.append(f"{about}: {name} must show {word} for its Spanish review until one is recorded")
+            shown = page.status_values[2 * index: 2 * index + 2]
+            for value, section, section_lang, what in ((shown[0], english, "en", "clinical review"),
+                                                       (shown[1], spanish, "es", "Spanish review")):
+                if is_approved(records, section, section_lang):
+                    continue
+                if not latest_review(records, section, section_lang):
+                    if value != word:
+                        failures.append(f"{about}: {name} must show {word} for its {what} until one is recorded")
+                elif value not in NOT_YET_STATUS[lang]:
+                    failures.append(f"{about}: {name} shows \"{value}\" for its {what}, but the newest record isn't an approval "
+                                    f"of the current text. Show one of: {', '.join(NOT_YET_STATUS[lang])}")
 
 
 DATE_EN = re.compile(r"(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, 20\d\d")
