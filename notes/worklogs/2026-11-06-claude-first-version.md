@@ -21,7 +21,7 @@ No qualified person has reviewed anything here. Both founders still need to agre
 | About and privacy | What Stillwater is, a page-by-page review list, privacy, and what Quick exit and offline copies can't do | `about/`, `es/acerca-de/` |
 | Save 988 to contacts | A contact card file, on Get Help, For Teens, Wallet card, and About | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` |
 | Review status | Every page says draft. About lists clinical and Spanish review as pending. `tools/check_site.py` fails if a page claims a review that isn't in "Review records" in [[CONTENT-REVIEW]] | About pages, `tools/check_site.py` |
-| Review packets | Numbered sentences, source addresses, questions, and a sign-off for role and date. One for the therapist (68 pages), one for a fluent Spanish reader (48 pages) | `tools/make_review_packet.py`, `notes/review-packet/` |
+| Review packets | Numbered sentences, source addresses, questions, and a sign-off for role and date. One for the therapist, one for a fluent Spanish reader | `tools/make_review_packet.py`, `notes/review-packet/` |
 | Spanish Research page | The whole page is now translated | `es/investigacion/` |
 | Phone test | Steps for a real phone, and a preview server that behaves like GitHub Pages | [[PHONE-TEST]], `tools/preview_server.py` |
 | Browser tests | Python and Chrome only, no installs | `tools/test_browser.py`, `tools/browser.py` |
@@ -123,4 +123,18 @@ shows until review. Then give the packets to the therapist and a fluent Spanish 
 
 The usage limit stopped this session early. Done and pushed: content security policy and no-referrer on every page, offline notice, Spanish crisis text on the page-not-found page, slow-network, high-contrast, and privacy tests, 33 planted bugs caught, browser tests on pull requests, launch check and publish safety check, monthly crisis source check, date tool, [[FOUNDER-BRIEF]], [[LAUNCH-CHECKLIST]], [[REVIEWER-NOTES]], [[UPKEEP]], [[SHORTER-SENTENCES]].
 
-**Not done:** the audit was stopped before it finished, so its findings are unverified and not applied. See [[worklogs/2026-11-06-claude-audit-partial]]. The iOS Simulator tests didn't run. The three independent code reviews didn't run. The test counts above are from the earlier run, before these additions.
+**Update, November 7, 2026: everything in the "Not done" list below was finished on
+`site/first-version-finish`, draft pull request 10. See
+[[worklogs/2026-11-07-claude-first-version-finish]].** Also corrected there: the AFSP flipbooks
+are not image-only; each page's text is stored alongside, and each has a PDF.
+
+**The usage limit stopped work again on November 7, 2026.** Pushed since the note above: the crisis strip redesign with Quick exit inside it on phones, saved-copy timing for weak signal, a WebKit test for Macs, and source-checked corrections to Research, Get Help, Help Someone, For Teens, the wallet card, and the Spanish crisis details.
+
+**Not done:**
+
+- **Audit findings.** Those for safe messaging, the crisis, teen, and bereaved readings, privacy wording, accessibility, code, and docs were checked by a second agent but are not applied. The Spanish and iOS and Android findings were never verified, and the completeness check didn't run. See [[worklogs/2026-11-06-claude-audit-partial]].
+- **Two items from the areas already applied.** The interpreter sentence on the English Trevor Project card, and a person opening the FCC text-to-911 page, which refused the automated read.
+- **iOS Simulator tests.** Not run. The iPhone Simulator was still downloading when last read, at 82.7%, so no iOS result exists.
+- **Three independent code reviews.** Not run.
+- **Full test runs.** After the last content commits, the site check passed, and the links, contact, and layout browser tests passed on the changed pages. The complete browser, WebKit, and planted-bug runs need repeating. The planted-bug list grew to 45 and hasn't had a full run.
+- **Out of date.** The review packets, the screenshots in `notes/attachments/qa-first-version/`, which show the old strip, the description of pull request 9, and the test counts above.

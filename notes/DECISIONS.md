@@ -43,7 +43,15 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
 - **Crisis strip pinned on phones and tablets.** Up to 959 px wide, the crisis strip
   stays on screen while the header scrolls away. It stops pinning on very narrow
   screens (16em wide or less, about 256 px) and very short ones (300 px tall or
-  less), where it would fill the screen. At 960 px and wider it scrolls away and the
+  less), where it would fill the screen. A phone on its side still pins it, as one row,
+  down to 240 px tall when the screen is at least 704 px wide: Safari on an iPhone 17
+  measures 750 by 292 there, so the 300 px rule had left 988 and 911 off screen after
+  scrolling. Found in the iOS Simulator on November 7, 2026. These limits are set in em, so
+  they grow with a larger text setting: at 150% text, 16em is 384 px and 18.75em is 450 px.
+  Then the strip scrolls away and only Quick exit stays on screen, even where the strip would
+  take a small part of it. Whether larger text should still pin the strip is open. Known limit: short screens 568 to
+  703 px wide and 300 px tall or less, such as older phones on their side, don't pin it, because
+  the Spanish strip needs two rows there. At 960 px and wider it scrolls away and the
   sticky header's button stays, which takes two steps to start a call. Why: on phones,
   the header's button took two taps.
 - **Crisis strip uses links.** Call 988, text 988, and call 911 can be tapped. Why:
@@ -64,9 +72,9 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
   confirmed them.
 - **A 404 page** keeps crisis options on screen for broken links.
 - **Draft content is on the pages, marked for review,** with sources on each page.
-  Long source lists sit behind a Show sources button. Two research papers are cited
-  without links, because they name methods. [[CONTENT-REVIEW]] gives the links for
-  the reviewer.
+  Long source lists sit behind a Show sources button. Three research papers are cited
+  without links, because they name methods. The pages don't say why, since saying so
+  points to method details. [[CONTENT-REVIEW]] gives the links for the reviewer.
 - **No new website tools.** Still plain HTML, CSS, and one script. `tools/check_site.py`
   checks links, crisis numbers and markup, outside scripts and files, and Obsidian
   links with Python alone.
@@ -82,7 +90,10 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
 ## Open decisions
 
 For both founders, ideally with a qualified reviewer. Record the answer, who agreed,
-and why at the end of this note. This repository is public, so record people by role,
+and why at the end of this note. Then change that item below to plain text starting with
+"Settled", with no bold, such as "4. Settled. See the end of this note." `tools/launch_gate.py`
+counts only bold items as open. Keep the numbers, because other notes refer to them. This
+repository is public, so record people by role,
 such as "founder A", or by a handle the person chooses.
 
 1. **What should the public site show until review?** Keep the preview out of search
@@ -122,7 +133,7 @@ One founder approved nine ideas from [[IDEAS]]: A1, A2, A3, A4, A6, A7, B1, B2 a
 GitHub settings each needs are in
 [[worklogs/2026-11-06-claude-approved-ideas|the handoff]].
 
-- A2, A3 and A4 would settle open decisions 4, 2 and 5 below, once both founders
+- A2, A3 and A4 would settle open decisions 4, 2 and 5 above, once both founders
   agree and the settings are changed.
 - B1, B2 and B6 change crisis wording, so they stay drafts until the qualified
   reviewer, and for B6 a fluent Spanish reader, has checked them. See [[CONTENT-REVIEW]].
@@ -142,7 +153,7 @@ supported ages are decided; the page says so. Details in
 The founder who hadn't yet weighed in asked Claude to finish the first version in one
 session, using the work already on `claude/jolly-mayer-2m6eno`, so the site can be tested on
 phones and given to human reviewers. This asks for testing and review, not publishing. **It
-settles none of the open decisions below, and nothing is agreed to go live.** The first
+settles none of the open decisions above, and nothing is agreed to go live.** The first
 founder hasn't seen the additions, and neither founder has agreed to the other's list.
 
 Built as drafts on `site/first-version-build`, draft pull request 9: A5, B3, B4, B5, and C1
@@ -176,6 +187,12 @@ request 5, not merged. What changed:
 
 Still open: check Tidelight against existing organizations and trademarks before
 buying a domain or printing cards.
+
+## Recorded November 7, 2026: publish safety check, proposed
+
+Once Pages publishes with GitHub Actions, `tools/launch_gate.py` stops the publish step until
+reviews are recorded. Claude built it as a proposal. Neither founder's agreement is recorded. See
+[[LAUNCH-CHECKLIST]].
 
 ## Decision format
 

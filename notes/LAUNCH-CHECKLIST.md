@@ -18,7 +18,9 @@ It reads what people have recorded in the notes and on GitHub. It can't judge wh
 
 ## 1. Decide together
 
-Read [[FOUNDER-BRIEF]] first. It gives the choices and a recommendation for each.
+Read [[FOUNDER-BRIEF]] first. It gives the choices and a recommendation for each. Record each answer at the end
+of [[DECISIONS]]. Then change that item under "Open decisions" to plain text starting with "Settled", with no
+bold, so `tools/launch_gate.py` stops counting it. Keep its number, because other notes refer to it.
 
 - [ ] What the public site shows until review
 - [ ] Who reviews, and how a sign-off is recorded
@@ -29,27 +31,43 @@ Read [[FOUNDER-BRIEF]] first. It gives the choices and a recommendation for each
 
 ## 2. Human review
 
-Give each person the matching note in [[REVIEWER-NOTES]]. Record each result in "Review records" in
-[[CONTENT-REVIEW]]: the section, the reviewer's role, the date, and the result. Never add personal
-contact details to this public project.
+Give each person the matching note in [[REVIEWER-NOTES]]. Never add personal contact details to this
+public project.
 
-- [ ] Licensed therapist: `review-packet/tidelight-review-packet.pdf`
-- [ ] Fluent Spanish reader: `review-packet/tidelight-spanish-review-packet.pdf`
-- [ ] Someone with lived experience of a suicide loss: After a loss
-- [ ] Someone who works with young people: For Teens
-- [ ] A lawyer: About and privacy, minors, and who the publisher is
-- [ ] Deaf reviewer or Deaf-led organization: the Deaf and hard of hearing options
+The licensed therapist's and the Spanish reader's results go under "Review records" in [[CONTENT-REVIEW]],
+one line for each section of the packet's sign-off table, in exactly this form:
+
+`- Get Help: licensed clinical social worker, 2026-12-01, approved, a1b2c3d4e5f6`
+
+That is the section's name as the table prints it, the reviewer's role, the date as YYYY-MM-DD, the result,
+and the section's fingerprint from the table. "Review records" in [[CONTENT-REVIEW]] explains each part,
+which roles count, and what to do when a fingerprint no longer matches.
+
+Everyone else's results go under "Other reviews" in [[CONTENT-REVIEW]], which the publish step never reads.
+
+- [ ] Licensed therapist: `review-packet/tidelight-review-packet.pdf`. Results under "Review records"
+- [ ] Fluent Spanish reader: `review-packet/tidelight-spanish-review-packet.pdf`. Results under "Review records"
+- [ ] Someone with lived experience of a suicide loss: After a loss. Results under "Other reviews"
+- [ ] Someone who works with young people: For Teens. Results under "Other reviews"
+- [ ] A lawyer: About and privacy, minors, and who the publisher is. Results under "Other reviews"
+- [ ] Deaf reviewer or Deaf-led organization: the Deaf and hard of hearing options. Results under "Other reviews"
 
 ## 3. Make the changes
 
 - [ ] Make reviewers' changes on a task branch, and show the reviewer anything that changed a safety message.
 - [ ] Update the Spanish twin of every changed English page.
-- [ ] Run `python3 tools/make_review_packet.py` again if a reviewer needs to see changes.
+- [ ] Run `python3 tools/make_review_packet.py` again. Any change to a section gives it a new fingerprint, so
+  its approval stops counting until the reviewer has seen the change and a new line is recorded.
 
 ## 4. Test on real devices
 
-Follow [[PHONE-TEST]]. Add a note to `worklogs/` with "phone" in its name. Never complete a call or text
-to a crisis line.
+Follow [[PHONE-TEST]]. Never complete a call or text to a crisis line. Record each phone in a note in
+`worklogs/` with one line in exactly this form:
+
+`Real phone test: iPhone 15, iOS 26.1, 2026-12-02, every check passed`
+
+That is the phone, its system and version, the date, and the result. `tools/launch_gate.py` counts only these
+lines. It never counts a Simulator or phone-size emulation note, or a result such as "not yet" or "pending".
 
 - [ ] iPhone, Safari: every check in the table, including VoiceOver
 - [ ] Android, Chrome: every check, including TalkBack
@@ -58,7 +76,8 @@ to a crisis line.
 
 ## 5. Confirm the facts
 
-- [ ] A person reads each provider's page and fills in "Person confirmed" in [[SAFETY]].
+- [ ] A person reads each provider's page and fills in "Person confirmed" in [[SAFETY]] with who, by role,
+  and the date, such as "founder A, 2026-12-01". "Not yet" or "pending" doesn't count.
 - [ ] Confirm the 988 LGBTQ+ youth option with 988, including its age range and any chat route.
 - [ ] Run the current checks:
 
@@ -83,20 +102,32 @@ python3 tools/set_checked_date.py 2026-11-06 2026-12-07 --apply
 
 ## 6. Remove the draft labels, only after review
 
-- [ ] Remove each page's draft note once its review is recorded.
+Every change below changes the text of the pages, so every section gets a new fingerprint and the earlier
+approvals stop counting. Make all of these changes on one task branch, rebuild the packets, ask the reviewers
+to approve the final text, and add new lines with the new fingerprints to "Review records" before merging.
+Until those lines are there, `tools/check_site.py` fails if the About pages say "Approved", which is expected.
+
+- [ ] Remove each page's draft note once its review is recorded. Removing a note makes `tools/check_site.py`
+  fail, which stops publishing, so that check must change first.
 - [ ] Update the review list on the About pages with each reviewer's role and the date.
 - [ ] Remove the `noindex` tag, if both founders want search engines to list the site.
 - [ ] Reword the footers, which say no professional has reviewed the content.
+- [ ] Reword every line saying an AI assistant compared the numbers, or that no person has confirmed them or
+  tried them on a phone. They are in the footers, the draft notes, and the About pages, in English and Spanish.
 
 ## 7. GitHub settings, done by the repository owner
 
 Steps are in [[worklogs/2026-11-06-claude-approved-ideas]].
 
-- [ ] Require the other founder's approval on `main`.
+- [ ] Require the other founder's approval on `main`, with a branch protection rule or a ruleset.
+  `tools/launch_gate.py` reads both. Reading a branch protection rule needs the owner's access, so if the
+  tool says it couldn't read this, check it by hand.
 - [ ] Turn off Issues and the Wiki.
 - [ ] Set Pages to publish with GitHub Actions, right before merging. Until then, Pages publishes every
   file on `main`, notes included.
-- [ ] Turn on notifications for failed workflow runs.
+- [ ] Agree which founder's account gets failed-run notices from the daily and monthly checks. GitHub sends
+  them to one account only. That founder checks their notification settings, and the other checks the Actions
+  tab on a set day. See [[UPKEEP]].
 
 ## 8. Merge and publish
 
@@ -104,17 +135,44 @@ Steps are in [[worklogs/2026-11-06-claude-approved-ideas]].
 2. Watch the "Site" run under the Actions tab. It runs the checks and browser tests before publishing.
 3. Open the live site on a phone. Check the crisis strip, Call and Text (cancel them), and the menu.
 4. Confirm that a notes address, such as `/notes/STATUS.md`, no longer loads.
-5. The next day, confirm the daily monitor passed.
+5. Open an address that doesn't exist, such as `/suicideprevention/no-such-page/`. Tidelight's "page not found" page
+   should appear, with the crisis numbers, not GitHub's own page.
+6. The next day, confirm the daily monitor passed.
+
+If the "Site" run stops at the review check, the old site stays public, notes included, because Pages keeps
+showing the last thing it published. So step 4 fails too. Either fix the records and use "Re-run failed jobs"
+on the stopped run, or turn Pages off until a publish succeeds.
 
 ### The publish safety check
 
-Once Pages publishes with GitHub Actions, the publish step stops if no clinical review and fluent Spanish
-review are on record, so a merge can't put unreviewed crisis content live by accident. The current
-published site stays up when this happens.
+Once Pages publishes with GitHub Actions, the publish step runs `python3 tools/launch_gate.py --publish`.
+It stops publishing unless all of these hold:
+
+- Every page has a section in the review packets.
+- Every line under "Review records" in [[CONTENT-REVIEW]] can be read, and none is dated after today.
+- Every English section's newest line by a licensed clinician approves it, and every Spanish section's newest
+  line by a fluent or native Spanish reader approves it. The Spanish sections include the Spanish lines on
+  the "page not found" page. That is 12 English and 12 Spanish lines, one per section, in the form shown in
+  section 2 above.
+- Each of those approvals ends with the fingerprint of the section's current text.
+
+Lines by any other reviewer, and anything under "Other reviews", are never counted. Run
+`python3 tools/launch_gate.py` on a computer to see which sections are missing and why. The current published
+site stays up when this step stops.
+
+A line that can't be read also makes `tools/check_site.py` fail. That stops every publish, even with the
+variable below, so run it after adding lines.
+
+After any change to a page, its fingerprint changes and publishing stops until the change is reviewed and
+recorded. That includes a fix to a crisis number. For an urgent fix, use the variable below, then record the
+review afterward.
 
 To publish anyway, for an agreed early preview, both founders agree first. Then the owner adds a repository
 variable under Settings, Secrets and variables, Actions, Variables. Name it `PUBLISH_UNREVIEWED`, with the
-value `both founders agreed`. Delete it afterward.
+value `both founders agreed`. If the publish already stopped, use "Re-run failed jobs" on that run instead of
+pushing again. Delete the variable afterward. While any section isn't approved for its current text, each
+later publish stops at this check too, including a fix to a crisis number or a revert. For that fix, both
+founders agree, add the variable again before merging it, then delete it after it publishes.
 
 This check is itself a proposal. To remove it, delete the "Check that reviews are on record" step from
 `.github/workflows/site.yml`.

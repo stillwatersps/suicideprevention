@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-D1xKAkN0pEG+984fkAI4EGgY+p1O+z801G8PrRVKrW4=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Getting help for yourself — Tidelight</title>
@@ -18,13 +18,13 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="es" href="../es/obtener-ayuda/">
   <link rel="stylesheet" href="../assets/styles.css">
-  <script>document.documentElement.classList.add('js');document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.documentElement.hidden=true;location.replace(a.href);}});</script>
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1. On phones Quick exit sits inside it, so nothing is ever underneath Quick exit. -->
   <aside class="crisis-bar" aria-label="Crisis help and quick exit">
-    <a class="quick-exit" href="https://www.weather.gov/" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
     <p class="strip-988">Need help now? <a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a> or <a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a><span class="strip-extra"> any time</span>.</p>
     <p class="strip-911">In immediate danger, <a href="tel:911" aria-label="Call 911, emergency services">call 911</a>.</p>
   </aside>
@@ -32,7 +32,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="../">
-        <svg class="brand-mark" viewBox="0 0 70 50" aria-hidden="true" focusable="false">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
           <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
           <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
         </svg>
@@ -44,7 +44,7 @@
       </a>
 
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         <span>Menu</span>
       </button>
 
@@ -82,41 +82,46 @@
         <ul class="crisis-actions" aria-label="Reach the 988 Suicide and Crisis Lifeline">
           <li>
             <a class="action action-primary" href="tel:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
               <span><span class="action-title">Call 988</span><span class="action-sub">Talk to a counselor</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="sms:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
-              <span><span class="action-title">Text 988</span><span class="action-sub">Text a counselor</span></span>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Text 988</span><span class="action-sub">Send any message</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="https://chat.988lifeline.org/">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
               <span><span class="action-title">Chat Online</span><span class="action-sub">Web chat with 988</span></span>
             </a>
           </li>
         </ul>
 
+        <p>988 says a text starts with a few steps. Reply NEXT to accept its terms, answer a brief survey, and wait for a counselor.</p>
         <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.</p>
         <p class="fallback">On a device that can't call or text? Call or text <strong>988</strong> from a phone, or go to <a href="https://988lifeline.org/">988lifeline.org</a>. In immediate danger, call <strong>911</strong>.</p>
         <p class="lang-link" lang="es"><a href="#en-espanol">Ayuda en español</a></p>
-        <p class="save-contact" id="save-988"><a class="pill" href="../assets/988-lifeline.vcf">Save 988 to your contacts</a></p>
-        <p class="provider-note">This opens a small contact card for the 988 Lifeline. You choose whether to save it, and nothing is sent to Tidelight. On a shared phone, other people may see a saved contact.</p>
+        <p class="access-link"><a href="#deaf-hoh">Deaf or hard of hearing</a></p>
       </section>
 
       <!-- Draft (idea B1): the short version first. Every line repeats text already on this page. -->
       <section class="right-now" aria-labelledby="right-now-title">
         <h2 id="right-now-title">Right now</h2>
         <ol>
-          <li><strong>Reach out to 988</strong> with the call, text, or chat buttons above. You don't need to be sure it's an emergency. It's free and confidential.</li>
+          <li><strong>Reach out to 988:</strong> <a class="tel-link" href="tel:988">call 988</a>, <a class="tel-link" href="sms:988">text 988</a>, or <a class="tel-link" href="https://chat.988lifeline.org/">chat online</a>. You don't need to be sure it's an emergency. It's free and confidential.</li>
           <li><strong>In immediate danger?</strong> <a class="tel-link" href="tel:911">Call 911</a>.</li>
           <li><strong>If one way doesn't connect,</strong> try another: call, text, or chat.</li>
           <li>The rest of this page can wait. Open a section below when you're ready.</li>
         </ol>
       </section>
+
+      <div class="save-contact-block">
+        <p class="save-contact" id="save-988"><a class="pill" href="../assets/988-lifeline.vcf">Save 988 to your contacts</a></p>
+        <p class="provider-note">This gives you a small contact card file for the 988 Lifeline. Depending on your device, it may show a preview of the contact, or save to your downloads. Adding it to your contacts is up to you, and nothing is sent to Tidelight. On an iPhone, scroll to the bottom of the preview and tap Create New Contact. Closing the preview doesn't save it. On a shared phone or computer, other people may see the file or a saved contact.</p>
+      </div>
 
       <aside class="page-status review-note" aria-label="Review status">
         <p><strong>Draft for review.</strong> A suicide prevention professional has not reviewed this page yet. An AI assistant drafted it and compared the phone numbers and links with each provider's website on November 6, 2026. No person has confirmed them or tried them on a phone.</p>
@@ -128,6 +133,7 @@
           <li><a href="#what-to-expect">What happens when you reach out to 988</a></li>
           <li><a href="#other-ways">Other ways to reach someone</a></li>
           <li><a href="#en-espanol" lang="es">En español</a></li>
+          <li><a href="#deaf-hoh">Deaf or hard of hearing</a></li>
           <li><a href="#over-time">Support over time</a></li>
           <li><a href="#hard-moment">Planning for a hard moment</a></li>
           <li><a href="#under-18">If you're under 18</a></li>
@@ -143,7 +149,7 @@
             <summary><span class="when-closed">Show more</span><span class="when-open">Show less</span><span class="visually-hidden">: What happens when you reach out to 988</span></summary>
 
             <h3>If you call</h3>
-            <p>You'll hear a short recorded message with options, such as pressing 1 for the Veterans Crisis Line, 2 for Spanish, or 3 for LGBTQ+ youth. You don't have to press anything. If you stay on the line, you'll be connected to a local 988 center. Hold music plays while you are connected. A counselor then says hello, asks if you are safe, listens to what's going on, and shares resources that may help.</p>
+            <p>You'll hear a short recorded message with options, such as pressing 1 for the Veterans Crisis Line, 2 for Spanish, or 3 for LGBTQ+ youth. You don't have to press anything. If you stay on the line, you'll be connected to a local 988 center, based on your approximate location or your phone's area code. SAMHSA, a federal agency that funds 988, says that if that center can't take your call, it goes to a national backup center. Hold music plays while you are connected. SAMHSA says wait times vary. If your wait is longer, it asks you to stay on the line. A counselor then says hello, asks if you are safe, listens to what's going on, and shares resources that may help.</p>
 
             <h3>If you text</h3>
             <p>Send any message to 988. Automated messages come first. Reply NEXT to accept the terms of service, then answer a few questions that help the counselor know how to support you. You may then get a message asking you to wait. A counselor then says hello, asks if you are safe, and listens.</p>
@@ -152,7 +158,7 @@
             <p>The chat opens with a short form that helps the counselor know how to support you. It asks for your zip code, whether you are having thoughts of suicide, and how upset you feel. A phone number is optional. Starting the chat accepts the terms of service. You then wait to be connected to a counselor.</p>
 
             <h3>What it costs</h3>
-            <p>Contacting 988 is free, and you don't need insurance. Your phone carrier may still charge for calls or texts if your plan doesn't include unlimited use. If a counselor sends emergency services, you may get a bill, for example for an ambulance or hospital care. Services they refer you to may charge too, so ask about fees first.</p>
+            <p>Contacting 988 is free, and you don't need insurance. Your phone carrier may still charge for calls or texts if your plan doesn't include unlimited use. If a counselor contacts emergency services, such as 911 or a mobile crisis team, you may get a bill. This could include an ambulance or hospital care. Services they refer you to may charge too, so ask about fees first. The Lifeline's terms say a small number of its centers bill Medicaid or other health insurance and may ask for your personal information. They must explain why. You can say no and still get support. If you give it and a claim is filed, you, a parent or guardian, or the person you called about may get an insurance statement.</p>
 
             <h3>If you can't get through</h3>
             <p>Try another way. If a call doesn't connect, try text or chat. If texting is busy, try a call or chat. In an emergency, call 911.</p>
@@ -160,9 +166,9 @@
             <h3>What stays private</h3>
             <p>The 988 Lifeline says conversations are confidential, but contacting it isn't anonymous. You don't have to give your name or your exact location to get support. The counselor has your phone number if you call or text, or your IP address if you chat. In rare emergencies they must give this to 911, and 911 may ask your phone or internet company for your exact location.</p>
             <p>Counselors take notes, and centers keep records for at least three years. Call recordings or chat and text transcripts may be used to improve the service. You can ask a counselor not to share your personal information. The Lifeline's <a href="https://988lifeline.org/confidentiality/">confidentiality statement</a> lists when information can be shared, including when someone is at imminent risk of harm, when the law requires it, or when you agree.</p>
-            <p>On a shared phone or computer, visits to this site can show up in browser history, and calls or texts can show up in phone logs. Whether a call appears on a phone bill depends on the carrier. Quick exit and saved offline copies have limits. <a href="../about/#quick-exit">See what they can and can't hide</a>.</p>
+            <p>On a shared phone or computer, visits to this site can show up in browser history, and calls or texts can show up in phone logs. On a school or work device or account, the school or employer may see what you search and read, even in a private window. Whether a call appears on a phone bill depends on the carrier. Quick exit and saved offline copies have limits. <a href="../about/#quick-exit">See what they can and can't hide</a>.</p>
 
-            <h3>When emergency services get involved</h3>
+            <h3 id="emergency-services">When emergency services get involved</h3>
             <p>The 988 Lifeline is separate from 911, and SAMHSA says most crises are managed by counselors working with you, without involving law enforcement. The Lifeline recommends that counselors contact emergency services, which can mean 911, police, or a sheriff, only if someone is in danger of being hurt right now or very soon and they can't work out a safer plan together. It reports that fewer than 2 in 100 calls involve emergency services, and that more than half of those happen with the caller's consent.</p>
             <p>This is a recommendation, not a guarantee. The Lifeline's terms say that if a counselor believes there is an immediate threat to someone's physical safety, you may not get a say: they may ask for 911 or a mobile crisis team to come to your location, and can share your information without your permission. If you need help because of an immediate threat to your safety, the terms ask you to call 911 first.</p>
 
@@ -179,15 +185,18 @@
               <h3>En español</h3>
               <p>Para hablar con un consejero de la Línea 988 en español, marca 988 y luego presiona 2. Para enviar un mensaje de texto, envía la palabra AYUDA al 988. También puedes chatear en español. Es gratis y confidencial, y está disponible las 24 horas. La Línea 988 es un servicio aparte de Tidelight. Si hay peligro inmediato, llama al 911.</p>
               <p class="service-links">
-                <a class="pill" href="tel:988">Llamar al 988</a>
+                <a class="pill" href="tel:988">Llamar al 988 y marcar 2</a>
                 <a class="pill" href="sms:988">Enviar AYUDA al 988</a>
                 <a class="pill" href="https://chat.988lifeline.org/?lang=es">Chatear en español</a>
+                <a class="pill" href="../es/obtener-ayuda/">Esta página en español</a>
               </p>
             </li>
             <li class="service">
-              <h3>Deaf or hard of hearing</h3>
-              <p>You can reach 988 counselors in American Sign Language by dialing 988 from a videophone (VP) number. You can also text or chat. TTY users can use a preferred relay service or dial 711, then 988.</p>
+              <h3 id="deaf-hoh">Deaf or hard of hearing</h3>
+              <p>You can reach 988 counselors in American Sign Language by dialing 988 from a videophone (VP) number. You can also text or chat. TTY users can use a preferred relay service or dial 711, then 988. In an emergency, texting 911 only works in some places. If it isn't available, use a TTY or relay service if you can.</p>
               <p class="service-links">
+                <a class="pill" href="sms:988">Text 988</a>
+                <a class="pill" href="https://chat.988lifeline.org/">Chat with 988</a>
                 <a class="pill" href="https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/">988 options for Deaf and hard of hearing people</a>
               </p>
             </li>
@@ -217,7 +226,7 @@
             </li>
             <li class="service">
               <h3>The Trevor Project</h3>
-              <p>For LGBTQ+ young people. Its terms describe the phone lifeline as for people under age 25. Trained counselors by phone, text, or chat, free and confidential, 24/7. Message and data rates may apply to texts. On a phone, The Trevor Project suggests calling or texting, and using chat from a computer.</p>
+              <p>For LGBTQ+ young people. Its terms describe the phone lifeline as for people under age 25. Trained counselors by phone, text, or chat, free and confidential, 24/7. Message and data rates may apply to texts. On a phone, The Trevor Project suggests calling or texting, and using chat from a computer. Its terms say phone calls offer access to interpreters, subject to availability. You can choose the language option on the keypad or ask the counselor for an interpreter.</p>
               <p class="service-links">
                 <a class="pill" href="tel:+18664887386">Call 1-866-488-7386</a>
                 <a class="pill" href="sms:678678">Text START to 678-678</a>
@@ -226,7 +235,7 @@
             </li>
             <li class="service">
               <h3>Crisis Text Line</h3>
-              <p>Trained volunteer crisis counselors by text, free and confidential, 24/7, anywhere in the United States. Messages are free on AT&amp;T, T-Mobile, Sprint, and Verizon. On other carriers, standard rates apply and 741741 can appear on the bill. It says many T-Mobile prepaid plans don't allow numbers like 741741, so if a text doesn't go through, try another way.</p>
+              <p>Trained volunteer crisis counselors by text, free and confidential, 24/7, anywhere in the United States. Crisis Text Line says your first message can say anything, and a word like HOME helps it know how you found it. Its FAQ says messages are free on AT&amp;T, T-Mobile, Sprint, and Verizon. On other carriers, it says standard rates apply and 741741 will appear on the bill. Its terms say message and data rates may apply. Crisis Text Line says many T-Mobile prepaid plans don't allow numbers like 741741. It also says it isn't available yet on Google Voice or TextNow. If a text doesn't go through, it offers web chat and WhatsApp on its website. Its privacy policy says WhatsApp may also have access to your information. You can also call or text 988.</p>
               <p class="service-links">
                 <a class="pill" href="sms:741741">Text HOME to 741741</a>
                 <a class="pill" href="https://www.crisistextline.org/">Crisis Text Line website</a>
@@ -234,12 +243,13 @@
             </li>
             <li class="service">
               <h3>911</h3>
-              <p>If you or someone else is in immediate danger, call 911. Texting 911 only works in some places, and the FCC advises making a voice call if you can. If you text 911 where it isn't available, you should get an automatic message telling you to use another way. If you are Deaf, hard of hearing, or can't speak and texting 911 isn't available, use a TTY or relay service if you can.</p>
+              <p>If you or someone else is in immediate danger, call 911. Texting 911 only works in some places, and the Federal Communications Commission (FCC) advises making a voice call if you can. If you text 911 where it isn't available, you should get an automatic message telling you to use another way. If you are Deaf, hard of hearing, or can't speak and texting 911 isn't available, use a TTY or relay service if you can.</p>
               <p class="service-links">
                 <a class="pill" href="tel:911">Call 911</a>
               </p>
             </li>
           </ul>
+          <p class="provider-note">The 988 Lifeline, the Veterans Crisis Line, The Trevor Project, and Crisis Text Line keep conversations confidential, with limits. Each says it may contact emergency services or other authorities in some situations. Their websites explain when.</p>
         </section>
 
         <section id="over-time" aria-labelledby="over-time-title">
@@ -282,9 +292,10 @@
           <details class="more">
             <summary><span class="when-closed">Show more</span><span class="when-open">Show less</span><span class="visually-hidden">: If you're under 18</span></summary>
             <p>It can also help to tell an adult you trust, such as a parent or guardian, a relative, a teacher, a coach, a spiritual leader, or a doctor. It's okay to ask what they can keep private first.</p>
-            <p>If you tell a school counselor you are thinking about suicide, expect them to tell a parent or guardian. Their national association treats this as required, even for students who are 18. If a parent's abuse or neglect is the reason, the counselor contacts child protective services instead.</p>
-            <p>Crisis lines keep conversations confidential, with limits. The 988 Lifeline says it may share information with 911, police, or a mobile crisis team, without your permission, in some situations. For example, if someone is in danger of being hurt very soon, or if a young person is being abused or neglected under state law. The Trevor Project and Crisis Text Line have similar limits. The Trevor Project says it won't tell parents or guardians unless the law or a subpoena requires it.</p>
-            <p>A small number of crisis centers bill insurance and may ask for your details. You can say no and still get support. If you give them and a claim is filed, a parent or guardian could get an insurance statement.</p>
+            <p>If you tell a school counselor you are thinking about suicide, expect them to tell a parent or guardian. Their national association treats this as required, even for students who are 18. The association makes one exception. If you say you are thinking about suicide because of a parent's or guardian's abuse or neglect, the counselor must contact child protective services. A federal factsheet says caseworkers may then talk with your parents and other people around you.</p>
+            <p>Teachers and other school staff may have to pass it on too. A national model policy for school districts says all staff should report a student they believe is at risk. It says the school then tells a parent or guardian the same day or as soon as possible. The exception is when that would put the student at more risk. Rules differ by state and district.</p>
+            <p>Crisis lines keep conversations confidential, with limits. The 988 Lifeline says it may share information without your permission in some situations. That information may go to 911, police, or a mobile crisis team (a crisis team that comes to you). For example, this can happen if someone is in danger of being hurt very soon. It can also happen if a young person is being abused or neglected, as state law defines it. The Trevor Project and Crisis Text Line have similar limits. The Trevor Project says it won't tell parents or guardians unless the law or a legal order requires it.</p>
+            <p>A small number of 988 centers bill insurance and may ask for your details. You can say no and still get support. If you give them and the center bills your insurance, a parent or guardian could get a statement from the insurance company.</p>
           </details>
         </section>
 
@@ -302,16 +313,17 @@
           <h2 id="sources-title">Sources</h2>
           <p>Checked November 6, 2026. An AI assistant drafted these summaries for Tidelight, and no qualified person has reviewed them yet. The organizations listed here have not reviewed or endorsed them.</p>
           <details class="source-toggle">
-            <summary>Show sources (28)</summary>
+            <summary>Show sources (32)</summary>
             <ul class="sources">
+              <li><a href="https://www.thetrevorproject.org/blog/the-trevor-project-applauds-the-return-of-the-988-lifelines-press-3-specialized-services-for-lgbtq-youth/">The Trevor Project Applauds the Return of the 988 Lifeline’s “Press 3” Specialized Services for LGBTQ+ Youth</a>, The Trevor Project</li>
               <li><a href="https://988lifeline.org/get-help/what-to-expect/">What to Expect</a>, 988 Suicide &amp; Crisis Lifeline</li>
-              <li><a href="https://988lifeline.org/get-help/">Get Help</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/get-help/">988 Lifeline: Get Help</a>, 988 Suicide &amp; Crisis Lifeline</li>
               <li><a href="https://988lifeline.org/faq/texting-the-988-lifeline/">Texting the 988 Lifeline (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
               <li><a href="https://988lifeline.org/faq/calling-the-988-lifeline/">Calling the 988 Lifeline (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
               <li><a href="https://988lifeline.org/faq/calling-the-988-lifeline/faq-is-the-988-lifeline-available-in-other-languages-for-non-english-speakers/">Other languages (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
               <li><a href="https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/">Deaf, Hard of Hearing, Hearing Loss</a>, 988 Suicide &amp; Crisis Lifeline</li>
               <li><a href="https://988lifeline.org/confidentiality/">Confidentiality</a>, 988 Suicide &amp; Crisis Lifeline</li>
-              <li><a href="https://988lifeline.org/terms-of-service/">Terms of Service</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/terms-of-service/">988 Lifeline: Terms of Service</a>, 988 Suicide &amp; Crisis Lifeline</li>
               <li><a href="https://988lifeline.org/faq/about-us/faq-does-vibrant-use-police-intervention-for-callers-texters-and-chatters-to-the-988-lifeline/">Police intervention (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
               <li><a href="https://988lifeline.org/faq/about-us/faq-does-the-988-lifeline-trace-callers-texters-or-chatters/">Tracing callers, texters, and chatters (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
               <li><a href="https://chat.988lifeline.org/">988 Lifeline chat</a>. The form was read but not submitted.</li>
@@ -320,8 +332,8 @@
               <li><a href="https://findtreatment.gov/">FindTreatment.gov</a>, SAMHSA</li>
               <li><a href="https://www.samhsa.gov/mental-health/what-is-mental-health/how-to-talk/young-people">For Young People Looking for Help</a>, SAMHSA</li>
               <li><a href="https://www.veteranscrisisline.net/">Veterans Crisis Line</a>, U.S. Department of Veterans Affairs</li>
-              <li><a href="https://www.thetrevorproject.org/get-help/">Get Help</a>, The Trevor Project</li>
-              <li><a href="https://www.thetrevorproject.org/terms-of-service/">Terms of Service</a>, The Trevor Project</li>
+              <li><a href="https://www.thetrevorproject.org/get-help/">The Trevor Project: Get Help</a>, The Trevor Project</li>
+              <li><a href="https://www.thetrevorproject.org/terms-of-service/">The Trevor Project: Terms of Service</a>, The Trevor Project</li>
               <li><a href="https://www.crisistextline.org/about-us/faq/">FAQ</a>, Crisis Text Line</li>
               <li><a href="https://www.crisistextline.org/privacy-policy/">Privacy Policy</a>, Crisis Text Line</li>
               <li><a href="https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911">Text to 911: What You Need to Know</a>, Federal Communications Commission</li>
@@ -332,6 +344,9 @@
               <li><a href="https://afsp.org/story/afsp-statement-on-the-importance-of-antidepressants-and-evidence-based-treatment">Statement on the Importance of Antidepressants and Evidence-Based Treatment</a>, American Foundation for Suicide Prevention</li>
               <li><a href="https://suicidesafetyplan.com/">Stanley-Brown Safety Planning Intervention</a></li>
               <li><a href="https://www.schoolcounselor.org/Standards-Positions/Position-Statements/ASCA-Position-Statements/The-School-Counselor-and-Suicide-Risk-Assessment">The School Counselor and Suicide Risk Assessment</a>, American School Counselor Association</li>
+              <li><a href="https://artifacts.childwelfare.gov/public/documents/how-child-welfare-system-works.pdf">How the Child Welfare System Works (PDF)</a>, Child Welfare Information Gateway, Children's Bureau</li>
+              <li><a href="https://afsp.org/model-school-policy-on-suicide-prevention/">Model School District Policy on Suicide Prevention</a>, American Foundation for Suicide Prevention</li>
+              <li><a href="https://support.google.com/chrome/answer/95464?hl=en">Browse in Incognito mode</a>, Google Chrome Help</li>
             </ul>
           </details>
         </section>

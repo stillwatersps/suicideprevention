@@ -38,7 +38,7 @@ Our shared notebook for building a suicide prevention website.
 ## Ready to use
 
 - Shared GitHub repository: `stillwatersps/suicideprevention`.
-- A local project copy on each person's computer.
+- A local project copy on each person's computer, once both have confirmed. See [[STATUS]].
 - The supplied homepage SVG and its preview.
 - This Obsidian vault, with shared context for Claude Code.
 

@@ -2,11 +2,13 @@
 // Keeps copies of this site's own files, so the crisis numbers still show with a weak
 // signal or none. It never touches other sites and sends nothing. It keeps only those
 // files, under plain addresses with any ?query or #part removed, and nothing a visitor
-// types or chooses. Saved copies are still a trace on a shared device, as the About page says.
-// It asks the network first, so updates appear as soon as a connection works. A saved copy is
+// types. Their order and dates can still show which pages were opened, and on a shared device
+// they are a trace of the visit, as the About page says.
+// It asks the network first, so a visit with a connection gets updates. They can take up to about
+// 10 minutes to appear, because the host lets browsers reuse a file for that long. A saved copy is
 // used if the network fails, answers with a server error, or takes longer than WAIT_MS.
 // Change VERSION whenever the list of core files changes, or a crisis detail is corrected.
-var VERSION = 'tidelight-v5';
+var VERSION = 'tidelight-v7';
 var CORE = [
   './',
   'get-help/',
@@ -37,7 +39,8 @@ var CORE = [
   'assets/images/joshua-tree-sunset-1600.webp',
   'assets/988-lifeline.vcf',
   'assets/988-linea-es.vcf',
-  'manifest.webmanifest'
+  'manifest.webmanifest',
+  'es/manifest.webmanifest'
 ];
 
 // How long to wait for the network before showing a saved copy, if there is one.
@@ -84,9 +87,17 @@ function savedCopy(key) {
 function fallback(key, isPage, response) {
   return savedCopy(key).then(function (copy) {
     if (copy) return copy;
-    // A page that was never saved: the "page not found" page has the crisis numbers and
-    // works from any address.
-    return isPage ? savedCopy('404.html') : undefined;
+    if (!isPage) return undefined;
+    // An address typed without its final slash, such as .../get-help: send the browser to the
+    // address with the slash, as GitHub Pages does, so the saved page's links and style work.
+    var last = key.slice(key.lastIndexOf('/') + 1);
+    var withSlash = last && last.indexOf('.') < 0 ? savedCopy(key + '/') : Promise.resolve(undefined);
+    return withSlash.then(function (page) {
+      if (page) return Response.redirect(key + '/', 301);
+      // A page that was never saved: the "page not found" page has the crisis numbers and
+      // works from any address.
+      return savedCopy('404.html');
+    });
   }).then(function (copy) {
     return copy || response || Response.error();
   });

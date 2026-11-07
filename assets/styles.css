@@ -22,6 +22,12 @@
 
 /* The bottom padding keeps a focused link clear of the Quick exit button. */
 html { scroll-behavior: smooth; scroll-padding-top: 7rem; scroll-padding-bottom: 5.5rem; }
+/* Under 360px the pinned strip can take three or four rows, so jump links stop lower. Only
+   where the strip pins: on a very short screen it scrolls away, and this would push a link
+   to the bottom edge. */
+@media (max-width: 22.4em) and (min-height: 18.76em) { html { scroll-padding-top: 12rem; } }
+/* The Spanish strip's longer wording wraps to a third row on mid-size screens. */
+@media (min-width: 30.01em) and (max-width: 38em) and (min-height: 30.01em) { html[lang="es"] { scroll-padding-top: 8.5rem; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -92,7 +98,10 @@ strong { color: var(--ink); }
 #support:target .action { outline: 3px solid var(--plum); outline-offset: 2px; }
 .crisis-bar p a {
   display: inline-block;
-  padding: 5px 2px;
+  /* A full-size tap target at every width, tablets on their side included. */
+  min-height: 44px;
+  padding: 11px 2px;
+  line-height: 1.4;
   color: #fff;
   font-weight: 700;
   text-underline-offset: 3px;
@@ -254,7 +263,8 @@ h1 {
 
 .fallback { font-size: .95rem; color: var(--body); max-width: 40em; }
 .fallback a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
-.lang-link a { display: inline-block; padding: 12px 0; color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
+.fallback + .fallback { margin-top: 8px; }
+.lang-link a, .access-link a { display: inline-block; padding: 12px 0; color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
 
 .text-link {
   display: inline-block;
@@ -377,18 +387,23 @@ h1 {
 .site-footer .credit { color: var(--muted); font-size: .875rem; }
 
 /* Phone menu: hidden only when JavaScript can open it */
-@media (max-width: 959px) {
+@media (max-width: 959px), (max-width: 59.9375em) {
   .js .menu-button { display: inline-flex; }
   .js .site-nav { display: none; }
   .js .site-nav.is-open { display: block; }
-  .site-nav { position: absolute; top: 100%; left: 0; right: 0; max-height: calc(100vh - 88px); max-height: calc(100dvh - 88px); overflow-y: auto; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
+  .site-nav { position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
   .header-inner { flex-wrap: wrap; }
   .site-nav ul { flex-direction: column; gap: 0; padding: 8px var(--gutter) 16px; }
   .site-nav a { padding: 14px 4px; border-bottom: 1px solid #EEECE5; border-radius: 0; }
   .header-cta { min-height: 44px; padding: 0 16px; font-size: .9rem; }
 }
+/* Wide screens with large text get this menu under a header that stays put, so the menu
+   scrolls inside itself there, or its last items would be out of reach. */
+@media (min-width: 960px) and (max-width: 59.9375em) {
+  .site-nav { max-height: calc(100vh - 100%); max-height: calc(100dvh - 100%); overflow-y: auto; }
+}
 html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
-@media (max-width: 959px) {
+@media (max-width: 959px), (max-width: 59.9375em) {
   html:not(.js) .header-inner { flex-wrap: wrap; }
   html:not(.js) .site-nav { order: 3; width: 100%; }
   html:not(.js) .site-nav ul { flex-direction: row; flex-wrap: wrap; padding: 0; }
@@ -427,10 +442,20 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .crisis-bar p a { min-height: 44px; padding: 11px 0; line-height: 1.4; }
   .site-header { position: relative; }
 }
-@media (max-width: 47.4em) {
+/* Two rows on narrow screens. A phone on its side is short but wide enough for one row. */
+@media (max-width: 43.99em), (max-width: 47.4em) and (min-height: 30.01em) {
   .crisis-bar { text-align: left; }
   .strip-988 { flex: 1 0 100%; }
   .strip-911 { flex: 1 1 0; min-width: 0; }
+}
+/* A gap between the rows, so a tap on a 988 link is less likely to land on call 911: 4px
+   wherever the strip pins, and 6px on taller screens. */
+@media (max-width: 959px) and (min-height: 18.76em) {
+  .crisis-bar { row-gap: 4px; }
+}
+@media (max-width: 959px) and (min-height: 30.01em) {
+  /* Up to 959px, because the Spanish strip wraps on tablets too, with Quick exit under a 988 link. */
+  .crisis-bar { row-gap: 6px; }
 }
 @media (max-width: 24em) {
   .crisis-bar { font-size: .85rem; }
@@ -443,8 +468,9 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 @media (max-width: 16em) {
   .crisis-bar { position: static; }
 }
-/* Heavily zoomed or very short screens: anything pinned would cover too much. */
-@media (max-height: 18.75em) {
+/* Heavily zoomed or very short screens: anything pinned would cover too much. A phone on
+   its side still pins the one-row strip: Safari on an iPhone 17 measures 750 by 292 there. */
+@media (max-height: 18.75em) and (max-width: 43.99em), (max-height: 15em) {
   .crisis-bar { position: static; }
   .site-header { position: relative; }
 }
@@ -459,8 +485,10 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .hero-photo { height: 320px; }
 }
 
-/* Desktop: photo on the right, cream curve over its left edge, like the design */
-@media (min-width: 960px) {
+/* Desktop: photo on the right, cream curve over its left edge, like the design. Each desktop
+   width is also set in em, so larger text settings get the phone and tablet header and layout
+   instead of a desktop header that runs off the screen. */
+@media (min-width: 960px) and (min-width: 60em) {
   .hero { min-height: 520px; justify-content: center; background: #F4ECE7; }
   .hero-photo {
     position: absolute;
@@ -491,25 +519,26 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   .footer-inner { margin: 0 auto 0 0; }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1200px) and (min-width: 75em) {
   .hero-curve { width: 55%; }
   .hero-content { width: 52%; }
 }
 
 /* The design's width: three buttons in a row, icon beside the text. */
-@media (min-width: 1440px) {
+@media (min-width: 1440px) and (min-width: 90em) {
   .hero-content { width: 760px; }
   .crisis-actions { grid-template-columns: repeat(3, 204px); }
   .action { flex-direction: row; align-items: center; }
 }
 
-@media (min-width: 960px) and (max-width: 1199px) {
+@media (min-width: 960px) and (min-width: 60em) and (max-width: 1199px),
+       (min-width: 960px) and (min-width: 60em) and (max-width: 74.9375em) {
   .site-nav a { padding: 10px 8px; }
 }
 
 /* Extra menu items that only fit in the phone and tablet menu. They stay in the desktop footer. */
 .nav-home, .nav-phone { display: none; }
-@media (max-width: 959px) {
+@media (max-width: 959px), (max-width: 59.9375em) {
   .nav-home, .nav-phone { display: block; }
 }
 
@@ -572,7 +601,7 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   font-weight: 700;
   text-underline-offset: 4px;
 }
-.footer-nav a[aria-current="page"] { color: var(--plum); }
+.footer-nav a[aria-current="page"] { color: var(--plum); text-decoration: none; }
 .urgent a { display: inline-block; padding: 5px 2px; color: inherit; text-underline-offset: 3px; }
 .urgent {
   margin-top: 12px;
@@ -712,6 +741,7 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   position: fixed;
   right: 12px;
   bottom: 12px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
   z-index: 70;
   display: inline-flex;
   align-items: center;
@@ -730,13 +760,14 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 .quick-exit:hover { background: #222; }
 .quick-exit:focus-visible { outline-color: #3D3F3C; outline-offset: 3px; }
 @media (max-width: 639px) {
-  .quick-exit { min-height: 44px; padding: 0 14px; font-size: .9rem; right: 8px; bottom: 8px; }
+  .quick-exit { min-height: 44px; padding: 0 14px; font-size: .9rem; right: 8px; bottom: 8px; bottom: calc(env(safe-area-inset-bottom, 0px) + 8px); }
 }
 /* Room at the bottom so the button never covers the last line of a page. */
 body { padding-bottom: 76px; }
 /* Wherever the crisis line is pinned, Quick exit rides inside it. It never sits on top of
    anything there, so a tap aimed at a crisis button can't land on it by accident. */
-@media (max-width: 959px) and (min-width: 16.01em) and (min-height: 18.76em) {
+@media (max-width: 959px) and (min-width: 16.01em) and (min-height: 18.76em),
+       (max-width: 959px) and (min-width: 44em) and (min-height: 15.01em) {
   .quick-exit {
     position: static;
     order: 3;
@@ -751,7 +782,7 @@ body { padding-bottom: 76px; }
   .quick-exit:focus-visible { outline-color: #fff; outline-offset: 1px; }
   body { padding-bottom: 0; }
 }
-@media (max-width: 30em) {
+@media (max-width: 30em), (max-width: 47.4em) and (max-height: 30em) {
   .exit-extra { display: none; }
   .quick-exit { text-transform: capitalize; }
 }
@@ -847,7 +878,7 @@ body { padding-bottom: 76px; }
   .quick-exit:focus-visible { outline-color: #fff; }
   .skip-link { background: #EAF1EB; color: #131915; }
 }
-@media (prefers-color-scheme: dark) and (min-width: 960px) {
+@media (prefers-color-scheme: dark) and (min-width: 960px) and (min-width: 60em) {
   .hero { background: #1D2420; }
   .hero-curve { fill: #1D2420; }
 }
@@ -922,8 +953,14 @@ body { padding-bottom: 76px; }
 .pc-card { padding: 14px 16px; border-radius: 10px; font-size: .85rem; line-height: 1.35; display: grid; gap: 4px; }
 .pc-card .pc-kicker { font-size: 1rem; }
 .pc-card .pc-big { font-size: 1.35rem; }
+/* On screen one card is enough, so screen readers and phones don't go through eight copies. All eight print. */
+@media screen { .pc-cards > li + li { display: none; } }
 @media (prefers-color-scheme: dark) {
   .print-button { background: #2E5A44; }
+}
+/* Windows high contrast mode: buttons keep a visible edge. This comes after .print-button, whose border: 0 would win. */
+@media (forced-colors: active) {
+  .button, .print-button { border: 2px solid ButtonText; }
 }
 
 @media print {
@@ -931,7 +968,7 @@ body { padding-bottom: 76px; }
   /* Any page: plain text on white, with the crisis line, and without on-screen controls. */
   :root { color-scheme: light; --bg: #fff; --bg-soft: #fff; --ink: #000; --body: #111; --muted: #333; --plum: #000; --green: #000; --line: #999; }
   body { background: #fff; color: #111; padding: 0; }
-  .quick-exit, .skip-link, .menu-button, .header-cta, .site-nav, .toc, .offline-note, .hero-photo, .hero-curve, .lang-switch, .lang-link, .breadcrumb, .text-link, .print-actions { display: none !important; }
+  .quick-exit, .skip-link, .menu-button, .header-cta, .site-nav, .toc, .offline-note, .hero-photo, .hero-curve, .lang-switch, .lang-link, .access-link, .breadcrumb, .text-link, .print-actions { display: none !important; }
   .crisis-bar { position: static; background: #fff; color: #000; border: 1px solid #000; }
   .crisis-bar p a { color: #000; }
   .site-header { position: static; border-bottom: 1px solid #999; }

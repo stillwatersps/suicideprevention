@@ -16,6 +16,8 @@ Planning tasks below are suggestions; ownership has not been agreed.
 
 - [ ] Decide what the public GitHub Pages link should show until the site is
   reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes.
+- [ ] Read [[FOUNDER-BRIEF]] and [[LAUNCH-CHECKLIST]], and name an owner for each part of
+  [[UPKEEP]]. Owner: both.
 - [ ] Agree who reviews the content. Pull request 5 and [[RESEARCH-BRIEF]] name a
   licensed therapist, arranged by the founder who supplied the brief. Confirm that
   person also covers the draft pages and [[CONTENT-REVIEW]], and whether to add a
@@ -44,7 +46,7 @@ Planning tasks below are suggestions; ownership has not been agreed.
   tracker. Owner: the founder who supplied the brief arranges it. Branch: not
   needed for the review; record results on a task branch.
 - [ ] After review, put approved sections on the website and reconcile them with
-  the draft page text on `site/phone-accessibility-content`. [[CONTENT-REVIEW]] has a
+  the draft page text on `claude/jolly-mayer-2m6eno`. [[CONTENT-REVIEW]] has a
   table comparing the two. Owner: unassigned.
 
 - [ ] GitHub settings for the approved ideas: require a second founder's approval
@@ -58,14 +60,16 @@ Planning tasks below are suggestions; ownership has not been agreed.
 - [ ] Someone with lived experience of a suicide loss reads After a loss. Owner: unassigned.
 - [ ] A lawyer reads About and privacy. Owner: unassigned.
 - [ ] Try the first version on a real iPhone and Android phone, using [[PHONE-TEST]]. Owner:
-  both.
+  both. The iOS Simulator run on November 7 doesn't replace this.
 - [ ] Decide on idea D4, recovery stories, in [[IDEAS]]. Owner: both.
 - [ ] Close or keep draft pull requests 1, 7 and 8 (idea C5). Owner: the founder who
   opened them. Pull request 5 now covers what 7 and 8 fix.
 - [ ] Run the small user test in [[USER-TEST]] after the reviewer approves the plan.
   Owner: unassigned.
-- [ ] Turn on GitHub notifications for failed workflow runs, so the daily and monthly
-  checks reach a founder. Owner: both.
+- [ ] Agree who gets failed-run notices from the daily and monthly checks. GitHub sends a
+  scheduled workflow's notices to one account: the one that created it, last changed its
+  schedule lines, or re-enabled it. That founder checks their notification settings, and the
+  other checks the Actions tab on a set day. Owner: both.
 
 - [ ] Check the name Tidelight against existing organizations and trademarks before
   buying a domain or printing cards. Owner: both. The rename is in [[DECISIONS]].
@@ -83,8 +87,9 @@ Move a task here when its branch is ready for the other person to review.
 
 - [ ] Fix navigation, phone layout, and accessibility, and draft page content.
   Owner: Claude, at the user's request. Branch: `site/phone-accessibility-content`,
-  draft pull request 6 into `claude/jolly-mayer-2m6eno`, which is draft pull
-  request 5. Handoff: [[worklogs/2026-11-06-claude-site-improvements]]. Not merged.
+  pull request 6 into `claude/jolly-mayer-2m6eno`, the branch behind draft pull request 5.
+  Handoff: [[worklogs/2026-11-06-claude-site-improvements]]. Merged into that branch on
+  November 6, 2026. Not on `main`.
 - [ ] Write the Get Help, Help Someone, and Research pages. First drafts are in the
   same pull requests. They still need professional review before anyone relies on
   them.
@@ -114,8 +119,16 @@ Move a task here when its branch is ready for the other person to review.
 - [ ] Finish the first version for testing and review: Not sure page, After a loss page, About
   and privacy page, save 988 to contacts, review status, Spanish Research page, review packets,
   browser tests, and phone test steps. Owner: Claude, at one founder's request. Branch:
-  `site/first-version-build`, draft pull request 9 into `claude/jolly-mayer-2m6eno`. Handoff:
-  [[worklogs/2026-11-06-claude-first-version]]. Not merged. No qualified person has reviewed it.
+  `site/first-version-build`, pull request 9 into `claude/jolly-mayer-2m6eno`. Handoff:
+  [[worklogs/2026-11-06-claude-first-version]]. Merged into that branch on November 7, 2026, at a
+  founder's request. Not on `main`. No qualified person has reviewed it.
+
+- [ ] Finish the first version's audit, tests, and notes: every checked audit finding applied in
+  both languages, three code reviews and their fixes, iOS Simulator tests and the landscape fix
+  they found, a stricter publish check, and the audit's questions for the reviewer. Owner:
+  Claude, at one founder's request. Branch: `site/first-version-finish`, draft pull request 10
+  into `claude/jolly-mayer-2m6eno`. Handoff: [[worklogs/2026-11-07-claude-first-version-finish]].
+  Not merged. No qualified person has reviewed it.
 
 ## Completed work
 

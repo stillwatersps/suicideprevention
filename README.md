@@ -1,7 +1,7 @@
 # Tidelight shared project
 
 Shared workspace for a phone-friendly suicide prevention website.
-It contains the website (plain HTML, CSS, and one small script), a design
+It contains the website (plain HTML, CSS, a site script, and an offline service worker), a design
 reference, an Obsidian vault, and Claude Code instructions.
 GitHub Pages publishes the `main` branch as a public website, so merging into
 `main` publishes. The content has not had professional review yet; see
@@ -51,8 +51,8 @@ Each person uses their own Claude access and conversation.
 | `tools/check_site.py` | Checks pages, links, and Obsidian notes |
 | `es/` | Spanish pages, an AI translation awaiting a fluent reader |
 | `sw.js`, `manifest.webmanifest`, `assets/icon-*.png` | Offline support and the home screen icon |
-| `.github/workflows/site.yml` | Runs the checks on every pull request, and publishes only the website from `main` |
-| `.github/workflows/monitor.yml` | Daily: the live site shows its crisis help. Monthly: every outside link still opens |
+| `.github/workflows/site.yml` | Runs the checks on pull requests. Once Pages is set to GitHub Actions, it publishes only the website from `main` |
+| `.github/workflows/monitor.yml` | Daily: the live site shows its crisis help. Monthly: outside links that allow automated checks still open, the rest are listed for a person, and each provider page that can be read still shows our crisis details |
 | `tools/check_live.py`, `tools/check_readability.py` | Live-site check, and a plain-language report |
 | `teens/`, `card/` | For Teens page, and printable wallet cards and poster |
 | `not-sure/`, `after-a-loss/`, `about/` | Not sure what you're feeling?, After a loss, and About and privacy |
@@ -62,10 +62,11 @@ Each person uses their own Claude access and conversation.
 | `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader |
 | `notes/PHONE-TEST.md` | How to test on a real phone |
 | `notes/FOUNDER-BRIEF.md`, `notes/LAUNCH-CHECKLIST.md`, `notes/REVIEWER-NOTES.md`, `notes/UPKEEP.md` | Decisions, the path to launch, notes for reviewers, and upkeep |
-| `tools/launch_gate.py` | Shows what's still in the way of launching, and stops publishing without recorded reviews |
+| `tools/launch_gate.py` | Shows what's still in the way of launching. Once Pages is set to GitHub Actions, it stops publishing unless a qualified reviewer's approval of each section's current text is recorded |
 | `tools/check_crisis_sources.py` | Checks that each provider's page still shows our crisis details |
 | `tools/set_checked_date.py` | Updates the "last checked" date on every page, after a real re-check |
 | `tools/test_the_tests.py` | Plants bugs in a copy of the site to prove the browser tests catch them |
+| `tools/test_webkit.py` | On a Mac, runs the layout audit and main behaviors in WebKit. Not iOS and not a phone |
 
 ## Check the website
 
@@ -101,7 +102,8 @@ submits anything. If you change a page, rebuild the review packets:
 python3 tools/make_review_packet.py
 ```
 
-GitHub also runs the first check automatically on every pull request.
+Where this workflow exists, on `main` or on a pull request's branch, GitHub runs the first check and the
+browser tests automatically. Pull requests 1, 7, and 8 don't have it, so nothing checks them automatically.
 Passing these checks does not replace testing on a real phone or a content
 review. `notes/CONTENT-REVIEW.md` lists what still needs a person.
 

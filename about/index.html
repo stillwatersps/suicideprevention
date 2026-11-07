@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-D1xKAkN0pEG+984fkAI4EGgY+p1O+z801G8PrRVKrW4=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About and privacy — Tidelight</title>
@@ -18,13 +18,13 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="es" href="../es/acerca-de/">
   <link rel="stylesheet" href="../assets/styles.css">
-  <script>document.documentElement.classList.add('js');document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.documentElement.hidden=true;location.replace(a.href);}});</script>
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1. On phones Quick exit sits inside it, so nothing is ever underneath Quick exit. -->
   <aside class="crisis-bar" aria-label="Crisis help and quick exit">
-    <a class="quick-exit" href="https://www.weather.gov/" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
     <p class="strip-988">Need help now? <a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a> or <a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a><span class="strip-extra"> any time</span>.</p>
     <p class="strip-911">In immediate danger, <a href="tel:911" aria-label="Call 911, emergency services">call 911</a>.</p>
   </aside>
@@ -32,7 +32,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="../">
-        <svg class="brand-mark" viewBox="0 0 70 50" aria-hidden="true" focusable="false">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
           <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
           <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
         </svg>
@@ -44,7 +44,7 @@
       </a>
 
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         <span>Menu</span>
       </button>
 
@@ -82,27 +82,29 @@
         <ul class="crisis-actions" aria-label="Reach the 988 Suicide and Crisis Lifeline">
           <li>
             <a class="action action-primary" href="tel:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
               <span><span class="action-title">Call 988</span><span class="action-sub">Talk to a counselor</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="sms:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
-              <span><span class="action-title">Text 988</span><span class="action-sub">Text a counselor</span></span>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Text 988</span><span class="action-sub">Send any message</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="https://chat.988lifeline.org/">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
               <span><span class="action-title">Chat Online</span><span class="action-sub">Web chat with 988</span></span>
             </a>
           </li>
         </ul>
 
+        <p>988 says a text starts with a few steps. Reply NEXT to accept its terms, answer a brief survey, and wait for a counselor.</p>
         <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.</p>
         <p class="fallback">On a device that can't call or text? Call or text <strong>988</strong> from a phone, or go to <a href="https://988lifeline.org/">988lifeline.org</a>. In immediate danger, call <strong>911</strong>.</p>
         <p class="lang-link" lang="es"><a href="../get-help/#en-espanol">Ayuda en español</a></p>
+        <p class="access-link"><a href="../get-help/#deaf-hoh">Deaf or hard of hearing</a></p>
       </section>
 
       <aside class="page-status review-note" aria-label="Review status">
@@ -132,7 +134,7 @@
 
         <section id="review-status" aria-labelledby="review-status-title">
           <h2 id="review-status-title">What has been reviewed</h2>
-          <p>No licensed clinician has reviewed this site yet, and no fluent reader has checked the Spanish. When a review is finished, this list will show the reviewer's role and the date. Until then, every page stays marked as a draft.</p>
+          <p>No licensed clinician has reviewed this site yet, and no fluent reader has checked the Spanish. When a review is finished, this list will show the reviewer's role and the date. Until then, every page says it hasn't been reviewed.</p>
           <ul class="status-list">
             <li><a href="../">Home</a><span class="status-line">Clinical review: <span class="status-value">Pending</span></span><span class="status-line">Spanish version, fluent reader: <span class="status-value">Pending</span></span></li>
             <li><a href="../get-help/">Get Help</a><span class="status-line">Clinical review: <span class="status-value">Pending</span></span><span class="status-line">Spanish version, fluent reader: <span class="status-value">Pending</span></span></li>
@@ -159,15 +161,19 @@
 
         <section id="quick-exit" aria-labelledby="quick-exit-title">
           <h2 id="quick-exit-title">What Quick exit can and can't do</h2>
-          <p>The Quick exit button opens the weather.gov home page in the same tab. It also replaces the page you were on in that tab's history, so Back won't return to that page.</p>
+          <p>The Quick exit button hides this page at once, then opens the weather.gov home page in the same tab. It also replaces your last step in that tab's history, but not the steps before it. If you opened just one Tidelight page and used no links within it, Back won't return to this site.</p>
           <p><strong>It can't:</strong></p>
           <ul>
-            <li>Remove other Tidelight pages you opened earlier in that tab. Back can still reach them.</li>
+            <li>Remove Tidelight pages you opened earlier in that tab. Back can still reach them. That includes the page you left, if you used a link within it, such as "On this page" or "Get Support Now".</li>
+            <li>Remove pages you went Back from. Forward can still reach them.</li>
+            <li>Leave a website that shows Tidelight inside a locked-down frame. Usually Quick exit leaves the whole page, but in such a frame only Tidelight's part changes.</li>
             <li>Clear your browser's history, other tabs, or the saved copies described below.</li>
-            <li>Remove a contact you saved, or calls and texts from your phone's logs.</li>
+            <li>Remove a contact you saved, a contact file you downloaded, or calls and texts from your phone's logs.</li>
           </ul>
-          <p>If JavaScript is turned off, Quick exit is an ordinary link, so Back can return to the page you left. With no connection, weather.gov can't load, and your browser shows its own error page instead.</p>
+          <p>If JavaScript is turned off, Quick exit is an ordinary link, so Back can return to the page you left. With no connection, weather.gov can't load. Your browser shows its own error page instead, or, in some apps' built-in browsers, the page stays blank. Reload it to see it again.</p>
           <p>A private or incognito window can keep pages out of this device's history. To remove pages you've already visited, clear your history and website data in your browser's settings.</p>
+          <p>A private or incognito window doesn't hide your activity from everyone. Google says organizations that manage your network, like a school, an employer, or an internet provider, may be able to see what you do in Chrome's Incognito mode. The National Domestic Violence Hotline says phone and computer use can be monitored without you knowing it.</p>
+          <p>In Chrome on Android, tapping Call or Text in an Incognito tab may first ask "Leave Incognito mode?" Choosing Leave opens your phone's calling or texting app with the number. Stay cancels the call or text. Calls and texts can show up in your phone's logs.</p>
         </section>
 
         <section id="offline" aria-labelledby="offline-title">
@@ -176,7 +182,7 @@
           <ul>
             <li><strong>What works offline.</strong> After that first visit, the pages of this site can open with no connection, in English and Spanish. An address that wasn't saved shows the "page not found" page, which has the crisis numbers.</li>
             <li><strong>What doesn't.</strong> Calling and texting need phone service. Chat and links to other websites need an internet connection.</li>
-            <li><strong>How updates arrive.</strong> With a connection, the site tries for the newest version first, which can take up to about 10 minutes to appear. A saved copy is used only when the newest version can't load, so it could be out of date. When your device reports no connection, the page says so. If a number doesn't work, try 911 or another option on this page.</li>
+            <li><strong>How updates arrive.</strong> With a connection, the site tries for the newest version first, which can take up to about 10 minutes to appear. If that fails or takes more than about 3 seconds, a saved copy is used instead, so it could be out of date. When your device reports no connection, a note at the top of the page says so. If a number doesn't work, try 911 or another option on this page.</li>
             <li><strong>Don't rely on it alone.</strong> Browsers can delete saved copies, for example when a device is low on storage or you haven't used the site for a while. Keeping 988 in your contacts or on a <a href="../card/">wallet card</a> doesn't depend on this.</li>
             <li><strong>Your privacy.</strong> Saved copies stay on your device. Nothing is sent to Tidelight, but on a shared device they are a trace of your visit, and Quick exit can't remove them. Clearing website data in your browser's settings does.</li>
           </ul>
@@ -184,7 +190,7 @@
 
         <section id="contact-card" aria-labelledby="contact-card-title">
           <h2 id="contact-card-title">Saving 988 to your contacts</h2>
-          <p>The "Save 988 to your contacts" button opens a small contact card file with the 988 Lifeline's name, number, and website. It comes from this site, and nothing about you is sent to Tidelight. You choose whether to save it. On a shared phone, or if your contacts sync to another device, other people may see it.</p>
+          <p>The "Save 988 to your contacts" button gives you a small contact card file. It has the 988 Lifeline's name, number, and website. It also has a short note on how to reach 988, including in Spanish and for veterans, and when to call 911. Depending on your device, it may show a preview of the contact, or save to your downloads. It comes from this site, and nothing about you is sent to Tidelight. Adding it to your contacts is up to you. On an iPhone, scroll to the bottom of the preview and tap Create New Contact. Closing the preview doesn't save it. On a shared phone or computer, or if your contacts sync to another device, other people may see the file or the contact.</p>
           <p class="service-links"><a class="pill" href="../assets/988-lifeline.vcf">Save 988 to your contacts</a></p>
         </section>
 
@@ -192,12 +198,15 @@
           <h2 id="sources-title">Sources</h2>
           <p>Checked November 6, 2026. An AI assistant drafted these summaries for Tidelight, and no qualified person has reviewed them yet. The organizations listed here have not reviewed or endorsed them.</p>
           <details class="source-toggle">
-            <summary>Show sources (4)</summary>
+            <summary>Show sources (7)</summary>
             <ul class="sources">
               <li><a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">What is GitHub Pages? (Data collection)</a>, GitHub</li>
               <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API">Service Worker API</a>, MDN</li>
               <li><a href="https://webkit.org/blog/14403/updates-to-storage-policy/">Updates to Storage Policy</a>, WebKit</li>
               <li><a href="https://988lifeline.org/confidentiality/">Confidentiality</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/get-help/what-to-expect/">What to Expect</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://support.google.com/chrome/answer/95464?hl=en">Browse in Incognito mode</a>, Google Chrome Help</li>
+              <li><a href="https://www.thehotline.org/plan-for-safety/internet-safety/">Internet Safety for Survivors</a>, The National Domestic Violence Hotline</li>
             </ul>
           </details>
         </section>

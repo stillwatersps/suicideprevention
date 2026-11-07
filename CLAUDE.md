@@ -82,9 +82,10 @@ Proposed on a task branch, for both founders to confirm. Follow them until then.
   for a new top-level folder, to the copy list in .github/workflows/site.yml. Also add it
   to the review list on the About pages and to tools/make_review_packet.py.
 - Before sharing a page change, also run `python3 tools/test_browser.py` if Chrome is
-  installed, and rebuild the packets with `python3 tools/make_review_packet.py`.
+  installed, `python3 tools/test_webkit.py` on a Mac, and rebuild the packets with
+  `python3 tools/make_review_packet.py`.
 - Never say something was tested on a phone unless it was. Keep desktop browser, phone-size
-  emulation, iOS Simulator, and real phone results apart. See notes/PHONE-TEST.md.
+  emulation, WebKit on a Mac, iOS Simulator, and real phone results apart. See notes/PHONE-TEST.md.
 
 ## Current project state
 

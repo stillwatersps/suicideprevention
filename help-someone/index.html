@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-D1xKAkN0pEG+984fkAI4EGgY+p1O+z801G8PrRVKrW4=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Helping someone you're worried about — Tidelight</title>
@@ -18,13 +18,13 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="es" href="../es/ayudar-a-alguien/">
   <link rel="stylesheet" href="../assets/styles.css">
-  <script>document.documentElement.classList.add('js');document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.documentElement.hidden=true;location.replace(a.href);}});</script>
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1. On phones Quick exit sits inside it, so nothing is ever underneath Quick exit. -->
   <aside class="crisis-bar" aria-label="Crisis help and quick exit">
-    <a class="quick-exit" href="https://www.weather.gov/" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
     <p class="strip-988">Need help now? <a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a> or <a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a><span class="strip-extra"> any time</span>.</p>
     <p class="strip-911">In immediate danger, <a href="tel:911" aria-label="Call 911, emergency services">call 911</a>.</p>
   </aside>
@@ -32,7 +32,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="../">
-        <svg class="brand-mark" viewBox="0 0 70 50" aria-hidden="true" focusable="false">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
           <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
           <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
         </svg>
@@ -44,7 +44,7 @@
       </a>
 
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         <span>Menu</span>
       </button>
 
@@ -83,27 +83,29 @@
         <ul class="crisis-actions" aria-label="Reach the 988 Suicide and Crisis Lifeline">
           <li>
             <a class="action action-primary" href="tel:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
               <span><span class="action-title">Call 988</span><span class="action-sub">Talk to a counselor</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="sms:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
-              <span><span class="action-title">Text 988</span><span class="action-sub">Text a counselor</span></span>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Text 988</span><span class="action-sub">Send any message</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="https://chat.988lifeline.org/">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
               <span><span class="action-title">Chat Online</span><span class="action-sub">Web chat with 988</span></span>
             </a>
           </li>
         </ul>
 
+        <p>988 says a text starts with a few steps. Reply NEXT to accept its terms, answer a brief survey, and wait for a counselor.</p>
         <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. You can contact it about someone else, too. It is a separate service from Tidelight.</p>
         <p class="fallback">On a device that can't call or text? Call or text <strong>988</strong> from a phone, or go to <a href="https://988lifeline.org/">988lifeline.org</a>. In immediate danger, call <strong>911</strong>.</p>
         <p class="lang-link" lang="es"><a href="../get-help/#en-espanol">Ayuda en español</a></p>
+        <p class="access-link"><a href="../get-help/#deaf-hoh">Deaf or hard of hearing</a></p>
       </section>
 
       <aside class="page-status review-note" aria-label="Review status">
@@ -117,6 +119,7 @@
           <li><a href="#five-steps">Five steps you can take</a></li>
           <li><a href="#conversation">What helps in the conversation</a></li>
           <li><a href="#child-or-teen">If it's a child or teen</a></li>
+          <li><a href="#young-person">If you're a young person worried about a friend</a></li>
           <li><a href="#online">If you see a worrying post online</a></li>
           <li><a href="#yourself">Look after yourself too</a></li>
           <li><a href="#sources">Sources</a></li>
@@ -173,7 +176,7 @@
             </li>
             <li>
               <h3>Help them connect</h3>
-              <p>Help them reach 988 by call or text, and other local resources. You can also help them reach a family member, friend, spiritual advisor, or mental health professional they trust. You can contact 988 yourself about them, too. If they are in physical danger, the counselor will contact 911.</p>
+              <p>Help them reach 988 by call or text, and other local resources. You can also help them reach a family member, friend, spiritual advisor, or mental health professional they trust. You can contact 988 yourself about them, too. If you think they are in immediate danger, call 911 first. The 988 Lifeline says a counselor may contact 911 if someone is in immediate danger and a safer plan can't be worked out. SAMHSA, a U.S. government health agency, says most crises are managed by counselors without involving law enforcement, but that is not a guarantee. See <a href="../get-help/#emergency-services">when emergency services get involved</a>.</p>
             </li>
             <li>
               <h3>Follow up</h3>
@@ -214,12 +217,13 @@
           <p>Any child with suicidal thoughts or plans should be evaluated right away by a trained mental health professional. Call their pediatrician or a mental health provider now, even if it doesn't seem like a crisis. Their pediatrician can also help you make a safety plan.</p>
 
           <h3>At school</h3>
-          <p>School counselors and school psychologists can help connect a family to support. School counselors are expected to tell a parent or guardian when a student has thoughts of suicide, even at 18. If a parent's abuse or neglect is the reason, they contact child protective services instead. So don't promise a young person that it will stay private.</p>
+          <p>School counselors and school psychologists can help connect a family to support. School counselors are expected to tell a parent or guardian when a student has thoughts of suicide, even at 18. The exception is when a student says a parent's or guardian's abuse or neglect is the reason for those thoughts. Then the counselor must contact child protective services, and caseworkers may talk with the parents and other people around the student. So don't promise a young person that it will stay private.</p>
 
-          <h3>If you're a young person worried about a friend</h3>
+          <h3 id="young-person">If you're a young person worried about a friend</h3>
           <p>You don't need to have the answers. Start with a caring question and listen. If you're worried about suicide, it's okay to ask directly: "Are you thinking about suicide?" Encourage your friend to talk to a trusted adult, such as a parent, coach, teacher, or school counselor, and talk to one yourself.</p>
           <p>If your friend talks about suicide or about hurting themselves, don't keep it a secret, even if they ask you to. Tell a trusted adult, or call or text 988 to ask what to do. You can contact 988 at any time, even if it's about a friend.</p>
           <p>If they say they are going to end their life, call 911 if it's an emergency. If you're with them and it is safe, stay with them. If they told you by text or online, keep talking if you can while you get an adult, or call or text 988. You don't have to handle this by yourself.</p>
+          <p class="provider-note">More for teens is on <a href="../teens/">For Teens</a>.</p>
         </section>
 
         <section id="online" aria-labelledby="online-title">
@@ -245,7 +249,7 @@
           <h2 id="sources-title">Sources</h2>
           <p>Checked November 6, 2026. An AI assistant drafted these summaries for Tidelight, and no qualified person has reviewed them yet. The organizations listed here have not reviewed or endorsed them.</p>
           <details class="source-toggle">
-            <summary>Show sources (13)</summary>
+            <summary>Show sources (15)</summary>
             <ul class="sources">
               <li><a href="https://www.nimh.nih.gov/health/publications/warning-signs-of-suicide">Warning Signs of Suicide</a>, National Institute of Mental Health</li>
               <li><a href="https://www.nimh.nih.gov/health/publications/5-action-steps-to-help-someone-having-thoughts-of-suicide">5 Action Steps to Help Someone Having Thoughts of Suicide</a>, National Institute of Mental Health</li>
@@ -253,11 +257,13 @@
               <li><a href="https://www.samhsa.gov/mental-health/suicidal-behavior/prevention">Suicide Prevention</a>, Substance Abuse and Mental Health Services Administration (SAMHSA)</li>
               <li><a href="https://www.samhsa.gov/mental-health/988/faqs">988 Frequently Asked Questions</a>, SAMHSA</li>
               <li><a href="https://988lifeline.org/help-someone-else/">Help Someone Else</a>, 988 Suicide &amp; Crisis Lifeline</li>
-              <li><a href="https://988lifeline.org/help-someone-else/support-on-social-media/">Safety and support on social media</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/help-someone-else/support-on-social-media/">Support on Social Media</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/get-help/what-to-expect/">What to Expect</a>, 988 Suicide &amp; Crisis Lifeline</li>
               <li><a href="https://www.healthychildren.org/English/tips-tools/ask-the-pediatrician/Pages/what-should-i-do-if-my-child-is-thinking-about-suicide.aspx">What should I do if my child or teen is thinking about suicide?</a>, American Academy of Pediatrics</li>
               <li><a href="https://www.aacap.org/AACAP/Families_and_Youth/Facts_for_Families/FFF-Guide/Teen-Suicide-010.aspx">Suicide in Children and Teens</a>, American Academy of Child &amp; Adolescent Psychiatry</li>
               <li><a href="https://www.nasponline.org/resources-and-publications/resources-and-podcasts/school-safety-and-crisis/mental-health-resources/preventing-youth-suicide/preventing-youth-suicide-tips-for-parents-and-educators">Preventing Youth Suicide: Tips for Parents and Educators</a>, National Association of School Psychologists</li>
               <li><a href="https://www.schoolcounselor.org/Standards-Positions/Position-Statements/ASCA-Position-Statements/The-School-Counselor-and-Suicide-Risk-Assessment">The School Counselor and Suicide Risk Assessment</a>, American School Counselor Association</li>
+              <li><a href="https://artifacts.childwelfare.gov/public/documents/how-child-welfare-system-works.pdf">How the Child Welfare System Works (PDF)</a>, Child Welfare Information Gateway, Children's Bureau</li>
               <li><a href="https://www.cdc.gov/free-mind/teens/talk-to-a-friend.html">How to Talk to a Friend About Mental Health or Drugs</a>, Centers for Disease Control and Prevention</li>
               <li><a href="https://www.caregiver.va.gov/pdfs/va-suicide-prevention-toolkit-for-caregivers.PDF">Suicide Prevention Toolkit for Caregivers (PDF)</a>, U.S. Department of Veterans Affairs</li>
             </ul>
