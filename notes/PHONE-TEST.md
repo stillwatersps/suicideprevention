@@ -31,7 +31,7 @@ stays on your own Wi-Fi and doesn't touch the public site.
 
 ## Test on the phone
 
-Open that address in Safari on an iPhone, or Chrome on an Android phone. Then check:
+Open that address in Safari on an iPhone, or Chrome on an Android phone. If you can, also try Chrome on an iPhone and Samsung Internet on Android. Then check:
 
 | Check | What should happen |
 | --- | --- |
@@ -44,9 +44,14 @@ Open that address in Safari on an iPhone, or Chrome on an Android phone. Then ch
 | Menu | It opens, closes, and every link works |
 | Leer en español | The same page opens in Spanish, and "Read in English" comes back |
 | Show more, and each feeling on Not Sure | They open and close |
-| Save 988 to your contacts | A contact card opens, or a file downloads that you can open. You can save it or cancel. Note what your phone does. Delete the contact and the file after testing |
+| Save 988 to your contacts | On an iPhone, a contact card opens. Scroll to the bottom and tap Create New Contact, then **Cancel**. Also check that the check mark at the top closes the card without saving. On Android, a file may download instead. Open it and note what happens. Delete any contact or file you saved |
 | Quick exit | The page goes blank and weather.gov opens. Back doesn't return to the page you left, unless you used a link within that page, such as "On this page". Back can reach pages you opened before it |
 | Wallet card, Print | The print screen shows the poster and cards. Cancel |
+| Chrome on an iPhone | Open Get Help and Research in Chrome, not Safari. Scroll down slowly, then quickly. The crisis strip stays at the top. If it scrolls away, write down the iOS and Chrome versions |
+| Safari's toolbar | Scroll until Safari's toolbar shrinks, then tap Quick exit once. One tap should leave. Try each tab layout in Settings, Apps, Safari. With the phone on its side, tap the strip's links too, then **cancel** |
+| Largest text | Set Safari's **aA** to 200% or more, or Chrome's text scaling on Android to 200%. Quick exit may move to the bottom corner. If it does, tap it once and check it leaves. On Android, check the phone's bottom bar doesn't cover it |
+| Incognito on Android | In a Chrome Incognito tab, tap Call 988. Expect "Leave Incognito mode?". Choose Leave, check the dial screen shows 988, and **cancel**. Repeat with Text 988 |
+| Opening from another app | Send the address to yourself in a chat or social app, such as Messages, WhatsApp, Instagram, or Gmail, and open it there. Tap Call 988 and Text 988, then **cancel**. Note any app where nothing happens or an error page replaces the site |
 | Portrait and landscape | Nothing is cut off or overlapping |
 | Larger text | In Safari, use the **aA** button to make the text larger, and check nothing breaks |
 | VoiceOver or TalkBack | The page reads in a sensible order, and every button has a name |
@@ -74,6 +79,10 @@ Once a test address has HTTPS, also check:
 | Weak signal | After a first visit, use a very poor connection. On an iPhone with Developer Mode, that's Settings, Developer, Network Link Conditioner, Very Bad Network. A page you've seen shows its saved copy after about 3 seconds |
 | Add to Home Screen | The icon and name appear, and the site opens with no address bar. Note that the icon stays on the phone until you remove it |
 | Quick exit from the Home Screen app | Note where weather.gov opens. Go back to the app and check the page isn't left blank. Back may not exist here, so write down what remains |
+| Home Screen app: Print and Save 988 | On the wallet card page, tap Print and note whether anything happens. Tap Save 988 and note what opens |
+| Spanish Home Screen icon | Add the site to the Home Screen from a Spanish page. Note the name it shows and which page it opens |
+| Install offer on Android | In Chrome, tap the page once, then stay on it for 30 seconds. Note whether Chrome offers to install the site, and what the offer covers |
+| Save 988 again | Repeat the Save 988 check, since saved copies are active here |
 
 ## Writing down results
 
