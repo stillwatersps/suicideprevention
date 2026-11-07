@@ -39,6 +39,7 @@ Open that address in Safari on an iPhone, or Chrome on an Android phone. Then ch
 | Call 988 | The phone offers to call 988. **Cancel** |
 | Text 988 | Messages opens to 988 with no message filled in. **Cancel** |
 | Call 911 | The phone offers to call 911. **Cancel** |
+| Other call and text links | On Get Help, For Teens, and After a loss, each one offers the number its label shows. **Cancel** every time |
 | Chat Online | The 988 chat page opens. Don't submit its form |
 | Menu | It opens, closes, and every link works |
 | Leer en español | The same page opens in Spanish, and "Read in English" comes back |

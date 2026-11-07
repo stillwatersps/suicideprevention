@@ -60,6 +60,7 @@ column. Recheck close to publication and at least monthly (proposed).
 | Crisis Text Line | Text HOME to 741741. Its FAQ says free on AT&T, T-Mobile, Sprint, and Verizon, and standard text rates on other carriers. Its terms and privacy policy say message and data rates may apply. A person should ask which holds | https://www.crisistextline.org/about-us/faq/ | Nov 6, 2026 | |
 | The Trevor Project (LGBTQ+ young people) | Call 1-866-488-7386; text START to 678-678; chat; TTY 1-866-803-3699 | https://www.thetrevorproject.org/get-help/ | Nov 6, 2026 | |
 | SAMHSA National Helpline (referrals, not a crisis line) | 1-800-662-4357; TTY 1-800-487-4889. English and Spanish, 24/7 | https://www.samhsa.gov/find-help/helplines/national-helpline | Nov 6, 2026 | |
+| TAPS (support after a military suicide loss) | Call 1-800-959-8277, 24/7 | https://www.taps.org/suicide | Nov 7, 2026 | |
 | FindTreatment.gov (treatment finder) | Website | https://findtreatment.gov | Nov 6, 2026 | |
 | Emergency services | Call 911. Text-to-911 works only in some places; call if you can | https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911 | Nov 6, 2026 | |
 

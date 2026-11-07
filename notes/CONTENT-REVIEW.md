@@ -76,6 +76,7 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Call 988, then press 3 | Get Help, For Teens, and their Spanish twins | `tel:988` | 988 LGBTQ+ youth service | Link format only | Phone test. Confirm the option with 988 |
 | Text PRIDE to 988 | Get Help, For Teens, and their Spanish twins | `sms:988`, message blank | 988 LGBTQ+ youth service | Link format only | Phone test. Confirm the option with 988 |
 | Call 1-866-488-7386 | Get Help, For Teens, and their Spanish twins | `tel:+18664887386` | The Trevor Project | Link format only | Phone test |
+| Call 1-800-959-8277 | After a loss and its Spanish twin | `tel:+18009598277` | TAPS, for people who lost someone who served in the military | Link format only | Phone test, reviewer: is it right to list it? |
 | Text START to 678-678 | Get Help, For Teens, and their Spanish twins | `sms:678678`, message blank | The Trevor Project | Link format only | Phone test |
 | Trevor Project chat and TTY | Get Help | Trevor's help page | The Trevor Project | Page opens | None |
 | Text HOME to 741741 | Get Help, For Teens, and their Spanish twins | `sms:741741`, message blank | Crisis Text Line | Link format only | Phone test |
@@ -316,8 +317,14 @@ No block or browser check was bypassed.
 ### How the first-version pages' sources were read
 
 Claude read these on November 6, 2026, in a real browser where possible, and one separate AI
-session checked about 112 statements against them. Neither is human review. Not read in full: the
-AFSP booklets and toolkits, which are image-only flipbooks, so the pages only link to them. 988's
+session checked about 112 statements against them. Neither is human review. Not read line by line: the
+AFSP booklets and toolkits. They are flipbooks that show page images, but each page's text is
+stored alongside, and each also has a PDF, so they can be searched. A word search on November 6,
+2026, with reading around each hit, found sample sentences naming a method in Children, Teens and
+Suicide Loss (flipbook pages 9, 10, and 19), its Spanish version (pages 9, 10, 11, and 20), and the
+Spanish guide (page 19). Surviving a Suicide Loss had no method wording, and the workplace toolkit
+only advises against sharing the method. The reviewer and someone with lived experience of loss
+should decide whether these links stay. No person has read them line by line. 988's
 old loss survivors page now answers "not found", so it isn't cited.
 
 ## How the pages compare with the research brief
