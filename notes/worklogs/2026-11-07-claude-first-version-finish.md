@@ -59,7 +59,26 @@ Android, adding to the Home Screen, and a weak real-world signal.
 
 ## Checked
 
-FINAL-CHECKS
+All on November 7, 2026, on the final code of this branch, on a Mac. Each kind of test is
+listed apart, because none of them is a real phone.
+
+| Check | Kind | Result |
+| --- | --- | --- |
+| `tools/check_site.py` | Reads the files | All checks passed, 19 pages |
+| `tools/check_site.py --check-links` | Loads each outside link once, read only | 112 links: 105 answered (90 with 200, 15 PubMed pages with 203), 7 blocked scripts (403) and are listed for a person: both 988 chat addresses, two JAMA articles, two CDC pages, and the FCC's text-to-911 page |
+| `tools/test_browser.py`, all 18 groups | Desktop Chrome and its phone-size emulation | 0 failures: links 845, matrix 456, text size 190, keyboard 2594, menu 22, jumps 541, folds 48, language 19, Quick exit 68, reduced motion 19, no JavaScript 19, print 18, contact 184, accessibility tree 19, offline 34, speed 19, modes 76, privacy 21. 46 notes, mostly links inside sentences under the 44 px aim |
+| `tools/test_webkit.py` | macOS WebKit in a window, not iOS | 151 checks, 0 problems |
+| `tools/test_the_tests.py` | Plants one bug at a time | All 111 planted bugs caught. The untouched copy passed all 22 test groups and 6 other checks first |
+| `tools/launch_gate.py --self-test`, `tools/check_crisis_sources.py --self-test`, `tools/check_site.py --self-test` | Made-up cases | 58 of 58, 20 of 20, 5 of 5 |
+| `tools/check_crisis_sources.py`, live | Reads each provider's page once | Run once by a code-fix agent: 10 pages showed our details. The FCC page refused (403), so a person must read it |
+| `tools/check_live.py --local` | A local copy built the way publishing will build it | Passed, and no notes or tools are published |
+| iOS Simulator, iPhone 17, iOS 27.2 | Simulated iPhone, Safari | See the section above. Rechecked after the last fixes: Get Help in portrait, and pinned as one row on its side after scrolling |
+| Real iPhone or Android phone | Not run | **Not done.** See [[PHONE-TEST]] |
+
+The publish job itself has never run, because Pages still publishes from a branch. Its copy step was
+simulated locally. Phone-size screenshots from Chrome are in `attachments/qa-first-version/`, with all of
+them on one page in `phone-layouts.jpg`. The code-fix agents' own handoff is
+[[worklogs/2026-11-07-claude-review-gate-fixes]].
 
 ## Decisions and open questions
 

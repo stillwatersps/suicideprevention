@@ -140,5 +140,6 @@ the 988 pages, and not every point appears on every page listed:
 - If a number changes or a link breaks: who fixes it, how fast, and when can a fix
   skip the second person's review? `tools/check_site.py` compares every call and text
   link with the numbers in the table above, so keep them in its second column, and
-  checks that each link's label matches. It can't check keywords such as AYUDA or
-  START, or numbers in plain sentences, so search the pages for those by eye.
+  checks that each link's label matches. It checks numbers printed on the wallet
+  card and poster pages too. It can't check keywords such as AYUDA or START, or numbers in
+  plain sentences on other pages, so search the pages for those by eye.
