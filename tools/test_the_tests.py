@@ -87,7 +87,8 @@ BUGS = [
     ("a link without an underline", append_css(".prose a:not([class]) { text-decoration: none; }"), "matrix", "get-help", "no underline"),
     ("breaking at larger text", append_css(".pill { white-space: nowrap; overflow-wrap: normal; }"), "textsize", "after-a-loss", "off the screen"),
     ("a focus ring removed", append_css(":focus-visible { outline: none; }"), "keyboard", "get-help", "no visible focus ring"),
-    ("focus hidden behind Quick exit", append_css("html { scroll-padding-bottom: 0; }"), "keyboard", "es/obtener-ayuda", "covered by"),
+    # On phones Quick exit sits in the strip, so only the floating desktop button can cover anything.
+    ("focus hidden behind Quick exit", append_css("html { scroll-padding-bottom: 0; } @media (min-width: 960px) { .quick-exit { left: 12px; } }"), "keyboard", "es/obtener-ayuda", "covered by"),
     ("a skip link that goes nowhere", regex("get-help/index.html", r'<main id="main" tabindex="-1">', '<main id="main">'), "keyboard", "get-help", "skip link does not move focus"),
     ("Escape not closing the menu", replace("assets/menu.js", "if (event.key === 'Escape' && isOpen()) {", "if (false) {"), "menu", "get-help", "Escape did not close"),
     ("a menu stuck open on a phone", menu_never_closes, "menu", "get-help", "tapping outside"),
