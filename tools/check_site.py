@@ -652,9 +652,10 @@ NOT_YET_STATUS = {"en": ("Pending", "Changes needed", "Not approved"), "es": ("P
 # A review record in notes/CONTENT-REVIEW.md is one line in exactly this form:
 #   - Get Help: licensed clinical social worker, 2026-12-01, approved, a1b2c3d4e5f6
 # The section is a section's name in the review packets' sign-off tables, or a page's address, such as
-# get-help/. The last part is the section's fingerprint, printed beside it in the sign-off table. It is
-# made from the section's text, so an approval only counts for the text the reviewer read. Only these two
-# results count as an approval.
+# help-someone/, if no other section has that address. Get Help has two, its English text and its Spanish
+# lines, so its records use the names. The last part is the section's fingerprint, printed beside it in the
+# sign-off table. It is made from the section's text, so an approval only counts for the text the reviewer
+# read. Only these two results count as an approval.
 RECORD_FORM = re.compile(r"^- (?P<section>[^:]+): (?P<role>.+?), (?P<date>\d{4}-\d{2}-\d{2}), (?P<result>.+?)"
                          r"(?:, (?P<fingerprint>[0-9a-fA-F]{12}))?\.?\s*$")
 RECORD_EXAMPLE = "- Get Help: licensed clinical social worker, 2026-12-01, approved, a1b2c3d4e5f6"
@@ -679,10 +680,13 @@ NOT_SPANISH = re.compile(
     r"|bot|chatbot|non-?native|no nativ[oa]|not|no)\b", re.I)
 EVERY_PAGE = {"en": "(text on every page)", "es": "(texto en cada página)"}
 OUTSIDE_TEXT = {"en": "(wording outside the page text)", "es": "(texto fuera de las páginas)"}
-# The sign-off tables name these two sections with the part of the packet they are in.
+# The Spanish lines in the parts every English page shares, such as "Leer en español". A fluent reader reviews
+# them as a section of the Spanish packet, like the Spanish lines in an English page's own text.
+SPANISH_ON_EVERY_PAGE = "(español en cada página en inglés)"
+# The sign-off tables name these sections with the part of the packet they are in.
 SIGNOFF_NAMES = {"text on every page (part 1)": (EVERY_PAGE["en"], "en"), "texto en cada página (parte 1)": (EVERY_PAGE["es"], "es"),
                  "wording outside the page text (part 3)": (OUTSIDE_TEXT["en"], "en"),
-                 "texto fuera de las páginas (parte 3)": (OUTSIDE_TEXT["es"], "es")}
+                 "texto fuera de las páginas (parte 4)": (OUTSIDE_TEXT["es"], "es")}
 
 
 def reviewer_kinds(role):
@@ -814,26 +818,29 @@ def is_approved(records, page, lang):
 
 
 def missing_sections(names):
-    """Pages the publish step could never ask a reviewer about, with what is missing for each."""
+    """Pages the publish step could never ask a reviewer about, with what is missing for each. Spanish lines
+    on an English page, even a few words, need a section in the Spanish packet, whether or not the page has
+    a Spanish twin: only a fluent reader can approve them."""
     sys.path.insert(0, str(ROOT / "tools"))
     import make_review_packet
     covered = {(page, lang) for _, page, lang in review_sections()}
     missing = []
+    shared_on = []
     for name in names:
         if (name, language_of(name)) not in covered:
             missing.append(f"{name} has no section in the review packets")
-        elif language_of(name) == "en" and (name, "es") not in covered and not has_spanish_twin(name) \
-                and make_review_packet.spanish_lines(name):
-            missing.append(f"{name} has Spanish lines and no Spanish twin, but no Spanish section in the review packets")
+            continue
+        if language_of(name) != "en" or not (ROOT / name).exists():
+            continue
+        own, shared = make_review_packet.spanish_on_english(name)
+        if own and (name, "es") not in covered:
+            missing.append(f"{name} has Spanish lines in its own text, but no section for them in the Spanish review packet")
+        if shared and (SPANISH_ON_EVERY_PAGE, "es") not in covered:
+            shared_on.append(name)
+    if shared_on:
+        missing.append(f"the parts every English page shares have Spanish lines, on {len(shared_on)} page(s) such as "
+                       f"{shared_on[0]}, but no section for them in the Spanish review packet")
     return missing
-
-
-def has_spanish_twin(name):
-    """Whether a page's language switch leads to a Spanish page whose own switch leads back to it."""
-    twin = page_twins({name: load(name)}).get(name)
-    if not twin or not (ROOT / twin).exists():
-        return False
-    return page_twins({twin: load(twin)}).get(twin) == name
 
 
 def page_twins(pages):
@@ -852,6 +859,8 @@ def check_review_status(failures, pages, notes=None):
     """Every page has a review section, the site may not claim a review that isn't recorded, and the
     About pages must stay complete and truthful."""
     notes = [] if notes is None else notes
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_review_packet
     for problem in missing_sections(pages):
         failures.append(f"{problem}, so the publish step would never ask for its review. Add it to ENGLISH, SPANISH "
                         "or SPANISH_ON_ENGLISH in tools/make_review_packet.py")
@@ -859,6 +868,13 @@ def check_review_status(failures, pages, notes=None):
     for label, page, lang in review_sections():
         if page.endswith(".html") and page not in pages:
             failures.append(f"tools/make_review_packet.py: the section \"{label}\" is for {page}, which doesn't exist")
+    for page, _, label in make_review_packet.SPANISH_ON_ENGLISH:
+        if (page in pages or not page.endswith(".html")) and not make_review_packet.section_blocks(page, "es"):
+            failures.append(f"tools/make_review_packet.py: the section \"{label}\" has no Spanish lines for a reader to "
+                            "approve. Remove it from SPANISH_ON_ENGLISH")
+    # English pages with Spanish lines in the parts they all share, such as the links to Spanish. A review claim
+    # on one of them needs that section approved too.
+    shared_spanish = {name for name in pages if language_of(name) == "en" and make_review_packet.spanish_on_english(name)[1]}
     lines = review_records()
     if lines is None:
         failures.append("notes/CONTENT-REVIEW.md: needs a \"## Review records\" section")
@@ -882,6 +898,8 @@ def check_review_status(failures, pages, notes=None):
             allowed = allowed and is_approved(records, twins.get(name), "en") and is_approved(records, EVERY_PAGE["en"], "en")
         if lang == "en" and (name, "es") in covered:  # and an English page's own Spanish lines, a fluent reader's
             allowed = allowed and is_approved(records, name, "es")
+        if name in shared_spanish:  # and the Spanish lines every English page shares
+            allowed = allowed and is_approved(records, SPANISH_ON_EVERY_PAGE, "es")
         claim = review_claim(page.claim_text + " " + " ".join(page.attribute_text))
         if claim and not allowed:
             failures.append(f"{name}: says \"{claim}\" but no approval of this page's current text is recorded in notes/CONTENT-REVIEW.md")
@@ -907,16 +925,21 @@ def check_review_status(failures, pages, notes=None):
         for index, name in enumerate(listed):
             english, spanish = (name, twins.get(name)) if lang == "en" else (twins.get(name), name)
             shown = page.status_values[2 * index: 2 * index + 2]
-            for value, section, section_lang, what in ((shown[0], english, "en", "clinical review"),
-                                                       (shown[1], spanish, "es", "Spanish review")):
-                if is_approved(records, section, section_lang):
-                    continue
-                if not latest_review(records, section, section_lang):
-                    if value != word:
-                        failures.append(f"{about}: {name} must show {word} for its {what} until one is recorded")
-                elif value not in NOT_YET_STATUS[lang]:
-                    failures.append(f"{about}: {name} shows \"{value}\" for its {what}, but the newest record isn't an approval "
-                                    f"of the current text. Show one of: {', '.join(NOT_YET_STATUS[lang])}")
+            # The Spanish result covers the Spanish page, and the English page's own Spanish lines if it has any.
+            spanish_sections = [spanish] + ([english] if (english, "es") in covered else [])
+            for value, sections, section_lang, what in ((shown[0], [english], "en", "clinical review"),
+                                                        (shown[1], spanish_sections, "es", "Spanish review")):
+                for section in sections:
+                    if is_approved(records, section, section_lang):
+                        continue
+                    if not latest_review(records, section, section_lang):
+                        if value != word:
+                            failures.append(f"{about}: {name} must show {word} for its {what} until one is recorded")
+                            break
+                    elif value not in NOT_YET_STATUS[lang]:
+                        failures.append(f"{about}: {name} shows \"{value}\" for its {what}, but the newest record isn't an approval "
+                                        f"of the current text. Show one of: {', '.join(NOT_YET_STATUS[lang])}")
+                        break
 
 
 DATE_EN = re.compile(r"(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, 20\d\d")

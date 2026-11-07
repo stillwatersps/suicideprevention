@@ -7,7 +7,8 @@
 It writes two packets, so each reader gets what they need:
   - tidelight-review-packet: for the licensed therapist. English pages, research brief,
     sources, questions, and sign-off.
-  - tidelight-spanish-review-packet: for a fluent Spanish reader. Spanish pages and sign-off.
+  - tidelight-spanish-review-packet: for a fluent Spanish reader. Spanish pages, the Spanish
+    lines on the English pages, and sign-off.
 
 Every sentence gets a number, so feedback can say "HELP-12" instead of quoting it. The packet
 records a reviewer's role and the date, never personal contact details. It only reads the
@@ -30,7 +31,7 @@ import sys
 TOOLS = pathlib.Path(__file__).resolve().parent
 ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
-from check_site import EVERY_PAGE, OUTSIDE_TEXT, SHOWN_BY_SCRIPT, find_pages, language_of  # noqa: E402
+from check_site import EVERY_PAGE, OUTSIDE_TEXT, SHOWN_BY_SCRIPT, SPANISH_ON_EVERY_PAGE, find_pages, language_of  # noqa: E402
 
 OUT = ROOT / "notes" / "review-packet"
 PREVIEW = "https://stillwatersps.github.io/suicideprevention/"
@@ -58,12 +59,28 @@ SPANISH = [
     ("es/tarjeta/index.html", "E-CARD", "Tarjeta y cartel", "card/"),
     ("es/acerca-de/index.html", "E-ABOUT", "Acerca de y privacidad", "about/"),
 ]
-# Spanish lines on an English page that has no Spanish twin. A fluent reader reviews them as a section
-# of their own, because they would otherwise reach only the English packet. The page is served for any
-# address that doesn't exist, and offline in place of a page that wasn't saved, so Spanish speakers see it.
+# Spanish lines on the English pages: every element marked lang="es", or holding words that are, wherever it
+# sits. They would otherwise reach only the English packet, so a fluent reader reviews them in sections of
+# their own: one for the parts every English page shares, such as the links to Spanish, and one for each
+# page with Spanish lines in its own text. tools/check_site.py fails if any of them has no section here.
 SPANISH_ON_ENGLISH = [
+    (SPANISH_ON_EVERY_PAGE, "EN-ALL", "Español en cada página en inglés"),
+    ("get-help/index.html", "EN-HELP", "Español en Get Help"),
+    ("after-a-loss/index.html", "EN-LOSS", "Español en After a loss"),
+    ("card/index.html", "EN-CARD", "Español en Wallet card and poster"),
     ("404.html", "E-NOTFOUND", "Página no encontrada"),
 ]
+# What the Spanish packet says about where a section's lines appear, when the page's address doesn't say it.
+SPANISH_ON_ENGLISH_NOTES = {
+    SPANISH_ON_EVERY_PAGE: "Las líneas en español que tienen todas las páginas en inglés, como los enlaces al español. "
+                           "Cada texto distinto aparece una vez.",
+    "card/index.html": "El cartel y cada tarjeta de bolsillo llevan esta línea al imprimirlos. Las tarjetas iguales aparecen una vez.",
+    "404.html": "Aparece en cualquier dirección que no existe, y sin conexión en lugar de una página que no se guardó, "
+                "así que también la ven personas que hablan español.",
+}
+# The links to Spanish that every English page has: the language switch and "Ayuda en español". Their Spanish
+# goes in the section for the parts every English page shares, even where a page places them in its own text.
+LANGUAGE_LINKS = {"lang-switch", "lang-link"}
 BLOCK ={"h1", "h2", "h3", "h4", "p", "li", "summary", "dt", "dd", "caption"}
 # Fold labels ("Show more", "Show less") are buttons, not content, so they get no number.
 SKIP_CLASSES = {"visually-hidden", "lang-switch", "breadcrumb", "toc", "card-arrow", "card-icon", "skip-link",
@@ -73,6 +90,11 @@ SHARED_CLASSES = {"crisis-bar", "crisis-panel", "site-footer", "site-header", "q
 # its smaller second line. A " | " keeps them apart, so the packet doesn't show "Call 988Talk to a counselor".
 PART_CLASSES = {"action-sub", "trust-text", "status-line", "brand-tag"}
 ABBREVIATIONS = ["U.S.", "e.g.", "i.e.", "Dr.", "Nov.", "vs.", "EE. UU.", "a.m.", "p.m.", "No."]
+
+
+def is_spanish(lang):
+    """Whether a lang attribute names Spanish, such as "es" or "es-US"."""
+    return bool(re.match(r"es(-|$)", (lang or "").strip().lower()))
 
 
 def split_sentences(text):
@@ -86,12 +108,14 @@ def split_sentences(text):
 
 
 class Extractor(html.parser.HTMLParser):
-    """Reads a page into ordered blocks of text with their links, marking shared parts."""
+    """Reads a page into ordered blocks of text with their links, marking shared parts. A block that holds
+    Spanish words, even a few inside an English sentence, is marked "spanish"."""
 
     VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 
-    def __init__(self):
+    def __init__(self, skip=SKIP_CLASSES):
         super().__init__(convert_charrefs=True)
+        self.skip = set(skip)
         self.stack = []
         self.blocks = []
         self.current = None
@@ -99,6 +123,8 @@ class Extractor(html.parser.HTMLParser):
         self.link = None
         # Wording a visitor meets outside the page text: (kind, text), such as a screen reader's name for a link.
         self.outside = []
+        # The part of it marked as Spanish, such as a Spanish link's name on an English page.
+        self.spanish_outside = []
 
     def _classes(self):
         found = set()
@@ -122,7 +148,7 @@ class Extractor(html.parser.HTMLParser):
     def _hidden(self):
         # Hidden text that assets/menu.js shows, such as the wallet card page's print button, is kept.
         hidden = any("hidden" in attrs and not set((attrs.get("class") or "").split()) & SHOWN_BY_SCRIPT for _, attrs in self.stack)
-        return hidden or bool(self._classes() & SKIP_CLASSES) or any(t in ("svg", "script", "style") for t, _ in self.stack)
+        return hidden or bool(self._classes() & self.skip) or any(t in ("svg", "script", "style") for t, _ in self.stack)
 
     def _by_script(self):
         return any("hidden" in attrs for _, attrs in self.stack)
@@ -133,9 +159,13 @@ class Extractor(html.parser.HTMLParser):
             self.outside.append(("description", attrs["content"]))
         if attrs.get("aria-label"):
             self.outside.append(("aria-label", attrs["aria-label"]))
+            if is_spanish(attrs.get("lang") or self._lang()):
+                self.spanish_outside.append(("aria-label", attrs["aria-label"]))
         if tag in self.VOID:
             if tag == "img" and attrs.get("alt") and not self._hidden():
-                self.blocks.append(self._block("img", "Image description: " + attrs["alt"]))
+                block = self._block("img", "Image description: " + attrs["alt"])
+                block["spanish"] = is_spanish(attrs.get("lang") or block["lang"])
+                self.blocks.append(block)
             return
         self.stack.append((tag, attrs))
         if self._hidden():
@@ -187,12 +217,14 @@ class Extractor(html.parser.HTMLParser):
         self.current["text"] += data
         if data.strip() and self._by_script():
             self.current["script"] = True
+        if data.strip() and is_spanish(self._lang()):
+            self.current["spanish"] = True
         if self.link is not None:
             self.link["text"] += data
 
 
-def read_page(name):
-    parser = Extractor()
+def read_page(name, skip=SKIP_CLASSES):
+    parser = Extractor(skip)
     parser.feed((ROOT / name).read_text(encoding="utf-8"))
     parser.close()
     return parser
@@ -289,9 +321,13 @@ def render_blocks(blocks, prefix, numbering, counters, lang):
 
 
 def page_blocks(name):
-    """A page's own text, leaving out the parts every page shares and repeated wallet cards. A line in a
-    later card that differs from the first card is kept, so a changed card can't escape the review."""
-    blocks = read_page(name).blocks
+    """A page's own text, leaving out the parts every page shares and repeated wallet cards."""
+    return own_text(read_page(name).blocks)
+
+
+def own_text(blocks):
+    """The blocks of a page's own text, leaving out the parts every page shares and repeated wallet cards. A
+    line in a later card that differs from the first card is kept, so a changed card can't escape the review."""
     own = []
     cards = 0
     first_card = set()
@@ -309,9 +345,36 @@ def page_blocks(name):
     return own
 
 
+def spanish_on_english(name):
+    """An English page's Spanish lines, as (those in its own text, those in the parts every English page
+    shares). A line counts if it is marked as Spanish or holds words that are, even in navigation the English
+    packet leaves out, such as the language switch. A line in English with a few Spanish words is kept whole."""
+    blocks = read_page(name, skip=()).blocks
+    spanish = [block for block in blocks if block.get("spanish") or is_spanish(block.get("lang"))]
+    shared = [block for block in spanish if block["classes"] & (SHARED_CLASSES | LANGUAGE_LINKS)]
+    own = [block for block in own_text(blocks)
+           if (block.get("spanish") or is_spanish(block.get("lang"))) and not block["classes"] & LANGUAGE_LINKS]
+    return own, shared
+
+
 def spanish_lines(name):
     """The Spanish lines of an English page's own text, such as the 404 page's sentence for Spanish speakers."""
-    return [block for block in page_blocks(name) if (block.get("lang") or "").startswith("es")]
+    return spanish_on_english(name)[0]
+
+
+def spanish_shared_lines(names):
+    """The Spanish lines in the parts every English page shares, listed once with every different wording.
+    A page that doesn't exist is skipped: tools/check_site.py reports it on its own."""
+    found = []
+    seen = set()
+    for name in names:
+        if not (ROOT / name).exists():
+            continue
+        for block in spanish_on_english(name)[1]:
+            if block["text"] not in seen:
+                seen.add(block["text"])
+                found.append(block)
+    return found
 
 
 def section_blocks(page, lang):
@@ -321,6 +384,8 @@ def section_blocks(page, lang):
         return shared_blocks(names)
     if page == OUTSIDE_TEXT[lang]:
         return outside_blocks(names, lang)
+    if lang == "es" and page == SPANISH_ON_EVERY_PAGE:
+        return spanish_shared_lines([item[0] for item in ENGLISH])
     if lang == "es" and language_of(page) == "en":
         return spanish_lines(page)
     return page_blocks(page)
@@ -369,8 +434,11 @@ def outside_blocks(names, lang):
                         ("aria-label", "Nombres que dice un lector de pantalla" if es else "Names a screen reader says")):
         heading(title)
         seen = []
-        for name in names:
-            for found, text in read_page(name).outside:
+        wording = [read_page(name).outside for name in names]
+        if es:  # Spanish wording on the English pages too, such as a Spanish link's name for a screen reader
+            wording += [read_page(name).spanish_outside for name, _, _ in ENGLISH]
+        for found_on_page in wording:
+            for found, text in found_on_page:
                 if found == kind and text not in seen:
                     seen.append(text)
                     item(text)
@@ -603,7 +671,7 @@ def signoff_rows(lang):
     from check_site import review_sections
 
     part = {EVERY_PAGE["en"]: " (Part 1)", OUTSIDE_TEXT["en"]: " (Part 3)",
-            EVERY_PAGE["es"]: " (Parte 1)", OUTSIDE_TEXT["es"]: " (Parte 3)"}
+            EVERY_PAGE["es"]: " (Parte 1)", OUTSIDE_TEXT["es"]: " (Parte 4)"}
     return [(label + part.get(page, ""), section_fingerprint(page, lang))
             for label, page, section_lang in review_sections() if section_lang == lang]
 
@@ -632,7 +700,7 @@ def therapist_packet(today, stamp):
 <li>Part 8: Proposed shorter sentences, optional</li>
 <li>Part 9: Decisions and sign-off</li>
 </ul>
-<p>The Spanish pages are in a separate packet for a fluent reader.</p>
+<p>The Spanish pages are in a separate packet for a fluent reader. The Spanish lines on the English pages, such as the Spanish part of Get Help, appear here as part of each page. The fluent reader also checks their wording.</p>
 <p><strong>How to record feedback:</strong></p>
 <ul>
 <li><strong>Mark each section.</strong> Each section ends with a box: OK as written, OK with changes, or Not for the website.</li>
@@ -738,6 +806,7 @@ def spanish_packet(today, stamp):
 <li><strong>Revise cada sección.</strong> Cada sección termina con un recuadro: bien así, bien con cambios, o no para el sitio.</li>
 <li><strong>Use los números.</strong> Cada oración tiene un número, como E-HELP-12. En las notas, escriba por ejemplo "E-HELP-12: cambiar a ...".</li>
 <li><strong>Oraciones repetidas.</strong> Una oración en gris marcada "same as" repite otra anterior. Lo que decida sobre la primera vale para todas.</li>
+<li><strong>Líneas en español de las páginas en inglés.</strong> Las páginas en inglés tienen algunas líneas en español. Están en la Parte 3, y también necesitan su decisión.</li>
 <li><strong>Preguntas que importan.</strong> ¿Se entiende? ¿Suena natural? ¿Cambia el sentido del inglés? ¿Hay algo que pueda confundir a alguien en crisis? ¿Debería evitarse alguna forma solo masculina, como "No estás solo"?</li>
 <li><strong>Datos de contacto.</strong> Por favor, no escriba su nombre ni sus datos personales en este paquete, porque puede guardarse en un proyecto público.</li>
 </ul>
@@ -752,13 +821,18 @@ def spanish_packet(today, stamp):
         address = name.replace("index.html", "")
         parts.append(f"<h3>Página: {esc(label)}</h3><p class=\"small\">Dirección cuando se publique: {esc(PREVIEW + address)}. En inglés: {esc(PREVIEW + (english if english != 'index.html' else ''))}. Los números empiezan con {prefix}.</p>")
         parts.append(render_blocks(section_blocks(name, "es"), prefix, numbering, counters, "es"))
+    parts.append("<h2>Parte 3: Líneas en español de las páginas en inglés</h2>")
+    parts.append("<p>Las páginas en inglés tienen algunas líneas en español para quien habla español, como el enlace «Leer en español» y los datos de la Línea 988 en español. Aquí aparecen sin el texto en inglés que las rodea. Una línea en inglés con algunas palabras en español aparece entera. Cada sección tiene su propia huella en la Parte 5. La versión completa de cada página en inglés está en el otro paquete.</p>")
     for name, prefix, label in SPANISH_ON_ENGLISH:
-        parts.append(f"<h3>Página: {esc(label)}</h3><p class=\"small\">Solo las líneas en español de una página en inglés ({esc(name)}). Aparece en cualquier dirección que no existe, y sin conexión en lugar de una página que no se guardó, así que también la ven personas que hablan español. Los números empiezan con {prefix}.</p>")
+        address = name if name == "404.html" else PREVIEW + name.replace("index.html", "")
+        where = [] if name == SPANISH_ON_EVERY_PAGE else [f"Solo las líneas en español de una página en inglés ({address})."]
+        about = " ".join(where + [SPANISH_ON_ENGLISH_NOTES.get(name, ""), f"Los números empiezan con {prefix}."])
+        parts.append(f"<h3>{esc(label)}</h3><p class=\"small\">{esc(re.sub(' +', ' ', about))}</p>")
         parts.append(render_blocks(section_blocks(name, "es"), prefix, numbering, counters, "es"))
-    parts.append("<h2>Parte 3: Texto fuera de las páginas</h2>")
+    parts.append("<h2>Parte 4: Texto fuera de las páginas</h2>")
     parts.append("<p>Este texto aparece fuera del texto de cada página: la descripción en buscadores y vistas previas de enlaces, los nombres que dice un lector de pantalla, el aviso sin conexión y la tarjeta de contacto que se guarda en el teléfono.</p>")
     parts.append(render_blocks(section_blocks(OUTSIDE_TEXT["es"], "es"), "E-OUTSIDE", numbering, counters, "es"))
-    parts.append("<h2>Parte 4: Decisiones y firma</h2>")
+    parts.append("<h2>Parte 5: Decisiones y firma</h2>")
     parts.append("<p>Anote su función y la fecha, por ejemplo \"hablante nativa de español, traductora médica, noviembre de 2026\". Por favor, no escriba su nombre ni sus datos de contacto.</p>")
     parts.append("<p><strong>Qué es la huella.</strong> Cada sección tiene una huella: un código de 12 caracteres hecho a partir del texto de esa sección, tal como aparece en este paquete. Si cambia una sola palabra de la sección, su huella cambia. El sitio solo puede hacerse público mientras la aprobación de cada sección lleve la huella de su texto actual. Si una página cambia después de que usted la apruebe, su aprobación deja de contar hasta que vea el cambio y los fundadores la anoten de nuevo. Usted no tiene que hacer nada con las huellas.</p>")
     parts.append(signoff_table(signoff_rows("es"), "es"))
@@ -768,6 +842,7 @@ def spanish_packet(today, stamp):
     parts.append("""<h3>For the founders, after the review</h3>
 <ul>
 <li>Copy each result into "Review records" in <code>notes/CONTENT-REVIEW.md</code>, one line per section, in this form, ending with the fingerprint (huella) printed beside that section above: "- Obtener ayuda: native Spanish speaker, 2026-12-01, approved, a1b2c3d4e5f6". Use the section name exactly as the table prints it, the date as YYYY-MM-DD, and the result in English.</li>
+<li>The Spanish lines on the English pages, in Part 3, have sections of their own, such as "Español en Get Help". Each needs its own line too, and only a fluent Spanish reader's line counts for them, never the clinician's.</li>
 <li>Only a fluent or native Spanish reader counts here, such as "fluent Spanish reader", "native Spanish speaker", "hablante nativa de español" or "persona hispanohablante". Machine translation, AI, or translation software never counts. For each section, the newest line from such a reader decides.</li>
 <li>An approval whose fingerprint doesn't match the current text doesn't count, and publishing stops. After any change, rebuild the packet, show the reader the change, and add a new line with the new fingerprint.</li>
 </ul>

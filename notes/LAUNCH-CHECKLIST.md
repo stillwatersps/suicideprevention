@@ -46,7 +46,8 @@ which roles count, and what to do when a fingerprint no longer matches.
 Everyone else's results go under "Other reviews" in [[CONTENT-REVIEW]], which the publish step never reads.
 
 - [ ] Licensed therapist: `review-packet/tidelight-review-packet.pdf`. Results under "Review records"
-- [ ] Fluent Spanish reader: `review-packet/tidelight-spanish-review-packet.pdf`. Results under "Review records"
+- [ ] Fluent Spanish reader: `review-packet/tidelight-spanish-review-packet.pdf`, including the Spanish lines on
+  the English pages in its Part 3. Results under "Review records"
 - [ ] Someone with lived experience of a suicide loss: After a loss. Results under "Other reviews"
 - [ ] Someone who works with young people: For Teens. Results under "Other reviews"
 - [ ] A lawyer: About and privacy, minors, and who the publisher is. Results under "Other reviews"
@@ -148,12 +149,13 @@ on the stopped run, or turn Pages off until a publish succeeds.
 Once Pages publishes with GitHub Actions, the publish step runs `python3 tools/launch_gate.py --publish`.
 It stops publishing unless all of these hold:
 
-- Every page has a section in the review packets.
+- Every page has a section in the review packets, and so do the Spanish lines on every English page.
 - Every line under "Review records" in [[CONTENT-REVIEW]] can be read, and none is dated after today.
 - Every English section's newest line by a licensed clinician approves it, and every Spanish section's newest
   line by a fluent or native Spanish reader approves it. The Spanish sections include the Spanish lines on
-  the "page not found" page. That is 12 English and 12 Spanish lines, one per section, in the form shown in
-  section 2 above.
+  the English pages: `Español en cada página en inglés`, `Español en Get Help`, `Español en After a loss`,
+  `Español en Wallet card and poster` and `Página no encontrada`. That is 12 English and 16 Spanish lines,
+  one per section, in the form shown in section 2 above.
 - Each of those approvals ends with the fingerprint of the section's current text.
 
 Lines by any other reviewer, and anything under "Other reviews", are never counted. Run

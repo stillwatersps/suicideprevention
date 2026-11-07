@@ -9,8 +9,8 @@ This reads the project. It changes nothing, and it can't tell whether content is
 that people have recorded the reviews and decisions. Publishing is blocked until each section of the
 review packets has an approval of its current text recorded under "## Review records" in
 notes/CONTENT-REVIEW.md: every English page, the text on every page, and the wording outside the page
-text from a licensed mental health professional, and the Spanish sections, including the 404 page's
-Spanish lines, from a fluent or native Spanish reader. One line each, like this:
+text from a licensed mental health professional, and the Spanish sections, including the Spanish lines on
+the English pages, from a fluent or native Spanish reader. One line each, like this:
 
     - Get Help: licensed clinical social worker, 2026-12-01, approved, a1b2c3d4e5f6
 
@@ -25,7 +25,7 @@ from the section's text, so if the text changes after the review, the approval s
     "## Other reviews", which this tool never reads.
   - Of the records that count, the newest decides.
   - A record dated after today, or one that can't be read, stops publishing.
-  - Every page must have a section in the review packets.
+  - Every page must have a section in the review packets, and so must Spanish lines on an English page.
 
 The founders can override this on purpose, for an early preview, by setting a repository variable named
 PUBLISH_UNREVIEWED to the words "both founders agreed". See notes/LAUNCH-CHECKLIST.md.
@@ -210,6 +210,8 @@ def self_test():
     about_en = next(s for s in sections if s[1] == "about/index.html" and s[2] == "en")
     help_en = next(s for s in sections if s[1] == "get-help/index.html" and s[2] == "en")
     help_es = next(s for s in sections if s[1] == "es/obtener-ayuda/index.html")
+    # Get Help's Spanish lines. If they have no section, every case that should publish is blocked, and says so.
+    help_lines = next((s for s in sections if s[1] == "get-help/index.html" and s[2] == "es"), None)
 
     def but(section, line):
         """Every section approved, except that this section's line is replaced."""
@@ -241,6 +243,15 @@ def self_test():
         ("one page left out", full[1:], False),
         ("a clinician signing a Spanish page", but(help_es, record(*help_es, role="licensed therapist")), False),
         ("a fluent Spanish reader signing an English page", but(help_en, record(*help_en, role="fluent Spanish reader")), False),
+    ]
+    if help_lines:  # the Spanish lines on an English page are a Spanish section of their own
+        cases += [
+            ("the Spanish lines of an English page left out", [line for line in full if not line.startswith(f"- {help_lines[0]}:")], False),
+            ("a clinician signing the Spanish lines of an English page", but(help_lines, record(*help_lines, role="licensed therapist")), False),
+            ("an English page's address used for its Spanish lines",
+             but(help_lines, record(*help_lines).replace(f"- {help_lines[0]}:", "- get-help/:")), False),
+        ]
+    cases += [
         ("a newer rejection of one page", full + [record(*help_en, date="2026-12-09", result="not for the website")], False),
         ("a rejection on the same day", full + [record(*help_en, result="not for the website")], False),
         ("a date that isn't a date", [line.replace("2026-12-01", "2026-13-45") for line in full], False),

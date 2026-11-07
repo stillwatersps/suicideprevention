@@ -34,7 +34,8 @@ tunnel.
 > We need a fluent reader to check the Spanish pages of a draft suicide prevention website, for people in the U.S. An
 > AI assistant translated them, and no fluent person has read them. We need to know whether they're correct and
 > natural, whether anything changes the meaning of the English, and whether anything could confuse someone in crisis.
-> We also need your view on wording such as "No estás solo", which uses a masculine form.
+> We also need your view on wording such as "No estás solo", which uses a masculine form. The English pages also
+> have a few lines in Spanish, such as the Spanish part of Get Help. They're in the packet too, in Part 3.
 >
 > Please don't call or text any crisis line to check it. The attached packet numbers each sentence. Medical or
 > crisis translation experience would help. If you notice something that seems clinically wrong, please tell us.
@@ -98,6 +99,9 @@ the result, and the fingerprint printed beside that section in the table. The pu
   doesn't, because the changes aren't made yet.
 - Only a licensed mental health professional counts for English sections, and only a fluent or native Spanish
   reader for Spanish ones. "Review records" in [[CONTENT-REVIEW]] lists the roles that count.
+- The Spanish lines on the English pages are Spanish sections, so they need the Spanish reader's lines, never the
+  therapist's. The Spanish packet's table lists them: `Español en cada página en inglés`, `Español en Get Help`,
+  `Español en After a loss`, `Español en Wallet card and poster` and `Página no encontrada`.
 - The fingerprint ties the approval to the text the reviewer read. If the section changes afterward, even by one
   word, the approval stops counting and publishing stops. Rebuild the packet, show the reviewer the change, and add
   a new line with the new fingerprint.

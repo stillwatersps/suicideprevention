@@ -51,13 +51,14 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <h1>Tidelight: paquete de revisión en español</h1>
 <p class="lede">Para una persona hispanohablante que revise la traducción de un sitio web preliminar sobre la prevención del suicidio. For a fluent Spanish reader.</p>
 <div class="banner"><strong>Borrador sin revisar.</strong> Un asistente de IA redactó el texto en inglés y lo tradujo al español. Ninguna persona hispanohablante lo ha revisado, y ningún profesional clínico ha revisado todavía la versión en inglés. Quien revisa: sin registrar. Fecha de revisión: sin registrar.</div>
-<p class="small">Generado el November 7, 2026 a partir de los archivos del sitio. Huella del paquete 1314b034a7db. Si las páginas cambian, hay que generar este paquete de nuevo con <code>python3 tools/make_review_packet.py</code>.</p>
+<p class="small">Generado el November 7, 2026 a partir de los archivos del sitio. Huella del paquete 26f2a17b3c60. Si las páginas cambian, hay que generar este paquete de nuevo con <code>python3 tools/make_review_packet.py</code>.</p>
 
 <h2 class="first">Cómo usar este paquete</h2>
 <ul>
 <li><strong>Revise cada sección.</strong> Cada sección termina con un recuadro: bien así, bien con cambios, o no para el sitio.</li>
 <li><strong>Use los números.</strong> Cada oración tiene un número, como E-HELP-12. En las notas, escriba por ejemplo "E-HELP-12: cambiar a ...".</li>
 <li><strong>Oraciones repetidas.</strong> Una oración en gris marcada "same as" repite otra anterior. Lo que decida sobre la primera vale para todas.</li>
+<li><strong>Líneas en español de las páginas en inglés.</strong> Las páginas en inglés tienen algunas líneas en español. Están en la Parte 3, y también necesitan su decisión.</li>
 <li><strong>Preguntas que importan.</strong> ¿Se entiende? ¿Suena natural? ¿Cambia el sentido del inglés? ¿Hay algo que pueda confundir a alguien en crisis? ¿Debería evitarse alguna forma solo masculina, como "No estás solo"?</li>
 <li><strong>Datos de contacto.</strong> Por favor, no escriba su nombre ni sus datos personales en este paquete, porque puede guardarse en un proyecto público.</li>
 </ul>
@@ -1589,7 +1590,49 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <ul class="links"><li><strong>What is GitHub Pages? (Data collection)</strong>: <span class="url">https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection</span></li><li><strong>Service Worker API</strong>: <span class="url">https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API</span></li><li><strong>Updates to Storage Policy</strong>: <span class="url">https://webkit.org/blog/14403/updates-to-storage-policy/</span></li><li><strong>Confidentiality</strong>: <span class="url">https://988lifeline.org/confidentiality/</span></li><li><strong>What to Expect</strong>: <span class="url">https://988lifeline.org/get-help/what-to-expect/</span></li><li><strong>Browse in Incognito mode</strong>: <span class="url">https://support.google.com/chrome/answer/95464?hl=en</span></li><li><strong>Internet Safety for Survivors</strong>: <span class="url">https://www.thehotline.org/plan-for-safety/internet-safety/</span></li></ul>
 <p class="decision"><strong>Decisión:</strong> <span class="box"></span> Bien así <span class="box"></span> Bien con cambios <span class="box"></span> No para el sitio <span class="line">Notas:</span></p>
 </section>
-<h3>Página: Página no encontrada</h3><p class="small">Solo las líneas en español de una página en inglés (404.html). Aparece en cualquier dirección que no existe, y sin conexión en lugar de una página que no se guardó, así que también la ven personas que hablan español. Los números empiezan con E-NOTFOUND.</p>
+<h2>Parte 3: Líneas en español de las páginas en inglés</h2>
+<p>Las páginas en inglés tienen algunas líneas en español para quien habla español, como el enlace «Leer en español» y los datos de la Línea 988 en español. Aquí aparecen sin el texto en inglés que las rodea. Una línea en inglés con algunas palabras en español aparece entera. Cada sección tiene su propia huella en la Parte 5. La versión completa de cada página en inglés está en el otro paquete.</p>
+<h3>Español en cada página en inglés</h3><p class="small">Las líneas en español que tienen todas las páginas en inglés, como los enlaces al español. Cada texto distinto aparece una vez. Los números empiezan con EN-ALL.</p>
+<section class="review-block">
+<p class="row"><span class="id">EN-ALL-1</span> Leer en español</p>
+<p class="row"><span class="id">EN-ALL-2</span> Ayuda en español</p>
+
+<p class="decision"><strong>Decisión:</strong> <span class="box"></span> Bien así <span class="box"></span> Bien con cambios <span class="box"></span> No para el sitio <span class="line">Notas:</span></p>
+</section>
+<h3>Español en Get Help</h3><p class="small">Solo las líneas en español de una página en inglés (https://stillwatersps.github.io/suicideprevention/get-help/). Los números empiezan con EN-HELP.</p>
+<section class="review-block">
+<p class="row repeat in-list"><span class="id">EN-HELP-1</span> <span class="same">same as E-LOSS-60:</span> En español</p>
+<h5 class="row-heading"><span class="id">EN-HELP-2</span> En español <span class="same">same as E-LOSS-60</span></h5>
+<p class="row repeat"><span class="id">EN-HELP-3</span> <span class="same">same as E-HELP-95:</span> Para hablar con un consejero de la Línea 988 en español, marca 988 y luego presiona 2.</p>
+<p class="row repeat"><span class="id">EN-HELP-4</span> <span class="same">same as E-HELP-96:</span> Para enviar un mensaje de texto, envía la palabra AYUDA al 988.</p>
+<p class="row repeat"><span class="id">EN-HELP-5</span> <span class="same">same as E-HELP-97:</span> También puedes chatear en español.</p>
+<p class="row repeat"><span class="id">EN-HELP-6</span> <span class="same">same as E-HELP-98:</span> Es gratis y confidencial, y está disponible las 24 horas.</p>
+<p class="row"><span class="id">EN-HELP-7</span> La Línea 988 es un servicio aparte de Tidelight.</p>
+<p class="row repeat"><span class="id">EN-HELP-8</span> <span class="same">same as E-SHARED-4:</span> Si hay peligro inmediato, llama al 911.</p>
+<p class="row"><span class="id">EN-HELP-9</span> Llamar al 988 y marcar 2 | Enviar AYUDA al 988 | Chatear en español | Esta página en español</p>
+<ul class="links"><li><strong>Llamar al 988 y marcar 2</strong>: <span class="url">tel:988</span></li><li><strong>Enviar AYUDA al 988</strong>: <span class="url">sms:988</span></li><li><strong>Chatear en español</strong>: <span class="url">https://chat.988lifeline.org/?lang=es</span></li></ul>
+<p class="decision"><strong>Decisión:</strong> <span class="box"></span> Bien así <span class="box"></span> Bien con cambios <span class="box"></span> No para el sitio <span class="line">Notas:</span></p>
+</section>
+<h3>Español en After a loss</h3><p class="small">Solo las líneas en español de una página en inglés (https://stillwatersps.github.io/suicideprevention/after-a-loss/). Los números empiezan con EN-LOSS.</p>
+<section class="review-block">
+<h5 class="row-heading"><span class="id">EN-LOSS-1</span> En español <span class="same">same as E-LOSS-60</span></h5>
+<p class="row"><span class="id">EN-LOSS-2</span> AFSP tiene una guía sobre cómo sobrellevar una pérdida por suicidio.</p>
+<p class="row"><span class="id">EN-LOSS-3</span> Algunos datos de crisis en la guía son antiguos.</p>
+<p class="row repeat"><span class="id">EN-LOSS-4</span> <span class="same">same as E-LOSS-63:</span> Hoy, la Línea 988 ofrece apoyo en español: marca 988 y luego presiona 2, o envía AYUDA al 988.</p>
+<p class="row repeat"><span class="id">EN-LOSS-5</span> <span class="same">same as E-LOSS-65:</span> Las guías de la AFSP se abren en un visor de páginas que puede no funcionar con un lector de pantalla.</p>
+<p class="row"><span class="id">EN-LOSS-6</span> Sobreviviendo una pérdida por suicidio | Esta página en español</p>
+<p class="row in-list"><span class="id">EN-LOSS-7</span> Sobreviviendo una pérdida por suicidio, AFSP (in Spanish)</p>
+<ul class="links"><li><strong>Sobreviviendo una pérdida por suicidio</strong>: <span class="url">https://aws-fetch.s3.amazonaws.com/flipbooks/sobreviviendoUnaPerdidaPorSuicidio/index.html</span></li></ul>
+<p class="decision"><strong>Decisión:</strong> <span class="box"></span> Bien así <span class="box"></span> Bien con cambios <span class="box"></span> No para el sitio <span class="line">Notas:</span></p>
+</section>
+<h3>Español en Wallet card and poster</h3><p class="small">Solo las líneas en español de una página en inglés (https://stillwatersps.github.io/suicideprevention/card/). El cartel y cada tarjeta de bolsillo llevan esta línea al imprimirlos. Las tarjetas iguales aparecen una vez. Los números empiezan con EN-CARD.</p>
+<section class="review-block">
+<p class="row in-list"><span class="id">EN-CARD-1</span> En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+<p class="row repeat"><span class="id">EN-CARD-2</span> <span class="same">same as EN-CARD-1:</span> En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+
+<p class="decision"><strong>Decisión:</strong> <span class="box"></span> Bien así <span class="box"></span> Bien con cambios <span class="box"></span> No para el sitio <span class="line">Notas:</span></p>
+</section>
+<h3>Página no encontrada</h3><p class="small">Solo las líneas en español de una página en inglés (404.html). Aparece en cualquier dirección que no existe, y sin conexión en lugar de una página que no se guardó, así que también la ven personas que hablan español. Los números empiezan con E-NOTFOUND.</p>
 <section class="review-block">
 <p class="row"><span class="id">E-NOTFOUND-1</span> ¿No encuentras la página?</p>
 <p class="row"><span class="id">E-NOTFOUND-2</span> Para hablar en español, llama al 988 y marca 2, o envía AYUDA al 988.</p>
@@ -1597,7 +1640,7 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <ul class="links"><li><strong>llama al 988</strong>: <span class="url">tel:988</span></li><li><strong>envía AYUDA al 988</strong>: <span class="url">sms:988</span></li><li><strong>llama al 911</strong>: <span class="url">tel:911</span></li></ul>
 <p class="decision"><strong>Decisión:</strong> <span class="box"></span> Bien así <span class="box"></span> Bien con cambios <span class="box"></span> No para el sitio <span class="line">Notas:</span></p>
 </section>
-<h2>Parte 3: Texto fuera de las páginas</h2>
+<h2>Parte 4: Texto fuera de las páginas</h2>
 <p>Este texto aparece fuera del texto de cada página: la descripción en buscadores y vistas previas de enlaces, los nombres que dice un lector de pantalla, el aviso sin conexión y la tarjeta de contacto que se guarda en el teléfono.</p>
 <section class="review-block">
 <h4 class="row-heading"><span class="id">E-OUTSIDE-1</span> Descripción en buscadores y vistas previas de enlaces</h4>
@@ -1651,16 +1694,17 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 
 <p class="decision"><strong>Decisión:</strong> <span class="box"></span> Bien así <span class="box"></span> Bien con cambios <span class="box"></span> No para el sitio <span class="line">Notas:</span></p>
 </section>
-<h2>Parte 4: Decisiones y firma</h2>
+<h2>Parte 5: Decisiones y firma</h2>
 <p>Anote su función y la fecha, por ejemplo "hablante nativa de español, traductora médica, noviembre de 2026". Por favor, no escriba su nombre ni sus datos de contacto.</p>
 <p><strong>Qué es la huella.</strong> Cada sección tiene una huella: un código de 12 caracteres hecho a partir del texto de esa sección, tal como aparece en este paquete. Si cambia una sola palabra de la sección, su huella cambia. El sitio solo puede hacerse público mientras la aprobación de cada sección lleve la huella de su texto actual. Si una página cambia después de que usted la apruebe, su aprobación deja de contar hasta que vea el cambio y los fundadores la anoten de nuevo. Usted no tiene que hacer nada con las huellas.</p>
-<table class="signoff"><thead><tr><th>Sección</th><th>Huella</th><th>Aprobada</th><th>Aprobada con cambios</th><th>No para el sitio</th><th>Función de quien revisa y fecha</th></tr></thead><tbody><tr><td>Inicio</td><td><code>b1d2ce77c776</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Obtener ayuda</td><td><code>ad23716b3944</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Ayudar a alguien</td><td><code>3596ec3ad84d</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Adolescentes</td><td><code>5a584c8aa50a</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>¿No sabes bien qué sientes?</td><td><code>6a21105c49a6</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Después de una pérdida</td><td><code>512f7e2dad11</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Investigación</td><td><code>35ef70bcc7b3</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Tarjeta y cartel</td><td><code>e25a82227278</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Acerca de y privacidad</td><td><code>564c733bdc65</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Página no encontrada</td><td><code>731372931607</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Texto en cada página (Parte 1)</td><td><code>cf45a9a88ed2</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Texto fuera de las páginas (Parte 3)</td><td><code>22e28e278742</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr></tbody></table>
+<table class="signoff"><thead><tr><th>Sección</th><th>Huella</th><th>Aprobada</th><th>Aprobada con cambios</th><th>No para el sitio</th><th>Función de quien revisa y fecha</th></tr></thead><tbody><tr><td>Inicio</td><td><code>b1d2ce77c776</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Obtener ayuda</td><td><code>ad23716b3944</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Ayudar a alguien</td><td><code>3596ec3ad84d</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Adolescentes</td><td><code>5a584c8aa50a</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>¿No sabes bien qué sientes?</td><td><code>6a21105c49a6</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Después de una pérdida</td><td><code>512f7e2dad11</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Investigación</td><td><code>35ef70bcc7b3</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Tarjeta y cartel</td><td><code>e25a82227278</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Acerca de y privacidad</td><td><code>564c733bdc65</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Español en cada página en inglés</td><td><code>3dcdf38758dc</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Español en Get Help</td><td><code>67f8494fa841</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Español en After a loss</td><td><code>a817539ee0a9</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Español en Wallet card and poster</td><td><code>e174e6f78f73</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Página no encontrada</td><td><code>731372931607</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Texto en cada página (Parte 1)</td><td><code>cf45a9a88ed2</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Texto fuera de las páginas (Parte 4)</td><td><code>22e28e278742</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr></tbody></table>
 <p>Otros comentarios:</p><span class="answer"></span><span class="answer"></span><span class="answer"></span>
 <p><strong>Función de quien revisa:</strong><span class="write"></span></p>
 <p><strong>Fecha:</strong><span class="write"></span></p>
 <h3>For the founders, after the review</h3>
 <ul>
 <li>Copy each result into "Review records" in <code>notes/CONTENT-REVIEW.md</code>, one line per section, in this form, ending with the fingerprint (huella) printed beside that section above: "- Obtener ayuda: native Spanish speaker, 2026-12-01, approved, a1b2c3d4e5f6". Use the section name exactly as the table prints it, the date as YYYY-MM-DD, and the result in English.</li>
+<li>The Spanish lines on the English pages, in Part 3, have sections of their own, such as "Español en Get Help". Each needs its own line too, and only a fluent Spanish reader's line counts for them, never the clinician's.</li>
 <li>Only a fluent or native Spanish reader counts here, such as "fluent Spanish reader", "native Spanish speaker", "hablante nativa de español" or "persona hispanohablante". Machine translation, AI, or translation software never counts. For each section, the newest line from such a reader decides.</li>
 <li>An approval whose fingerprint doesn't match the current text doesn't count, and publishing stops. After any change, rebuild the packet, show the reader the change, and add a new line with the new fingerprint.</li>
 </ul>

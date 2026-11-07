@@ -53,7 +53,7 @@ Planning tasks below are suggestions; ownership has not been agreed.
   on `main` (A2), switch Pages to publish with GitHub Actions just before merging
   pull request 5 (A3), and turn off Issues and the Wiki (A4). Owner: the repository
   owner. Steps in [[worklogs/2026-11-06-claude-approved-ideas]].
-- [ ] A fluent Spanish reader checks all nine pages in `es/`, using
+- [ ] A fluent Spanish reader checks all nine pages in `es/` and the Spanish lines on the English pages, using
   `notes/review-packet/tidelight-spanish-review-packet.pdf`. Owner: unassigned.
 - [ ] Give `notes/review-packet/tidelight-review-packet.pdf` to the licensed therapist, and
   record the results in [[CONTENT-REVIEW]]. Owner: the founder arranging the review.
