@@ -921,6 +921,20 @@ def test_quickexit(browser, site, pages, report):
     tab.send("Fetch.failRequest", {"requestId": event["params"]["requestId"], "errorReason": "Aborted"})
     tab.close()
 
+    # Coming back to a blanked page, as in a home screen app, shows it again.
+    tab = new_tab(browser, 390, 844, True)
+    tab.goto(help_page)
+    back = tab.js("""(function () {
+        document.documentElement.hidden = true;
+        document.dispatchEvent(new Event('visibilitychange'));
+        return document.documentElement.hidden;
+    })()""")
+    if back:
+        report.fail("quickexit", "get-help/index.html", "coming back to the page after Quick exit leaves it blank")
+    else:
+        report.ok("quickexit")
+    tab.close()
+
     # It works from the first moment, before the page's script file has arrived.
     tab = new_tab(browser, 390, 844, True)
     tab.send("Fetch.enable", {"patterns": pattern["patterns"] + [{"urlPattern": "*/assets/menu.js"}]})

@@ -64,12 +64,18 @@
 })();
 
 // Quick exit's click handler is the small script in each page's head, so it works from the
-// first moment. It blanks the page while the neutral site loads. If a browser ever brings
-// this page back, show it again rather than leaving it blank.
-// Feelings opened on the Not sure page close when leaving it, so Back doesn't show them.
-window.addEventListener('pageshow', function () {
+// first moment. It blanks the page while the neutral site loads. If a person ever comes back
+// to this page, for example in a home screen app with no address bar, show it again, because
+// a blank page with no way out is worse. A person waiting for the neutral site sees no change.
+function showPageAgain() {
   document.documentElement.hidden = false;
+}
+window.addEventListener('pageshow', showPageAgain);
+document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState === 'visible') showPageAgain();
 });
+
+// Feelings opened on the Not sure page close when leaving it, so Back doesn't show them.
 window.addEventListener('pagehide', function () {
   Array.prototype.forEach.call(document.querySelectorAll('details.feeling[open]'), function (fold) {
     fold.open = false;
