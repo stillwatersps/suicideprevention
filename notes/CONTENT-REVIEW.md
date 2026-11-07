@@ -163,8 +163,9 @@ Wording is proposed. Nothing here is clinical advice.
 - What should minors be told about confidentiality? The page says conversations
   are confidential with limits. It tells them to expect a school counselor to tell a
   parent or guardian, because the American School Counselor Association calls that
-  "non-negotiable", even at 18. The exception is when a parent's abuse or neglect is
-  the reason, when the counselor contacts child protective services. Could this wording
+  "non-negotiable", even at 18. The exception is when the student says a parent's or
+  guardian's abuse or neglect is the reason, when the counselor must contact child
+  protective services. Could this wording
   put a teen off telling a counselor?
 - 988's terms mention insurance statements that could reach a parent when a center
   bills insurance. The page says so. Is that the right level of detail?
@@ -369,8 +370,8 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   stick. Is that the right format? Is "Most 988 calls don't involve emergency
   services" helpful, or could it read as a promise?
 - **Wallet card and poster (D2).** The printed text comes only from the [[SAFETY]]
-  table. Is the selection right (988, Spanish, veterans, The Trevor Project, Deaf
-  and hard of hearing, 911)? Should the card name Tidelight at all? The Spanish poster has
+  table. Is the selection right? The card lists 988, Spanish, veterans, and 911.
+  The poster also lists The Trevor Project and Deaf and hard of hearing. Should the card name Tidelight at all? The Spanish poster has
   a SAMHSA referral line where the English poster has The Trevor Project, so it has no line
   for LGBTQ+ young people. That line also leaves out SAMHSA's instruction to select the
   option to speak with a national representative for Spanish. Which lines should the Spanish
@@ -408,7 +409,9 @@ The other founder hasn't agreed yet. Wording is proposed.
   same tab, because only the current page is replaced. The About pages now say so. An earlier note
   said Back doesn't return to Tidelight, which was only true when one page had been opened.
 - **For Teens, from an independent AI check.** "Its rules don't set a minimum age" rests on
-  finding no age limit in 988's terms and privacy policy, not on 988 saying so. "It is separate
+  988's Terms of Service (August 2026), which say you don't have to give your age or date of
+  birth, and its nondiscrimination statement, which says it doesn't exclude anyone because of
+  age. SAMHSA's FAQ says anyone can use 988. "It is separate
   from The Trevor Project" now cites The Trevor Project's October 1, 2026 statement. That statement
   also gives a national figure on LGBTQ+ youth and suicide. Should the pages link to it?
   Telling a teen to expect a school counselor to tell a parent is accurate, but could deter them.
