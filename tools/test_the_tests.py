@@ -6,13 +6,20 @@
 
 Each bug goes into a throwaway copy of the project, never the real files. A test that can't
 fail proves nothing, so run this after changing tools/test_browser.py, tools/check_site.py,
-tools/launch_gate.py, tools/make_review_packet.py, or tools/check_crisis_sources.py. Needs Python and Chrome. It reads no
-outside website: the checks of other tools run offline, on made-up cases.
+tools/launch_gate.py, tools/make_review_packet.py, tools/check_crisis_sources.py, tools/check_live.py, or tools/test_webkit.py.
+Needs Python and Chrome; the WebKit bugs also need a Mac with Xcode's command line tools. It reads
+no outside website: the checks of other tools run offline, on made-up cases or a local copy.
+A bug counts as caught only if the check fails and says so in a FAIL line or its error, not in a NOTE.
 """
 import argparse
+import base64
+import hashlib
+import os
 import pathlib
+import platform
 import re
 import shutil
+import signal
 import subprocess
 import sys
 import tempfile
@@ -67,6 +74,39 @@ def regex(path, pattern, new):
     return apply
 
 
+def head_script(path, old, new):
+    """Changes the page's inline script and the hash for it in the page's policy, so the changed script
+    still runs, and the bug tests one thing."""
+    def apply(copy):
+        target = copy / path
+        text = target.read_text(encoding="utf-8")
+        script = re.search(r"<script>(.*?)</script>", text).group(1)
+        if old not in script:
+            raise RuntimeError(f"{path}'s inline script no longer contains: {old[:70]}")
+        changed = script.replace(old, new, 1)
+        digest = lambda s: "sha256-" + base64.b64encode(hashlib.sha256(s.encode()).digest()).decode()  # noqa: E731
+        text = text.replace(script, changed, 1).replace(digest(script), digest(changed), 1)
+        target.write_text(text, encoding="utf-8")
+    return apply
+
+
+def cover_layer(copy):
+    # A white layer over everything that lets taps through: the crisis links still take taps, but can't be seen.
+    replace("get-help/index.html", "</body>", '<div class="planted-cover"></div></body>')(copy)
+    append_css(".planted-cover { position: fixed; inset: 0; background: #fff; pointer-events: none; z-index: 1000; }")(copy)
+
+
+def chat_under_every_tap(copy):
+    # The chat link covers the screen, so test taps land on it. The page's guard must stop them,
+    # and the browser can't reach the chat service anyway.
+    append_css(".crisis-actions a[href^='https://chat'] { position: fixed !important; inset: 0 !important; z-index: 9999 !important; }")(copy)
+
+
+def strip_in_hidden_box(copy):
+    replace("get-help/index.html", '<aside class="crisis-bar"', '<div hidden><aside class="crisis-bar"')(copy)
+    replace("get-help/index.html", "</aside>", "</aside></div>")(copy)
+
+
 def big_file(copy):
     (copy / "assets" / "huge.js").write_text("// padding\n" * 60000, encoding="utf-8")
     replace("get-help/index.html", '<script src="../assets/menu.js"', '<script src="../assets/huge.js"></script><script src="../assets/menu.js"')(copy)
@@ -79,12 +119,12 @@ def menu_never_closes(copy):
 
 
 def quick_exit_plain_link(copy):
-    # A changed inline script no longer matches the page's policy, so it can't run: a plain link.
-    replace("get-help/index.html", "location.replace(a.href);", "location.href = a.href;")(copy)
+    # Following the link the ordinary way keeps the page in the tab's history.
+    head_script("get-help/index.html", "try{top.location.replace(a.href);}catch(_){location.replace(a.href);}", "location.href=a.href;")(copy)
 
 
 def quick_exit_no_blank(copy):
-    replace("get-help/index.html", "document.documentElement.hidden=true;", "")(copy)
+    head_script("get-help/index.html", "document.documentElement.hidden=true;", "")(copy)
 
 
 def about_claims_approval_after_rejection(copy):
@@ -155,6 +195,17 @@ BUGS = [
     ("an error a moment after loading", replace("assets/menu.js", "// Opens and closes the phone navigation menu.", "setTimeout(function () { throw new Error('planted late'); }, 200);"), "matrix", "get-help", "planted late"),
     ("an error from tapping the menu button", replace("assets/menu.js", "    setOpen(!isOpen());", "    setOpen(!isOpen()); throw new Error('planted in the menu');"), "menu", "get-help", "planted in the menu"),
     ("photos left out of the offline list", replace("sw.js", "  'assets/images/joshua-tree-sunset-800.webp',\n  'assets/images/joshua-tree-sunset-1600.webp',\n", ""), "offline", "index.html", "image missing offline"),
+    ("a see-through crisis strip", append_css(".crisis-bar { opacity: 0.01; }"), "matrix", "get-help", "see-through"),
+    ("a crisis strip faded by a rule for its label", append_css('[aria-label="Crisis help and quick exit"] { opacity: 0; }'), "matrix", "get-help", "see-through"),
+    ("crisis buttons faded with the page's main part", append_css("main { filter: opacity(40%); }"), "matrix", "get-help", "see-through"),
+    ("text faded by a parent's opacity", append_css(".page-hero { opacity: 0.3; }"), "matrix", "get-help", "low contrast"),
+    ("the crisis strip under a layer that lets taps through", cover_layer, "matrix", "get-help", "is covered by"),
+    ("the crisis strip moved off the screen", append_css(".crisis-bar { transform: translateY(-300%); }"), "matrix", "get-help", "is off the screen"),
+    ("the crisis strip clipped away", append_css(".crisis-bar { clip-path: inset(50%); }"), "matrix", "get-help", "at the top of the page, the crisis strip's"),
+    ("an upper-case text link with a wrong number", replace("get-help/index.html", 'href="sms:838255"', 'href="SMS:838256"'), "contact", "get-help", "not a number recorded"),
+    ("Quick exit leaving another site's frame on screen", head_script("get-help/index.html", "try{top.location.replace(a.href);}catch(_){location.replace(a.href);}", "location.replace(a.href);"), "quickexit", "get-help", "another site's frame"),
+    ("Quick exit leaving the page's title in the tab", head_script("get-help/index.html", "document.title='';", ""), "quickexit", "get-help", "title still names"),
+    ("test taps landing on the chat link", chat_under_every_tap, "folds", "get-help", "was stopped"),
 ]
 
 # Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.
@@ -185,16 +236,62 @@ COMMAND_BUGS = [
     ("a future-dated review record", replace("notes/CONTENT-REVIEW.md", "- No review has been recorded.", "- Get Help: licensed clinical social worker, 2062-12-01, not for the website"), ["tools/check_site.py"], "the date is after today"),
     ("the monthly check throwing away a good read", replace("tools/check_crisis_sources.py", "if is_real_read(b_status, b_text) or not is_real_read(status, text):", "if True:"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
     ("keywords matched as ordinary words", replace("tools/check_crisis_sources.py", "    if isinstance(option, Word):", "    if False:"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
+    ("a see-through crisis strip in the stylesheet", append_css(".crisis-bar { opacity: 0.01; }"), ["tools/check_site.py"], "hides crisis controls"),
+    ("the crisis strip faded by a rule for its label", append_css('[aria-label="Crisis help and quick exit"] { opacity: 0; }'), ["tools/check_site.py"], "hides crisis controls"),
+    ("crisis buttons faded with the page's main part, in the stylesheet", append_css("main { filter: opacity(40%); }"), ["tools/check_site.py"], "hides crisis controls"),
+    ("the crisis strip moved off the screen in the stylesheet", append_css(".crisis-bar { position: relative; left: -9999px; }"), ["tools/check_site.py"], "hides crisis controls"),
+    ("the crisis strip clipped away in the stylesheet", append_css(".crisis-bar { clip-path: inset(50%); }"), ["tools/check_site.py"], "hides crisis controls"),
+    ("the crisis strip inside a hidden box", strip_in_hidden_box, ["tools/check_site.py"], "crisis controls are hidden"),
+    ("an upper-case text link with a wrong number, in the site check", replace("get-help/index.html", 'href="sms:838255"', 'href="SMS:838256"'), ["tools/check_site.py"], "not a number recorded"),
+    ("a link above the site's root", replace("index.html", 'href="get-help/"', 'href="../get-help/"'), ["tools/check_site.py"], "broken link"),
+    ("a wrong number printed on the wallet card", replace("card/index.html", "call 1-866-488-7386", "call 1-866-488-7368"), ["tools/check_site.py"], "printed card or poster"),
+    ("avoided wording in text the script shows", replace("card/index.html", "If nothing happens, open", "If nothing happens after a failed attempt, open"), ["tools/check_site.py"], "failed attempt"),
+    ("hidden text that nothing reads", replace("get-help/index.html", "<h1", "<p hidden>Unread words</p><h1"), ["tools/check_site.py"], "hidden text that no check reads"),
+    ("a Quick exit link that leaves only the frame", replace("get-help/index.html", ' target="_top"', ""), ["tools/check_site.py"], 'target="_top"'),
+    ("a crisis link sent to another site counted as fine", replace("tools/check_site.py", "if crisis and not same_service(url, final):", "if False:"), ["tools/check_site.py", "--self-test"], "read wrongly"),
+    ("provider numbers found inside other numbers", replace("tools/check_crisis_sources.py", "return phone_digits(option) in (numbers if numbers is not None else numbers_in(text))", "return option in text"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
+    ("988 in the service's name taken as its number", replace("tools/check_crisis_sources.py", "        return re.search(option, text, re.I) is not None", "        return option.number in text if option.number else re.search(option, text, re.I) is not None"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
+    ("a crisis number with no provider check", regex("tools/check_crisis_sources.py", r'\n    \("https://www\.taps\.org/suicide".*?\n', "\n"), ["tools/check_crisis_sources.py", "--self-test"], "no check covers it"),
+    ("notes published without the live check noticing", replace("tools/preview_server.py", 'if ".." in parts or (parts and parts[0] not in allowed):', 'if ".." in parts:'), ["tools/check_live.py", "--local"], "must not be published"),
 ]
+# Bugs only WebKit can show, for tools/test_webkit.py, on a Mac with Xcode's command line tools.
+# Chrome doesn't match @supports (font: -apple-system-body), so only Safari's engine sees these.
+if platform.system() == "Darwin" and shutil.which("swiftc"):
+    COMMAND_BUGS += [
+        ("the crisis strip unpinned only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { position: static !important; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not pinned"),
+        ("the crisis strip see-through only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { opacity: 0.01; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "see-through"),
+        ("the crisis strip hidden in WebKit", append_css("body > aside { display: none !important; }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not on screen at the top"),
+    ]
 
 
 def run(copy, group, pages):
     return run_command(copy, ["tools/test_browser.py", "--only", group, "--pages", pages])
 
 
-def run_command(copy, command):
-    done = subprocess.run([sys.executable, *command], cwd=copy, capture_output=True, text=True, timeout=400)
-    return done.returncode, done.stdout + done.stderr
+def run_command(copy, command, timeout=400):
+    """Runs one check in the copy. Its temporary files, Chrome's profile included, go in a folder beside
+    the copy, which is removed with it. If it runs too long, it is stopped with everything it started,
+    such as Chrome, and the return code is None."""
+    scratch = pathlib.Path(copy).parent / (pathlib.Path(copy).name + "-tmp")
+    scratch.mkdir(exist_ok=True)
+    env = dict(os.environ, TMPDIR=str(scratch), TMP=str(scratch), TEMP=str(scratch))
+    process = subprocess.Popen([sys.executable, *command], cwd=copy, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                               text=True, env=env, start_new_session=True)
+    try:
+        output, _ = process.communicate(timeout=timeout)
+        return process.returncode, output
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except (OSError, AttributeError):
+            process.kill()
+        output, _ = process.communicate()
+        return None, (output or "") + f"\nTimed out after {timeout} s, and was stopped."
+
+
+def counted_lines(output):
+    """The output without its NOTE lines, which can name a limit without anything having failed."""
+    return "\n".join(line for line in output.splitlines() if not line.strip().startswith("NOTE"))
 
 
 def main():
@@ -232,8 +329,8 @@ def main():
             shutil.copytree(ROOT, copy, ignore=SKIP)
             bug(copy)
             code, output = run_command(copy, command)
-            caught = code != 0 and words.lower() in output.lower()
-            print(f"  {'caught' if caught else 'MISSED'}: {name} ({label})", flush=True)
+            caught = code not in (0, None) and words.lower() in counted_lines(output).lower()
+            print(f"  {'caught' if caught else 'MISSED'}: {name} ({label}){' (timed out)' if code is None else ''}", flush=True)
             if not caught:
                 missed.append(name)
                 print("    " + "\n    ".join(line for line in output.strip().splitlines() if "FAIL" in line or "Error" in line or "WRONG" in line)[:900])

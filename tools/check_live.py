@@ -3,16 +3,21 @@
 
     python3 tools/check_live.py                                              # the live GitHub Pages site
     python3 tools/check_live.py http://localhost:8000/suicideprevention/    # a local copy, from tools/preview_server.py
+    python3 tools/check_live.py --local                                      # starts that local copy itself
 
 Only reads pages. It never calls, texts, or submits anything. Used daily by
 .github/workflows/monitor.yml (idea C3). Besides the pages, it checks the page-not-found page, which
 shows the crisis numbers at any wrong address, and the files the pages need, with their content types.
+It also checks that notes and tools are not published: they answer 404 once Pages publishes with
+GitHub Actions, and if Pages is switched back to publishing from a branch, this notices.
 
 The list of pages comes from this project, not from what is published. Until a new version of the
-site is published, new pages answer 404 on the live site, so this fails every day until then.
+site is published, new pages answer 404 on the live site, and the notes are public, so this fails
+every day until then.
 """
 import pathlib
 import sys
+import threading
 import urllib.error
 import urllib.request
 
@@ -29,6 +34,8 @@ FILES = {
     "sw.js": "javascript",
     "manifest.webmanifest": "json",
 }
+# Files that must never be published. If one answers, the notes, instructions, and tools are public.
+PRIVATE = ("notes/STATUS.md", "CLAUDE.md", "README.md", "tools/launch_gate.py")
 
 
 def address(base, page):
@@ -60,6 +67,11 @@ def crisis_help_missing(body, page):
 
 def main():
     base = sys.argv[1] if len(sys.argv) > 1 else LIVE
+    if base == "--local":
+        from preview_server import BASE, make_server
+        server = make_server("127.0.0.1", 0)
+        threading.Thread(target=server.serve_forever, daemon=True).start()
+        base = f"http://127.0.0.1:{server.server_address[1]}{BASE}"
     if not base.endswith("/"):
         base += "/"
     failures = []
@@ -93,12 +105,21 @@ def main():
             failures.append(f"{url}: content type is {content_type!r}, not {kind}")
         else:
             print(f"  {status} {url} ({content_type})")
+    for name in PRIVATE:
+        url = base + name
+        status, _, _ = load(url)
+        if status != 404:
+            failures.append(f"{url}: answered {status}. Notes and tools must not be published: check that "
+                            "Settings > Pages publishes with GitHub Actions")
+        else:
+            print(f"  {status} {url} (not published, as it should be)")
     for failure in failures:
         print(f"FAIL: {failure}")
     if failures:
         print(f"{len(failures)} problem(s) on the live site.")
         return 1
-    print(f"All {len(pages)} live pages load and show their crisis help, and so do a wrong address and {len(files)} files.")
+    print(f"All {len(pages)} live pages load and show their crisis help, and so do a wrong address and {len(files)} files. "
+          f"No notes or tools are published.")
     return 0
 
 

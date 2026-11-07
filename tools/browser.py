@@ -137,20 +137,49 @@ class WebSocket:
             pass
 
 
-class Browser:
-    """Chrome with a throwaway profile, removed again by close()."""
+def closed_port():
+    """A port on this computer that nothing listens on, so a connection to it fails at once."""
+    with socket.socket() as probe:
+        probe.bind(("127.0.0.1", 0))
+        return probe.getsockname()[1]
 
-    def __init__(self, chrome=None):
+
+class Browser:
+    """Chrome with a throwaway profile, removed again by close(), or straight away if Chrome doesn't start.
+
+    With local_only, the default, Chrome can't reach any other computer: every name but localhost fails
+    to resolve, and every address but this computer's goes to a proxy that isn't there. A test can still
+    answer a request itself, as the Quick exit tests do for weather.gov, because that answer never leaves
+    Chrome. So a mis-aimed click can never load a crisis service. Only tools/check_crisis_sources.py,
+    which reads providers' pages on purpose, turns it off."""
+
+    def __init__(self, chrome=None, local_only=True):
         self.chrome = chrome or find_chrome()
         if not self.chrome:
             raise RuntimeError("Google Chrome or Chromium was not found.")
+        self.process = None
+        self.ws = None
         self.profile = tempfile.mkdtemp(prefix="tidelight-chrome-")
+        try:
+            self._start(local_only)
+        except BaseException:
+            self._stop()
+            raise
+        self.next_id = 0
+        self.events = []
+
+    def _start(self, local_only):
         # GitHub's Linux runners don't allow Chrome's sandbox. Nothing else should set this.
         sandbox = ["--no-sandbox"] if os.environ.get("TIDELIGHT_CHROME_NO_SANDBOX") else []
+        offline = [
+            "--host-resolver-rules=MAP * ~NOTFOUND , EXCLUDE localhost , EXCLUDE 127.0.0.1",
+            f"--proxy-server=http://127.0.0.1:{closed_port()}",
+        ] if local_only else []
         self.process = subprocess.Popen(
             [
                 self.chrome,
                 *sandbox,
+                *offline,
                 "--headless=new",
                 "--remote-debugging-port=0",
                 f"--user-data-dir={self.profile}",
@@ -178,8 +207,18 @@ class Browser:
             raise RuntimeError("Chrome did not start in time.")
         port, path = port_file.read_text().splitlines()[:2]
         self.ws = WebSocket(f"ws://127.0.0.1:{port}{path}")
-        self.next_id = 0
-        self.events = []
+
+    def _stop(self):
+        """Stops Chrome, however far it got, and removes its profile."""
+        if self.ws:
+            self.ws.close()
+        if self.process and self.process.poll() is None:
+            self.process.kill()
+            try:
+                self.process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                pass
+        shutil.rmtree(self.profile, ignore_errors=True)
 
     def call(self, method, params=None, session=None, timeout=60):
         self.next_id += 1
@@ -241,8 +280,8 @@ class Browser:
         try:
             self.process.wait(timeout=10)
         except subprocess.TimeoutExpired:
-            self.process.kill()
-        shutil.rmtree(self.profile, ignore_errors=True)
+            pass
+        self._stop()
 
 
 class Tab:
