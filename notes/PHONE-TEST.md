@@ -43,6 +43,8 @@ Open that address in Safari on an iPhone, or Chrome on an Android phone. If you 
 | Chat Online | The 988 chat page opens. Don't submit its form |
 | Menu | It opens, closes, and every link works |
 | Leer en español | The same page opens in Spanish, and "Read in English" comes back |
+| Spanish call and text | On a Spanish page, "Llama al 988" offers to call 988, and "envía AYUDA al 988" opens Messages to 988 with no message filled in. **Cancel** |
+| Guarda el 988 en tus contactos | On a Spanish page, a contact card opens and "Línea" and "Prevención" show their accents. Cancel, or delete it after testing |
 | Show more, and each feeling on Not Sure | They open and close |
 | Save 988 to your contacts | On an iPhone, a contact card opens. Scroll to the bottom and tap Create New Contact, then **Cancel**. Also check that the check mark at the top closes the card without saving. On Android, a file may download instead. Open it and note what happens. Delete any contact or file you saved |
 | Quick exit | The page goes blank and weather.gov opens. Back doesn't return to the page you left, unless you used a link within that page, such as "On this page". Back can reach pages you opened before it |

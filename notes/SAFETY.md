@@ -85,7 +85,10 @@ column. Recheck close to publication and at least monthly (proposed).
 ### Left off the website until a person confirms
 
 - **Crisis Text Line in Spanish.** The provider's pages disagree on the keyword
-  (HOLA or AYUDA).
+  (HOLA or AYUDA). Read again November 7, 2026: its FAQ (https://www.crisistextline.org/about-us/faq/) says it supports English
+  and Spanish, gives HELLO or HOLA, and lists a separate WhatsApp number for Spanish. Its
+  Spanish page (https://www.crisistextline.org/es/) says AYUDA. The Spanish pages say it
+  supports Spanish and that the word isn't confirmed. A person should ask Crisis Text Line.
 - **Veterans Crisis Line TTY number.** Older VA pages list a 10-digit TTY number.
   The current call page says to use a relay service or dial 711, then 988.
 
