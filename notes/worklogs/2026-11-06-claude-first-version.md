@@ -21,7 +21,7 @@ No qualified person has reviewed anything here. Both founders still need to agre
 | About and privacy | What Stillwater is, a page-by-page review list, privacy, and what Quick exit and offline copies can't do | `about/`, `es/acerca-de/` |
 | Save 988 to contacts | A contact card file, on Get Help, For Teens, Wallet card, and About | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` |
 | Review status | Every page says draft. About lists clinical and Spanish review as pending. `tools/check_site.py` fails if a page claims a review that isn't in "Review records" in [[CONTENT-REVIEW]] | About pages, `tools/check_site.py` |
-| Review packets | Numbered sentences, source addresses, questions, and a sign-off for role and date. One for the therapist (68 pages), one for a fluent Spanish reader (48 pages) | `tools/make_review_packet.py`, `notes/review-packet/` |
+| Review packets | Numbered sentences, source addresses, questions, and a sign-off for role and date. One for the therapist, one for a fluent Spanish reader | `tools/make_review_packet.py`, `notes/review-packet/` |
 | Spanish Research page | The whole page is now translated | `es/investigacion/` |
 | Phone test | Steps for a real phone, and a preview server that behaves like GitHub Pages | [[PHONE-TEST]], `tools/preview_server.py` |
 | Browser tests | Python and Chrome only, no installs | `tools/test_browser.py`, `tools/browser.py` |
