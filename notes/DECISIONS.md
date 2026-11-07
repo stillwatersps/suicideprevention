@@ -67,9 +67,9 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
   confirmed them.
 - **A 404 page** keeps crisis options on screen for broken links.
 - **Draft content is on the pages, marked for review,** with sources on each page.
-  Long source lists sit behind a Show sources button. Two research papers are cited
-  without links, because they name methods. [[CONTENT-REVIEW]] gives the links for
-  the reviewer.
+  Long source lists sit behind a Show sources button. Three research papers are cited
+  without links, because they name methods. The pages don't say why, since saying so
+  points to method details. [[CONTENT-REVIEW]] gives the links for the reviewer.
 - **No new website tools.** Still plain HTML, CSS, and one script. `tools/check_site.py`
   checks links, crisis numbers and markup, outside scripts and files, and Obsidian
   links with Python alone.

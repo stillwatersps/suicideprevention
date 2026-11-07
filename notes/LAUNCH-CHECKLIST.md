@@ -104,7 +104,9 @@ Steps are in [[worklogs/2026-11-06-claude-approved-ideas]].
 2. Watch the "Site" run under the Actions tab. It runs the checks and browser tests before publishing.
 3. Open the live site on a phone. Check the crisis strip, Call and Text (cancel them), and the menu.
 4. Confirm that a notes address, such as `/notes/STATUS.md`, no longer loads.
-5. The next day, confirm the daily monitor passed.
+5. Open an address that doesn't exist, such as `/suicideprevention/no-such-page/`. Tidelight's "page not found" page
+   should appear, with the crisis numbers, not GitHub's own page.
+6. The next day, confirm the daily monitor passed.
 
 ### The publish safety check
 

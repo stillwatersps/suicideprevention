@@ -2,8 +2,10 @@
 // Keeps copies of this site's own files, so the crisis numbers still show with a weak
 // signal or none. It never touches other sites and sends nothing. It keeps only those
 // files, under plain addresses with any ?query or #part removed, and nothing a visitor
-// types or chooses. Saved copies are still a trace on a shared device, as the About page says.
-// It asks the network first, so updates appear as soon as a connection works. A saved copy is
+// types. Their order and dates can still show which pages were opened, and on a shared device
+// they are a trace of the visit, as the About page says.
+// It asks the network first, so a visit with a connection gets updates. They can take up to about
+// 10 minutes to appear, because the host lets browsers reuse a file for that long. A saved copy is
 // used if the network fails, answers with a server error, or takes longer than WAIT_MS.
 // Change VERSION whenever the list of core files changes, or a crisis detail is corrected.
 var VERSION = 'tidelight-v6';

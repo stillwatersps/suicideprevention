@@ -24,7 +24,7 @@ sources were read in full.
 | Home (`index.html`) | Links out, role wording | [[SAFETY]] | Not reviewed |
 | Get Help (`get-help/`) | Draft | On the page | Not reviewed |
 | Help Someone (`help-someone/`) | Draft | On the page | Not reviewed |
-| Research (`research/`) | Draft | On the page. Each finding names its source. Two papers have no link on purpose, and the myths section links to other Tidelight pages | Not reviewed |
+| Research (`research/`) | Draft | On the page. Each finding names its source. Three papers have no link on purpose, and the myths section links to other Tidelight pages | Not reviewed |
 | Page not found (`404.html`) | Crisis options and links | [[SAFETY]] | Not reviewed |
 | Spanish home (`es/`) | AI translation of Home | [[SAFETY]] | Not reviewed; no fluent reader yet |
 | Spanish Get Help (`es/obtener-ayuda/`) | AI translation, Spanish options first | Source list on the page, mostly in English | Not reviewed; no fluent reader yet |
@@ -85,7 +85,7 @@ these: tap, stop at the dial or compose screen, and cancel.
 | FindTreatment.gov | Get Help | findtreatment.gov | SAMHSA | Page opens | None |
 | A form (PDF) | Get Help | Stanley-Brown safety plan PDF | Its developers | File loads | See the question on permission |
 | How this works on different platforms | Help Someone | 988's social media page | 988 Lifeline | Page opens | None |
-| Our web host logs visitors' IP addresses | Home | Privacy line in the footer | Tidelight | Tested in browser | Lawyer question |
+| Our web host logs visitors' IP addresses | Home | Privacy section of the About page | Tidelight | Tested in browser | Lawyer question |
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
 | Get Support Now | Header | Crisis options on the same page | Tidelight | Tested in browser | Founders: is the label right? |
 | Quick exit / Salida rápida | Every page. In the pinned strip on phones and tablets, bottom right on desktops | https://www.weather.gov/ | Tidelight | Tested in browser: the page goes blank at once, and Back skips the page that was left. Back can still reach earlier Tidelight pages, and that page too after a link within it | Reviewer: label, destination, placement, and what it can't hide |
@@ -233,10 +233,13 @@ Wording is proposed. Nothing here is clinical advice.
   number against its source.
 - Is it right to include the study on news coverage of celebrity deaths? It is
   worded without figures and says it does not apply to talking with someone.
-- Two papers are cited without links because they name methods. Should they be linked?
+- Three papers are cited without links because they name methods. Should they be linked?
   Open these knowing that: Steeg 2025,
-  https://pmc.ncbi.nlm.nih.gov/articles/PMC12699607/, and the BMJ 2020 review,
-  https://pmc.ncbi.nlm.nih.gov/articles/PMC7190013/. The other research and source
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC12699607/, the BMJ 2020 review,
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC7190013/, and Witt 2021,
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC8094743/, whose full text names and ranks methods.
+  The pages no longer say why they aren't linked, because that line told readers where
+  method details are. Is a citation with no link and no reason clear enough? The other research and source
   links were not all checked for this.
 - The page dropped a figure: about 4 in 10 interviewed callers had suicidal thoughts
   again by the interview, about two weeks later on average (Gould 2025, 40.8%). A
@@ -300,7 +303,7 @@ No block or browser check was bypassed.
 | Follow-up after an attempt | Homan 2026 | Full text | |
 | Follow-up after an attempt | Comtois 2026 | PubMed abstract for the main numbers. Journal page through the summary tool on November 6. In a real browser it showed a browser check, not bypassed | Recruitment and control-care wording are second-hand. A person should open it |
 | Safer surroundings | Steeg 2025 | Full text, method details not recorded | |
-| Treatment | Witt 2021 | Abstract and plain-language summary | |
+| Treatment | Witt 2021 | Abstract and plain-language summary. An audit later opened the full text, which names methods, so the citation has no link | |
 | Treatment | Sim 2025 | Abstract | |
 | Treatment | Cottrell 2026 | Abstract; full report blocked | The direction of its suicidal thoughts exception at 6 months |
 | News coverage | BMJ 2020 review | Full text, method details not recorded | |

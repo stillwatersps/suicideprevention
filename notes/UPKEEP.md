@@ -73,3 +73,5 @@ repository, so check the Actions tab now and then.
 - No analytics, forms, accounts, or outside scripts without a recorded decision. See [[SAFETY]] rule 5.
 - Keep personal names, contact details, and real people's health information out of this public project.
 - Don't describe anything as reviewed until a qualified person has signed off.
+- When you print or share the site's address, use the form that ends in a slash. Offline, the form without it shows
+  the browser's error page, with no crisis numbers.
