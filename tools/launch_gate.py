@@ -117,7 +117,7 @@ def main():
         print("Record reviews in notes/CONTENT-REVIEW.md. To publish on purpose anyway, see notes/LAUNCH-CHECKLIST.md.")
         return 1
 
-    print("Stillwater launch check. It only sees what people have recorded.\n")
+    print("Tidelight launch check. It only sees what people have recorded.\n")
     blocked = 0
     for name, passed in reviews:
         print(f"  {'done' if passed else 'NOT YET'}  {name}")

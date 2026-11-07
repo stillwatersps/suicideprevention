@@ -1,4 +1,4 @@
-# Stillwater shared project
+# Tidelight shared project
 
 Shared workspace for a phone-friendly suicide prevention website.
 It contains the website (plain HTML, CSS, and one small script), a design

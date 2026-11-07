@@ -135,7 +135,7 @@ def run(copy, group, pages):
 
 def main():
     missed = []
-    with tempfile.TemporaryDirectory(prefix="stillwater-bugs-") as folder:
+    with tempfile.TemporaryDirectory(prefix="tidelight-bugs-") as folder:
         base = pathlib.Path(folder) / "clean"
         shutil.copytree(ROOT, base, ignore=SKIP)
         # The untouched copy must pass the same tests, or a failure proves nothing.

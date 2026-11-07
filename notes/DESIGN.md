@@ -6,7 +6,8 @@
 
 ## Supplied reference
 
-- Working name displayed: Stillwater.
+- Name displayed in the supplied design: Stillwater, the project's earlier name.
+  The website now uses Tidelight (November 7, 2026).
 - Original canvas: desktop, 1440 by 1100.
 - Source in the repository: `design/homepage.svg`.
 - Exact original pasted source: `design/source/homepage-original.txt`.

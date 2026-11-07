@@ -36,5 +36,5 @@ jobs:
         run: python3 tools/check_site.py --check-links
       - name: Check crisis details on each provider's page
         env:
-          STILLWATER_CHROME_NO_SANDBOX: "1"
+          TIDELIGHT_CHROME_NO_SANDBOX: "1"
         run: python3 tools/check_crisis_sources.py

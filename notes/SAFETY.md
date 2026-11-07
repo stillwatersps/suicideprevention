@@ -23,7 +23,7 @@ GitHub Pages is on, so anything on `main` can be seen by the public.
 2. **No dead crisis controls.** A button that says "call", "text" or "chat"
    either works and says where it goes, or it is not shown. Placeholders are
    fine for resource cards, never for crisis actions.
-3. **Say what Stillwater is.** Stillwater is not a crisis service unless the
+3. **Say what Tidelight is.** Tidelight is not a crisis service unless the
    founders decide to staff one. Wording such as "24/7" or "talk to a counselor"
    names the outside service that actually provides it.
 4. **Follow safe messaging guidance.** No method details, no describing suicide

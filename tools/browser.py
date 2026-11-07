@@ -144,9 +144,9 @@ class Browser:
         self.chrome = chrome or find_chrome()
         if not self.chrome:
             raise RuntimeError("Google Chrome or Chromium was not found.")
-        self.profile = tempfile.mkdtemp(prefix="stillwater-chrome-")
+        self.profile = tempfile.mkdtemp(prefix="tidelight-chrome-")
         # GitHub's Linux runners don't allow Chrome's sandbox. Nothing else should set this.
-        sandbox = ["--no-sandbox"] if os.environ.get("STILLWATER_CHROME_NO_SANDBOX") else []
+        sandbox = ["--no-sandbox"] if os.environ.get("TIDELIGHT_CHROME_NO_SANDBOX") else []
         self.process = subprocess.Popen(
             [
                 self.chrome,

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Checks the Stillwater website and notes. Needs only Python 3; changes nothing.
+"""Checks the Tidelight website and notes. Needs only Python 3; changes nothing.
 
 Run from the project folder:
 
@@ -428,7 +428,7 @@ def check_pages(failures, notes):
         if "911" not in page.text:
             fail("does not mention 911 (SAFETY rule 1)")
         if rules["not_crisis"] not in page.text:
-            fail("does not say Stillwater is not a crisis service (SAFETY rule 3)")
+            fail("does not say Tidelight is not a crisis service (SAFETY rule 3)")
         if lang == "en" and not any((link["href"] or "").endswith("#en-espanol") for link in page.links):
             fail("has no link to the Spanish section")
         exits = [link for link in page.links if "quick-exit" in link["classes"]]
@@ -663,7 +663,7 @@ def check_assets(failures):
 def check_links(outside, failures, notes):
     """Loads each outside link. A provider may block scripts, so 403 and 429 are reported, not failed."""
     for url in sorted(outside):
-        request = urllib.request.Request(url, headers={"User-Agent": "Stillwater link check"})
+        request = urllib.request.Request(url, headers={"User-Agent": "Tidelight link check"})
         try:
             with urllib.request.urlopen(request, timeout=30) as response:
                 final = response.geturl()

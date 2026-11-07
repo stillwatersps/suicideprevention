@@ -13,7 +13,7 @@ message itself. Every reviewer should know that the content was drafted by AI an
 
 ## Licensed therapist
 
-> We're building Stillwater, a free website to help people in the U.S. find suicide prevention support, for adults
+> We're building Tidelight, a free website to help people in the U.S. find suicide prevention support, for adults
 > and young people. It isn't a crisis service. It points people to the 988 Lifeline and others. An AI assistant
 > drafted the pages, so no clinician has reviewed them, and nothing goes to the public until someone qualified has.
 >
@@ -23,7 +23,7 @@ message itself. Every reviewer should know that the content was drafted by AI an
 >
 > Please record your role and the date, not your name or contact details, since the packet may be stored publicly.
 
-Send: `review-packet/stillwater-review-packet.pdf`. Also offer the draft site through [[PHONE-TEST]].
+Send: `review-packet/tidelight-review-packet.pdf`. Also offer the draft site through [[PHONE-TEST]].
 
 ## Fluent Spanish reader
 
@@ -35,7 +35,7 @@ Send: `review-packet/stillwater-review-packet.pdf`. Also offer the draft site th
 > Please don't call or text any crisis line to check it. The attached packet numbers each sentence. Medical or
 > crisis translation experience would help. If you notice something that seems clinically wrong, please tell us.
 
-Send: `review-packet/stillwater-spanish-review-packet.pdf`. The content is about suicide, so give them the choice
+Send: `review-packet/tidelight-spanish-review-packet.pdf`. The content is about suicide, so give them the choice
 to say no, with no reason needed.
 
 ## Someone with lived experience of a suicide loss
@@ -60,7 +60,7 @@ Send: the For Teens pages from the packet, and the "If you're under 18" part of 
 > We're planning a free, informational suicide prevention website for adults and minors. It collects nothing directly,
 > and its host logs IP addresses. We'd like advice on who the publisher should be, what disclaimers it needs, liability
 > for health information, what it can say about privacy and confidentiality, minors and under-13 privacy, the use of
-> other organizations' names and links, and the name Stillwater.
+> other organizations' names and links, and the name Tidelight.
 
 Send: the About and privacy pages, the For Teens pages, and the "Human-only checklist" in [[CONTENT-REVIEW]].
 

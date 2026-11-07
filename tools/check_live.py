@@ -33,7 +33,7 @@ def main():
     pages = [p for p in find_pages() if p != "404.html"]
     for page in pages:
         url = address(base, page)
-        request = urllib.request.Request(url, headers={"User-Agent": "Stillwater live check"})
+        request = urllib.request.Request(url, headers={"User-Agent": "Tidelight live check"})
         try:
             with urllib.request.urlopen(request, timeout=30) as response:
                 body = response.read().decode("utf-8", "replace")
@@ -48,7 +48,7 @@ def main():
         if 'class="crisis-bar"' not in body:
             missing.append("crisis strip")
         if LANG_RULES[language_of(page)]["not_crisis"] not in body:
-            missing.append("the line saying Stillwater is not a crisis service")
+            missing.append("the line saying Tidelight is not a crisis service")
         if missing:
             failures.append(f"{url}: missing {', '.join(missing)}")
         else:

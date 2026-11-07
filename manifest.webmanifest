@@ -1,7 +1,7 @@
 {
-  "name": "Stillwater: suicide prevention support",
-  "short_name": "Stillwater",
-  "description": "Find suicide prevention support. Call or text 988 any time. Stillwater is not a crisis service.",
+  "name": "Tidelight: suicide prevention support",
+  "short_name": "Tidelight",
+  "description": "Find suicide prevention support. Call or text 988 any time. Tidelight is not a crisis service.",
   "lang": "en",
   "start_url": "./",
   "scope": "./",

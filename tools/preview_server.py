@@ -50,7 +50,7 @@ def make_handler(root, cache_control, log):
 
     class Handler(http.server.BaseHTTPRequestHandler):
         protocol_version = "HTTP/1.1"
-        server_version = "StillwaterPreview"
+        server_version = "TidelightPreview"
         sys_version = ""
 
         def log_message(self, format, *args):

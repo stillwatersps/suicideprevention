@@ -1,4 +1,4 @@
-// Stillwater offline support.
+// Tidelight offline support.
 // Keeps copies of this site's own files, so the crisis numbers still show with a weak
 // signal or none. It never touches other sites and sends nothing. It keeps only those
 // files, under plain addresses with any ?query or #part removed, and nothing a visitor
@@ -6,7 +6,7 @@
 // It asks the network first, so updates appear as soon as a connection works. A saved copy is
 // used if the network fails, answers with a server error, or takes longer than WAIT_MS.
 // Change VERSION whenever the list of core files changes, or a crisis detail is corrected.
-var VERSION = 'stillwater-v4';
+var VERSION = 'tidelight-v5';
 var CORE = [
   './',
   'get-help/',
@@ -65,7 +65,8 @@ self.addEventListener('activate', function (event) {
   event.waitUntil(
     caches.keys().then(function (names) {
       return Promise.all(names.filter(function (name) {
-        return name.indexOf('stillwater-') === 0 && name !== VERSION;
+        // Also removes copies saved under the project's earlier name, Stillwater.
+        return (name.indexOf('tidelight-') === 0 || name.indexOf('stillwater-') === 0) && name !== VERSION;
       }).map(function (name) {
         return caches.delete(name);
       }));

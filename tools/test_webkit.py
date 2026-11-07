@@ -218,7 +218,7 @@ def main():
 
     problems = []
     checks = 0
-    with tempfile.TemporaryDirectory(prefix="stillwater-webkit-") as workdir:
+    with tempfile.TemporaryDirectory(prefix="tidelight-webkit-") as workdir:
         source = pathlib.Path(workdir) / "run.swift"
         binary = pathlib.Path(workdir) / "run"
         source.write_text(SWIFT, encoding="utf-8")

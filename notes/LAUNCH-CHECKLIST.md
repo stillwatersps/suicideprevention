@@ -24,7 +24,7 @@ Read [[FOUNDER-BRIEF]] first. It gives the choices and a recommendation for each
 - [ ] Who reviews, and how a sign-off is recorded
 - [ ] Supported ages, including under-13s
 - [ ] Whether both founders accept the ideas in [[IDEAS]]
-- [ ] Whether the name Stillwater is final, after a trademark check
+- [ ] Whether the name Tidelight is final, after a trademark check
 - [ ] What to do if someone tries to contact the project in crisis
 
 ## 2. Human review
@@ -33,8 +33,8 @@ Give each person the matching note in [[REVIEWER-NOTES]]. Record each result in 
 [[CONTENT-REVIEW]]: the section, the reviewer's role, the date, and the result. Never add personal
 contact details to this public project.
 
-- [ ] Licensed therapist: `review-packet/stillwater-review-packet.pdf`
-- [ ] Fluent Spanish reader: `review-packet/stillwater-spanish-review-packet.pdf`
+- [ ] Licensed therapist: `review-packet/tidelight-review-packet.pdf`
+- [ ] Fluent Spanish reader: `review-packet/tidelight-spanish-review-packet.pdf`
 - [ ] Someone with lived experience of a suicide loss: After a loss
 - [ ] Someone who works with young people: For Teens
 - [ ] A lawyer: About and privacy, minors, and who the publisher is

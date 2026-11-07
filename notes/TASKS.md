@@ -52,8 +52,8 @@ Planning tasks below are suggestions; ownership has not been agreed.
   pull request 5 (A3), and turn off Issues and the Wiki (A4). Owner: the repository
   owner. Steps in [[worklogs/2026-11-06-claude-approved-ideas]].
 - [ ] A fluent Spanish reader checks all nine pages in `es/`, using
-  `notes/review-packet/stillwater-spanish-review-packet.pdf`. Owner: unassigned.
-- [ ] Give `notes/review-packet/stillwater-review-packet.pdf` to the licensed therapist, and
+  `notes/review-packet/tidelight-spanish-review-packet.pdf`. Owner: unassigned.
+- [ ] Give `notes/review-packet/tidelight-review-packet.pdf` to the licensed therapist, and
   record the results in [[CONTENT-REVIEW]]. Owner: the founder arranging the review.
 - [ ] Someone with lived experience of a suicide loss reads After a loss. Owner: unassigned.
 - [ ] A lawyer reads About and privacy. Owner: unassigned.
@@ -66,6 +66,12 @@ Planning tasks below are suggestions; ownership has not been agreed.
   Owner: unassigned.
 - [ ] Turn on GitHub notifications for failed workflow runs, so the daily and monthly
   checks reach a founder. Owner: both.
+
+- [ ] Check the name Tidelight against existing organizations and trademarks before
+  buying a domain or printing cards. Owner: both. The rename is in [[DECISIONS]].
+- [ ] Optional: rename the GitHub organization `stillwatersps`. This changes the
+  website address, so update `tools/check_live.py`, the 404 page links, and the notes
+  in the same change. Owner: the repository owner.
 
 ## In progress
 

@@ -8,7 +8,8 @@
 - The intended audience includes adults and minors; exact ages are undecided.
 - Two collaborators will work on separate computers using Claude Code.
 - The shared Obsidian vault is the project's notes/ folder.
-- The supplied SVG is a desktop homepage reference labeled Stillwater.
+- The project is named Tidelight. It was called Stillwater until November 7, 2026,
+  and the supplied SVG, a desktop homepage reference, still shows that name.
 - The GitHub repository is `stillwatersps/suicideprevention`.
 - A website exists on shared main, implemented with HTML, CSS, and a small
   navigation script: a homepage and three other pages. It is public as an early

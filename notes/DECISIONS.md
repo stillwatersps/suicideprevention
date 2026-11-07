@@ -51,10 +51,10 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
 - **Pages ask search engines not to list them** (`noindex`), until review. Why: a
   person in crisis should not land on unreviewed drafts from a search. Remove it
   when the content is approved. It does not cover raw notes.
-- **Wording keeps Stillwater apart from support services.** For example, "How can
+- **Wording keeps Tidelight apart from support services.** For example, "How can
   we support you today?" became "Where would you like to start?", and the footer
   says the content has not had professional review, not that it is being reviewed.
-- **Privacy wording.** The homepage says "Stillwater has no sign-ups, forms, or
+- **Privacy wording.** The homepage says "Tidelight has no sign-ups, forms, or
   tracking. Our web host logs visitors' IP addresses." Each footer says "no sign-ups,
   forms, analytics, or cookies" and links GitHub's statement about logging IP
   addresses. "Privacy first" was dropped because it promised too much. For the
@@ -86,7 +86,7 @@ and why at the end of this note. This repository is public, so record people by 
 such as "founder A", or by a handle the person chooses.
 
 1. **What should the public site show until review?** Keep the preview out of search
-   results, cut it to one page with 988, 911, and what Stillwater is, or turn Pages
+   results, cut it to one page with 988, 911, and what Tidelight is, or turn Pages
    off. Claude's suggestion: one of the last two until a reviewer has signed off,
    because reaching 988 and 911 is the part that helps most and the drafts carry the
    most risk. Draft pull request 8 corrects only the four known problems on the live
@@ -107,7 +107,8 @@ such as "founder A", or by a handle the person chooses.
 5. **Is there any contact route, and what if someone writes in crisis?** GitHub
    Issues and the Wiki are on for this public repository. Turning them off is a
    simple first step.
-6. **Which ages are supported, and is the name Stillwater final?**
+6. **Which ages are supported?** The name is now Tidelight; see the November 7 entry
+   below. A trademark check is still open.
 7. **Where do private notes live?** The vault folder can hold private notes,
    `.gitignore` has no rule for them, and GitHub Desktop selects every changed file by
    default, so one could be committed and published by accident. Keep them outside
@@ -159,6 +160,22 @@ to reverse:
   reader gets the Spanish pages. Packets record a role and a date, never contact details.
 - **Two pages appear in the phone menu only.** They don't fit the desktop header, where they
   stay in the footer and on the homepage.
+
+## November 7, 2026: name changed to Tidelight
+
+One founder renamed the project from Stillwater to Tidelight. **The other founder's
+agreement isn't recorded yet.** Done on branch `claude/jolly-mayer-2m6eno`, draft pull
+request 5, not merged. What changed:
+
+- Every page in English and Spanish, the home screen app name, the review packets,
+  the tools, and the current notes.
+- Not changed: the supplied design files, which show the old name; earlier handoff
+  notes, which are history; and the GitHub organization `stillwatersps` and the website
+  address, which a founder would change in GitHub's settings.
+- Visitors' saved offline copies under the old name are removed on their next visit.
+
+Still open: check Tidelight against existing organizations and trademarks before
+buying a domain or printing cards.
 
 ## Decision format
 

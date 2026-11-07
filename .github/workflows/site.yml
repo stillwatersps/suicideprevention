@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Test every page in Chrome
         env:
-          STILLWATER_CHROME_NO_SANDBOX: "1"
+          TIDELIGHT_CHROME_NO_SANDBOX: "1"
         run: python3 tools/test_browser.py
 
   publish:

@@ -990,7 +990,7 @@ def test_quickexit(browser, site, pages, report):
     if home not in entries:
         report.fail("quickexit", "index.html", "expected the earlier page to stay in history; the site's wording needs another look")
     else:
-        report.note("quickexit", "(limit)", "the page before stays in history, so Back from weather.gov reaches the earlier Stillwater page")
+        report.note("quickexit", "(limit)", "the page before stays in history, so Back from weather.gov reaches the earlier Tidelight page")
         report.ok("quickexit")
     tab.close()
 
@@ -1020,7 +1020,7 @@ def test_quickexit(browser, site, pages, report):
         report.fail("quickexit", "get-help/index.html", "expected the page to stay in history without JavaScript; the site's wording needs another look")
     tab.close()
 
-    # With no connection, weather.gov can't load. The tab still leaves Stillwater for the browser's error page.
+    # With no connection, weather.gov can't load. The tab still leaves Tidelight for the browser's error page.
     tab = new_tab(browser, 390, 844, True)
     tab.send("Fetch.enable", pattern)
     tab.goto(help_page)
@@ -1031,7 +1031,7 @@ def test_quickexit(browser, site, pages, report):
     index, entries = history_entries(tab)
     shown = tab.js("location.href")
     if help_page in entries[index:index + 1] and shown == help_page:
-        report.note("quickexit", "(limit)", "with no connection, the Stillwater page stays on screen")
+        report.note("quickexit", "(limit)", "with no connection, the Tidelight page stays on screen")
     else:
         report.note("quickexit", "(limit)", f"with no connection, the tab shows the browser's error page ({shown[:40]})")
     print(f"  Quick exit with no connection: history is {entries}, at {index}; the tab shows {shown}")
@@ -1098,7 +1098,7 @@ def count_pdf_pages(path):
 
 def test_print(browser, site, pages, report, screens=None):
     tab = new_tab(browser, 1280, 800, False)
-    workdir = pathlib.Path(tempfile.mkdtemp(prefix="stillwater-print-"))
+    workdir = pathlib.Path(tempfile.mkdtemp(prefix="tidelight-print-"))
     for page in pages:
         if page == "404.html":
             continue
@@ -1262,7 +1262,7 @@ WAIT_FOR_WORKER = """(async function () {
 
 
 def test_offline(browser, site_ignored, pages, report):
-    workdir = tempfile.mkdtemp(prefix="stillwater-offline-")
+    workdir = tempfile.mkdtemp(prefix="tidelight-offline-")
     site_root = pathlib.Path(workdir) / "site"
     site_root.mkdir()
     copy_site(site_root)
@@ -1358,7 +1358,7 @@ def test_offline(browser, site_ignored, pages, report):
             report.ok("offline")
         # Pages visited offline before the update and not since keep the old copy until a visit, or a new VERSION.
         worker = site_root / "sw.js"
-        worker.write_text(re.sub(r"stillwater-v\d+", "stillwater-v999", worker.read_text(encoding="utf-8")), encoding="utf-8")
+        worker.write_text(re.sub(r"tidelight-v\d+", "tidelight-v999", worker.read_text(encoding="utf-8")), encoding="utf-8")
         site.start()
         tab.goto(site.base)
         tab.js("navigator.serviceWorker.getRegistration().then(function (r) { return r.update(); })")
@@ -1366,9 +1366,9 @@ def test_offline(browser, site_ignored, pages, report):
         for _ in range(60):
             tab.browser.pump(0.1)
             names = tab.js("caches.keys()")
-            if names == ["stillwater-v999"]:
+            if names == ["tidelight-v999"]:
                 break
-        if names != ["stillwater-v999"]:
+        if names != ["tidelight-v999"]:
             report.fail("offline", "(updates)", f"a new VERSION did not replace the old saved files: {names}")
         else:
             report.ok("offline")
@@ -1454,7 +1454,7 @@ def check_bad_hosts(tab, site, titles, report):
 def check_correction_beats_browser_cache(browser, report):
     """A corrected crisis number must reach saved copies, even for a visitor who loaded the
     old page minutes ago and still has it in the browser's short-term cache."""
-    workdir = tempfile.mkdtemp(prefix="stillwater-correct-")
+    workdir = tempfile.mkdtemp(prefix="tidelight-correct-")
     site_root = pathlib.Path(workdir) / "site"
     site_root.mkdir()
     copy_site(site_root)
@@ -1468,16 +1468,16 @@ def check_correction_beats_browser_cache(browser, report):
         target = site_root / "get-help" / "index.html"
         target.write_text(target.read_text(encoding="utf-8").replace("</h1>", " CORRECTED-MARKER</h1>", 1), encoding="utf-8")
         worker = site_root / "sw.js"
-        worker.write_text(re.sub(r"stillwater-v\d+", "stillwater-v999", worker.read_text(encoding="utf-8")), encoding="utf-8")
+        worker.write_text(re.sub(r"tidelight-v\d+", "tidelight-v999", worker.read_text(encoding="utf-8")), encoding="utf-8")
         tab.goto(site.base)
         tab.js("navigator.serviceWorker.getRegistration().then(function (r) { return r.update(); })")
         names = []
         for _ in range(60):
             tab.browser.pump(0.1)
             names = tab.js("caches.keys()")
-            if names == ["stillwater-v999"]:
+            if names == ["tidelight-v999"]:
                 break
-        if names != ["stillwater-v999"]:
+        if names != ["tidelight-v999"]:
             report.fail("offline", "(updates)", f"the new VERSION did not install: {names}")
             return
         site.stop()
@@ -1601,14 +1601,14 @@ def test_privacy(browser, site, pages, report):
         tab.goto(site.url("not-sure/index.html"))
         guard_click(tab, "details.feeling > summary")
         opened = tab.js("document.querySelectorAll('details.feeling[open]').length")
-        tab.js("window.stillwaterMarker = 1")
+        tab.js("window.tidelightMarker = 1")
         tab.clear_events()
         guard_click(tab, ".next-steps a[href^=\"../\"]")
         tab.browser.wait_for("Page.loadEventFired", tab.session, 15)
         tab.clear_events()
         tab.js("history.back()")
         tab.browser.pump(1)
-        after = tab.js("""({open: document.querySelectorAll('details.feeling[open]').length, kept: window.stillwaterMarker === 1,
+        after = tab.js("""({open: document.querySelectorAll('details.feeling[open]').length, kept: window.tidelightMarker === 1,
             hidden: document.documentElement.hidden, at: location.pathname})""")
         print(f"  Privacy: after Back, the browser {'kept the page in memory' if after['kept'] else 'loaded the page again'}, with {after['open']} feelings open.")
         if not opened or "not-sure" not in after["at"]:

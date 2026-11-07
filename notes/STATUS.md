@@ -9,7 +9,7 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | --- | --- | --- |
 | `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
 | `claude/jolly-mayer-2m6eno` | Everything below from `site/phone-accessibility-content`, the [[RESEARCH-BRIEF]] PDF and notes, and improvement ideas one founder approved: Spanish pages, quick exit, dark mode, offline support, a shorter Get Help, automatic checks, website-only publishing, live-site monitoring, a readability report, myths and facts, printable wallet cards, and a teen page. See [[worklogs/2026-11-06-claude-approved-ideas\|first batch]] and [[worklogs/2026-11-06-claude-second-batch\|second batch]] | Draft pull request 5 into `main`, **not merged, not on the public website** |
-| `site/first-version-build` | Everything on the branch above, plus the rest of the first version: Not sure what you're feeling?, After a loss, About and privacy, saving 988 to contacts, review status, the full Spanish Research page, review packets, phone test steps, and browser tests. See [[worklogs/2026-11-06-claude-first-version|the handoff]] | Draft pull request 9 into `claude/jolly-mayer-2m6eno`. Merging it publishes nothing. **Not merged, not on the public website** |
+| `site/first-version-build` | Everything on the branch above, plus the rest of the first version: Not sure what you're feeling?, After a loss, About and privacy, saving 988 to contacts, review status, the full Spanish Research page, review packets, phone test steps, and browser tests. See [[worklogs/2026-11-06-claude-first-version|the handoff]] | Merged into `claude/jolly-mayer-2m6eno` on November 7, 2026, at a founder's request, which closes pull request 9. **Not on the public website** |
 | `site/phone-accessibility-content` | A second round: fixes from an independent review, stronger site checks, and updated notes | Merged into `claude/jolly-mayer-2m6eno` on November 6, 2026, at a founder's request, so pull request 6 is closed by that merge. Pull request 5 is the one place to review. **Not on the public website** |
 | `claude/charming-swartz-e8d31c`, commit `546308d` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, plus a handoff, no page changes | Draft pull request 7 into `main`, **not merged**. Merging publishes those two notes. Its description covers the conflict with pull request 5 |
 | `site/live-page-corrections`, commit `f523d0f` when checked | Only the first four known issues below, on the four live pages, plus a handoff. No draft content | Draft pull request 8 into `main`, **not merged**. Merging publishes those page changes and the handoff. Its description covers the conflict with pull request 5 |
@@ -49,7 +49,8 @@ Product decisions and professional review have not happened yet.
   alongside [[CONTENT-REVIEW]]; both cover the same three pages, and the page text
   did not come from the brief.
 
-- A complete first version on `site/first-version-build`: 19 pages in English and Spanish.
+- A complete first version on `claude/jolly-mayer-2m6eno` (pull request 5): 19 pages in English and Spanish,
+  renamed from Stillwater to Tidelight on November 7, 2026. See [[worklogs/2026-11-07-claude-rename-tidelight|the rename handoff]].
   [[PHONE-TEST]] says how to try it on a phone. `notes/review-packet/` has printable packets
   for the licensed therapist and a fluent Spanish reader. See
   [[worklogs/2026-11-06-claude-first-version|the handoff]] for what was and wasn't tested.
@@ -62,7 +63,7 @@ Product decisions and professional review have not happened yet.
   [[CONTENT-REVIEW]].
 - The Spanish pages are an AI translation no fluent reader has checked. Many outside
   sources and services they point to are in English only.
-- Quick exit only replaces the current page. Back can still reach Stillwater pages opened
+- Quick exit only replaces the current page. Back can still reach Tidelight pages opened
   earlier in that tab, as testing showed. The About pages say so.
 - The teen page and the wallet cards are drafts. Supported ages are undecided, and
   the cards should not be printed for handing out until reviewed.
@@ -105,7 +106,7 @@ Everywhere:
 1. Try the first version on a real phone, using [[PHONE-TEST]].
 2. Both founders read pull request 9, [[IDEAS]], and the open decisions in [[DECISIONS]],
    and decide what the public site should show until review.
-3. Give `notes/review-packet/stillwater-review-packet.pdf` to the licensed therapist, and the
+3. Give `notes/review-packet/tidelight-review-packet.pdf` to the licensed therapist, and the
    Spanish packet to a fluent reader. Record results in "Review records" in [[CONTENT-REVIEW]].
 
 Merging pull request 9 into `claude/jolly-mayer-2m6eno` publishes nothing. Merging pull

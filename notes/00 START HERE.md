@@ -1,8 +1,8 @@
 ---
-aliases: [Stillwater, Start Here]
+aliases: [Tidelight, Start Here]
 ---
 
-# Stillwater
+# Tidelight
 
 Our shared notebook for building a suicide prevention website.
 

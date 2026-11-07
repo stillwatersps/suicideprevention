@@ -5,9 +5,9 @@
     python3 tools/make_review_packet.py --no-pdf  # HTML only, if Chrome isn't installed
 
 It writes two packets, so each reader gets what they need:
-  - stillwater-review-packet: for the licensed therapist. English pages, research brief,
+  - tidelight-review-packet: for the licensed therapist. English pages, research brief,
     sources, questions, and sign-off.
-  - stillwater-spanish-review-packet: for a fluent Spanish reader. Spanish pages and sign-off.
+  - tidelight-spanish-review-packet: for a fluent Spanish reader. Spanish pages and sign-off.
 
 Every sentence gets a number, so feedback can say "HELP-12" instead of quoting it. The packet
 records a reviewer's role and the date, never personal contact details. It only reads the
@@ -463,7 +463,7 @@ def therapist_packet(today, stamp):
     english_names = [item[0] for item in ENGLISH]
 
     parts.append(f"""
-<h1>Stillwater content review packet</h1>
+<h1>Tidelight content review packet</h1>
 <p class="lede">For a licensed therapist reviewing a draft suicide prevention website for adults and young people in the United States.</p>
 <div class="banner"><strong>Draft. Not reviewed.</strong> An AI assistant drafted the website text, and one founder supplied the research brief. No licensed clinician has reviewed any of it, and none of it should be relied on until a review is recorded. Reviewer: not yet recorded. Review date: not yet recorded.</div>
 <p class="small">Built {today} from the website files and project notes. Fingerprint {stamp}. If the pages change, this packet must be rebuilt with <code>python3 tools/make_review_packet.py</code>, and numbers may change.</p>
@@ -558,7 +558,7 @@ def therapist_packet(today, stamp):
 <li>Keep any signed copy with personal details outside this public project.</li>
 </ul>""")
     parts.append("<h2>Notes</h2>" + '<span class="answer"></span>' * 16)
-    return document("Stillwater content review packet", "\n".join(parts))
+    return document("Tidelight content review packet", "\n".join(parts))
 
 
 def spanish_packet(today, stamp):
@@ -567,7 +567,7 @@ def spanish_packet(today, stamp):
     parts = []
     names = [item[0] for item in SPANISH]
     parts.append(f"""
-<h1>Stillwater: paquete de revisión en español</h1>
+<h1>Tidelight: paquete de revisión en español</h1>
 <p class="lede">Para una persona hispanohablante que revise la traducción de un sitio web preliminar sobre la prevención del suicidio. For a fluent Spanish reader.</p>
 <div class="banner"><strong>Borrador sin revisar.</strong> Un asistente de IA redactó el texto en inglés y lo tradujo al español. Ninguna persona hispanohablante lo ha revisado, y ningún profesional clínico ha revisado todavía la versión en inglés. Quien revisa: sin registrar. Fecha de revisión: sin registrar.</div>
 <p class="small">Generado el {today} a partir de los archivos del sitio. Huella {stamp}. Si las páginas cambian, hay que generar este paquete de nuevo con <code>python3 tools/make_review_packet.py</code>.</p>
@@ -598,7 +598,7 @@ def spanish_packet(today, stamp):
 <p><strong>Función de quien revisa:</strong><span class="write"></span></p>
 <p><strong>Fecha:</strong><span class="write"></span></p>""")
     parts.append("<h2>Notas</h2>" + '<span class="answer"></span>' * 16)
-    html_text = document("Stillwater: paquete de revisión en español", "\n".join(parts))
+    html_text = document("Tidelight: paquete de revisión en español", "\n".join(parts))
     return html_text.replace('<html lang="en">', '<html lang="es">', 1)
 
 
@@ -635,8 +635,8 @@ def main():
     stamp = fingerprint()
     OUT.mkdir(parents=True, exist_ok=True)
     builds = (
-        ("stillwater-review-packet", therapist_packet(today, stamp), "Stillwater content review packet"),
-        ("stillwater-spanish-review-packet", spanish_packet(today, stamp), "Stillwater Spanish review packet"),
+        ("tidelight-review-packet", therapist_packet(today, stamp), "Tidelight content review packet"),
+        ("tidelight-spanish-review-packet", spanish_packet(today, stamp), "Tidelight Spanish review packet"),
     )
     (OUT / "FINGERPRINT.txt").write_text(stamp + "\n", encoding="utf-8")
     for name, text, label in builds:

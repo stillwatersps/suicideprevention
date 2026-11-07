@@ -62,7 +62,7 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Text 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `sms:988` | 988 Lifeline | Link format only | Phone test |
 | Call 911 | Crisis strip, Get Help, Help Someone urgent note | `tel:911` | Local 911 | Link format only | Phone test. Decide whether it should be a link at all |
 | Chat Online | Buttons, closing banner | chat.988lifeline.org | 988 Lifeline | Page opens; form not submitted | Open on a phone |
-| Ayuda en español | Every page | Spanish block on Get Help | Stillwater | Tested in browser | Spanish reviewer |
+| Ayuda en español | Every page | Spanish block on Get Help | Tidelight | Tested in browser | Spanish reviewer |
 | Llamar al 988 | Get Help, Spanish block | `tel:988` | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
 | Enviar AYUDA al 988 | Get Help, Spanish block | `sms:988`, message blank | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
 | Chatear en español | Get Help, Spanish block | chat.988lifeline.org/?lang=es | 988 Lifeline | Page opens in Spanish; form not submitted | Spanish reviewer |
@@ -85,15 +85,15 @@ these: tap, stop at the dial or compose screen, and cancel.
 | FindTreatment.gov | Get Help | findtreatment.gov | SAMHSA | Page opens | None |
 | A form (PDF) | Get Help | Stanley-Brown safety plan PDF | Its developers | File loads | See the question on permission |
 | How this works on different platforms | Help Someone | 988's social media page | 988 Lifeline | Page opens | None |
-| Our web host logs visitors' IP addresses | Home | Privacy line in the footer | Stillwater | Tested in browser | Lawyer question |
+| Our web host logs visitors' IP addresses | Home | Privacy line in the footer | Tidelight | Tested in browser | Lawyer question |
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
-| Get Support Now | Header | Crisis options on the same page | Stillwater | Tested in browser | Founders: is the label right? |
-| Quick exit / Salida rápida | Every page, bottom right | https://www.weather.gov/ | Stillwater | Tested in browser: Back skips the page that was left, but can still reach earlier Stillwater pages | Reviewer: label, destination, and what it can't hide |
-| Save 988 to your contacts / Guarda el 988 en tus contactos | Get Help, For Teens, Wallet card, About, and their Spanish twins | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` | Stillwater | File checked. See `notes/worklogs/2026-11-06-claude-first-version.md` for phone tests | Save on a real iPhone and Android phone |
+| Get Support Now | Header | Crisis options on the same page | Tidelight | Tested in browser | Founders: is the label right? |
+| Quick exit / Salida rápida | Every page, bottom right | https://www.weather.gov/ | Tidelight | Tested in browser: Back skips the page that was left, but can still reach earlier Tidelight pages | Reviewer: label, destination, and what it can't hide |
+| Save 988 to your contacts / Guarda el 988 en tus contactos | Get Help, For Teens, Wallet card, About, and their Spanish twins | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` | Tidelight | File checked. See `notes/worklogs/2026-11-06-claude-first-version.md` for phone tests | Save on a real iPhone and Android phone |
 | Llamar al 988 (marca 2) / Enviar AYUDA al 988 / Chatear en español | Spanish pages | `tel:988`, `sms:988`, chat.988lifeline.org/?lang=es | 988 Lifeline | Link format only | Phone test; fluent reader |
-| Menu | Header, phones and tablets | Opens the page list | Stillwater | Tested in browser | Real phone with a screen reader |
-| Three homepage cards | Home | Get Help, Help Someone, Research | Stillwater | Tested in browser | None |
-| Show sources | Get Help, Help Someone | Opens the source list | Stillwater | Tested in browser | None |
+| Menu | Header, phones and tablets | Opens the page list | Tidelight | Tested in browser | Real phone with a screen reader |
+| Three homepage cards | Home | Get Help, Help Someone, Research | Tidelight | Tested in browser | None |
+| Show sources | Get Help, Help Someone | Opens the source list | Tidelight | Tested in browser | None |
 
 Text and chat with a crisis service start with automated steps. Texting asks you
 to accept terms and answer a few questions. Chat asks for a zip code, whether you are
@@ -111,13 +111,13 @@ Wording is proposed. Nothing here is clinical advice.
 - Should 911 be a tap-to-call link in the pinned strip? Phones ask before calling,
   but an accidental tap is possible, and some people fear a police response.
 - The header's "Suicide prevention & support" tagline and "Get Support Now" button
-  both come from the supplied design. Both read as if Stillwater provides support, and
+  both come from the supplied design. Both read as if Tidelight provides support, and
   the button doesn't say who does. Claude's suggestion: "Find suicide prevention
   support" and "Call or text 988".
 - The text links open a blank message (`sms:741741`, `sms:678678`, and `sms:988` for
   AYUDA and PRIDE), so a person in distress has to remember the keyword. The label on
   the button is all that reminds them. Is that acceptable?
-- Is the privacy wording right? The homepage says "Stillwater has no sign-ups, forms,
+- Is the privacy wording right? The homepage says "Tidelight has no sign-ups, forms,
   or tracking. Our web host logs visitors' IP addresses." Each footer says "no
   sign-ups, forms, analytics, or cookies" and links GitHub's statement. A lawyer should
   read this too.
@@ -282,7 +282,7 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   Are the steps right, and is anything folded that someone in crisis needs to see
   at once? "Other ways to reach someone" stays open on purpose.
 - **Quick exit (B2).** It opens weather.gov and replaces only the current page in the
-  tab's history. Back can still reach Stillwater pages opened earlier in that tab. It
+  tab's history. Back can still reach Tidelight pages opened earlier in that tab. It
   can't clear earlier history, other tabs, or saved offline copies. The About pages say
   so; should the button itself say more? Is the label right, and is weather.gov a good
   neutral destination?
@@ -304,7 +304,7 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   services" helpful, or could it read as a promise?
 - **Wallet card and poster (D2).** The printed text comes only from the [[SAFETY]]
   table. Is the selection right (988, Spanish, veterans, The Trevor Project, Deaf
-  and hard of hearing, 911)? Should the card name Stillwater at all?
+  and hard of hearing, 911)? Should the card name Tidelight at all?
 - **For Teens (D3).** Built before ages are decided. Every paragraph repeats text
   from Get Help or Help Someone. What should a teen read first? What if no adult
   feels safe? A lawyer should look at the privacy wording for minors.
@@ -328,15 +328,15 @@ The other founder hasn't agreed yet. Wording is proposed.
   wording right? The list of feelings is AFSP's, including relief and thoughts of suicide.
   Should it say more about thoughts of suicide after a loss? The trauma paragraph sits inside a
   fold on purpose, with no details of any death. Is that right? The page lists outside groups
-  that Stillwater hasn't vetted, and AFSP and SAVE say they don't vet groups either. Someone with
+  that Tidelight hasn't vetted, and AFSP and SAVE say they don't vet groups either. Someone with
   lived experience of loss should read this page.
 - **Save 988 to contacts (A5).** A contact on a shared phone can be seen by others, and the page
   says so. Should the button appear on the teen page?
-- **About and privacy.** It says plainly that nobody at Stillwater watches the site and there is
+- **About and privacy.** It says plainly that nobody at Tidelight watches the site and there is
   no way to send a message. A lawyer should read this page too.
-- **Quick exit limits.** Testing showed that Back can still reach earlier Stillwater pages in the
+- **Quick exit limits.** Testing showed that Back can still reach earlier Tidelight pages in the
   same tab, because only the current page is replaced. The About pages now say so. An earlier note
-  said Back doesn't return to Stillwater, which was only true when one page had been opened.
+  said Back doesn't return to Tidelight, which was only true when one page had been opened.
 - **For Teens, from an independent AI check.** "Its rules don't set a minimum age" rests on
   finding no age limit in 988's terms and privacy policy, not on 988 saying so. "It is separate
   from The Trevor Project" has no source on the page; [[SAFETY]] explains where it comes from.
@@ -360,7 +360,7 @@ The other founder hasn't agreed yet. Wording is proposed.
       page, in an ordinary browser.
 - [ ] Ask a lawyer: who is the publisher, what disclaimers are needed, minors and
       under-13 privacy, and whether the host's IP logging matters.
-- [ ] Check the name Stillwater against existing organizations and trademarks before
+- [ ] Check the name Tidelight against existing organizations and trademarks before
       buying a domain. Ask the reviewer how the name and the lone tree photo read to
       someone in distress.
 

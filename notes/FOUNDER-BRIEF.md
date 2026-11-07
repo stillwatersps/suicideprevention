@@ -19,7 +19,7 @@ reviewed", which isn't true yet.
 | Option | Good | Bad |
 | --- | --- | --- |
 | A. Merge pull request 8 | Takes minutes. Fixes the four known problems | Still public with no review |
-| B. One page with 988, 911, and what Stillwater is | Keeps the part that helps most, with the least risk | Needs a small build |
+| B. One page with 988, 911, and what Tidelight is | Keeps the part that helps most, with the least risk | Needs a small build |
 | C. Turn GitHub Pages off | No unreviewed content anywhere | Nothing to show anyone |
 | D. Leave it as it is | No work | The site keeps saying something untrue |
 
@@ -39,7 +39,7 @@ reviewed", which isn't true yet.
 | 7 | Should the site publish without the notes? | Yes, with GitHub Actions. The workflow is built and needs one setting | Every note on `main` has a public address today |
 | 8 | Keep the publish safety check? | Yes, until reviews are recorded | It stops unreviewed content going live by accident. See [[LAUNCH-CHECKLIST]] |
 | 9 | What if someone contacts the project in crisis? | Turn off Issues and the Wiki, and add no contact route until you have a plan and a person to answer | A message nobody sees could do real harm |
-| 10 | Who is the publisher? Is Stillwater the final name? | Ask a lawyer, and check trademarks before buying a domain | Both affect what the site must say |
+| 10 | Who is the publisher? Is Tidelight the final name? | Ask a lawyer, and check trademarks before buying a domain | Both affect what the site must say |
 | 11 | A custom domain? | Decide after the name. It changes the page-not-found links and the checks | The current address includes `/suicideprevention/` |
 | 12 | Who does upkeep? | Name one person for each part of [[UPKEEP]] | Numbers change, and someone has to notice |
 | 13 | Keep or close pull requests 1, 7, and 8? | Close 1. Merge 7 and 8 if `main` stays public for a while | Pull request 5 covers them once it merges |

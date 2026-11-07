@@ -40,7 +40,7 @@ BLOCKED_STATUSES = {401, 403, 406, 429, 503}
 
 def read_simple(url):
     """Returns (status, text). Status None means the page couldn't be reached."""
-    request = urllib.request.Request(url, headers={"User-Agent": "Stillwater crisis source check"})
+    request = urllib.request.Request(url, headers={"User-Agent": "Tidelight crisis source check"})
     try:
         with urllib.request.urlopen(request, timeout=30) as response:
             return response.status, response.read().decode("utf-8", "replace")
