@@ -202,7 +202,9 @@ Wording is proposed. Nothing here is clinical advice.
   call or text 988, when someone says they are going to end their life. The young person's
   paragraph, here and on For Teens, says to "call 911 if it's an emergency", which asks a
   young person to judge. That wording tracks NIMH and SAMHSA, and "treat it as an emergency"
-  would go further than any source read. Which should young people get?
+  would go further than any source read. CDC's page on helping a friend has no such condition.
+  One possible wording: "call 911, or call or text 988, and get an adult". Which should young
+  people get?
 - For a worrying post, the page offers 911 and the site's safety team. 911 needs a location,
   and a reader often won't know where the person is. No source read says what to do then.
   Should it mention calling or texting 988 for advice, or telling a trusted adult?
@@ -376,7 +378,8 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
 - **Spanish (B6).** An AI translated all nine pages in `es/`. A fluent
   reader should check every line, and the reviewer should decide whether the
   wording should avoid masculine-only forms such as "No estás solo" and "estés
-  listo". The pages use "tú", like 988's own Spanish pages. Texting steps in
+  listo". The pages use "tú". 988's own Spanish pages mostly use "usted", with "tú" in
+  buttons and headings. Texting steps in
   Spanish are described as possibly different from English, because no one has
   seen them.
 
@@ -439,6 +442,241 @@ The other founder hasn't agreed yet. Wording is proposed.
 - **Spanish Research page.** It was translated before the English version was reviewed, at a
   founder's request, so that the Spanish pages are complete for review. If the English changes,
   the Spanish must change too.
+
+## Questions from the November 7 audit
+
+AI auditors raised these on November 7, 2026, after checking the pages against their sources; a
+qualified reviewer decides each one, and nothing here has been reviewed.
+
+### Every page
+
+- Should the pinned strip say what to do if you aren't sure it's an emergency, such as "Not sure
+  which? Call or text 988", or give a short, non-graphic example of when to call 911 from SAMHSA's
+  988 FAQ? 988's terms ask people facing an immediate threat to their safety to call 911 first. No
+  source read says a 988 counselor helps a caller decide.
+- Is the cue on the Text 988 buttons right, or too much text? They now say "Send any message" (988's
+  texting FAQ), with a line below: reply NEXT to accept 988's terms, answer a brief survey, and wait
+  for a counselor (988's What to Expect page).
+- Is Quick exit's spoken label right? Screen readers hear "Quick exit: leave this site now for the
+  weather.gov home page" before the 988 links, which could sound like the site telling someone to
+  go. Would "Quick exit, goes to weather.gov" ("Salida rápida, va a weather.gov") be better, with
+  the crisis line heard first? Its x often means close, so someone could tap it to clear it away and
+  leave at once. Should the x stay?
+- Should a future web address avoid the word suicide? Today's address has it, as do some page
+  titles. Google says a school, employer, or internet provider that manages a network may see
+  activity even in Incognito (https://support.google.com/chrome/answer/9845881). Browser history can
+  also sync to other devices, which no page mentions: should About and For Teens? A lawyer should
+  weigh in for minors.
+
+### Home
+
+- Is "See what research shows about what helps, and what is still being studied" better than
+  "...about suicide prevention, and where the evidence is still thin" (same in Spanish)? The
+  Framework for Successful Messaging asks messages to say prevention works, and warns that problems
+  without solutions can make suicide seem unsolvable.
+
+### Get Help
+
+- Should the bill sentence move after the figure that fewer than 2 in 100 calls involve emergency
+  services? "What it costs" says, from 988's terms, that you may get a bill, such as for an
+  ambulance, if a counselor contacts emergency services. Someone worried about money could read that
+  as a reason not to call. The question above covers police and consent, not cost.
+- Should "What stays private" add, with attribution, that 988 doesn't have your precise location
+  (SAMHSA's 988 FAQ), and can't trace people the way 911 can (988's tracing FAQ)? Today it says that
+  in rare emergencies counselors must give your number or IP address to 911, which may ask for your
+  exact location. This matters to someone afraid of being found. Both languages.
+- Could "For children and teens, a review of brief programs built around a safety plan found no
+  clear benefit" read to a teen as "plans don't work for me"? A possible wording: "For children and
+  teens there is less research, and one review of brief programs couldn't show a clear benefit. A
+  pediatrician or therapist can help you make a plan, and you can call or text 988 any time."
+- Is the Deaf or hard of hearing card's emergency advice right, and enough? It now says texting 911
+  only works in some places and, if it isn't available, to use a TTY or relay service. Its FCC
+  source (https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911) refused AI reads,
+  so a person needs to open it.
+- For someone with immigration fears, should Get Help say, in both languages, that you don't have to
+  give your citizenship status (988's Spanish terms, August 2026) or speak English (988's Spanish
+  services page), without promising what police or 911 will do?
+- Should Get Help and For Teens repeat, near the buttons, About's draft note that in Chrome on
+  Android an Incognito tab asks "Leave Incognito mode?" before a Call or Text link opens, and Stay
+  cancels it? A teen on a shared phone may well use Incognito.
+- Should NIMH's Child and Adolescent Mental Health page stay linked from Get Help, For Teens, and
+  their Spanish twins? Its list of signs names two self-harm behaviors. Please decide it with the
+  link-by-link question above. The Trevor Project's Get Help page is also unchecked.
+
+### Help Someone
+
+- Should "the responsibility doesn't have to be yours alone" become "...and you don't have to do
+  this alone"? "Responsibility" could suggest that keeping someone alive is partly the helper's job,
+  and add guilt after a death. 988's page says only to take care of yourself and reach out for
+  support.
+- Should the warning signs, and the top of Research, tell someone bereaved by suicide that this
+  isn't a list of what they should have seen, and point to After a loss? They may check the signs
+  against their memories. AFSP's Surviving a Suicide Loss guide says many people hide their
+  distress, and that even with signs not every suicide can be prevented. Also for someone with lived
+  experience.
+- Should two sources behind the parent advice stay linked? The American Academy of Child and
+  Adolescent Psychiatry says suicide may look like a solution to some teens, and the American
+  Academy of Pediatrics gives survey percentages and names two groups as especially at risk. Both
+  may conflict with safe messaging guidance, and removing either means rechecking advice. A person
+  should check this AI word search.
+- Should Help Someone say 988 can sometimes talk with the helper and the person they're worried
+  about at the same time? 988's Spanish services page says so; its English pages don't, so ask 988.
+
+### For Teens
+
+- Should the page say things can get better, for example "Hard feelings can change, and support can
+  help", and on which source? The school psychologists' page says to reassure young people they
+  won't feel like this forever. SAVE's one-pager says coping skills, support, and treatment work for
+  most people who have thoughts of suicide. Should it also point to a doctor or counselor?
+- Could the paragraph on monitored school devices, and software that alerts staff, scare a teen off
+  reaching out? It suggests a device at a friend's house or a library. The software sentence rests
+  on RAND's abstract and an unlisted vendor page.
+- Should For Teens, and Get Help's under-18 section, give the context Get Help's main section gives?
+  They say 988 may share information with 911, police, or a mobile crisis team without permission,
+  but no more. Candidates: fewer than 2 in 100 calls involve emergency services (988, all calls);
+  most people are helped without 911 (SAMHSA); saying you feel suicidal doesn't necessarily bring
+  emergency services (Crisis Text Line); you can ask 988 not to share your details. Keep Get Help's
+  "not a guarantee" caution.
+- Should For Teens say whether each service will tell parents, not only The Trevor Project? 988's
+  FAQ says it can't give out call records without a court order. Crisis Text Line says what you
+  share stays private except in rare cases when a life is at risk, and describes required abuse
+  reports. Is "If emergency services or a child welfare agency get involved, your parents may find
+  out that way", an inference, right to include?
+- Should the school counselor paragraph tell a teen who is scared of what could happen at home to
+  say so to the counselor first? The model school policy the page cites (2019) says staff should
+  talk with the student about that risk and may delay contact, and that child protection officials
+  replace parents if abuse or neglect is suspected. Rules differ by state. For a clinician and a
+  lawyer.
+- Should For Teens tell LGBTQ+ students that, under the same policy (printed page 16), a school
+  telling a parent should keep their sexual orientation or gender identity confidential, especially
+  if they haven't told the parent, and share only the suicide risk? It is a 2019 template, and state
+  laws weren't checked. For a clinician and a lawyer.
+- Adding to the question above on a teen with no safe adult: should For Teens add "If home doesn't
+  feel safe"? Candidates, unconfirmed: the Childhelp National Child Abuse Hotline
+  (childhelphotline.org), not a reporting line, which may still have to share in some cases, such as
+  a caller who says they intend to act on suicidal thoughts; and the National Runaway Safeline
+  (1800runaway.org), which explains when it must report. A person must confirm each number first.
+- If that section is added, should it also say "If you can't talk out loud, text or chat" and "You
+  can talk without giving your name or where you live"? A lawyer should say what can be said about
+  teens getting ongoing care without a parent, which differs by state.
+- Adding to the question above on Save 988 and the teen page: is the warning enough? Should it say
+  you don't have to save 988 if someone might check your phone, that deleting a call or text may not
+  remove every trace, and that a friend's phone or a library computer may be safer? The Trevor
+  Project's terms suggest not saving its number; Crisis Text Line's FAQ says to save its number.
+
+### Not sure
+
+- Should the Overwhelmed, Sad, and Anxious notes each end with a 988 line, such as "If this feels
+  like too much, or you're having thoughts of suicide, you can call or text 988 any time"? Only Numb
+  or empty and Unsure mention 988 now, though NIMH's matching pages each give it. Should Sad's
+  "these feelings usually pass" be completed or dropped? NIMH goes on to say depression is
+  different. Both languages.
+- Should the page add "Angry or irritable"? NIMH's Depression page says children and adolescents may
+  be irritable rather than sad.
+- Is the "Go to the feelings" link, which jumps past the crisis box and draft notice, right for
+  someone who may be overwhelmed, or should nothing skip the crisis box?
+
+### After a loss
+
+- Should "It's not your fault" add three points from AFSP's Surviving a Suicide Loss guide (printed
+  pages 5-7): even when there are signs, not every suicide can be prevented; you may never know
+  exactly why; and you don't need all the answers to begin to heal? Every page header reads "Suicide
+  prevention & support".
+- Which source should back "suicide doesn't have just one cause"? The CDC page cited is about
+  prevention and gives costs per suicide. TAPS says suicide "is rarely the result of a singular
+  issue", but explains it as wanting to end pain and seeing no other way, and the Framework warns
+  against simple explanations. Should the TAPS link stay?
+- Should a short "The first few days" section near the top say what AFSP's practical page covers
+  (police, medical examiner, viewing the body, funeral, obituary, media), so a reader can prepare?
+  It names no method but is frank about the body, and today it is a clause far down the page. Would
+  a short notice help?
+- If the AFSP booklet links stay (asked above), should a notice come first, such as "This booklet
+  gives example wording for telling a child how someone died. Some of it is hard to read."? SAVE's
+  Safe Messaging Guidelines recommend one. Should the label say it is for parents and caregivers,
+  and the English link move away from the teen paragraph below it? Spanish booklets too.
+- Should the children's section say what to do if a child or teen talks about wanting to die, or to
+  be with the person who died? AFSP's Children, Teens and Suicide Loss (printed pages 25-26, 35-37)
+  says such talk is common but should be taken seriously, to ask directly, and to consult a mental
+  health professional, and that a family member's suicide may raise a child's risk. SAVE adds
+  calling 988. Link Help Someone too?
+- How firmly should the page say to tell a child the truth? It says AFSP leaves it to parents, as
+  AFSP's web page does, but AFSP's booklet (printed page 5) and guide (page 16) say to tell them as
+  soon as possible, so they hear it from you first.
+- Should the page add "With a teen, listen to their worries first"? AFSP's booklet (printed page 32)
+  says to acknowledge a teen's fears and guilt first, because teens may withdraw if reassured before
+  they feel understood.
+- Should a clinician word a short paragraph on prolonged grief? AFSP's guide (printed pages 10-11)
+  says some people stay stuck at the same intensity for six months or more, that specific treatments
+  exist, and suggests an evaluation for depression, PTSD, or prolonged grief.
+- Should a clinician add when to get medical care right away? AFSP's list of physical symptoms
+  includes chest pain and breathing problems, which the page leaves out before calling these
+  reactions normal.
+
+### Research
+
+- Could Witt 2021, cited without a link, link to its PubMed record
+  (https://pubmed.ncbi.nlm.nih.gov/33884617/), whose abstract defines self-harm only in general
+  terms? The Albaum and Comtois full-text links showed a browser check, so nobody has checked them
+  for method wording.
+- Should the caring messages trial stop saying "709 American Indian and Alaska Native adults at high
+  suicide risk"? It is the only English text tying a named group to suicide risk, which the
+  Framework warns against. A possible start: "A separate 2026 trial in American Indian and Alaska
+  Native communities included 709 adults who..." (PubMed 42970293). But 85.2% had ever made an
+  attempt, so "who had thoughts of suicide" is too narrow. A reader from these communities should
+  see it.
+- Should the news coverage finding say what safe messaging guidance does? The review's authors call
+  responsible reporting guidelines the best population-wide response, and SAVE's one-pager says
+  stories with resources and hope can lead people to seek help. Before linking any guidance: page 2
+  of SAVE's one-pager names items, and one Framework tips page names a location.
+- Should Gould 2025 add its most hopeful result: "About 7 in 10 said the call did a lot to stop them
+  from ending their life, and about 1 in 5 said it did a little"? The abstract's 88.1% who said it
+  stopped them combines 69.6% and 18.5%, and 10.1% said it didn't apply. The same limits apply.
+
+### Wallet card
+
+- Should the page warn that a printed card can be seen by others, so keep it somewhere you feel
+  safe? It names the "988 Suicide & Crisis Lifeline" ("Línea 988 de Prevención del Suicidio y
+  Crisis" in Spanish). Is naming suicide on a printed card right, in both languages?
+- Should the printed sheet carry a draft mark and a checked-on date? It has neither, and the page
+  suggests handing cards out at a school while its draft note says not to yet.
+
+### About
+
+- For the lawyer: should About say visitors' IP addresses also reach Fastly? Live GitHub Pages
+  responses pass through it, and GitHub's subprocessor list names it for content delivery
+  (https://docs.github.com/en/site-policy/privacy-policies/github-subprocessors). Nobody here has
+  read what Fastly logs or keeps.
+- Should About add that offline copies are saved again each time a page opens with a connection, so
+  someone looking in the browser's storage could tell from their dates which pages were opened, and
+  roughly when?
+
+### Spanish pages
+
+- Should the Spanish pages name a reply word for texting 988, as English names NEXT? 988's Spanish
+  What to Expect page gives «siguiente»; its Spanish services page describes no terms step. Ask 988
+  which applies to AYUDA.
+- Should the Spanish pages say anything about 911 in Spanish, and from which current source? None
+  says whether a caller can ask for Spanish, or whether a Spanish text will be understood. The FCC's
+  English and Spanish text-to-911 pages don't say.
+- Should Spanish Get Help link the Stanley-Brown developers' Spanish safety plan form (February
+  2025), instead of or beside the English one? Its step 6 is reported to be more specific.
+- Should the pages say "la 988"? They do in many headings and buttons. 988's Spanish site says "la
+  Línea 988" or "Línea 988" for the service, and "el 988" or "al 988" for the number.
+- Adding to the question above on masculine-only forms: what one approach should every page take?
+  Spanish Help Someone mixes "la persona" in the five steps, masculine forms ("atrapado") in the
+  signs, and "lo" in the child section.
+- Is tú right on every page, including those for parents and bereaved adults? This corrects the note
+  above: 988's Spanish pages mostly use usted, with tú in buttons and headings. NIMH's use usted.
+- On Spanish After a loss, which reads better: AFSP's English name with the gloss "es una fundación
+  estadounidense para la prevención del suicidio", as AFSP's Spanish material mostly does, or
+  "Fundación Estadounidense para la Prevención del Suicidio"? Please also check the sentence on
+  pressing "Translate" on the Healing Conversations form.
+- Should After a loss link AFSP's Spanish site (es.afsp.org) for Spanish readers? It has Healing
+  Conversations ("Conversaciones que Sanan") and a support group page mostly in Spanish, but reads
+  machine-translated and calls the person who died "alguien suicida". Do the form and volunteer work
+  in Spanish?
+
+---
 
 ## Human-only checklist
 

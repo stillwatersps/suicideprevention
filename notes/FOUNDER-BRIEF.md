@@ -44,6 +44,72 @@ reviewed", which isn't true yet.
 | 12 | Who does upkeep? | Name one person for each part of [[UPKEEP]] | Numbers change, and someone has to notice |
 | 13 | Keep or close pull requests 1, 7, and 8? | Close 1. Merge 7 and 8 if `main` stays public for a while | Pull request 5 covers them once it merges |
 
+AI auditors raised these on November 7, 2026. They are suggestions, not decisions.
+
+### From the November 7 audit: before any publishing
+
+- **Commit email privacy.** Public commit details on `main` show a founder's first name with an
+  email address at a personal domain, from three merges made with GitHub's merge button, and four
+  other commits show an Apple relay address, so before any further merge both founders turn on "Keep
+  my email addresses private" in GitHub's email settings and set git on each computer to their
+  GitHub no-reply address
+  (https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-email-preferences/setting-your-commit-email-address).
+  Rewriting the history of `main` is a separate decision: it changes every commit ID, disrupts open
+  pull requests, and doesn't remove copies elsewhere.
+- **Pull request 5's description.** It is out of date and says "The founders agreed to hold this",
+  which [[DECISIONS]] lists as reported, not confirmed. With a founder's go-ahead, replace its
+  opening with a "Do not merge yet" note saying that merging publishes every page and note,
+  including unreviewed draft crisis and health text, within about a minute, that one founder chose
+  to hold it until both agree and a licensed therapist has reviewed it, and that the other founder's
+  agreement isn't recorded; its old sections ("has no pull request of its own", "5 pages") would go.
+- **The promise in the therapist note.** The note in [[REVIEWER-NOTES]] now ends "We don't plan to
+  publish these draft pages until someone qualified has reviewed them." That is a promise to a
+  professional, so confirm it before sending, or change it.
+- **`PUBLISH_UNREVIEWED` (decision 8).** If you publish an agreed early preview before reviews are
+  recorded and then delete this variable, every later publish stops, including an urgent
+  crisis-number fix or a revert. Decide whether to keep it set until reviews are recorded, or who
+  may add it alone for an urgent fix, since [[UPKEEP]] says a wrong number shouldn't wait.
+- **Daily notes in the shared vault (open decision 7).** Obsidian's Daily notes plugin is on, so one
+  click creates a dated note in `notes/`, where a commit would publish it. Consider setting
+  `"daily-notes": false` in the vault's core plugin settings.
+
+### From the November 7 audit: before launch
+
+- **"Looking for ways to cope" on Home.** Home, in both languages, says "Whether you're in crisis,
+  looking for ways to cope, or supporting someone you care about, these pages can point you to
+  support", from the supplied design, but the site leaves out coping exercises on purpose (see "What
+  was left out on purpose" in [[CONTENT-REVIEW]]). Keep the phrase, drop "looking for ways to
+  cope,", or keep it only if the reviewer later approves coping content?
+- **Whether the site stays installable (idea A6).** With `"display": "standalone"`, Chrome on
+  Android may offer to install Tidelight after one tap and 30 seconds on a page, and the offer could
+  appear over a crisis page: keep it, switch to `"browser"` so Android opens a normal tab, where
+  Quick exit and Back were tested and people can still add a shortcut, or keep it and stop Chrome's
+  automatic offer. On an iPhone, from iOS 26 every site added to the Home Screen opens as a web app
+  whatever the manifest says (WebKit's Safari 26.0 notes, read second-hand). The Spanish pages now
+  have their own manifest, also standalone, so the choice covers both.
+- **The crisis strip with larger text.** At 150% text or more the strip stops pinning on ordinary
+  phones, for example at 844 by 390, where it would take about 13% of the screen, and only Quick
+  exit stays pinned. [[DECISIONS]] leaves this open: decide with the reviewer whether to pin a
+  one-line version there (Call 988, Text 988, Call 911) instead of nothing.
+- **Two words to ask providers about.** Ask Crisis Text Line which word starts a conversation in
+  Spanish (its FAQ says HOLA, its Spanish page says AYUDA), and ask 988 which reply word and steps
+  apply when someone texts AYUDA (its Spanish What to Expect page says «siguiente», and its Spanish
+  services page describes no terms step). Record both in [[SAFETY]].
+- **AFSP's flipbook guides.** Try Surviving a Suicide Loss, Children, Teens and Suicide Loss, and
+  the two Spanish booklets on a real iPhone and Android phone (in desktop phone-size emulation each
+  page showed at about 135 by 209 px, and the viewer blocks zoom), and ask AFSP whether accessible
+  versions exist, such as a tagged PDF or a web page, since the Spanish guide's PDF has no tag
+  structure. Then decide whether After a loss also links the English guide's PDF (about 164 KB) and
+  warns that the children's booklet download is about 203 MB.
+- **AFSP's Healing Conversations form.** Before release, a person rereads the request form, without
+  filling it in or submitting it, because After a loss now says what it asks for and who sees the
+  answers, and forms change.
+- **A school Chromebook check.** Add to the Human-only checklist in [[CONTENT-REVIEW]]: "If a
+  school-managed Chromebook is available with permission, check that each chat link opens. Stop at
+  the first screen. Don't start a chat."
+
+---
+
 ## What's ready, and what isn't
 
 **Ready for you to try:** all 19 pages in English and Spanish, and quick exit, offline support, dark mode, printing, saving 988 to
