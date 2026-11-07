@@ -86,7 +86,25 @@ Send: the "Deaf or hard of hearing" part of Get Help, the home page, and the wal
 
 ## Recording results
 
-Add one line per finished review to "Review records" in [[CONTENT-REVIEW]], with the section, role, date, and result. For
-example: "Get Help: licensed clinical social worker, 2026-12-01, approved with changes." Then update the review list
-on the About pages. `tools/check_site.py` reads this section, and `tools/launch_gate.py` looks for the words "approved"
-and the reviewer's role.
+**The licensed therapist and the fluent Spanish reader.** Add one line per section of the packet's sign-off table to
+"Review records" in [[CONTENT-REVIEW]], in exactly this form:
+
+`- Get Help: licensed clinical social worker, 2026-12-01, approved, a1b2c3d4e5f6`
+
+That is the section's name as the table prints it, the reviewer's role (never their name), the date as YYYY-MM-DD,
+the result, and the fingerprint printed beside that section in the table. The publish step reads these lines:
+
+- Only "approved", or "approved with changes, changes made", lets a section publish. "Approved with changes" alone
+  doesn't, because the changes aren't made yet.
+- Only a licensed mental health professional counts for English sections, and only a fluent or native Spanish
+  reader for Spanish ones. "Review records" in [[CONTENT-REVIEW]] lists the roles that count.
+- The fingerprint ties the approval to the text the reviewer read. If the section changes afterward, even by one
+  word, the approval stops counting and publishing stops. Rebuild the packet, show the reviewer the change, and add
+  a new line with the new fingerprint.
+
+**Everyone else**, such as the lawyer, the youth worker, the person with lived experience, and the Deaf reviewer:
+record their results under "Other reviews" in [[CONTENT-REVIEW]]. The publish step never reads that section, so
+their results can't approve a page or cancel a clinician's decision. A founder acts on them.
+
+Then update the review list on the About pages. Run `python3 tools/check_site.py` afterward: it fails on a line it
+can't read, and that stops every publish.

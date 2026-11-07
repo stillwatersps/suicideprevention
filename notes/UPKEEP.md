@@ -30,9 +30,11 @@ Treat this as urgent. Wrong crisis details can cost someone the chance to reach 
 5. **Rebuild the packets** with `python3 tools/make_review_packet.py`, and write a short note in `worklogs/`.
 6. **Check it:** run `python3 tools/check_site.py` and `python3 tools/test_browser.py`.
 7. **Publish it.** A wrong number shouldn't wait for a full review. Agree in advance who can approve this
-   kind of fix alone. That is an open question in [[SAFETY]]. If no reviews are on record yet, the publish
-   step stops this fix too, so add `PUBLISH_UNREVIEWED` again before merging, as [[LAUNCH-CHECKLIST]]
-   describes, then delete it. Once Pages publishes with GitHub Actions, publishing waits for the checks and
+   kind of fix alone. That is an open question in [[SAFETY]]. The publish step stops this fix too: before
+   any review, because none is on record, and after the reviews, because the changed number gives that
+   section a new fingerprint, so its approval no longer matches. Add `PUBLISH_UNREVIEWED` again before
+   merging, as [[LAUNCH-CHECKLIST]] describes, then delete it. Afterward, show the reviewer the change and
+   record a new line with the new fingerprint in [[CONTENT-REVIEW]]. Once Pages publishes with GitHub Actions, publishing waits for the checks and
    browser tests, which took about 7 minutes on recent pull request runs, and pages can stay cached for up
    to 10 minutes after that.
 8. **Tell the reviewer** if the wording changed, not only the number.

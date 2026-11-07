@@ -45,11 +45,58 @@ Every draft page says so on screen. Remove those notes only after review.
 
 ## Review records
 
-`tools/check_site.py` reads this section, along with the review list on the About pages. Add one line per
-finished review, with the page or section, the reviewer's role, the date, and the result.
-Never add personal contact details. Update the list on the About pages at the same time.
+The publish step (`tools/launch_gate.py`) and `tools/check_site.py` read this section. Only the licensed
+clinician's and the fluent Spanish reader's results go here, one line per section of the packets'
+sign-off tables. Each line looks exactly like this example, dash included, on a line of its own:
+`- Get Help: licensed clinical social worker, 2026-12-01, approved, a1b2c3d4e5f6`
+
+The four parts, separated by commas:
+
+1. **The section's name**, exactly as the packet's sign-off table prints it, such as `Get Help`,
+   `Text on every page (Part 1)` or `Página no encontrada`.
+2. **The reviewer's role**, never their name. For English sections, only a licensed mental health
+   professional counts: licensed clinical social worker (LCSW), licensed professional counselor (LPC),
+   licensed mental health counselor (LMHC), licensed marriage and family therapist (LMFT), psychologist,
+   psychiatrist, psychiatric nurse practitioner, licensed therapist, or licensed counselor. A role that also
+   says legal, counsel (as in a lawyer), physical, occupational, speech, school, volunteer, non-clinical, or
+   AI doesn't count. For Spanish sections, only a fluent or native Spanish reader counts, such as "fluent
+   Spanish reader", "native Spanish speaker", "hablante nativa de español" or "persona hispanohablante".
+   AI, machine translation, or translation software never counts.
+3. **The date** as YYYY-MM-DD. A date after today doesn't count, and stops publishing until it's fixed.
+4. **The result, then the fingerprint.** Only `approved`, or `approved with changes, changes made`, lets the
+   site publish. Any other result, such as `not for the website`, keeps that section from publishing. Copy the
+   fingerprint from beside the section in the sign-off table.
+
+**What the fingerprint means.** It's a 12-character code made from the section's text, as the packet shows
+it. When any word of that section changes, its fingerprint changes. An approval only counts while its
+fingerprint matches the text on the website now. So after a change, even a small one such as a corrected
+crisis number, the old approval stops counting and publishing stops. To fix that, rebuild the packets with
+`python3 tools/make_review_packet.py`, show the reviewer what changed, and add a new line with the new date
+and the new fingerprint. Keep the old line as history. `python3 tools/launch_gate.py` says which sections
+don't match.
+
+**Which line counts.** For each section, only lines by the right kind of reviewer are read, and of those
+the newest decides. If two are on the same date, a result that isn't an approval wins. A line by anyone else
+is left out entirely, so it can't approve a section or cancel a clinician's rejection.
+
+**A line the tools can't read stops every publish,** even with `PUBLISH_UNREVIEWED`, because
+`tools/check_site.py` fails on it. Run `python3 tools/check_site.py` after adding lines.
+
+Never add personal contact details. Update the list on the About pages at the same time: a section shows
+"Pending" until a line for it exists, and "Approved" (or similar) only once its newest line approves its
+current text. Otherwise it shows "Changes needed" or "Not approved" (in Spanish, "Cambios pedidos" or
+"No aprobada").
 
 - No review has been recorded.
+
+## Other reviews
+
+The publish step never reads this section. Record here the results of every other review in
+[[LAUNCH-CHECKLIST]] section 2: someone with lived experience of a suicide loss, someone who works with young
+people, a lawyer, and a Deaf reviewer or Deaf-led organization. Use the same form as above, without a
+fingerprint if you like. A founder decides what to do with each result before launch.
+
+- No other review has been recorded.
 
 ## What each control does
 

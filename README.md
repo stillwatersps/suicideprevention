@@ -62,7 +62,7 @@ Each person uses their own Claude access and conversation.
 | `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader |
 | `notes/PHONE-TEST.md` | How to test on a real phone |
 | `notes/FOUNDER-BRIEF.md`, `notes/LAUNCH-CHECKLIST.md`, `notes/REVIEWER-NOTES.md`, `notes/UPKEEP.md` | Decisions, the path to launch, notes for reviewers, and upkeep |
-| `tools/launch_gate.py` | Shows what's still in the way of launching. Once Pages is set to GitHub Actions, it stops publishing without recorded reviews |
+| `tools/launch_gate.py` | Shows what's still in the way of launching. Once Pages is set to GitHub Actions, it stops publishing unless a qualified reviewer's approval of each section's current text is recorded |
 | `tools/check_crisis_sources.py` | Checks that each provider's page still shows our crisis details |
 | `tools/set_checked_date.py` | Updates the "last checked" date on every page, after a real re-check |
 | `tools/test_the_tests.py` | Plants bugs in a copy of the site to prove the browser tests catch them |
