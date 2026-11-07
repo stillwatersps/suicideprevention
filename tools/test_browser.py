@@ -137,6 +137,7 @@ AUDIT_JS = r"""
   });
   // Controls that overlap each other.
   var boxes = controls.filter(function (el) {
+    if (el.closest('details:not([open])') && !el.closest('summary')) return false;  // folded away, whatever boxes a browser reports
     return getComputedStyle(el).position !== 'fixed';
   }).map(function (el) { return {el: el, r: el.getClientRects()[0] || el.getBoundingClientRect()}; });
   for (var i = 0; i < boxes.length; i++) {
@@ -1266,7 +1267,8 @@ def test_offline(browser, site_ignored, pages, report):
         if state["scope"] != site.base:
             report.fail("offline", "(worker)", f"worker scope is {state['scope']}")
         titles = {}
-        for page in pages:
+        # The checks further down always use these three pages, whichever pages were asked for.
+        for page in set(pages) | {"research/index.html", "get-help/index.html", "es/obtener-ayuda/index.html"}:
             parser = re.search(r"<title>(.*?)</title>", fetch(site.url(page))[1].decode("utf-8"), re.S)
             titles[page] = html.unescape(parser.group(1)) if parser else ""
         outside = [u for u in state["saved"] if not u.startswith(site.base)]
