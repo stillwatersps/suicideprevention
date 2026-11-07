@@ -94,6 +94,10 @@ column. Recheck close to publication and at least monthly (proposed).
 
 ### Only a person can check
 
+- The FCC's text-to-911 page. It refused automated reads on November 6 and 7, 2026 (403), so
+  the 911 card on Get Help, its Spanish twin, and the "Emergency services" row above rest on
+  earlier reads. A person should open it in a browser and confirm the wording.
+
 - That the Call and Text links open the dial and compose screens on a real iPhone
   and Android phone, with the right number filled in. Stop there and cancel.
 - That the text links behave as expected with no message filled in. They open a blank
