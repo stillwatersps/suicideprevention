@@ -118,3 +118,9 @@ stays in the Spanish headline for a fluent reader to decide.
 
 Try it on a phone with [[PHONE-TEST]]. Both founders read pull request 9, then decide what the public site
 shows until review. Then give the packets to the therapist and a fluent Spanish reader.
+
+## Second working session: where it stopped
+
+The usage limit stopped this session early. Done and pushed: content security policy and no-referrer on every page, offline notice, Spanish crisis text on the page-not-found page, slow-network, high-contrast, and privacy tests, 33 planted bugs caught, browser tests on pull requests, launch check and publish safety check, monthly crisis source check, date tool, [[FOUNDER-BRIEF]], [[LAUNCH-CHECKLIST]], [[REVIEWER-NOTES]], [[UPKEEP]], [[SHORTER-SENTENCES]].
+
+**Not done:** the audit was stopped before it finished, so its findings are unverified and not applied. See [[worklogs/2026-11-06-claude-audit-partial]]. The iOS Simulator tests didn't run. The three independent code reviews didn't run. The test counts above are from the earlier run, before these additions.
