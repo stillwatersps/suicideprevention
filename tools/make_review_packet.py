@@ -26,7 +26,7 @@ import sys
 TOOLS = pathlib.Path(__file__).resolve().parent
 ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
-from check_site import find_pages  # noqa: E402
+from check_site import SHOWN_BY_SCRIPT, find_pages  # noqa: E402
 
 OUT = ROOT / "notes" / "review-packet"
 PREVIEW = "https://stillwatersps.github.io/suicideprevention/"
@@ -56,7 +56,7 @@ SPANISH = [
 ]
 BLOCK = {"h1", "h2", "h3", "h4", "p", "li", "summary", "dt", "dd", "caption"}
 # Fold labels ("Show more", "Show less") are buttons, not content, so they get no number.
-SKIP_CLASSES = {"visually-hidden", "lang-switch", "breadcrumb", "toc", "print-actions", "card-arrow", "card-icon", "skip-link",
+SKIP_CLASSES = {"visually-hidden", "lang-switch", "breadcrumb", "toc", "card-arrow", "card-icon", "skip-link",
                 "when-closed", "when-open"}
 SHARED_CLASSES = {"crisis-bar", "crisis-panel", "site-footer", "site-header", "quick-exit"}
 # Parts of one control or line that show as separate pieces on screen, such as a button's title and
@@ -100,7 +100,12 @@ class Extractor(html.parser.HTMLParser):
         return [attrs.get("id") for _, attrs in self.stack if attrs.get("id")]
 
     def _hidden(self):
-        return any("hidden" in attrs for _, attrs in self.stack) or bool(self._classes() & SKIP_CLASSES) or any(t in ("svg", "script", "style") for t, _ in self.stack)
+        # Hidden text that assets/menu.js shows, such as the wallet card page's print button, is kept.
+        hidden = any("hidden" in attrs and not set((attrs.get("class") or "").split()) & SHOWN_BY_SCRIPT for _, attrs in self.stack)
+        return hidden or bool(self._classes() & SKIP_CLASSES) or any(t in ("svg", "script", "style") for t, _ in self.stack)
+
+    def _by_script(self):
+        return any("hidden" in attrs for _, attrs in self.stack)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -160,6 +165,8 @@ class Extractor(html.parser.HTMLParser):
         if self._hidden() or self.current is None:
             return
         self.current["text"] += data
+        if data.strip() and self._by_script():
+            self.current["script"] = True
         if self.link is not None:
             self.link["text"] += data
 
@@ -246,12 +253,16 @@ def render_blocks(blocks, prefix, numbering, counters, lang):
             out.append(f'<{level} class="row-heading"><span class="id">{label}</span> {esc(block["text"])}{note}</{level}>')
         else:
             bullet = " in-list" if tag == "li" else ""
+            # Text the page's script shows, such as a print button, which visitors without JavaScript don't see.
+            shown = "" if not block.get("script") else (
+                ' <span class="same">(se muestra cuando funciona el script de la página)</span>' if lang == "es"
+                else ' <span class="same">(shown once the page\'s script runs)</span>')
             for sentence in split_sentences(block["text"]):
                 label, same = numbering.number(prefix, counters, sentence)
                 if same:
-                    out.append(f'<p class="row repeat{bullet}"><span class="id">{label}</span> <span class="same">same as {same}:</span> {esc(sentence)}</p>')
+                    out.append(f'<p class="row repeat{bullet}"><span class="id">{label}</span> <span class="same">same as {same}:</span> {esc(sentence)}{shown}</p>')
                 else:
-                    out.append(f'<p class="row{bullet}"><span class="id">{label}</span> {esc(sentence)}</p>')
+                    out.append(f'<p class="row{bullet}"><span class="id">{label}</span> {esc(sentence)}{shown}</p>')
         links.extend(block["links"])
     close()
     return "\n".join(out)

@@ -6,13 +6,14 @@
 
 This is a check between tools/test_browser.py (Chrome) and a real iPhone. It opens every page
 in a small window at phone, tablet, and desktop sizes, in light and dark, and runs the same
-layout audit as the Chrome tests. Then it uses the menu, folded sections, jump links, Quick
-exit, and the offline notice.
+layout audit as the Chrome tests, including SAFETY rule 1: the crisis strip can be seen at the
+top of every page, and stays pinned at the sizes where Chrome's tests expect it to. Then it uses
+the menu, folded sections, jump links, Quick exit, and the offline notice.
 
 It is macOS WebKit in a window, not iOS Safari and not a phone. It can't check touch, the
 on-screen keyboard, Safari's toolbars, call and text links, printing, or offline support.
-See notes/PHONE-TEST.md for those. It needs a Mac with Xcode's command line tools, and it
-never opens a call or text link.
+See notes/PHONE-TEST.md for those. It needs a Mac with Xcode's command line tools. It never
+opens a call or text link, and it cancels any page load that would leave the local test site.
 """
 import argparse
 import json
@@ -28,7 +29,7 @@ TOOLS = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS))
 from check_site import find_pages  # noqa: E402
 from preview_server import BASE, make_server  # noqa: E402
-from test_browser import AUDIT_JS  # noqa: E402
+from test_browser import AUDIT_JS, MUST_PIN, VIEWPORTS  # noqa: E402
 
 # Width, height, dark mode.
 SIZES = [(390, 844, False), (320, 568, False), (750, 292, False), (844, 390, False), (768, 1024, False), (1440, 900, False), (390, 844, True)]
@@ -38,7 +39,10 @@ AUDIT_KEYS = {
     "tinyTargets": "tap target under 24px", "stripTargets": "crisis strip tap target under 44px",
     "exitCovers": "Quick exit covers something", "colorOnlyLinks": "link in a sentence has no underline",
     "exitCoversTop": "Quick exit covers a crisis link at the top of the page", "deadCrisis": "a crisis link can't be tapped",
+    "stripHidden": "at the top of the page, the crisis strip's",
 }
+# The sizes where the Chrome tests expect the crisis strip to stay pinned.
+PINNED_SIZES = {(width, height) for label, width, height, _ in VIEWPORTS if label in MUST_PIN}
 
 SWIFT = r"""
 // Runs steps in a WebKit view: load an address, run a script, or take a screenshot. Prints one line of JSON per step.
@@ -100,6 +104,18 @@ final class Runner: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
                     self.next()
                 }
             }
+        }
+    }
+
+    // Only the local test site, so a mistake here can never load another site, such as a crisis service.
+    func webView(_ w: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let url = action.request.url
+        let host = url?.host ?? ""
+        if url?.scheme == "about" || (url?.scheme == "http" && (host == "localhost" || host == "127.0.0.1")) {
+            decisionHandler(.allow)
+        } else {
+            notes.append("cancelled a page load that would leave the local test site: " + (url?.absoluteString ?? "?"))
+            decisionHandler(.cancel)
         }
     }
 
@@ -210,6 +226,9 @@ def main():
     pages = find_pages()
     if args.pages:
         pages = [p for p in pages if any(piece in p for piece in args.pages.split(","))]
+        if not pages:
+            print(f"No page's path contains {args.pages!r}, so nothing would be tested.")
+            return 2
     shots = pathlib.Path(args.shots) if args.shots else None
     if shots:
         shots.mkdir(parents=True, exist_ok=True)
@@ -251,7 +270,16 @@ def main():
                 result = line["value"] if isinstance(line["value"], dict) else {}
                 for key, label in AUDIT_KEYS.items():
                     for item in result.get(key) or []:
-                        problems.append(f"{line['step']}, {where}: {label}: {item}")
+                        problems.append(f"{line['step']}, {where}: {label}{'' if key == 'stripHidden' else ':'} {item}")
+                # SAFETY rule 1, as in the Chrome tests' matrix group.
+                if not result.get("stripTop"):
+                    problems.append(f"{line['step']}, {where}: the crisis strip's Call 988 is not on screen at the top of the page")
+                if (width, height) in PINNED_SIZES and not result.get("pinned"):
+                    problems.append(f"{line['step']}, {where}: the crisis strip is not pinned")
+                if (width, height) in PINNED_SIZES and not result.get("stripBottom"):
+                    problems.append(f"{line['step']}, {where}: the crisis strip's Call 988 scrolls off the screen")
+                if width >= 960 and not result.get("headerBottom"):
+                    problems.append(f"{line['step']}, {where}: the header's Get Support Now button scrolls off the screen")
 
         steps = behavior_steps(base)
         expected = {step["name"]: step["expect"] for step in steps if "expect" in step}

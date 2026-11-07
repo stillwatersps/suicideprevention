@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-lrgGzbEPiyWb7W5HugKQDWyBxRrgo6yxd0plUdCC1hk=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>For teens — Tidelight</title>
@@ -18,13 +18,13 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="es" href="../es/adolescentes/">
   <link rel="stylesheet" href="../assets/styles.css">
-  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.documentElement.hidden=true;location.replace(a.href);}});</script>
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1. On phones Quick exit sits inside it, so nothing is ever underneath Quick exit. -->
   <aside class="crisis-bar" aria-label="Crisis help and quick exit">
-    <a class="quick-exit" href="https://www.weather.gov/" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
     <p class="strip-988">Need help now? <a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a> or <a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a><span class="strip-extra"> any time</span>.</p>
     <p class="strip-911">In immediate danger, <a href="tel:911" aria-label="Call 911, emergency services">call 911</a>.</p>
   </aside>

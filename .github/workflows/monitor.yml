@@ -1,5 +1,5 @@
 # Keeps an eye on the public website (ideas C2 and C3).
-# - Every day: the live site loads, and every page still shows its crisis help.
+# - Every day: the live site loads, every page still shows its crisis help, and no notes or tools are published.
 # - Once a month: every outside link that allows automated checks still opens (the rest are listed
 #   for a person), and each crisis provider's page that can be read still shows our details.
 # Scheduled runs only start once this file is on main. GitHub pauses schedules in a
@@ -23,7 +23,9 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event.schedule == '17 13 * * *'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - run: python3 tools/check_live.py
 
   links:
@@ -31,7 +33,9 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event.schedule == '41 14 1 * *'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Open every outside link
         # Some sites block automated checks (403); those are listed for a person to open, not failed.
         # A crisis service that can't be reached, after one retry, fails the run.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-lrgGzbEPiyWb7W5HugKQDWyBxRrgo6yxd0plUdCC1hk=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>¿No sabes bien qué sientes? — Tidelight</title>
@@ -18,13 +18,13 @@
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="en" href="../../not-sure/">
   <link rel="stylesheet" href="../../assets/styles.css">
-  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.documentElement.hidden=true;location.replace(a.href);}});</script>
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido principal</a>
   <!-- Línea de crisis siempre visible, requerida por notes/SAFETY.md regla 1. En teléfonos, la salida rápida va dentro de ella, para que nada quede debajo. -->
   <aside class="crisis-bar" aria-label="Ayuda en una crisis y salida rápida">
-    <a class="quick-exit" href="https://www.weather.gov/" rel="noreferrer" aria-label="Salida rápida: salir de este sitio ahora e ir a la página de weather.gov"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg>Salida<span class="exit-extra"> rápida</span></a>
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Salida rápida: salir de este sitio ahora e ir a la página de weather.gov"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg>Salida<span class="exit-extra"> rápida</span></a>
     <p class="strip-988"><span class="strip-extra">¿Necesitas ayuda ahora? </span><a href="tel:988" aria-label="Llama al 988 y marca 2, la Línea 988 en español">Llama al 988</a> y marca 2, o <a href="sms:988" aria-label="Envía AYUDA al 988, la Línea 988">envía AYUDA al 988</a><span class="strip-extra">, a cualquier hora</span>.</p>
     <p class="strip-911">Si hay peligro inmediato, <a href="tel:911" aria-label="Llama al 911, servicios de emergencia">llama al 911</a>.</p>
   </aside>

@@ -37,7 +37,7 @@ TOOLS = pathlib.Path(__file__).resolve().parent
 ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
 from browser import Browser, Tab, find_chrome  # noqa: E402
-from check_site import allowed_numbers, find_pages, phone_digits  # noqa: E402
+from check_site import PHONE_SCHEMES, OTHER_PHONE_SCHEMES, SHOWN_OPACITY, allowed_numbers, find_pages, phone_digits, scheme_of  # noqa: E402
 from preview_server import BASE, PAGES_CACHE, Server, make_server, published_items  # noqa: E402
 
 # name, width, height, phone-style viewport
@@ -74,11 +74,24 @@ GROUPS = [
     "links", "matrix", "textsize", "keyboard", "menu", "jumps", "folds", "language",
     "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "offline", "speed", "modes", "privacy",
 ]
+# Runs in every page and frame before the page's own scripts. A click, tap or Enter on a link that leaves
+# the local test site is stopped, unless the test said to expect that address and answers it with a
+# stand-in. A call, text, or other app link is always stopped, whatever its letter case. The browser
+# itself can't reach other sites either: see Browser in tools/browser.py.
 SAFE_CLICKS = """
-document.addEventListener('click', function (event) {
-  var link = event.target.closest && event.target.closest('a[href^="tel:"], a[href^="sms:"]');
-  if (link) { event.preventDefault(); event.stopPropagation(); window.__blockedCrisisClick = link.href; }
-}, true);
+(function (allowed) {
+  function blocked(link) {
+    var url;
+    try { url = new URL(link.href, location.href); } catch (e) { return true; }
+    if (url.protocol !== 'http:' && url.protocol !== 'https:') return true;
+    if (url.origin === location.origin) return false;
+    return !allowed.some(function (start) { return url.href.indexOf(start) === 0; });
+  }
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest && event.target.closest('a[href], area[href]');
+    if (link && blocked(link)) { event.preventDefault(); event.stopPropagation(); window.__blockedClick = String(link.href); }
+  }, true);
+})(%s);
 """
 
 # Reads the page and reports layout, contrast, and naming problems. Runs inside the page.
@@ -86,12 +99,61 @@ AUDIT_JS = r"""
 (function () {
   var out = {hscroll: null, offscreen: [], clipped: [], smallTargets: [], tinyTargets: [], overlaps: [],
              brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: [], stripTargets: [],
-             deadCrisis: [], exitCoversTop: [], stripTop: false, stripBottom: false, headerBottom: false};
+             deadCrisis: [], exitCoversTop: [], stripTop: false, stripBottom: false, headerBottom: false, stripHidden: []};
   function shown(el) {
     var s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none') return false;
     var r = el.getBoundingClientRect();
     return r.width > 1 && r.height > 1;
+  }
+  // How opaque an element is, with the opacity and any opacity() filter of every parent multiplied in.
+  // A link can be "shown" and tappable at opacity 0, so the crisis links are also checked for this.
+  function opacity(el) {
+    var value = 1;
+    for (var node = el; node && node.nodeType === 1; node = node.parentElement) {
+      var s = getComputedStyle(node);
+      value *= parseFloat(s.opacity);
+      (s.filter.match(/opacity\([^)]*\)/g) || []).forEach(function (f) {
+        var m = f.match(/opacity\(\s*([\d.]+)(%?)/);
+        if (m) value *= parseFloat(m[1]) / (m[2] ? 100 : 1);
+      });
+    }
+    return value;
+  }
+  // Things that let taps through can still cover a link. For a moment they are made to catch taps,
+  // so a hit test finds them, and then they are put back exactly as they were.
+  var passThrough = Array.prototype.filter.call(document.querySelectorAll('*'), function (n) {
+    return getComputedStyle(n).pointerEvents === 'none';
+  });
+  function hitTest(el, seen) {
+    var saved = [];
+    if (seen) passThrough.forEach(function (n) {
+      saved.push([n, n.style.getPropertyValue('pointer-events'), n.style.getPropertyPriority('pointer-events')]);
+      n.style.setProperty('pointer-events', 'auto', 'important');
+    });
+    var r = el.getClientRects()[0] || el.getBoundingClientRect();
+    var y = Math.min(Math.max(r.top + r.height / 2, 0), innerHeight - 1);
+    var problem = '';
+    [r.left + 3, r.left + r.width / 2, r.right - 3].forEach(function (x) {
+      var hit = document.elementFromPoint(Math.min(Math.max(x, 0), innerWidth - 1), y);
+      if (!problem && !(hit && (hit === el || el.contains(hit)))) problem = hit ? 'is under ' + name(hit) : 'is off the screen';
+    });
+    saved.forEach(function (s) { s[0].style.setProperty('pointer-events', s[1], s[2]); });
+    return problem;
+  }
+  // Why a person can't see a crisis link where it is, or '' if they can: hidden, too faint (SHOWN_OPACITY
+  // in tools/check_site.py), clipped or scaled to nothing, off the screen, or under something else.
+  function unseen(el) {
+    if (!el) return 'is missing';
+    var s = getComputedStyle(el);
+    if (s.display === 'none' || s.visibility !== 'visible') return 'is hidden';
+    var o = opacity(el);
+    if (o < __SHOWN_OPACITY__) return 'is see-through (opacity ' + o.toFixed(2) + ' with its parents)';
+    var r = el.getBoundingClientRect();
+    if (r.width < 2 || r.height < 2) return 'has no size';
+    if (r.bottom <= 0 || r.top >= innerHeight || r.right <= 0 || r.left >= innerWidth) return 'is off the screen';
+    var covered = hitTest(el, true);
+    return covered ? covered.replace('is under', 'is covered by') : '';
   }
   function hiddenOnPurpose(el) {
     return !!el.closest('.visually-hidden, .skip-link');
@@ -223,6 +285,9 @@ AUDIT_JS = r"""
     var bold = parseInt(s.fontWeight, 10) >= 700;
     var need = (size >= 24 || (size >= 18.66 && bold)) ? 3 : 4.5;
     var worst = 99, bg = null;
+    // A parent's opacity fades the text too, though the text's own color doesn't show it.
+    var faded = opacity(parent);
+    if (faded < 1) fg = {r: fg.r, g: fg.g, b: fg.b, a: fg.a * faded};
     combos(backgrounds(parent)).forEach(function (c) {
       var value = ratio(fg.a < 1 ? over(fg, c) : fg, c);
       if (value < worst) { worst = value; bg = c; }
@@ -249,21 +314,31 @@ AUDIT_JS = r"""
   out.pinned = Math.round(100 * covered / innerHeight);
   // The crisis strip's Call 988 is on screen, and can be seen, at the top of the page.
   function inView(el) {
-    if (!el || !shown(el)) return false;
+    if (!el || !shown(el) || unseen(el)) return false;
     var r = el.getBoundingClientRect();
     return r.top >= 0 && r.bottom <= innerHeight + 1 && r.left >= 0 && r.right <= innerWidth + 1;
   }
   var call = document.querySelector('.crisis-bar a[href="tel:988"]');
   out.stripTop = inView(call);
-  var crisisLinks = Array.prototype.slice.call(document.querySelectorAll('a[href^="tel:"], a[href^="sms:"], .crisis-actions a'))
+  // Every link in the strip, Quick exit included, can be seen at the top of the page.
+  [['Call 988', '.crisis-bar a[href="tel:988"]'], ['Text 988', '.crisis-bar a[href="sms:988"]'],
+   ['Call 911', '.crisis-bar a[href="tel:911"]'], ['Quick exit', '.quick-exit']].forEach(function (item) {
+    var why = unseen(document.querySelector(item[1]));
+    if (why) out.stripHidden.push(item[0] + ' ' + why);
+  });
+  // Call and text links anywhere, in any letter case, and the crisis buttons. Those in the strip and the
+  // crisis buttons must always be there to see. Others may be hidden on purpose at some sizes.
+  var crisisLinks = Array.prototype.slice.call(document.querySelectorAll('a[href^="tel:" i], a[href^="sms:" i], .crisis-actions a, .crisis-bar a'))
     .filter(function (el) {
       if (el.closest('details:not([open])') && !el.closest('summary')) return false;  // folded away, whatever boxes a browser reports
+      if (el.closest('.crisis-bar, .crisis-actions')) return true;
       return !hiddenOnPurpose(el) && shown(el);
     });
   // A floating Quick exit must not cover a crisis link on the first screen.
   if (exit && shown(exit) && getComputedStyle(exit).position === 'fixed') {
     var pill = exit.getBoundingClientRect();
     crisisLinks.forEach(function (el) {
+      if (el === exit) return;
       Array.prototype.forEach.call(el.getClientRects(), function (r) {
         var w = Math.min(pill.right, r.right) - Math.max(pill.left, r.left);
         var h = Math.min(pill.bottom, r.bottom) - Math.max(pill.top, r.top);
@@ -272,16 +347,11 @@ AUDIT_JS = r"""
     });
   }
   // Every crisis link can receive a tap: nothing lies on top of it, at its middle or near either end.
-  // Nothing is clicked. The page is only asked what is at each point.
+  // It can be seen there too: drawn, opaque enough, and not covered. Nothing is clicked. The page is
+  // only asked what is at each point.
   crisisLinks.forEach(function (el) {
     el.scrollIntoView({block: 'center', behavior: 'instant'});
-    var r = el.getClientRects()[0] || el.getBoundingClientRect();
-    var y = Math.min(Math.max(r.top + r.height / 2, 0), innerHeight - 1);
-    var dead = null;
-    [r.left + 3, r.left + r.width / 2, r.right - 3].forEach(function (x) {
-      var hit = document.elementFromPoint(Math.min(Math.max(x, 0), innerWidth - 1), y);
-      if (!dead && !(hit && (hit === el || el.contains(hit)))) dead = hit ? 'is under ' + name(hit) : 'is off the screen';
-    });
+    var dead = hitTest(el, false) || unseen(el);
     if (dead) out.deadCrisis.push(name(el) + ' ' + dead);
   });
   window.scrollTo({top: de.scrollHeight, behavior: 'instant'});
@@ -308,6 +378,8 @@ AUDIT_JS = r"""
   return out;
 })()
 """
+
+AUDIT_JS = AUDIT_JS.replace("__SHOWN_OPACITY__", str(SHOWN_OPACITY))
 
 OPEN_ALL = "document.querySelectorAll('details').forEach(function (d) { d.open = true; });"
 
@@ -412,22 +484,41 @@ class BadHost:
         self.server.close_everything()
 
 
-def new_tab(browser, *args, **kwargs):
+def new_tab(browser, *args, allow=(), **kwargs):
+    """A tab whose pages can't follow a link away from the local test site, except to the addresses
+    in allow, which the test answers itself with a stand-in page."""
     tab = Tab(browser, *args, **kwargs)
-    tab.send("Page.addScriptToEvaluateOnNewDocument", {"source": SAFE_CLICKS})
+    tab.allowed = tuple(allow)
+    tab.send("Page.addScriptToEvaluateOnNewDocument", {"source": SAFE_CLICKS % json.dumps(list(tab.allowed))})
     return tab
 
 
 def guard_click(tab, selector):
-    """Refuses to click a call or text link, here as well as in the page."""
-    href = tab.js(f"""(function () {{
+    """A real click at the middle of an element, as Tab.click does, after checking what lies there.
+    Refuses a call, text or other app link, a link away from the local test site that this tab wasn't
+    told to expect, and a click that would land on something else. The page's guard stops such clicks
+    too, and the browser can't reach other sites at all. Returns False if the element isn't on screen."""
+    info = tab.js(f"""(function () {{
         var el = document.querySelector({json.dumps(selector)});
-        var link = el && el.closest('a');
-        return link ? link.getAttribute('href') : '';
+        if (!el) return null;
+        el.scrollIntoView({{block: 'center', behavior: 'instant'}});
+        var r = el.getBoundingClientRect();
+        var x = r.left + r.width / 2, y = r.top + r.height / 2;
+        var hit = r.width && r.height ? document.elementFromPoint(x, y) : null;
+        var link = hit && hit.closest('a[href], area[href]');
+        return {{x: x, y: y, w: r.width, h: r.height, onTarget: !!hit && (hit === el || el.contains(hit)),
+                 hit: hit ? hit.tagName.toLowerCase() + (hit.className ? '.' + String(hit.className).split(' ')[0] : '') : '',
+                 href: link ? String(link.href) : '', local: !!link && new URL(link.href, location.href).origin === location.origin}};
     }})()""")
-    if href and href.startswith(("tel:", "sms:")):
-        raise RuntimeError(f"refusing to click a crisis link: {href}")
-    return tab.click(selector)
+    if not info or not info["w"] or not info["h"]:
+        return False
+    if not info["onTarget"]:
+        raise RuntimeError(f"refusing to click {selector}: {info['hit']} lies on top of it")
+    href = info["href"]
+    if href and (scheme_of(href) not in ("http", "https") or not (info["local"] or href.startswith(tab.allowed))):
+        raise RuntimeError(f"refusing to click a link the tests must not follow: {href}")
+    tab.click_at(info["x"], info["y"])
+    return True
 
 
 def page_problems(tab, page, site):
@@ -441,12 +532,12 @@ def page_problems(tab, page, site):
 
 def report_after_use(tab, group, page, site, report, where=""):
     """After tapping or typing on a page, and before leaving it: script errors since it loaded, and any
-    test click that landed on a call or text link, which the page's guard stopped."""
+    test click that landed on a call or text link, or a link to another site, which the page's guard stopped."""
     for problem in page_problems(tab, page, site):
         report.fail(group, page, problem, where)
-    blocked = tab.js("window.__blockedCrisisClick || ''")
+    blocked = tab.js("window.__blockedClick || ''")
     if blocked:
-        report.fail(group, page, f"a test click landed on a crisis link and was stopped: {blocked}", where)
+        report.fail(group, page, f"a test click landed on a link the tests must not follow, and was stopped: {blocked}", where)
 
 
 # ---------------------------------------------------------------- links, files, paths
@@ -604,6 +695,8 @@ def test_matrix(browser, site, pages, report, screens=None):
                     report.fail("matrix", page, "the crisis strip's Call 988 is not on screen at the top of the page", where)
                 if label in MUST_PIN and not result["stripBottom"]:
                     report.fail("matrix", page, "the crisis strip's Call 988 scrolls off the screen", where)
+                for item in result["stripHidden"]:
+                    report.fail("matrix", page, f"at the top of the page, the crisis strip's {item} (SAFETY rule 1)", where)
                 if width >= 960 and not result["headerBottom"]:
                     report.fail("matrix", page, "the header's Get Support Now button scrolls off the screen", where)
                 apply_audit(result, "matrix", page, where, report, phone)
@@ -688,9 +781,13 @@ def test_keyboard(browser, site, pages, report):
             elif len(seen) > 1 and "quick-exit" not in seen[1]["cls"]:
                 report.note("keyboard", page, "Quick exit is not the second Tab stop", label)
             report_after_use(tab, "keyboard", page, site, report, label)
-            # The skip link moves focus to the main content.
+            # The skip link moves focus to the main content. Enter is pressed only on the skip link, so it
+            # can't follow whatever else might have the focus.
             tab.goto(site.url(page))
             tab.tab_key()
+            if "skip-link" not in (tab.js(FOCUS_JS).get("cls") or ""):
+                report.fail("keyboard", page, "the first Tab does not land on the skip link, so Enter was not pressed", label)
+                continue
             tab.press("Enter", "Enter", 13)
             tab.browser.pump(0.05)
             if tab.js("document.activeElement && document.activeElement.id") != "main":
@@ -951,6 +1048,10 @@ def history_entries(tab):
     return history["currentIndex"], [entry["url"] for entry in history["entries"]]
 
 
+# Quick exit leads here. The tests answer it with a stand-in page, so weather.gov is never contacted.
+WEATHER = "https://www.weather.gov/"
+
+
 def test_quickexit(browser, site, pages, report):
     home, help_page = site.url("index.html"), site.url("get-help/index.html")
     pattern = {"patterns": [{"urlPattern": "https://www.weather.gov/*"}]}
@@ -958,7 +1059,7 @@ def test_quickexit(browser, site, pages, report):
     # On every page, Quick exit is on screen, first after the skip link, and replaces the page.
     for label, width, height, phone in (("phone 390x844", 390, 844, True), ("phone landscape 844x390", 844, 390, True), ("desktop 1440x900", 1440, 900, False)):
         for page in pages:
-            tab = new_tab(browser, width, height, phone)
+            tab = new_tab(browser, width, height, phone, allow=[WEATHER])
             tab.send("Fetch.enable", pattern)
             tab.goto(site.url(page))
             box = tab.js("""(function () {
@@ -1004,12 +1105,13 @@ def test_quickexit(browser, site, pages, report):
             tab.close()
 
     # The page goes blank at once, even if the neutral site is slow to answer.
-    tab = new_tab(browser, 390, 844, True)
+    tab = new_tab(browser, 390, 844, True, allow=[WEATHER])
     tab.send("Fetch.enable", pattern)
     tab.goto(help_page)
     # Chrome holds back questions to a page while it navigates to another site, so the page reports for itself.
     tab.js("""document.addEventListener('click', function () {
         console.info('exit-check:' + getComputedStyle(document.documentElement).display);
+        console.info('exit-title:' + document.title);
     })""")
     tab.clear_events()
     guard_click(tab, ".quick-exit")
@@ -1018,6 +1120,11 @@ def test_quickexit(browser, site, pages, report):
             for arg in e["params"]["args"]]
     if "exit-check:none" not in said:
         report.fail("quickexit", "get-help/index.html", f"the page stays on screen while weather.gov loads: {said}")
+    else:
+        report.ok("quickexit")
+    # The tab strip, tab switcher and history menu would show the page's title until weather.gov arrives.
+    if "exit-title:" not in said:
+        report.fail("quickexit", "get-help/index.html", f"the tab's title still names the page while weather.gov loads: {said}")
     else:
         report.ok("quickexit")
     tab.send("Fetch.failRequest", {"requestId": event["params"]["requestId"], "errorReason": "Aborted"})
@@ -1030,7 +1137,7 @@ def test_quickexit(browser, site, pages, report):
         document.dispatchEvent(new Event('visibilitychange'));
         return document.documentElement.hidden;
     })()"""
-    tab = new_tab(browser, 390, 844, True)
+    tab = new_tab(browser, 390, 844, True, allow=[WEATHER])
     tab.goto(help_page)
     if not tab.js(blank_and_return):
         report.fail("quickexit", "get-help/index.html", "switching apps during Quick exit shows the page that was left again")
@@ -1045,7 +1152,7 @@ def test_quickexit(browser, site, pages, report):
     tab.close()
 
     # It works from the first moment, before the page's script file has arrived.
-    tab = new_tab(browser, 390, 844, True)
+    tab = new_tab(browser, 390, 844, True, allow=[WEATHER])
     tab.send("Fetch.enable", {"patterns": pattern["patterns"] + [{"urlPattern": "*/assets/menu.js"}]})
     tab.send("Network.setBypassServiceWorker", {"bypass": True})  # or the worker's request can't be held
     tab.clear_events()
@@ -1071,7 +1178,7 @@ def test_quickexit(browser, site, pages, report):
     tab.close()
 
     # What it can't do, so the site's wording can stay accurate.
-    tab = new_tab(browser, 390, 844, True)
+    tab = new_tab(browser, 390, 844, True, allow=[WEATHER])
     tab.send("Fetch.enable", pattern)
     tab.goto(help_page)
     guard_click(tab, ".toc a")
@@ -1086,7 +1193,7 @@ def test_quickexit(browser, site, pages, report):
         report.ok("quickexit")
     tab.close()
 
-    tab = new_tab(browser, 390, 844, True)
+    tab = new_tab(browser, 390, 844, True, allow=[WEATHER])
     tab.send("Fetch.enable", pattern)
     tab.goto(home)
     tab.js("location.href = 'get-help/'")
@@ -1104,7 +1211,7 @@ def test_quickexit(browser, site, pages, report):
     tab.close()
 
     # Without JavaScript it is a plain link. It still leaves, but the page stays in history.
-    tab = new_tab(browser, 390, 844, True)
+    tab = new_tab(browser, 390, 844, True, allow=[WEATHER])
     tab.send("Fetch.enable", pattern)
     tab.send("Emulation.setScriptExecutionDisabled", {"value": True})
     tab.goto(help_page)
@@ -1135,7 +1242,7 @@ def test_quickexit(browser, site, pages, report):
     tab.close()
 
     # With no connection, weather.gov can't load. The tab still leaves Tidelight for the browser's error page.
-    tab = new_tab(browser, 390, 844, True)
+    tab = new_tab(browser, 390, 844, True, allow=[WEATHER])
     tab.send("Fetch.enable", pattern)
     tab.goto(help_page)
     guard_click(tab, ".quick-exit")
@@ -1151,6 +1258,104 @@ def test_quickexit(browser, site, pages, report):
     print(f"  Quick exit with no connection: history is {entries}, at {index}; the tab shows {shown}")
     report.ok("quickexit")
     tab.close()
+    quick_exit_in_frame(browser, site, report)
+
+
+class Framer:
+    """Another site, at another local address, whose page shows a Tidelight page in a frame, as any site
+    can, since a policy in a page can't forbid it and GitHub Pages sends no header that does."""
+
+    def __init__(self, inner):
+        class Handler(http.server.BaseHTTPRequestHandler):
+            protocol_version = "HTTP/1.1"
+
+            def log_message(self, format, *args):
+                pass
+
+            def do_GET(self):
+                sandbox = ' sandbox="allow-scripts allow-same-origin"' if self.path.startswith("/sandboxed") else ""
+                body = (f'<!doctype html><title>Another site</title><h1>Another site</h1>'
+                        f'<iframe src="{inner}" width="1000" height="700"{sandbox}></iframe>').encode()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html")
+                self.send_header("Content-Length", str(len(body)))
+                self.end_headers()
+                self.wfile.write(body)
+
+        self.server = Server(("127.0.0.1", 0), Handler)
+        self.base = f"http://127.0.0.1:{self.server.server_address[1]}"
+        threading.Thread(target=self.server.serve_forever, daemon=True).start()
+
+    def stop(self):
+        self.server.close_everything()
+
+
+def node_where(tab, wanted):
+    """The middle of an element inside any frame, on the screen, and whether it is what lies there.
+    Read through DevTools, because the outer page can't read another site's frame."""
+    root = tab.send("DOM.getDocument", {"depth": -1, "pierce": True})["root"]
+    found = []
+
+    def walk(node, inside):
+        attrs = node.get("attributes", [])
+        here = inside or (node.get("nodeName") == "A" and wanted in dict(zip(attrs[::2], attrs[1::2])).get("class", "").split())
+        if here:
+            found.append(node)
+        for key in ("children", "contentDocument", "shadowRoots"):
+            kids = node.get(key) or []
+            for kid in [kids] if isinstance(kids, dict) else kids:
+                walk(kid, here)
+    walk(root, False)
+    if not found:
+        return None
+    quad = tab.send("DOM.getBoxModel", {"nodeId": found[0]["nodeId"]})["model"]["border"]
+    x, y = (quad[0] + quad[4]) / 2, (quad[1] + quad[5]) / 2
+    hit = tab.send("DOM.getNodeForLocation", {"x": int(x), "y": int(y), "includeUserAgentShadowDOM": False})
+    return x, y, hit.get("backendNodeId") in {node.get("backendNodeId") for node in found}
+
+
+def quick_exit_in_frame(browser, site, report):
+    """If another site shows Tidelight in a frame, Quick exit leaves the whole window, so that site isn't
+    left on screen. A sandboxed frame may not do that, and then Quick exit leaves the frame."""
+    framer = Framer(site.url("get-help/index.html"))
+    try:
+        for kind, path in (("a frame", "/"), ("a sandboxed frame", "/sandboxed")):
+            tab = new_tab(browser, 1100, 800, False, allow=[WEATHER])
+            tab.send("Fetch.enable", {"patterns": [{"urlPattern": WEATHER + "*"}]})
+            tab.goto(framer.base + path)
+            tab.browser.pump(0.8)
+            where = node_where(tab, "quick-exit")
+            if not where or not where[2]:
+                report.fail("quickexit", "get-help/index.html", f"inside {kind}, Quick exit is not on screen or is covered: {where}")
+                tab.close()
+                continue
+            main_frame = tab.send("Page.getFrameTree")["frameTree"]["frame"]["id"]
+            tab.click_at(where[0], where[1])
+            event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 15)
+            whole_window = event["params"].get("frameId") == main_frame
+            tab.send("Fetch.fulfillRequest", {
+                "requestId": event["params"]["requestId"], "responseCode": 200,
+                "responseHeaders": [{"name": "Content-Type", "value": "text/html"}],
+                "body": base64.b64encode(b"<!doctype html><title>Stand-in for weather.gov</title>").decode(),
+            })
+            tab.browser.pump(1.0)
+            top = tab.js("location.href")
+            _, entries = history_entries(tab)
+            frames = [child["frame"].get("url", "") for child in tab.send("Page.getFrameTree")["frameTree"].get("childFrames", [])]
+            print(f"  Quick exit inside {kind}: the window shows {top}, frames {frames}, history {entries}")
+            if path == "/":
+                if not whole_window or not top.startswith(WEATHER) or any(e.startswith(framer.base) for e in entries):
+                    report.fail("quickexit", "get-help/index.html", f"inside another site's frame, Quick exit left that site on screen or in history: {top}, {entries}")
+                else:
+                    report.ok("quickexit")
+            elif whole_window or top.startswith(WEATHER) or any(site.base in url for url in frames):
+                report.fail("quickexit", "get-help/index.html", f"inside a sandboxed frame, Quick exit didn't leave the frame: {top}, {frames}")
+            else:
+                report.note("quickexit", "(limit)", "inside a sandboxed frame that may not change the whole window, Quick exit leaves only the frame")
+                report.ok("quickexit")
+            tab.close()
+    finally:
+        framer.stop()
 
 
 def test_reducedmotion(browser, site, pages, report):
@@ -1280,9 +1485,9 @@ def test_contact(browser, site, pages, report):
         _, body, _, _ = fetch(site.url(page))
         parser = LinkParser()
         parser.feed(body.decode("utf-8"))
-        # Call and text links are read, never followed.
+        # Call and text links are read, never followed. A browser reads TEL: as tel:, so this does too.
         for link in parser.links:
-            if link.startswith(("tel:", "sms:")):
+            if scheme_of(link) in PHONE_SCHEMES | OTHER_PHONE_SCHEMES:
                 destinations[link] = destinations.get(link, 0) + 1
                 if phone_digits(link.split("?")[0]) in numbers:
                     report.ok("contact")
@@ -1758,7 +1963,7 @@ def test_privacy(browser, site, pages, report):
         tab.close()
 
     # Following an outside link doesn't tell that site where the visitor came from. A stand-in answers.
-    tab = new_tab(browser, 390, 844, True)
+    tab = new_tab(browser, 390, 844, True, allow=["https://988lifeline.org/"])
     tab.send("Fetch.enable", {"patterns": [{"urlPattern": "https://988lifeline.org/*"}]})
     tab.goto(site.url("get-help/index.html"))
     if not guard_click(tab, ".fallback a[href='https://988lifeline.org/']"):
@@ -1810,6 +2015,9 @@ def main():
     pages = find_pages()
     if args.pages:
         pages = [p for p in pages if any(piece in p for piece in args.pages.split(","))]
+        if not pages:
+            print(f"No page's path contains {args.pages!r}, so nothing would be tested.")
+            return 2
     groups = [g.strip() for g in args.only.split(",") if g.strip()]
     unknown = [g for g in groups if g not in GROUPS]
     if unknown:
