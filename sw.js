@@ -6,7 +6,7 @@
 // It asks the network first, so updates appear as soon as a connection works. A saved copy is
 // used if the network fails, answers with a server error, or takes longer than WAIT_MS.
 // Change VERSION whenever the list of core files changes, or a crisis detail is corrected.
-var VERSION = 'tidelight-v5';
+var VERSION = 'tidelight-v6';
 var CORE = [
   './',
   'get-help/',

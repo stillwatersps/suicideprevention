@@ -123,4 +123,13 @@ shows until review. Then give the packets to the therapist and a fluent Spanish 
 
 The usage limit stopped this session early. Done and pushed: content security policy and no-referrer on every page, offline notice, Spanish crisis text on the page-not-found page, slow-network, high-contrast, and privacy tests, 33 planted bugs caught, browser tests on pull requests, launch check and publish safety check, monthly crisis source check, date tool, [[FOUNDER-BRIEF]], [[LAUNCH-CHECKLIST]], [[REVIEWER-NOTES]], [[UPKEEP]], [[SHORTER-SENTENCES]].
 
-**Not done:** the audit was stopped before it finished, so its findings are unverified and not applied. See [[worklogs/2026-11-06-claude-audit-partial]]. The iOS Simulator tests didn't run. The three independent code reviews didn't run. The test counts above are from the earlier run, before these additions.
+**The usage limit stopped work again on November 7, 2026.** Pushed since the note above: the crisis strip redesign with Quick exit inside it on phones, saved-copy timing for weak signal, a WebKit test for Macs, and source-checked corrections to Research, Get Help, Help Someone, For Teens, the wallet card, and the Spanish crisis details.
+
+**Not done:**
+
+- **Audit findings.** Those for safe messaging, the crisis, teen, and bereaved readings, privacy wording, accessibility, code, and docs were checked by a second agent but are not applied. The Spanish and iOS and Android findings were never verified, and the completeness check didn't run. See [[worklogs/2026-11-06-claude-audit-partial]].
+- **Two items from the areas already applied.** The interpreter sentence on the English Trevor Project card, and a person opening the FCC text-to-911 page, which refused the automated read.
+- **iOS Simulator tests.** Not run. The iPhone Simulator was still downloading when last read, at 82.7%, so no iOS result exists.
+- **Three independent code reviews.** Not run.
+- **Full test runs.** After the last content commits, the site check passed, and the links, contact, and layout browser tests passed on the changed pages. The complete browser, WebKit, and planted-bug runs need repeating. The planted-bug list grew to 45 and hasn't had a full run.
+- **Out of date.** The review packets, the screenshots in `notes/attachments/qa-first-version/`, which show the old strip, the description of pull request 9, and the test counts above.

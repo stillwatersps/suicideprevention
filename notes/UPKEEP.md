@@ -26,8 +26,8 @@ Treat this as urgent. Wrong crisis details can cost someone the chance to reach 
 4. **Check it:** run `python3 tools/check_site.py` and `python3 tools/test_browser.py`.
 5. **Publish it.** A wrong number shouldn't wait for a full review. Agree in advance who can approve this
    kind of fix alone. That is an open question in [[SAFETY]].
-6. **Change `VERSION` in `sw.js`,** so saved offline copies get replaced as soon as a visitor is back online.
-   Copies on devices that stay offline keep the old number until then.
+6. **Change `VERSION` in `sw.js`,** so saved copies get replaced the next time a visitor opens the site with a
+   connection. Copies on devices that don't come back to the site keep the old number.
 7. **Rebuild the packets** with `python3 tools/make_review_packet.py`, and write a short note in `worklogs/`.
 8. **Tell the reviewer** if the wording changed, not only the number.
 

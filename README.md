@@ -66,6 +66,7 @@ Each person uses their own Claude access and conversation.
 | `tools/check_crisis_sources.py` | Checks that each provider's page still shows our crisis details |
 | `tools/set_checked_date.py` | Updates the "last checked" date on every page, after a real re-check |
 | `tools/test_the_tests.py` | Plants bugs in a copy of the site to prove the browser tests catch them |
+| `tools/test_webkit.py` | On a Mac, runs the layout audit and main behaviors in WebKit. Not iOS and not a phone |
 
 ## Check the website
 
