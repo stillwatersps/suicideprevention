@@ -82,7 +82,7 @@ Send: the About and privacy pages, the For Teens pages, and the "Human-only chec
 > An AI assistant drafted this, and the project's files are in a public repository, so please don't write anything
 > personal in what you send back.
 
-Send: the "Deaf or hard of hearing" part of Get Help, and the wallet card.
+Send: the "Deaf or hard of hearing" part of Get Help, the home page, and the wallet card. Ask whether people can find that part easily.
 
 ## Recording results
 
