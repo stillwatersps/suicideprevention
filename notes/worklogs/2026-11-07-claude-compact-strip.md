@@ -274,10 +274,15 @@ show them yet.**
   checks already skipped folded text, and now this one does too. The Chrome tests open every fold before
   the audit, so they are unchanged. The new WebKit planted bug, a floating Quick exit over a page's last
   line, shows that real text still counts.
-- **Not changed:** no page, wording, crisis number, reviewer question or phone step, so the review
-  packets, [[CONTENT-REVIEW]] and [[PHONE-TEST]] stay as they were. The packets read neither the
+- **Not changed:** no page, wording, crisis number, reviewer question or phone step, so what the review
+  packets say, [[CONTENT-REVIEW]] and [[PHONE-TEST]] stay as they were. The packets read neither the
   stylesheet nor the tools. `sw.js` keeps its version, because its list of core files and the crisis
   details are the same.
+- **The packets were rebuilt anyway, for their date.** The full run's last step rebuilds their HTML,
+  which prints the day it was built, so on November 8 it left both HTML files changed. They were rebuilt
+  with their PDFs and committed. Only the build date changed in each, from November 7 to November 8,
+  2026. The packet fingerprint, dcd585135ed3, and every section's fingerprint are the same, and the
+  PDFs have the same number of pages, 91 and 63.
 
 ### Measured
 
@@ -352,6 +357,31 @@ On a Mac, November 8, 2026, on the changed files before they were committed:
   also run alone, to see that the size and rule meant for it catch it.
 - Not tried on a real phone, in the iOS Simulator, or with a screen reader.
 
+Then the full run on 9fa73e5, the commit with all of the above, on a Mac, November 8, 2026, while other
+copies' tests may have used the same Mac:
+
+- `python3 tools/check_site.py`: all checks passed, 19 pages, with no note. `--self-test`: all 5
+  made-up link answers read correctly.
+- `python3 tools/launch_gate.py --self-test`: all 61 made-up cases read correctly.
+  `python3 tools/check_crisis_sources.py --self-test`: all 20 made-up cases read correctly.
+- `python3 tools/check_live.py --local`: all 18 pages load and show their crisis help, and so do a wrong
+  address and 6 files. No notes or tools are published. `python3 tools/check_readability.py` ran
+  without errors.
+- `python3 tools/test_browser.py`, every group: all browser checks passed, in desktop Chrome and its
+  phone-size emulation. Matrix 570 checks, text size 608, keyboard 2,594, jumps 676, Quick exit 87, and
+  the rest. It took 348 seconds.
+- `python3 tools/test_webkit.py`: 303 checks in macOS WebKit, 0 problems, in 150 seconds.
+- `python3 tools/test_the_tests.py`, in full: the untouched copy passed all 25 test groups and 6 other
+  checks, and all 148 planted bugs were caught, the 138 from before and the ten above, in 770 seconds.
+- `python3 tools/make_review_packet.py --no-pdf` afterwards changed only the packets' build date, as
+  described above. After the rebuild and its commit, the same step changes nothing.
+
+Trial merges, made with `git merge-tree` without changing any branch: into `site/first-version-finish`
+at e608945, the base of draft pull request 13, with no conflicts. With `site/signage-redesign` at
+18de924, draft pull request 11, conflicts in `assets/styles.css` and the five files in
+`notes/review-packet/`, the same files as from dda20fe. That stylesheet keeps the strip's limits in em
+as they are here, so the floors would carry over with the same values.
+
 ## Decisions and open questions
 
 - A proposal only. A qualified reviewer should weigh the short wording, which drops "Need help now?"
@@ -403,7 +433,11 @@ On a Mac, November 8, 2026, on the changed files before they were committed:
   the therapist's packet asks about the short wording, in Part 6. Whether the fluent Spanish reader
   should be asked too is open.
 - [[STATUS]] and [[TASKS]] don't mention this branch yet. The session that merges pull request 10's
-  branch records this pull request there.
+  branch records this pull request there. November 8: e608945 on `site/first-version-finish` records
+  draft pull request 13 in [[STATUS]]. This branch doesn't have that commit. [[STATUS]] and [[TASKS]]
+  weren't changed here, and a trial merge into that branch shows no conflict.
+- Found on November 8 and not changed: the Spanish packet prints its build date with the month in
+  English, "Generado el November 8, 2026", because the packet tool writes dates in English.
 
 ## Next step
 
