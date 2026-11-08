@@ -226,6 +226,22 @@ on `404.html`. 568x320 at 150% (379x213) puts it 72px and 128px below, 844x390 a
 (563x260) keeps it on the screen on both, and 750x292 at 200% (375x146) puts it 140px and 196px
 below.
 
+## iOS Simulator, November 8
+
+Xcode's iOS Simulator, iPhone 17, iOS 27.2, Safari. The site files were copied into a new, empty
+folder and served on this Mac at `http://localhost:8125/suicideprevention/`, which only this
+computer could open. This is a simulated iPhone, not a real one: no phone service and no real
+touch. No call, text or chat link was tapped. Screenshots are in
+`notes/attachments/ios-simulator-2026-11-08/`.
+
+| Check | Result |
+| --- | --- |
+| Upright, 100% | The heading, the opening question, Call 988, Text 988, Chat online and Call 911 were all on the first screen |
+| On its side, 100% | The heading, the opening question, Call 988 and Text 988 were on the first screen, with Safari's toolbars showing |
+| On its side, with Safari's Page Zoom at 150% | Call 988 started just below the first screen, as the page-zoom numbers above say. Safari's Page Zoom acted as page zoom here |
+
+Not covered by the Simulator: phone service, the dial and compose screens, VoiceOver, and Android.
+
 ## Try it on a phone before merging
 
 Copy only the site files into a new, empty folder, and serve that. **Never serve the repository
@@ -320,8 +336,9 @@ points, and again after the second review's.
   short-screen buttons measured 56px at 100%, 63px at 150%, and 75px at 200% on all five screens
   on their side, against 56, 84, and 112px at `bcc26d3`.
 
-Not tested: any real phone, the iOS Simulator, VoiceOver or TalkBack, Firefox, printing from
-Safari or Firefox, the live site (nothing is published), or what the chat links open.
+Not tested: any real phone, VoiceOver or TalkBack, Firefox, printing from Safari or Firefox, the
+live site (nothing is published), or what the chat links open. The iOS Simulator was tried on
+November 8, as described above.
 
 ## Next step
 
