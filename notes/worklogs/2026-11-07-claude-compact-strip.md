@@ -212,6 +212,24 @@ pages, with no note, so the review packets are current. `python3 tools/make_revi
 left the packet HTML unchanged, because the packets read none of these notes. No page, stylesheet or
 tool changed, so the browser, WebKit and planted-bug tests weren't run again.
 
+## Before the pull request
+
+The first review's point on [[DECISIONS]], marked low and not fixed then, was still true, so it is
+fixed here:
+
+- The strip entry said the compact strip "pins wherever that row fits and takes a quarter of the
+  screen's height or less". The height limit is stricter than that: at least 192 px at the default
+  text size, 265 px at 150% and about 266 px at 200% (`assets/styles.css`, the limit inside the
+  compact block). So a few short screens with larger text, such as 640 by 264 at 150%, still scroll
+  it away though one row would fit. The entry now says so.
+- The rewrite had dropped the November 6 entry's open question, "Whether larger text should still
+  pin the strip is open", and its known limit for older phones on their side. Both are back, saying
+  what holds without this proposal, which answers the question only once both founders agree.
+- The reviewer question in [[CONTENT-REVIEW]] said the strip shortens "on a short screen ... or with
+  larger text", which suggests larger text alone shortens it. An upright phone with larger text never
+  gets the compact row. It now says "on a short screen, such as a phone on its side, including with
+  larger text". The review packets were rebuilt, because the therapist's packet shows that question.
+
 ## Decisions and open questions
 
 - A proposal only. A qualified reviewer should weigh the short wording, which drops "Need help now?"

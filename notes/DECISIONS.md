@@ -48,14 +48,21 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
   measures 750 by 292 there, so the 300 px rule had left 988 and 911 off screen after
   scrolling. Found in the iOS Simulator on November 7, 2026. These limits are set in em, so
   they grow with a larger text setting: at 150% text, 16em is 384 px and 18.75em is 450 px.
+  Without the proposal below, the strip then scrolls away and only Quick exit stays on screen,
+  even where the strip would take a small part of it, and short screens 568 to 703 px wide and
+  300 px tall or less, such as older phones on their side, don't pin it, because the Spanish
+  strip needs two rows there. Whether larger text should still pin the strip is open. The
+  proposal below would answer it, once both founders agree.
   **Proposed on November 7, 2026, on branch `site/compact-crisis-strip`, and not agreed by both
   founders:** where the full strip would scroll away on a short screen, a compact strip pins
   instead. It is one row, "Call 988 · Text 988 · Call 911", with Quick exit inside. In Spanish
   it reads "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al 911". It leaves out "Need
   help now?", "In immediate danger," and "any time", and their Spanish twins, though screen
-  readers still hear each link's full name. The rule: it pins wherever that row fits and takes
-  a quarter of the screen's height or less. With text set smaller than the default, it also
-  needs as much width as at the default size, 312 px in English and 544 px in Spanish, because
+  readers still hear each link's full name. The rule: it pins only where that row is sure to
+  fit and to take a quarter of the screen's height or less. In height that means at least 192 px
+  at the default text size, 265 px at 150% and about 266 px at 200%, so a few short screens with
+  larger text, such as 640 by 264 at 150%, still scroll it away. With text set smaller than the
+  default, it also needs as much width as at the default size, 312 px in English and 544 px in Spanish, because
   part of the row doesn't shrink with the text. Anywhere else the strip scrolls away as before, and
   Quick exit floats in the bottom corner. In desktop Chrome's phone-size emulation, 640 by 290
   and 568 by 300, such as older phones on their side, now pin it in both languages, at 48 px,
