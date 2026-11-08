@@ -47,7 +47,8 @@ Everyone else's results go under "Other reviews" in [[CONTENT-REVIEW]], which th
 
 - [ ] Licensed therapist: `review-packet/tidelight-review-packet.pdf`. Results under "Review records"
 - [ ] Fluent Spanish reader: `review-packet/tidelight-spanish-review-packet.pdf`, including the Spanish lines on
-  the English pages in its Part 3. Results under "Review records"
+  the English pages in its Part 3 and the questions in its Part 5. Results under "Review records", and answers
+  in the notes each question comes from
 - [ ] Someone with lived experience of a suicide loss: After a loss. Results under "Other reviews"
 - [ ] Someone who works with young people: For Teens. Results under "Other reviews"
 - [ ] A lawyer: About and privacy, minors, and who the publisher is. Results under "Other reviews"
@@ -58,7 +59,8 @@ Everyone else's results go under "Other reviews" in [[CONTENT-REVIEW]], which th
 - [ ] Make reviewers' changes on a task branch, and show the reviewer anything that changed a safety message.
 - [ ] Update the Spanish twin of every changed English page.
 - [ ] Run `python3 tools/make_review_packet.py` again. Any change to a section gives it a new fingerprint, so
-  its approval stops counting until the reviewer has seen the change and a new line is recorded.
+  its approval stops counting until the reviewer has seen the change and a new line is recorded. That includes a
+  change only a screen reader would notice, such as a link's `aria-label` or a page's title.
 
 ## 4. Test on real devices
 
@@ -150,7 +152,8 @@ Once Pages publishes with GitHub Actions, the publish step runs `python3 tools/l
 It stops publishing unless all of these hold:
 
 - Every page has a section in the review packets, and so do the Spanish lines on every English page. All the
-  text a visitor sees is in a numbered part of a packet, not loose in a div.
+  text a visitor sees is in a numbered part of a packet, not loose in a div, and so is every word a screen reader
+  says that the screen doesn't show, such as an `aria-label` or a page's title.
 - Every line under "Review records" in [[CONTENT-REVIEW]] can be read, and none is dated after today.
 - Every English section's newest line by a licensed clinician approves it, and every Spanish section's newest
   line by a fluent or native Spanish reader approves it. The Spanish sections include the Spanish lines on

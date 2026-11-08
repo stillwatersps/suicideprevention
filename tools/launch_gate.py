@@ -27,6 +27,7 @@ from the section's text, so if the text changes after the review, the approval s
   - A record dated after today, or one that can't be read, stops publishing.
   - Every page must have a section in the review packets, and so must Spanish lines on an English page.
     So must all the text a visitor sees: a sentence loose in a div, outside any paragraph, would reach no reviewer.
+    So must every word a screen reader says that the screen doesn't show, such as an aria-label.
 
 The founders can override this on purpose, for an early preview, by setting a repository variable named
 PUBLISH_UNREVIEWED to the words "both founders agreed". See notes/LAUNCH-CHECKLIST.md.

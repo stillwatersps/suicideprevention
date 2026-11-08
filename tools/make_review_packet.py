@@ -1,28 +1,34 @@
 #!/usr/bin/env python3
 """Builds the printable review packets from the website and the notes.
 
-    python3 tools/make_review_packet.py           # HTML and PDF, in notes/review-packet/
-    python3 tools/make_review_packet.py --no-pdf  # HTML only, if Chrome isn't installed
+    python3 tools/make_review_packet.py              # HTML and PDF, in notes/review-packet/
+    python3 tools/make_review_packet.py --no-pdf     # HTML only, if Chrome isn't installed
+    python3 tools/make_review_packet.py --self-test  # checks this tool on made-up cases, changing nothing
 
 It writes two packets, so each reader gets what they need:
   - tidelight-review-packet: for the licensed therapist. English pages, research brief,
     sources, questions, and sign-off.
   - tidelight-spanish-review-packet: for a fluent Spanish reader. Spanish pages, the Spanish
-    lines on the English pages, and sign-off.
+    lines on the English pages, questions written in Spanish, and sign-off.
 
-Every sentence gets a number, so feedback can say "HELP-12" instead of quoting it. The packet
-records a reviewer's role and the date, never personal contact details. It only reads the
-project's files. It is not a review, and it doesn't rate any wording.
+Every sentence gets a number, so feedback can say "HELP-12" instead of quoting it. Each page, and the
+text on every page, ends with what a screen reader reads aloud there that the screen doesn't show, such
+as the page's title and the full names of the crisis links. The packet records a reviewer's role and the
+date, never personal contact details. It only reads the project's files. It is not a review, and it
+doesn't rate any wording.
 
 Each section of the sign-off tables also shows a fingerprint: a 12-character code made from that
-section's text, exactly as the packet shows it. A review record carries it, and the publish step
-(tools/launch_gate.py) counts an approval only while the section's text still has that fingerprint.
+section's text, exactly as the packet shows it, screen reader words included. A review record carries it,
+and the publish step (tools/launch_gate.py) counts an approval only while the section's text still has that
+fingerprint. The packet fingerprint in notes/review-packet/FINGERPRINT.txt is made from both packets' text,
+so tools/check_site.py says the packets are out of date whenever what they would show changes.
 """
 import argparse
 import datetime
 import hashlib
 import html
 import html.parser
+import inspect
 import json
 import pathlib
 import re
@@ -31,7 +37,8 @@ import sys
 TOOLS = pathlib.Path(__file__).resolve().parent
 ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
-from check_site import EVERY_PAGE, OUTSIDE_TEXT, SHOWN_BY_SCRIPT, SPANISH_ON_EVERY_PAGE, find_pages, is_spanish, language_of  # noqa: E402
+from check_site import (DATE_EN, DATE_ES, EVERY_PAGE, HEARD_ATTRIBUTES, OUTSIDE_TEXT, SHOWN_BY_SCRIPT,  # noqa: E402
+                        SPANISH_ON_EVERY_PAGE, SPANISH_SIGNS, find_pages, is_spanish, language_of)
 
 OUT = ROOT / "notes" / "review-packet"
 PREVIEW = "https://stillwatersps.github.io/suicideprevention/"
@@ -95,6 +102,76 @@ SHARED_CLASSES = {"crisis-bar", "crisis-panel", "site-footer", "site-header", "q
 # its smaller second line. A " | " keeps them apart, so the packet doesn't show "Call 988Talk to a counselor".
 PART_CLASSES = {"action-sub", "trust-text", "status-line", "brand-tag"}
 ABBREVIATIONS = ["U.S.", "e.g.", "i.e.", "Dr.", "Nov.", "vs.", "EE. UU.", "a.m.", "p.m.", "No."]
+# Words a screen reader says that the screen doesn't show. A link, button, or fold button is kept whole, with
+# the words the screen shows, when a screen reader names it differently: by an aria-label, or with words hidden
+# from the eye, such as ", home" after the brand or the section name after each "Show more".
+CONTROLS = {"a", "button", "summary"}
+# Where such words sit decides their section, as for the words the eye sees. The skip link is on every page too.
+SHARED_HEARD = SHARED_CLASSES | {"skip-link"}
+# How each packet introduces them. {heard} is what a screen reader says, {shown} what the screen shows.
+HEARD_WORDS = {
+    "en": {
+        "part": "Read aloud by a screen reader, not shown on screen",
+        "page-title": "Page title, read first when the page opens: {heard}",
+        "skip": "Link seen only when reached with a keyboard: {heard}",
+        "control": '{what} "{shown}", read aloud as: {heard}',
+        "control-open": '{what} "{shown}", once open, read aloud as: {heard}',
+        "control-empty": "{what} with no words on screen, read aloud as: {heard}",
+        "hidden": "Read only by a screen reader: {heard}",
+        "image": "Image description, read only by a screen reader: {heard}",
+        "a": "Link", "button": "Button", "summary": "Fold button",
+        "aria-label": {"nav": "Menu name: {heard}", "ul": "List name: {heard}", "ol": "List name: {heard}",
+                       "": "Area name: {heard}"},
+        "aria-description": "Description read by a screen reader: {heard}",
+        "aria-roledescription": "Kind of item a screen reader names: {heard}",
+        "aria-valuetext": "Value read by a screen reader: {heard}",
+        "aria-placeholder": "Hint read by a screen reader: {heard}",
+        "aria-braillelabel": "Name shown on a braille display: {heard}",
+        "aria-brailleroledescription": "Kind of item shown on a braille display: {heard}",
+        "title": "Tooltip, which some screen readers read: {heard}",
+    },
+    "es": {
+        "part": "Lo que lee en voz alta un lector de pantalla y no se ve en pantalla",
+        "page-title": "Título de la página, que se lee primero al abrirla: {heard}",
+        "skip": "Enlace que solo se ve al llegar con el teclado: {heard}",
+        "control": "{what} «{shown}», leído en voz alta: {heard}",
+        "control-open": "{what} «{shown}», ya abierto, leído en voz alta: {heard}",
+        "control-empty": "{what} sin palabras en pantalla, leído en voz alta: {heard}",
+        "hidden": "Solo lo lee un lector de pantalla: {heard}",
+        "image": "Descripción de imagen, que solo lee un lector de pantalla: {heard}",
+        "a": "Enlace", "button": "Botón", "summary": "Botón para desplegar",
+        "aria-label": {"nav": "Nombre del menú: {heard}", "ul": "Nombre de la lista: {heard}",
+                       "ol": "Nombre de la lista: {heard}", "": "Nombre de la zona: {heard}"},
+        "aria-description": "Descripción que lee un lector de pantalla: {heard}",
+        "aria-roledescription": "Tipo de elemento que dice un lector de pantalla: {heard}",
+        "aria-valuetext": "Valor que dice un lector de pantalla: {heard}",
+        "aria-placeholder": "Pista que dice un lector de pantalla: {heard}",
+        "aria-braillelabel": "Nombre en una pantalla braille: {heard}",
+        "aria-brailleroledescription": "Tipo de elemento en una pantalla braille: {heard}",
+        "title": "Texto emergente, que leen algunos lectores de pantalla: {heard}",
+    },
+}
+# The build date, in each packet's language, from these names rather than the computer's language setting.
+MONTHS = {
+    "en": ("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+           "November", "December"),
+    "es": ("enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre",
+           "noviembre", "diciembre"),
+}
+# The questions for the fluent Spanish reader: a section of notes/CONTENT-REVIEW.md, shown in Parte 5 of the
+# Spanish packet. tools/check_site.py fails if a question loses its Spanish, its English twin, or its source.
+SPANISH_QUESTIONS = "Questions for the fluent Spanish reader"
+AI_TRANSLATION = "Unreviewed AI translation"
+QUESTION_LINE = re.compile(r"^\s*(?:\d+\.\s+|-\s+)?(ES|EN|Source):(?:\s+(.*))?$")
+QUESTION_FIELDS = {"ES": "es", "EN": "en", "Source": "source"}
+
+
+def english_date(day):
+    return f"{MONTHS['en'][day.month - 1]} {day.day}, {day.year}"
+
+
+def spanish_date(day):
+    return f"{day.day} de {MONTHS['es'][day.month - 1]} de {day.year}"
 
 
 def split_sentences(text):
@@ -231,11 +308,243 @@ class Extractor(html.parser.HTMLParser):
             self.link["text"] += data
 
 
+_READ = {}
+
+
 def read_page(name, skip=SKIP_CLASSES):
-    parser = Extractor(skip)
-    parser.feed((ROOT / name).read_text(encoding="utf-8"))
-    parser.close()
-    return parser
+    """A page read into blocks. Each reading is kept while the file is unchanged, because the packets and the
+    checks read each page many times. Callers only read what it holds."""
+    path = ROOT / name
+    stat = path.stat()
+    key = (name, frozenset(skip), stat.st_mtime_ns, stat.st_size)
+    if key not in _READ:
+        parser = Extractor(skip)
+        parser.feed(path.read_text(encoding="utf-8"))
+        parser.close()
+        _READ[key] = parser
+    return _READ[key]
+
+
+def tidy(text):
+    """Text with its spaces collapsed, as a screen reader would read it out."""
+    return re.sub(r"\s+", " ", text or "").strip()
+
+
+class Heard(html.parser.HTMLParser):
+    """Reads what a screen reader says on a page that the screen doesn't show, as items for the packets: the
+    page's title, names and other words given in HEARD_ATTRIBUTES, words with the visually-hidden class, the
+    skip link, and the words of an image a packet would otherwise leave out. A link or button that a screen
+    reader names differently from what the screen shows is kept whole, with the words the screen shows. Each
+    item keeps "said": the words that only a screen reader says, which tools/check_site.py compares with its
+    own reading of the page. Anything a screen reader skips, such as text marked aria-hidden, is left out."""
+
+    VOID = Extractor.VOID
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack = []
+        self.items = []
+        self.title = ""
+        self.html_lang = None
+        # Links and buttons still open, each with its words as (text, hidden from the eye, fold state).
+        self.controls = []
+        # An element with the visually-hidden class that is still open.
+        self.hidden = None
+
+    def _classes(self):
+        found = set()
+        for _, attrs in self.stack:
+            found.update((attrs.get("class") or "").split())
+        return found
+
+    def _lang(self):
+        for _, attrs in reversed(self.stack):
+            if attrs.get("lang"):
+                return attrs["lang"]
+        return None
+
+    def _unheard(self):
+        """Whether a screen reader skips what is here: hidden text the script never shows, anything marked
+        aria-hidden, and scripts and styles."""
+        for tag, attrs in self.stack:
+            if tag in ("script", "style", "template"):
+                return True
+            if "hidden" in attrs and not set((attrs.get("class") or "").split()) & SHOWN_BY_SCRIPT:
+                return True
+            if (attrs.get("aria-hidden") or "").strip().lower() == "true":
+                return True
+        return False
+
+    def _item(self, kind, heard, **extra):
+        heard = tidy(heard)
+        if heard:
+            lang = extra.pop("lang", self._lang())
+            item = {"kind": kind, "heard": heard, "said": [heard], "classes": self._classes(), "lang": lang,
+                    "spanish": is_spanish(lang)}
+            item.update(extra)
+            self.items.append(item)
+
+    def handle_starttag(self, tag, attrs):
+        attrs = {key: value or "" for key, value in attrs}
+        if tag == "html":
+            self.html_lang = attrs.get("lang")
+        self.stack.append((tag, attrs))
+        if not self._unheard():
+            for name in HEARD_ATTRIBUTES:
+                value = tidy(attrs.get(name))
+                if value and not (name == "aria-label" and tag in CONTROLS):  # a control's name is kept at its end
+                    self._item("attribute", value, attribute=name, tag=tag)
+            alt = tidy(attrs.get("alt"))
+            if tag == "img" and alt:
+                classes = self._classes()
+                state = "closed" if "when-closed" in classes else "open" if "when-open" in classes else None
+                for control in self.controls:  # an image's description names a link around it
+                    control["words"].append((alt, "visually-hidden" in classes, state))
+                if classes & SKIP_CLASSES:  # where the packets leave out the text around it
+                    self._item("image", alt)
+            if tag in CONTROLS:
+                self.controls.append({"depth": len(self.stack), "tag": tag, "label": tidy(attrs.get("aria-label")),
+                                      "words": [], "pieces": [], "classes": self._classes(), "lang": self._lang(),
+                                      "spanish": is_spanish(self._lang())})
+            if "visually-hidden" in (attrs.get("class") or "").split() and self.hidden is None and tag not in self.VOID:
+                self.hidden = {"depth": len(self.stack), "text": "", "lang": self._lang(), "classes": self._classes()}
+        if tag in self.VOID:
+            self.stack.pop()
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag not in self.VOID:
+            self.handle_endtag(tag)
+
+    def handle_endtag(self, tag):
+        if tag in self.VOID or not any(open_tag == tag for open_tag, _ in self.stack):
+            return
+        while self.stack:
+            popped, _ = self.stack.pop()
+            if popped == tag:
+                break
+        depth = len(self.stack)
+        if self.hidden is not None and depth < self.hidden["depth"]:
+            hidden, self.hidden = self.hidden, None
+            text = tidy(hidden["text"])
+            if text and self.controls:  # part of a link's or button's name
+                self.controls[-1]["pieces"].append(text)
+                self.controls[-1]["spanish"] = self.controls[-1]["spanish"] or is_spanish(hidden["lang"])
+            elif text:
+                self.items.append({"kind": "hidden", "heard": text, "said": [text], "classes": hidden["classes"],
+                                   "lang": hidden["lang"], "spanish": is_spanish(hidden["lang"])})
+        while self.controls and depth < self.controls[-1]["depth"]:
+            self._close_control(self.controls.pop())
+
+    def _close_control(self, control):
+        """Keeps a link or button whose name a screen reader says differently from the screen, once per fold
+        state when it has the "Show more" and "Show less" labels, and the skip link, which the screen hides."""
+        skip = "skip-link" in control["classes"]
+        if not (control["label"] or control["pieces"] or skip):
+            return
+        states = [state for state in ("closed", "open") if any(s == state for _, _, s in control["words"])] or [None]
+        for state in states:
+            words = [(text, eye) for text, eye, s in control["words"] if s in (None, state)]
+            shown = tidy("".join(text for text, eye in words if not eye))
+            # Without the space that the page's line breaks leave before hidden words such as ", home".
+            heard = control["label"] or re.sub(r"\s+([,.;:!?])", r"\1", tidy("".join(text for text, _ in words)))
+            # The words only a screen reader says: the name that replaces the link's words, or the hidden ones.
+            # A skip link is seen only when reached with a keyboard, so all its words count.
+            said = [control["label"]] if control["label"] else list(control["pieces"])
+            said = said + [heard] if skip or not said else said
+            kind = "skip" if skip and not control["label"] and not control["pieces"] else "control"
+            self.items.append({"kind": kind, "tag": control["tag"], "state": state if len(states) > 1 else None,
+                               "shown": shown, "heard": heard, "said": said, "classes": control["classes"],
+                               "lang": control["lang"], "spanish": control["spanish"]})
+
+    def handle_data(self, data):
+        tags = [tag for tag, _ in self.stack]
+        if "svg" in tags:  # an image drawn on the page is named by its own title, unless it is marked aria-hidden
+            if tags[-1] in ("title", "desc") and not self._unheard():
+                self._item("image", data)
+            return
+        if tags and tags[-1] == "title":
+            self.title += data
+            return
+        if self._unheard():
+            return
+        classes = self._classes()
+        state = "closed" if "when-closed" in classes else "open" if "when-open" in classes else None
+        for control in self.controls:
+            control["words"].append((data, "visually-hidden" in classes, state))
+        if self.hidden is not None:
+            self.hidden["text"] += data
+
+    def close(self):
+        super().close()
+        title = tidy(self.title)
+        if title:
+            self.items.insert(0, {"kind": "page-title", "heard": title, "said": [title], "classes": set(),
+                                  "lang": self.html_lang, "spanish": is_spanish(self.html_lang)})
+
+
+_HEARD = {}
+
+
+def heard_items(name):
+    """What a screen reader says on a page that the screen doesn't show, as items, the page's title first."""
+    path = ROOT / name
+    stat = path.stat()
+    key = (name, stat.st_mtime_ns, stat.st_size)
+    if key not in _HEARD:
+        parser = Heard()
+        parser.feed(path.read_text(encoding="utf-8"))
+        parser.close()
+        _HEARD[key] = parser.items
+    return _HEARD[key]
+
+
+def heard_text(item, lang):
+    """One item as its packet lists it, such as: Link "Call 988", read aloud as: Call 988, the ..."""
+    words = HEARD_WORDS[lang]
+    if item["kind"] == "control":
+        template = words["control-open" if item["state"] == "open" else "control" if item["shown"] else "control-empty"]
+        return template.format(what=words[item["tag"]], shown=item["shown"], heard=item["heard"])
+    template = words[item["attribute"]] if item["kind"] == "attribute" else words[item["kind"]]
+    if isinstance(template, dict):
+        template = template.get(item["tag"], template[""])
+    return template.format(heard=item["heard"])
+
+
+def heard_part(items, lang, once=False):
+    """A section's closing part: what a screen reader says there that the screen doesn't show. In a section
+    every page shares, each wording is listed once, as for the text the eye sees."""
+    if not items:
+        return []
+    blocks = [{"tag": "h2", "text": HEARD_WORDS[lang]["part"], "links": [], "classes": set(), "ids": [], "lang": lang}]
+    seen = set()
+    for item in items:
+        text = heard_text(item, lang)
+        if once and text in seen:
+            continue
+        seen.add(text)
+        blocks.append({"tag": "li", "text": text, "links": [], "classes": set(), "ids": [], "lang": lang,
+                       "said": list(item["said"])})
+    return blocks
+
+
+def own_heard(name):
+    """What a screen reader says in a page's own text, outside the parts every page shares."""
+    return [item for item in heard_items(name) if not item["classes"] & SHARED_HEARD]
+
+
+def shared_heard(names):
+    """What a screen reader says in the parts every page shares, page by page."""
+    return [item for name in names if (ROOT / name).exists() for item in heard_items(name) if item["classes"] & SHARED_HEARD]
+
+
+def spanish_heard(name):
+    """What a screen reader says in Spanish on an English page, as (in its own text, in the parts every English
+    page shares or the links to Spanish), as for the Spanish lines the eye sees."""
+    spanish = [item for item in heard_items(name) if item["spanish"]]
+    elsewhere = SHARED_HEARD | LANGUAGE_LINKS
+    return ([item for item in spanish if not item["classes"] & elsewhere],
+            [item for item in spanish if item["classes"] & elsewhere])
 
 
 def esc(text):
@@ -353,7 +662,7 @@ def own_text(blocks):
     return own
 
 
-def spanish_on_english(name):
+def spanish_text(name):
     """An English page's Spanish lines, as (those in its own text, those in the parts every English page
     shares). A line counts if it is marked as Spanish or holds words that are, even in navigation the English
     packet leaves out, such as the language switch. A line in English with a few Spanish words is kept whole."""
@@ -365,9 +674,17 @@ def spanish_on_english(name):
     return own, shared
 
 
+def spanish_on_english(name):
+    """An English page's Spanish, as (in its own text, in the parts every English page shares): the Spanish
+    lines the eye sees, then what a screen reader says in Spanish there. Only a fluent reader approves it."""
+    own, shared = spanish_text(name)
+    heard_own, heard_shared = spanish_heard(name)
+    return own + heard_own, shared + heard_shared
+
+
 def spanish_lines(name):
     """The Spanish lines of an English page's own text, such as the 404 page's sentence for Spanish speakers."""
-    return spanish_on_english(name)[0]
+    return spanish_text(name)[0]
 
 
 def spanish_shared_lines(names):
@@ -378,7 +695,7 @@ def spanish_shared_lines(names):
     for name in names:
         if not (ROOT / name).exists():
             continue
-        for block in spanish_on_english(name)[1]:
+        for block in spanish_text(name)[1]:
             if block["text"] not in seen:
                 seen.add(block["text"])
                 found.append(block)
@@ -397,17 +714,20 @@ def loose_text(name):
 
 
 def section_blocks(page, lang):
-    """The text of one section of the sign-off tables, exactly as its packet shows it."""
+    """The text of one section of the sign-off tables, exactly as its packet shows it: what the eye sees, then
+    what a screen reader says there that the screen doesn't show."""
     names = [item[0] for item in (ENGLISH if lang == "en" else SPANISH)]
+    english = [item[0] for item in ENGLISH]
     if page == EVERY_PAGE[lang]:
-        return shared_blocks(names)
+        return shared_blocks(names) + heard_part(shared_heard(names), lang, once=True)
     if page == OUTSIDE_TEXT[lang]:
         return outside_blocks(names, lang)
     if lang == "es" and page == SPANISH_ON_EVERY_PAGE:
-        return spanish_shared_lines([item[0] for item in ENGLISH])
+        heard = [item for name in english if (ROOT / name).exists() for item in spanish_heard(name)[1]]
+        return spanish_shared_lines(english) + heard_part(heard, lang, once=True)
     if lang == "es" and language_of(page) == "en":
-        return spanish_lines(page)
-    return page_blocks(page)
+        return spanish_lines(page) + heard_part(spanish_heard(page)[0], lang)
+    return page_blocks(page) + heard_part(own_heard(page), lang)
 
 
 def section_fingerprint(page, lang):
@@ -418,6 +738,30 @@ def section_fingerprint(page, lang):
         lines.append(f"{block['tag']}: {block['text']}")
         lines.extend(f"  link: {link['text']} -> {link['href']}" for link in block["links"])
     return hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest()[:12]
+
+
+_HEARD_SHOWN = {}
+
+
+def heard_shown(page, lang):
+    """The words only a screen reader says that one section of a packet shows."""
+    if (page, lang) not in _HEARD_SHOWN:
+        _HEARD_SHOWN[(page, lang)] = {piece for block in section_blocks(page, lang) for piece in block.get("said", ())}
+    return _HEARD_SHOWN[(page, lang)]
+
+
+def heard_in_packets(name):
+    """The words only a screen reader says on a page that the packets show, as {"en": ..., "es": ...}: those
+    in the sections that hold the page's text in the therapist's packet, and in the Spanish packet.
+    tools/check_site.py reads the page its own way and fails on any such words that neither shows."""
+    if language_of(name) == "en":
+        sections = {"en": [(name, "en"), (EVERY_PAGE["en"], "en")], "es": [(SPANISH_ON_EVERY_PAGE, "es")]}
+        if any(page == name for page, _, _ in SPANISH_ON_ENGLISH):
+            sections["es"].append((name, "es"))
+    else:
+        sections = {"en": [], "es": [(name, "es"), (EVERY_PAGE["es"], "es")]}
+    return {lang: set().union(*(heard_shown(page, section_lang) for page, section_lang in found))
+            for lang, found in sections.items()}
 
 
 def offline_notices():
@@ -575,6 +919,72 @@ def note_section(path, heading, stop_level=2):
     return rest[: end.start()] if end else rest
 
 
+def spanish_questions(text=None):
+    """The questions for the fluent Spanish reader in notes/CONTENT-REVIEW.md, as (questions, problems). Each
+    question is {"es", "en", "source"}: what the reader is asked, its English twin for the founders, and where
+    it comes from. Only complete questions are returned. Each problem says what is missing, so
+    tools/check_site.py can fail on it and this tool can refuse to build a packet that leaves one out.
+
+    The section holds an introduction, then a numbered list in which each question has three lines, in order:
+        1. ES: ¿...?
+           EN: ...?
+           Source: notes/SAFETY.md, ...
+    A longer line goes on below it, indented."""
+    text = (ROOT / "notes" / "CONTENT-REVIEW.md").read_text(encoding="utf-8") if text is None else text
+    where = f'the "## {SPANISH_QUESTIONS}" section'
+    match = re.search(rf"^## {re.escape(SPANISH_QUESTIONS)}\s*$", text, re.M)
+    if not match:
+        return [], [f'needs a "## {SPANISH_QUESTIONS}" section, which the Spanish packet shows in its Parte 5']
+    rest = text[match.end():]
+    end = re.search(r"^#{1,2} ", rest, re.M)
+    body = rest[: end.start()] if end else rest
+    problems = []
+    if AI_TRANSLATION not in body:
+        problems.append(f'{where} must say "{AI_TRANSLATION}", because no fluent reader has checked its Spanish')
+    fields = []
+    for line in body.splitlines():
+        found = QUESTION_LINE.match(line)
+        if found:
+            fields.append([QUESTION_FIELDS[found.group(1)], (found.group(2) or "").strip()])
+        elif fields and line.startswith(" ") and line.strip():
+            fields[-1][1] = (fields[-1][1] + " " + line.strip()).strip()
+        elif fields and line.strip():
+            problems.append(f'{where} has a line that belongs to no question, after the list began: "{line.strip()[:60]}"')
+    order = list(QUESTION_FIELDS.values())
+    questions = []
+    for key, value in fields:
+        # A field that is already there, or comes before one that is, starts the next question.
+        if not questions or key in questions[-1] or order.index(key) < max(order.index(k) for k in questions[-1]):
+            questions.append({})
+        questions[-1][key] = value
+    missing = {"es": "Spanish, so the fluent reader would never be asked it",
+               "en": "English twin, so the founders couldn't tell what was asked",
+               "source": "source, so nobody could tell where it comes from"}
+    for number, question in enumerate(questions, 1):
+        start = next(question[key] for key in order if question.get(key) is not None)[:60]
+        for key in order:
+            if not question.get(key):
+                problems.append(f'question {number} for the fluent Spanish reader has no {missing[key]}. It begins "{start}"')
+        if question.get("es") and not SPANISH_SIGNS.search(question["es"]):
+            problems.append(f'question {number} for the fluent Spanish reader has Spanish that doesn\'t look Spanish: "{start}"')
+    if not questions:
+        problems.append(f"{where} has no questions")
+    return [question for question in questions if all(question.get(key) for key in order)], problems
+
+
+def questions_part():
+    """Parte 5 of the Spanish packet: each question in Spanish, its English twin, where it comes from, and room
+    for an answer."""
+    rows = []
+    for number, question in enumerate(spanish_questions()[0], 1):
+        rows.append('<div class="question">'
+                    f'<p class="row"><span class="id">P-{number}</span> {inline(question["es"])}</p>'
+                    f'<p class="twin" lang="en"><em>In English, for the founders:</em> {inline(question["en"])}</p>'
+                    f'<p class="from">De dónde viene: <span lang="en">{inline(question["source"])}</span></p>'
+                    '<span class="answer"></span></div>')
+    return "\n".join(rows)
+
+
 def brief_blocks():
     """The research brief's full text, as blocks to number."""
     text = note_section("notes/RESEARCH-BRIEF.md", "Full text of the brief")
@@ -636,6 +1046,10 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 .answer { display: block; border-bottom: 1px solid #999; height: 30pt; margin-bottom: 8pt; }
 .urgent { border: 2px solid #111; padding: 8pt; break-inside: avoid; }
 .small { font-size: 9pt; color: #333; }
+.question { margin: 0 0 8pt; break-inside: avoid; }
+.question .twin, .question .from, .question .answer { margin-left: 52pt; }
+.question .twin { margin-bottom: 2pt; font-size: 9pt; color: #333; }
+.question .from { margin-bottom: 0; font-size: 8.5pt; color: #555; }
 @media screen { body { max-width: 820px; margin: 24px auto; padding: 0 16px; } }
 """
 
@@ -657,14 +1071,25 @@ def document(title, body):
 """
 
 
+# Any fixed day: the packet fingerprint leaves out the build date, but not how each packet writes a date.
+FINGERPRINT_DAY = datetime.date(2000, 1, 1)
+NO_STAMP = "-" * 12
+
+
 def fingerprint():
+    """The packet fingerprint: the first 12 characters of a SHA-256 hash of both packets, as this tool would
+    write them now, with the build date and the fingerprint itself left out, and of what else makes the PDFs:
+    the date in each month, make_pdf(), the browser's PDF settings, and each packet's name. So it changes when
+    anything a packet shows changes, whether that comes from a page, a note, this file, or what this file reads
+    from tools/check_site.py, and it stays the same for anything else, such as a test or another check."""
+    import browser
+
     digest = hashlib.sha256()
-    names = [p for p in find_pages()] + ["notes/RESEARCH-BRIEF.md", "notes/CONTENT-REVIEW.md", "notes/SAFETY.md", "notes/SHORTER-SENTENCES.md",
-                                         "assets/menu.js", "manifest.webmanifest"]
-    names += [f"assets/{card.name}" for card in (ROOT / "assets").glob("*.vcf")]
-    for name in sorted(names):
-        digest.update(name.encode())
-        digest.update((ROOT / name).read_bytes())
+    parts = [build(FINGERPRINT_DAY, NO_STAMP) for _, build, _ in PACKETS]
+    parts += [f"{english_date(day)} | {spanish_date(day)}" for day in (datetime.date(2026, month, month) for month in range(1, 13))]
+    parts += [inspect.getsource(make_pdf), inspect.getsource(browser.Tab.pdf), repr([(name, label) for name, _, label in PACKETS])]
+    for part in parts:
+        digest.update(part.encode("utf-8") + b"\0")
     return digest.hexdigest()[:12]
 
 
@@ -695,7 +1120,7 @@ def signoff_rows(lang):
             for label, page, section_lang in review_sections() if section_lang == lang]
 
 
-def therapist_packet(today, stamp):
+def therapist_packet(day, stamp):
     numbering = Numbering()
     counters = {}
     parts = []
@@ -704,7 +1129,7 @@ def therapist_packet(today, stamp):
 <h1>Tidelight content review packet</h1>
 <p class="lede">For a licensed therapist reviewing a draft suicide prevention website for adults and young people in the United States.</p>
 <div class="banner"><strong>Draft. Not reviewed.</strong> An AI assistant drafted the website text, and one founder supplied the research brief. No licensed clinician has reviewed any of it, and none of it should be relied on until a review is recorded. Reviewer: not yet recorded. Review date: not yet recorded.</div>
-<p class="small">Built {today} from the website files and project notes. Packet fingerprint {stamp}. If the pages change, this packet must be rebuilt with <code>python3 tools/make_review_packet.py</code>, and numbers may change.</p>
+<p class="small">Built {english_date(day)} from the website files and project notes. Packet fingerprint {stamp}. If the pages change, this packet must be rebuilt with <code>python3 tools/make_review_packet.py</code>, and numbers may change.</p>
 
 <h2 class="first">How to use this packet</h2>
 <p><strong>What's inside:</strong></p>
@@ -725,6 +1150,7 @@ def therapist_packet(today, stamp):
 <li><strong>Mark each section.</strong> Each section ends with a box: OK as written, OK with changes, or Not for the website.</li>
 <li><strong>Refer to sentences by number.</strong> Every sentence has a number, such as HELP-12. In the Notes line, write something like "HELP-12: change to ...". Writing on the page is fine.</li>
 <li><strong>Repeated sentences.</strong> A gray sentence marked "same as" repeats an earlier one. A decision on the first applies to all of them.</li>
+<li><strong>What a screen reader says.</strong> Part 1, and each page in Part 2, ends with what a screen reader reads aloud there that the screen doesn't show, such as the page's title, the full names of the crisis links, and the section name after each "Show more" button. Someone who can't see the screen hears these words, so please mark them like the rest.</li>
 <li><strong>Answer the questions in Part 6</strong> if you can. Skip any that aren't yours to answer.</li>
 <li><strong>Finish with Part 9.</strong> It records your decisions, your role, and the date. Please don't write personal contact details in this packet. It may be stored in a public project.</li>
 </ul>
@@ -734,11 +1160,11 @@ def therapist_packet(today, stamp):
 """)
 
     parts.append("<h2>Part 1: Text that appears on every page</h2>")
-    parts.append("<p>The crisis strip, header, crisis buttons, and footer. Each page has one version of these. Different wording on different pages is listed here once.</p>")
+    parts.append("<p>The crisis strip, header, crisis buttons, and footer. Each page has one version of these. Different wording on different pages is listed here once. The last list is what a screen reader reads aloud in these parts that the screen doesn't show.</p>")
     parts.append(render_blocks(section_blocks(EVERY_PAGE["en"], "en"), "SHARED", numbering, counters, "en"))
 
     parts.append("<h2>Part 2: English pages</h2>")
-    parts.append("<p>Text from the crisis strip, header, crisis buttons, and footer is in Part 1. Folded sections are shown open. Links show their full address, so they can be checked from paper.</p>")
+    parts.append("<p>Text from the crisis strip, header, crisis buttons, and footer is in Part 1. Folded sections are shown open. Links show their full address, so they can be checked from paper. Each page ends with what a screen reader reads aloud on it that the screen doesn't show, starting with the page's title.</p>")
     for name, prefix, label in ENGLISH:
         address = "" if name == "404.html" else name.replace("index.html", "")
         parts.append(f"<h3>Page: {esc(label)}</h3><p class=\"small\">Address once published: {esc(PREVIEW + address) if name != '404.html' else 'shown for any address that does not exist'}. Numbers start with {prefix}.</p>")
@@ -810,7 +1236,7 @@ def therapist_packet(today, stamp):
     return document("Tidelight content review packet", "\n".join(parts))
 
 
-def spanish_packet(today, stamp):
+def spanish_packet(day, stamp):
     numbering = Numbering()
     counters = {}
     parts = []
@@ -818,7 +1244,7 @@ def spanish_packet(today, stamp):
 <h1>Tidelight: paquete de revisión en español</h1>
 <p class="lede">Para una persona hispanohablante que revise la traducción de un sitio web preliminar sobre la prevención del suicidio. For a fluent Spanish reader.</p>
 <div class="banner"><strong>Borrador sin revisar.</strong> Un asistente de IA redactó el texto en inglés y lo tradujo al español. Ninguna persona hispanohablante lo ha revisado, y ningún profesional clínico ha revisado todavía la versión en inglés. Quien revisa: sin registrar. Fecha de revisión: sin registrar.</div>
-<p class="small">Generado el {today} a partir de los archivos del sitio. Huella del paquete {stamp}. Si las páginas cambian, hay que generar este paquete de nuevo con <code>python3 tools/make_review_packet.py</code>.</p>
+<p class="small">Generado el {spanish_date(day)} a partir de los archivos del sitio. Huella del paquete {stamp}. Si las páginas cambian, hay que generar este paquete de nuevo con <code>python3 tools/make_review_packet.py</code>.</p>
 
 <h2 class="first">Cómo usar este paquete</h2>
 <ul>
@@ -826,22 +1252,25 @@ def spanish_packet(today, stamp):
 <li><strong>Use los números.</strong> Cada oración tiene un número, como E-HELP-12. En las notas, escriba por ejemplo "E-HELP-12: cambiar a ...".</li>
 <li><strong>Oraciones repetidas.</strong> Una oración en gris marcada "same as" repite otra anterior. Lo que decida sobre la primera vale para todas.</li>
 <li><strong>Líneas en español de las páginas en inglés.</strong> Las páginas en inglés tienen algunas líneas en español. Están en la Parte 3, y también necesitan su decisión.</li>
+<li><strong>Lo que lee un lector de pantalla.</strong> La Parte 1 y cada página de la Parte 2 terminan con lo que lee en voz alta un lector de pantalla y no se ve en pantalla, como el título de la página, el nombre completo de los enlaces de crisis y el nombre de la sección después de cada «Ver más». Quien no ve la pantalla oye estas palabras, así que también necesitan su decisión.</li>
 <li><strong>Preguntas que importan.</strong> ¿Se entiende? ¿Suena natural? ¿Cambia el sentido del inglés? ¿Hay algo que pueda confundir a alguien en crisis? ¿Debería evitarse alguna forma solo masculina, como "No estás solo"?</li>
+<li><strong>Preguntas para usted.</strong> La Parte 5 tiene preguntas escritas para usted, cada una con su versión en inglés para los fundadores. Conteste las que pueda.</li>
 <li><strong>Datos de contacto.</strong> Por favor, no escriba su nombre ni sus datos personales en este paquete, porque puede guardarse en un proyecto público.</li>
 </ul>
 <div class="urgent"><strong>Si algo puede causar daño, dígalo primero.</strong> Use este recuadro, o avise de inmediato a los fundadores.<span class="answer"></span><span class="answer"></span></div>
 <p class="small" style="margin-top:8pt">Los datos de crisis en español salen de la tabla de recursos del proyecto, leída en el sitio de cada proveedor por un asistente de IA. Nadie ha llamado ni enviado textos para comprobarlos, y no debe hacerse.</p>
 """)
     parts.append("<h2>Parte 1: Texto que aparece en cada página</h2>")
+    parts.append("<p>La franja de crisis, el encabezado, los botones de crisis y el pie de página. Cada página tiene una versión de estas partes, y cada texto distinto aparece aquí una vez. La última lista es lo que lee en voz alta un lector de pantalla en estas partes y no se ve en pantalla.</p>")
     parts.append(render_blocks(section_blocks(EVERY_PAGE["es"], "es"), "E-SHARED", numbering, counters, "es"))
     parts.append("<h2>Parte 2: Páginas en español</h2>")
-    parts.append("<p>Las secciones plegadas se muestran abiertas. Los enlaces muestran la dirección completa. La versión en inglés de cada página está en el otro paquete.</p>")
+    parts.append("<p>Las secciones plegadas se muestran abiertas. Los enlaces muestran la dirección completa. La versión en inglés de cada página está en el otro paquete. Cada página termina con lo que lee en voz alta un lector de pantalla y no se ve en pantalla, empezando por el título de la página.</p>")
     for name, prefix, label, english in SPANISH:
         address = name.replace("index.html", "")
         parts.append(f"<h3>Página: {esc(label)}</h3><p class=\"small\">Dirección cuando se publique: {esc(PREVIEW + address)}. En inglés: {esc(PREVIEW + (english if english != 'index.html' else ''))}. Los números empiezan con {prefix}.</p>")
         parts.append(render_blocks(section_blocks(name, "es"), prefix, numbering, counters, "es"))
     parts.append("<h2>Parte 3: Líneas en español de las páginas en inglés</h2>")
-    parts.append("<p>Las páginas en inglés tienen algunas líneas en español para quien habla español, como el enlace «Leer en español» y los datos de la Línea 988 en español. Aquí aparecen sin el texto en inglés que las rodea. Una línea en inglés con algunas palabras en español aparece entera. Cada sección tiene su propia huella en la Parte 5. La versión completa de cada página en inglés está en el otro paquete.</p>")
+    parts.append("<p>Las páginas en inglés tienen algunas líneas en español para quien habla español, como el enlace «Leer en español» y los datos de la Línea 988 en español. Aquí aparecen sin el texto en inglés que las rodea. Una línea en inglés con algunas palabras en español aparece entera. Cada sección tiene su propia huella en la Parte 6. La versión completa de cada página en inglés está en el otro paquete.</p>")
     for name, prefix, label in SPANISH_ON_ENGLISH:
         address = name if name == "404.html" else PREVIEW + name.replace("index.html", "")
         where = [] if name == SPANISH_ON_EVERY_PAGE else [f"Solo las líneas en español de una página en inglés ({address})."]
@@ -851,7 +1280,10 @@ def spanish_packet(today, stamp):
     parts.append("<h2>Parte 4: Texto fuera de las páginas</h2>")
     parts.append("<p>Este texto aparece fuera del texto de cada página: la descripción en buscadores y vistas previas de enlaces, los nombres que dice un lector de pantalla, el aviso sin conexión y la tarjeta de contacto que se guarda en el teléfono.</p>")
     parts.append(render_blocks(section_blocks(OUTSIDE_TEXT["es"], "es"), "E-OUTSIDE", numbering, counters, "es"))
-    parts.append("<h2>Parte 5: Decisiones y firma</h2>")
+    parts.append("<h2>Parte 5: Preguntas para usted</h2>")
+    parts.append("<p>Un asistente de IA reunió estas preguntas a partir de lo que las notas del proyecto dejan abierto sobre el español, y las escribió en español. <strong>Traducción de IA sin revisar:</strong> ninguna persona hispanohablante ha revisado estas preguntas. Después de cada una va su versión en inglés, para los fundadores, y de dónde viene. Preguntan por la redacción. Los hechos solo puede confirmarlos alguien que se lo pregunte al proveedor, y nadie debe llamar, enviar textos ni chatear con una línea de crisis para comprobarlos. Conteste las que pueda, en las líneas o en las notas del final. Los números empiezan con P.</p>")
+    parts.append(questions_part())
+    parts.append("<h2>Parte 6: Decisiones y firma</h2>")
     parts.append("<p>Anote su función y la fecha, por ejemplo \"hablante nativa de español, traductora médica, noviembre de 2026\". Por favor, no escriba su nombre ni sus datos de contacto.</p>")
     parts.append("<p><strong>Qué es la huella.</strong> Cada sección tiene una huella: un código de 12 caracteres hecho a partir del texto de esa sección, tal como aparece en este paquete. Si cambia una sola palabra de la sección, su huella cambia. El sitio solo puede hacerse público mientras la aprobación de cada sección lleve la huella de su texto actual. Si una página cambia después de que usted la apruebe, su aprobación deja de contar hasta que vea el cambio y los fundadores la anoten de nuevo. Usted no tiene que hacer nada con las huellas.</p>")
     parts.append(signoff_table(signoff_rows("es"), "es"))
@@ -888,6 +1320,13 @@ def make_pdf(html_path, pdf_path, label):
         browser.close()
 
 
+# Each packet: its file name, how it is built, and the label in its PDF's footer.
+PACKETS = (
+    ("tidelight-review-packet", therapist_packet, "Tidelight content review packet"),
+    ("tidelight-spanish-review-packet", spanish_packet, "Tidelight Spanish review packet"),
+)
+
+
 def check_all_pages_listed():
     """The same rule tools/check_site.py and the publish step apply: every page, and all its text, has a review
     section. Otherwise a packet would leave something out without saying so."""
@@ -898,21 +1337,107 @@ def check_all_pages_listed():
         raise SystemExit("The review packets would leave something out, so they weren't built:\n- " + "\n- ".join(missing))
 
 
+def check_questions():
+    """The questions for the fluent Spanish reader, the same rule tools/check_site.py applies. A question that
+    lost its Spanish would never reach the reader."""
+    problems = spanish_questions()[1]
+    if problems:
+        raise SystemExit("A question for the fluent Spanish reader is incomplete, so the packets weren't built. "
+                         "Fix notes/CONTENT-REVIEW.md:\n- " + "\n- ".join(problems))
+
+
+def self_test():
+    """Checks this tool on made-up cases, and changes nothing: each packet's build date in its own language,
+    whatever the computer's language setting, the questions for the fluent Spanish reader reaching the Spanish
+    packet, and the reading of those questions, so a lost Spanish question or source is noticed."""
+    import locale
+
+    day = datetime.date(2026, 11, 7)
+    wrong = 0
+    total = 0
+
+    def report(name, passed):
+        nonlocal wrong, total
+        total += 1
+        wrong += not passed
+        print(f"  {'ok' if passed else 'WRONG'}: {name}")
+
+    therapist, spanish = therapist_packet(day, NO_STAMP), spanish_packet(day, NO_STAMP)
+    report("the therapist's packet says when it was built in English", "Built November 7, 2026 from" in therapist)
+    report("the Spanish packet says when it was built in Spanish", "Generado el 7 de noviembre de 2026 a partir" in spanish)
+    # The names of the months come from this file, never from the computer's language setting.
+    before = locale.setlocale(locale.LC_TIME)
+    settings = [None]
+    for setting in ("C", "es_ES.UTF-8", "de_DE.UTF-8", "fr_FR.UTF-8"):
+        try:
+            locale.setlocale(locale.LC_TIME, setting)
+            settings.append(setting)
+        except locale.Error:
+            pass
+        finally:
+            locale.setlocale(locale.LC_TIME, before)
+    for setting in settings:
+        try:
+            if setting:
+                locale.setlocale(locale.LC_TIME, setting)
+            months = [datetime.date(2026, month, month) for month in range(1, 13)]
+            passed = (english_date(day) == "November 7, 2026" and spanish_date(day) == "7 de noviembre de 2026"
+                      and all(DATE_EN.fullmatch(english_date(month)) and DATE_ES.fullmatch(spanish_date(month)) for month in months))
+        finally:
+            locale.setlocale(locale.LC_TIME, before)
+        where = setting or "this computer's own"
+        report(f"every month's date in English and in Spanish, with the time language set to {where}", passed)
+
+    questions, problems = spanish_questions()
+    report(f"the {len(questions)} questions for the fluent Spanish reader in notes/CONTENT-REVIEW.md can be read",
+           bool(questions) and not problems)
+    left_out = [question["es"] for question in questions
+                if not all(inline(question[key]) in spanish for key in ("es", "en", "source"))]
+    report("the Spanish packet shows every question, with its English twin and where it comes from", not left_out)
+
+    good = (f"## {SPANISH_QUESTIONS}\n\nIntroduction. {AI_TRANSLATION}.\n\n"
+            "1. ES: ¿Se entiende esta frase?\n   EN: Is this sentence clear?\n   Source: notes/SAFETY.md, a made-up item.\n"
+            "2. ES: ¿Suena natural?\n   EN: Does it sound natural?\n   Source: notes/CONTENT-REVIEW.md, a made-up item.\n")
+    cases = [
+        ("two complete questions", good, False),
+        ("a longer question going on below its first line", good.replace("¿Suena natural?", "¿Suena\n   natural?"), False),
+        ("a question whose Spanish was removed", good.replace("2. ES: ¿Suena natural?\n   EN:", "2. EN:"), True),
+        ("a question whose Spanish line is empty", good.replace("ES: ¿Suena natural?", "ES:"), True),
+        ("a question whose English twin was removed", good.replace("   EN: Is this sentence clear?\n", ""), True),
+        ("a question with no source", good.replace("   Source: notes/SAFETY.md, a made-up item.\n", ""), True),
+        ("English where the Spanish should be", good.replace("ES: ¿Suena natural?", "ES: Does it sound natural?"), True),
+        ("no mark as an unreviewed AI translation", good.replace(AI_TRANSLATION, "A translation"), True),
+        ("a stray line after the questions", good + "A note that belongs to no question.\n", True),
+        ("no questions at all", f"## {SPANISH_QUESTIONS}\n\n{AI_TRANSLATION}.\n", True),
+        ("no section for them", "## Other questions\n\n1. ES: ¿Algo?\n", True),
+    ]
+    for name, text, expected in cases:
+        found = spanish_questions(text)[1]
+        report(f"{name}: {'a problem found' if found else 'no problem found'}", bool(found) == expected)
+
+    report("the packet fingerprint is the same each time it is made", fingerprint() == fingerprint())
+    if wrong:
+        print(f"{wrong} of {total} case(s) read wrongly, so the packets can't be trusted until this is fixed.")
+        return 1
+    print(f"All {total} made-up cases were read correctly.")
+    return 0
+
+
 def main():
     parser = argparse.ArgumentParser(description="Build the printable review packets.")
     parser.add_argument("--no-pdf", action="store_true", help="HTML only")
+    parser.add_argument("--self-test", action="store_true", help="check this tool on made-up cases, changing nothing")
     args = parser.parse_args()
+    if args.self_test:
+        return self_test()
     check_all_pages_listed()
-    today = datetime.date.today().strftime("%B %-d, %Y")
+    check_questions()
+    today = datetime.date.today()
     stamp = fingerprint()
     OUT.mkdir(parents=True, exist_ok=True)
-    builds = (
-        ("tidelight-review-packet", therapist_packet(today, stamp), "Tidelight content review packet"),
-        ("tidelight-spanish-review-packet", spanish_packet(today, stamp), "Tidelight Spanish review packet"),
-    )
-    for name, text, label in builds:
+    for name, build, label in PACKETS:
         path = OUT / f"{name}.html"
-        path.write_text(text, encoding="utf-8")
+        path.write_text(build(today, stamp), encoding="utf-8")
         print(f"wrote {path.relative_to(ROOT)}")
         if not args.no_pdf:
             pdf = OUT / f"{name}.pdf"

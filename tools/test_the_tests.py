@@ -10,6 +10,8 @@ tools/launch_gate.py, tools/make_review_packet.py, tools/check_crisis_sources.py
 Needs Python and Chrome; the WebKit bugs also need a Mac with Xcode's command line tools. It reads
 no outside website: the checks of other tools run offline, on made-up cases or a local copy.
 A bug counts as caught only if the check fails and says so in a FAIL line or its error, not in a NOTE.
+The one exception is NOTE_BUGS, out-of-date review packets, which tools/check_site.py reports in a NOTE
+on purpose. QUIET_CHANGES are harmless changes that a check must not report at all.
 """
 import argparse
 import base64
@@ -150,6 +152,54 @@ def about_approves_spanish_with_lines_rejected(copy):
             '<span class="status-line">Spanish version, fluent reader: <span class="status-value">Approved</span>')(copy)
 
 
+def section_prints(copy, *sections):
+    """The copy's section fingerprints now, one for each (page, language), for made-up review records."""
+    code = ("import sys; sys.path.insert(0, 'tools'); import make_review_packet; "
+            f"print(' '.join(make_review_packet.section_fingerprint(page, lang) for page, lang in {list(sections)!r}))")
+    done = subprocess.run([sys.executable, "-c", code], cwd=copy, capture_output=True, text=True, check=True)
+    return done.stdout.split()
+
+
+def area_name_changed_after_approval(copy):
+    # Get Help's clinical review is recorded as approved, and the About page says so. Then the name a screen reader
+    # gives one of Get Help's areas changes. Nothing on screen changes, so only a fingerprint that holds what a
+    # screen reader says notices, and the About page must stop saying Approved.
+    replace("about/index.html", '<a href="../get-help/">Get Help</a><span class="status-line">Clinical review: <span class="status-value">Pending</span>',
+            '<a href="../get-help/">Get Help</a><span class="status-line">Clinical review: <span class="status-value">Approved</span>')(copy)
+    (approved,) = section_prints(copy, ("get-help/index.html", "en"))
+    replace("notes/CONTENT-REVIEW.md", "- No review has been recorded.",
+            f"- Get Help: licensed clinical social worker, 2026-11-01, approved, {approved}")(copy)
+    replace("get-help/index.html", 'aria-label="Review status"', 'aria-label="Page status"')(copy)
+
+
+def strip_link_name_shortened_after_approval(copy):
+    # Get Help says it was reviewed, and every section it needs is approved. Then, on Get Help only, the crisis
+    # strip's Call 988 link loses the Lifeline's name for screen readers. "Call 988" is already a name on the home
+    # page, so only the pair of words on screen and words read aloud shows the change in the text on every page.
+    replace("get-help/index.html", "<h1", "<p>Medically reviewed and approved.</p><h1")(copy)
+    sections = [("get-help/index.html", "en"), ("(text on every page)", "en"), ("get-help/index.html", "es"),
+                ("(español en cada página en inglés)", "es")]
+    names = ["Get Help", "Text on every page", "Español en Get Help", "Español en cada página en inglés"]
+    roles = ["licensed clinical social worker"] * 2 + ["native Spanish speaker"] * 2
+    lines = [f"- {name}: {role}, 2026-11-01, approved, {approved}"
+             for name, role, approved in zip(names, roles, section_prints(copy, *sections))]
+    replace("notes/CONTENT-REVIEW.md", "- No review has been recorded.", "\n".join(lines))(copy)
+    replace("get-help/index.html", 'aria-label="Call 988, the Suicide and Crisis Lifeline"', 'aria-label="Call 988"')(copy)
+
+
+def with_current_packets(change):
+    """Marks the copy's review packets as just rebuilt, the way tools/make_review_packet.py does after a build,
+    and then makes the change. The copy has no packets of its own."""
+    def apply(copy):
+        code = "import sys; sys.path.insert(0, 'tools'); import make_review_packet; print(make_review_packet.fingerprint())"
+        done = subprocess.run([sys.executable, "-c", code], cwd=copy, capture_output=True, text=True, check=True)
+        stamp = copy / "notes" / "review-packet" / "FINGERPRINT.txt"
+        stamp.parent.mkdir(parents=True, exist_ok=True)
+        stamp.write_text(done.stdout.strip() + "\n", encoding="utf-8")
+        change(copy)
+    return apply
+
+
 # Name, bug, test group, pages to test, words the failure must contain.
 BUGS = [
     ("sideways scrolling", append_css("body { min-width: 500px; }"), "matrix", "get-help", "scrolls sideways"),
@@ -285,6 +335,38 @@ COMMAND_BUGS = [
     ("988 in the service's name taken as its number", replace("tools/check_crisis_sources.py", "        return re.search(option, text, re.I) is not None", "        return option.number in text if option.number else re.search(option, text, re.I) is not None"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
     ("a crisis number with no provider check", regex("tools/check_crisis_sources.py", r'\n    \("https://www\.taps\.org/suicide".*?\n', "\n"), ["tools/check_crisis_sources.py", "--self-test"], "no check covers it"),
     ("notes published without the live check noticing", replace("tools/preview_server.py", 'if ".." in parts or (parts and parts[0] not in allowed):', 'if ".." in parts:'), ["tools/check_live.py", "--local"], "must not be published"),
+    # The fluent Spanish reader's questions: a question that lost its Spanish would never be asked.
+    ("a question for the fluent Spanish reader that lost its Spanish", regex("notes/CONTENT-REVIEW.md", r"\n1\. ES: .*?\n   EN: ", "\n1. EN: "), ["tools/check_site.py"], "has no Spanish"),
+    ("the Spanish reader's questions no longer marked as an AI translation", replace("notes/CONTENT-REVIEW.md", "Preguntas para la persona hispanohablante. **Unreviewed AI translation:**", "Preguntas para la persona hispanohablante."), ["tools/check_site.py"], "must say"),
+    ("the Spanish packet leaving out the questions for its reader", replace("tools/make_review_packet.py", "    parts.append(questions_part())\n", ""), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
+    ("a question with no Spanish read as complete", replace("tools/make_review_packet.py", "            if not question.get(key):\n", "            if key != \"es\" and not question.get(key):\n"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
+    # What a screen reader says that the screen doesn't show: the site check reads each page its own way and
+    # fails on any such words that no packet shows.
+    ("the review packets leaving out the names screen readers give areas and lists", replace("tools/make_review_packet.py", 'if value and not (name == "aria-label" and tag in CONTROLS):', 'if value and name != "aria-label":'), ["tools/check_site.py"], "screen reader text that no review packet shows"),
+    ("the review packets leaving out the crisis links' names for screen readers", replace("tools/make_review_packet.py", '"label": tidy(attrs.get("aria-label")),', '"label": "",'), ["tools/check_site.py"], "screen reader text that no review packet shows"),
+    ("the review packets leaving out the section names after the Show more buttons", replace("tools/make_review_packet.py", 'if "visually-hidden" in (attrs.get("class") or "").split() and self.hidden is None and tag not in self.VOID:', "if False:"), ["tools/check_site.py"], "screen reader text that no review packet shows"),
+    ("the review packets leaving out each page's title", replace("tools/make_review_packet.py", "        if title:\n            self.items.insert(0,", "        if False:\n            self.items.insert(0,"), ["tools/check_site.py"], "screen reader text that no review packet shows"),
+    ("a Spanish name for screen readers on an English page left out of the Spanish packet", replace("help-someone/index.html", "<h1", '<section lang="es" aria-label="Ayuda en español"><p lang="en">Help in Spanish is on Get Help.</p></section><h1'), ["tools/check_site.py"], "no section for them in the Spanish review packet"),
+    # Each section's fingerprint holds what a screen reader says, so an approval notices when it changes.
+    ("a screen reader's name for an area of Get Help changed after its approval", area_name_changed_after_approval, ["tools/check_site.py"], "isn't an approval of the current text"),
+    ("the crisis strip's Call 988 link renamed for screen readers on one page after its approval", strip_link_name_shortened_after_approval, ["tools/check_site.py"], "no approval of this page"),
+    # The build date in each packet's own language, whatever the computer's language setting.
+    ("the Spanish packet giving its build date in English", replace("tools/make_review_packet.py", "Generado el {spanish_date(day)}", "Generado el {english_date(day)}"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
+    ("the Spanish build date taken from the computer's language setting", replace("tools/make_review_packet.py", "    return f\"{day.day} de {MONTHS['es'][day.month - 1]} de {day.year}\"", "    return day.strftime(\"%-d de %B de %Y\")"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
+]
+# Bugs the site check must report in a NOTE, because what it finds isn't a failure: the review packets are out of
+# date, and rebuilding them needs Chrome. Name, change, command, words the NOTE must contain. Each copy is marked as
+# just rebuilt first, so only the change can make the packets out of date.
+NOTE_BUGS = [
+    ("a heading changed in the packet tool, leaving the packets out of date", with_current_packets(replace("tools/make_review_packet.py", '<h2 class="first">How to use this packet</h2>', '<h2 class="first">How to read this packet</h2>')), ["tools/check_site.py"], "the review packets are out of date"),
+    ("the PDF footer changed in the packet tool, leaving the packets out of date", with_current_packets(replace("tools/make_review_packet.py", "Draft. No clinician has reviewed this.", "Draft.")), ["tools/check_site.py"], "the review packets are out of date"),
+    ("a section name changed in what the packet tool reads from the site check", with_current_packets(replace("tools/check_site.py", '("Wording outside the page text", OUTSIDE_TEXT["en"], "en")', '("Words outside the page text", OUTSIDE_TEXT["en"], "en")')), ["tools/check_site.py"], "the review packets are out of date"),
+]
+# Harmless changes the site check must not report: none of them changes what a packet shows, and a check that
+# cries wolf gets ignored. Name, change, command, words that must not appear.
+QUIET_CHANGES = [
+    ("a change to the browser tests, with the packets up to date", with_current_packets(replace("tools/test_browser.py", "Needs Python 3 and Google Chrome or Chromium.", "Needs Python 3, and Google Chrome or Chromium.")), ["tools/check_site.py"], "out of date"),
+    ("a change to another check in the site check, with the packets up to date", with_current_packets(replace("tools/check_site.py", '"unsuccessful attempt", "completed suicide", "suicide victim",', '"unsuccessful attempt", "completed suicide", "suicide victim", "suicide epidemic",')), ["tools/check_site.py"], "out of date"),
 ]
 # Bugs only WebKit can show, for tools/test_webkit.py, on a Mac with Xcode's command line tools.
 # Chrome doesn't match @supports (font: -apple-system-body), so only Safari's engine sees these.
@@ -326,19 +408,28 @@ def counted_lines(output):
     return "\n".join(line for line in output.splitlines() if not line.strip().startswith("NOTE"))
 
 
+def note_lines(output):
+    """Only the output's NOTE lines."""
+    return "\n".join(line for line in output.splitlines() if line.strip().startswith("NOTE"))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--only", default="", help="only the planted bugs whose name contains this text")
     args = parser.parse_args()
     browser_bugs = [bug for bug in BUGS if args.only.lower() in bug[0].lower()]
     command_bugs = [bug for bug in COMMAND_BUGS if args.only.lower() in bug[0].lower()]
+    note_bugs = [bug for bug in NOTE_BUGS if args.only.lower() in bug[0].lower()]
+    quiet_changes = [change for change in QUIET_CHANGES if args.only.lower() in change[0].lower()]
     missed = []
+    noisy = []
     with tempfile.TemporaryDirectory(prefix="tidelight-bugs-") as folder:
         base = pathlib.Path(folder) / "clean"
         shutil.copytree(ROOT, base, ignore=SKIP)
         # The untouched copy must pass the same tests, or a failure proves nothing.
         groups = sorted({(group, pages) for _, _, group, pages, _ in browser_bugs})
-        commands = sorted({tuple(command) for _, _, command, _ in command_bugs})
+        commands = sorted({tuple(command) for _, _, command, _ in command_bugs + note_bugs + quiet_changes})
+        clean_output = {}
         for group, pages in groups:
             code, output = run(base, group, pages)
             if code != 0:
@@ -347,31 +438,53 @@ def main():
                 return 2
         for command in commands:
             code, output = run_command(base, list(command))
+            clean_output[command] = output
             if code != 0:
                 print(f"NOT CLEAN: the untouched copy fails {' '.join(command)}")
                 print(output[-1500:])
                 return 2
+        for name, _, command, words in note_bugs:
+            if words.lower() in clean_output[tuple(command)].lower():
+                print(f"NOT CLEAN: the untouched copy already says \"{words}\" in {' '.join(command)}")
+                return 2
         print(f"The untouched copy passes all {len(groups)} test groups and {len(commands)} other checks used below.")
-        planted = [(name, bug, ["tools/test_browser.py", "--only", group, "--pages", pages], words, group)
+        planted = [(name, bug, ["tools/test_browser.py", "--only", group, "--pages", pages], words, group, "fail")
                    for name, bug, group, pages, words in browser_bugs]
-        planted += [(name, bug, command, words, " ".join(command)) for name, bug, command, words in command_bugs]
-        for name, bug, command, words, label in planted:
+        planted += [(name, bug, command, words, " ".join(command), "fail") for name, bug, command, words in command_bugs]
+        planted += [(name, bug, command, words, " ".join(command), "note") for name, bug, command, words in note_bugs]
+        planted += [(name, change, command, words, " ".join(command), "quiet") for name, change, command, words in quiet_changes]
+        for name, bug, command, words, label, how in planted:
             copy = pathlib.Path(folder) / "bug"
             shutil.rmtree(copy, ignore_errors=True)
             shutil.copytree(ROOT, copy, ignore=SKIP)
             bug(copy)
             code, output = run_command(copy, command)
-            caught = code not in (0, None) and words.lower() in counted_lines(output).lower()
-            print(f"  {'caught' if caught else 'MISSED'}: {name} ({label}){' (timed out)' if code is None else ''}", flush=True)
+            timed_out = " (timed out)" if code is None else ""
+            if how == "quiet":
+                quiet = code is not None and words.lower() not in output.lower()
+                print(f"  {'quiet' if quiet else 'NOISY'}: {name} ({label}){timed_out}", flush=True)
+                if not quiet:
+                    noisy.append(name)
+                    print("    " + "\n    ".join(line for line in output.strip().splitlines() if words.lower() in line.lower())[:900])
+                continue
+            if how == "note":
+                caught = code is not None and words.lower() in note_lines(output).lower()
+            else:
+                caught = code not in (0, None) and words.lower() in counted_lines(output).lower()
+            print(f"  {'caught' if caught else 'MISSED'}: {name} ({label}){timed_out}", flush=True)
             if not caught:
                 missed.append(name)
-                print("    " + "\n    ".join(line for line in output.strip().splitlines() if "FAIL" in line or "Error" in line or "WRONG" in line)[:900])
+                print("    " + "\n    ".join(line for line in output.strip().splitlines() if "FAIL" in line or "Error" in line or "WRONG" in line or "NOTE" in line)[:900])
     print()
-    total = len(planted)
-    if missed:
-        print(f"{len(missed)} of {total} planted bugs were missed: {missed}")
+    total = len(planted) - len(quiet_changes)
+    if missed or noisy:
+        if missed:
+            print(f"{len(missed)} of {total} planted bugs were missed: {missed}")
+        if noisy:
+            print(f"{len(noisy)} of {len(quiet_changes)} harmless changes were reported: {noisy}")
         return 1
-    print(f"All {total} planted bugs were caught.")
+    quiet_line = f", and all {len(quiet_changes)} harmless changes stayed quiet" if quiet_changes else ""
+    print(f"All {total} planted bugs were caught{quiet_line}.")
     return 0
 
 
