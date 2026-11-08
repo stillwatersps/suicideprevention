@@ -135,6 +135,21 @@ def about_claims_approval_after_rejection(copy):
             '<a href="../get-help/">Get Help</a><span class="status-line">Clinical review: <span class="status-value">Approved</span>')(copy)
 
 
+def about_approves_spanish_with_lines_rejected(copy):
+    # A fluent reader approved the Spanish Get Help page, but rejected the Spanish lines on the English one.
+    # The About page still shows Get Help's Spanish review as approved.
+    done = subprocess.run([sys.executable, "-c", "import sys; sys.path.insert(0, 'tools'); import make_review_packet; "
+                           "print(make_review_packet.section_fingerprint('es/obtener-ayuda/index.html', 'es'))"],
+                          cwd=copy, capture_output=True, text=True, check=True)
+    replace("notes/CONTENT-REVIEW.md", "- No review has been recorded.",
+            f"- Obtener ayuda: native Spanish speaker, 2026-11-01, approved, {done.stdout.strip()}\n"
+            "- Español en Get Help: native Spanish speaker, 2026-11-01, not for the website")(copy)
+    replace("about/index.html", 'Get Help</a><span class="status-line">Clinical review: <span class="status-value">Pending</span></span>'
+            '<span class="status-line">Spanish version, fluent reader: <span class="status-value">Pending</span>',
+            'Get Help</a><span class="status-line">Clinical review: <span class="status-value">Pending</span></span>'
+            '<span class="status-line">Spanish version, fluent reader: <span class="status-value">Approved</span>')(copy)
+
+
 # Name, bug, test group, pages to test, words the failure must contain.
 BUGS = [
     ("sideways scrolling", append_css("body { min-width: 500px; }"), "matrix", "get-help", "scrolls sideways"),
@@ -229,7 +244,24 @@ COMMAND_BUGS = [
     ("the launch list counting a 'not yet' phone result", replace("tools/launch_gate.py", ' or NOT_DONE.search(match.group("result"))', ""), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
     ("the launch list counting 'not yet' as a person's confirmation", replace("tools/launch_gate.py", "    return bool(cell and DATE_IN_CELL.search(cell) and not NOT_DONE.search(cell))", "    return bool(cell)"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
     ("a page left out of the review packets", replace("tools/make_review_packet.py", '    ("card/index.html", "CARD", "Wallet card and poster"),\n', ""), ["tools/check_site.py"], "has no section in the review packets"),
-    ("the 404 page's Spanish lines left out of the Spanish packet", replace("tools/make_review_packet.py", '    ("404.html", "E-NOTFOUND", "Página no encontrada"),\n', ""), ["tools/check_site.py"], "Spanish lines and no Spanish twin"),
+    ("the 404 page's Spanish lines left out of the Spanish packet", replace("tools/make_review_packet.py", '    ("404.html", "E-NOTFOUND", "Página no encontrada"),\n', ""), ["tools/check_site.py"], "no section for them in the Spanish review packet"),
+    # Spanish on an English page reaches the fluent reader's packet, even on a page with a Spanish twin.
+    ("a Spanish line on an English page left out of the Spanish packet", replace("help-someone/index.html", "<h1", '<p lang="es">Una línea en español.</p><h1'), ["tools/check_site.py"], "no section for them in the Spanish review packet"),
+    ("a Spanish line inside an English sentence left out of the Spanish packet", replace("help-someone/index.html", "<h1", '<p>Help is here, <span lang="es">ahora mismo</span>.</p><h1'), ["tools/check_site.py"], "no section for them in the Spanish review packet"),
+    ("a Spanish line in text the English packet skips, left out of the Spanish packet", replace("help-someone/index.html", "<h1", '<p class="visually-hidden" lang="es">Solo para lectores de pantalla.</p><h1'), ["tools/check_site.py"], "no section for them in the Spanish review packet"),
+    # Text outside every part the packets number, such as a sentence in a div, would reach no reviewer, and no
+    # section's fingerprint would change with it. The site check fails on it, in either language.
+    ("a Spanish line in a div on an English page, left out of both packets", replace("help-someone/index.html", "<h1", '<div lang="es">Una línea en español.</div><h1'), ["tools/check_site.py"], "text that no review packet shows"),
+    ("a Spanish line in a div inside Get Help's Spanish part, left out of both packets", replace("get-help/index.html", "<h3>En español</h3>", "<h3>En español</h3><div>Una línea más en español.</div>"), ["tools/check_site.py"], "text that no review packet shows"),
+    ("an English sentence in a div, left out of the review packets", replace("help-someone/index.html", "<h1", "<div>A sentence in no paragraph.</div><h1"), ["tools/check_site.py"], "text that no review packet shows"),
+    ("the header's Menu label left out of the review packets", replace("tools/make_review_packet.py", '"blockquote", "label", "button"}', '"blockquote", "label"}'), ["tools/check_site.py"], "text that no review packet shows"),
+    # Spanish without lang="es" is read with English sounds, and the Spanish packet finds Spanish by that mark.
+    ("a Spanish line on an English page not marked as Spanish", replace("help-someone/index.html", "<h1", "<p>Una línea en español.</p><h1"), ["tools/check_site.py"], 'mark it lang="es"'),
+    ("a Spanish line with no accents on an English page, not marked as Spanish", replace("help-someone/index.html", "<h1", "<p>Llama al 988 y marca 2.</p><h1"), ["tools/check_site.py"], 'mark it lang="es"'),
+    ("Get Help's Spanish lines left out of the Spanish packet", replace("tools/make_review_packet.py", '    ("get-help/index.html", "EN-HELP", "Español en Get Help"),\n', ""), ["tools/check_site.py"], "no section for them in the Spanish review packet"),
+    ("the language links' Spanish lines left out of the Spanish packet", replace("tools/make_review_packet.py", '    (SPANISH_ON_EVERY_PAGE, "EN-ALL", "Español en cada página en inglés"),\n', ""), ["tools/check_site.py"], "parts every English page shares"),
+    ("the publish gate leaving out the Spanish lines on English pages", replace("tools/check_site.py", '    found += [(label, page, "es") for page, _, label in make_review_packet.SPANISH_ON_ENGLISH]\n', ""), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the About page approving Spanish while Get Help's Spanish lines are rejected", about_approves_spanish_with_lines_rejected, ["tools/check_site.py"], "isn't an approval of the current text"),
     ("the About page claiming approval after a rejection", about_claims_approval_after_rejection, ["tools/check_site.py"], "isn't an approval of the current text"),
     ("a review claimed as 'has reviewed'", replace("get-help/index.html", "<h1", "<p>A licensed therapist has reviewed every page.</p><h1"), ["tools/check_site.py"], "no approval of this page"),
     ("a review claimed in Spanish as 'revisó'", replace("es/obtener-ayuda/index.html", "<h1", "<p>Una terapeuta con licencia revisó cada página.</p><h1"), ["tools/check_site.py"], "no approval of this page"),
