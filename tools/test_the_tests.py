@@ -127,6 +127,17 @@ def quick_exit_no_blank(copy):
     head_script("get-help/index.html", "document.documentElement.hidden=true;", "")(copy)
 
 
+def strip_lead_renamed(copy):
+    # A tidy-up renames a class in the page and the stylesheet alike. The page looks the same, but the
+    # audit could no longer tell the compact strip is in use, so its limits would go unchecked.
+    for path in ("get-help/index.html", "assets/styles.css"):
+        target = copy / path
+        text = target.read_text(encoding="utf-8")
+        if "strip-lead" not in text:
+            raise RuntimeError(f"{path} no longer contains: strip-lead")
+        target.write_text(text.replace("strip-lead", "strip-intro"), encoding="utf-8")
+
+
 def about_claims_approval_after_rejection(copy):
     # A clinician's rejection is on record, yet the About page says the page is approved.
     replace("notes/CONTENT-REVIEW.md", "- No review has been recorded.",
@@ -211,8 +222,16 @@ BUGS = [
     ("the Spanish compact crisis strip not pinned", replace("assets/styles.css", 'html[lang="es"] .crisis-bar { position: sticky; ', 'html[lang="es"] .crisis-bar { '), "matrix", "es/obtener-ayuda", "crisis strip is not pinned"),
     ("the compact crisis strip wrapping to two rows", append_css("@media (max-height: 18.75em) and (max-width: 43.99em) { .strip-988 { flex: 1 0 100% !important; } }"), "matrix", "get-help", "must be one row"),
     ("the compact crisis strip losing its pin at larger text", replace("assets/styles.css", 'html[lang="en"] .crisis-bar { position: sticky; ', 'html[lang="en"] .crisis-bar { '), "textsize", "get-help", "crisis strip is not pinned"),
-    ("a Spanish compact crisis strip too long for one row", replace("assets/styles.css", "    @media (min-width: 34em) {", "    @media (min-width: 19.5em) {"), "textsize", "es/obtener-ayuda", "must be one row"),
+    ("a Spanish compact crisis strip too long for one row", replace("assets/styles.css", "    @media (min-width: 34em) and (min-width: 544px) {", "    @media (min-width: 19.5em) and (min-width: 312px) {"), "textsize", "es/obtener-ayuda", "must be one row"),
     ("Quick exit floating outside the compact strip", append_css("@media (max-height: 18.75em) and (max-width: 43.99em) { .quick-exit { position: fixed !important; } }"), "quickexit", "get-help", "not inside the pinned strip"),
+    # The compact strip's limits: a quarter of the screen's height at most, and one row.
+    ("the compact crisis strip pinned below its height limit", replace("assets/styles.css", "  @media (min-height: 12em) and (min-height: 192px), (min-height: 8.3em) and (min-height: 265px) {", "  @media all {"), "matrix", "get-help", "one row of 25% or less"),
+    ("the compact crisis strip's width limit lowered", replace("assets/styles.css", "    @media (min-width: 19.5em) and (min-width: 312px) {", "    @media (min-width: 1em) {"), "textsize", "get-help", "must be one row"),
+    ("the compact crisis strip's width floor in px removed", replace("assets/styles.css", "(min-width: 19.5em) and (min-width: 312px)", "(min-width: 19.5em)"), "textsize", "get-help", "must be one row"),
+    ("the Spanish compact crisis strip's width floor in px removed", replace("assets/styles.css", "(min-width: 34em) and (min-width: 544px)", "(min-width: 34em)"), "textsize", "es/obtener-ayuda", "must be one row"),
+    ("the crisis strip pinned on a screen too short for it", append_css("@media (max-height: 15em) { .crisis-bar { position: sticky !important; } }"), "matrix", "get-help", "where it must scroll away"),
+    ("Quick exit scrolling away with the crisis strip", append_css("@media (max-height: 15em) { .quick-exit { position: static !important; } }"), "matrix", "get-help", "Quick exit scrolls away"),
+    ("the audit losing sight of the compact strip after a class is renamed", strip_lead_renamed, "matrix", "get-help", "the audit can't tell"),
 ]
 
 # Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.

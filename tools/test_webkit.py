@@ -29,7 +29,7 @@ TOOLS = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS))
 from check_site import find_pages  # noqa: E402
 from preview_server import BASE, make_server  # noqa: E402
-from test_browser import AUDIT_JS, MUST_PIN, ONE_ROW, ONE_ROW_MAX_PERCENT, VIEWPORTS  # noqa: E402
+from test_browser import AUDIT_JS, MUST_PIN, ONE_ROW, VIEWPORTS, strip_problems  # noqa: E402
 
 # Width, height, dark mode. 640x290 and 568x300 show the compact one-row strip.
 SIZES = [(390, 844, False), (320, 568, False), (568, 300, False), (640, 290, False), (750, 292, False), (844, 390, False),
@@ -280,9 +280,10 @@ def main():
                     problems.append(f"{line['step']}, {where}: the crisis strip is not pinned")
                 if (width, height) in PINNED_SIZES and not result.get("stripBottom"):
                     problems.append(f"{line['step']}, {where}: the crisis strip's Call 988 scrolls off the screen")
-                if (width, height) in ONE_ROW_SIZES and result.get("pinned") and (result.get("stripRows") != 1 or result["pinned"] > ONE_ROW_MAX_PERCENT):
-                    problems.append(f"{line['step']}, {where}: the pinned crisis strip takes {result.get('stripRows')} rows and {result['pinned']}% "
-                                    f"of the screen's height, where it must be one row of {ONE_ROW_MAX_PERCENT}% or less")
+                # At every size: the compact strip, and on a phone on its side any pinned strip, is one short
+                # row, and Quick exit is inside the pinned strip or floats where the strip scrolls away.
+                for problem in strip_problems(result, (width, height) in ONE_ROW_SIZES) if result else []:
+                    problems.append(f"{line['step']}, {where}: {problem}")
                 if width >= 960 and not result.get("headerBottom"):
                     problems.append(f"{line['step']}, {where}: the header's Get Support Now button scrolls off the screen")
 

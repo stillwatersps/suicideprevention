@@ -54,10 +54,13 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
   it reads "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al 911". It leaves out "Need
   help now?", "In immediate danger," and "any time", and their Spanish twins, though screen
   readers still hear each link's full name. The rule: it pins wherever that row fits and takes
-  a quarter of the screen's height or less. Anywhere else the strip scrolls away as before, and
+  a quarter of the screen's height or less. With text set smaller than the default, it also
+  needs as much width as at the default size, 312 px in English and 544 px in Spanish, because
+  part of the row doesn't shrink with the text. Anywhere else the strip scrolls away as before, and
   Quick exit floats in the bottom corner. In desktop Chrome's phone-size emulation, 640 by 290
   and 568 by 300, such as older phones on their side, now pin it in both languages, at 48 px,
-  about a sixth of the height. With 150% text, 844 by 390 pins it in both languages, and 750 by
+  about a sixth of the height. A desktop window zoomed to 400%, 320 by 225 in the tests, now pins
+  the English row. With 150% text, 844 by 390 pins it in both languages, and 750 by
   292, 640 by 290 and 568 by 300 in English only. The Spanish row is about 1.7 times as long, so
   it pins in fewer places: at 200% text only the English row pins, at 844 by 390, 750 by 292 and
   640 by 290. A phone held upright with very large text, such as 390 px wide at 200%, can't fit
