@@ -8,9 +8,9 @@ branch: build/recheck-2026-11-08, based on e608945 of site/first-version-finish
 
 Date: November 8, 2026, Eastern time.
 
-**State when written: local only.** Two local commits on `build/recheck-2026-11-08`: the morning's read,
-and an afternoon follow-up after an independent review. Not pushed, no pull request, not merged, and not
-on the public website. Notes, two check tools, and rebuilt review packets: no website page changed. No
+**State when written: local only.** Three local commits on `build/recheck-2026-11-08`: the morning's read,
+an afternoon follow-up after an independent review, and an evening check of that follow-up. Not pushed,
+no pull request, not merged, and not on the public website. Notes, two check tools, and rebuilt review packets: no website page changed. No
 qualified person has reviewed anything here, and no person has confirmed any crisis detail.
 
 ## Completed
@@ -35,6 +35,15 @@ In the afternoon, after an independent review of the morning's commit:
 | `tools/test_the_tests.py` | One planted bug: the link check counting a crisis service's block as fine |
 | `notes/review-packet/` | Rebuilt. Fingerprint `006e3e62e203`, was `06135801a631` |
 | This handoff | The afternoon's reads and checks, the performance page, and the times of the final checks |
+
+In the evening, a later workflow step checked each afternoon change against the review's five points and
+the two extra tasks. Every one was in place. One wording was still not exact:
+
+| File | What changed |
+| --- | --- |
+| [[SAFETY]] | The 988 LGBTQ+ youth item no longer says the performance page shows the service as "Option 3", since the dashboard doesn't say whom Option 3 served. It now says the page doesn't name the service, and that its dashboard shows an "Option 3" that ended on July 17, 2025. It adds the flowchart the page links, which names the same three choices as its text, and says the dashboard's other tabs and lists weren't opened |
+| `notes/review-packet/` | Rebuilt. Fingerprint `004d7d03854e`, was `006e3e62e203` |
+| This handoff | This table, and "In the evening" under the reads and the checks |
 
 ## What was read, when, and how
 
@@ -103,6 +112,23 @@ On the dashboard, only the Service Type tab was clicked. Its Routed, Definitions
 opened, and no filter, list, hover, or download was used. Its text was cut off at the browser pane's
 width, so that tab's view was set to 1500 by 1100 pixels while reading it, then set back.
 
+**In the evening.** Between about 4:07 and 4:10 p.m. Eastern, in one new tab of the built-in browser,
+closed afterwards, the afternoon's pages were opened again at the addresses above, to check what the
+afternoon wrote. They were read as text, except the dashboard and the flowchart, read from screenshots.
+Nothing was called, texted, chatted, typed, or submitted, and no call, text, or chat control was clicked.
+
+| Page | What it shows |
+| --- | --- |
+| The Trevor Project's statement | The same as in the afternoon: dated October 1, 2026, "September 30, 2026 – Today", discontinued in July 2025, and a timeline with July 17, 2025 and September 30, 2026 |
+| The Congressional Equality Caucus's statement | The same: dated September 30, 2026, and resumed on September 30th |
+| SAMHSA's 988 performance page | The same text and "Last Updated: 10/13/2026". The flowchart its text links, https://www.samhsa.gov/sites/default/files/988-what-happens-flowchart-2025.jpg, shows the same choices: Spanish Language, In-State/Territory with the National Backup behind it, and the Veterans Crisis Line for calls. It shows no Option 3 or press 3. The dashboard's Service Type tab shows the same sentence as in the afternoon, and its data notes give Option 3 a pilot from September 2022 to June 2023 and full service from July 2023 to July 17, 2025. Its end date shows 9/30/2026. Nothing on the tab says whom Option 3 served |
+| 988's Spanish Get Help page | The same: Llama, Textea, and Chatea lead to tel:988, sms:988, and https://chat.988lifeline.org/?lang=es, read from the page's code, and "CHATEA CON 988 LIFELINE" to chat.988lifeline.org without ?lang=es. Open 24 hours a day, 7 days a week. No cookie banner showed in the text read |
+| Tide Mood AI | The same listing: Health & Fitness, daily check-ins, an AI chat that runs on the phone, "Tide is a wellness tool, not medical advice or treatment", and version 1.0.6 of December 18, 2025 |
+
+The FCC page wasn't opened again. On the dashboard, again only the Service Type tab was clicked, with the
+tab's view set to 1500 by 1100 pixels while reading it, then set back, and no filter, list, hover, or
+download was used.
+
 ## Differences
 
 **No crisis number, keyword, hour, or claim differs from what its provider's page says today,** so no
@@ -137,6 +163,10 @@ to `check_links`, so the 988 chat addresses weren't requested. So findtreatment.
 at 2:43 p.m., got a nearly empty page from a plain read (200, 4 words) and the whole page in Chrome (200,
 649 words), so its result was "ok".
 
+**findtreatment.gov, in the evening.** A script of the same kind ran the project's link check on those two
+links twice more, at 4:10 and 4:11 p.m. Eastern, with `KNOWN_BLOCKERS` as the afternoon left it. Both
+links answered 200 both times, with no notes or failures, so it stays off the list.
+
 ## The name
 
 [[NAME-CHECK]] has the details. In short: a UK company named Tidelight Ltd sells a tide lamp and makes a
@@ -165,7 +195,7 @@ On a Mac, November 8, 2026. None of these is a phone test or a content review.
 Run on that commit's files, staged, just before committing, at 7:20 a.m. Eastern. An earlier run at
 7:19 gave the same results. This note first said each took a second or less. That was wrong for
 `launch_gate.py --self-test`: an independent review measured about 2 seconds, and it took 12 to 15
-seconds in the afternoon runs below, on a busier Mac.
+seconds in the afternoon runs below, and 8 to 9 seconds in the evening, on a busier Mac.
 
 | Command | Result line | Exit |
 | --- | --- | --- |
@@ -191,6 +221,22 @@ on a Mac busy with other work (load average about 8), so they are longer than on
 | `python3 tools/launch_gate.py --self-test` | "All 61 made-up cases were read correctly." | 0, 12.9 s. Earlier runs that afternoon took 12.0, 12.4, and 14.7 s |
 | `python3 tools/test_the_tests.py --only "counted as fine"` | "All 2 planted bugs were caught." Both link check bugs, on `check_site.py --self-test` | 0, 1.5 s |
 
+### Checks on the evening commit
+
+The last five were run on this commit's files, staged, at 4:13 p.m. Eastern, before their results were
+written into this table, and `check_site.py` again after that, with the same result. The load average
+was about 4.
+
+| Command | Result line | Exit, time |
+| --- | --- | --- |
+| Link check on the findtreatment.gov links only, twice, at 4:10 and 4:11 p.m. | Both links 200 both times, no notes or failures | 0, under 3 s each, with the site read first |
+| `python3 tools/make_review_packet.py`, at 4:11 p.m. | Wrote both packets, as HTML and PDF. Fingerprint `004d7d03854e` | 0, 9.4 s |
+| `python3 tools/check_site.py` | "All checks passed. This does not replace a real phone test or a content review." 19 pages, 112 outside links, no notes, so the packets are current | 0, 3.3 s |
+| `python3 tools/check_site.py --self-test` | "All 7 made-up link answers were read correctly." | 0, 0.3 s |
+| `python3 tools/check_crisis_sources.py --self-test` | "All 20 made-up cases were read correctly, and every crisis number in notes/SAFETY.md has a check." | 0, 0.3 s |
+| `python3 tools/launch_gate.py --self-test` | "All 61 made-up cases were read correctly." | 0, 8.7 s. An earlier run at 4:12 p.m. took 8.0 s |
+| `python3 tools/test_the_tests.py --only "counted as fine"` | "All 2 planted bugs were caught." | 0, 1.5 s |
+
 ### Not run
 
 In the morning: `tools/test_browser.py`, `tools/test_webkit.py`, `tools/test_the_tests.py`,
@@ -204,6 +250,10 @@ site script changed, only notes, two Python check tools, and the packets. The re
 `tools/check_crisis_sources.py` on every provider page. `tools/check_live.py --local`,
 `tools/check_readability.py`, and the full suite. The iOS Simulator wasn't used, and nothing was tried
 on a real phone.
+
+In the evening: the same list as in the afternoon, and the crisis source check's page check on
+findtreatment.gov, which the afternoon ran and nothing has changed since. Only a note, the handoff, and
+the packets changed.
 
 ## Open points
 

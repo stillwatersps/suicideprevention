@@ -70,8 +70,9 @@ column. Recheck close to publication and at least monthly (proposed).
 - **988 LGBTQ+ youth option.** 988's Get Help page says the service has been
   restored, and its What to Expect page lists press 3 on a call and PRIDE to 988 by
   text. The Trevor Project and a U.S. House statement date its return to September
-  30, 2026. SAMHSA's 988 FAQ (December 2025) doesn't mention it, and SAMHSA's 988
-  performance page (October 2026) shows it only as an "Option 3" that ended, in a dashboard
+  30, 2026. SAMHSA's 988 FAQ (December 2025) doesn't mention it. SAMHSA's 988
+  performance page (October 2026) doesn't name it either. A dashboard on that page shows an
+  "Option 3" service type that ended on July 17, 2025, without saying whom it served, as
   described below.
   No official page gives its age range or chat route. The Trevor
   Project is not part of it, so the Get Help page lists the two apart.
@@ -88,11 +89,13 @@ column. Recheck close to publication and at least monthly (proposed).
   return. SAMHSA's 988 performance page
   (https://www.samhsa.gov/mental-health/988/performance-metrics, "Last Updated: 10/13/2026")
   names only the Veterans Crisis Line, Spanish language services, and answering in the caller's
-  state or territory as the choices a caller makes. The Service Type tab of the dashboard on
-  that page says "The Option 3 service type existed from September 2022 through July 17, 2025",
-  and its data notes give Option 3 full service from July 2023 to July 17, 2025. The tab doesn't
-  say whom Option 3 serves, but July 17, 2025 is the day The Trevor Project's timeline gives for
-  the end of press 3. Nothing on that tab says it returned, and the dashboard's data run to
+  state or territory as the choices a caller makes, in its text and in the flowchart it links
+  (https://www.samhsa.gov/sites/default/files/988-what-happens-flowchart-2025.jpg). The Service
+  Type tab of the dashboard on that page says "The Option 3 service type existed from September
+  2022 through July 17, 2025", and its data notes give Option 3 full service from July 2023 to
+  July 17, 2025. The tab doesn't say whom Option 3 served, and the dashboard's other tabs and
+  lists weren't opened, but July 17, 2025 is the day The Trevor Project's timeline gives for the
+  end of press 3. Nothing on that tab says it returned, and the dashboard's data run to
   September 30, 2026. None of the 988 or
   SAMHSA pages read gives an age range or a chat route. The Spanish FAQ still shows no date, but
   the page's hidden data says it was last changed on June 21, 2024, so it was probably written
