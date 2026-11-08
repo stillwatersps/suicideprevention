@@ -82,6 +82,12 @@ Nothing else has been claimed. Add an owner above when you start.
 
 ## Ready for review
 
+- [ ] Choose a visual design: the current look (pull request 10), signage (pull request
+  11), or Shoreline (`site/pro-max-redesign`). Owner: both. Comparison screenshots are in
+  [[worklogs/2026-11-08-claude-shoreline-redesign]].
+- [ ] Shoreline redesign, stylesheet only, at one founder's request. Owner: Claude. Branch:
+  `site/pro-max-redesign`, draft pull request into `site/first-version-finish`. Not merged.
+
 Move a task here when its branch is ready for the other person to review.
 
 - [ ] Fix navigation, phone layout, and accessibility, and draft page content.

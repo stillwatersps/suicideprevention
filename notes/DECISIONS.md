@@ -213,6 +213,22 @@ recorded,** and each is easy to reverse.
 - **A one-page public site,** in draft pull request 12 into `main`, not merged. It is option B
   for open decision 1. Merging it publishes.
 
+## November 8, 2026: a second redesign, proposed
+
+One founder asked for a redesign with the same limits the other founder gave for the signage
+redesign (pull request 11): a complete new look, no change to wording, links, numbers, page
+addresses, or behavior, and the crisis strip, Quick exit, and menu working exactly as before.
+Built on `site/pro-max-redesign` with the ui-ux-pro-max design skill. **Neither founder has
+chosen between the current look, signage, and Shoreline.** See [[DESIGN]].
+
+Choices made, all easy to reverse:
+
+- The skill's first suggestion was rejected: a testimonial carousel, low-contrast
+  "neumorphism", Google Fonts, and scroll animation. They conflict with [[SAFETY]] rule 5 or
+  with a crisis site. Its narrower "Accessible & Ethical" and "E-Ink / Paper" styles were used.
+- Only `assets/styles.css` changed: one marked block near the end. The skill was installed for
+  that session only, not added to the project.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

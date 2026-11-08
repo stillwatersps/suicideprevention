@@ -41,6 +41,27 @@ changes these on purpose:
 - Wording names the 988 Lifeline as the provider of round-the-clock support
   ([[SAFETY]] rule 3), so some labels differ from the drawing.
 
+## Second proposed redesign, November 8, 2026: Shoreline
+
+On branch `site/pro-max-redesign`, not merged, and not agreed by either founder. One founder
+asked for a redesign with the same limits as the signage one, using the ui-ux-pro-max design
+skill. It keeps the current layout and changes only the look:
+
+- **Paper and ink.** Warm off-white paper, near-black ink, text at WCAG AAA contrast (7:1) in
+  light and dark.
+- **One tide blue means help.** The crisis strip, Call 988 (the only solid button), links,
+  and a tide-pool panel with a tide edge around the call, text, and chat buttons on every page,
+  Home included.
+- **A dawn brown for notices,** such as the draft-for-review note and the current page.
+- **The phone's own fonts.** Its serif for headings, its sans for reading. Nothing loaded
+  from another site.
+- **Thin lines, no shadows or gradients, no motion.** A two-band "shoreline" under each page
+  heading and above the footer.
+
+Compared with the signage redesign: calmer and quieter, closer to a reading app than a public
+sign, and Call 988 is tide blue rather than amber. See
+[[worklogs/2026-11-08-claude-shoreline-redesign]] for screenshots of all three.
+
 ## Open questions
 
 - Should inner pages also show the sunset photo? They use a plain gradient now,

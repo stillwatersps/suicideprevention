@@ -1,4 +1,5 @@
-/* Tidelight site styles. Colors and type follow design/homepage.svg. */
+/* Tidelight site styles. Layout follows design/homepage.svg; the look is the Shoreline
+   block near the end of this file. */
 
 :root {
   --bg: #FAF8F4;
@@ -961,6 +962,213 @@ body { padding-bottom: 76px; }
 /* Windows high contrast mode: buttons keep a visible edge. This comes after .print-button, whose border: 0 would win. */
 @media (forced-colors: active) {
   .button, .print-button { border: 2px solid ButtonText; }
+}
+
+/* ===========================================================================
+   Shoreline: the visual design, proposed on branch site/pro-max-redesign.
+   Chosen with the ui-ux-pro-max skill's "Accessible & Ethical" and "E-Ink / Paper"
+   styles: paper and ink, one tide blue for help, a dawn brown for notices. Text
+   meets WCAG AAA contrast (7:1) in light and dark. No outside fonts, no shadows,
+   no gradients, no motion. This block only changes colors, type, borders and
+   shapes. Every layout, crisis strip, menu, and Quick exit rule above is unchanged.
+   =========================================================================== */
+:root {
+  --bg: #FBF9F4;          /* paper */
+  --bg-soft: #F3EFE6;     /* paper in shade */
+  --ink: #13222C;
+  --body: #26343D;
+  --muted: #3E4A54;
+  --green: #0B4F6C;       /* tide: everything that is help */
+  --tide-deep: #083A50;
+  --green-soft: #E6F1F4;  /* tide pool */
+  --tide-line: #9CC5D3;
+  --plum: #7A400C;        /* dawn: notices, current page, labels */
+  --plum-soft: #FFF7EC;
+  --notice-line: #C9A36B;
+  --line: #D6D0C4;
+  --card: #FFFFFF;
+  --serif: ui-serif, "Iowan Old Style", Charter, "Palatino Linotype", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius: 10px;
+  --shadow: none;
+}
+body { line-height: 1.6; color: var(--body); }
+h1, h2, h3 { font-weight: 600; letter-spacing: -.01em; }
+h1 { letter-spacing: -.025em; }
+:focus-visible { outline-color: var(--plum); }
+.skip-link { background: var(--ink); border-radius: 6px; }
+
+/* The crisis strip and header */
+.crisis-bar { background: var(--tide-deep); color: #fff; }
+.site-header { background: var(--bg); border-bottom: 1px solid var(--line); }
+.brand-name { font-weight: 600; letter-spacing: -.01em; }
+.brand-tag { color: var(--muted); letter-spacing: .04em; }
+.menu-button { border: 1.5px solid var(--ink); border-radius: var(--radius); }
+.menu-button[aria-expanded="true"] { background: var(--green-soft); border-color: var(--green); }
+.site-nav a { color: var(--ink); border-radius: 6px; }
+.site-nav a:hover { background: var(--bg-soft); }
+.site-nav a[aria-current="page"] { color: var(--green); text-decoration-thickness: 2px; }
+.button { border-radius: var(--radius); }
+.button-plum { background: var(--green); color: #fff; }
+.button-plum:hover { background: var(--tide-deep); }
+
+/* Home: flat paper, the photo keeps its place */
+.hero { background: var(--bg); }
+.eyebrow { color: var(--plum); letter-spacing: .08em; }
+.text-link { color: var(--green); }
+
+/* The help actions: one solid button, two outlined, no shadows */
+.action {
+  border: 1.5px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: none;
+}
+.action:hover { box-shadow: none; background: var(--green-soft); }
+.action-title { font-family: var(--sans); font-weight: 700; font-size: 1.15rem; }
+.action-primary { background: var(--green); border-color: var(--green); color: #fff; }
+.action-primary:hover { background: var(--tide-deep); }
+.action-primary .action-sub { color: #E6F1F4; }
+
+/* Every other page: the help panel is a tide pool with a tide edge */
+.crisis-panel {
+  padding: 20px 22px;
+  border-left: 6px solid var(--green);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--green-soft);
+}
+.crisis-panel .action:not(.action-primary) { background: var(--card); }
+/* Home gets the same tide-pool help panel around its three buttons, so help looks the same everywhere. */
+.hero .crisis-actions {
+  padding: 14px;
+  border-left: 6px solid var(--green);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: var(--green-soft);
+}
+.right-now { border: 2px solid var(--green); border-radius: var(--radius); background: var(--green-soft); }
+
+/* Trust row and paths */
+.trust { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.trust-icon { background: var(--card); border: 1.5px solid var(--tide-line); }
+.trust-text { color: var(--muted); }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--green);
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+.card-green, .card-sand { background: var(--card); }
+.card-plum { background: var(--card); border-top-color: var(--plum); }
+.card-sand { border-top-color: var(--ink); }
+.card:hover { box-shadow: none; border-color: var(--green); }
+.card-plum:hover { border-color: var(--plum); }
+.card-link::after { border-radius: var(--radius); }
+.card-green .card-icon, .card-sand .card-icon { background: var(--green-soft); }
+.card-plum .card-icon { background: var(--plum-soft); }
+.card-icon { border-radius: 8px; }
+.card-icon svg { stroke: var(--ink); }
+.card-arrow { background: var(--green); border-radius: 8px; }
+.card-arrow-plum { background: var(--plum); }
+.closing { background: var(--tide-deep); border-radius: var(--radius); }
+/* Long addresses such as chat.988lifeline.org may break at large text instead of pushing the page sideways. */
+.closing { grid-template-columns: minmax(0, 1fr); }
+.closing a { overflow-wrap: anywhere; }
+@media (min-width: 640px) { .closing { grid-template-columns: auto auto; } }
+.closing-text { border-left-color: var(--tide-line); }
+
+/* Inner pages */
+.page-hero { background: var(--bg-soft); border-bottom: 1px solid var(--line); }
+.breadcrumb a, .footer-nav a[aria-current="page"] { color: var(--plum); }
+.page-status { background: var(--plum-soft); border: 1px dashed var(--notice-line); border-radius: var(--radius); }
+.urgent { background: var(--plum-soft); border-left-color: var(--plum); border-radius: 0 6px 6px 0; }
+.toc h2 { color: var(--plum); letter-spacing: .08em; }
+.toc li + li { border-top-color: var(--line); }
+.prose h2 { padding-top: 14px; border-top: 2px solid var(--tide-line); }
+.service {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.pill { border-radius: 8px; background: var(--card); border-width: 1.5px; }
+.pill:hover { background: var(--green-soft); }
+.steps > li::before { background: var(--green); color: #fff; border-radius: 8px; }
+/* The phone's own font is wider than Arial, so long words must wrap inside the steps at large text. */
+.steps { grid-template-columns: minmax(0, 1fr); }
+.more > summary { border-radius: 8px; border-width: 1.5px; }
+.more[open] > summary { background: var(--green-soft); }
+.feeling { background: var(--card); border-radius: var(--radius); }
+.feeling > summary { border-radius: var(--radius); }
+.next-steps li { border-left-color: var(--tide-line); }
+.offline-note { background: var(--plum-soft); border-bottom: 1px solid var(--notice-line); }
+.site-footer { background: var(--bg-soft); border-top: 1px solid var(--line); }
+.quick-exit { background: var(--ink); border-radius: var(--radius); box-shadow: none; }
+.quick-exit:hover { background: #000; }
+.print-button { background: var(--green); border-radius: var(--radius); }
+.pc-poster, .pc-card { border-color: #0B4F6C; color: #13222C; }
+.pc-kicker { color: #0B4F6C; }
+.pc-big { color: #13222C; }
+
+/* The shoreline: two thin tide bands under each page heading and above the footer.
+   Drawn with inset shadows, so it adds no markup and takes no space. */
+.page-hero { box-shadow: inset 0 -3px 0 var(--green), inset 0 -7px 0 var(--tide-line); border-bottom: 0; }
+.site-footer { box-shadow: inset 0 3px 0 var(--green), inset 0 7px 0 var(--tide-line); border-top: 0; }
+.trust { box-shadow: inset 0 3px 0 var(--tide-line); border-top: 0; }
+
+/* Desktop: the paper panel curves over the photo, as before */
+@media (min-width: 960px) and (min-width: 60em) {
+  .hero { background: var(--bg-soft); }
+  .hero-curve { fill: var(--bg-soft); }
+}
+
+/* Night tide: dark mode, also AAA contrast */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0E171D;
+    --bg-soft: #15222A;
+    --ink: #EAF2F4;
+    --body: #D3DEE2;
+    --muted: #A9B8BE;
+    --green: #8FD0E6;
+    --tide-deep: #0B3447;
+    --green-soft: #12303C;
+    --tide-line: #2F6175;
+    --plum: #F0C48A;
+    --plum-soft: #241C12;
+    --notice-line: #6B5536;
+    --line: #2C3D46;
+    --card: #15222A;
+  }
+  .crisis-bar, .closing { background: var(--tide-deep); }
+  .action-primary, .button-plum, .card-arrow, .print-button, .steps > li::before { background: #0E5A7A; border-color: #0E5A7A; color: #fff; }
+  .action-primary:hover, .button-plum:hover { background: #0B4A64; }
+  .action-primary .action-sub { color: #E6F1F4; }
+  .card-arrow-plum { background: #7A4A16; }
+  .hero, .page-hero { background: var(--bg-soft); }
+  .site-header { border-bottom-color: var(--line); }
+  .site-nav a[aria-current="page"] { color: var(--green); }
+  .menu-button { border-color: var(--muted); }
+  .action:not(.action-primary), .pill, .card, .card-green, .card-plum, .card-sand, .service, .feeling { background: var(--card); }
+  .crisis-panel .action:not(.action-primary) { background: var(--bg); }
+  .hero .crisis-actions .action:not(.action-primary) { background: var(--bg); }
+  .urgent, .page-status { background: var(--plum-soft); }
+  .card-icon svg { stroke: var(--ink); }
+  .quick-exit { background: #000; border-color: var(--body); }
+  .skip-link { background: var(--ink); color: var(--bg); }
+}
+@media (prefers-color-scheme: dark) and (min-width: 960px) and (min-width: 60em) {
+  .hero { background: var(--bg-soft); }
+  .hero-curve { fill: var(--bg-soft); }
+}
+@media (forced-colors: active) {
+  .crisis-panel, .card, .service, .right-now { border-color: CanvasText; }
+}
+/* Printing, from light or dark mode: the Shoreline panels print as plain white. */
+@media print {
+  :root { --green-soft: #fff; --plum-soft: #fff; --card: #fff; --tide-deep: #fff; --tide-line: #999; --notice-line: #999; }
+  .crisis-panel, .feeling, .urgent, .page-status, .trust, .site-footer, .page-hero, .hero .crisis-actions { background: #fff !important; box-shadow: none !important; }
+  .feeling > summary, .feeling-body { color: #000 !important; }
 }
 
 @media print {
