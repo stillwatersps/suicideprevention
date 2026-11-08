@@ -21,6 +21,9 @@ Keep both computers' shared notes current, decide what the public site should sh
 until its content is reviewed, and find a qualified reviewer. Start with
 [[00 START HERE]], [[STATUS]], and [[SHARED-MEMORY]].
 
+[[FIRST-VERSION]] describes the first version and its main user journeys. It is a
+proposal, not agreed by both founders.
+
 ## Open product decisions
 
 - The main user need and the first complete user journey.
