@@ -26,6 +26,7 @@ from the section's text, so if the text changes after the review, the approval s
   - Of the records that count, the newest decides.
   - A record dated after today, or one that can't be read, stops publishing.
   - Every page must have a section in the review packets, and so must Spanish lines on an English page.
+    So must all the text a visitor sees: a sentence loose in a div, outside any paragraph, would reach no reviewer.
 
 The founders can override this on purpose, for an early preview, by setting a repository variable named
 PUBLISH_UNREVIEWED to the words "both founders agreed". See notes/LAUNCH-CHECKLIST.md.
@@ -64,8 +65,7 @@ def review_checks(lines=None, today=None, pages=None):
         if not approved:
             not_approved[lang].setdefault(why, []).append(label)
     checks = [
-        ("Every page has a section in the review packets", not missing_pages,
-         "; ".join(missing_pages) + ". Add it to tools/make_review_packet.py"),
+        ("Every page, and all its text, has a section in the review packets", not missing_pages, "; ".join(missing_pages)),
         ("Every line under \"Review records\" can be read", not unreadable,
          f"{len(unreadable)} can't be read, and one could be a rejection"),
     ]

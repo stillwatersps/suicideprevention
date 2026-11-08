@@ -72,8 +72,12 @@ and the Spanish part of Get Help. They have sections of their own in Part 3 of t
 fluent Spanish reader approves them, like any Spanish section. `Español en cada página en inglés` holds the
 Spanish in the parts every English page shares, such as the links to Spanish. `Español en Get Help`,
 `Español en After a loss`, `Español en Wallet card and poster` and `Página no encontrada` hold each page's
-own Spanish lines. `tools/check_site.py` fails if an English page has Spanish that no section holds, even a
-few words in an English sentence.
+own Spanish lines. The tools find Spanish by its `lang="es"` mark, so mark every Spanish line that way.
+`tools/check_site.py` fails if an English page has text marked Spanish that no section holds, even a few words
+in an English sentence. It also fails on English-page text that looks Spanish but has no mark, by letters such
+as ñ or é, or words such as "al 988". Spanish with none of those and no mark isn't found. And it fails on any
+visible text, in either language, that sits outside the parts the packets number, such as a sentence in a
+div, because no reviewer would see it.
 
 **What the fingerprint means.** It's a 12-character code made from the section's text, as the packet shows
 it. When any word of that section changes, its fingerprint changes. An approval only counts while its

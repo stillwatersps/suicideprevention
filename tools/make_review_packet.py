@@ -31,7 +31,7 @@ import sys
 TOOLS = pathlib.Path(__file__).resolve().parent
 ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
-from check_site import EVERY_PAGE, OUTSIDE_TEXT, SHOWN_BY_SCRIPT, SPANISH_ON_EVERY_PAGE, find_pages, language_of  # noqa: E402
+from check_site import EVERY_PAGE, OUTSIDE_TEXT, SHOWN_BY_SCRIPT, SPANISH_ON_EVERY_PAGE, find_pages, is_spanish, language_of  # noqa: E402
 
 OUT = ROOT / "notes" / "review-packet"
 PREVIEW = "https://stillwatersps.github.io/suicideprevention/"
@@ -81,7 +81,12 @@ SPANISH_ON_ENGLISH_NOTES = {
 # The links to Spanish that every English page has: the language switch and "Ayuda en español". Their Spanish
 # goes in the section for the parts every English page shares, even where a page places them in its own text.
 LANGUAGE_LINKS = {"lang-switch", "lang-link"}
-BLOCK ={"h1", "h2", "h3", "h4", "p", "li", "summary", "dt", "dd", "caption"}
+# The parts of a page whose text the packets number, such as a paragraph, a table cell, or a button's label like
+# the header's Menu. A link outside them, such as the header's brand, is numbered too. Visible text in none of
+# them, such as a sentence in a div, would reach neither packet, so tools/check_site.py fails on it.
+BLOCK = {"h1", "h2", "h3", "h4", "h5", "h6", "p", "li", "summary", "dt", "dd", "caption", "td", "th", "figcaption",
+         "blockquote", "label", "button"}
+HEADINGS = {"h1": "h3", "h2": "h4", "h3": "h5", "h4": "h5", "h5": "h6", "h6": "h6", "summary": "h5"}
 # Fold labels ("Show more", "Show less") are buttons, not content, so they get no number.
 SKIP_CLASSES = {"visually-hidden", "lang-switch", "breadcrumb", "toc", "card-arrow", "card-icon", "skip-link",
                 "when-closed", "when-open"}
@@ -90,11 +95,6 @@ SHARED_CLASSES = {"crisis-bar", "crisis-panel", "site-footer", "site-header", "q
 # its smaller second line. A " | " keeps them apart, so the packet doesn't show "Call 988Talk to a counselor".
 PART_CLASSES = {"action-sub", "trust-text", "status-line", "brand-tag"}
 ABBREVIATIONS = ["U.S.", "e.g.", "i.e.", "Dr.", "Nov.", "vs.", "EE. UU.", "a.m.", "p.m.", "No."]
-
-
-def is_spanish(lang):
-    """Whether a lang attribute names Spanish, such as "es" or "es-US"."""
-    return bool(re.match(r"es(-|$)", (lang or "").strip().lower()))
 
 
 def split_sentences(text):
@@ -109,7 +109,8 @@ def split_sentences(text):
 
 class Extractor(html.parser.HTMLParser):
     """Reads a page into ordered blocks of text with their links, marking shared parts. A block that holds
-    Spanish words, even a few inside an English sentence, is marked "spanish"."""
+    Spanish words, even a few inside an English sentence, is marked "spanish". Visible text that no block
+    holds is kept apart in "loose", because no packet would show it."""
 
     VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
 
@@ -125,6 +126,8 @@ class Extractor(html.parser.HTMLParser):
         self.outside = []
         # The part of it marked as Spanish, such as a Spanish link's name on an English page.
         self.spanish_outside = []
+        # Visible text outside every block, such as a sentence in a div: (language, text).
+        self.loose = []
 
     def _classes(self):
         found = set()
@@ -212,7 +215,12 @@ class Extractor(html.parser.HTMLParser):
     def handle_data(self, data):
         if self.stack and self.stack[-1][0] == "title":
             self.title += data
-        if self._hidden() or self.current is None:
+            return
+        if self._hidden():
+            return
+        if self.current is None:
+            if data.strip():
+                self.loose.append((self._lang(), re.sub(r"\s+", " ", data).strip()))
             return
         self.current["text"] += data
         if data.strip() and self._by_script():
@@ -298,9 +306,9 @@ def render_blocks(blocks, prefix, numbering, counters, lang):
             close()
             out.append('<section class="review-block">')
             open_section = True
-        if tag in ("h1", "h2", "h3", "h4", "summary"):
+        if tag in HEADINGS:
             label, same = numbering.number(prefix, counters, block["text"])
-            level = {"h1": "h3", "h2": "h4", "h3": "h5", "h4": "h5", "summary": "h5"}[tag]
+            level = HEADINGS[tag]
             note = "" if not same else f' <span class="same">same as {same}</span>'
             out.append(f'<{level} class="row-heading"><span class="id">{label}</span> {esc(block["text"])}{note}</{level}>')
         else:
@@ -374,6 +382,17 @@ def spanish_shared_lines(names):
             if block["text"] not in seen:
                 seen.add(block["text"])
                 found.append(block)
+    return found
+
+
+def loose_text(name):
+    """Visible text on a page that no block holds, such as a sentence in a div, as (language, text). No packet
+    would show it, so no reviewer would read it, and no section's fingerprint would change with it. Read the
+    way each packet reads the page: its own text, and on an English page, its Spanish lines too, which include
+    parts the English packet skips."""
+    found = list(read_page(name).loose)
+    if language_of(name) == "en":
+        found += [item for item in read_page(name, skip=()).loose if is_spanish(item[0]) and item not in found]
     return found
 
 
@@ -870,12 +889,13 @@ def make_pdf(html_path, pdf_path, label):
 
 
 def check_all_pages_listed():
-    """The same rule tools/check_site.py and the publish step apply: every page has a review section."""
+    """The same rule tools/check_site.py and the publish step apply: every page, and all its text, has a review
+    section. Otherwise a packet would leave something out without saying so."""
     from check_site import missing_sections
 
     missing = missing_sections(find_pages())
     if missing:
-        raise SystemExit(f"Add these pages to the lists in tools/make_review_packet.py: {missing}")
+        raise SystemExit("The review packets would leave something out, so they weren't built:\n- " + "\n- ".join(missing))
 
 
 def main():

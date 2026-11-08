@@ -66,6 +66,20 @@ LANG_RULES = {
 
 def language_of(name):
     return "es" if name.startswith("es/") else "en"
+
+
+def is_spanish(lang):
+    """Whether a lang attribute names Spanish, such as "es" or "es-US"."""
+    return bool(re.match(r"es(-|$)", (lang or "").strip().lower()))
+
+
+# Letters Spanish uses and English almost never does, and the Spanish way to give a crisis number, such as
+# "Llama al 988 y marca 2", which has none of them. On an English page, text with one that nothing marks as
+# another language is almost always Spanish without lang="es". A screen reader then reads it with English
+# sounds, and the Spanish review packet, which finds Spanish by that mark, leaves it out. Spanish with none of
+# these isn't found, so every Spanish line still needs its mark.
+SPANISH_SIGNS = re.compile(r"[¿¡ñáéíóúü]|\b(?:al|del) (?:988|911|741741)\b|\b(?:llama|marca|presiona) al\b"
+                           r"|\by (?:marca|presiona)\b", re.I)
 CRISIS_WORDS = re.compile(r"\b(call|text|chat|llamar|enviar|chatear)\b", re.I)
 # Links that call or text. A browser reads a scheme in any letter case, so TEL:988 is a call link too.
 PHONE_SCHEMES = {"tel", "sms"}
@@ -135,6 +149,8 @@ class Page(html.parser.HTMLParser):
         # The same text without the review list on the About pages, which has its own check.
         self.claim_parts = []
         self.attribute_text = []
+        # The text a visitor sees or a screen reader says, each piece with the language it is marked as.
+        self.marked_text = []
         self.classes = set()
         self.aria_refs = []
         self.hidden_crisis = []
@@ -158,6 +174,15 @@ class Page(html.parser.HTMLParser):
                 names.append("#" + attrs["id"])
         return names
 
+    def _lang(self, attrs=None):
+        """The language marked here: the element's own lang, or the nearest one around it."""
+        if attrs and attrs.get("lang"):
+            return attrs["lang"]
+        for _, around in reversed(self.stack):
+            if around.get("lang"):
+                return around["lang"]
+        return None
+
     def _note_url(self, url):
         parts = urllib.parse.urlsplit(url)
         if parts.scheme or parts.netloc:
@@ -179,6 +204,7 @@ class Page(html.parser.HTMLParser):
         for key in ("alt", "aria-label"):
             if attrs.get(key):
                 self.attribute_text.append(attrs[key])
+                self.marked_text.append((self._lang(attrs), attrs[key]))
         for key, value in attrs.items():
             if key.startswith("on") and not (key == "onerror" and value == ALLOWED_ONERROR):
                 self.bad_handlers.append(f"{tag} {key}")
@@ -198,6 +224,7 @@ class Page(html.parser.HTMLParser):
             self.metas[attrs["name"]] = attrs.get("content", "")
             if attrs["name"] == "description":
                 self.attribute_text.append(attrs.get("content", ""))
+                self.marked_text.append((self._lang(attrs), attrs.get("content", "")))
         elif tag == "img" and "alt" not in attrs:
             self.images_without_alt.append(attrs.get("src", "?"))
         elif tag in {"form", "input", "select", "textarea", "iframe", "embed", "object", "video", "audio"}:
@@ -264,6 +291,7 @@ class Page(html.parser.HTMLParser):
         tags = [t for t, _ in self.stack]
         if tags and tags[-1] == "title":
             self.title += data
+            self.marked_text.append((self._lang(), data))
             return
         if "script" in tags:
             if self.inline_scripts and data.strip() and not self.stack[-1][1].get("src"):
@@ -277,6 +305,7 @@ class Page(html.parser.HTMLParser):
                 self.unread_hidden.append(data.strip())
             return
         self.text_parts.append(data)
+        self.marked_text.append((self._lang(), data))
         if not any("status-list" in attrs.get("class", "").split() for _, attrs in self.stack):
             self.claim_parts.append(data)
         if self.stack and "status-value" in self.stack[-1][1].get("class", "").split() and data.strip():
@@ -430,6 +459,17 @@ def check_printed_numbers(page, numbers, fail):
             fail(f"the printed card or poster shows {number}, which is not a number recorded in notes/SAFETY.md")
 
 
+def unmarked_spanish(page):
+    """Text on an English page that looks Spanish, by SPANISH_SIGNS, where nothing marks it as another language:
+    the page's text and title, image descriptions, screen reader names, and the description. Each once."""
+    found = []
+    for lang, text in page.marked_text:
+        text = re.sub(r"\s+", " ", text).strip()
+        if SPANISH_SIGNS.search(text) and re.match(r"en(-|$)", (lang or "en").strip().lower()) and text not in found:
+            found.append(text)
+    return found
+
+
 def check_pages(failures, notes):
     names = find_pages()
     pages = {name: load(name) for name in names}
@@ -513,6 +553,11 @@ def check_pages(failures, notes):
             fail("does not say Tidelight is not a crisis service (SAFETY rule 3)")
         if lang == "en" and not any((link["href"] or "").endswith("#en-espanol") for link in page.links):
             fail("has no link to the Spanish section")
+        for text in unmarked_spanish(page) if lang == "en" else []:
+            fail("has text that looks Spanish, with letters such as ñ or é or words such as \"al 988\", but nothing marks "
+                 "it as Spanish or another language. If it's Spanish, mark it lang=\"es\", so screen readers pronounce "
+                 "it in Spanish and the Spanish review packet shows it. A name or word from another language takes "
+                 f"that language's code, such as lang=\"fr\". It says: \"{text[:80]}\"")
         exits = [link for link in page.links if "quick-exit" in link["classes"]]
         if len(exits) != 1 or scheme_of(exits[0]["href"]) != "https":
             fail("needs exactly one quick exit link to an outside https page (idea B2)")
@@ -817,29 +862,44 @@ def is_approved(records, page, lang):
     return review_state(records, page, lang)[0]
 
 
+_LOOSE_TEXT = {}
+
+
 def missing_sections(names):
-    """Pages the publish step could never ask a reviewer about, with what is missing for each. Spanish lines
-    on an English page, even a few words, need a section in the Spanish packet, whether or not the page has
-    a Spanish twin: only a fluent reader can approve them."""
+    """What the publish step could never ask a reviewer about, each with what to do. Every page needs a section
+    in the review packets. Spanish lines on an English page, even a few words, need one in the Spanish packet,
+    whether or not the page has a Spanish twin: only a fluent reader can approve them. And text that no part of
+    a packet holds, such as a sentence in a div, would reach no reviewer, and no fingerprint would change with it."""
     sys.path.insert(0, str(ROOT / "tools"))
     import make_review_packet
     covered = {(page, lang) for _, page, lang in review_sections()}
+    add = ("so the publish step would never ask for its review. Add it to ENGLISH, SPANISH or SPANISH_ON_ENGLISH "
+           "in tools/make_review_packet.py")
     missing = []
     shared_on = []
     for name in names:
         if (name, language_of(name)) not in covered:
-            missing.append(f"{name} has no section in the review packets")
+            missing.append(f"{name} has no section in the review packets, {add}")
             continue
-        if language_of(name) != "en" or not (ROOT / name).exists():
+        if not (ROOT / name).exists():
+            continue
+        if name not in _LOOSE_TEXT:  # the publish gate's self-test asks many times, and the pages don't change
+            _LOOSE_TEXT[name] = make_review_packet.loose_text(name)
+        for lang, text in _LOOSE_TEXT[name]:
+            missing.append(f"{name} has {'Spanish ' if is_spanish(lang) else ''}text that no review packet shows, so no "
+                           "reviewer would read it and an approval couldn't notice it change. Put it in a paragraph, "
+                           "heading, list item or table cell, or add its tag to BLOCK in tools/make_review_packet.py. "
+                           f"It says: \"{text[:80]}\"")
+        if language_of(name) != "en":
             continue
         own, shared = make_review_packet.spanish_on_english(name)
         if own and (name, "es") not in covered:
-            missing.append(f"{name} has Spanish lines in its own text, but no section for them in the Spanish review packet")
+            missing.append(f"{name} has Spanish lines in its own text, but no section for them in the Spanish review packet, {add}")
         if shared and (SPANISH_ON_EVERY_PAGE, "es") not in covered:
             shared_on.append(name)
     if shared_on:
         missing.append(f"the parts every English page shares have Spanish lines, on {len(shared_on)} page(s) such as "
-                       f"{shared_on[0]}, but no section for them in the Spanish review packet")
+                       f"{shared_on[0]}, but no section for them in the Spanish review packet, {add}")
     return missing
 
 
@@ -856,14 +916,12 @@ def page_twins(pages):
 
 
 def check_review_status(failures, pages, notes=None):
-    """Every page has a review section, the site may not claim a review that isn't recorded, and the
-    About pages must stay complete and truthful."""
+    """Every page, and all its text, has a review section, the site may not claim a review that isn't recorded,
+    and the About pages must stay complete and truthful."""
     notes = [] if notes is None else notes
     sys.path.insert(0, str(ROOT / "tools"))
     import make_review_packet
-    for problem in missing_sections(pages):
-        failures.append(f"{problem}, so the publish step would never ask for its review. Add it to ENGLISH, SPANISH "
-                        "or SPANISH_ON_ENGLISH in tools/make_review_packet.py")
+    failures.extend(missing_sections(pages))
     covered = {(page, lang) for _, page, lang in review_sections()}
     for label, page, lang in review_sections():
         if page.endswith(".html") and page not in pages:

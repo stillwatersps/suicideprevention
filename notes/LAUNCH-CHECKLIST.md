@@ -149,7 +149,8 @@ on the stopped run, or turn Pages off until a publish succeeds.
 Once Pages publishes with GitHub Actions, the publish step runs `python3 tools/launch_gate.py --publish`.
 It stops publishing unless all of these hold:
 
-- Every page has a section in the review packets, and so do the Spanish lines on every English page.
+- Every page has a section in the review packets, and so do the Spanish lines on every English page. All the
+  text a visitor sees is in a numbered part of a packet, not loose in a div.
 - Every line under "Review records" in [[CONTENT-REVIEW]] can be read, and none is dated after today.
 - Every English section's newest line by a licensed clinician approves it, and every Spanish section's newest
   line by a fluent or native Spanish reader approves it. The Spanish sections include the Spanish lines on
