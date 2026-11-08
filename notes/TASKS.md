@@ -72,6 +72,7 @@ Planning tasks below are suggestions; ownership has not been agreed.
 
 - [ ] Check the name Tidelight against existing organizations and trademarks before
   buying a domain or printing cards. Owner: both. The rename is in [[DECISIONS]].
+  An AI assistant's first scan, November 8, 2026, is in [[NAME-CHECK]]. It isn't a trademark search.
 - [ ] Optional: rename the GitHub organization `stillwatersps`. This changes the
   website address, so update `tools/check_live.py`, the 404 page links, and the notes
   in the same change. Owner: the repository owner.
