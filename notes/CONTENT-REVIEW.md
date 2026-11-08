@@ -166,6 +166,11 @@ Wording is proposed. Nothing here is clinical advice.
   Are these better?
 - Should 911 be a tap-to-call link in the pinned strip? Phones ask before calling,
   but an accidental tap is possible, and some people fear a police response.
+- A proposal: on a short screen, such as a phone on its side, or with larger text, the pinned
+  strip shortens to one row: "Call 988 · Text 988 · Call 911" ("Llama al 988 y marca 2 · Envía
+  AYUDA al 988 · Llama al 911"). It drops "Need help now?" and "In immediate danger,", so nothing
+  on screen says when 911 is the right call. Screen readers still hear "Call 911, emergency
+  services". Is that acceptable where space is short? See [[DECISIONS]].
 - The header's "Suicide prevention & support" tagline and "Get Support Now" button
   both come from the supplied design. Both read as if Tidelight provides support, and
   the button doesn't say who does. Claude's suggestion: "Find suicide prevention

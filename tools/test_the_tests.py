@@ -206,6 +206,13 @@ BUGS = [
     ("Quick exit leaving another site's frame on screen", head_script("get-help/index.html", "try{top.location.replace(a.href);}catch(_){location.replace(a.href);}", "location.replace(a.href);"), "quickexit", "get-help", "another site's frame"),
     ("Quick exit leaving the page's title in the tab", head_script("get-help/index.html", "document.title='';", ""), "quickexit", "get-help", "title still names"),
     ("test taps landing on the chat link", chat_under_every_tap, "folds", "get-help", "was stopped"),
+    # The compact one-row strip, on short phones on their side and with larger text.
+    ("the compact crisis strip not pinned on a short phone", append_css("@media (max-height: 18.75em) and (max-width: 43.99em) { .crisis-bar { position: static !important; } }"), "matrix", "get-help", "crisis strip is not pinned"),
+    ("the Spanish compact crisis strip not pinned", replace("assets/styles.css", 'html[lang="es"] .crisis-bar { position: sticky; ', 'html[lang="es"] .crisis-bar { '), "matrix", "es/obtener-ayuda", "crisis strip is not pinned"),
+    ("the compact crisis strip wrapping to two rows", append_css("@media (max-height: 18.75em) and (max-width: 43.99em) { .strip-988 { flex: 1 0 100% !important; } }"), "matrix", "get-help", "must be one row"),
+    ("the compact crisis strip losing its pin at larger text", replace("assets/styles.css", 'html[lang="en"] .crisis-bar { position: sticky; ', 'html[lang="en"] .crisis-bar { '), "textsize", "get-help", "crisis strip is not pinned"),
+    ("a Spanish compact crisis strip too long for one row", replace("assets/styles.css", "    @media (min-width: 34em) {", "    @media (min-width: 19.5em) {"), "textsize", "es/obtener-ayuda", "must be one row"),
+    ("Quick exit floating outside the compact strip", append_css("@media (max-height: 18.75em) and (max-width: 43.99em) { .quick-exit { position: fixed !important; } }"), "quickexit", "get-help", "not inside the pinned strip"),
 ]
 
 # Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.
@@ -261,6 +268,7 @@ if platform.system() == "Darwin" and shutil.which("swiftc"):
         ("the crisis strip unpinned only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { position: static !important; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not pinned"),
         ("the crisis strip see-through only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { opacity: 0.01; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "see-through"),
         ("the crisis strip hidden in WebKit", append_css("body > aside { display: none !important; }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not on screen at the top"),
+        ("the compact crisis strip on two rows only in Safari", append_css("@supports (font: -apple-system-body) { @media (max-height: 18.75em) and (max-width: 43.99em) { .strip-988 { flex: 1 0 100% !important; } } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "must be one row"),
     ]
 
 
