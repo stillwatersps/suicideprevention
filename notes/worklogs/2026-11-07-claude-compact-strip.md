@@ -6,9 +6,10 @@ branch: site/compact-crisis-strip, from build/compact-strip (based on f2e6a70), 
 
 # Compact crisis strip
 
-Date: November 7, 2026. A proposal for both founders, not agreed by either yet. Local commits only,
-not pushed or merged. `site/compact-crisis-strip` is meant to become a draft pull request into
-`site/first-version-finish`, the branch behind draft pull request 10. Merging it there publishes nothing.
+Date: November 7, 2026. A proposal for both founders, not agreed by either yet. **State when written:
+local commits only, not pushed or merged.** `site/compact-crisis-strip` is meant to become a draft pull
+request into `site/first-version-finish`, the branch behind draft pull request 10. Merging it there
+publishes nothing.
 
 ## What changed
 
@@ -96,7 +97,8 @@ text smaller than the default, the compact strip needs as much width as at 100%:
 
 ## Checked
 
-On `build/compact-strip`, before it was combined with 7d05f06. Final results, after the review fixes:
+On `build/compact-strip` at 7f07136, a local branch that isn't on GitHub, before it was combined with
+7d05f06. Final results, after the review fixes:
 
 - `python3 tools/check_site.py`: all checks passed. Its one note says the review packets are out of date.
 - `python3 tools/test_browser.py`, every group: all browser checks passed, in desktop Chrome and its
@@ -104,7 +106,8 @@ On `build/compact-strip`, before it was combined with 7d05f06. Final results, af
 - `python3 tools/test_webkit.py`: 189 checks, 0 problems. Before the review, its first run found 20 at
   the two new sizes: the Spanish width limit, and the short first scroll described above. Both are fixed.
 - `python3 tools/test_the_tests.py --only strip` caught all 33 planted bugs, `--only "Quick exit"` all 14,
-  and `--only "audit losing sight"` its one.
+  and `--only "audit losing sight"` its one. On 7f07136 and later, `--only strip` selects 34, because
+  the audit bug's name says strip too. The full run on the combined branch, below, caught all 138.
 - The reviewer's two broken limits, planted again on the fixed branch: the browser tests now fail both.
 - Screenshots in Chrome at 640x290 and 568x300, light and dark, and in WebKit at those sizes, checked by
   eye before the review. After it, Chrome at 640x180, and with 75% text at 236x200, 312x200, 410x200
@@ -136,8 +139,8 @@ text that no review packet shows, and English-page text that looks Spanish but i
   numbers and words, only fewer of them on short screens. The worker asks the network first, so a
   visitor with a connection gets the new stylesheet without a new version.
 
-Checked on the combined branch, on a Mac, November 7, 2026, at commit 31a7d29. Only this handoff changed
-after that:
+Checked on the combined branch, on a Mac, November 7, 2026, at commit 31a7d29. After that only notes
+changed: this handoff, and two more notes under "After a second review", below. The results:
 
 - `python3 tools/check_site.py`: all checks passed, 19 pages. Before the rebuild, its one note said the
   review packets were out of date. After it, there is no note. `--self-test`: all 5 made-up link answers
@@ -168,14 +171,46 @@ its own. Whichever of the two merges second must:
   height limit, because they depend on the strip's font, padding and Quick exit's size. Keep about 3% to
   spare at the default text size, and allow for WebKit's 17 px scrollbar at 568x300, described below.
 - Run the strip tests again, in `tools/test_browser.py` and `tools/test_webkit.py`, and the planted bugs:
-  `python3 tools/test_the_tests.py --only strip`, `--only "Quick exit"` and `--only "audit losing sight"`.
-  Several planted bugs replace exact lines of the compact block, or use the full strip's limits, such as
-  `(max-height: 18.75em) and (max-width: 43.99em)`. Update them with the stylesheet, or they stop with an
-  error instead of planting their bug.
+  `python3 tools/test_the_tests.py --only strip`, which includes the renamed-class bug, and
+  `--only "Quick exit"`.
+- Update the planted bugs with the stylesheet. They are of two kinds. Those that replace exact lines of
+  the compact block stop the whole run with an error once those lines change. Those that add rules under
+  the full strip's limits, such as `(max-height: 18.75em) and (max-width: 43.99em)` or
+  `(max-height: 15em)`, always apply: if those limits move, they go stale without an error, and the run
+  reports them missed, or caught for an unrelated reason. Check that each is still caught for the right
+  reason.
 
-Read on November 7 at its commit 4422a15, without changing it, pull request 11 doesn't change the strip's
-markup on the pages. Both branches also change `notes/DECISIONS.md`, `tools/test_the_tests.py` and the
-review packets, so rebuild the packets after merging.
+Pull request 11 was read on November 7, without changing it, at its commit 4422a15 and again at fc366a3,
+which merges 7d05f06 into the redesign and was its newest commit when this was written. It doesn't
+change the strip's markup on the pages. Both branches change six of the same pages, Home, About and
+Research in each language, in different places, and also `notes/DECISIONS.md`, `tools/test_the_tests.py`
+and the review packets. A trial merge of fc366a3 with this branch, made without changing either,
+conflicts only in `assets/styles.css` and the five files in `notes/review-packet/`. The six pages,
+`notes/DECISIONS.md` and `tools/test_the_tests.py` merge on their own. Rebuild the packets after merging.
+
+## After a second review
+
+An AI reviewer read the combined branch at 4488478, without changing it. Its findings were all in
+notes, and each was checked before anything changed. Fixed here:
+
+- [[DECISIONS]] and [[FOUNDER-BRIEF]] gave this proposal's branch as `build/compact-strip`, a local
+  branch that isn't on GitHub. Both now name `site/compact-crisis-strip`.
+- In this handoff: the opening line now gives the state when written; the planted-bug results say why
+  `--only strip` selects 34; and the section on pull request 11 names fc366a3, the conflicts a merge
+  would show, and how each kind of planted bug fails when the stylesheet changes.
+
+Left for others:
+
+- [[TASKS]] still says the first-version brief is on `build/first-version-brief` and not merged, though
+  911e7fe merged it into `site/first-version-finish`. The text is the same as on 7d05f06, so the session
+  that updates pull request 10's notes corrects it there.
+- Whether the fluent Spanish reader should also be asked about the compact row's Spanish wording is
+  open, as below. Put the question in the draft pull request's description, for the founders.
+
+Checked afterwards, on a Mac, November 7, 2026: `python3 tools/check_site.py`: all checks passed, 19
+pages, with no note, so the review packets are current. `python3 tools/make_review_packet.py --no-pdf`
+left the packet HTML unchanged, because the packets read none of these notes. No page, stylesheet or
+tool changed, so the browser, WebKit and planted-bug tests weren't run again.
 
 ## Decisions and open questions
 
@@ -212,6 +247,6 @@ review packets, so rebuild the packets after merging.
 
 ## Next step
 
-Open `site/compact-crisis-strip` as a draft pull request into `site/first-version-finish`. Both founders
-decide whether to keep the compact strip. Try it on a real phone on its side with larger text, using
-the new row in [[PHONE-TEST]].
+Open `site/compact-crisis-strip` as a draft pull request into `site/first-version-finish`, with the
+question about the Spanish reader in its description. Both founders decide whether to keep the compact
+strip. Try it on a real phone on its side with larger text, using the new row in [[PHONE-TEST]].

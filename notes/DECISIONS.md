@@ -48,7 +48,7 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
   measures 750 by 292 there, so the 300 px rule had left 988 and 911 off screen after
   scrolling. Found in the iOS Simulator on November 7, 2026. These limits are set in em, so
   they grow with a larger text setting: at 150% text, 16em is 384 px and 18.75em is 450 px.
-  **Proposed on November 7, 2026, on branch `build/compact-strip`, and not agreed by both
+  **Proposed on November 7, 2026, on branch `site/compact-crisis-strip`, and not agreed by both
   founders:** where the full strip would scroll away on a short screen, a compact strip pins
   instead. It is one row, "Call 988 · Text 988 · Call 911", with Quick exit inside. In Spanish
   it reads "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al 911". It leaves out "Need
