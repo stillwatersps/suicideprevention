@@ -10,6 +10,7 @@ status: draft for review
 Draft, November 5, 2026. These are proposed ground rules for a suicide
 prevention website, not approved decisions or a clinical review. A qualified
 suicide prevention professional should review content before people rely on it.
+The resource table was updated on November 7, 2026, for the one-page crisis page.
 
 ## Ground rules for every page we publish
 
@@ -32,21 +33,36 @@ GitHub Pages is on, so anything on `main` can be seen by the public.
 6. **Write for minors too.** Plain language and youth-appropriate resources,
    since the audience includes minors. Ages are still undecided.
 
-## U.S. crisis resources to verify
+## U.S. crisis resources
 
-Check each entry on its official site and fill in the date before it appears in
-the website. These are listed from memory and have **not been verified yet**.
+The one-page crisis page uses only the first three rows. They are copied word for
+word from this note on the branch `site/first-version-finish`, commit `f2e6a70`, and
+match draft pull request 5's copy. "Read on" means an AI assistant read the
+provider's own page in a browser on that date, without calling, texting, chatting,
+or submitting anything. It does not mean a person has confirmed it. A founder should
+read each page and fill in the last column.
 
-| Resource | How to reach it | Official site | Verified on |
-| --- | --- | --- | --- |
-| 988 Suicide & Crisis Lifeline | Call or text 988; online chat | https://988lifeline.org | |
-| Veterans Crisis Line | Dial 988, then press 1; text 838255 | https://www.veteranscrisisline.net | |
-| Crisis Text Line | Text HOME to 741741 | https://www.crisistextline.org | |
-| The Trevor Project (LGBTQ+ young people) | Call 1-866-488-7386; text START to 678-678 | https://www.thetrevorproject.org | |
-| Emergency services | Call 911 | — | |
+The FCC's text-to-911 page refused automated reads on November 6 and 7, 2026 (403),
+so the "Emergency services" row rests on earlier reads. The crisis page only says to
+call 911, not to text it. A person should open the FCC page in a browser and confirm
+its wording.
 
-Record any additional services, such as Spanish-language or deaf and
-hard-of-hearing options, after confirming them on the provider's own site.
+The last three rows were listed from memory on November 5, 2026, and have **not
+been checked in this copy**. The task branches' copy of this note has them, and more,
+as read on the providers' pages. If the two copies disagree, keep the task branches'
+copy, which pull request 5 would bring to `main`.
+
+| Resource | How to reach it | Official page | Read on | Person confirmed |
+| --- | --- | --- | --- | --- |
+| 988 Suicide & Crisis Lifeline | Call or text 988; chat at chat.988lifeline.org. 24/7 | https://988lifeline.org/get-help/ | Nov 6, 2026 | |
+| 988 in Spanish | Call 988, then press 2; text AYUDA to 988; chat at chat.988lifeline.org/?lang=es | https://988lifeline.org/get-help/ | Nov 6, 2026 | |
+| Emergency services | Call 911. Text-to-911 works only in some places; call if you can | https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911 | Nov 6, 2026 | |
+| Veterans Crisis Line | Dial 988, then press 1; text 838255 | https://www.veteranscrisisline.net | Not checked, listed from memory | |
+| Crisis Text Line | Text HOME to 741741 | https://www.crisistextline.org | Not checked, listed from memory | |
+| The Trevor Project (LGBTQ+ young people) | Call 1-866-488-7386; text START to 678-678 | https://www.thetrevorproject.org | Not checked, listed from memory | |
+
+Record any additional services, such as deaf and hard-of-hearing options, after
+confirming them on the provider's own site.
 
 ## Guidance to read before writing content
 

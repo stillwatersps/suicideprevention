@@ -149,17 +149,18 @@ a:focus-visible {
 }
 .action-911:hover { border-color: var(--urgent-hover); background: var(--urgent-hover); }
 
-.hint, .note, .notice { color: var(--muted); font-size: 1rem; }
+.hint, .notice { color: var(--muted); font-size: 1rem; }
 .notice { margin-top: 8px; }
 
-footer {
+/* About this website: in English in the footer, and in Spanish after the Spanish help. */
+footer, .about {
   margin-top: 40px;
   padding-top: 8px;
-  padding-bottom: 40px;
   border-top: 1px solid var(--line);
 }
-footer h2 { margin-top: 16px; font-size: 1.25rem; }
-footer p { font-size: 1rem; }
+footer { padding-bottom: 40px; }
+footer h2, .about h2 { margin-top: 16px; font-size: 1.25rem; }
+footer p, .about p { font-size: 1rem; }
 .more { margin-top: 4px; }
 .more a {
   display: inline-flex;
