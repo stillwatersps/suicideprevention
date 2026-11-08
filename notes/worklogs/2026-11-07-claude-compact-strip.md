@@ -1,13 +1,14 @@
 ---
 type: handoff
 owner: Claude Code, at one founder's request
-branch: build/compact-strip, based on f2e6a70
+branch: site/compact-crisis-strip, from build/compact-strip (based on f2e6a70), combined with 7d05f06
 ---
 
 # Compact crisis strip
 
-Date: November 7, 2026. A proposal for both founders, not agreed by either yet. Local commit only,
-not pushed or merged.
+Date: November 7, 2026. A proposal for both founders, not agreed by either yet. Local commits only,
+not pushed or merged. `site/compact-crisis-strip` is meant to become a draft pull request into
+`site/first-version-finish`, the branch behind draft pull request 10. Merging it there publishes nothing.
 
 ## What changed
 
@@ -95,7 +96,7 @@ text smaller than the default, the compact strip needs as much width as at 100%:
 
 ## Checked
 
-Final results, after the review fixes:
+On `build/compact-strip`, before it was combined with 7d05f06. Final results, after the review fixes:
 
 - `python3 tools/check_site.py`: all checks passed. Its one note says the review packets are out of date.
 - `python3 tools/test_browser.py`, every group: all browser checks passed, in desktop Chrome and its
@@ -109,6 +110,56 @@ Final results, after the review fixes:
   eye before the review. After it, Chrome at 640x180, and with 75% text at 236x200, 312x200, 410x200
   and 544x200.
 - Not tried on a real phone, in the iOS Simulator, or with a screen reader.
+
+## Combined with pull request 10's branch
+
+`site/compact-crisis-strip` is `build/compact-strip` (7f07136) merged with 7d05f06, then the newest
+commit of `site/first-version-finish`, not yet pushed. 7d05f06 brings the
+first-version brief, [[FIRST-VERSION]], and the Spanish review sections, with two new failures in
+`tools/check_site.py`: text that no review packet shows, and English-page text that looks Spanish but
+isn't marked `lang="es"`. See [[worklogs/2026-11-07-claude-spanish-sections|that handoff]].
+
+- **No conflicts.** Git merged `notes/CONTENT-REVIEW.md` and `tools/test_the_tests.py` on its own,
+  because the two sides changed different lines. Both sides are kept: this branch's question about the
+  compact strip, the other side's notes on Spanish review records, and all 138 planted bugs on a Mac,
+  the 124 on 7d05f06 and the 14 this branch added.
+- **The new checks pass with the strip's spans,** with no change. The spans sit inside the strip's two
+  paragraphs, which the packets number, so none of the strip's text is outside them. The English strip
+  has no Spanish, and the Spanish strip is on the Spanish pages, marked `lang="es"`. 7d05f06 changes no
+  page or stylesheet, so the pages here are the same as on `build/compact-strip`.
+- **Review packets rebuilt,** HTML and PDF. Against 7d05f06, the HTML changed in two places only: the
+  compact strip's question for the reviewer, in Part 6 of the therapist's packet, and the packet
+  fingerprint in both packets. No section's fingerprint changed, because the spans change no word of
+  the strip.
+- **Offline copies:** `sw.js` keeps `VERSION = 'tidelight-v7'`. Its rule is to change it when the list
+  of core files changes or a crisis detail is corrected, and neither happened. The strip shows the same
+  numbers and words, only fewer of them on short screens. The worker asks the network first, so a
+  visitor with a connection gets the new stylesheet without a new version.
+
+Checked on the combined branch, on a Mac, November 7, 2026:
+
+- `python3 tools/check_site.py`: all checks passed, 19 pages. Before the rebuild, its one note said the
+  review packets were out of date. After it, there is no note.
+
+## Overlap with draft pull request 11
+
+Draft pull request 11 (`site/signage-redesign`, another session's work, into `site/first-version-finish`)
+rewrites `assets/styles.css` for a new visual design. That's why the compact strip has a pull request of
+its own. Whichever of the two merges second must:
+
+- Carry the compact block, both language copies, onto the other stylesheet.
+- Measure the width floors again, 19.5em and 312 px in English and 34em and 544 px in Spanish, and the
+  height limit, because they depend on the strip's font, padding and Quick exit's size. Keep about 3% to
+  spare at the default text size, and allow for WebKit's 17 px scrollbar at 568x300, described below.
+- Run the strip tests again, in `tools/test_browser.py` and `tools/test_webkit.py`, and the planted bugs:
+  `python3 tools/test_the_tests.py --only strip`, `--only "Quick exit"` and `--only "audit losing sight"`.
+  Several planted bugs replace exact lines of the compact block, or use the full strip's limits, such as
+  `(max-height: 18.75em) and (max-width: 43.99em)`. Update them with the stylesheet, or they stop with an
+  error instead of planting their bug.
+
+Read on November 7 at its commit 4422a15, without changing it, pull request 11 doesn't change the strip's
+markup on the pages. Both branches also change `notes/DECISIONS.md`, `tools/test_the_tests.py` and the
+review packets, so rebuild the packets after merging.
 
 ## Decisions and open questions
 
@@ -134,11 +185,17 @@ Final results, after the review fixes:
   the 75% test cases skip that one rule and measure only the crisis strip's tap targets.
 - At 640x180, where the strip scrolls away, the floating Quick exit covers the right end of the header's
   Get Support Now button until the page scrolls. It did the same before this branch, at that size.
-- The review packets are out of date, because they fingerprint every page and the reviewer questions:
-  rebuild them with `python3 tools/make_review_packet.py` once this branch is combined with others.
-- [[STATUS]] and [[TASKS]] don't mention this branch yet. Add it when the branches are combined.
+- The review packets were rebuilt after combining with 7d05f06, as above. Rebuild them again after any
+  later merge, because they fingerprint every page and the reviewer questions.
+- The Spanish packet shows the full Spanish strip, not the compact row. The compact row uses the same
+  words, fewer of them, with each link's first letter made a capital, such as "Envía AYUDA al 988". Only
+  the therapist's packet asks about the short wording, in Part 6. Whether the fluent Spanish reader
+  should be asked too is open.
+- [[STATUS]] and [[TASKS]] don't mention this branch yet. The session that merges pull request 10's
+  branch records this pull request there.
 
 ## Next step
 
-Both founders decide whether to keep the compact strip. Try it on a real phone on its side with larger
-text, using the new row in [[PHONE-TEST]].
+Open `site/compact-crisis-strip` as a draft pull request into `site/first-version-finish`. Both founders
+decide whether to keep the compact strip. Try it on a real phone on its side with larger text, using
+the new row in [[PHONE-TEST]].
