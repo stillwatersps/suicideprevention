@@ -1,5 +1,13 @@
 # Current status
 
+## If this note is on `main`
+
+Added November 7, 2026. If you are reading this on `main`, the public site is the one-page
+crisis page from the branch `site/minimal-public-preview`: 988, 911, and what the website is, in
+English and Spanish, at every address. The rest of this note predates that page and still
+describes the photo homepage. See
+[[worklogs/2026-11-07-claude-minimal-public-preview|the crisis page handoff]].
+
 Repository state checked: November 5, 2026.
 
 ## Current phase

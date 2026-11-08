@@ -152,6 +152,10 @@ a:focus-visible {
 .hint, .notice { color: var(--muted); font-size: 1rem; }
 .notice { margin-top: 8px; }
 
+/* Printed only, after the English help and after the Spanish help. The About parts print on
+   the second sheet, so these lines say on the first sheet what this website is. */
+.print-note { display: none; }
+
 /* About this website: in English in the footer, and in Spanish after the Spanish help. */
 footer, .about {
   margin-top: 40px;
@@ -178,10 +182,15 @@ footer p, .about p { font-size: 1rem; }
   h1 { font-size: 2.75rem; }
 }
 
-/* Short screens, such as a phone on its side: keep Call 988 on the first screen. */
+/* Short screens, such as a phone on its side: less space at the top, a smaller heading, and
+   buttons that stay 56px tall with larger text unless their words need more. That moves Call 988
+   up, but larger text can still push it below the first screen: at 150% on a small phone on its
+   side, and at some sizes on 404.html, whose notice adds a line or more; at 200%, at most sizes.
+   The handoff, notes/worklogs/2026-11-07-claude-minimal-public-preview.md, has the measurements. */
 @media (max-height: 420px) {
   main { padding-top: 12px; }
   h1 { font-size: 1.875rem; }
+  .action { min-height: 56px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -213,11 +222,18 @@ footer p, .about p { font-size: 1rem; }
   main { padding-top: 0; }
   h1 { font-size: 24pt; }
   .lang-jump { display: none; }
-  .actions { gap: 6pt; }
+  /* On Letter paper in Chrome, sheet 1 holds every call, text, and chat option and both print
+     notes. Tighter spacing makes room for the notes, and 404.html's not-found lines, which mean
+     nothing on paper, don't print. */
+  .print-note { display: block; }
+  .notice { display: none; }
+  h2 { margin-top: 18pt; }
+  h3 { margin-top: 12pt; }
+  .actions { gap: 4pt; margin-top: 8pt; }
   .action, .action-main, .action-911 {
     align-items: flex-start;
     min-height: 0;
-    padding: 6pt 10pt;
+    padding: 4pt 10pt;
     border: 1pt solid #000000;
     background: #FFFFFF;
     color: #000000;
