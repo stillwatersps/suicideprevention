@@ -646,6 +646,7 @@ def check_pages(failures, notes):
     check_review_status(failures, pages, notes)
     check_dates(failures, pages)
     check_crisis_styles(failures, names)
+    check_compact_copies(failures)
     outside = {}
     for name, page in pages.items():
         for link in page.links:
@@ -1492,6 +1493,81 @@ def check_crisis_styles(failures, names):
                                 media = f" (inside {' '.join(around)})" if around else ""
                                 failures.append(f"{sheet}: {selector.strip()}{media} hides crisis controls (SAFETY rule 1), "
                                                 f"for example {node.describe()} on {name}: {why}")
+
+
+def language_copies(css):
+    """Rules written once for each language, by the @media blocks they sit in:
+    {(the blocks around them but the innermost, language): [(innermost block, [(selectors, [declarations])])]}.
+    The selectors are given without their html[lang="..."]."""
+    copies = {}
+    for around, selectors, body in css_rules(css)[0]:
+        parts = [part.strip() for part in split_top(selectors)]
+        for lang in ("en", "es"):
+            mark = f'html[lang="{lang}"] '
+            if around and parts and all(part.startswith(mark) for part in parts):
+                blocks = copies.setdefault((around[:-1], lang), [])
+                if not blocks or blocks[-1][0] != around[-1]:
+                    blocks.append((around[-1], []))
+                said = [re.sub(r"\s+", " ", item.strip()) for item in body.split(";") if item.strip()]
+                blocks[-1][1].append((", ".join(part[len(mark):].strip() for part in parts), said))
+    return copies
+
+
+def rule_differences(selector, english, spanish):
+    """What differs between the English and Spanish declarations of one rule, in words."""
+    def by_name(said):
+        return dict((item.split(":", 1) + [""])[:2] for item in said)
+    en, es = by_name(english), by_name(spanish)
+    found = []
+    for name in dict.fromkeys(list(en) + list(es)):
+        if name not in es:
+            found.append(f"{selector} has {name}:{en[name]} in English only")
+        elif name not in en:
+            found.append(f"{selector} has {name}:{es[name]} in Spanish only")
+        elif en[name].strip() != es[name].strip():
+            found.append(f"{selector} has {name}:{en[name]} in English but {name}:{es[name]} in Spanish")
+    if not found and english != spanish:
+        found.append(f"{selector} lists its declarations in another order, or one twice, in one of them")
+    return found
+
+
+def copy_differences(english, spanish):
+    """What differs between the English and Spanish copies of a block, in words, or []. Their innermost
+    @media blocks, the width limits, may differ only in their numbers."""
+    if len(english) != 1 or len(spanish) != 1:
+        return [f"they are split into {len(english)} block(s) in English and {len(spanish)} in Spanish, where each must be one block"]
+    (en_media, en_rules), (es_media, es_rules) = english[0], spanish[0]
+    found = []
+    if re.sub(r"\d+(\.\d+)?", "N", en_media) != re.sub(r"\d+(\.\d+)?", "N", es_media):
+        found.append(f"their limits differ in more than their numbers: {en_media} in English, {es_media} in Spanish")
+    for index in range(max(len(en_rules), len(es_rules))):
+        en = en_rules[index] if index < len(en_rules) else None
+        es = es_rules[index] if index < len(es_rules) else None
+        if en is None or es is None:
+            only, rule = ("Spanish", es) if en is None else ("English", en)
+            found.append(f"only the {only} copy has {rule[0]} {{ {'; '.join(rule[1])} }}")
+        elif en[0] != es[0]:
+            found.append(f"rule {index + 1} is for {en[0]} in English but for {es[0]} in Spanish")
+        else:
+            found.extend(rule_differences(en[0], en[1], es[1]))
+    return found
+
+
+def check_compact_copies(failures, css=None):
+    """The compact crisis strip is written twice in assets/styles.css, once for each language, because the
+    Spanish row needs more width. Apart from their width limits, the two copies must stay the same."""
+    if css is None:
+        path = ROOT / "assets" / "styles.css"
+        css = path.read_text(encoding="utf-8") if path.exists() else ""
+    copies = language_copies(css)
+    pairs = [context for context, lang in copies if lang == "en" and (context, "es") in copies]
+    if not pairs:
+        failures.append("assets/styles.css: the compact crisis strip's English and Spanish copies weren't found side by side, "
+                        "inside the same @media blocks, so tools/check_site.py can't compare them")
+    for context in pairs:
+        for difference in copy_differences(copies[(context, "en")], copies[(context, "es")]):
+            failures.append(f"assets/styles.css: the compact crisis strip's English and Spanish copies differ: {difference}. "
+                            "Keep them the same apart from their width limits")
 
 
 # Crisis services known to refuse scripts: two answer 403, and findtreatment.gov gives scripts, even

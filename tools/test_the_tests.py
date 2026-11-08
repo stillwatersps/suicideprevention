@@ -247,6 +247,16 @@ BUGS = [
     ("the crisis strip pinned on a screen too short for it", append_css("@media (max-height: 15em) { .crisis-bar { position: sticky !important; } }"), "matrix", "get-help", "where it must scroll away"),
     ("Quick exit scrolling away with the crisis strip", append_css("@media (max-height: 15em) { .quick-exit { position: static !important; } }"), "matrix", "get-help", "Quick exit scrolls away"),
     ("the audit losing sight of the compact strip after a class is renamed", strip_lead_renamed, "matrix", "get-help", "the audit can't tell"),
+    # The floors in px of the full strip's own limits, which keep smaller text from pinning it over more of
+    # the screen than at 100%. Each is removed alone, and only the text size tests below 100% can tell.
+    ("the full crisis strip's width floor in px removed", replace("assets/styles.css", "@media (max-width: 16em), (max-width: 256px) {", "@media (max-width: 16em) {"), "textsize", "get-help", "as at 100% text"),
+    ("the full crisis strip's height floor in px removed", replace("assets/styles.css", "       (max-height: 300px) and (max-width: 703.84px), (max-height: 240px) {", "       (max-height: 240px) {"), "textsize", "es/obtener-ayuda", "as at 100% text"),
+    ("the full crisis strip's height floor in px for wide screens removed", replace("assets/styles.css", "(max-height: 300px) and (max-width: 703.84px), (max-height: 240px) {", "(max-height: 300px) and (max-width: 703.84px) {"), "textsize", "get-help", "as at 100% text"),
+    ("Quick exit's floors in px removed, so it scrolls away with the crisis strip", replace("assets/styles.css", "  @media (min-width: 256.16px) and (min-height: 300.16px), (min-width: 704px) and (min-height: 240.16px) {", "  @media all {"), "textsize", "get-help", "Quick exit scrolls away"),
+    ("the compact crisis strip's floors in px removed from its outer limits", replace("assets/styles.css", ",\n       (max-width: 959px) and (max-width: 703.84px) and (max-height: 300px), (max-width: 959px) and (max-height: 240px) {", " {"), "textsize", "get-help", "where it stays pinned at 100% text"),
+    ("the crisis strip's extra words shown with smaller text", replace("assets/styles.css", "@media (max-width: 30em), (max-height: 30em), (max-width: 480px), (max-height: 480px) {", "@media (max-width: 30em), (max-height: 30em) {"), "textsize", "es/obtener-ayuda", "as at 100% text"),
+    ("the crisis strip's wider row gap with smaller text", replace("assets/styles.css", "@media (max-width: 959px) and (min-height: 30.01em) and (min-height: 480.16px) {", "@media (max-width: 959px) and (min-height: 30.01em) {"), "textsize", "get-help", "as at 100% text"),
+    ("jump links stopping low where the crisis strip scrolls away", replace("assets/styles.css", "@media (max-width: 22.4em) and (min-height: 18.76em) and (min-height: 300.16px) {", "@media (max-width: 22.4em) and (min-height: 18.76em) {"), "jumps", "get-help", "lower half of the screen"),
 ]
 
 # Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.
@@ -300,6 +310,8 @@ COMMAND_BUGS = [
     ("the crisis strip moved off the screen in the stylesheet", append_css(".crisis-bar { position: relative; left: -9999px; }"), ["tools/check_site.py"], "hides crisis controls"),
     ("the crisis strip clipped away in the stylesheet", append_css(".crisis-bar { clip-path: inset(50%); }"), ["tools/check_site.py"], "hides crisis controls"),
     ("the crisis strip inside a hidden box", strip_in_hidden_box, ["tools/check_site.py"], "crisis controls are hidden"),
+    # The compact strip is written once for each language. A change to one copy only must be caught.
+    ("the Spanish copy of the compact crisis strip changed alone", replace("assets/styles.css", 'html[lang="es"] .strip-or { display: inline-block; width: .25rem;', 'html[lang="es"] .strip-or { display: inline-block; width: .5rem;'), ["tools/check_site.py"], "English and Spanish copies differ"),
     ("an upper-case text link with a wrong number, in the site check", replace("get-help/index.html", 'href="sms:838255"', 'href="SMS:838256"'), ["tools/check_site.py"], "not a number recorded"),
     ("a link above the site's root", replace("index.html", 'href="get-help/"', 'href="../get-help/"'), ["tools/check_site.py"], "broken link"),
     ("a wrong number printed on the wallet card", replace("card/index.html", "call 1-866-488-7386", "call 1-866-488-7368"), ["tools/check_site.py"], "printed card or poster"),
@@ -320,6 +332,8 @@ if platform.system() == "Darwin" and shutil.which("swiftc"):
         ("the crisis strip see-through only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { opacity: 0.01; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "see-through"),
         ("the crisis strip hidden in WebKit", append_css("body > aside { display: none !important; }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not on screen at the top"),
         ("the compact crisis strip on two rows only in Safari", append_css("@supports (font: -apple-system-body) { @media (max-height: 18.75em) and (max-width: 43.99em) { .strip-988 { flex: 1 0 100% !important; } } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "must be one row"),
+        # The WebKit audit skips the text of closed folds, which WebKit gives boxes to. Real text must still count.
+        ("a floating Quick exit over the page's last line only in Safari", append_css("@supports (font: -apple-system-body) { body { padding-bottom: 0 !important; } .quick-exit { left: 8px !important; right: auto !important; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "Quick exit covers something"),
     ]
 
 

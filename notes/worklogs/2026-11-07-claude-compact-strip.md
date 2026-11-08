@@ -179,6 +179,11 @@ its own. Whichever of the two merges second must:
   `(max-height: 15em)`, always apply: if those limits move, they go stale without an error, and the run
   reports them missed, or caught for an unrelated reason. Check that each is still caught for the right
   reason.
+- Added November 8: carry the floors in px of the full strip's limits too, from "Floors in px" in
+  `assets/styles.css`, and those of the rules that follow them. Each floor is its limit in em times 16,
+  so if the other stylesheet moves a limit, move its floor with it. The ten planted bugs added that day
+  replace exact lines, so they stop the run with an error if those lines change, and
+  `python3 tools/check_site.py` fails if the compact block's two copies differ.
 
 Pull request 11 was read on November 7, without changing it, at its commit 4422a15 and again at fc366a3,
 which merges 7d05f06 into the redesign and was its newest commit when this was written. It doesn't
@@ -230,6 +235,123 @@ fixed here:
   gets the compact row. It now says "on a short screen, such as a phone on its side, including with
   larger text". The review packets were rebuilt, because the therapist's packet shows that question.
 
+## November 8: floors for the full strip, and a check that the two copies match
+
+Date: November 8, 2026. Still a proposal for both founders, not agreed by either. **State when written:
+local commits on `site/compact-crisis-strip` after dda20fe, not pushed, so draft pull request 13 doesn't
+show them yet.**
+
+### What changed
+
+- **Floors in px for the full strip's own limits.** They were set in em only, so with text smaller than
+  the default they shrank too, and the full strip pinned on screens too small for it: at 232 by 240 with
+  75% text, on two rows taking 47% of the height in English, and on three rows taking 65% in Spanish.
+  Each limit now also has a floor in px, its value at the default 16px text. So with smaller text, as at
+  the default size, the full strip stops pinning at 256 px wide or less, at 300 px tall or less up to
+  703.84 px wide, and at 240 px tall or less, and the compact strip pins instead where it fits. Two
+  limits that add to the strip's height have floors too: its extra words, such as "any time", stay
+  hidden on screens up to 480 px wide or up to 480 px tall, and its 6 px gap between rows needs
+  480.16 px of height. The rules that follow where the strip pins have the same floors: Quick exit
+  riding inside the strip, the compact strip's outer limits, and the taller jump padding under 360 px
+  wide. See "Floors in px" in `assets/styles.css`. At the default text size and larger the em limits
+  are the larger, so the floors change nothing there.
+- **A check that the compact block's two copies match.** `tools/check_site.py` already reads the
+  stylesheet, so the check is there. It finds the rules written once for `html[lang="en"]` and once for
+  `html[lang="es"]` inside the same @media blocks, and compares them rule by rule. Only the width limits
+  around each copy may differ, and only in their numbers. Its message says what differs, for example
+  ".strip-or has width: .25rem in English but width: .5rem in Spanish".
+- **Tests.** `tools/test_browser.py` adds six sizes with 75% text, 232x240, 250x350, 400x290, 750x185,
+  750x370 and 320x390, each past one of the floors. A size with text below 100% is now also measured at
+  100%, and compared with it: with smaller text the strip must stay pinned wherever it is pinned at
+  100%, and a pinned strip may take more than 25% of the height only where it already does at 100%.
+  The jump link test adds 260x250 with 75% text, and a rule that a jump leaves its target in the top
+  half of the screen. `tools/test_webkit.py` tries the same six sizes at the default text size.
+  `tools/test_the_tests.py` adds ten planted bugs: eight that each remove one floor, or one rule's
+  floors, the Spanish copy of the compact block changed alone, and one for WebKit, below.
+- **An audit fix for WebKit.** At the six new sizes, WebKit at first reported 32 places where a floating
+  Quick exit covered text at a page's end, the same on dda20fe. All were inside closed "Show sources"
+  folds: macOS WebKit gives a closed fold's text boxes, though nothing is drawn there. The audit's other
+  checks already skipped folded text, and now this one does too. The Chrome tests open every fold before
+  the audit, so they are unchanged. The new WebKit planted bug, a floating Quick exit over a page's last
+  line, shows that real text still counts.
+- **Not changed:** no page, wording, crisis number, reviewer question or phone step, so the review
+  packets, [[CONTENT-REVIEW]] and [[PHONE-TEST]] stay as they were. The packets read neither the
+  stylesheet nor the tools. `sw.js` keeps its version, because its list of core files and the crisis
+  details are the same.
+
+### Measured
+
+Desktop Chrome's phone-size emulation, with the text size set the way `tools/test_browser.py` sets it,
+on the home page in each language, at 12, 13, 14, 15, 16, 18, 20, 24 and 32 px text. At each text size:
+every width from 180 to 1024 px and height from 150 to 1000 px within 1 px of a limit of the strip,
+Quick exit or the compact block, both at that text size and at the limit's value at 16 px, and some
+common screen sizes. That is 76,394 cases, measured on dda20fe and after. Each records whether the
+strip pins, which strip, its rows and share of the height, where Quick exit is, and the jump padding,
+row gap and extra words. Measuring by resizing one loaded page agreed with reloading the page for each
+case, on a sample of 2,000 cases, before and after. At 32 px, 424 cases 255 to 257 px wide couldn't be
+measured at their own size, because the page is wider than the screen there and the emulated phone
+zooms out. They are the same before and after.
+
+- 13,512 cases changed, all at 12 to 15 px. None changed at 16 px or more, and none of another 32,976
+  sizes measured at 16 px alone.
+- Below 16 px the strip now pins, full or compact, exactly where it does at 16 px, in every case.
+- A pinned strip taking more than 25% of the height where 16 px takes 25% or less: 6,633 cases at 12 to
+  15 px before, none after.
+- Unchanged, as asked: at 18 to 32 px, 1,116 cases take more than 25% where 16 px takes 25% or less,
+  the same before and after. Larger text makes the strip's rows taller and its words longer, so just
+  past its limits it can take more rows than at 16 px: at 20 px, 704 by 376 takes two rows and 27% in
+  English, where 16 px takes one row and 13%, and 375 by 389 takes three rows and 44% in Spanish, where
+  16 px takes two rows and 25%.
+
+Every changed case, by kind. Counts are English / Spanish.
+
+| Change | 12 px | 13 px | 14 px | 15 px | Widths | Heights | Share before | Share after |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Full strip pinned, now the compact strip | 1032 / 444 | 899 / 515 | 903 / 463 | 589 / 265 | 312-959 | 192-300 | 16-47.92% | 16-25% |
+| Full strip pinned over 25%, now scrolls away | 439 / 1042 | 189 / 610 | 158 / 632 | 138 / 502 | 193-959 | 181-668 | 25.06-75.94% | 0% |
+| Full strip pinned at 25% or less, now scrolls away | 91 / 76 | 87 / 50 | 52 / 18 | 52 / 12 | 193-543 | 192-845 | 11.6-25% | 0% |
+| Full strip still pinned, without the extra words or the wider gap | 767 / 767 | 402 / 402 | 434 / 434 | 352 / 352 | 257-959 | 361-845 | 10-40.24% | 10-39.8% |
+| Scrolls away before and after, with only the jump padding, extra words or row gap changed | 60 / 60 | 40 / 40 | 38 / 38 | 34 / 34 | 191-961 | 226-480 | 0% | 0% |
+
+A pinned strip that still takes more than 25% after the change does so at 16 px too, at that size.
+
+Some of the cases, with 75% text (12 px):
+
+| Size | English, before → after | Spanish, before → after | At 100% text |
+| --- | --- | --- | --- |
+| 232x240 | two rows, 46.59% → scrolls away | three rows, 64.92% → scrolls away | scrolls away |
+| 250x350 | two rows, 27.43% → scrolls away | two rows, 31.95% → scrolls away | scrolls away |
+| 400x290 | two rows, 33.1% → compact, 16.55% | two rows, 33.1% → scrolls away | English compact, Spanish scrolls away |
+| 750x185 | one row, 25.95% → scrolls away | the same | scrolls away |
+| 750x370 | one row, 12.97%, unchanged | two rows, 26.49% → one row, 12.97% | one row, 12.97% |
+| 320x390 | two rows, 25.13% → 24.62% | two rows, 25.13% → 24.62% | English 24.62%, Spanish 30.02% |
+| 250x844 | two rows, 11.61% → scrolls away | two rows, 13.48% → scrolls away | scrolls away |
+| 543x290 | one row, 16.55% → compact, 16.55% | one row, 16.55% → scrolls away | English compact, Spanish scrolls away |
+| 640x290, 568x300 | one row → compact, 16.55% and 16% | the same | compact |
+| 750x292, 844x390 | one row, 16.44% and 12.31%, unchanged | the same | the same |
+
+In macOS WebKit at the default text size, the six new sizes behave as in Chrome: the strip scrolls away
+at 232x240, 250x350 and 750x185, and at 400x290 in Spanish; the English compact strip pins at 400x290;
+the full strip pins at 320x390 and 750x370. At 320x390 the Spanish strip takes three rows, 41.3%, as
+WebKit's 17 px scrollbar leaves 303 px for the page.
+
+### Checked
+
+On a Mac, November 8, 2026, on the changed files before they were committed:
+
+- `python3 tools/check_site.py`: all checks passed, 19 pages, with no note, so the review packets are
+  current. The new check failed, naming the difference, on seven made-up edits of the stylesheet: a
+  value, a declaration, a rule or a selector changed in one copy only, declarations reordered, a
+  width limit turned into a height limit, and no Spanish copy. It passed on a changed width limit.
+- `python3 tools/test_browser.py --only textsize`: 608 checks passed, in 54 seconds. `--only jumps`:
+  676 checks passed. On dda20fe's stylesheet the same tests fail at every new size.
+- `python3 tools/test_webkit.py`: 303 checks in macOS WebKit, 0 problems.
+- `python3 tools/test_the_tests.py`: `--only floor` caught all 7, the five new floor bugs and the
+  compact strip's two width floors; `--only "smaller text"` both; `--only "jump links stopping low"`,
+  `--only "copy of the compact"` and `--only "last line only in Safari"` one each. Each new bug was
+  also run alone, to see that the size and rule meant for it catch it.
+- Not tried on a real phone, in the iOS Simulator, or with a screen reader.
+
 ## Decisions and open questions
 
 - A proposal only. A qualified reviewer should weigh the short wording, which drops "Need help now?"
@@ -239,8 +361,10 @@ fixed here:
   compact strip in both languages; at 150%, about 500 by 195, English only. Not tried on a real phone.
 - On this Mac, WebKit draws a 17 px scrollbar and measures media queries without it, so 568x300 acts
   like 551 px wide there. The Spanish limit was set to fit that too.
-- The two language blocks in the stylesheet must stay alike apart from their width. No check compares
-  them yet.
+- The two language blocks in the stylesheet must stay alike apart from their width. Since November 8,
+  `tools/check_site.py` compares them. It compares only rules written for both languages inside the
+  same @media blocks: a Spanish-only rule elsewhere, such as the Spanish jump padding, isn't compared,
+  and a copy split into two blocks fails the check.
 - The floors in px give up some sizes where the row would fit with smaller text, such as English 240 to
   311 px wide with 75% text. The strip scrolls away there, as it did before this branch. One floor per
   language is simpler than a rule for each text size.
@@ -248,7 +372,25 @@ fixed here:
   than the default, the full strip's own limits, set in em only, shrink too. With 75% text, on short
   screens the full strip can pin over a quarter of the screen: at 232 by 240, 47% on two rows in
   English and 65% on three rows in Spanish. f2e6a70 measures the same. Floors in px for those limits
-  would be a separate change.
+  would be a separate change. They were added on November 8, above.
+- The November 8 floors give up 438 of the measured cases where smaller text pinned the full strip at a
+  quarter of the height or less: screens 256 px wide or less and 389 px tall or more, such as 250 by
+  844 with 75% text, and Spanish pages 536 to 543 px wide and 192 to 300 px tall with 75% text, just
+  too narrow for the Spanish compact row. The strip scrolls away there, as it does at the default size.
+  A floor per limit is simpler than a rule for each text size.
+- Left without a floor on November 8: the height limit of the two-row rule for taller screens. At 15 px
+  text, 704 to 711 px wide and 451 to 480 px tall, the strip takes two rows, 20% to 21% of the height,
+  where 16 px takes one. It stays under a quarter, and the second row keeps Call 911 apart.
+- Found on November 8 and not changed, because it was so before: jump links can stop behind the pinned
+  strip with smaller text, because the jump padding is set in rem and shrinks while the strip's 44 px
+  rows don't. At 12 px, 1,101 of the 3,195 pinned English cases measured, such as 269 by 301, where the
+  padding is 84 px and the two rows 96 px. At the default text size it happens on Spanish pages 481 and
+  482 px wide, 481 px tall or more: the padding is 136 px and the strip 142 px, on three rows. The
+  jump link test doesn't try those sizes. A floor for the padding would be a separate change.
+- Larger text, unchanged as asked: just past the strip's limits, 18 to 32 px text can pin it on more
+  rows than 16 px, over a quarter of the height where 16 px takes less, in 1,116 measured cases. See
+  "Measured" in the November 8 section. Whether larger text should still pin the strip there is part of
+  the open question in [[DECISIONS]].
 - Also found and not changed: with 75% text, Home's closing "Call" link is 21 px wide, and the "FAQ"
   source link on Get Help and the teen page, in both languages, is 23 px. The audit's floor is 24 px, so
   the 75% test cases skip that one rule and measure only the crisis strip's tap targets.
@@ -268,3 +410,6 @@ fixed here:
 Open `site/compact-crisis-strip` as a draft pull request into `site/first-version-finish`, with the
 question about the Spanish reader in its description. Both founders decide whether to keep the compact
 strip. Try it on a real phone on its side with larger text, using the new row in [[PHONE-TEST]].
+
+November 8: the branch is draft pull request 13, which shows it up to dda20fe. Push the November 8
+commits so it shows them too. This session didn't push.

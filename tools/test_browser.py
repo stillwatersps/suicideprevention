@@ -92,6 +92,17 @@ TEXT_SIZES = [
     # width limits would be without their floors in px. Part of the row doesn't shrink with the text.
     ("short screen 236x200", 236, 200, True, (75,)),
     ("short screen 410x200", 410, 200, True, (75,)),
+    # Smaller text where, without the floors in px of the strip's own limits, the full strip would take
+    # more than a quarter of the screen's height, where at 100% it takes less or scrolls away: past its
+    # width limit (250x350), its height limit (400x290), its height limit on a wide screen (750x185),
+    # both (232x240), and with its extra words (750x370, in Spanish) or its wider row gap (320x390).
+    # Every size with text below 100% is also measured at 100%, for the comparison in test_textsize.
+    ("short screen 232x240", 232, 240, True, (75,)),
+    ("short screen 250x350", 250, 350, True, (75,)),
+    ("short screen 400x290", 400, 290, True, (75,)),
+    ("short screen 750x185", 750, 185, True, (75,)),
+    ("short screen 750x370", 750, 370, True, (75,)),
+    ("short screen 320x390", 320, 390, True, (75,)),
     # Larger text on a desktop width must get a header that fits, not one that runs off the screen.
     ("tablet landscape 1024x768", 1024, 768, True, (150, 200)),
     ("laptop 1280x800", 1280, 800, False, (150, 200)),
@@ -423,6 +434,9 @@ AUDIT_JS = r"""
     var er = exit.getBoundingClientRect();
     Array.prototype.slice.call(document.querySelectorAll('main *, footer *')).forEach(function (el) {
       if (el.closest('svg') || hiddenOnPurpose(el) || !shown(el)) return;
+      // Folded away, whatever boxes a browser reports: macOS WebKit gives a closed fold's text boxes where it
+      // would be, though nothing is drawn there. The Chrome tests open every fold before this audit.
+      if (el.closest('details:not([open])') && !el.closest('summary')) return;
       var hasOwnText = Array.prototype.some.call(el.childNodes, function (n) { return n.nodeType === 3 && n.nodeValue.trim(); });
       if (!hasOwnText && !el.matches('a, button, summary')) return;
       var range = document.createRange();
@@ -791,12 +805,30 @@ def test_matrix(browser, site, pages, report, screens=None):
     tab.close()
 
 
+def smaller_text_problems(result, default, percent):
+    """With text smaller than the default, the crisis strip stays pinned wherever it is pinned at 100%,
+    and a pinned strip takes ONE_ROW_MAX_PERCENT of the screen's height or less, unless it already takes
+    more at 100%. "default" is the audit of the same page and size at 100%. The strip's limits have
+    floors in px for this: see "Floors in px" in assets/styles.css."""
+    problems = []
+    before = default["pinnedShare"] if default.get("pinned") else 0
+    if default.get("pinned") and not result.get("pinned"):
+        problems.append(f"with text at {percent}%, the crisis strip scrolls away, where it stays pinned at 100% text")
+    share = result.get("pinnedShare", 0)
+    if result.get("pinned") and share > ONE_ROW_MAX_PERCENT and before <= ONE_ROW_MAX_PERCENT:
+        problems.append(f"with text at {percent}%, the pinned crisis strip takes {share:g}% of the screen's height, where it must take "
+                        f"{ONE_ROW_MAX_PERCENT}% or less, as at 100% text ({before:g}%)")
+    return problems
+
+
 def test_textsize(browser, site, pages, report):
-    """Changes the browser's default font size, as a person's text size setting does."""
+    """Changes the browser's default font size, as a person's text size setting does. A size with text
+    below 100% is measured at 100% first, and compared with it: see smaller_text_problems."""
     tab = new_tab(browser)
     for label, width, height, phone, percents in TEXT_SIZES:
         tab.resize(width, height, phone)
-        for percent in percents:
+        at_default = {}
+        for percent in ([100] if min(percents) < 100 and 100 not in percents else []) + sorted(percents, key=lambda p: p != 100):
             tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16 * percent // 100, "fixed": 13 * percent // 100}})
             where = f"{label}, text at {percent}%"
             for page in pages:
@@ -809,6 +841,11 @@ def test_textsize(browser, site, pages, report):
                 # words smaller, by the reader's own choice, such as Home's "Call" at 21px wide at 75%,
                 # so there only the crisis strip's tap targets are measured.
                 apply_audit(result, "textsize", page, where, report, False, one_row=label in ONE_ROW, targets=percent >= 100)
+                if percent == 100:
+                    at_default[page] = result
+                elif percent < 100:
+                    for problem in smaller_text_problems(result, at_default[page], percent):
+                        report.fail("textsize", page, problem, where)
                 if ("es" if page.startswith("es/") else "en") in MUST_PIN_TEXT.get((label, percent), ()):
                     if not result["pinned"]:
                         report.fail("textsize", page, "the crisis strip is not pinned", where)
@@ -974,11 +1011,16 @@ def test_menu(browser, site, pages, report):
 
 
 def test_jumps(browser, site, pages, report):
-    """Every jump link lands on visible text, not behind the pinned strip."""
+    """Every jump link lands on visible text, not behind the pinned strip, and in the top half of the screen."""
     tab = new_tab(browser)
     tab.media(reduced=True)
-    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("narrow phone 300x568", 300, 568, True), ("phone landscape 844x390", 844, 390, True), ("desktop 1440x900", 1440, 900, False)):
+    # The last is a short, narrow screen with smaller text, where the strip scrolls away, so jump links must
+    # stop as high as on any screen with nothing pinned. Its rule for that has a floor in px, like the strip's.
+    for label, width, height, phone, percent in (("phone 390x844", 390, 844, True, 100), ("narrow phone 300x568", 300, 568, True, 100),
+                                                 ("phone landscape 844x390", 844, 390, True, 100), ("desktop 1440x900", 1440, 900, False, 100),
+                                                 ("short screen 260x250, text at 75%", 260, 250, True, 75)):
         tab.resize(width, height, phone)
+        tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16 * percent // 100, "fixed": 13 * percent // 100}})
         for page in pages:
             tab.goto(site.url(page))
             hashes = tab.js("""Array.from(new Set(Array.prototype.map.call(document.querySelectorAll('a[href^="#"]'),
@@ -1006,9 +1048,12 @@ def test_jumps(browser, site, pages, report):
                     report.fail("jumps", page, f"{fragment} lands behind the pinned area (top {result['top']}, pinned to {result['pinned']})", label)
                 elif result["top"] > result["vh"] and not result["atEnd"]:
                     report.fail("jumps", page, f"{fragment} leaves its target below the screen", label)
+                elif result["top"] > result["vh"] / 2 and not result["atEnd"]:
+                    report.fail("jumps", page, f"{fragment} leaves its target in the lower half of the screen (top {result['top']} of {result['vh']})", label)
                 else:
                     report.ok("jumps")
             report_after_use(tab, "jumps", page, site, report, label)
+    tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16, "fixed": 13}})
     # A garbled address must not stop the page's script, which also sets up offline support.
     tab.resize(390, 844, True)
     tab.goto(site.url("get-help/index.html") + "#%E0%A4%A")
