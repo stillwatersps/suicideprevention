@@ -14,11 +14,14 @@ the draft, privacy, and AI notes, so a Spanish reader wasn't told the page is un
 `main`'s `notes/SAFETY.md`, published with the page, still said its crisis numbers were listed
 from memory. Both are fixed below. An AI review is not human review.
 
-A second independent review then left four low-severity points, fixed that evening and listed
-under "Second review" below. It was not a qualified person's review of the wording.
+That review also left five low-severity points. For one, the checks now require every draft
+sentence in both languages. The other four were fixed that evening and are listed under "The first
+review's other points" below. Earlier commit messages call these the second review.
 
-A third independent AI review left six more points, two of them marked to fix, none above low
-severity. Each was reproduced first. All six are fixed, as listed under "Third review" below.
+A second independent AI review left six more points, two of them marked to fix, none above low
+severity. Each was reproduced first. All six are fixed, as listed under "Second review" below.
+Earlier commit messages call it the third review. Neither review was a qualified person's review
+of the wording.
 
 ## What it is
 
@@ -117,7 +120,7 @@ the two copies disagree, pull request 5's `SAFETY.md` supersedes this one.
   four more conflicts. If this branch merges first, the section at the top of `notes/STATUS.md`
   points them out until pull request 5 replaces them.
 
-## Second review
+## The first review's other points
 
 Four low-severity points, each fixed here:
 
@@ -142,7 +145,7 @@ Four low-severity points, each fixed here:
 4. **The first phone test came only after merging.** "Try it on a phone before merging" below
    gives a way to try the pages on a phone first.
 
-## Third review
+## Second review
 
 Six points, two of them marked to fix. Each was reproduced before anything changed:
 
@@ -163,9 +166,9 @@ Six points, two of them marked to fix. Each was reproduced before anything chang
    fluent reader has checked it. Every sentence added is one the About parts already use. Room
    left on sheet 1 went from about 61 to 37px on Letter, and from 127 to 79px on A4, for `/` and
    for a missing address alike.
-4. **The 56px gain was tied to Safari on an iPhone.** Point 1 of the second review and "Where
-   Call 988 sits" below now say the gain needs Chrome's text-size setting, and that with page
-   zoom the rule changes nothing, with the emulated numbers.
+4. **The 56px gain was tied to Safari on an iPhone.** Point 1 of the first review's other
+   points and "Where Call 988 sits" below now say the gain needs Chrome's text-size setting, and
+   that with page zoom the rule changes nothing, with the emulated numbers.
 5. **Other notes still describe the photo homepage.** After a merge, `notes/PROJECT.md`,
    `notes/00 START HERE.md`, `notes/DESIGN.md`, and `README.md` would too. The section at the top
    of `notes/STATUS.md` now names them. They aren't changed, as Files above says.
@@ -262,7 +265,7 @@ Checked only in headless desktop Chrome on this Mac, with `--bind 127.0.0.1` in 
 addresses and `404.html` loaded styled, with all six call and text links, no console errors or
 failed requests, and nothing from another site, and the icon was served. A missing address got
 Python's own 404 page. `.git` and `notes` answered 404, and the top folder listed only
-`suicideprevention/`. After the third review, step 1 and step 5 ran again as written above, in
+`suicideprevention/`. After the second review, step 1 and step 5 ran again as written above, in
 zsh, with the same results, and step 5 removed the folder. With `PREVIEW` unset, the guarded
 line started no server, in zsh or bash. Not done: serving to the network, or any phone.
 
@@ -270,8 +273,8 @@ line started no server, in zsh or bash. Not done: serving to the network, or any
 
 `main` has no test tools, so the checks ran from scripts written for this task, not committed.
 They read call and text links but never tapped, clicked, or followed one, and the browsers could
-reach nothing but this computer. All of them ran again after the second review's fixes, and
-again after the third's.
+reach nothing but this computer. All of them ran again after the fixes for the first review's other
+points, and again after the second review's.
 
 - Static checks on all five pages: strict HTML parse, head tags, no scripts or inline styles,
   relative links, labels that show their numbers, Spanish marked `lang="es"`, no project name,
@@ -280,13 +283,15 @@ again after the third's.
   `lang="es"`; the same links in both parts; the not-found line on `404.html` only, in both
   languages; the Spanish GitHub link marked as a page in English; every class styled and every
   style used; and the three rows in `notes/SAFETY.md` word for word as on
-  `site/first-version-finish`. After the second, also: one print-only line in each language, in
-  its place and in the About parts' words, hidden on screen and shown in print. After the third,
-  the print-only lines' new words, and that the About parts still carry each AI sentence apart
-  from those lines. 0 problems. 55 of 55 planted faults caught, each by the check meant for it.
-  `aba3b4b`, the commit before the third review's fixes, fails the updated checks 10 times.
-  (`bcc26d3`, before the second review's fixes, failed the checks of that time 12 times, and the
-  commit before the first review's fixes failed the checks of its time 76 times.)
+  `site/first-version-finish`. After the first review's other points, also: one print-only line
+  in each language, in its place and in the About parts' words, hidden on screen and shown in
+  print. After the second review, the print-only lines' new words, and that the About parts
+  still carry each AI sentence apart from those lines. 0 problems. 55 of 55 planted faults
+  caught, each by the check meant for it.
+  `aba3b4b`, the commit before the second review's fixes, fails the updated checks 10 times.
+  (`bcc26d3`, before the fixes for the first review's other points, failed the checks of that
+  time 12 times, and the commit before the first review's fixes failed the checks of its time 76
+  times.)
 - Desktop Chrome 157, headless, with phone sizes emulated and the site served under
   `/suicideprevention/` as GitHub Pages does: 70 page loads, the 4 addresses and 3 missing
   ones at 320x568, 390x844, 750x292, 844x390, and 1440x900, light and dark. Each had the right
@@ -304,14 +309,14 @@ again after the third's.
   missing address, light and dark: black on white on two sheets. Read back from each PDF, sheet 1
   has all eight call, text, and chat options and both print-only lines, with their AI sentences,
   sheet 2 has both About parts with GitHub's address, and no not-found line prints. After the
-  third review, also on A4, and with Chrome's own header and footer, light and dark, for both:
+  second review, also on A4, and with Chrome's own header and footer, light and dark, for both:
   two sheets each time, with all of that on sheet 1. Room left on sheet 1: about 37px on Letter
   and 79px on A4. Other browsers' margins and headers differ, and weren't tried.
 - WebKit on this Mac, in a WKWebView window: 50 page audits at the same sizes, light and dark,
   with the English and Spanish sentences, the not-found lines, and the hidden print-only lines
   checked too: 0 problems. This is not iOS Safari and not a phone.
 - The phone steps: headless desktop Chrome only, as described above.
-- After the third review, the table above was measured again with the same 42 results, and the
+- After the second review, the table above was measured again with the same 42 results, and the
   short-screen buttons measured 56px at 100%, 63px at 150%, and 75px at 200% on all five screens
   on their side, against 56, 84, and 112px at `bcc26d3`.
 
