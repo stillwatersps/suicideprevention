@@ -34,8 +34,6 @@ Planning tasks below are suggestions; ownership has not been agreed.
   founders' agreement.
 - [ ] Confirm both people can download the project, open this vault, and open the
   project in Claude Code. Owner: both. Branch: not needed.
-- [ ] Write a one-page first-version description and main user journey.
-  Owner: unassigned. Branch: to choose.
 - [ ] Agree on supported ages and whether the prototype needs saved data.
   Owner: both. Branch: to choose.
 - [ ] Choose website tools after agreeing on first-version scope.
@@ -53,7 +51,7 @@ Planning tasks below are suggestions; ownership has not been agreed.
   on `main` (A2), switch Pages to publish with GitHub Actions just before merging
   pull request 5 (A3), and turn off Issues and the Wiki (A4). Owner: the repository
   owner. Steps in [[worklogs/2026-11-06-claude-approved-ideas]].
-- [ ] A fluent Spanish reader checks all nine pages in `es/`, using
+- [ ] A fluent Spanish reader checks all nine pages in `es/` and the Spanish lines on the English pages, using
   `notes/review-packet/tidelight-spanish-review-packet.pdf`. Owner: unassigned.
 - [ ] Give `notes/review-packet/tidelight-review-packet.pdf` to the licensed therapist, and
   record the results in [[CONTENT-REVIEW]]. Owner: the founder arranging the review.
@@ -129,6 +127,11 @@ Move a task here when its branch is ready for the other person to review.
   Claude, at one founder's request. Branch: `site/first-version-finish`, draft pull request 10
   into `claude/jolly-mayer-2m6eno`. Handoff: [[worklogs/2026-11-07-claude-first-version-finish]].
   Not merged. No qualified person has reviewed it.
+
+- [ ] Write a one-page first-version description and main user journey: [[FIRST-VERSION]].
+  Owner: Claude, at one founder's request. Branch: `build/first-version-brief`, to be merged into
+  `site/first-version-finish`. Handoff: [[worklogs/2026-11-07-claude-first-version-brief]]. Not
+  merged. A proposal: both founders need to agree it.
 
 ## Completed work
 
