@@ -113,11 +113,11 @@ On `build/compact-strip`, before it was combined with 7d05f06. Final results, af
 
 ## Combined with pull request 10's branch
 
-`site/compact-crisis-strip` is `build/compact-strip` (7f07136) merged with 7d05f06, then the newest
-commit of `site/first-version-finish`, not yet pushed. 7d05f06 brings the
-first-version brief, [[FIRST-VERSION]], and the Spanish review sections, with two new failures in
-`tools/check_site.py`: text that no review packet shows, and English-page text that looks Spanish but
-isn't marked `lang="es"`. See [[worklogs/2026-11-07-claude-spanish-sections|that handoff]].
+`site/compact-crisis-strip` is `build/compact-strip` (7f07136) merged with 7d05f06, the newest commit
+of `site/first-version-finish` when this was done. 7d05f06 brings the first-version brief,
+[[FIRST-VERSION]], and the Spanish review sections, with two new failures in `tools/check_site.py`:
+text that no review packet shows, and English-page text that looks Spanish but isn't marked
+`lang="es"`. See [[worklogs/2026-11-07-claude-spanish-sections|that handoff]].
 
 - **No conflicts.** Git merged `notes/CONTENT-REVIEW.md` and `tools/test_the_tests.py` on its own,
   because the two sides changed different lines. Both sides are kept: this branch's question about the
@@ -136,10 +136,26 @@ isn't marked `lang="es"`. See [[worklogs/2026-11-07-claude-spanish-sections|that
   numbers and words, only fewer of them on short screens. The worker asks the network first, so a
   visitor with a connection gets the new stylesheet without a new version.
 
-Checked on the combined branch, on a Mac, November 7, 2026:
+Checked on the combined branch, on a Mac, November 7, 2026, at commit 31a7d29. Only this handoff changed
+after that:
 
 - `python3 tools/check_site.py`: all checks passed, 19 pages. Before the rebuild, its one note said the
-  review packets were out of date. After it, there is no note.
+  review packets were out of date. After it, there is no note. `--self-test`: all 5 made-up link answers
+  read correctly.
+- `python3 tools/launch_gate.py --self-test`: all 61 made-up cases read correctly.
+  `python3 tools/check_crisis_sources.py --self-test`: all 20 made-up cases read correctly.
+- `python3 tools/check_live.py --local`: all 18 pages load and show their crisis help, and so do a wrong
+  address and 6 files. No notes or tools are published. `python3 tools/check_readability.py` ran without
+  errors.
+- `python3 tools/test_browser.py`, every group: all browser checks passed, in desktop Chrome and its
+  phone-size emulation. Matrix 570 checks, text size 342, Quick exit 87, keyboard 2,594, and the rest.
+  It took 318 seconds, while another copy's planted-bug run used the same Mac.
+- `python3 tools/test_webkit.py`: 189 checks in macOS WebKit, 0 problems, in 86 seconds.
+- `python3 tools/test_the_tests.py`, in full: the untouched copy passed all 25 test groups and 6 other
+  checks, and all 138 planted bugs were caught, in 684 seconds.
+- `python3 tools/make_review_packet.py --no-pdf` afterwards left the packet HTML unchanged, so the
+  packets were current, and nothing in the project was left changed.
+- Not tried on a real phone, in the iOS Simulator, or with a screen reader.
 
 ## Overlap with draft pull request 11
 
