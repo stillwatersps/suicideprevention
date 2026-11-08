@@ -37,7 +37,8 @@ was tried on a phone.
   - `tools/check_site.py` reads each page its own way, apart from the packet tool, and fails with "screen reader
     text that no review packet shows" on any such words that no packet shows, such as a new `aria-label` the
     packet tool missed. A Spanish name on an English page with no Spanish section fails like a Spanish line does.
-    The publish step's first check fails with it.
+    The publish step's first check fails with it. Image descriptions joined that reading after review; see
+    "Review fixes" below.
   - Everything each packet showed before is still there. Part 3 and Parte 4 keep their list of names.
 - **The Spanish packet's date in Spanish.** It now reads "Generado el 8 de noviembre de 2026". Both packets
   write the date from month names in the tool, never from the computer's language setting.
@@ -48,14 +49,15 @@ was tried on a phone.
   `tools/make_review_packet.py`, or what it reads from `tools/check_site.py`, and not after a change to a test or
   another check. It also no longer appears after a page change that no packet shows, such as an HTML comment.
 - **`python3 tools/make_review_packet.py --self-test`** checks the dates under the computer's own language
-  setting and four others where the computer has them, the questions reaching the Spanish packet, and 11 made-up
+  setting (applied only after review; before, that case ran in Python's starting setting, C) and four others
+  where the computer has them, the questions reaching the Spanish packet, and 11 made-up
   question sections. The build refuses to run if a question has lost its Spanish, its English twin, or its source.
 - **Notes:** [[CONTENT-REVIEW]] ("Review records" now says what screen reader words are and that fingerprints
   hold them), [[REVIEWER-NOTES]] (both messages, and where answers to questions go), [[LAUNCH-CHECKLIST]]
   (sections 2, 3 and the publish check), and the docstring of `tools/launch_gate.py`.
 - **Tests:** 16 planted bugs in `tools/test_the_tests.py`, 13 that must fail and 3 that must print the
   stale-packet NOTE, and 2 harmless changes that must not print it. NOTE bugs and harmless changes are new kinds
-  there, because that report is a NOTE on purpose.
+  there, because that report is a NOTE on purpose. Review added 4 more planted bugs.
 
 ### Section fingerprints
 
@@ -86,7 +88,8 @@ No approval is recorded, so nothing is lost. 21 of 28 changed, because they now 
 | Texto en cada página (Parte 1) | 660985d7fb96 | 255c6736ac93 |
 
 Unchanged: the five sections of Spanish lines on English pages, `Wording outside the page text (Part 3)` and
-`Texto fuera de las páginas (Parte 4)`. The packet fingerprint went from 715c9a471f3f to c871c6eabce6.
+`Texto fuera de las páginas (Parte 4)`. The packet fingerprint went from 715c9a471f3f to c871c6eabce6, then to
+1c5659036284 with the review fixes, which changed no section fingerprint.
 
 ## Checked
 
@@ -119,14 +122,62 @@ On a Mac, on November 8, 2026, before the commit. Headless desktop Chrome built 
 - Fold buttons get two lines, closed and open, so "Show less" and "Ver menos" are reviewed too.
 - Open, from before: visible text that no packet shows on purpose: the menus, "On this page", the "Home" links
   at the top of pages, and "Read in English" on the Spanish pages.
-- Limit: the text on every page lists each wording once. Two names swapped between pages, such as the two menu
-  names, wouldn't change a fingerprint unless they make a new pair of words.
+- The text on every page lists each wording once. As first built, a name removed or swapped on one page changed
+  no fingerprint, because the other pages still had it. Review fixed that for screen reader words; the words on
+  screen in those parts are still a limit. See "Review fixes".
 - The new lists show that the Spanish fold buttons say "Ver más" on Obtener ayuda and "Mostrar más" on Después
   de una pérdida. No note raises it, so it isn't one of the questions.
 - Question 9 describes draft pull request 13 as a proposal. Update it if that pull request changes or merges.
-- The new self-test isn't in `.github/workflows/site.yml`. Only `tools/test_the_tests.py` and people run it.
+- After review, `.github/workflows/site.yml` runs the new self-test. `tools/test_the_tests.py` runs it too.
 - In Parte 5 each question stays on one printed page, which leaves some white space.
 - Not updated, as asked: [[STATUS]] and [[TASKS]]. The session that merges this branch records it there.
+
+## Review fixes
+
+November 8, 2026, on `fix/packet-additions-2026-11-08`, from 79f3caa. Local commit only. A review found four
+problems to fix. Each was reproduced on a scratch copy before any change.
+
+- **One page's shared parts.** Part 1 and Parte 1 list each wording once. On a copy with made-up approvals of all
+  28 sections, removing the full screen reader name of Adolescentes' "Llama al 988" link changed no fingerprint,
+  the site check passed, and the publish check said publishing could go ahead. A screen reader there hears only
+  "Llama al 988", without "y marca 2". Now `tools/check_site.py` fails when a page gives a screen reader different
+  words in a part every page shares (skip link, crisis strip, Quick exit, header, crisis buttons, footer, links to
+  Spanish) than the other pages of its language. It compares part by part, in order, so a name removed, added or
+  swapped on one page fails. The publish check and the packet build stop on it too.
+- **Image descriptions.** The site check's own reading never read `alt` text, so a packet that left one out
+  passed. It reads them now, and the packet tool marks its image descriptions as words only a screen reader says.
+- **Question 5** named "estés listo", which no Spanish page has had since November 6. It and the B6 note it came
+  from now name "te sientes abrumado", from the Spanish home page.
+- **The self-test's "this computer's own" case** ran in C, Python's starting setting. It now applies the
+  computer's setting and prints it. This Mac's shell sets none, so it is C here; with `LC_ALL=es_ES.UTF-8` it ran
+  in es_ES.UTF-8.
+- Smaller fixes from the same review: the screen reader list's heading has no number, so it isn't marked "same as
+  SHARED-51" on every page, and each item after it is numbered one lower. A harmless change in
+  `tools/test_the_tests.py` counts as quiet only if the check passes with no NOTE or FAIL line the untouched copy
+  lacks. `.github/workflows/site.yml` runs the packet tool's self-test. Question 1 now asks how to say Crisis Text
+  Line's word once it confirms one. Question 9 says "including with larger text", as draft pull request 13 does.
+  Question 12 no longer says what the FCC's pages say, since [[SAFETY]] records that the FCC's page refused
+  automated reads, and the audit note it came from now says so beside its own words. [[REVIEWER-NOTES]] says Part
+  1 and each page end with the screen reader words. [[LAUNCH-CHECKLIST]] and `tools/launch_gate.py` name the kinds
+  of screen reader words the site check reads.
+- 4 more planted bugs: the packets leaving out image descriptions; an image in a part the packets skip, left out;
+  a Spanish crisis link's full name lost on one page; the two menu names swapped on one page.
+- All 28 section fingerprints are unchanged. Both packets were rebuilt, HTML and PDF, 94 and 71 pages.
+
+Left for the founders:
+
+- Still a limit: the words on screen in the shared parts aren't compared between pages. On a copy, taking the
+  crisis buttons' "In immediate danger, call 911" line off For Teens alone changed no fingerprint and failed no
+  check. That was true before this branch. [[LAUNCH-CHECKLIST]] now says to check those parts on every page.
+- Part 3 and Parte 4 still list every screen reader name a second time, with their own numbers and decision
+  boxes, so one `aria-label` change stops two sections' approvals. Whether to drop that list is a choice about
+  what a reviewer signs.
+
+Checked on a Mac before the commit: `tools/check_site.py` passed with no NOTE after the rebuild; its self-test (5),
+the publish check's (61) and the packet tool's (21) passed; `tools/test_the_tests.py` caught the 4 new planted bugs
+and the other 5 about screen reader words and kept the 2 harmless changes quiet; a made-up harmless change that
+breaks the packet check now counts as noisy. Two PDF pages drawn with macOS PDFKit were looked at. The full suite
+runs on the final commit after this note, and its results are reported with the branch.
 
 ## Next step
 

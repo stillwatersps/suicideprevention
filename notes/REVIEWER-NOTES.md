@@ -20,9 +20,10 @@ message itself. Every reviewer should know that the content was drafted by AI an
 > draft pages until someone qualified has reviewed them.
 >
 > The attached packet has every sentence numbered, with its sources. Each section has a box for your decision, and
-> there's a list of questions we'd especially value your view on. Each page ends with what a screen reader reads
-> aloud on it that the screen doesn't show, such as the full names of the crisis links, because some visitors hear
-> the site rather than see it. Please start with anything that could cause harm.
+> there's a list of questions we'd especially value your view on. Part 1, the text on every page, and each page end
+> with what a screen reader reads aloud there that the screen doesn't show, such as the full names of the crisis
+> links in Part 1, because some visitors hear the site rather than see it. Please start with anything that could
+> cause harm.
 > We especially need to know whether the "Not sure what you're feeling?" page belongs at all.
 >
 > Please record your role and the date, not your name or contact details, since the packet may be stored publicly.
@@ -37,10 +38,10 @@ tunnel.
 > AI assistant translated them, and no fluent person has read them. We need to know whether they're correct and
 > natural, whether anything changes the meaning of the English, and whether anything could confuse someone in crisis.
 > We also need your view on wording such as "No estás solo", which uses a masculine form. The English pages also
-> have a few lines in Spanish, such as the Spanish part of Get Help. They're in the packet too, in Part 3. Each page
-> ends with what a screen reader reads aloud that the screen doesn't show, and Part 5 has questions written for
-> you in Spanish, each with its English version for us. An AI wrote those questions too, so tell us if one reads
-> badly.
+> have a few lines in Spanish, such as the Spanish part of Get Help. They're in the packet too, in Part 3. Part 1
+> and each page end with what a screen reader reads aloud there that the screen doesn't show, and Part 5 has
+> questions written for you in Spanish, each with its English version for us. An AI wrote those questions too, so
+> tell us if one reads badly.
 >
 > Please don't call or text any crisis line to check it. The attached packet numbers each sentence. Medical or
 > crisis translation experience would help. If you notice something that seems clinically wrong, please tell us.

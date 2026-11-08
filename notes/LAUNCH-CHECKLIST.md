@@ -58,9 +58,16 @@ Everyone else's results go under "Other reviews" in [[CONTENT-REVIEW]], which th
 
 - [ ] Make reviewers' changes on a task branch, and show the reviewer anything that changed a safety message.
 - [ ] Update the Spanish twin of every changed English page.
-- [ ] Run `python3 tools/make_review_packet.py` again. Any change to a section gives it a new fingerprint, so
-  its approval stops counting until the reviewer has seen the change and a new line is recorded. That includes a
-  change only a screen reader would notice, such as a link's `aria-label` or a page's title.
+- [ ] Run `python3 tools/make_review_packet.py` again. Any change to a page's own section gives it a new
+  fingerprint, so its approval stops counting until the reviewer has seen the change and a new line is recorded.
+  That includes a change only a screen reader would notice, such as a link's `aria-label`, an image's description,
+  or a page's title.
+- [ ] Check the parts every page shares, such as the crisis strip and the footer, on every page you changed. The
+  text on every page (Part 1) lists each different wording there once, so a change on one page gives it a new
+  fingerprint only when it makes a new wording. What a screen reader says in those parts must be the same on every
+  page of a language, or `tools/check_site.py` fails, so a crisis link that loses its full name on one page is
+  caught. The words on screen there aren't compared: a line taken off one page while other pages keep it, such as
+  the crisis buttons' "In immediate danger, call 911" line, changes no fingerprint and fails no check.
 
 ## 4. Test on real devices
 
@@ -152,8 +159,10 @@ Once Pages publishes with GitHub Actions, the publish step runs `python3 tools/l
 It stops publishing unless all of these hold:
 
 - Every page has a section in the review packets, and so do the Spanish lines on every English page. All the
-  text a visitor sees is in a numbered part of a packet, not loose in a div, and so is every word a screen reader
-  says that the screen doesn't show, such as an `aria-label` or a page's title.
+  text a visitor sees is in a numbered part of a packet, not loose in a div. So are the words a screen reader says
+  that the screen doesn't show, of the kinds `tools/check_site.py` reads: each page's title, an `aria-label` or a
+  similar attribute, an image's description, words hidden from the eye, a drawing's title, and the skip link. In
+  the parts every page shares, which the packets list once, those words are the same on every page of a language.
 - Every line under "Review records" in [[CONTENT-REVIEW]] can be read, and none is dated after today.
 - Every English section's newest line by a licensed clinician approves it, and every Spanish section's newest
   line by a fluent or native Spanish reader approves it. The Spanish sections include the Spanish lines on

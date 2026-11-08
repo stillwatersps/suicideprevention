@@ -245,6 +245,8 @@ class Extractor(html.parser.HTMLParser):
             if tag == "img" and attrs.get("alt") and not self._hidden():
                 block = self._block("img", "Image description: " + attrs["alt"])
                 block["spanish"] = is_spanish(attrs.get("lang") or block["lang"])
+                # Only a screen reader says it, so tools/check_site.py compares it with its own reading of the page.
+                block["said"] = [tidy(attrs["alt"])]
                 self.blocks.append(block)
             return
         self.stack.append((tag, attrs))
@@ -516,7 +518,9 @@ def heard_part(items, lang, once=False):
     every page shares, each wording is listed once, as for the text the eye sees."""
     if not items:
         return []
-    blocks = [{"tag": "h2", "text": HEARD_WORDS[lang]["part"], "links": [], "classes": set(), "ids": [], "lang": lang}]
+    # The packet's own heading, not the page's, so it gets no number and is never marked as a repeat.
+    blocks = [{"tag": "h2", "text": HEARD_WORDS[lang]["part"], "links": [], "classes": set(), "ids": [], "lang": lang,
+               "unnumbered": True}]
     seen = set()
     for item in items:
         text = heard_text(item, lang)
@@ -615,7 +619,9 @@ def render_blocks(blocks, prefix, numbering, counters, lang):
             close()
             out.append('<section class="review-block">')
             open_section = True
-        if tag in HEADINGS:
+        if tag in HEADINGS and block.get("unnumbered"):
+            out.append(f'<{HEADINGS[tag]} class="row-heading">{esc(block["text"])}</{HEADINGS[tag]}>')
+        elif tag in HEADINGS:
             label, same = numbering.number(prefix, counters, block["text"])
             level = HEADINGS[tag]
             note = "" if not same else f' <span class="same">same as {same}</span>'
@@ -1365,27 +1371,26 @@ def self_test():
     therapist, spanish = therapist_packet(day, NO_STAMP), spanish_packet(day, NO_STAMP)
     report("the therapist's packet says when it was built in English", "Built November 7, 2026 from" in therapist)
     report("the Spanish packet says when it was built in Spanish", "Generado el 7 de noviembre de 2026 a partir" in spanish)
-    # The names of the months come from this file, never from the computer's language setting.
+    # The names of the months come from this file, never from the computer's language setting. "" is the computer's
+    # own setting: Python starts every program in "C" and applies the computer's only when asked, as here.
     before = locale.setlocale(locale.LC_TIME)
-    settings = [None]
-    for setting in ("C", "es_ES.UTF-8", "de_DE.UTF-8", "fr_FR.UTF-8"):
+    settings = []
+    for setting in ("", "C", "es_ES.UTF-8", "de_DE.UTF-8", "fr_FR.UTF-8"):
         try:
-            locale.setlocale(locale.LC_TIME, setting)
-            settings.append(setting)
+            settings.append((setting, locale.setlocale(locale.LC_TIME, setting)))
         except locale.Error:
             pass
         finally:
             locale.setlocale(locale.LC_TIME, before)
-    for setting in settings:
+    for setting, applied in settings:
         try:
-            if setting:
-                locale.setlocale(locale.LC_TIME, setting)
+            locale.setlocale(locale.LC_TIME, setting)
             months = [datetime.date(2026, month, month) for month in range(1, 13)]
             passed = (english_date(day) == "November 7, 2026" and spanish_date(day) == "7 de noviembre de 2026"
                       and all(DATE_EN.fullmatch(english_date(month)) and DATE_ES.fullmatch(spanish_date(month)) for month in months))
         finally:
             locale.setlocale(locale.LC_TIME, before)
-        where = setting or "this computer's own"
+        where = f"this computer's own, which is {applied}" if setting == "" else setting
         report(f"every month's date in English and in Spanish, with the time language set to {where}", passed)
 
     questions, problems = spanish_questions()

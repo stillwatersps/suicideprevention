@@ -444,8 +444,8 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   visit. Is the benefit worth it, and is what the About pages and footers say about it enough?
 - **Spanish (B6).** An AI translated all nine pages in `es/`. A fluent
   reader should check every line, and the reviewer should decide whether the
-  wording should avoid masculine-only forms such as "No estás solo" and "estés
-  listo". The pages use "tú". 988's own Spanish pages mostly use "usted", with "tú" in
+  wording should avoid masculine-only forms such as "No estás solo" and "te sientes
+  abrumado". The pages use "tú". 988's own Spanish pages mostly use "usted", with "tú" in
   buttons and headings. Texting steps in
   Spanish are described as possibly different from English, because no one has
   seen them.
@@ -724,7 +724,8 @@ qualified reviewer decides each one, and nothing here has been reviewed.
   which applies to AYUDA.
 - Should the Spanish pages say anything about 911 in Spanish, and from which current source? None
   says whether a caller can ask for Spanish, or whether a Spanish text will be understood. The FCC's
-  English and Spanish text-to-911 pages don't say.
+  English and Spanish text-to-911 pages don't say. [[SAFETY]] records that the English page refused
+  automated reads on November 6 and 7, so a person should open both to confirm.
 - Should Spanish Get Help link the Stanley-Brown developers' Spanish safety plan form (February
   2025), instead of or beside the English one? Its step 6 is reported to be more specific.
 - Should the pages say "la 988"? They do in many headings and buttons. 988's Spanish site says "la
@@ -758,13 +759,13 @@ section stops saying it is an unreviewed AI translation.
 
 1. ES: ¿Se entiende bien lo que dicen Obtener ayuda y Adolescentes sobre Crisis Text Line en español? Dicen que
    "atiende en inglés y en español" y que "sus páginas dan palabras distintas para recibir apoyo en español, y
-   Tidelight todavía no ha confirmado cuál usar". Sus preguntas frecuentes dan HOLA y su página en español da
-   AYUDA, y solo Crisis Text Line puede decir cuál vale. ¿Cómo lo diría usted para que nadie tome una de esas
-   palabras por segura?
+   Tidelight todavía no ha confirmado cuál usar", sin nombrar ninguna. Sus preguntas frecuentes dan HOLA y su
+   página en español da AYUDA, y solo Crisis Text Line puede decir cuál vale. Cuando lo confirme, ¿cómo debería
+   decirse?
    EN: Is what Spanish Get Help and For Teens say about Crisis Text Line in Spanish clear? They say it supports
    English and Spanish, and that its pages give different words for support in Spanish, which Tidelight hasn't
-   confirmed yet. Its FAQ gives HOLA and its Spanish page gives AYUDA, and only Crisis Text Line can say which
-   holds. How would you word it so nobody takes either word as confirmed?
+   confirmed yet, without naming either. Its FAQ gives HOLA and its Spanish page gives AYUDA, and only Crisis
+   Text Line can say which holds. Once it confirms one, how should it be said?
    Source: `notes/SAFETY.md`, "Left off the website until a person confirms": Crisis Text Line in Spanish. Also
    `notes/FOUNDER-BRIEF.md`, "Two words to ask providers about".
 2. ES: En Obtener ayuda, la parte para personas sordas o con dificultades auditivas dice: "Si usas TTY, usa tu
@@ -799,11 +800,11 @@ section stops saying it is an unreviewed AI translation.
    address and the wording suit someone in crisis? And teens? Should it differ by page?
    Source: `notes/CONTENT-REVIEW.md`, "Questions about the approved ideas", Spanish (B6), and "Questions from
    the November 7 audit", Spanish pages.
-5. ES: Algunas frases usan solo la forma masculina, como "No estás solo" y "estés listo". Ayudar a alguien
-   mezcla "la persona" en los cinco pasos, formas masculinas como "atrapado" en las señales, y "lo" en la parte
-   sobre niños. ¿Qué criterio único deberían seguir todas las páginas?
-   EN: Some phrases use only the masculine form, such as "No estás solo" and "estés listo". Spanish Help Someone
-   mixes "la persona" in the five steps, masculine forms such as "atrapado" in the signs, and "lo" in the
+5. ES: Algunas frases usan solo la forma masculina, como "No estás solo" y "te sientes abrumado". Ayudar a
+   alguien mezcla "la persona" en los cinco pasos, formas masculinas como "atrapado" en las señales, y "lo" en la
+   parte sobre niños. ¿Qué criterio único deberían seguir todas las páginas?
+   EN: Some phrases use only the masculine form, such as "No estás solo" and "te sientes abrumado". Spanish Help
+   Someone mixes "la persona" in the five steps, masculine forms such as "atrapado" in the signs, and "lo" in the
    section on children. What one approach should every page take?
    Source: `notes/CONTENT-REVIEW.md`, "Questions about the approved ideas", Spanish (B6), and "Questions from
    the November 7 audit", Spanish pages.
@@ -836,7 +837,7 @@ section stops saying it is an unreviewed AI translation.
    be better, with the crisis line heard first?
    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Every page.
 9. ES: Una propuesta, que no está en el paquete y que los fundadores no han acordado (borrador de pull request
-   13): en pantallas bajas, como un teléfono de lado, o con letra más grande, la franja de crisis fija se
+   13): en pantallas bajas, como un teléfono de lado, también con letra más grande, la franja de crisis fija se
    acortaría a una sola fila: "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al 911". La franja completa
    dice: "¿Necesitas ayuda ahora? Llama al 988 y marca 2, o envía AYUDA al 988, a cualquier hora. Si hay peligro
    inmediato, llama al 911." En pantallas pequeñas ya deja fuera "¿Necesitas ayuda ahora?" y "a cualquier hora".
@@ -844,13 +845,13 @@ section stops saying it is an unreviewed AI translation.
    al 911. Un lector de pantalla seguiría diciendo el nombre completo de cada enlace, como "Llama al 911,
    servicios de emergencia". ¿Se entiende esa fila? ¿Es aceptable en español donde falta espacio?
    EN: A proposal, not in the packet and not agreed by the founders (draft pull request 13): on short screens,
-   such as a phone on its side, or with larger text, the pinned crisis strip would shorten to one row: "Llama al
-   988 y marca 2 · Envía AYUDA al 988 · Llama al 911". The full strip says "¿Necesitas ayuda ahora? Llama al 988
-   y marca 2, o envía AYUDA al 988, a cualquier hora. Si hay peligro inmediato, llama al 911." On small screens
-   it already leaves out "¿Necesitas ayuda ahora?" and "a cualquier hora". The row would also drop the "o" and
-   "Si hay peligro inmediato,", so nothing on screen would say when to call 911. A screen reader would still say
-   each link's full name, such as "Llama al 911, servicios de emergencia". Is that row clear? Is it acceptable
-   in Spanish where space is short?
+   such as a phone on its side, including with larger text, the pinned crisis strip would shorten to one row:
+   "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al 911". The full strip says "¿Necesitas ayuda ahora?
+   Llama al 988 y marca 2, o envía AYUDA al 988, a cualquier hora. Si hay peligro inmediato, llama al 911." On
+   small screens it already leaves out "¿Necesitas ayuda ahora?" and "a cualquier hora". The row would also drop
+   the "o" and "Si hay peligro inmediato,", so nothing on screen would say when to call 911. A screen reader
+   would still say each link's full name, such as "Llama al 911, servicios de emergencia". Is that row clear? Is
+   it acceptable in Spanish where space is short?
    Source: draft pull request 13, branch `site/compact-crisis-strip`: its question for the reviewer in
    `notes/CONTENT-REVIEW.md` and its crisis strip entry in `notes/DECISIONS.md`, both on that branch. This
    branch's `notes/DECISIONS.md` lists it under "Recorded November 7, 2026: four more items built, proposed".
@@ -869,12 +870,14 @@ section stops saying it is an unreviewed AI translation.
     service, and "el 988" or "al 988" for the number. Should the pages say "la 988"?
     Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
 12. ES: Ninguna fuente leída dice si quien llama al 911 puede pedir español, ni si un texto en español al 911 se
-    entenderá, y las páginas de la FCC en inglés y en español sobre textos al 911 no lo dicen. ¿Deberían las
-    páginas en español decir algo sobre el 911 en español? Si es así, ¿qué, y con qué fuente actual?
+    entenderá. La página de la FCC sobre textos al 911 rechazó las lecturas automáticas, así que una persona
+    todavía tiene que abrirla. ¿Deberían las páginas en español decir algo sobre el 911 en español? Si es así,
+    ¿qué, y con qué fuente actual?
     EN: No source read says whether a 911 caller can ask for Spanish, or whether a Spanish text to 911 will be
-    understood, and the FCC's English and Spanish text-to-911 pages don't say. Should the Spanish pages say
-    anything about 911 in Spanish? If so, what, and from which current source?
-    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
+    understood. The FCC's text-to-911 page refused automated reads, so a person still needs to open it. Should
+    the Spanish pages say anything about 911 in Spanish? If so, what, and from which current source?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages. Also
+    `notes/SAFETY.md`, "Only a person can check": the FCC's text-to-911 page.
 13. ES: La página Get Help en inglés tiene una parte en español, "En español", que Claude, un asistente de IA,
     escribió a partir de las páginas en inglés y en español de la 988. Está en la Parte 3 del paquete en
     español, en "Español en Get Help". ¿Es correcta y natural?

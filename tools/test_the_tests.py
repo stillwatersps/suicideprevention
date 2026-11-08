@@ -11,7 +11,8 @@ Needs Python and Chrome; the WebKit bugs also need a Mac with Xcode's command li
 no outside website: the checks of other tools run offline, on made-up cases or a local copy.
 A bug counts as caught only if the check fails and says so in a FAIL line or its error, not in a NOTE.
 The one exception is NOTE_BUGS, out-of-date review packets, which tools/check_site.py reports in a NOTE
-on purpose. QUIET_CHANGES are harmless changes that a check must not report at all.
+on purpose. QUIET_CHANGES are harmless changes that a check must not report at all: it must pass, with no
+NOTE or FAIL line that the untouched copy doesn't print.
 """
 import argparse
 import base64
@@ -187,6 +188,26 @@ def strip_link_name_shortened_after_approval(copy):
     replace("get-help/index.html", 'aria-label="Call 988, the Suicide and Crisis Lifeline"', 'aria-label="Call 988"')(copy)
 
 
+def menu_names_swapped(copy):
+    # On For Teens only, the header's menu takes the footer's name for screen readers, and the footer's the header's.
+    # Both names are still on every page, so only comparing each part with the other pages notices.
+    target = copy / "teens" / "index.html"
+    text = target.read_text(encoding="utf-8")
+    if 'aria-label="Main"' not in text or 'aria-label="All pages"' not in text:
+        raise RuntimeError("teens/index.html no longer names its menus Main and All pages")
+    text = text.replace('aria-label="Main"', 'aria-label="planted"', 1).replace('aria-label="All pages"', 'aria-label="Main"', 1)
+    target.write_text(text.replace('aria-label="planted"', 'aria-label="All pages"', 1), encoding="utf-8")
+
+
+def image_unlisted_where_text_is_skipped(copy):
+    # An image in Help Someone's breadcrumb, which the packets leave out, and the packet tool no longer lists an
+    # image's description there. A screen reader still says it.
+    replace("help-someone/index.html", '<p class="breadcrumb"><a href="../">',
+            '<p class="breadcrumb"><img src="../assets/images/joshua-tree-sunset-800.jpg" alt="A planted leaf" width="8" height="8"><a href="../">')(copy)
+    replace("tools/make_review_packet.py", '                if classes & SKIP_CLASSES:  # where the packets leave out the text around it\n'
+            '                    self._item("image", alt)\n', "")(copy)
+
+
 def with_current_packets(change):
     """Marks the copy's review packets as just rebuilt, the way tools/make_review_packet.py does after a build,
     and then makes the change. The copy has no packets of its own."""
@@ -347,6 +368,12 @@ COMMAND_BUGS = [
     ("the review packets leaving out the section names after the Show more buttons", replace("tools/make_review_packet.py", 'if "visually-hidden" in (attrs.get("class") or "").split() and self.hidden is None and tag not in self.VOID:', "if False:"), ["tools/check_site.py"], "screen reader text that no review packet shows"),
     ("the review packets leaving out each page's title", replace("tools/make_review_packet.py", "        if title:\n            self.items.insert(0,", "        if False:\n            self.items.insert(0,"), ["tools/check_site.py"], "screen reader text that no review packet shows"),
     ("a Spanish name for screen readers on an English page left out of the Spanish packet", replace("help-someone/index.html", "<h1", '<section lang="es" aria-label="Ayuda en español"><p lang="en">Help in Spanish is on Get Help.</p></section><h1'), ["tools/check_site.py"], "no section for them in the Spanish review packet"),
+    ("the review packets leaving out image descriptions", replace("tools/make_review_packet.py", 'if tag == "img" and attrs.get("alt") and not self._hidden():', "if False:"), ["tools/check_site.py"], "screen reader text that no review packet shows"),
+    ("an image description where the packets skip the text, left out of the review packets", image_unlisted_where_text_is_skipped, ["tools/check_site.py"], "screen reader text that no review packet shows"),
+    # The packets list the screen reader words in the parts every page shares once, so they must be the same on every
+    # page of a language: a change on one page would otherwise reach no reviewer and change no fingerprint.
+    ("a Spanish crisis link's full name for screen readers lost on one page", replace("es/adolescentes/index.html", ' aria-label="Llama al 988 y marca 2, la Línea 988 en español"', ""), ["tools/check_site.py"], "different words in its crisis strip"),
+    ("the two menu names swapped for screen readers on one page", menu_names_swapped, ["tools/check_site.py"], "different words in its header"),
     # Each section's fingerprint holds what a screen reader says, so an approval notices when it changes.
     ("a screen reader's name for an area of Get Help changed after its approval", area_name_changed_after_approval, ["tools/check_site.py"], "isn't an approval of the current text"),
     ("the crisis strip's Call 988 link renamed for screen readers on one page after its approval", strip_link_name_shortened_after_approval, ["tools/check_site.py"], "no approval of this page"),
@@ -363,7 +390,8 @@ NOTE_BUGS = [
     ("a section name changed in what the packet tool reads from the site check", with_current_packets(replace("tools/check_site.py", '("Wording outside the page text", OUTSIDE_TEXT["en"], "en")', '("Words outside the page text", OUTSIDE_TEXT["en"], "en")')), ["tools/check_site.py"], "the review packets are out of date"),
 ]
 # Harmless changes the site check must not report: none of them changes what a packet shows, and a check that
-# cries wolf gets ignored. Name, change, command, words that must not appear.
+# cries wolf gets ignored. Name, change, command, words that must not appear. The check must also pass, with no NOTE
+# or FAIL line the untouched copy doesn't print, so a check that couldn't run doesn't count as quiet.
 QUIET_CHANGES = [
     ("a change to the browser tests, with the packets up to date", with_current_packets(replace("tools/test_browser.py", "Needs Python 3 and Google Chrome or Chromium.", "Needs Python 3, and Google Chrome or Chromium.")), ["tools/check_site.py"], "out of date"),
     ("a change to another check in the site check, with the packets up to date", with_current_packets(replace("tools/check_site.py", '"unsuccessful attempt", "completed suicide", "suicide victim",', '"unsuccessful attempt", "completed suicide", "suicide victim", "suicide epidemic",')), ["tools/check_site.py"], "out of date"),
@@ -461,11 +489,17 @@ def main():
             code, output = run_command(copy, command)
             timed_out = " (timed out)" if code is None else ""
             if how == "quiet":
-                quiet = code is not None and words.lower() not in output.lower()
+                # Quiet means it passes as the untouched copy does, with no NOTE or FAIL line the untouched copy
+                # doesn't print, such as a note that the packets couldn't be checked at all.
+                clean_lines = set(clean_output[tuple(command)].splitlines())
+                reported = [line for line in output.splitlines()
+                            if line.strip().startswith(("NOTE", "FAIL")) and line not in clean_lines]
+                quiet = code == 0 and words.lower() not in output.lower() and not reported
                 print(f"  {'quiet' if quiet else 'NOISY'}: {name} ({label}){timed_out}", flush=True)
                 if not quiet:
                     noisy.append(name)
-                    print("    " + "\n    ".join(line for line in output.strip().splitlines() if words.lower() in line.lower())[:900])
+                    shown = reported + [line for line in output.strip().splitlines() if words.lower() in line.lower()]
+                    print(f"    exit {code}\n    " + "\n    ".join(shown)[:900])
                 continue
             if how == "note":
                 caught = code is not None and words.lower() in note_lines(output).lower()
