@@ -1494,9 +1494,10 @@ def check_crisis_styles(failures, names):
                                                 f"for example {node.describe()} on {name}: {why}")
 
 
-# Crisis services known to refuse scripts: two answer 403, and findtreatment.gov gives scripts, even
-# Chrome, a nearly empty page. A person checks these in a browser instead.
-KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov", "findtreatment.gov"}
+# Crisis services known to refuse scripts. Both answer 403, and a person checks them in a browser instead.
+# findtreatment.gov came off this list on November 8, 2026, after it answered this link check normally
+# twice. A plain read still gets a nearly empty page from it, so tools/check_crisis_sources.py reads it in Chrome.
+KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov"}
 
 
 def open_link(url):
@@ -1555,6 +1556,8 @@ def self_test_links():
         ("a crisis link moved within its own site passes", "https://www.veteranscrisisline.net", (200, "https://www.veteranscrisisline.net/get-help-now/"), False),
         ("a crisis link sent to another site fails", "https://www.taps.org/suicide", (200, "https://parked-domain.example/for-sale"), True),
         ("a crisis link that answers 404 fails", "https://988lifeline.org/gone/", (404, "https://988lifeline.org/gone/"), True),
+        ("a block from a crisis service not known to block scripts fails", "https://www.taps.org/suicide", (403, "https://www.taps.org/suicide"), True),
+        ("a block from a crisis service known to block scripts is only a note", "https://www.fcc.gov/x", (403, "https://www.fcc.gov/x"), False),
         ("another link sent elsewhere is only printed", "https://www.nimh.nih.gov/x", (200, "https://www.nih.gov/x"), False),
     ]
     wrong = 0

@@ -35,6 +35,7 @@ wellness came up. Web searches can miss small, local, and new organizations.
 | TidalHealth | A health system on the Delmarva Peninsula with a crisis center in Salisbury, Maryland, and a service for suicidal thoughts and mental health crises | [Its crisis care page](https://www.tidalhealth.org/find-care/services/suicidal-ideation-and-crisis-intervention) |
 | Tidewell Hospice | A hospice in four Florida counties, with free grief support, including a program for children and teens | [Hospice News, September 30, 2021](https://hospicenews.com/2021/09/30/tidewell-hospice-unveils-first-of-three-new-grief-centers/) |
 | TIDE: Sleep, Focus, Meditation | A meditation and sleep app from Moreless, Inc., in the App Store's Health & Fitness category | [App Store listing](https://apps.apple.com/app/tide-focus-timer-white-noise/id1077776989) |
+| Tide Mood AI | A mood-tracking app in the App Store's Health & Fitness category, with daily check-ins and an AI chat that runs on the phone. Its listing calls the app "Tide" and says it is a wellness tool, not medical advice or treatment | [App Store listing](https://apps.apple.com/us/app/tide-mood-ai/id6755097960), opened November 8, 2026 |
 
 Seen only in search results, not opened: Tideline Wellness, a counselling practice in British
 Columbia, Canada, and several small U.S. counseling practices with "Tides" in their names.

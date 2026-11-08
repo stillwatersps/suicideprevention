@@ -53,7 +53,7 @@ column. Recheck close to publication and at least monthly (proposed).
 | --- | --- | --- | --- | --- |
 | 988 Suicide & Crisis Lifeline | Call or text 988; chat at chat.988lifeline.org. 24/7 | https://988lifeline.org/get-help/ | Nov 8, 2026 | |
 | 988 by text, first steps | Send any message to 988. Reply NEXT to accept the terms of service, answer a brief survey, then a Wait message comes before a counselor. 988's Spanish What to Expect page lists the same steps and says the word "siguiente" accepts the terms | https://988lifeline.org/faq/texting-the-988-lifeline/ and https://988lifeline.org/get-help/what-to-expect/ (Spanish: https://988lifeline.org/es/obten-ayuda/que-puede-esperar/) | Nov 8, 2026 | |
-| 988 in Spanish | Call 988, then press 2; text AYUDA to 988; chat at chat.988lifeline.org/?lang=es | https://988lifeline.org/get-help/ | Nov 8, 2026 | |
+| 988 in Spanish | Call 988, then press 2; text AYUDA to 988; chat at chat.988lifeline.org/?lang=es | https://988lifeline.org/get-help/ (Spanish: https://988lifeline.org/es/obten-ayuda/) | Nov 8, 2026 | |
 | 988 in other languages | Call 988 and ask for an interpreter or say the language. More than 240 languages, voice only | https://988lifeline.org/faq/calling-the-988-lifeline/faq-is-the-988-lifeline-available-in-other-languages-for-non-english-speakers/ | Nov 8, 2026 | |
 | 988 for Deaf and hard of hearing people | Dial 988 from a videophone; TTY users use a relay service or dial 711, then 988; text; chat | https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/ | Nov 8, 2026 | |
 | 988 for LGBTQ+ youth (see the note below) | Call 988, then press 3; text PRIDE to 988 | https://988lifeline.org/get-help/what-to-expect/ | Nov 8, 2026 | |
@@ -65,30 +65,38 @@ column. Recheck close to publication and at least monthly (proposed).
 | FindTreatment.gov (treatment finder) | Website | https://findtreatment.gov | Nov 8, 2026 | |
 | Emergency services | Call 911. Text-to-911 works only in some places; call if you can | https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911 | Nov 8, 2026 | |
 
-On November 8, 2026, Claude read every page above again in the Claude desktop app's built-in
-browser, and each row still matched. One detail is on a different 988 page from the one listed:
-988's English Get Help page links its Spanish chat to chat.988lifeline.org and says to start a
-chat in Spanish, while the address ending in ?lang=es is on 988's Spanish pages, such as
-https://988lifeline.org/es/obten-ayuda/. See [[worklogs/2026-11-08-claude-recheck]].
-
 ### On the website as a draft, a person must confirm
 
 - **988 LGBTQ+ youth option.** 988's Get Help page says the service has been
   restored, and its What to Expect page lists press 3 on a call and PRIDE to 988 by
   text. The Trevor Project and a U.S. House statement date its return to September
-  30, 2026. SAMHSA's FAQ (December 2025) and performance page (October 2026) do not
-  mention it, and no official page gives its age range or chat route. The Trevor
+  30, 2026. SAMHSA's 988 FAQ (December 2025) doesn't mention it, and SAMHSA's 988
+  performance page (October 2026) shows it only as an "Option 3" that ended, in a dashboard
+  described below.
+  No official page gives its age range or chat route. The Trevor
   Project is not part of it, so the Get Help page lists the two apart.
   988's Spanish FAQ on this service says "Este servicio no está disponible en español en
   este momento." Read November 6, 2026. The page has no date and may predate the service's
   return, so a person should ask 988 whether it is current.
   [[CONTENT-REVIEW]] asks the reviewer about this.
-  Read again November 8, 2026, and all of this still holds. The Trevor Project's statement says
-  the service ended in July 2025 and resumed on September 30, 2026, and a House caucus statement
-  dated September 30, 2026 gives the same day. None of the 988 or SAMHSA pages read gives an age
-  range or a chat route. The Spanish FAQ still shows no date, but the page's hidden data says it
-  was last changed on June 21, 2024, so it was probably written before the service ended and
-  returned.
+  Read again November 8, 2026, in the Claude desktop app's built-in browser, and all of this
+  still holds. The Trevor Project's statement dated October 1, 2026
+  (https://www.thetrevorproject.org/blog/the-trevor-project-applauds-the-return-of-the-988-lifelines-press-3-specialized-services-for-lgbtq-youth/)
+  says the service ended in July 2025 and resumed on September 30, 2026, and its timeline says
+  press 3 ended on July 17, 2025. The Congressional Equality Caucus's statement dated September
+  30, 2026 (https://equality.house.gov/cec-celebrates-988-return) gives the same day for its
+  return. SAMHSA's 988 performance page
+  (https://www.samhsa.gov/mental-health/988/performance-metrics, "Last Updated: 10/13/2026")
+  names only the Veterans Crisis Line, Spanish language services, and answering in the caller's
+  state or territory as the choices a caller makes. The Service Type tab of the dashboard on
+  that page says "The Option 3 service type existed from September 2022 through July 17, 2025",
+  and its data notes give Option 3 full service from July 2023 to July 17, 2025. The tab doesn't
+  say whom Option 3 serves, but July 17, 2025 is the day The Trevor Project's timeline gives for
+  the end of press 3. Nothing on that tab says it returned, and the dashboard's data run to
+  September 30, 2026. None of the 988 or
+  SAMHSA pages read gives an age range or a chat route. The Spanish FAQ still shows no date, but
+  the page's hidden data says it was last changed on June 21, 2024, so it was probably written
+  before the service ended and returned. See [[worklogs/2026-11-08-claude-recheck]].
 - **TTY in Spanish.** 988's Spanish pages disagree. Its Deaf page gives relay or 711, then
   988. Its TTY FAQ, which has no date, says "Este servicio no está disponible en español en
   este momento." The Spanish Get Help page reports both. Ask 988 or a Deaf-led organization
@@ -117,9 +125,10 @@ https://988lifeline.org/es/obten-ayuda/. See [[worklogs/2026-11-08-claude-rechec
   places, to make a voice call to 911 whenever possible, that a text where the service isn't
   available should bring an automatic bounce-back message, and that people who are deaf, hard
   of hearing or speech disabled should use a TTY or relay service if text-to-911 isn't
-  available. It gives January 6, 2020 as its last update or review. The 911 card on Get Help,
-  its Spanish twin, and the "Emergency services" row above match it. A person should still
-  open it and confirm the wording.
+  available. It gives January 6, 2020 as its last update or review. The 911 card and the Deaf
+  and hard of hearing card on Get Help, their Spanish twins, and the "Emergency services" row
+  above match it. Read again in the built-in browser later on November 8, with the same result.
+  A person should still open it and confirm the wording.
 
 - That the Call and Text links open the dial and compose screens on a real iPhone
   and Android phone, with the right number filled in. Stop there and cancel.
