@@ -9,7 +9,10 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | --- | --- | --- |
 | `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
 | `claude/jolly-mayer-2m6eno` | Everything below from `site/phone-accessibility-content`, the [[RESEARCH-BRIEF]] PDF and notes, and improvement ideas one founder approved: Spanish pages, quick exit, dark mode, offline support, a shorter Get Help, automatic checks, website-only publishing, live-site monitoring, a readability report, myths and facts, printable wallet cards, and a teen page. See [[worklogs/2026-11-06-claude-approved-ideas\|first batch]] and [[worklogs/2026-11-06-claude-second-batch\|second batch]] | Draft pull request 5 into `main`, **not merged, not on the public website** |
-| `site/first-version-finish` | Everything on the branch below, renamed Tidelight, plus the November 7 work: every finding of a 14-area AI audit checked and applied in both languages, three independent code reviews and their fixes, an iPhone landscape fix found in the iOS Simulator, a stricter publish check, the audit's questions for the reviewer, and rebuilt review packets. See [[worklogs/2026-11-07-claude-first-version-finish\|the handoff]] | Draft pull request 10 into `claude/jolly-mayer-2m6eno`. Merging it publishes nothing. **Not merged, not on the public website** |
+| `site/first-version-finish` | Everything on the branch below, renamed Tidelight, plus the November 7 work: every finding of a 14-area AI audit checked and applied in both languages, three independent code reviews and their fixes, an iPhone landscape fix found in the iOS Simulator, a stricter publish check, the audit's questions for the reviewer, and rebuilt review packets. Later on November 7 it also took in a one-page first-version description, [[FIRST-VERSION]], and review sections for the Spanish lines on English pages. See [[worklogs/2026-11-07-claude-first-version-finish\|the handoff]] | Draft pull request 10 into `claude/jolly-mayer-2m6eno`. Merging it publishes nothing. **Not merged, not on the public website** |
+| `site/compact-crisis-strip` | A compact one-row crisis strip that stays on screen with larger text and on older phones on their side, where the full strip scrolls away. A proposal. Its handoff is on that branch | Draft pull request 13 into `site/first-version-finish`. Merging it publishes nothing. It and pull request 11 both change `assets/styles.css`, so whichever merges second needs the strip's limits measured again. **Not merged** |
+| `site/signage-redesign` | A new visual design for every page, built in a separate session at one founder's request | Draft pull request 11 into `site/first-version-finish`. Merging it publishes nothing. **Not merged.** See its description |
+| `site/minimal-public-preview` | One crisis page with 988 and 911 in English and Spanish, in place of the four live pages: option B for open decision 1 in [[DECISIONS]]. Its handoff is on that branch | Draft pull request 12 into `main`, **not merged. Merging publishes it within about a minute.** It replaces the same pages as pull requests 5 and 8, so it conflicts with both |
 | `site/first-version-build` | Everything on the branch above, plus the rest of the first version: Not sure what you're feeling?, After a loss, About and privacy, saving 988 to contacts, review status, the full Spanish Research page, review packets, phone test steps, and browser tests. See [[worklogs/2026-11-06-claude-first-version\|the handoff]] | Merged into `claude/jolly-mayer-2m6eno` on November 7, 2026, at a founder's request, which closes pull request 9. **Not on the public website** |
 | `site/phone-accessibility-content` | A second round: fixes from an independent review, stronger site checks, and updated notes | Merged into `claude/jolly-mayer-2m6eno` on November 6, 2026, at a founder's request, so pull request 6 is closed by that merge. Pull request 5 is the one place to review. **Not on the public website** |
 | `claude/charming-swartz-e8d31c`, commit `546308d` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, plus a handoff, no page changes | Draft pull request 7 into `main`, **not merged**. Merging publishes those two notes and the handoff. Its description covers the conflict with pull request 5 |
@@ -59,6 +62,12 @@ not on a real phone.
   [[worklogs/2026-11-06-claude-first-version|the handoff]] for what was and wasn't tested.
 - The November 7 audit, code reviews, and Simulator results are on `site/first-version-finish`,
   draft pull request 10. See [[worklogs/2026-11-07-claude-first-version-finish|that handoff]].
+- [[FIRST-VERSION]] describes what the first version is and isn't, and its main journeys, for both
+  founders to correct and agree. See [[worklogs/2026-11-07-claude-first-version-brief|its handoff]].
+- The Spanish lines on English pages, such as the links to Spanish every page shares and the Spanish
+  parts of Get Help, After a loss, the wallet card and the page-not-found page, now have their own
+  sections in the Spanish packet, and the publish check needs a fluent reader's approval for them.
+  See [[worklogs/2026-11-07-claude-spanish-sections|that handoff]].
 
 ## Known issues
 
@@ -75,6 +84,9 @@ not on a real phone.
 - Some sentences on the pages are over 25 words, most of them in Spanish. Many are research
   summaries, and the longest explain when 988 may involve emergency services.
   `tools/check_readability.py` lists them for the reviewer.
+- With larger text, and on short screens 568 to 703 px wide such as older phones on their side,
+  the crisis strip scrolls away and only Quick exit stays on screen. Draft pull request 13
+  proposes a compact strip for short screens, including with larger text. See [[DECISIONS]].
 
 On `main`, and public now. The task branches correct each of these, and draft pull
 request 8 would correct the first four on its own:
@@ -110,15 +122,17 @@ Everywhere:
 ## Next useful step
 
 1. Try the first version on a real phone, using [[PHONE-TEST]], from pull request 10's branch.
-2. Both founders read [[FOUNDER-BRIEF]], [[LAUNCH-CHECKLIST]], [[IDEAS]], and the open decisions in [[DECISIONS]],
-   and decide what the public site should show until review.
+2. Both founders read [[FOUNDER-BRIEF]], [[FIRST-VERSION]], [[LAUNCH-CHECKLIST]], [[IDEAS]], and the open
+   decisions in [[DECISIONS]], and decide what the public site should show until review. Draft pull
+   request 12 is the one-page option, ready to compare.
 3. Give `notes/review-packet/tidelight-review-packet.pdf` to the licensed therapist, and the
    Spanish packet to a fluent reader. Record results in "Review records" in [[CONTENT-REVIEW]].
 
 Merging pull request 10 into `claude/jolly-mayer-2m6eno` publishes nothing. Merging pull
 request 5 into `main` publishes everything, so do that only after the decision and review. Pull
-requests 7 and 8 are separate, and merging either one publishes it: 7 corrects `main`'s notes,
-and 8 corrects four problems on its pages. Merge or close each one.
+requests 7, 8 and 12 are separate, and merging any one publishes it: 7 corrects `main`'s notes,
+8 corrects four problems on its pages, and 12 replaces those pages with one crisis page. Merge
+or close each one. Pull requests 11 and 13 go into pull request 10's branch and publish nothing.
 
 ## End-of-session update
 

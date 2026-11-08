@@ -19,7 +19,7 @@ reviewed", which isn't true yet.
 | Option | Good | Bad |
 | --- | --- | --- |
 | A. Merge pull request 8 | Takes minutes. Fixes the four known problems | Still public with no review |
-| B. One page with 988, 911, and what Tidelight is | Keeps the part that helps most, with the least risk | Needs a small build |
+| B. One page with 988 and 911, in English and Spanish, that says what the site isn't | Keeps the part that helps most, with the least risk. Built as draft pull request 12 | Merging publishes it. No project name on it, and no review yet |
 | C. Turn GitHub Pages off | No unreviewed website. The drafts stay readable in the public repository | Nothing to show anyone |
 | D. Leave it as it is | No work | The site keeps saying something untrue |
 
@@ -43,6 +43,7 @@ reviewed", which isn't true yet.
 | 11 | A custom domain? | Decide after the name. It changes the page-not-found links and the checks | The current address includes `/suicideprevention/` |
 | 12 | Who does upkeep? | Name one person for each part of [[UPKEEP]] | Numbers change, and someone has to notice |
 | 13 | Keep or close pull requests 1, 7, and 8? | Close 1. Merge 7 and 8 if `main` stays public for a while | Pull request 5 covers them once it merges |
+| 14 | Is [[FIRST-VERSION]] right about what the first version is for? | Read it together and correct it | It names the journeys the reviewer and the phone tests should follow |
 
 AI auditors raised these on November 7, 2026. They are suggestions, not decisions.
 

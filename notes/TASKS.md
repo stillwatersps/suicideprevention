@@ -15,7 +15,8 @@ Planning tasks below are suggestions; ownership has not been agreed.
 ## Ready to choose
 
 - [ ] Decide what the public GitHub Pages link should show until the site is
-  reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes.
+  reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes. The one-page
+  option is built as draft pull request 12, next to pull request 8.
 - [ ] Read [[FOUNDER-BRIEF]] and [[LAUNCH-CHECKLIST]], and name an owner for each part of
   [[UPKEEP]]. Owner: both.
 - [ ] Agree who reviews the content. Pull request 5 and [[RESEARCH-BRIEF]] name a
@@ -129,9 +130,26 @@ Move a task here when its branch is ready for the other person to review.
   Not merged. No qualified person has reviewed it.
 
 - [ ] Write a one-page first-version description and main user journey: [[FIRST-VERSION]].
-  Owner: Claude, at one founder's request. Branch: `build/first-version-brief`, to be merged into
-  `site/first-version-finish`. Handoff: [[worklogs/2026-11-07-claude-first-version-brief]]. Not
-  merged. A proposal: both founders need to agree it.
+  Owner: Claude, at one founder's request. Built on a branch on one computer and merged into
+  `site/first-version-finish` (draft pull request 10) on November 7, 2026, in commit `911e7fe`. Handoff:
+  [[worklogs/2026-11-07-claude-first-version-brief]]. Not on `main`. A proposal: both founders need
+  to agree it.
+
+- [ ] Give the Spanish lines on English pages their own sections in the Spanish packet, and make
+  the publish check need them approved. Owner: Claude, at one founder's request. Built on a branch
+  on one computer and merged into `site/first-version-finish` (draft pull request 10) on November 7,
+  2026, in commit `7d05f06`. Handoff: [[worklogs/2026-11-07-claude-spanish-sections]]. Not on `main`. No
+  fluent reader has checked any Spanish.
+
+- [ ] Keep a compact crisis strip on screen with larger text and on older phones on their side.
+  Owner: Claude, at one founder's request. Branch: `site/compact-crisis-strip`, draft pull request
+  13 into `site/first-version-finish`. Its handoff is on that branch. Not merged. A proposal
+  for both founders and the reviewer. It and pull request 11 both change `assets/styles.css`.
+
+- [ ] Build a one-page public site as an option for open decision 1. Owner: Claude, at one
+  founder's request. Branch: `site/minimal-public-preview`, draft pull request 12 into
+  `main`. Its handoff is on that branch. Not merged. **Merging publishes.** Both founders decide,
+  together with pull requests 5, 7 and 8. No qualified person has reviewed the wording.
 
 ## Completed work
 
