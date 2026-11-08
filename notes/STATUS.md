@@ -4,9 +4,11 @@
 
 Added November 7, 2026. If you are reading this on `main`, the public site is the one-page
 crisis page from the branch `site/minimal-public-preview`: 988, 911, and what the website is, in
-English and Spanish, at every address. The rest of this note predates that page and still
-describes the photo homepage. See
-[[worklogs/2026-11-07-claude-minimal-public-preview|the crisis page handoff]].
+English and Spanish, at its four page addresses and at any missing address. Pages still serves
+these notes, `README.md`, and `CLAUDE.md` as plain files, as open decision 2 in
+`notes/DECISIONS.md` on the task branches describes. The rest of this note predates that page
+and still describes the photo homepage, and so do [[PROJECT]], [[00 START HERE]], [[DESIGN]], and
+`README.md`. See [[worklogs/2026-11-07-claude-minimal-public-preview|the crisis page handoff]].
 
 Repository state checked: November 5, 2026.
 
