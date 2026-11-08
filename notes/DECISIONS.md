@@ -101,7 +101,9 @@ such as "founder A", or by a handle the person chooses.
    off. Claude's suggestion: one of the last two until a reviewer has signed off,
    because reaching 988 and 911 is the part that helps most and the drafts carry the
    most risk. Draft pull request 8 corrects only the four known problems on the live
-   pages, so it doesn't settle this.
+   pages, so it doesn't settle this. The one-page option is built as draft pull request
+   12: 988 and 911 in English and Spanish, what the site isn't, and no project name.
+   Building it settles nothing.
 2. **Should the website be published without the notes?** Pages now serves every file
    on `main`, including these notes and `CLAUDE.md`. Moving the site to a `docs`
    folder or a deploy step would stop that. The notes would stay in the public
@@ -194,10 +196,27 @@ Once Pages publishes with GitHub Actions, `tools/launch_gate.py` stops the publi
 reviews are recorded. Claude built it as a proposal. Neither founder's agreement is recorded. See
 [[LAUNCH-CHECKLIST]].
 
+## Recorded November 7, 2026: four more items built, proposed
+
+One founder asked Claude to build everything that could be built. **Neither founder's agreement is
+recorded,** and each is easy to reverse.
+
+- **A first-version description,** [[FIRST-VERSION]], for both founders to correct and agree. Merged
+  into `site/first-version-finish`.
+- **Spanish lines on English pages get their own review sections.** The Spanish packet shows them,
+  and the publish check needs a fluent reader's approval for each. Merged into
+  `site/first-version-finish`. Why: before this, those lines were only in the therapist's packet, so
+  no fluent reader would have checked them.
+- **A compact crisis strip,** in draft pull request 13, not merged. Why: with larger text and
+  on older phones on their side, the full strip scrolls away. It is a pull request of its own because
+  draft pull request 11 rewrites the same stylesheet.
+- **A one-page public site,** in draft pull request 12 into `main`, not merged. It is option B
+  for open decision 1. Merging it publishes.
+
 ## November 7, 2026: new visual design, proposed
 
 One founder asked Claude for a complete redesign that doesn't look like a generic template.
-Branch `site/signage-redesign`, a draft pull request into `site/first-version-finish`, not merged.
+Branch `site/signage-redesign`, draft pull request 11 into `site/first-version-finish`, not merged.
 **The other founder's agreement isn't recorded.** What it proposes:
 
 - **Public-service signage, not soft cards.** Bold system type set large, flat color blocks,

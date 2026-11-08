@@ -80,6 +80,34 @@ simulated locally. Phone-size screenshots from Chrome are in `attachments/qa-fir
 them on one page in `phone-layouts.jpg`. The code-fix agents' own handoff is
 [[worklogs/2026-11-07-claude-review-gate-fixes]].
 
+## Later on November 7: four more items
+
+One founder asked Claude to build everything else that could be built before review. Each item was
+built on its own branch, checked by a separate AI review, and fixed. An AI review isn't a human review.
+
+| Item | Where it is | State |
+| --- | --- | --- |
+| [[FIRST-VERSION]]: what the first version is and isn't, and its main journeys | Merged here in commit `911e7fe`. See [[worklogs/2026-11-07-claude-first-version-brief\|its handoff]] | A proposal for both founders |
+| Spanish lines on English pages get their own sections in the Spanish packet, and the publish check needs them approved. The checks also fail on page text no packet shows, and on text that looks Spanish but has no `lang="es"` | Merged here in commit `7d05f06`. See [[worklogs/2026-11-07-claude-spanish-sections\|its handoff]] | A proposal. No fluent reader has checked any Spanish |
+| A compact one-row crisis strip for larger text and older phones on their side | `site/compact-crisis-strip`, draft pull request 13 into this branch | Not merged. Kept apart because draft pull request 11 rewrites the same stylesheet |
+| One crisis page in place of the four live pages: option B for open decision 1 | `site/minimal-public-preview`, draft pull request 12 into `main` | Not merged. Merging publishes |
+
+Checks on this branch after both merges, at commit `7d05f06`, on a Mac, November 7, 2026. None of
+them is a real phone.
+
+| Check | Result |
+| --- | --- |
+| `tools/check_site.py` | All checks passed, 19 pages, and the packets are current |
+| Self-tests | Link answers 5 of 5, launch gate 61 of 61, crisis sources 20 of 20 |
+| `tools/check_live.py --local` | All 18 live pages, a wrong address and 6 files pass. No notes or tools are published |
+| `tools/test_browser.py`, desktop Chrome and phone-size emulation | All 18 groups, 0 failures |
+| `tools/test_webkit.py`, macOS WebKit | 151 checks, 0 problems |
+| `tools/test_the_tests.py` | All 124 planted bugs caught |
+| Packets rebuilt without PDFs | Identical to the committed packets |
+
+This branch changed the packets and `notes/TASKS.md` after draft pull request 11 was opened, so that
+pull request needs its packets rebuilt and the task board reconciled, keeping both, before it merges.
+
 ## Decisions and open questions
 
 Recorded in [[DECISIONS]] as proposals, not agreed by both founders: the strip pins on a phone on
@@ -89,5 +117,6 @@ its side, and its limits grow with larger text. Everything else is in [[FOUNDER-
 ## Next step
 
 Try the site on a real iPhone and Android phone with [[PHONE-TEST]]. Both founders read
-[[FOUNDER-BRIEF]] and decide what the public site shows. Then the review packets go to the licensed
+[[FOUNDER-BRIEF]] and [[FIRST-VERSION]], and decide what the public site shows, comparing pull
+request 8 with the one-page option in draft pull request 12. Then the review packets go to the licensed
 therapist and a fluent Spanish reader.
