@@ -382,13 +382,36 @@ at e608945, the base of draft pull request 13, with no conflicts. With `site/sig
 `notes/review-packet/`, the same files as from dda20fe. That stylesheet keeps the strip's limits in em
 as they are here, so the floors would carry over with the same values.
 
+## iOS Simulator, November 8
+
+Xcode's iOS Simulator, iPhone 17, iOS 27.2, Safari, on its side, with this branch at dda20fe served
+from this Mac at `http://localhost:8124/suicideprevention/`. The later November 8 commits change only
+what happens with text set smaller than the default, which Safari's zoom doesn't do, and the tests.
+This is a simulated iPhone, not a real one. No call, text or chat link was tapped. Safari's Page Zoom,
+in the page menu of the address bar, set the zoom. Screenshots, taken after scrolling, are in
+`notes/attachments/ios-simulator-2026-11-08/`.
+
+| Safari's Page Zoom | English | Spanish |
+| --- | --- | --- |
+| 100% | The full strip pinned as one row, as before this branch | Not checked |
+| 125% | The compact strip pinned as one row, with Exit inside | The compact strip pinned as one row, with Salida inside |
+| 150% | The compact strip pinned, on Get Help | The strip scrolled away, and Salida floated in the corner |
+| 200% | The strip scrolled away, and Exit floated in the corner | Not checked |
+
+This matches what "Decisions and open questions" predicted from Chrome's emulation: Safari's zoom acts
+like a smaller screen, about 600 by 234 at 125% and 500 by 195 at 150%. At 150% in Spanish, at one
+scroll position the floating Salida sat over the lower right corner of the "Llamar al 988" button,
+and the rest of the button stayed clear. Not covered: phone service, VoiceOver, Android, and an older
+iPhone itself.
+
 ## Decisions and open questions
 
 - A proposal only. A qualified reviewer should weigh the short wording, which drops "Need help now?"
   and "In immediate danger,": see [[CONTENT-REVIEW]].
 - Safari's **aA** button on an iPhone zooms the whole page, so it should act like a smaller screen
   rather than larger text. At 125%, an iPhone 17 on its side would be about 600 by 234, which gets the
-  compact strip in both languages; at 150%, about 500 by 195, English only. Not tried on a real phone.
+  compact strip in both languages; at 150%, about 500 by 195, English only. The iOS Simulator showed
+  the same on November 8, above. Not tried on a real phone.
 - On this Mac, WebKit draws a 17 px scrollbar and measures media queries without it, so 568x300 acts
   like 551 px wide there. The Spanish limit was set to fit that too.
 - The two language blocks in the stylesheet must stay alike apart from their width. Since November 8,
