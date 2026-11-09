@@ -14,6 +14,10 @@ Planning tasks below are suggestions; ownership has not been agreed.
 
 ## Ready to choose
 
+- [ ] **⚠️ Important, first for attention:** the licensed reviewer looks at idea E1, "Places that
+  are hard for me", an opt-in safety-plan feature for the phone app, and the question about it at
+  the top of [[CONTENT-REVIEW]]. One founder likes it (Nov 9, 2026); the other founder decides too.
+  Nothing is built. Owner: the founder arranging the review. Details at the top of [[IDEAS]].
 - [ ] Decide what the public GitHub Pages link should show until the site is
   reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes. The one-page
   option is built as draft pull request 12, next to pull request 8.

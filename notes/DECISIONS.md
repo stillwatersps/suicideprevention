@@ -250,6 +250,14 @@ branch (`site/pro-max-redesign`). Merging it there publishes nothing. Choices:
 - **Support stays on screen.** The crisis strip and 988 panel are on the page at all times, and
   the needs step always shows 988 and 911.
 
+## November 9, 2026: location alerts, proposed
+
+One founder asked whether the phone app could alert someone at a place known for suicide. Claude
+advised against an app that carries a list of such places, for the reasons in [[IDEAS]], and
+suggested idea E1 instead: an opt-in safety-plan feature where the person picks their own places.
+**The founder likes E1 and marked it Important, first for attention.** The other founder hasn't
+agreed, no reviewer has seen it, and nothing is built.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

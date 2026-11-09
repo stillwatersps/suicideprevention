@@ -10,6 +10,14 @@ Our shared notebook for building a suicide prevention website.
 > Download the latest project in GitHub Desktop, read [[STATUS|Current status]],
 > and choose one task from [[TASKS|The task board]]. Record its owner before starting.
 
+> [!important] Important, first for attention: idea E1, "Places that are hard for me"
+> One founder chose this as the top item to look at, November 9, 2026. An opt-in part of a
+> personal safety plan in the phone app: the person picks their own places, the app ships with
+> no list of places, and a quiet notification opens their plan with 988 and 911. **Not approved by
+> the other founder, not reviewed, not built.** It needs the licensed reviewer before any design
+> work.
+> Details: [[IDEAS]], at the top. Reviewer question: [[CONTENT-REVIEW]], at the top.
+
 ## Project map
 
 | Open | What it contains |

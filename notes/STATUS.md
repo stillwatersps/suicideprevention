@@ -123,6 +123,9 @@ Everywhere:
 
 ## Next useful step
 
+0. **Important, first for attention:** the licensed reviewer looks at idea E1 in [[IDEAS]], the
+   opt-in "Places that are hard for me" safety-plan feature for the phone app. One founder chose it
+   on November 9, 2026. Not built. On `site/daily-check-in`.
 1. Try the first version on a real phone, using [[PHONE-TEST]], from pull request 10's branch.
 2. Both founders read [[FOUNDER-BRIEF]], [[FIRST-VERSION]], [[LAUNCH-CHECKLIST]], [[IDEAS]], and the open
    decisions in [[DECISIONS]], and decide what the public site should show until review. Draft pull

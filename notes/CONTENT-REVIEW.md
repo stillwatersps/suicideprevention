@@ -17,6 +17,17 @@ research during the overnight run on November 5 and 6. Most research links go to
 PubMed records, not journal pages. "How each finding was read", below, says which
 sources were read in full.
 
+## ⚠️ Important, first for attention: idea E1
+
+One founder asked that this come first, November 9, 2026.
+
+- **Location alerts in the phone app.** One founder asked about an alert when someone is at a
+  place known for suicide. Claude recorded it in [[IDEAS]] and suggested, instead of a built-in
+  list of places, an opt-in safety-plan feature where the person picks their own places (E1). Is
+  either version safe and helpful? What should the notification say, if anything, and what does
+  the research show?
+  See [[IDEAS]], at the top, for the idea and Claude's concerns about a built-in list of places.
+
 ## Page status
 
 | Page | Content | Source list | Review |
@@ -762,11 +773,6 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   What should the page say about shared or school devices?
 - **Spanish.** The feelings are phrased as states ("Con tristeza") to avoid gendered forms. A
   fluent reader should check them.
-- **Location alerts in the phone app.** One founder asked about an alert when someone is at a
-  place known for suicide. Claude recorded it in [[IDEAS]] and suggested, instead of a built-in
-  list of places, an opt-in safety-plan feature where the person picks their own places (E1). Is
-  either version safe and helpful? What should the notification say, if anything, and what does
-  the research show?
 
 ## Human-only checklist
 
