@@ -778,6 +778,10 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   each entry private unless the person shares it. Is it safe and helpful? What should circle
   members be told to do if a shared entry worries them? Should parents of minors be able to join,
   and who controls a minor's circle? See [[IDEAS]].
+- **Help shaped by age (idea E3).** One founder chose every age, with date of birth required at
+  sign-up and help chosen by age group. Which age groups, and which kinds of help, have good
+  evidence for each? What should a child under 13 see? Should crisis options ever depend on age?
+  See [[IDEAS]].
 
 ## Human-only checklist
 

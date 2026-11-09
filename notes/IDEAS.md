@@ -91,6 +91,37 @@ whether to share with the circle or keep it private, so the app still feels like
 share sheet, so the person sends one reflection to someone they choose by text or email. It needs
 no accounts and no server, and fits the current phone app plan.
 
+## Phone app idea, November 9, 2026: help shaped by age (E3)
+
+One founder chose, on November 9, 2026: every age is supported; date of birth is required at
+sign-up; and the age group decides how the app helps, using what research shows works for that
+age group. **Not agreed by the other founder, not reviewed, not built.** It also answers open
+decision 6 in [[DECISIONS]] for this founder.
+
+| # | Idea | How it could work | Founder decision |
+| --- | --- | --- | --- |
+| E3 | Help shaped by age group | Sign-up asks for date of birth, required. The app works out an age group and keeps only that. Each group gets the suggestions, wording, and resources the reviewer approves for it. For example, younger people get trusted-adult and school wording, the way the teen page does now | Chosen by one founder, Nov 9, 2026. Not built. Needs the licensed reviewer and a lawyer first |
+
+Claude's notes for both founders, the reviewer, and a lawyer:
+
+- **Crisis help comes before sign-up.** 988, 911, and Quick exit work with no sign-up and no birth
+  date. Nobody in crisis should meet a required box first.
+- **Sign-up and the phone app plan.** The plan in [[CHECK-IN-BACKEND]] has no accounts. Sign-up
+  there would mean a setup screen on the phone: the birth date is asked once and stays on the
+  phone. A circle (E2) would need real accounts.
+- **Keep less.** Work out the age group, then keep only the group, not the full birth date.
+- **Under 13.** U.S. COPPA rules, and Apple's and Google's rules for apps used by children, apply.
+  The Federal Trade Commission has guidance on asking ages in a neutral way. A lawyer should
+  advise before building, including on parental consent.
+- **Wrong birth dates.** Some people will enter a different age, by mistake or on purpose. Every
+  group's content must be safe for anyone.
+- **Which help works for which age.** The research brief ([[RESEARCH-BRIEF]]) mentions a trusted
+  adult for young people and WHO's adolescent life skills, and warns not to mix age groups when
+  reading numbers. It doesn't set out help by age group. The reviewer should name the age groups
+  and approve what each one gets, from sources Claude or the reviewer has read. Example groups to
+  start the discussion, not a proposal: under 13, 13 to 17, 18 to 24, 25 to 64, and 65 and over.
+- **The website.** The website has no sign-up and asks no age. The teen page stays as it is.
+
 ## Group A: no clinical review needed
 
 | # | Idea | Why | Founder decision |

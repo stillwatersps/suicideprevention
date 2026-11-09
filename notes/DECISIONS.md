@@ -120,8 +120,10 @@ such as "founder A", or by a handle the person chooses.
 5. **Is there any contact route, and what if someone writes in crisis?** GitHub
    Issues and the Wiki are on for this public repository. Turning them off is a
    simple first step.
-6. **Which ages are supported?** The name is now Tidelight; see the November 7 entry
-   below. A trademark check is still open.
+6. **Which ages are supported?** One founder answered on November 9, 2026: every age, with
+   date of birth required at sign-up and help shaped by age group. See that entry below. It
+   stays open until the other founder agrees and a lawyer has advised on children's privacy.
+   (The name is now Tidelight; see the November 7 entry below. A trademark check is still open.)
 7. **Where do private notes live?** The vault folder can hold private notes,
    `.gitignore` has no rule for them, and GitHub Desktop selects every changed file by
    default, so one could be committed and published by accident. Keep them outside
@@ -258,7 +260,29 @@ suggested idea E1 instead: an opt-in safety-plan feature where the person picks 
 **The founder likes E1 and marked it Important, first for attention.** The other founder hasn't
 agreed, no reviewer has seen it, and nothing is built.
 
-## Decision format
+## November 9, 2026: every age, with date of birth at sign-up, proposed
+
+One founder's answer to open decision 6. **The other founder hasn't agreed, and no lawyer or
+reviewer has seen it.** Nothing is built.
+
+- **Every age is supported.**
+- **Date of birth is required when someone signs up** in the app, and the age group it gives
+  decides which kinds of help the app offers, based on what research shows works for that age
+  group.
+
+Claude's notes, to settle before building. Details are in [[IDEAS]], idea E3:
+
+- **Crisis help never waits for sign-up.** 988, 911, and Quick exit stay available before and
+  without signing up or giving a birth date ([[SAFETY]] rule 1).
+- **Keep the age group, not the birth date,** once it has been worked out, so the app holds less
+  about a person.
+- **Under 13** brings U.S. COPPA rules and the stores' children's rules. A lawyer must advise
+  before the app asks young children anything.
+- **People can enter a wrong birth date.** What every age group sees must be safe for any age.
+- **Which help fits which age** must come from research the reviewer approves. The research brief
+  doesn't yet set out help by age group.
+
+
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
 remaining questions. Keep the newest entries at the end.

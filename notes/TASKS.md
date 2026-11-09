@@ -40,7 +40,8 @@ Planning tasks below are suggestions; ownership has not been agreed.
 - [ ] Confirm both people can download the project, open this vault, and open the
   project in Claude Code. Owner: both. Branch: not needed.
 - [ ] Agree on supported ages and whether the prototype needs saved data.
-  Owner: both. Branch: to choose.
+  Owner: both. Branch: to choose. One founder chose every age, with date of birth at sign-up
+  (Nov 9, 2026, idea E3 in [[IDEAS]]); the other founder decides too, and a lawyer advises on under-13s.
 - [ ] Choose website tools after agreeing on first-version scope.
   Owner: both. Branch: to choose.
 - [ ] Review the planning drafts on `planning/morning-brief` and merge or revise.

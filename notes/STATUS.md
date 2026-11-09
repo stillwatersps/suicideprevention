@@ -119,7 +119,8 @@ Everywhere:
 - Both people have the latest project on their computers and can open this vault.
 - What the public site should show until review.
 - Who reviews crisis content, and who re-checks the numbers.
-- First-version scope, supported ages, and saved-data needs.
+- First-version scope, supported ages, and saved-data needs. One founder chose every age, with
+  date of birth at sign-up in the app (idea E3 in [[IDEAS]]).
 
 ## Next useful step
 

@@ -58,6 +58,7 @@ knowledge; confirm the platform details on Apple's and Google's developer pages 
 | Quick exit | Means something different in an app. Leaving the app, plus an optional lock, is the closest match. A question for the reviewer |
 | Store review | Apple often turns down apps that are only a website in a wrapper. Saving, the app lock, and working offline should make this more than the website, but that is Apple's call |
 | Support circle | Asked about by one founder. It would need accounts and a server, so it isn't part of this plan. See [[IDEAS]], idea E2 |
+| Age and sign-up | One founder chose every age, with date of birth required at sign-up and help shaped by age group (idea E3 in [[IDEAS]]). In this plan, that's a setup screen on the phone, kept on the phone, and only the age group is kept. 988 and 911 come before it. A lawyer advises on under-13s first |
 | Location alerts | Asked about by one founder. Not part of this plan. See [[IDEAS]], idea E1, and the reviewer's question in [[CONTENT-REVIEW]] |
 | Nobody is watching | Entries never reach Tidelight, so nobody reads them. The app must say so, and keep 988 and 911 on screen, as the website does |
 
@@ -67,7 +68,8 @@ What it needs that this project doesn't have yet:
   year, to confirm). Android Studio and a Google Play developer account (about $25 once, to confirm).
 - Real iPhones and Android phones to test on. A cloud session like Claude's can't build the iPhone
   app.
-- Agreed ages first ([[DECISIONS]], open decision 6), since under-13s change the store rules.
+- Agreed ages first ([[DECISIONS]], open decision 6), since under-13s change the store rules. One
+  founder chose every age on November 9, 2026; the other hasn't agreed.
 - The store privacy forms filled in honestly: on-device data, not collected by Tidelight.
 - The licensed reviewer to see the app's saving and deleting wording, and a lawyer to read the
   privacy wording.
