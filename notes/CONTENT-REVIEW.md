@@ -802,6 +802,10 @@ Built November 9, 2026, at one founder's request, on branch `app/first-build`. E
 - **For your age.** Five short cards, one per age group, drawn from [[AGE-STRATEGIES]]. Are they safe
   and accurate? The teen card says to make a plan with a trusted adult, because a 2025 review found
   no benefit from safety plans alone for teens.
+- **Accuracy and accommodations.** The age question now says an accurate date matters, and a
+  check step shows the age group and its accommodations before anything is kept. Is the accuracy
+  wording right, and could it pressure a child to lie, or to give up? Are the five "top of Today"
+  boxes in `app/src/text/` safe and accurate, especially the one for the grown-up with a child?
 - **Sharing.** Is the notice before sharing clear enough about who sees it and that it isn't a way to
   get urgent help?
 - **Saving.** Is the privacy wording about the phone, its backups, and Delete everything accurate and

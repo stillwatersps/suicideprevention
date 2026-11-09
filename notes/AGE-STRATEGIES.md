@@ -240,7 +240,11 @@ Every group: no scores, no reading of what's written, and nothing that replaces 
 
 ## ⚠️ Important: what the second round suggests for the app
 
-**Marked Important by one founder on November 9, 2026, to come back to. Not to be built yet.**
+**Marked Important by one founder on November 9, 2026, to come back to.** Later that day the same
+founder asked for the age-based accommodations to be built, so three are now in the app draft: the
+box for the grown-up with a child, the teen wording about "an adult you trust" (with LGBTQ+ support
+linked), and larger text by default for 65 and over. Still not built: plan reminders for adults,
+call reminders for older adults, and the support circle rule for teens.
 
 Proposals from Claude, for the founders and the reviewer. **None of these is built, and the app's
 words haven't changed.**

@@ -23,6 +23,13 @@ function blocks(lang) {
   const text = readFileSync(join(appDir, 'src', 'text', lang + '.html'), 'utf8');
   const out = {};
   for (const m of text.matchAll(/<!-- BLOCK:([a-z-]+) -->\n?([\s\S]*?)<!-- END -->/g)) out[m[1]] = m[2];
+  // A block can include another: <!-- INSERT:name --> on a line of its own.
+  for (const key of Object.keys(out)) {
+    out[key] = out[key].replace(/<!-- INSERT:([a-z-]+) -->\n/g, (all, name) => {
+      if (!out[name]) throw new Error(`${lang}: block ${key} includes a missing block ${name}`);
+      return out[name];
+    });
+  }
   return out;
 }
 
@@ -46,6 +53,7 @@ for (const page of PAGES) {
   let html = readFileSync(path, 'utf8');
   html = once(html, /      <aside class="ci-privacy"[\s\S]*?<\/aside>\n/, b.privacy, 'privacy');
   html = once(html, '      <nav class="ci-tabs"', b.age + '      <nav class="ci-tabs"', 'age');
+  html = once(html, '        <ol class="ci-steps">', b['today-box'] + '        <ol class="ci-steps">', 'today box');
   html = once(html, '          <p class="ci-set-aside"', b.foryou + '          <p class="ci-set-aside"', 'for your age');
   html = once(html, '          <p class="ci-step-buttons"><button type="button" class="ci-restart">',
     b['result-share'] + '          <p class="ci-step-buttons"><button type="button" class="ci-restart">', 'result share');

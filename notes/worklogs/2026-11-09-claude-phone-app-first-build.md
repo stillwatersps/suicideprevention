@@ -65,6 +65,17 @@ browser stand-ins.
   automated reads, so three trials were used only as other sources describe them. [[AGE-STRATEGIES]]
   ends with proposals for the app; none is built.
 
+## Later the same day: age-based accommodations
+
+At the founder's request, the age setup now:
+
+- says plainly that an accurate date of birth matters, and why;
+- shows the age group and what the app will do for it, and keeps nothing until the person confirms;
+- shows a box at the top of Today for each age group, and larger text by default for 65 and over;
+- lists the accommodations in Your journey.
+
+`cd app && npm test`: 94 of 94 passed, 47 in each language, in desktop Chromium only.
+
 ## Open questions
 
 - In [[CONTENT-REVIEW]], under "Questions about the phone app", and at the end of [[AGE-STRATEGIES]].

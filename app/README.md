@@ -25,7 +25,7 @@ is in `src/text/en.html` and `src/text/es.html`.
 | `src/app.js` | Saving, age setup, and sharing. Bundled into `www/assets/app.js` |
 | `src/app.css` | Styles for the app's blocks, using the website's Shoreline colors |
 | `src/text/*.html` | Every word the app adds, in English and Spanish |
-| `test/app-test.mjs` | 28 checks per language in desktop Chromium, with browser stand-ins for saving and sharing |
+| `test/app-test.mjs` | 47 checks per language in desktop Chromium, with browser stand-ins for saving and sharing |
 | `android/`, `ios/` | Native projects made by `npx cap add`. Open them in Android Studio or Xcode |
 
 The website is unchanged, except that `assets/check-in.js` now offers `window.TidelightCheckIn`, so

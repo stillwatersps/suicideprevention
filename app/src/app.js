@@ -11,6 +11,7 @@ import { Capacitor } from '@capacitor/core';
 
 const STATE_KEY = 'tidelight.checkin.v1';
 const GROUP_KEY = 'tidelight.agegroup.v1';
+const TEXT_KEY = 'tidelight.textsize.v1';
 const GROUPS = ['child', 'teen', 'young', 'adult', 'older'];
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
@@ -54,17 +55,36 @@ function start() {
   const problem = $('.app-age-problem');
   let group = null;
 
-  function applyGroup() {
-    $$('[data-age-group]').forEach((el) => el.classList.toggle('ci-off', el.getAttribute('data-age-group') !== group));
-    const name = $('.app-group-names [data-age-group="' + group + '"]');
-    $('.app-group-name').textContent = name ? name.textContent : '';
+  const askPart = $('.app-age-ask');
+  const confirmPart = $('.app-age-confirm');
+  let pending = null;
+
+  // Show everything meant for one age group, and hide the others: the box at the top of Today,
+  // the card in today's results, and the list of what the app does for that age.
+  function applyGroup(which) {
+    $$('[data-age-group]').forEach((el) => el.classList.toggle('ci-off', el.getAttribute('data-age-group') !== which));
+    const name = $('.app-group-names [data-age-group="' + which + '"]');
+    $$('.app-group-name').forEach((el) => { el.textContent = name ? name.textContent : ''; });
   }
+
+  // Larger text: on by default for 65 and over, and anyone can change it.
+  let largeText = false;
+  function applyText() { document.documentElement.classList.toggle('app-large-text', largeText); }
+  $('.app-text-toggle').addEventListener('click', async () => {
+    largeText = !largeText;
+    applyText();
+    await save(TEXT_KEY, largeText ? 'large' : 'regular');
+  });
+
   function askAge(on) {
     document.documentElement.classList.toggle('app-asking-age', on);
     ageBox.classList.toggle('ci-off', !on);
+    askPart.classList.remove('ci-off');
+    confirmPart.classList.add('ci-off');
+    pending = null;
     if (on) { dateInput.value = ''; problem.classList.add('ci-off'); ageBox.focus(); }
   }
-  $('.app-age-save').addEventListener('click', async () => {
+  $('.app-age-save').addEventListener('click', () => {
     const value = dateInput.value;
     const birth = value ? new Date(value + 'T12:00:00') : null;
     const today = new Date();
@@ -73,10 +93,29 @@ function start() {
       dateInput.focus();
       return;
     }
-    group = groupFor(ageOn(birth, today));
+    pending = groupFor(ageOn(birth, today));
     dateInput.value = ''; // The date itself is never stored.
+    // Ask the person to check the group before anything is kept, because the right group matters.
+    applyGroup(pending);
+    askPart.classList.add('ci-off');
+    confirmPart.classList.remove('ci-off');
+    confirmPart.focus();
+  });
+  $('.app-age-redo').addEventListener('click', () => {
+    applyGroup(group);
+    askAge(true);
+    dateInput.focus();
+  });
+  $('.app-age-yes').addEventListener('click', async () => {
+    if (!pending) return;
+    const first = group === null;
+    group = pending;
     await save(GROUP_KEY, group);
-    applyGroup();
+    if (first || (await load(TEXT_KEY)) === null) {
+      largeText = group === 'older';
+      applyText();
+    }
+    applyGroup(group);
     askAge(false);
     $('#page-title').scrollIntoView({ block: 'start' });
   });
@@ -158,7 +197,11 @@ function start() {
     }
     const kept = await load(GROUP_KEY);
     group = GROUPS.indexOf(kept) >= 0 ? kept : null;
-    if (group) { applyGroup(); askAge(false); } else askAge(true);
+    const textChoice = await load(TEXT_KEY);
+    largeText = textChoice === 'large' || (textChoice === null && group === 'older');
+    applyText();
+    applyGroup(group);
+    if (group) askAge(false); else askAge(true);
     document.documentElement.classList.add('app-ready');
   })();
 }

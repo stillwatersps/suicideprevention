@@ -343,6 +343,22 @@ to reverse:
   journey asks again.
 - **Sharing shows a notice first,** and the person can change the words before the share sheet opens.
 
+## November 9, 2026: age-based accommodations in the app, proposed
+
+One founder asked to show people their accommodations by age, and to make plain that an accurate
+age matters. **The other founder hasn't agreed, and no reviewer has seen it.** Built in the app
+draft (`app/`, branch `app/first-build`):
+
+- **Accuracy comes first.** Before the date of birth, the app says to enter the real date, because
+  a wrong one means ideas meant for a different age that may not fit or be safe.
+- **The group is checked before it's kept.** After the date, the app shows the age group and what
+  it will do for that age, and keeps nothing until the person taps "Yes, that's right".
+- **Accommodations by age:** a box at the top of Today for each group (for the grown-up with a
+  child; under-18 and LGBTQ+ help for teens; reaching out for 18 to 24; a safety plan with a
+  professional for 25 to 64; the doctor and staying in touch for 65 and over), the card in today's
+  results, and larger text by default for 65 and over, which anyone can switch.
+- Your journey lists what the app does for the person's age, and lets them enter the date again.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

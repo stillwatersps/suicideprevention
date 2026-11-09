@@ -15,13 +15,26 @@
       <section class="app-age" id="app-age" tabindex="-1" aria-labelledby="app-age-title">
         <h2 id="app-age-title">Before you start: your date of birth</h2>
         <p>Tidelight shows different ideas for different ages, because research finds that different things help at different ages. Your date of birth is asked once.</p>
+        <div class="app-age-accuracy">
+          <p><strong>Please enter your real date of birth. It matters.</strong></p>
+          <p>The app uses it to choose the kinds of help that research supports for your age. A wrong date means ideas meant for a different age, and some may not fit you or be safe for you.</p>
+        </div>
         <p>The app works out your age group, keeps only the group on this phone, and forgets the date. It never leaves the phone.</p>
         <p class="app-age-crisis">You don't need to answer this to get help. You can <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a> at any time. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</p>
-        <p class="ci-field"><label for="app-birth-date">Date of birth</label></p>
-        <input type="date" id="app-birth-date" autocomplete="off" required>
-        <p class="app-age-problem" role="status">Please enter a date of birth in the past.</p>
-        <p class="ci-step-buttons"><button type="button" class="app-age-save">Continue</button></p>
-        <p class="app-age-under13">If you're under 13, please use Tidelight with a parent, carer, or another adult you trust.</p>
+        <div class="app-age-ask">
+          <p class="ci-field"><label for="app-birth-date">Date of birth</label></p>
+          <input type="date" id="app-birth-date" autocomplete="off" required>
+          <p class="app-age-problem" role="status">Please enter a date of birth in the past.</p>
+          <p class="ci-step-buttons"><button type="button" class="app-age-save">Continue</button></p>
+          <p class="app-age-under13">If you're under 13, please use Tidelight with a parent, carer, or another adult you trust.</p>
+        </div>
+        <div class="app-age-confirm" tabindex="-1">
+          <h3 class="app-age-confirm-title">Please check your age group</h3>
+          <p>From that date, you're in the group for <strong class="app-group-name"></strong>. Is that right?</p>
+          <p>Here's what the app will do for your age:</p>
+<!-- INSERT:accommodations -->
+          <p class="ci-step-buttons"><button type="button" class="app-age-yes">Yes, that's right</button> <button type="button" class="app-age-redo">No, change the date</button></p>
+        </div>
       </section>
 <!-- END -->
 
@@ -84,10 +97,59 @@
 <!-- BLOCK:settings -->
         <section class="app-settings" aria-labelledby="app-settings-title">
           <h3 id="app-settings-title">Your age group</h3>
-          <p>The app shows ideas for <strong class="app-group-name"></strong>.</p>
+          <p>The app shows ideas for <strong class="app-group-name"></strong>. What it does for your age:</p>
+<!-- INSERT:accommodations -->
+          <p class="app-text-size"><span class="app-text-large-on">Text is larger for easier reading.</span><span class="app-text-large-off">Text is the regular size.</span> <button type="button" class="app-text-toggle"><span class="app-text-large-on">Use regular text</span><span class="app-text-large-off">Use larger text</span></button></p>
+          <p>If this group isn't right, enter your date of birth again. The right age group matters for the best help.</p>
           <p class="app-group-names"><span data-age-group="child">children under 13</span><span data-age-group="teen">ages 13 to 17</span><span data-age-group="young">ages 18 to 24</span><span data-age-group="adult">ages 25 to 64</span><span data-age-group="older">ages 65 and over</span></p>
           <p class="ci-step-buttons"><button type="button" class="app-age-change">Enter my date of birth again</button></p>
         </section>
+<!-- END -->
+
+<!-- BLOCK:accommodations -->
+          <ul class="app-accommodations">
+            <li>988, 911, and Quick exit stay on every screen, at every age.</li>
+            <li data-age-group="child">A box at the top of Today for the grown-up with you, on how to listen and help.</li>
+            <li data-age-group="child">Ideas that point you to a grown-up you trust.</li>
+            <li data-age-group="teen">A box at the top of Today with help for people under 18, including support for LGBTQ+ young people.</li>
+            <li data-age-group="teen">Ideas about understanding feelings and reaching an adult you trust. That doesn't have to be a parent.</li>
+            <li data-age-group="young">A box at the top of Today about reaching out, and student counseling.</li>
+            <li data-age-group="young">Ideas about making a plan for hard moments with someone.</li>
+            <li data-age-group="adult">A box at the top of Today about a safety plan, and how to make one with a professional.</li>
+            <li data-age-group="adult">Ideas about talking to a doctor or counselor.</li>
+            <li data-age-group="older">Larger text, which you can change back.</li>
+            <li data-age-group="older">A box at the top of Today about talking to your doctor and staying in touch with people.</li>
+          </ul>
+<!-- END -->
+
+<!-- BLOCK:today-box -->
+        <aside class="app-age-box" aria-label="For your age">
+          <div data-age-group="child">
+            <h3>For the grown-up with you</h3>
+            <p>If you're helping a child with this app: ask how they're feeling, listen without judging, keep anything that could hurt them out of reach, help them reach help, and check in again later. If a child says they're thinking about suicide or hurting themselves, stay with them and call or text 988. In immediate danger, call 911.</p>
+            <p><a href="../get-help/#under-18">Help for people under 18</a></p>
+          </div>
+          <div data-age-group="teen">
+            <h3>Help for people under 18</h3>
+            <p>An adult you trust can help: a relative, a teacher, a coach, a school counselor, or a parent if that feels safe. If you're LGBTQ+, there's support made for you too.</p>
+            <p><a href="../get-help/#under-18">If you're under 18</a> · <a href="../get-help/#other-ways">Support for LGBTQ+ young people</a> · <a href="../teens/">For teens</a></p>
+          </div>
+          <div data-age-group="young">
+            <h3>Reaching out</h3>
+            <p>Talking with one person you trust can help. If you're a student, your school's counseling or health service is one place to start.</p>
+            <p><a href="../get-help/#other-ways">Other ways to reach someone</a></p>
+          </div>
+          <div data-age-group="adult">
+            <h3>A plan for hard moments</h3>
+            <p>A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.</p>
+            <p><a href="../get-help/#hard-moment">Planning for a hard moment</a></p>
+          </div>
+          <div data-age-group="older">
+            <h3>Your doctor can help</h3>
+            <p>Tell your doctor how you've been feeling, not only how your body is. Staying in touch with people, even with a short call, can help too.</p>
+            <p><a href="../get-help/#other-ways">Other ways to reach someone</a></p>
+          </div>
+        </aside>
 <!-- END -->
 
 <!-- BLOCK:erase-note -->

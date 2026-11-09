@@ -60,6 +60,7 @@ async function run(browser, lang) {
   check(!(await page.isVisible('.ci-tabs')), 'hides the check-in until the age is given');
   check(await page.isVisible('.crisis-bar a[href="tel:988"]'), 'crisis strip stays on screen during age setup');
   check(await page.isVisible('#app-age a[href="tel:988"]') && await page.isVisible('#app-age a[href="tel:911"]'), 'age question shows 988 and 911');
+  check(await page.isVisible('.app-age-accuracy'), 'says plainly that an accurate date of birth matters');
 
   await page.click('.app-age-save');
   check(await page.isVisible('.app-age-problem'), 'an empty date is refused');
@@ -68,13 +69,33 @@ async function run(browser, lang) {
   await page.click('.app-age-save');
   check(await page.isVisible('#app-age'), 'a date in the future is refused');
 
+  // A valid date asks the person to check the group first, and keeps nothing until they say yes.
+  await page.fill('#app-birth-date', birthDateYearsAgo(40));
+  await page.click('.app-age-save');
+  check(await page.isVisible('.app-age-confirm'), 'a valid date shows the age group to check');
+  check(await page.isVisible('.app-age-confirm .app-accommodations [data-age-group="adult"]'), 'lists what the app does for that age before saving');
+  let stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
+  check(!stored.includes('"adult"'), 'keeps nothing until the group is confirmed');
+  await page.click('.app-age-redo');
+  check(await page.isVisible('#app-birth-date'), '"No, change the date" asks again');
+
   const birth = birthDateYearsAgo(15);
   await page.fill('#app-birth-date', birth);
   await page.click('.app-age-save');
-  check(!(await page.isVisible('#app-age')), 'a valid date closes the age question');
+  check((await page.textContent('.app-age-confirm .app-group-name')).match(/13/) !== null, 'shows the right group to check (13 to 17)');
+  check(await page.isVisible('.app-age-confirm .app-accommodations [data-age-group="teen"]')
+    && !(await page.isVisible('.app-age-confirm .app-accommodations [data-age-group="adult"]')), 'lists only that group\'s accommodations');
+  await page.click('.app-age-yes');
+  check(!(await page.isVisible('#app-age')), 'confirming closes the age question');
   check(await page.isVisible('.ci-tabs'), 'the check-in appears');
 
-  let stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
+  // What the app does for this age shows on the page.
+  check(await page.isVisible('.app-age-box [data-age-group="teen"]'), 'Today starts with the box for ages 13 to 17');
+  check(await page.isVisible('.app-age-box [data-age-group="teen"] a[href*="#other-ways"]'), 'the teen box links to LGBTQ+ support on Get Help');
+  check(!(await page.isVisible('.app-age-box [data-age-group="child"]')), 'other ages\' boxes stay hidden');
+  check(!(await page.evaluate(() => document.documentElement.classList.contains('app-large-text'))), 'regular text for ages 13 to 17');
+
+  stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
   check(stored.includes('"teen"'), 'keeps the age group (15 years old is 13 to 17)');
   check(!stored.includes(birth) && !stored.includes(birth.slice(0, 4)), 'never keeps the birth date');
 
@@ -135,8 +156,34 @@ async function run(browser, lang) {
   await page.click('.app-age-change');
   await page.fill('#app-birth-date', birthDateYearsAgo(70));
   await page.click('.app-age-save');
+  await page.click('.app-age-yes');
   stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
   check(stored.includes('"older"'), 'a new date of birth changes the group to 65 and over');
+  check(await page.evaluate(() => document.documentElement.classList.contains('app-large-text')), 'text is larger for 65 and over');
+  await page.click('.ci-tabs a[href="#ci-today"]');
+  check(await page.isVisible('.app-age-box [data-age-group="older"]') && !(await page.isVisible('.app-age-box [data-age-group="teen"]')), 'Today\'s box changes with the group');
+  await page.click('.ci-tabs a[href="#ci-journey"]');
+  check(await page.isVisible('.app-settings .app-accommodations [data-age-group="older"]'), 'Your journey lists what the app does for 65 and over');
+  await page.click('.app-text-toggle');
+  check(!(await page.evaluate(() => document.documentElement.classList.contains('app-large-text'))), 'larger text can be switched off');
+  await page.waitForTimeout(300);
+  await page.reload();
+  await page.waitForSelector('html.app-ready');
+  check(!(await page.evaluate(() => document.documentElement.classList.contains('app-large-text'))), 'the text size choice is remembered');
+  const sideways = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
+  check(!sideways, 'the page doesn\'t scroll sideways');
+
+  // A child's group shows the box for the grown-up with them.
+  await page.click('.ci-tabs a[href="#ci-journey"]');
+  await page.click('.app-age-change');
+  await page.fill('#app-birth-date', birthDateYearsAgo(9));
+  await page.click('.app-age-save');
+  await page.click('.app-age-yes');
+  await page.click('.ci-tabs a[href="#ci-today"]');
+  check(await page.isVisible('.app-age-box [data-age-group="child"]'), 'under 13: Today starts with a box for the grown-up with them');
+  await page.evaluate(() => document.documentElement.classList.add('app-large-text'));
+  const sidewaysLarge = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
+  check(!sidewaysLarge, 'larger text doesn\'t make the page scroll sideways');
 
   // The About page describes the app, not the website.
   await page.goto(base + (lang === 'es' ? 'es/acerca-de/' : 'about/'));
