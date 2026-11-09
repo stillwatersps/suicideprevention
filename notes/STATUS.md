@@ -1,5 +1,22 @@
 # Current status
 
+## If this note is on `main`
+
+Added November 7, 2026, and updated November 9. If you are reading this on `main`, the public site
+is the one-page crisis page from the branch `site/minimal-public-preview`: 988, 911, and what the
+website is, in English and Spanish, at its four page addresses and at any missing address. Both
+founders chose it on November 9, 2026, until the content is reviewed, and chose to publish the
+website without the notes. The decisions are recorded in `notes/DECISIONS.md` on pull request 5's
+branch, through pull request 18.
+
+`.github/workflows/site.yml` publishes only the page and the two files it loads, once the
+repository owner sets Settings > Pages to "GitHub Actions" and re-runs that workflow's latest run on
+`main` from the Actions tab. Until then, Pages also serves these notes, `README.md`, and `CLAUDE.md`
+as plain files. The rest of this note predates the crisis page and still describes the photo
+homepage, and so do [[PROJECT]], [[00 START HERE]], [[DESIGN]], and `README.md`. See
+[[worklogs/2026-11-07-claude-minimal-public-preview|the crisis page handoff]] and
+[[worklogs/2026-11-09-claude-one-page-publish|the publish step handoff]].
+
 Repository state checked: November 6, 2026. Check GitHub if this looks out of date.
 
 ## Current phase

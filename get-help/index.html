@@ -2,118 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <!-- Only this site's own files may load, and there are no scripts. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <!-- Other sites aren't told that a visitor came from here. -->
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Getting help for yourself — Stillwater</title>
-  <meta name="description" content="Options for getting support when you're struggling, and what to expect when you reach out.">
-  <meta name="theme-color" content="#FAF8F4">
-  <link rel="stylesheet" href="../assets/styles.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <!-- Asks search engines not to list this page until it has been reviewed. -->
+  <meta name="robots" content="noindex">
+  <title>Get help now: 988 and 911</title>
+  <meta name="description" content="Call or text 988 to reach the 988 Suicide &amp; Crisis Lifeline, any time. In immediate danger, call 911.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <!-- A small icon of this site's own. Without one, browsers ask for a missing favicon.ico. -->
+  <link rel="icon" href="../assets/preview-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/preview.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
-
-  <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1 -->
-  <div class="crisis-bar" role="note" aria-label="Crisis help">
-    <p>In crisis? <strong>Call or text 988</strong> any time. In immediate danger, <strong>call 911</strong>.</p>
-  </div>
-
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="../" aria-label="Stillwater home">
-        <svg class="brand-mark" viewBox="0 0 70 50" aria-hidden="true" focusable="false">
-          <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
-          <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
-        </svg>
-        <span class="brand-text">
-          <span class="brand-name">Stillwater</span>
-          <span class="brand-tag">Suicide prevention &amp; support</span>
-        </span>
-      </a>
-
-      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-        <span>Menu</span>
-      </button>
-
-      <nav id="site-nav" class="site-nav" aria-label="Main">
-        <ul>
-          <li><a href="../get-help/" aria-current="page">Get Help</a></li>
-          <li><a href="../help-someone/">Help Someone</a></li>
-          <li><a href="../research/">Research</a></li>
-          <li><a href="#about">About</a></li>
-        </ul>
-      </nav>
-
-      <a class="button button-plum header-cta" href="#support">Get Support Now</a>
+  <!-- One-page crisis preview. The same page is at index.html, get-help/, help-someone/
+       and research/, and 404.html adds one line in English and one in Spanish. Change all
+       five together, and the English and Spanish parts together.
+       See notes/worklogs/2026-11-07-claude-minimal-public-preview.md. -->
+  <main>
+    <div class="top">
+      <h1>Get help now</h1>
+      <a class="lang-jump" href="#ayuda" lang="es">Ayuda en español<span aria-hidden="true"> ↓</span></a>
     </div>
-  </header>
+    <p class="lead">Are you thinking about suicide, or worried about someone? Call, text, or chat with the 988 Suicide &amp; Crisis Lifeline any time, day or night.</p>
+    <ul class="actions">
+      <li><a class="action action-main" href="tel:988">Call 988</a></li>
+      <li><a class="action" href="sms:988">Text 988</a></li>
+      <li><a class="action" href="https://chat.988lifeline.org/">Chat online <span class="address">chat.988lifeline.org</span></a></li>
+    </ul>
+    <p class="hint">On a computer or tablet? Call or text 988 from a phone, or use the chat.</p>
 
-  <main id="main">
-    <section class="page-hero" aria-labelledby="page-title">
-      <div class="page-hero-inner">
-        <p class="breadcrumb"><a href="../">← Home</a></p>
-        <p class="eyebrow">For you</p>
-        <h1 id="page-title">Getting help for yourself</h1>
-        <p class="hero-lead">If you're struggling or having thoughts of suicide, reaching out is a strong first step. This page will walk you through your options and what to expect when you ask for help.</p>
-      </div>
+    <section aria-labelledby="danger">
+      <h2 id="danger">In immediate danger</h2>
+      <ul class="actions">
+        <li><a class="action action-911" href="tel:911">Call 911</a></li>
+      </ul>
+    </section>
+    <!-- Printed only, so the first printed sheet says what this website is. The same words are
+         in the footer. -->
+    <p class="print-note">This website is an early project. It is not a crisis service. No qualified person has reviewed this page yet. An AI assistant drafted this page.</p>
+
+    <section id="ayuda" lang="es" aria-labelledby="ayuda-titulo">
+      <h2 id="ayuda-titulo">Ayuda en español</h2>
+      <p>¿Estás pensando en el suicidio o te preocupa alguien? Puedes comunicarte con la Línea 988 a cualquier hora, de día o de noche.</p>
+      <ul class="actions">
+        <li><a class="action action-main" href="tel:988">Llama al 988 y marca 2</a></li>
+        <li><a class="action" href="sms:988">Envía AYUDA por texto al 988</a></li>
+        <li><a class="action" href="https://chat.988lifeline.org/?lang=es">Chatea en español <span class="address">chat.988lifeline.org/?lang=es</span></a></li>
+      </ul>
+      <p class="hint">¿Usas una computadora o una tableta? Desde un teléfono, llama al 988 y marca 2, o envía AYUDA por texto al 988. También puedes usar el chat en español.</p>
+      <h3>Si hay peligro inmediato</h3>
+      <ul class="actions">
+        <li><a class="action action-911" href="tel:911">Llama al 911</a></li>
+      </ul>
+      <!-- Printed only, like the English line above. The same words are in the Spanish About part. -->
+      <p class="print-note">Este sitio web es un proyecto nuevo. No es un servicio de crisis. Ninguna persona calificada ha revisado esta página todavía. Un asistente de IA redactó esta página. Un asistente de IA tradujo del inglés todo el texto en español. Ninguna persona que hable español con fluidez lo ha revisado todavía.</p>
     </section>
 
-    <div class="page-body">
-      <section class="crisis-panel" id="support" aria-labelledby="crisis-title">
-        <h2 id="crisis-title">Need to talk to someone now?</h2>
-        <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time.</p>
-        <ul class="crisis-actions" aria-label="Reach the 988 Suicide and Crisis Lifeline">
-          <li>
-            <a class="action action-primary" href="tel:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
-              <span><span class="action-title">Call 988</span><span class="action-sub">Talk to someone now</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="action" href="sms:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
-              <span><span class="action-title">Text 988</span><span class="action-sub">Reach out by text</span></span>
-            </a>
-          </li>
-          <li>
-            <a class="action" href="https://988lifeline.org/chat/" rel="noopener">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
-              <span><span class="action-title">Chat Online</span><span class="action-sub">988 Lifeline web chat</span></span>
-            </a>
-          </li>
-        </ul>
-
-        <p class="fallback">On a device that can't call or text? Dial or text <strong>988</strong> from any phone, or go to <strong>988lifeline.org</strong>. In immediate danger, call <strong>911</strong>.</p>
-      </section>
-
-      <section class="page-status" aria-labelledby="status-title">
-        <h2 id="status-title">This page is being written</h2>
-        <p>It will cover:</p>
-        <ul>
-            <li>What happens when you call, text, or chat with 988</li>
-            <li>Other ways to get support, now and over time</li>
-            <li>Small steps that can help you get through a hard moment</li>
-        </ul>
-      </section>
-    </div>
+    <!-- The footer's About text, in Spanish. Kept here, right after the Spanish help, so a
+         Spanish reader finds it without reading past the English. -->
+    <section class="about" lang="es" aria-labelledby="acerca-titulo">
+      <h2 id="acerca-titulo">Acerca de este sitio web</h2>
+      <p>Este sitio web es un proyecto nuevo. No es un servicio de crisis. Sus otras páginas todavía no están listas, así que los enlaces a ellas abren esta página. Ninguna persona calificada ha revisado esta página todavía.</p>
+      <p>La Línea 988 y el 911 son servicios reales. Están separados de este sitio web.</p>
+      <p><strong>Privacidad:</strong> este sitio web no te pide registrarte ni llenar formularios, y no usa analíticas ni cookies. Está alojado en GitHub. GitHub dice que registra y guarda la dirección IP de cada visitante, por seguridad.</p>
+      <p class="more"><a class="print-url" href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection" hreflang="en">Lee la declaración de GitHub sobre la recopilación de datos (página en inglés)</a></p>
+      <p>Un asistente de IA redactó esta página. También comparó los números con el sitio web de cada proveedor el 6 de noviembre de 2026. Ninguna persona los ha confirmado ni ha probado los enlaces en un teléfono todavía.</p>
+      <p>Un asistente de IA tradujo del inglés todo el texto en español. Ninguna persona que hable español con fluidez lo ha revisado todavía.</p>
+    </section>
   </main>
 
-  <footer class="site-footer" id="about">
-    <div class="footer-inner">
-      <nav class="footer-nav" aria-label="All pages">
-        <ul>
-          <li><a href="../">Home</a></li>
-          <li><a href="../get-help/">Get Help</a></li>
-          <li><a href="../help-someone/">Help Someone</a></li>
-          <li><a href="../research/">Research</a></li>
-        </ul>
-      </nav>
-      <h2>About Stillwater</h2>
-      <p>Stillwater is an early project to help people in the United States find suicide prevention support. Stillwater is not a crisis service. The calling, texting, and chat options on this site connect you to the 988 Suicide &amp; Crisis Lifeline. If you or someone else is in immediate danger, call 911.</p>
-      <p class="footer-note">Early preview. Content is still being reviewed.</p>
-    </div>
+  <footer>
+    <h2>About this website</h2>
+    <p>This website is an early project. It is not a crisis service. Its other pages aren't ready yet, so links to them open this page. No qualified person has reviewed this page yet.</p>
+    <p>988 and 911 are real services. They are separate from this website.</p>
+    <p><strong>Privacy:</strong> this website has no sign-ups, forms, analytics, or cookies. GitHub hosts it. GitHub says it logs and stores the IP address of every visitor, for security.</p>
+    <p class="more"><a class="print-url" href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">Read GitHub's statement on data collection</a></p>
+    <p>An AI assistant drafted this page. It compared the numbers with each provider's website on November 6, 2026. No person has confirmed them or tried the links on a phone yet.</p>
   </footer>
-
-  <script src="../assets/menu.js" defer></script>
 </body>
 </html>
