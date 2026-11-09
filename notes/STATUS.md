@@ -132,9 +132,10 @@ Both founders agreed these on November 9, 2026. Details in [[DECISIONS]] and [[T
 2. **Book the licensed therapist and find a fluent Spanish reader.** Give them the packets in
    `notes/review-packet/`, and record results in [[CONTENT-REVIEW]]. The reviewer looks first at idea
    E1 in [[IDEAS]], marked Important. Everything in pull request 5 waits for this.
-3. **Publish the one crisis page.** Claude prepares a website-only publish step for `main`; both
-   founders approve it and pull request 12, the repository owner switches Pages to GitHub Actions,
-   and pull request 8 is closed. Merging publishes.
+3. **Publish the one crisis page.** Pull request 12 now has a website-only publish step, added
+   November 9. Both founders approve and merge it, then the repository owner switches Pages to
+   GitHub Actions and re-runs the latest Site run, in the order its description gives. Then close
+   pull request 8. Merging publishes.
 4. **Try Shoreline and signage on a real phone,** using [[PHONE-TEST]], and merge or close pull
    request 11.
 5. **Both founders read** the updated [[FIRST-VERSION]], [[SAFETY]], and the crisis rules in

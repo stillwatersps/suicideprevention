@@ -20,9 +20,10 @@ Planning tasks below are suggestions; ownership has not been agreed.
   Nothing is built. Owner: the founder arranging the review. Details at the top of [[IDEAS]].
 - [x] Decide what the public GitHub Pages link should show until the site is reviewed. Both
   founders chose pull request 12, the one crisis page, on November 9, 2026. See [[DECISIONS]].
-- [ ] Publish the one crisis page. Claude prepares a website-only publish step for `main` that
-  publishes pull request 12's page; both founders approve it and 12; the repository owner switches
-  Pages to GitHub Actions; pull request 8 is closed. Owner: both. **Merging publishes.**
+- [ ] Publish the one crisis page. Pull request 12 has a website-only publish step since November
+  9. Both founders approve and merge it; the repository owner switches Pages to GitHub Actions and
+  re-runs the latest Site run, in the order its description gives; pull request 8 is closed. Owner:
+  both. **Merging publishes.**
 - [ ] Answer whether the Daily check-in saves to the person's own iCloud or Google account, or to
   a Tidelight account, which needs a server. Owner: both. Nothing is built until then.
 - [ ] Each founder moves any private notes outside the project folder (decided November 9).
