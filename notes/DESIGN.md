@@ -53,8 +53,10 @@ skill. It keeps the current layout and changes only the look:
   and a tide-pool panel with a tide edge around the call, text, and chat buttons on every page,
   Home included.
 - **A dawn brown for notices,** such as the draft-for-review note and the current page.
-- **The phone's own fonts.** Its serif for headings, its sans for reading. Nothing loaded
-  from another site.
+- **The device's own fonts, by name.** San Francisco, Segoe, or Roboto for reading, with
+  Arial as the fallback, and a serif for headings. Nothing loaded from another site.
+- **Square buttons, soft panels.** The founder asked for square buttons on November 9 and
+  liked the curve between Home's panel and the desert photo, which stays.
 - **Thin lines, no shadows or gradients, no motion.** A two-band "shoreline" under each page
   heading and above the footer.
 

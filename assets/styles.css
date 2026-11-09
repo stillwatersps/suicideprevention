@@ -987,8 +987,11 @@ body { padding-bottom: 76px; }
   --notice-line: #C9A36B;
   --line: #D6D0C4;
   --card: #FFFFFF;
-  --serif: ui-serif, "Iowan Old Style", Charter, "Palatino Linotype", Georgia, serif;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Each platform's own fonts by name, then Arial and Georgia. Not the generic system-ui or
+     ui-serif: on some Linux systems those mean DejaVu, which is wide enough to push pages
+     sideways at large text. */
+  --serif: "Iowan Old Style", Charter, "Palatino Linotype", Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --radius: 10px;
   --shadow: none;
 }
@@ -1109,6 +1112,11 @@ h1 { letter-spacing: -.025em; }
 .pc-poster, .pc-card { border-color: #0B4F6C; color: #13222C; }
 .pc-kicker { color: #0B4F6C; }
 .pc-big { color: #13222C; }
+
+/* Square buttons: every button and button-like link has square corners (founder's choice,
+   November 9, 2026). Panels keep their soft corners, and the Home photo keeps its curve. */
+.button, .action, .pill, .more > summary, .menu-button, .print-button, .quick-exit,
+.card-arrow, .skip-link, .steps > li::before { border-radius: 0; }
 
 /* The shoreline: two thin tide bands under each page heading and above the footer.
    Drawn with inset shadows, so it adds no markup and takes no space. */

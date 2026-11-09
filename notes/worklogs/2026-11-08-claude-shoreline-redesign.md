@@ -57,8 +57,8 @@ and Shoreline.
 | Color | Paper `#FBF9F4`, ink `#13222C`. One tide blue `#0B4F6C` for everything that is help. A dawn brown `#7A400C` for notices, labels, and the current page. Dark mode: night tide, `#0E171D` with light ink |
 | Contrast | Text measured at 7:1 or more (WCAG AAA) for the main pairs, light and dark |
 | The help panel | A pale tide pool with a 6px tide edge around call, text, and chat on every page, Home included. Call 988 is the only solid button |
-| Type | The device's own serif for headings and its own sans for reading. No outside fonts |
-| Shapes | 10px corners, thin lines, no shadows, no gradients. Square-ish 8px corners for small buttons |
+| Type | Each platform's own fonts by name (San Francisco on Apple, Segoe on Windows, Roboto on Android), then Arial and Georgia. No outside fonts |
+| Shapes | Square buttons (founder's request, November 9). Panels keep 10px corners. Home keeps the curve over the photo, which the founder liked. Thin lines, no shadows, no gradients |
 | Signature | Two thin tide bands, the "shoreline", under each page heading and above the footer |
 | Motion | None |
 
@@ -82,6 +82,15 @@ All on November 8, 2026, in Chromium on Linux. None of this is a real phone.
 | `python3 tools/test_browser.py`, all 18 groups | 5,178 checks, 0 failures. The first run found two problems, both fixed: panels printed dark from dark mode, and at 200% text on a 320px phone two places pushed the page sideways |
 | `python3 tools/test_the_tests.py` | See the pull request; it runs longer than one command allows here |
 | Real iPhone or Android phone | **Not done.** See [[PHONE-TEST]] |
+
+## Follow-up, November 9, 2026
+
+- **GitHub's browser test failed** on the first push: 359 problems at 200% text and on section
+  jumps, all of which passed on Claude's machine. Cause: the generic `system-ui` font means Inter
+  there but DejaVu Sans, a much wider font, on GitHub's Linux machine. Pull request 10 passes there,
+  so the failure was this branch's. Fixed by naming each platform's font and falling back to Arial
+  and Georgia, as before. All 5,178 local checks pass with the new stack.
+- **Square buttons,** at the founder's request. The Home curve stays.
 
 ## Decisions and open questions
 
