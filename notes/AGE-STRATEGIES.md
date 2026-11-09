@@ -7,7 +7,7 @@ status: draft research summary, not reviewed
 
 [[00 START HERE|Back to Start Here]]
 
-Written November 9, 2026, at one founder's request, for idea E3 in [[IDEAS]]: date of birth at
+Written November 9, 2026, at one founder's request, in two rounds the same day, for idea E3 in [[IDEAS]]: date of birth at
 sign-up in the phone app, and help shaped by age group. **Claude's summary. No licensed reviewer
 has read it.** The reviewer decides the age groups and what each one gets. Nothing here is advice
 for a person, and none of it replaces 988, 911, or care from a professional.
@@ -50,6 +50,26 @@ is to point people toward the things that work, and to never stand in for them.
 7. **National Institute of Mental Health.** 5 Action Steps to Help Someone Having Thoughts of
    Suicide. Read on nimh.nih.gov.
 
+Second round, asked for by the same founder:
+
+8. **Hughes JL, Horowitz LM, Ackerman JP, Adrian MC, Campo JV, Bridge JA.** Suicide in young people:
+   screening, risk assessment, and intervention. *BMJ* 2023;381:e070630. doi:10.1136/bmj-2022-070630.
+   Read on PubMed Central (PMC11741005). Covers studies from 2000 to March 2022, ages 5 to 24.
+9. **Stanley B, Brown GK, Brenner LA, et al.** Comparison of the Safety Planning Intervention with
+   follow-up vs usual care of suicidal patients treated in the emergency department. *JAMA
+   Psychiatry* 2018;75(9):894–900. doi:10.1001/jamapsychiatry.2018.1776. Read on PubMed Central
+   (PMC6142908). Veterans Affairs emergency departments, adults.
+10. **Lapierre S, Erlangsen A, Waern M, et al.** A systematic review of elderly suicide prevention
+    programs. *Crisis* 2011;32(2):88–98. doi:10.1027/0227-5910/a000076. Read on PubMed Central
+    (PMC3728773). 19 studies of programs for adults 60 and over.
+11. **The Trevor Project.** 2024 U.S. National Survey on the Mental Health of LGBTQ+ Young People.
+    Read on thetrevorproject.org/survey-2024. More than 18,000 LGBTQ+ young people aged 13 to 24. A
+    survey: it shows links, not causes.
+12. **Centers for Disease Control and Prevention.** Suicide Prevention Resource for Action, overview
+    page. Read on cdc.gov. The full PDF refused automated reads, so only the page's list of
+    strategies is used.
+13. **World Health Organization.** LIVE LIFE Initiative for Suicide Prevention. Read on who.int.
+
 ### Not read
 
 - SPRC's page on older adults returned a different page, and NIMH's parent flyer for its youth
@@ -57,6 +77,10 @@ is to point people toward the things that work, and to never stand in for them.
   stayed behind a browser check. Nothing below comes from them.
 - Search summaries mentioned other reviews, such as Wasserman 2021 on children and adolescents.
   They weren't read, so they aren't used.
+- Second round: PubMed refused automated reads after a few pages, so these were read only through
+  other sources, never directly: the original trial of Youth Aware of Mental Health (Wasserman 2015,
+  *Lancet*), the PROSPECT trial for older adults (Bruce 2004, *JAMA*), and a 2023 meta-analysis of
+  caring contacts (Skopp, *Psychological Services*). The CDC's full PDF was refused too.
 
 ## What the sources say, by age
 
@@ -74,6 +98,13 @@ is to point people toward the things that work, and to never stand in for them.
   suicide." NIMH: "making lethal means less available or less deadly can help the person stay
   safe."
 - **Therapy works.** Mann 2021: "CBT and DBT prevent suicidal behavior."
+- **What a whole community does.** CDC's seven strategies: "Strengthen economic supports", "Create
+  protective environments", "Improve access and delivery of suicide care", "Promote healthy
+  connections", "Teach coping and problem-solving skills", "Identify and support people at risk",
+  and lessening harms and preventing future risk. WHO's LIVE LIFE names four interventions, among
+  them "Fostering socio-emotional life-skills in young people" and "Early identification and support
+  to everyone affected by suicide and self-harm". An app can only touch a few of these: healthy
+  connections, coping skills, and pointing to care.
 - **Self-guided digital tools help a little, if they address suicidal thoughts directly.**
   Torok 2020, 16 trials, 4,398 people aged about 15 to 43 on average: a small effect on suicidal
   thoughts right after use (g −0.18), from tools that target suicidal thoughts directly (g −0.23).
@@ -84,6 +115,15 @@ is to point people toward the things that work, and to never stand in for them.
 
 - **The least studied group.** Mann 2021 names "demographic groups like children and the
   elderly" as understudied. Albaum 2025's studies had a mean age of 15; few children were included.
+- **What has worked for young children is in the classroom.** Hughes 2023: the Good Behavior Game,
+  "implemented by teachers in first and second grade classrooms", builds self-regulation and getting
+  along with others, and "has shown a sustained reduction in suicide attempts and suicidal ideation."
+- **Asking young children hasn't been tested.** Hughes 2023: studies show asking young people about
+  suicide doesn't cause harm, but "iatrogenic risk of asking about suicide has not been evaluated in
+  pre-teens; caution should be used in generalizing these results to younger age groups."
+- **Teaching parents helps them act.** Hughes 2023 describes educating parents of children seen in an
+  emergency department about limiting access to lethal means: parents who received it "reported
+  taking more action to limit access".
 - **For the app:** nothing here supports self-guided suicide-related features for young
   children. What the sources support is adults around a child: asking, listening, keeping lethal
   means away, and connecting to help (NIMH). So the child group should mainly point to a trusted
@@ -104,6 +144,28 @@ is to point people toward the things that work, and to never stand in for them.
   modification".
 - **Training gatekeepers for youth hasn't worked.** Mann 2021: "Education of gatekeepers about
   youth suicidal behavior lacks effectiveness."
+- **School programs for all students cut attempts.** Hughes 2023: in YAM's trial of about 11,000
+  ninth graders, those who took part had "55% fewer incident suicide attempts and 50% fewer cases of
+  severe suicidal ideation". Signs of Suicide (SOS), in middle and high schools, led to "a 40-64%
+  reduction in student self-reported suicide attempts" across several trials.
+- **For teens who have already attempted, therapy with the family works best.** Hughes 2023: DBT for
+  adolescents "is the only intervention that meets criteria for a well established treatment", and
+  it "includes a family training component for parents." Common elements of what works:
+  "comprehensive assessment ..., safety planning, family involvement, coping skills training ..., and
+  promotion of continuity of care."
+- **What protects young people.** Hughes 2023: "Family cohesion, increased access to care,
+  faith/spiritual factors, cognitive flexibility and emotion regulation skills, and strong
+  interpersonal relationships". "Social connectedness is emerging as a potential target".
+- **Apps for teens are promising but untested.** Hughes 2023: technology "deserves additional study";
+  "safety planning supported by phone and/or mobile application with personalized coping skills for
+  young people and recommendations for parents has been piloted."
+- **LGBTQ+ young people, 13 to 24.** The Trevor Project 2024: 12% attempted suicide in the past year.
+  Those "living in very accepting communities attempted suicide at less than half the rate of those
+  who reported living in very unaccepting communities", and transgender and nonbinary young people who
+  found their school gender-affirming "reported lower rates of attempting suicide". Half who wanted
+  mental health care couldn't get it, and reasons included "I did not want to have to get my
+  parent's/caregiver's permission" and fear "of being outed". Hughes 2023 adds that risk "may be
+  mitigated by affirming school culture, family support, and inclusive and protective health policies."
 - **For the app:** emphasize understanding feelings and mental health, and reaching a trusted
   adult or family member. Offer a safety plan only as something to make with a trusted adult or
   a professional, not as the help itself. Keep The Trevor Project and 988 visible as on the
@@ -128,6 +190,11 @@ is to point people toward the things that work, and to never stand in for them.
   safety planning interventions for adults".
 - **Doctors trained in depression lower suicide.** Mann 2021: "Training primary care physicians
   in depression recognition and treatment prevents suicide."
+- **A safety plan with follow-up calls.** Stanley 2018, 1,640 adults seen in 9 Veterans Affairs
+  emergency departments (mean age about 47, 88% men): with the Safety Planning Intervention and at
+  least two follow-up calls, 3.03% had suicidal behavior in 6 months against 5.29% with usual care,
+  "45% fewer suicidal behaviors" (odds ratio 0.56, 95% CI 0.33–0.95), and "more than double the odds
+  of attending at least 1 outpatient mental health visit". It wasn't randomized: sites were compared.
 - **For the app:** a personal safety plan (warning signs, ways to cope, people and places,
   professionals to contact, making the surroundings safer, reasons for living), shown to be most
   useful when made or reviewed with a clinician. Encourage talking to a doctor about mood.
@@ -145,6 +212,14 @@ is to point people toward the things that work, and to never stand in for them.
 - **Community programs helped women more than men** in Japanese regional studies Mann 2021 lists:
   lower female suicide rates, "No regional difference in male suicides."
 - Laflamme 2022 also says older people are "less likely to disclose emotional distress."
+- **Most programs reduced risk factors, and worked better for women.** Lapierre 2011, 19 studies of
+  programs for adults 60 and over: they centered on "depression screening and treatment, and
+  decreasing isolation", but "when gender was considered, programs were mostly efficient for women."
+- **Regular phone contact.** Lapierre 2011 describes an Italian service with an emergency call line
+  and "a twice-weekly telephone support": over 11 years, users had "only 28.8% of the expected
+  suicide mortality". The benefit was significant for women only, and 84% of users were women.
+- **What the authors recommend next:** "improve resilience and positive aging, engage family and
+  community gatekeepers, use telecommunications to reach vulnerable older adult".
 - **For the app:** talking to a primary care doctor about mood, staying active, staying in touch
   with people, and plain, larger text. Don't rely on the person bringing up distress themselves.
 
@@ -163,6 +238,28 @@ listed as a starting point.
 
 Every group: no scores, no reading of what's written, and nothing that replaces care.
 
+## What the second round suggests for the app
+
+Proposals from Claude, for the founders and the reviewer. **None of these is built, and the app's
+words haven't changed.**
+
+- **Children:** add a short "for the grown-up with you" note, built on NIMH's five steps and on
+  keeping lethal means out of reach, in general words. Don't ask young children direct questions
+  about suicide, since that hasn't been tested below the teen years.
+- **Teens:** the teen card already says "an adult you trust" rather than "a parent". Keep it that
+  way: for LGBTQ+ young people, a parent isn't always safe, and needing a parent's permission kept
+  some from care. Keep The Trevor Project easy to find. Teaching about feelings and mental health has
+  the strongest evidence for this age, so short "understanding feelings" pieces fit better than a
+  plan made alone.
+- **Support circle (E2):** the survey's findings on parents and being outed are a reason to let
+  teens choose who joins, and never to add a parent automatically.
+- **Adults:** a safety plan works best with follow-up. The app could offer to remind the person to
+  look at their plan again, and to bring it to a doctor or counselor. A reminder is not the same as a
+  clinician's call, so it shouldn't be described as one.
+- **Older adults:** regular contact helped. The app could offer, by choice, a reminder to call or
+  message someone, and larger text by default. These programs helped women more than men, so the
+  reviewer may want ideas aimed at older men.
+
 ## Questions for the reviewer
 
 - Are these age groups right? The sources use 10 to 19 for adolescents and 60 and over for older
@@ -170,3 +267,6 @@ Every group: no scores, no reading of what's written, and nothing that replaces 
 - Should children under 13 use the app on their own at all?
 - Should the teen group's safety plan be offered only together with an adult, given Albaum 2025?
 - Which newer reviews should be read before any of this is used, including the Albaum correction?
+- Should the app add any of the second round's proposals above, and in what words?
+- Several findings come from veterans (Stanley 2018), European schools (YAM), or Japan and Italy
+  (older adults). How well do they fit U.S. users of each age?

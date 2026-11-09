@@ -58,6 +58,13 @@ browser stand-ins.
 - Two sources couldn't be read: SPRC's older adults page and NIMH's parent flyer. Nothing is taken
   from them.
 
+- A second round the same day, at the founder's request, added six sources: a 2023 BMJ review of
+  young people (with the classroom program for young children, YAM and SOS for teens, and DBT with
+  family for teens), the 2018 safety plan with follow-up calls for adults, a review of programs for
+  older adults, the Trevor Project's 2024 survey, and the CDC and WHO overviews. PubMed began refusing
+  automated reads, so three trials were used only as other sources describe them. [[AGE-STRATEGIES]]
+  ends with proposals for the app; none is built.
+
 ## Open questions
 
 - In [[CONTENT-REVIEW]], under "Questions about the phone app", and at the end of [[AGE-STRATEGIES]].
