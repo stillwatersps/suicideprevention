@@ -29,10 +29,11 @@ TOOLS = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS))
 from check_site import find_pages  # noqa: E402
 from preview_server import BASE, make_server  # noqa: E402
-from test_browser import AUDIT_JS, MUST_PIN, VIEWPORTS  # noqa: E402
+from test_browser import AUDIT_JS, MUST_PIN, ONE_ROW, VIEWPORTS, strip_problems  # noqa: E402
 
-# Width, height, dark mode.
-SIZES = [(390, 844, False), (320, 568, False), (750, 292, False), (844, 390, False), (768, 1024, False), (1440, 900, False), (390, 844, True)]
+# Width, height, dark mode. 640x290 and 568x300 show the compact one-row strip.
+SIZES = [(390, 844, False), (320, 568, False), (568, 300, False), (640, 290, False), (750, 292, False), (844, 390, False),
+         (768, 1024, False), (1440, 900, False), (390, 844, True)]
 AUDIT_KEYS = {
     "hscroll": "scrolls sideways", "offscreen": "runs off the screen", "clipped": "text cut off", "overlaps": "controls overlap",
     "brokenImages": "image did not load", "contrast": "low contrast", "unnamed": "control has no name",
@@ -41,8 +42,9 @@ AUDIT_KEYS = {
     "exitCoversTop": "Quick exit covers a crisis link at the top of the page", "deadCrisis": "a crisis link can't be tapped",
     "stripHidden": "at the top of the page, the crisis strip's",
 }
-# The sizes where the Chrome tests expect the crisis strip to stay pinned.
+# The sizes where the Chrome tests expect the crisis strip to stay pinned, and to be one short row.
 PINNED_SIZES = {(width, height) for label, width, height, _ in VIEWPORTS if label in MUST_PIN}
+ONE_ROW_SIZES = {(width, height) for label, width, height, _ in VIEWPORTS if label in ONE_ROW}
 
 SWIFT = r"""
 // Runs steps in a WebKit view: load an address, run a script, or take a screenshot. Prints one line of JSON per step.
@@ -278,6 +280,10 @@ def main():
                     problems.append(f"{line['step']}, {where}: the crisis strip is not pinned")
                 if (width, height) in PINNED_SIZES and not result.get("stripBottom"):
                     problems.append(f"{line['step']}, {where}: the crisis strip's Call 988 scrolls off the screen")
+                # At every size: the compact strip, and on a phone on its side any pinned strip, is one short
+                # row, and Quick exit is inside the pinned strip or floats where the strip scrolls away.
+                for problem in strip_problems(result, (width, height) in ONE_ROW_SIZES) if result else []:
+                    problems.append(f"{line['step']}, {where}: {problem}")
                 if width >= 960 and not result.get("headerBottom"):
                     problems.append(f"{line['step']}, {where}: the header's Get Support Now button scrolls off the screen")
 

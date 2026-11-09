@@ -47,6 +47,12 @@ VIEWPORTS = [
     ("phone 390x844", 390, 844, True),
     ("phone 430x932", 430, 932, True),
     ("phone landscape 568x320", 568, 320, True),
+    # Shorter phones on their side, where the compact one-row strip pins (see notes/DECISIONS.md).
+    ("phone landscape 568x300", 568, 300, True),
+    ("phone landscape 640x290", 640, 290, True),
+    # Below the compact strip's height limit, 192px at the default text size, where even one row
+    # would cover more than a quarter of the screen.
+    ("phone landscape 640x180", 640, 180, True),
     # Safari on an iPhone 17 on its side, as measured in the iOS Simulator: its toolbars take
     # the rest, and page layout keeps this height even when they shrink.
     ("phone landscape 750x292", 750, 292, True),
@@ -60,16 +66,50 @@ VIEWPORTS = [
 # Where the crisis strip must stay pinned, so 988 and 911 are always one tap away.
 MUST_PIN = {
     "phone 320x568", "phone 375x667", "phone 390x844", "phone 430x932",
-    "phone landscape 568x320", "phone landscape 750x292", "phone landscape 844x390", "tablet 768x1024",
+    "phone landscape 568x320", "phone landscape 568x300", "phone landscape 640x290",
+    "phone landscape 750x292", "phone landscape 844x390", "tablet 768x1024",
 }
+# Where the crisis strip must scroll away, because pinned it would cover too much of the screen.
+# Quick exit floats in the corner there, as everywhere the strip scrolls away.
+MUST_NOT_PIN = {"phone landscape 640x180"}
+# Where the compact strip must be in use, in both languages. This also shows the audit can tell
+# it is there, which the checks of its limits need.
+COMPACT = {"phone landscape 568x300", "phone landscape 640x290"}
+# Phones on their side, where the pinned strip must also be a single row taking a quarter of the
+# screen's height or less: the compact strip on short screens, the full one on wider screens. The
+# compact strip must keep to these limits at every size and text size, wherever it is in use.
+ONE_ROW = {"phone landscape 568x300", "phone landscape 640x290", "phone landscape 750x292", "phone landscape 844x390"}
+ONE_ROW_MAX_PERCENT = 25
+# name, width, height, phone-style viewport, text sizes in percent of the browser's default
 TEXT_SIZES = [
-    ("phone 320x568", 320, 568, True),
-    ("phone 390x844", 390, 844, True),
-    ("phone landscape 844x390", 844, 390, True),
+    ("phone 320x568", 320, 568, True, (150, 200)),
+    ("phone 390x844", 390, 844, True, (150, 200)),
+    ("phone landscape 568x300", 568, 300, True, (150, 200)),
+    ("phone landscape 640x290", 640, 290, True, (150, 200)),
+    ("phone landscape 750x292", 750, 292, True, (150, 200)),
+    ("phone landscape 844x390", 844, 390, True, (150, 200)),
+    # Smaller text, as with desktop Chrome's "Small" font size, just past where the compact strip's
+    # width limits would be without their floors in px. Part of the row doesn't shrink with the text.
+    ("short screen 236x200", 236, 200, True, (75,)),
+    ("short screen 410x200", 410, 200, True, (75,)),
     # Larger text on a desktop width must get a header that fits, not one that runs off the screen.
-    ("tablet landscape 1024x768", 1024, 768, True),
-    ("laptop 1280x800", 1280, 800, False),
+    ("tablet landscape 1024x768", 1024, 768, True, (150, 200)),
+    ("laptop 1280x800", 1280, 800, False, (150, 200)),
 ]
+# With larger or smaller text, where the strip must still pin, and in which languages. On a phone on
+# its side that is the compact strip. The Spanish row is longer, so it pins in fewer places. Elsewhere
+# at these sizes the strip may scroll away, and Quick exit floats.
+MUST_PIN_TEXT = {
+    ("phone 390x844", 150): {"en", "es"},
+    ("phone landscape 568x300", 150): {"en"},
+    ("phone landscape 640x290", 150): {"en"},
+    ("phone landscape 640x290", 200): {"en"},
+    ("phone landscape 750x292", 150): {"en"},
+    ("phone landscape 750x292", 200): {"en"},
+    ("phone landscape 844x390", 150): {"en", "es"},
+    ("phone landscape 844x390", 200): {"en"},
+    ("short screen 410x200", 75): {"en"},
+}
 GROUPS = [
     "links", "matrix", "textsize", "keyboard", "menu", "jumps", "folds", "language",
     "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "offline", "speed", "modes", "privacy",
@@ -99,7 +139,8 @@ AUDIT_JS = r"""
 (function () {
   var out = {hscroll: null, offscreen: [], clipped: [], smallTargets: [], tinyTargets: [], overlaps: [],
              brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: [], stripTargets: [],
-             deadCrisis: [], exitCoversTop: [], stripTop: false, stripBottom: false, headerBottom: false, stripHidden: []};
+             deadCrisis: [], exitCoversTop: [], stripTop: false, stripBottom: false, headerBottom: false, stripHidden: [],
+             stripRows: 0, pinnedShare: 0, compact: false, exitFixed: false};
   function shown(el) {
     var s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none') return false;
@@ -312,6 +353,22 @@ AUDIT_JS = r"""
   var covered = 0;
   if (bar && getComputedStyle(bar).position === 'sticky') covered = bar.getBoundingClientRect().height;
   out.pinned = Math.round(100 * covered / innerHeight);
+  // The same share to a hundredth of a percent, for the limit of a quarter of the screen.
+  out.pinnedShare = Math.round(10000 * covered / innerHeight) / 100;
+  // Whether the compact one-row strip is in use: only it hides the words before Call 911, "In
+  // immediate danger," or "Si hay peligro inmediato,".
+  var lead = document.querySelector('.crisis-bar .strip-911 .strip-lead');
+  out.compact = !!lead && getComputedStyle(lead).display === 'none';
+  // Whether Quick exit floats in the corner, rather than riding inside the strip.
+  out.exitFixed = !!exit && getComputedStyle(exit).position === 'fixed';
+  // How many rows the strip's links and Quick exit take, counting Quick exit only when it is inside the strip.
+  var rows = [];
+  if (bar) Array.prototype.forEach.call(bar.querySelectorAll('a[href="tel:988"], a[href="sms:988"], a[href="tel:911"], .quick-exit'), function (el) {
+    if (!shown(el) || getComputedStyle(el).position === 'fixed') return;
+    var r = el.getBoundingClientRect(), middle = r.top + r.height / 2;
+    if (!rows.some(function (m) { return Math.abs(m - middle) < 20; })) rows.push(middle);
+  });
+  out.stripRows = rows.length;
   // The crisis strip's Call 988 is on screen, and can be seen, at the top of the page.
   function inView(el) {
     if (!el || !shown(el) || unseen(el)) return false;
@@ -350,6 +407,9 @@ AUDIT_JS = r"""
   // It can be seen there too: drawn, opaque enough, and not covered. Nothing is clicked. The page is
   // only asked what is at each point.
   crisisLinks.forEach(function (el) {
+    // Twice: WebKit with a desktop scrollbar can leave the first scroll after loading short, near a
+    // width where the layout changes, which would leave a crisis button under the pinned strip.
+    el.scrollIntoView({block: 'center', behavior: 'instant'});
     el.scrollIntoView({block: 'center', behavior: 'instant'});
     var dead = hitTest(el, false) || unseen(el);
     if (dead) out.deadCrisis.push(name(el) + ' ' + dead);
@@ -641,7 +701,9 @@ def test_links(site, pages, report):
 # ---------------------------------------------------------------- layout, contrast, naming
 
 
-def apply_audit(result, group, page, where, report, phone):
+def apply_audit(result, group, page, where, report, phone, one_row=False, targets=True):
+    """Reports the audit's findings. targets=False leaves out the general tap target sizes, but never
+    the crisis strip's own."""
     if result["hscroll"]:
         report.fail(group, page, f"scrolls sideways ({result['hscroll'][0]} > {result['hscroll'][1]})", where)
     for key, label in (("offscreen", "runs off the screen"), ("clipped", "text cut off"), ("overlaps", "controls overlap"),
@@ -651,9 +713,9 @@ def apply_audit(result, group, page, where, report, phone):
             report.fail(group, page, f"{label}: {item}", where)
     for item in result["stripTargets"]:
         report.fail(group, page, f"crisis strip tap target under 44px: {item}", where)
-    for item in result["tinyTargets"]:
+    for item in result["tinyTargets"] if targets else []:
         report.fail(group, page, f"tap target under 24px: {item}", where)
-    if phone:
+    if phone and targets:
         for item in result["smallTargets"]:
             report.note(group, page, f"tap target under the project's 44px aim: {item}", where)
     for item in result["exitCovers"]:
@@ -662,9 +724,30 @@ def apply_audit(result, group, page, where, report, phone):
         report.fail(group, page, f"Quick exit covers a crisis link at the top of the page: {item}", where)
     for item in result["deadCrisis"]:
         report.fail(group, page, f"a crisis link can't be tapped (SAFETY rule 2): {item}", where)
+    for problem in strip_problems(result, one_row):
+        report.fail(group, page, problem, where)
     if result["pinned"] and result["pinned"] > 30:
         report.note(group, page, f"the pinned crisis strip covers {result['pinned']}% of the screen", where)
     report.ok(group)
+
+
+def strip_problems(result, one_row=False):
+    """Rules for the crisis strip and Quick exit at every size and text size. Wherever the compact strip
+    is pinned, and with one_row wherever any strip is pinned, it is one row taking ONE_ROW_MAX_PERCENT of
+    the screen's height or less. Quick exit rides inside a pinned strip, and floats in the corner where
+    the strip scrolls away. tools/test_webkit.py uses this too."""
+    problems = []
+    pinned, compact = result.get("pinned"), result.get("compact")
+    if pinned and (compact or one_row):
+        rows, share = result.get("stripRows"), result.get("pinnedShare", 0)
+        if rows != 1 or share > ONE_ROW_MAX_PERCENT:
+            problems.append(f"the pinned {'compact ' if compact else ''}crisis strip takes {rows} row{'' if rows == 1 else 's'} and "
+                            f"{share:g}% of the screen's height, where it must be one row of {ONE_ROW_MAX_PERCENT}% or less")
+    if not pinned and not result.get("exitFixed"):
+        problems.append("Quick exit scrolls away with the crisis strip, where it must float in the corner")
+    if pinned and result.get("exitFixed"):
+        problems.append("Quick exit floats over the page, where it must be inside the pinned crisis strip")
+    return problems
 
 
 def test_matrix(browser, site, pages, report, screens=None):
@@ -695,27 +778,42 @@ def test_matrix(browser, site, pages, report, screens=None):
                     report.fail("matrix", page, "the crisis strip's Call 988 is not on screen at the top of the page", where)
                 if label in MUST_PIN and not result["stripBottom"]:
                     report.fail("matrix", page, "the crisis strip's Call 988 scrolls off the screen", where)
+                if label in MUST_NOT_PIN and result["pinned"]:
+                    report.fail("matrix", page, f"the crisis strip is pinned, covering {result['pinnedShare']:g}% of the screen's height, "
+                                "where it must scroll away", where)
+                if label in COMPACT and not result["compact"]:
+                    report.fail("matrix", page, "the compact crisis strip is not in use, or the audit can't tell, so its limits go unchecked", where)
                 for item in result["stripHidden"]:
                     report.fail("matrix", page, f"at the top of the page, the crisis strip's {item} (SAFETY rule 1)", where)
                 if width >= 960 and not result["headerBottom"]:
                     report.fail("matrix", page, "the header's Get Support Now button scrolls off the screen", where)
-                apply_audit(result, "matrix", page, where, report, phone)
+                apply_audit(result, "matrix", page, where, report, phone, one_row=label in ONE_ROW)
     tab.close()
 
 
 def test_textsize(browser, site, pages, report):
     """Changes the browser's default font size, as a person's text size setting does."""
     tab = new_tab(browser)
-    for label, width, height, phone in TEXT_SIZES:
+    for label, width, height, phone, percents in TEXT_SIZES:
         tab.resize(width, height, phone)
-        for percent in (150, 200):
+        for percent in percents:
             tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16 * percent // 100, "fixed": 13 * percent // 100}})
             where = f"{label}, text at {percent}%"
             for page in pages:
                 tab.goto(site.url(page))
                 tab.js(OPEN_ALL)
                 tab.browser.pump(0.02)
-                apply_audit(tab.js(AUDIT_JS), "textsize", page, where, report, False)
+                result = tab.js(AUDIT_JS)
+                # Wherever a phone on its side pins the strip, in either language, it is one short row,
+                # and so is the compact strip wherever it pins. Smaller text makes links sized by their
+                # words smaller, by the reader's own choice, such as Home's "Call" at 21px wide at 75%,
+                # so there only the crisis strip's tap targets are measured.
+                apply_audit(result, "textsize", page, where, report, False, one_row=label in ONE_ROW, targets=percent >= 100)
+                if ("es" if page.startswith("es/") else "en") in MUST_PIN_TEXT.get((label, percent), ()):
+                    if not result["pinned"]:
+                        report.fail("textsize", page, "the crisis strip is not pinned", where)
+                    elif not result["stripBottom"]:
+                        report.fail("textsize", page, "the crisis strip's Call 988 scrolls off the screen", where)
     tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16, "fixed": 13}})
     tab.close()
 
@@ -1061,8 +1159,10 @@ def test_quickexit(browser, site, pages, report):
     home, help_page = site.url("index.html"), site.url("get-help/index.html")
     pattern = {"patterns": [{"urlPattern": "https://www.weather.gov/*"}]}
 
-    # On every page, Quick exit is on screen, first after the skip link, and replaces the page.
-    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("phone landscape 844x390", 844, 390, True), ("desktop 1440x900", 1440, 900, False)):
+    # On every page, Quick exit is on screen, first after the skip link, and replaces the page. At 640x290
+    # it is inside the compact strip.
+    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("phone landscape 844x390", 844, 390, True),
+                                        ("phone landscape 640x290", 640, 290, True), ("desktop 1440x900", 1440, 900, False)):
         for page in pages:
             tab = new_tab(browser, width, height, phone, allow=[WEATHER])
             tab.send("Fetch.enable", pattern)

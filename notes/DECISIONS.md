@@ -41,19 +41,40 @@ Claude made these routine, reversible choices overnight at one founder's request
 They are in draft pull requests, not merged, and **not agreed by both founders**.
 
 - **Crisis strip pinned on phones and tablets.** Up to 959 px wide, the crisis strip
-  stays on screen while the header scrolls away. It stops pinning on very narrow
+  stays on screen while the header scrolls away. The full strip stops pinning on very narrow
   screens (16em wide or less, about 256 px) and very short ones (300 px tall or
   less), where it would fill the screen. A phone on its side still pins it, as one row,
   down to 240 px tall when the screen is at least 704 px wide: Safari on an iPhone 17
   measures 750 by 292 there, so the 300 px rule had left 988 and 911 off screen after
   scrolling. Found in the iOS Simulator on November 7, 2026. These limits are set in em, so
   they grow with a larger text setting: at 150% text, 16em is 384 px and 18.75em is 450 px.
-  Then the strip scrolls away and only Quick exit stays on screen, even where the strip would
-  take a small part of it. Whether larger text should still pin the strip is open. Known limit: short screens 568 to
-  703 px wide and 300 px tall or less, such as older phones on their side, don't pin it, because
-  the Spanish strip needs two rows there. At 960 px and wider it scrolls away and the
-  sticky header's button stays, which takes two steps to start a call. Why: on phones,
-  the header's button took two taps.
+  Without the proposal below, the strip then scrolls away and only Quick exit stays on screen,
+  even where the strip would take a small part of it, and short screens 568 to 703 px wide and
+  300 px tall or less, such as older phones on their side, don't pin it, because the Spanish
+  strip needs two rows there. Whether larger text should still pin the strip is open. The
+  proposal below would answer it, once both founders agree.
+  **Proposed on November 7, 2026, on branch `site/compact-crisis-strip`, and not agreed by both
+  founders:** where the full strip would scroll away on a short screen, a compact strip pins
+  instead. It is one row, "Call 988 · Text 988 · Call 911", with Quick exit inside. In Spanish
+  it reads "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al 911". It leaves out "Need
+  help now?", "In immediate danger," and "any time", and their Spanish twins, though screen
+  readers still hear each link's full name. The rule: it pins only where that row is sure to
+  fit and to take a quarter of the screen's height or less. In height that means at least 192 px
+  at the default text size, 265 px at 150% and about 266 px at 200%, so a few short screens with
+  larger text, such as 640 by 264 at 150%, still scroll it away. With text set smaller than the
+  default, it also needs as much width as at the default size, 312 px in English and 544 px in Spanish, because
+  part of the row doesn't shrink with the text. Anywhere else the strip scrolls away as before, and
+  Quick exit floats in the bottom corner. In desktop Chrome's phone-size emulation, 640 by 290
+  and 568 by 300, such as older phones on their side, now pin it in both languages, at 48 px,
+  about a sixth of the height. A desktop window zoomed to 400%, 320 by 225 in the tests, now pins
+  the English row. With 150% text, 844 by 390 pins it in both languages, and 750 by
+  292, 640 by 290 and 568 by 300 in English only. The Spanish row is about 1.7 times as long, so
+  it pins in fewer places: at 200% text only the English row pins, at 844 by 390, 750 by 292 and
+  640 by 290. A phone held upright with very large text, such as 390 px wide at 200%, can't fit
+  one row, so the strip still scrolls away there. WebKit on a Mac agrees at the default text
+  size. Not tried on a real phone. [[CONTENT-REVIEW]] asks the reviewer about the shorter wording.
+  At 960 px and wider the strip scrolls away and the sticky header's button stays, which takes
+  two steps to start a call. Why: on phones, the header's button took two taps.
 - **Crisis strip uses links.** Call 988, text 988, and call 911 can be tapped. Why:
   [[SAFETY]] rule 1. Whether 911 should be a link is a question for the reviewer.
 - **Pages ask search engines not to list them** (`noindex`), until review. Why: a
