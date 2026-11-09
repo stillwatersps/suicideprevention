@@ -24,7 +24,7 @@ Our shared notebook for building a suicide prevention website.
 | [[CONTENT-REVIEW\|Content review]] | What each control does and what a reviewer needs to check |
 | [[RESEARCH-BRIEF\|Research brief]] | Research and website copy, awaiting therapist review |
 | [[IDEAS\|Ideas]] | Improvement ideas and which ones are approved |
-| [[CHECK-IN-BACKEND\|Saving the check-in]] | What accounts and a server would need |
+| [[CHECK-IN-BACKEND\|Saving the check-in]] | Ways to save, and the phone app plan |
 | [[USER-TEST\|User test plan]] | A small, safe test with made-up situations |
 | [[FOUNDER-BRIEF\|Founder brief]] | Decisions needed from both founders, with recommendations |
 | [[LAUNCH-CHECKLIST\|Launch checklist]] | Everything between now and a public launch, in order |

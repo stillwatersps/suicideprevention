@@ -38,7 +38,7 @@ GitHub Pages is on, so anything on `main` can be seen by the public.
    check-in alone may have places to type and choose, as long as nothing typed leaves
    the page or is stored. `tools/check_site.py` allows only checkboxes, radio buttons,
    and text boxes there, and fails if its script could send or store anything. Saving
-   would need accounts and a server; see [[CHECK-IN-BACKEND]].
+   isn't built; see [[CHECK-IN-BACKEND]].
 6. **Write for minors too.** Plain language and youth-appropriate resources,
    since the audience includes minors. Ages are still undecided.
 7. **Never test on a crisis line.** Do not place test calls, send test texts,

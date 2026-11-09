@@ -19,8 +19,9 @@ check-in, "Finding Your Way Back" reflections, personalized suggestions, a priva
 Journey", and support, under the message "You don't have to have everything figured out. Start
 with how you're feeling today." Three choices were asked first:
 
-- **Saving:** accounts and a server. The site can't have one, so nothing is saved yet. See
-  [[CHECK-IN-BACKEND]].
+- **Saving:** first accounts and a server. Later the same day, after a comparison, the founder chose
+  a phone app that saves on the phone with the user's iCloud or Google backup. Neither is built, so
+  the page saves nothing. See [[CHECK-IN-BACKEND]].
 - **Languages:** English and Spanish now.
 - **Look:** built on Shoreline.
 
@@ -79,5 +80,5 @@ All on November 9, 2026, in Chromium on Linux. None of it was on a real phone.
 
 ## Next step
 
-Both founders try it, decide whether typing belongs on the site, and whether saving is worth what
-[[CHECK-IN-BACKEND]] lists. The licensed reviewer reads sections DAY and E-DAY of the packets.
+Both founders try it, decide whether typing belongs on the site, and whether to build the phone app
+one founder chose for saving ("The phone app plan" in [[CHECK-IN-BACKEND]]). The licensed reviewer reads sections DAY and E-DAY of the packets.

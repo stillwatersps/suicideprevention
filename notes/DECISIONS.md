@@ -236,9 +236,10 @@ Rediscover, Journal, Your journey, and Support. **The other founder hasn't agree
 reviewer has seen it.** Built on `site/daily-check-in`, a draft pull request into the Shoreline
 branch (`site/pro-max-redesign`). Merging it there publishes nothing. Choices:
 
-- **Saving: accounts and a server,** the founder's choice over saving on the device or never
-  saving. The site can't have a server, so the page saves nothing yet and says so. What saving
-  needs is in [[CHECK-IN-BACKEND]].
+- **Saving: a phone app with the user's own iCloud or Google backup.** The founder first chose
+  accounts and a server, then, after seeing the comparison in [[CHECK-IN-BACKEND]], chose this the
+  same day. No server and nothing reaches Tidelight. The website still saves nothing and says so.
+  Nothing for the app is built; the plan is in [[CHECK-IN-BACKEND]].
 - **Typing is allowed on this page only,** a proposed narrowing of [[SAFETY]] rule 5. It reverses
   the Not sure page's choice of nothing to type, for this page. A question for the reviewer.
 - **English and Spanish at once,** the founder's choice.
