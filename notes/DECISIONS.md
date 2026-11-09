@@ -282,7 +282,14 @@ Claude's notes, to settle before building. Details are in [[IDEAS]], idea E3:
 - **Which help fits which age** must come from research the reviewer approves. The research brief
   doesn't yet set out help by age group.
 
+## November 9, 2026: "Share this reflection", proposed
 
+One founder chose idea E2a in [[IDEAS]] for the phone app: a button that sends one reflection,
+check-in, or journal entry to someone the person picks, through the phone's share sheet. **The
+other founder hasn't agreed, no reviewer has seen it, and nothing is built.** It isn't on the
+website, because nothing typed there may leave the page until both founders agree.
+
+## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
 remaining questions. Keep the newest entries at the end.
