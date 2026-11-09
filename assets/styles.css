@@ -1179,6 +1179,156 @@ h1 { letter-spacing: -.025em; }
   .feeling > summary, .feeling-body { color: #000 !important; }
 }
 
+/* ===========================================================================
+   Daily check-in (check-in/ and es/registro-diario/). Proposed November 9, 2026.
+   Uses the Shoreline tokens. assets/check-in.js adds .ci-ready and hides what isn't
+   in use with .ci-off. Without the script, every part shows, one after another.
+   =========================================================================== */
+.ci-off { display: none !important; }
+.ci-body { max-width: 52rem; }
+.ci-start-row { margin-top: 20px; }
+.button-start { background: var(--green); color: #fff; min-height: 52px; padding: 10px 28px; font-size: 1.05rem; white-space: normal; text-align: center; max-width: 100%; }
+.button-start:hover { background: var(--tide-deep); }
+.ci-lead { font-size: 1.1rem; max-width: 40em; }
+.ci-note { color: var(--muted); max-width: 40em; margin-top: 8px; }
+
+.ci-privacy { padding: 18px 20px; border: 1px solid var(--line); border-left: 4px solid var(--tide-line); background: var(--card); }
+.ci-privacy h2 { font-size: 1.15rem; margin-bottom: 6px; }
+.ci-privacy p + p { margin-top: 6px; }
+
+/* Section tabs: a quiet row, the current one underlined in tide blue */
+.ci-tabs ul { display: flex; flex-wrap: wrap; gap: 0 4px; border-bottom: 1px solid var(--line); }
+.ci-tabs a {
+  display: inline-flex; align-items: center; min-height: 48px; padding: 0 14px;
+  color: var(--ink); font-weight: 600; text-decoration: none;
+  border-bottom: 3px solid transparent; margin-bottom: -1px;
+}
+.ci-tabs a:hover { background: var(--bg-soft); }
+.ci-tabs a[aria-current="true"] { color: var(--green); border-bottom-color: var(--green); }
+
+.ci-panel { display: grid; gap: 18px; }
+.ci-panel > h2 { font-size: clamp(1.7rem, 5vw, 2.2rem); }
+.ci-panel h3 { font-size: 1.3rem; line-height: 1.25; }
+.ci-panel h3 label { cursor: pointer; }
+
+/* Steps: one card at a time, a thin tide line on the left like a light on the water */
+.ci-steps { display: grid; gap: 20px; margin: 0; padding: 0; list-style: none; }
+.ci-step, .ci-result, .ci-card, .ci-rediscover-something, .ci-erase {
+  padding: 22px 22px 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.ci-step { border-left: 4px solid var(--green); border-radius: 0 var(--radius) var(--radius) 0; display: grid; gap: 12px; }
+.ci-step p { color: var(--muted); }
+
+/* Feelings and needs: real radio buttons and checkboxes, with a small light that comes on when chosen */
+.ci-choices { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(11.5rem, 100%), 1fr)); gap: 10px; }
+.ci-choices-small { grid-template-columns: repeat(auto-fill, minmax(min(9.5rem, 100%), 1fr)); }
+.ci-choice {
+  display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 8px 12px;
+  border: 1.5px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer;
+}
+.ci-choice:hover { border-color: var(--green); }
+.ci-choice input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: var(--green); }
+.ci-choice:has(input:checked) { border-color: var(--green); background: var(--green-soft); }
+.ci-light { flex: none; width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--tide-line); }
+.ci-choice:has(input:checked) .ci-light { background: var(--plum); border-color: var(--plum); }
+
+textarea {
+  width: 100%; min-height: 6rem; padding: 12px 14px; font: inherit; line-height: 1.5;
+  color: var(--ink); background: var(--bg); border: 1.5px solid var(--line); border-radius: 0; resize: vertical;
+}
+textarea:hover { border-color: var(--muted); }
+textarea:focus-visible { outline: 3px solid var(--plum); outline-offset: 2px; border-color: var(--green); }
+
+/* Buttons inside the check-in: square, like the rest of Shoreline */
+.ci-body button {
+  min-height: 44px; padding: 8px 16px; font: inherit; font-weight: 600; cursor: pointer;
+  color: var(--green); background: var(--card); border: 1.5px solid var(--green); border-radius: 0;
+}
+.ci-body button:hover { background: var(--green-soft); }
+.ci-body .ci-next, .ci-body .ci-finish, .ci-body .ci-add-entry, .ci-body .ci-show-idea { background: var(--green); color: #fff; }
+.ci-body .ci-next:hover, .ci-body .ci-finish:hover, .ci-body .ci-add-entry:hover, .ci-body .ci-show-idea:hover { background: var(--tide-deep); }
+.ci-step-buttons, .ci-suggestion-buttons, .ci-card-buttons, .ci-entry-buttons { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ci-quiet-support { padding: 10px 14px; background: var(--green-soft); color: var(--ink) !important; }
+.ci-quiet-support a, .ci-talk-first a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
+
+/* Suggestions */
+.ci-result { display: grid; gap: 14px; }
+.ci-result > h3 { font-size: 1.5rem; }
+.ci-talk-first { padding: 12px 16px; border-left: 4px solid var(--green); background: var(--green-soft); }
+.ci-suggestions { display: grid; gap: 12px; }
+.ci-suggestion { padding: 16px 18px; border: 1px solid var(--line); border-top: 4px solid var(--green); background: var(--bg); display: grid; gap: 10px; }
+.ci-suggestion[data-group="connection"] { border-top-color: var(--plum); }
+.ci-suggestion[data-group="self"] { border-top-color: var(--ink); }
+.ci-suggestion h4 { font-family: var(--sans); font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.ci-suggestion-text { font-family: var(--serif); font-size: 1.2rem; line-height: 1.4; color: var(--ink); }
+/* Under a suggestion, the three choices are quieter than the steps' buttons. */
+.ci-body .ci-suggestion-buttons button { min-height: 44px; padding: 6px 12px; font-size: .95rem; border-width: 1px; }
+.ci-suggestion.is-set-aside .ci-suggestion-text, .ci-suggestion.is-set-aside .ci-suggestion-buttons .ci-not-today { opacity: .55; }
+.ci-set-aside, .ci-kept-note, .ci-kept-reflection-note, .ci-erase-done { color: var(--green); font-weight: 600; }
+.ci-all { margin-top: 4px; }
+.ci-all ul { list-style: disc; padding-left: 1.3em; margin-top: 8px; display: grid; gap: 6px; }
+.ci-all h3 { font-size: 1.05rem; margin-top: 12px; }
+
+/* Rediscover */
+.ci-cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(19rem, 100%), 1fr)); }
+.ci-card { display: grid; gap: 10px; align-content: start; border-top: 4px solid var(--tide-line); }
+.ci-card h3 { font-size: 1.15rem; }
+.ci-rediscover-something { display: grid; gap: 12px; border-left: 4px solid var(--plum); border-radius: 0 var(--radius) var(--radius) 0; }
+
+/* Journal */
+.ci-prompts ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.ci-prompts p, .ci-mood > p, .ci-field label { font-weight: 600; color: var(--ink); }
+.ci-body .ci-prompt { color: var(--ink); border-color: var(--line); text-align: left; font-weight: 400; }
+.ci-prompt-chosen { padding: 10px 14px; background: var(--green-soft); }
+.ci-mood { display: grid; gap: 8px; }
+.ci-add-entry .ci-when-editing, .ci-add-entry.is-editing .ci-when-adding { display: none; }
+.ci-add-entry.is-editing .ci-when-editing { display: inline; }
+.ci-entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.ci-entry { padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--tide-line); display: grid; gap: 8px; }
+.ci-entry-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .95rem; color: var(--muted); }
+.ci-entry-mood { color: var(--plum); font-weight: 600; }
+.ci-entry-prompt { font-style: italic; color: var(--muted); }
+.ci-entry-text { white-space: pre-wrap; color: var(--ink); }
+.ci-empty { color: var(--muted); font-style: italic; }
+
+/* Your journey */
+.ci-panel > section { display: grid; gap: 10px; }
+.ci-cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 2.6rem)); gap: 4px; }
+.ci-cal-head { text-align: center; font-size: .8rem; color: var(--muted); }
+.ci-cal-day { display: grid; place-items: center; aspect-ratio: 1; font-size: .9rem; color: var(--muted); border: 1px solid var(--line); }
+.ci-cal-day.is-today { border-color: var(--ink); color: var(--ink); }
+.ci-cal-day.is-marked { background: var(--green); border-color: var(--green); color: #fff; font-weight: 700; }
+.ci-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.ci-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; background: var(--card); border: 1px solid var(--line); }
+.ci-item-text { flex: 1 1 14rem; color: var(--ink); white-space: pre-wrap; }
+.ci-erase { border-color: var(--notice-line); background: var(--plum-soft); display: grid; gap: 10px; }
+.ci-erase-confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-weight: 600; color: var(--ink); }
+
+/* Support */
+.ci-support { display: grid; gap: 10px; padding-top: 18px; box-shadow: inset 0 3px 0 var(--tide-line); }
+.ci-support h2 { font-size: 1.5rem; }
+.ci-support ul { list-style: disc; padding-left: 1.3em; display: grid; gap: 6px; }
+.ci-support a { color: var(--green); font-weight: 700; text-underline-offset: 3px; }
+
+/* Dark mode: filled buttons keep a deep fill with white text, like the rest of Shoreline. */
+@media (prefers-color-scheme: dark) {
+  .button-start, .ci-body .ci-next, .ci-body .ci-finish, .ci-body .ci-add-entry, .ci-body .ci-show-idea,
+  .ci-cal-day.is-marked { background: #0E5A7A; border-color: #0E5A7A; color: #fff; }
+  .button-start:hover, .ci-body .ci-next:hover, .ci-body .ci-finish:hover, .ci-body .ci-add-entry:hover,
+  .ci-body .ci-show-idea:hover { background: #0B4A64; }
+}
+
+/* Without the script, the buttons that need it are hidden, so nothing looks broken. */
+html:not(.ci-ready) .ci-step-buttons, html:not(.ci-ready) .ci-result, html:not(.ci-ready) .ci-start-row,
+html:not(.ci-ready) .ci-card-buttons, html:not(.ci-ready) .ci-rediscover-something > .ci-step-buttons,
+html:not(.ci-ready) .ci-idea, html:not(.ci-ready) .ci-prompts, html:not(.ci-ready) .ci-prompt-chosen,
+html:not(.ci-ready) .ci-erase, html:not(.ci-ready) .ci-kept-reflection-note, html:not(.ci-ready) .ci-tabs { display: none; }
+
+@media print {
+  .ci-tabs, .ci-step-buttons, .ci-card-buttons, .ci-entry-buttons, .ci-erase, .ci-privacy, textarea, .ci-choices input { display: none !important; }
+  .ci-off { display: block !important; }
+}
+
 @media print {
   @page { margin: 12mm; }
   /* Any page: plain text on white, with the crisis line, and without on-screen controls. */

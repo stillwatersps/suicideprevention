@@ -82,6 +82,10 @@ Nothing else has been claimed. Add an owner above when you start.
 
 ## Ready for review
 
+- [ ] Daily check-in page, English and Spanish, at one founder's request. Owner: Claude. Branch:
+  `site/daily-check-in`, draft pull request into `site/pro-max-redesign`. Not merged. Both founders
+  decide whether typing belongs on the site and whether to build saving ([[CHECK-IN-BACKEND]]).
+
 - [ ] Choose a visual design: the current look (pull request 10), signage (pull request
   11), or Shoreline (`site/pro-max-redesign`). Owner: both. Comparison screenshots are in
   [[worklogs/2026-11-08-claude-shoreline-redesign]].

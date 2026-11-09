@@ -34,7 +34,11 @@ GitHub Pages is on, so anything on `main` can be seen by the public.
    No third-party scripts, fonts, or embeds, because each one sends visitors' IP
    addresses to another company. Do not claim that no data is collected at all:
    GitHub says it logs and stores the IP address of every GitHub Pages visitor
-   for security.
+   for security. Proposed November 9, 2026, not agreed by both founders: the Daily
+   check-in alone may have places to type and choose, as long as nothing typed leaves
+   the page or is stored. `tools/check_site.py` allows only checkboxes, radio buttons,
+   and text boxes there, and fails if its script could send or store anything. Saving
+   would need accounts and a server; see [[CHECK-IN-BACKEND]].
 6. **Write for minors too.** Plain language and youth-appropriate resources,
    since the audience includes minors. Ages are still undecided.
 7. **Never test on a crisis line.** Do not place test calls, send test texts,

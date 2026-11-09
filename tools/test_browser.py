@@ -937,6 +937,11 @@ def test_folds(browser, site, pages, report):
         for index in range(folds):
             box = tab.js(f"""(function () {{
                 var s = document.querySelectorAll('details > summary')[{index}];
+                // On the Daily check-in, a fold may sit in a section whose tab isn't open. A visitor
+                // opens that tab first, so the test does too.
+                var panel = s.closest('.ci-panel.ci-off');
+                var opener = panel && document.querySelector('.ci-tabs a[href="#' + panel.id + '"]');
+                if (opener) opener.click();
                 s.scrollIntoView({{block: 'center', behavior: 'instant'}});
                 var r = s.getBoundingClientRect();
                 return {{x: r.left + Math.min(r.width / 2, 40), y: r.top + r.height / 2, h: r.height}};

@@ -229,6 +229,26 @@ Choices made, all easy to reverse:
 - Only `assets/styles.css` changed: one marked block near the end. The skill was installed for
   that session only, not added to the project.
 
+## November 9, 2026: Daily check-in, proposed
+
+One founder asked for a Daily Check-In and Self-Discovery page from a detailed spec: Today,
+Rediscover, Journal, Your journey, and Support. **The other founder hasn't agreed, and no
+reviewer has seen it.** Built on `site/daily-check-in`, a draft pull request into the Shoreline
+branch (`site/pro-max-redesign`). Merging it there publishes nothing. Choices:
+
+- **Saving: accounts and a server,** the founder's choice over saving on the device or never
+  saving. The site can't have a server, so the page saves nothing yet and says so. What saving
+  needs is in [[CHECK-IN-BACKEND]].
+- **Typing is allowed on this page only,** a proposed narrowing of [[SAFETY]] rule 5. It reverses
+  the Not sure page's choice of nothing to type, for this page. A question for the reviewer.
+- **English and Spanish at once,** the founder's choice.
+- **Every word the page can show is on the page,** including all 30 suggestions and ideas, so the
+  review packets cover them and the script can't show unreviewed text.
+- **No risk scores and no reading of what people write.** Suggestions follow only the feeling and
+  needs chosen.
+- **Support stays on screen.** The crisis strip and 988 panel are on the page at all times, and
+  the needs step always shows 988 and 911.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

@@ -8,7 +8,7 @@
 // 10 minutes to appear, because the host lets browsers reuse a file for that long. A saved copy is
 // used if the network fails, answers with a server error, or takes longer than WAIT_MS.
 // Change VERSION whenever the list of core files changes, or a crisis detail is corrected.
-var VERSION = 'tidelight-v7';
+var VERSION = 'tidelight-v8';
 var CORE = [
   './',
   'get-help/',
@@ -16,6 +16,7 @@ var CORE = [
   'research/',
   'teens/',
   'card/',
+  'check-in/',
   'not-sure/',
   'after-a-loss/',
   'about/',
@@ -25,12 +26,14 @@ var CORE = [
   'es/investigacion/',
   'es/adolescentes/',
   'es/tarjeta/',
+  'es/registro-diario/',
   'es/que-siento/',
   'es/despues-de-una-perdida/',
   'es/acerca-de/',
   '404.html',
   'assets/styles.css',
   'assets/menu.js',
+  'assets/check-in.js',
   'assets/favicon.svg',
   'assets/icon-180.png',
   'assets/icon-192.png',

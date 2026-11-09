@@ -55,6 +55,7 @@ Each person uses their own Claude access and conversation.
 | `.github/workflows/monitor.yml` | Daily: the live site shows its crisis help. Monthly: outside links that allow automated checks still open, the rest are listed for a person, and each provider page that can be read still shows our crisis details |
 | `tools/check_live.py`, `tools/check_readability.py` | Live-site check, and a plain-language report |
 | `teens/`, `card/` | For Teens page, and printable wallet cards and poster |
+| `check-in/`, `assets/check-in.js` | Daily check-in, which saves nothing. See `notes/CHECK-IN-BACKEND.md` |
 | `not-sure/`, `after-a-loss/`, `about/` | Not sure what you're feeling?, After a loss, and About and privacy |
 | `assets/*.vcf` | Contact cards for saving 988 to a phone |
 | `tools/preview_server.py` | Serves the site the way GitHub Pages will, on this computer or a phone on the same Wi-Fi |
