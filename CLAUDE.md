@@ -76,6 +76,9 @@ Proposed on a task branch, for both founders to confirm. Follow them until then.
 - Everything on main, and in this public repository, is public. Keep personal names,
   email addresses, and local file paths out of notes and pull requests.
 - Before sharing a website change, run `python3 tools/check_site.py`.
+- Only the Daily check-in (check-in/ and es/registro-diario/) may have places to type or choose.
+  Nothing typed there may leave the page or be stored until both founders agree to the plan in
+  notes/CHECK-IN-BACKEND.md. tools/check_site.py enforces this.
 - Each English page has a Spanish twin in es/. Change both together, and keep the
   Spanish pages marked as an unreviewed AI translation until a fluent reader signs off.
 - When adding a page, add it to the CORE list in sw.js (and change its VERSION) and,

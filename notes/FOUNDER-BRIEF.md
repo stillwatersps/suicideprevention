@@ -102,10 +102,18 @@ AI auditors raised these on November 7, 2026. They are suggestions, not decision
   automatic offer. On an iPhone, from iOS 26 every site added to the Home Screen opens as a web app
   whatever the manifest says (WebKit's Safari 26.0 notes, read second-hand). The Spanish pages now
   have their own manifest, also standalone, so the choice covers both.
-- **The crisis strip with larger text.** At 150% text or more the strip stops pinning on ordinary
-  phones, for example at 844 by 390, where it would take about 13% of the screen, and only Quick
-  exit stays pinned. [[DECISIONS]] leaves this open: decide with the reviewer whether to pin a
-  one-line version there (Call 988, Text 988, Call 911) instead of nothing.
+- **The crisis strip on short screens and with larger text.** A one-row strip, "Call 988 · Text 988
+  · Call 911" with Quick exit inside, is built as a proposal on branch `site/compact-crisis-strip`.
+  It is not agreed by both founders. It pins where the full strip used to scroll away, if the row
+  fits and takes a quarter of the screen's height or less. In desktop Chrome's phone-size emulation
+  it pins in both languages on phones on their side, such as 640 by 290, and at 844 by 390 with 150%
+  text. The Spanish row is longer, so with larger text the Spanish strip often still scrolls away,
+  as at 750 by 292 with 150% text, and at every size tested with 200% text. On a phone held upright
+  with very large text, such as 390 px wide at 200%, the strip still scrolls away in both languages.
+  Where it scrolls away, Quick exit stays on screen in the bottom corner. Not tried on a real phone.
+  Decide with the reviewer whether to keep it, and whether its shorter wording is acceptable: see
+  the question in [[CONTENT-REVIEW]], the strip entry in [[DECISIONS]], and
+  [[worklogs/2026-11-07-claude-compact-strip|the handoff]].
 - **Two words to ask providers about.** Ask Crisis Text Line which word starts a conversation in
   Spanish (its FAQ says HOLA, its Spanish page says AYUDA), and ask 988 which reply word and steps
   apply when someone texts AYUDA (its Spanish What to Expect page says «siguiente», and its Spanish

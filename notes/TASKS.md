@@ -14,6 +14,10 @@ Planning tasks below are suggestions; ownership has not been agreed.
 
 ## Ready to choose
 
+- [ ] **⚠️ Important, first for attention:** the licensed reviewer looks at idea E1, "Places that
+  are hard for me", an opt-in safety-plan feature for the phone app, and the question about it at
+  the top of [[CONTENT-REVIEW]]. One founder likes it (Nov 9, 2026); the other founder decides too.
+  Nothing is built. Owner: the founder arranging the review. Details at the top of [[IDEAS]].
 - [ ] Decide what the public GitHub Pages link should show until the site is
   reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes. The one-page
   option is built as draft pull request 12, next to pull request 8.
@@ -36,7 +40,8 @@ Planning tasks below are suggestions; ownership has not been agreed.
 - [ ] Confirm both people can download the project, open this vault, and open the
   project in Claude Code. Owner: both. Branch: not needed.
 - [ ] Agree on supported ages and whether the prototype needs saved data.
-  Owner: both. Branch: to choose.
+  Owner: both. Branch: to choose. One founder chose every age, with date of birth at sign-up
+  (Nov 9, 2026, idea E3 in [[IDEAS]]); the other founder decides too, and a lawyer advises on under-13s.
 - [ ] Choose website tools after agreeing on first-version scope.
   Owner: both. Branch: to choose.
 - [ ] Review the planning drafts on `planning/morning-brief` and merge or revise.
@@ -82,6 +87,18 @@ Nothing else has been claimed. Add an owner above when you start.
 
 ## Ready for review
 
+- [ ] Daily check-in page, English and Spanish, at one founder's request. Owner: Claude. Branch:
+  `site/daily-check-in`, merged into `claude/jolly-mayer-2m6eno` (pull request 5's branch) on
+  November 9, 2026, at a founder's request. Not on `main`. Both founders decide whether typing
+  belongs on the site and whether to build the phone app one founder chose for saving ([[CHECK-IN-BACKEND]]).
+
+- [ ] Choose a visual design: Shoreline, now merged into pull request 5's branch at one founder's
+  request on November 9, 2026, or signage (pull request 11, still open). Owner: both. Comparison screenshots are in
+  [[worklogs/2026-11-08-claude-shoreline-redesign]].
+- [ ] Shoreline redesign, stylesheet only, at one founder's request. Owner: Claude. Branch:
+  `site/pro-max-redesign`, merged into `site/first-version-finish` and then pull request 5's branch on
+  November 9, 2026, at a founder's request. Not on `main`.
+
 Move a task here when its branch is ready for the other person to review.
 
 - [ ] Fix navigation, phone layout, and accessibility, and draft page content.
@@ -125,9 +142,9 @@ Move a task here when its branch is ready for the other person to review.
 - [ ] Finish the first version's audit, tests, and notes: every checked audit finding applied in
   both languages, three code reviews and their fixes, iOS Simulator tests and the landscape fix
   they found, a stricter publish check, and the audit's questions for the reviewer. Owner:
-  Claude, at one founder's request. Branch: `site/first-version-finish`, draft pull request 10
-  into `claude/jolly-mayer-2m6eno`. Handoff: [[worklogs/2026-11-07-claude-first-version-finish]].
-  Not merged. No qualified person has reviewed it.
+  Claude, at one founder's request. Branch: `site/first-version-finish`, pull request 10, merged into
+  `claude/jolly-mayer-2m6eno` on November 9, 2026, at a founder's request. Handoff:
+  [[worklogs/2026-11-07-claude-first-version-finish]]. Not on `main`. No qualified person has reviewed it.
 
 - [ ] Write a one-page first-version description and main user journey: [[FIRST-VERSION]].
   Owner: Claude, at one founder's request. Built on a branch on one computer and merged into
@@ -143,8 +160,9 @@ Move a task here when its branch is ready for the other person to review.
 
 - [ ] Keep a compact crisis strip on screen with larger text and on older phones on their side.
   Owner: Claude, at one founder's request. Branch: `site/compact-crisis-strip`, draft pull request
-  13 into `site/first-version-finish`. Its handoff is on that branch. Not merged. A proposal
-  for both founders and the reviewer. It and pull request 11 both change `assets/styles.css`.
+  13, merged into `site/first-version-finish` and then pull request 5's branch on November 9, 2026, at
+  a founder's request. Handoff: [[worklogs/2026-11-07-claude-compact-strip]]. A proposal for both
+  founders and the reviewer. Pull request 11 would now conflict with it and with Shoreline.
 
 - [ ] Build a one-page public site as an option for open decision 1. Owner: Claude, at one
   founder's request. Branch: `site/minimal-public-preview`, draft pull request 12 into
@@ -155,9 +173,10 @@ Move a task here when its branch is ready for the other person to review.
   help sign on every page with an amber Call 988 button, a numbered index on Home, and a reading
   layout with a contents column on wide screens. No wording, links, or behavior changed. Owner:
   Claude, at one founder's request. Branch: `site/signage-redesign`, draft pull request 11 into
-  `site/first-version-finish`. Merging it publishes nothing. Handoff:
-  [[worklogs/2026-11-07-claude-signage-redesign]]. Not merged. Both founders should look at it
-  on a real phone.
+  `claude/jolly-mayer-2m6eno`. Reworked November 9 so merging it swaps Shoreline for signage, with
+  the compact strip and the Daily check-in kept. Merging it publishes nothing. Handoff:
+  [[worklogs/2026-11-07-claude-signage-redesign]]. Not merged. Both founders compare it with
+  Shoreline on a real phone and choose.
 
 ## Completed work
 

@@ -41,19 +41,40 @@ Claude made these routine, reversible choices overnight at one founder's request
 They are in draft pull requests, not merged, and **not agreed by both founders**.
 
 - **Crisis strip pinned on phones and tablets.** Up to 959 px wide, the crisis strip
-  stays on screen while the header scrolls away. It stops pinning on very narrow
+  stays on screen while the header scrolls away. The full strip stops pinning on very narrow
   screens (16em wide or less, about 256 px) and very short ones (300 px tall or
   less), where it would fill the screen. A phone on its side still pins it, as one row,
   down to 240 px tall when the screen is at least 704 px wide: Safari on an iPhone 17
   measures 750 by 292 there, so the 300 px rule had left 988 and 911 off screen after
   scrolling. Found in the iOS Simulator on November 7, 2026. These limits are set in em, so
   they grow with a larger text setting: at 150% text, 16em is 384 px and 18.75em is 450 px.
-  Then the strip scrolls away and only Quick exit stays on screen, even where the strip would
-  take a small part of it. Whether larger text should still pin the strip is open. Known limit: short screens 568 to
-  703 px wide and 300 px tall or less, such as older phones on their side, don't pin it, because
-  the Spanish strip needs two rows there. At 960 px and wider it scrolls away and the
-  sticky header's button stays, which takes two steps to start a call. Why: on phones,
-  the header's button took two taps.
+  Without the proposal below, the strip then scrolls away and only Quick exit stays on screen,
+  even where the strip would take a small part of it, and short screens 568 to 703 px wide and
+  300 px tall or less, such as older phones on their side, don't pin it, because the Spanish
+  strip needs two rows there. Whether larger text should still pin the strip is open. The
+  proposal below would answer it, once both founders agree.
+  **Proposed on November 7, 2026, on branch `site/compact-crisis-strip`, and not agreed by both
+  founders:** where the full strip would scroll away on a short screen, a compact strip pins
+  instead. It is one row, "Call 988 · Text 988 · Call 911", with Quick exit inside. In Spanish
+  it reads "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al 911". It leaves out "Need
+  help now?", "In immediate danger," and "any time", and their Spanish twins, though screen
+  readers still hear each link's full name. The rule: it pins only where that row is sure to
+  fit and to take a quarter of the screen's height or less. In height that means at least 192 px
+  at the default text size, 265 px at 150% and about 266 px at 200%, so a few short screens with
+  larger text, such as 640 by 264 at 150%, still scroll it away. With text set smaller than the
+  default, it also needs as much width as at the default size, 312 px in English and 544 px in Spanish, because
+  part of the row doesn't shrink with the text. Anywhere else the strip scrolls away as before, and
+  Quick exit floats in the bottom corner. In desktop Chrome's phone-size emulation, 640 by 290
+  and 568 by 300, such as older phones on their side, now pin it in both languages, at 48 px,
+  about a sixth of the height. A desktop window zoomed to 400%, 320 by 225 in the tests, now pins
+  the English row. With 150% text, 844 by 390 pins it in both languages, and 750 by
+  292, 640 by 290 and 568 by 300 in English only. The Spanish row is about 1.7 times as long, so
+  it pins in fewer places: at 200% text only the English row pins, at 844 by 390, 750 by 292 and
+  640 by 290. A phone held upright with very large text, such as 390 px wide at 200%, can't fit
+  one row, so the strip still scrolls away there. WebKit on a Mac agrees at the default text
+  size. Not tried on a real phone. [[CONTENT-REVIEW]] asks the reviewer about the shorter wording.
+  At 960 px and wider the strip scrolls away and the sticky header's button stays, which takes
+  two steps to start a call. Why: on phones, the header's button took two taps.
 - **Crisis strip uses links.** Call 988, text 988, and call 911 can be tapped. Why:
   [[SAFETY]] rule 1. Whether 911 should be a link is a question for the reviewer.
 - **Pages ask search engines not to list them** (`noindex`), until review. Why: a
@@ -120,8 +141,10 @@ such as "founder A", or by a handle the person chooses.
 5. **Is there any contact route, and what if someone writes in crisis?** GitHub
    Issues and the Wiki are on for this public repository. Turning them off is a
    simple first step.
-6. **Which ages are supported?** The name is now Tidelight; see the November 7 entry
-   below. A trademark check is still open.
+6. **Which ages are supported?** One founder answered on November 9, 2026: every age, with
+   date of birth required at sign-up and help shaped by age group. See that entry below. It
+   stays open until the other founder agrees and a lawyer has advised on children's privacy.
+   (The name is now Tidelight; see the November 7 entry below. A trademark check is still open.)
 7. **Where do private notes live?** The vault folder can hold private notes,
    `.gitignore` has no rule for them, and GitHub Desktop selects every changed file by
    default, so one could be committed and published by accident. Keep them outside
@@ -213,11 +236,103 @@ recorded,** and each is easy to reverse.
 - **A one-page public site,** in draft pull request 12 into `main`, not merged. It is option B
   for open decision 1. Merging it publishes.
 
-## November 7, 2026: new visual design, proposed
+## November 8, 2026: a second redesign, proposed
+
+One founder asked for a redesign with the same limits the other founder gave for the signage
+redesign (pull request 11): a complete new look, no change to wording, links, numbers, page
+addresses, or behavior, and the crisis strip, Quick exit, and menu working exactly as before.
+Built on `site/pro-max-redesign` with the ui-ux-pro-max design skill. **Neither founder has
+chosen between the current look, signage, and Shoreline.** See [[DESIGN]].
+
+Choices made, all easy to reverse:
+
+- The skill's first suggestion was rejected: a testimonial carousel, low-contrast
+  "neumorphism", Google Fonts, and scroll animation. They conflict with [[SAFETY]] rule 5 or
+  with a crisis site. Its narrower "Accessible & Ethical" and "E-Ink / Paper" styles were used.
+- Only `assets/styles.css` changed: one marked block near the end. The skill was installed for
+  that session only, not added to the project.
+
+## November 9, 2026: Daily check-in, proposed
+
+One founder asked for a Daily Check-In and Self-Discovery page from a detailed spec: Today,
+Rediscover, Journal, Your journey, and Support. **The other founder hasn't agreed, and no
+reviewer has seen it.** Built on `site/daily-check-in`, a draft pull request into the Shoreline
+branch (`site/pro-max-redesign`). Merging it there publishes nothing. Choices:
+
+- **Saving: a phone app with the user's own iCloud or Google backup.** The founder first chose
+  accounts and a server, then, after seeing the comparison in [[CHECK-IN-BACKEND]], chose this the
+  same day. No server and nothing reaches Tidelight. The website still saves nothing and says so.
+  Nothing for the app is built; the plan is in [[CHECK-IN-BACKEND]].
+- **Typing is allowed on this page only,** a proposed narrowing of [[SAFETY]] rule 5. It reverses
+  the Not sure page's choice of nothing to type, for this page. A question for the reviewer.
+- **English and Spanish at once,** the founder's choice.
+- **Every word the page can show is on the page,** including all 30 suggestions and ideas, so the
+  review packets cover them and the script can't show unreviewed text.
+- **No risk scores and no reading of what people write.** Suggestions follow only the feeling and
+  needs chosen.
+- **Support stays on screen.** The crisis strip and 988 panel are on the page at all times, and
+  the needs step always shows 988 and 911.
+
+## November 9, 2026: location alerts, proposed
+
+One founder asked whether the phone app could alert someone at a place known for suicide. Claude
+advised against an app that carries a list of such places, for the reasons in [[IDEAS]], and
+suggested idea E1 instead: an opt-in safety-plan feature where the person picks their own places.
+**The founder likes E1 and marked it Important, first for attention.** The other founder hasn't
+agreed, no reviewer has seen it, and nothing is built.
+
+## November 9, 2026: every age, with date of birth at sign-up, proposed
+
+One founder's answer to open decision 6. **The other founder hasn't agreed, and no lawyer or
+reviewer has seen it.** Nothing is built.
+
+- **Every age is supported.**
+- **Date of birth is required when someone signs up** in the app, and the age group it gives
+  decides which kinds of help the app offers, based on what research shows works for that age
+  group.
+
+Claude's notes, to settle before building. Details are in [[IDEAS]], idea E3:
+
+- **Crisis help never waits for sign-up.** 988, 911, and Quick exit stay available before and
+  without signing up or giving a birth date ([[SAFETY]] rule 1).
+- **Keep the age group, not the birth date,** once it has been worked out, so the app holds less
+  about a person.
+- **Under 13** brings U.S. COPPA rules and the stores' children's rules. A lawyer must advise
+  before the app asks young children anything.
+- **People can enter a wrong birth date.** What every age group sees must be safe for any age.
+- **Which help fits which age** must come from research the reviewer approves. The research brief
+  doesn't yet set out help by age group.
+
+## November 9, 2026: "Share this reflection", proposed
+
+One founder chose idea E2a in [[IDEAS]] for the phone app: a button that sends one reflection,
+check-in, or journal entry to someone the person picks, through the phone's share sheet. **The
+other founder hasn't agreed, no reviewer has seen it, and nothing is built.** It isn't on the
+website, because nothing typed there may leave the page until both founders agree.
+
+## November 9, 2026: every pull request that publishes nothing, merged
+
+One founder asked to merge all the pull requests. Claude explained that 5, 8 and 12 publish to the
+public website and that 11 and 14 are rival designs, and the founder chose to merge only those that
+publish nothing. **The other founder's agreement isn't recorded.** Merged into
+`claude/jolly-mayer-2m6eno`, pull request 5's branch, which is still not on `main`:
+
+- 15, the Daily check-in, into 14, Shoreline. So **Shoreline is the look on pull request 5's branch.**
+  Signage, pull request 11, stays open, and would conflict.
+- 13, the compact crisis strip, and 14 into 10, and 10 into pull request 5's branch.
+- Two fixes the combined version needed: the check-in pages got the compact strip's markup, and the
+  homepage cards stack on tablet-width screens with larger text. Full browser tests pass.
+
+Still open, and publishing: 5, 8 and 12. Merging any of them still needs both founders.
+
+## November 7 and 9, 2026: signage design, proposed
 
 One founder asked Claude for a complete redesign that doesn't look like a generic template.
-Branch `site/signage-redesign`, draft pull request 11 into `site/first-version-finish`, not merged.
-**The other founder's agreement isn't recorded.** What it proposes:
+Branch `site/signage-redesign`, draft pull request 11, not merged. **The other founder's agreement
+isn't recorded.** On November 9, after Shoreline was merged into pull request 5's branch, the same
+founder asked Claude to rework pull request 11 so merging it swaps Shoreline for signage. It now goes
+into `claude/jolly-mayer-2m6eno`, keeps the compact crisis strip as it is, and restyles the Daily
+check-in in signage. Neither founder has chosen between Shoreline and signage. What it proposes:
 
 - **Public-service signage, not soft cards.** Bold system type set large, flat color blocks,
   square corners, fine and heavy rules. No gradients, shadows on content, icon tiles, rounded

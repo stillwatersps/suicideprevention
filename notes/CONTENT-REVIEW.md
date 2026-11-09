@@ -17,6 +17,17 @@ research during the overnight run on November 5 and 6. Most research links go to
 PubMed records, not journal pages. "How each finding was read", below, says which
 sources were read in full.
 
+## ⚠️ Important, first for attention: idea E1
+
+One founder asked that this come first, November 9, 2026.
+
+- **Location alerts in the phone app.** One founder asked about an alert when someone is at a
+  place known for suicide. Claude recorded it in [[IDEAS]] and suggested, instead of a built-in
+  list of places, an opt-in safety-plan feature where the person picks their own places (E1). Is
+  either version safe and helpful? What should the notification say, if anything, and what does
+  the research show?
+  See [[IDEAS]], at the top, for the idea and Claude's concerns about a built-in list of places.
+
 ## Page status
 
 | Page | Content | Source list | Review |
@@ -40,6 +51,8 @@ sources were read in full.
 | Spanish After a loss (`es/despues-de-una-perdida/`) | AI translation | On the page | Not reviewed; no fluent reader yet |
 | About and privacy (`about/`) | Draft; behavior described was tested in a browser | On the page | Not reviewed; needs a lawyer |
 | Spanish About (`es/acerca-de/`) | AI translation | On the page | Not reviewed; no fluent reader yet |
+| Daily check-in (`check-in/`) | Draft, from a founder's spec. Questions, suggestions, and prompts written by Claude | None; general well-being ideas, not health claims | Not reviewed |
+| Spanish Daily check-in (`es/registro-diario/`) | AI translation | None | Not reviewed; no fluent reader yet |
 
 Every draft page says so on screen. Remove those notes only after review.
 
@@ -179,6 +192,11 @@ Wording is proposed. Nothing here is clinical advice.
   Are these better?
 - Should 911 be a tap-to-call link in the pinned strip? Phones ask before calling,
   but an accidental tap is possible, and some people fear a police response.
+- A proposal: on a short screen, such as a phone on its side, including with larger text, the pinned
+  strip shortens to one row: "Call 988 · Text 988 · Call 911" ("Llama al 988 y marca 2 · Envía
+  AYUDA al 988 · Llama al 911"). It drops "Need help now?" and "In immediate danger,", so nothing
+  on screen says when 911 is the right call. Screen readers still hear "Call 911, emergency
+  services". Is that acceptable where space is short? See [[DECISIONS]].
 - The header's "Suicide prevention & support" tagline and "Get Support Now" button
   both come from the supplied design. Both read as if Tidelight provides support, and
   the button doesn't say who does. Claude's suggestion: "Find suicide prevention
@@ -737,6 +755,42 @@ qualified reviewer decides each one, and nothing here has been reviewed.
   in Spanish?
 
 ---
+
+## Questions about the Daily check-in
+
+Built November 9, 2026, at one founder's request, from their written spec. Wording is proposed.
+
+- **Typing on a suicide prevention site.** The Not sure page was built with nothing to type, on
+  purpose. The check-in asks people to write about what's been difficult. Is that right for
+  someone who may be in crisis? Nothing is sent or saved, and the page says so three times.
+- **The feelings list** (Hopeful, Calm, Okay, Unsure, Overwhelmed, Sad, Anxious, Disconnected,
+  Exhausted) and **the needs list**. Is anything missing, or worded in a way that could hurt?
+  Should there be an option such as "I'm thinking about suicide"? Today the 988 and 911 line is
+  always on the needs step, and choosing "Someone to talk to" puts 988 first in the results.
+- **The 30 suggestions and ideas** in the "See every suggestion" and "See every idea" lists.
+  They are general well-being ideas, never treatment, and picked only from the feeling and needs
+  chosen, never from what was written. Are any unsafe for someone in distress, such as suggesting
+  time alone? Should "Revisit something you used to enjoy" or "Look through old photos" (left
+  out) be avoided after a loss?
+- **Your journey** has no streaks, scores, or missed-day marks. Is the calendar helpful, or could
+  an empty month feel like failure?
+- **Minors.** The journal and reflections invite private writing from people who may be under 18.
+  What should the page say about shared or school devices?
+- **Spanish.** The feelings are phrased as states ("Con tristeza") to avoid gendered forms. A
+  fluent reader should check them.
+- **A support circle (idea E2).** One founder asked about a circle where a person, and people they
+  invite such as parents, a doctor, or a therapist, can see shared check-ins and reflections, with
+  each entry private unless the person shares it. Is it safe and helpful? What should circle
+  members be told to do if a shared entry worries them? Should parents of minors be able to join,
+  and who controls a minor's circle? See [[IDEAS]].
+- **Help shaped by age (idea E3).** One founder chose every age, with date of birth required at
+  sign-up and help chosen by age group. Which age groups, and which kinds of help, have good
+  evidence for each? What should a child under 13 see? Should crisis options ever depend on age?
+  See [[IDEAS]].
+- **Share this reflection (idea E2a).** One founder chose a button in the phone app that sends one
+  reflection to a person the user picks, through the phone's share sheet. What should the app say
+  next to it, so people know who will see it and that it isn't a way to get urgent help?
+  See [[IDEAS]].
 
 ## Human-only checklist
 

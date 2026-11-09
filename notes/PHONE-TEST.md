@@ -57,6 +57,7 @@ Open that address in Safari on an iPhone, or Chrome on an Android phone. If you 
 | Incognito on Android | In a Chrome Incognito tab, tap Call 988. Expect "Leave Incognito mode?". Choose Leave, check the dial screen shows 988, and **cancel**. Repeat with Text 988 |
 | Opening from another app | Send the address to yourself in a chat or social app, such as Messages, WhatsApp, Instagram, or Gmail, and open it there. Tap Call 988 and Text 988, then **cancel**. Note any app where nothing happens or an error page replaces the site |
 | Portrait and landscape | Nothing is cut off or overlapping |
+| On its side, larger text | With the phone on its side, set Safari's **aA** to 125%, or Chrome's text scaling on Android to 150%. Scroll down. The strip should stay at the top as one short row, "Call 988 · Text 988 · Call 911", with Quick exit inside. A Spanish page needs a wider screen, so there it may scroll away instead, with Quick exit in the bottom corner. Write down which you saw, and the phone's model |
 | Larger text | In Safari, use the **aA** button to make the text larger, and check nothing breaks |
 | VoiceOver or TalkBack | The page reads in a sensible order, and every button has a name |
 | VoiceOver: list labels | On Get Help, VoiceOver says "Reach the 988 Suicide and Crisis Lifeline" before the three buttons. If it doesn't, write that down |

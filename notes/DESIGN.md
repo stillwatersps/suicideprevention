@@ -43,11 +43,35 @@ changes these on purpose:
 
 ## Proposed redesign, November 7, 2026
 
-On branch `site/signage-redesign`, not merged, and not agreed by both founders. It replaces
+On branch `site/signage-redesign`, draft pull request 11, not merged, and not agreed by both founders.
+Since November 9 it replaces Shoreline (below) if merged. It replaces
 the cream panel, serif headings, and rounded cards above with public-service signage: bold
 system type, a forest-green help sign on every page, an amber Call 988 button, and square
 corners. The supplied SVG stays as the original reference. See
 [[worklogs/2026-11-07-claude-signage-redesign]] for screenshots and the design rules.
+
+## Second proposed redesign, November 8, 2026: Shoreline
+
+On branch `site/pro-max-redesign`, not merged, and not agreed by either founder. One founder
+asked for a redesign with the same limits as the signage one, using the ui-ux-pro-max design
+skill. It keeps the current layout and changes only the look:
+
+- **Paper and ink.** Warm off-white paper, near-black ink, text at WCAG AAA contrast (7:1) in
+  light and dark.
+- **One tide blue means help.** The crisis strip, Call 988 (the only solid button), links,
+  and a tide-pool panel with a tide edge around the call, text, and chat buttons on every page,
+  Home included.
+- **A dawn brown for notices,** such as the draft-for-review note and the current page.
+- **The device's own fonts, by name.** San Francisco, Segoe, or Roboto for reading, with
+  Arial as the fallback, and a serif for headings. Nothing loaded from another site.
+- **Square buttons, soft panels.** The founder asked for square buttons on November 9 and
+  liked the curve between Home's panel and the desert photo, which stays.
+- **Thin lines, no shadows or gradients, no motion.** A two-band "shoreline" under each page
+  heading and above the footer.
+
+Compared with the signage redesign: calmer and quieter, closer to a reading app than a public
+sign, and Call 988 is tide blue rather than amber. See
+[[worklogs/2026-11-08-claude-shoreline-redesign]] for screenshots of all three.
 
 ## Open questions
 

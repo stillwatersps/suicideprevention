@@ -6,11 +6,33 @@ branch: site/signage-redesign
 
 # A new visual design for the whole site
 
-Date: November 7, 2026.
+Date: November 7, 2026. Reworked November 9, 2026.
 
-**State when written: a draft pull request into `site/first-version-finish` (draft pull request 10),
-not merged, not on the public website.** Merging it publishes nothing. No qualified person has
-reviewed any content, and the Spanish is still an unreviewed AI translation.
+**State when updated: draft pull request 11 into `claude/jolly-mayer-2m6eno`, pull request 5's
+branch. Not merged, not on the public website.** Merging it publishes nothing. No qualified person
+has reviewed any content, and the Spanish is still an unreviewed AI translation.
+
+## November 9: reworked to replace Shoreline
+
+On November 9 one founder merged Shoreline, a rival design, into pull request 5's branch, with the
+compact crisis strip and the Daily check-in page. The same founder then asked for pull request 11
+to be reworked so merging it swaps Shoreline for signage. Neither founder has chosen between them.
+
+- `assets/styles.css` is the signage stylesheet, with the compact strip's rules kept as written. Its
+  pinned Quick exit gets the same quiet edge and amber focus ring as signage's. The Shoreline layer
+  is left out.
+- The Daily check-in is restyled in signage: square controls, heavy rules, ink buttons, and amber
+  for what a person has chosen. Every class the page and its script use is still styled.
+- The notes keep both designs' entries. Pull request 11 now goes into `claude/jolly-mayer-2m6eno`,
+  because pull request 10 is merged there.
+- The review packets were rebuilt. Apart from the build stamp they match pull request 5's branch,
+  so no text a reviewer reads changed.
+
+![[attachments/redesign-2026-11-07/cmp-checkin.jpg]]
+
+![[attachments/redesign-2026-11-07/cmp-strip.jpg]]
+
+The checks for the rework are at the end of this note.
 
 One founder asked for a redesign, then, after a first pass in a "printed field guide" style, asked
 for a complete redesign that doesn't look like a generic template. This branch holds the second
@@ -95,7 +117,24 @@ These read as if Tidelight provides support (SAFETY rule 3). The design kept the
 - The bold system type looks different on Android and Windows than on an iPhone. Check one of each.
 - Decide whether amber should also mark the call buttons in Get Help's "Right now" box.
 
+- The Daily check-in itself is a proposal: typing on the page narrows [[SAFETY]] rule 5, and no
+  reviewer has seen it. The rework only restyles it.
+
 ## Next step
 
-Both founders open the screenshots above, then the pages on a phone, and say whether to keep this
-direction. If yes, merge this pull request into `site/first-version-finish`. It publishes nothing.
+Both founders compare Shoreline (now on pull request 5's branch) and signage on a phone, and choose.
+For signage, merge pull request 11 into `claude/jolly-mayer-2m6eno`. For Shoreline, close it. Either
+way nothing is published.
+
+## Checked after the November 9 rework
+
+All on November 9, 2026, on this branch, on a Mac. None of this is a real phone.
+
+| Check | Kind | Result |
+| --- | --- | --- |
+| `tools/check_site.py` | Reads the files | All checks passed, 21 pages |
+| `tools/test_browser.py`, all 18 groups | Desktop Chrome and its phone-size emulation | First run: 39 problems in three groups, all from two causes. The check-in page's section tabs overlapped when they wrapped onto a second row, and Home's closing band ran off a 640 px screen at 200% text. Both fixed, then matrix, text size, and modes rerun: 0 failures. The other 15 groups passed on the first run |
+| `tools/test_webkit.py` | macOS WebKit in a window, not iOS | First run: 23 problems, all the same tab overlap. After the fix: 207 checks, 0 problems |
+| `tools/test_the_tests.py` | Plants one bug at a time | All 138 planted bugs caught. Run before the two small fixes above |
+| Screenshots | Chrome | The check-in page in light, dark, and Spanish, and the compact strip pinned on a 640 by 290 screen. See above |
+| Real iPhone or Android phone | Not run | **Not done** |

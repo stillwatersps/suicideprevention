@@ -89,6 +89,10 @@ OTHER_PHONE_SCHEMES = {"callto", "facetime", "facetime-audio", "mms", "sip", "si
 # page's print button. Visitors with JavaScript see them, so their text is checked like any other,
 # and tools/make_review_packet.py puts it in the review packets.
 SHOWN_BY_SCRIPT = {"print-button", "print-hint"}
+# The only pages allowed places to type or choose (a proposal; see notes/DECISIONS.md, November 9, 2026).
+# What is typed there stays in the page: assets/check-in.js may not send or store it, which the asset
+# checks below enforce, and the page has no <form>.
+INTERACTIVE_PAGES = {"check-in/index.html", "es/registro-diario/index.html"}
 # Below this, counting every parent, a crisis control is too faint to count as shown. The browser tests use it too.
 SHOWN_OPACITY = 0.9
 
@@ -145,6 +149,7 @@ class Page(html.parser.HTMLParser):
         self.inline_scripts = []
         self.bad_handlers = []
         self.forbidden = []
+        self.inputs = []
         self.text_parts = []
         # The same text without the review list on the About pages, which has its own check.
         self.claim_parts = []
@@ -227,7 +232,12 @@ class Page(html.parser.HTMLParser):
                 self.marked_text.append((self._lang(attrs), attrs.get("content", "")))
         elif tag == "img" and "alt" not in attrs:
             self.images_without_alt.append(attrs.get("src", "?"))
-        elif tag in {"form", "input", "select", "textarea", "iframe", "embed", "object", "video", "audio"}:
+        elif tag in {"input", "textarea"}:
+            # Only the Daily check-in may have these, and only kinds that can't send anything: checkboxes,
+            # radio buttons, and text boxes that browsers don't autofill. See INTERACTIVE_PAGES.
+            kind = attrs.get("type", "text" if tag == "input" else "textarea").lower()
+            self.inputs.append((tag, kind, attrs.get("autocomplete", "")))
+        elif tag in {"form", "select", "iframe", "embed", "object", "video", "audio"}:
             self.forbidden.append(tag)
         elif re.fullmatch(r"h[1-6]", tag):
             self.headings.append(int(tag[1]))
@@ -514,6 +524,13 @@ def check_pages(failures, notes):
             fail(f"duplicate ids: {sorted(page.duplicate_ids)}")
         if page.forbidden:
             fail(f"data-collecting or embedded elements (SAFETY rule 5): {sorted(set(page.forbidden))}")
+        if page.inputs and name not in INTERACTIVE_PAGES:
+            fail(f"places to type or choose belong only on the Daily check-in (SAFETY rule 5): {sorted(set(t for t, _, _ in page.inputs))}")
+        for tag, kind, autocomplete in page.inputs:
+            if tag == "input" and kind not in {"radio", "checkbox"}:
+                fail(f"the Daily check-in may only use checkboxes and radio buttons, not input type=\"{kind}\"")
+            if tag == "textarea" and autocomplete != "off":
+                fail("every text box on the Daily check-in needs autocomplete=\"off\", so browsers don't keep what was typed")
         if page.third_party:
             fail(f"loads something from another site (SAFETY rule 5): {page.third_party}")
         for script in page.inline_scripts:

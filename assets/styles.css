@@ -378,7 +378,7 @@ h1 {
 }
 .closing-title { font-size: clamp(1.8rem, 6vw, 2.8rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; color: var(--on-forest); }
 .closing-sub { font-size: .95rem; margin-top: 4px; }
-.closing a { display: inline-block; padding: 5px 0; color: var(--on-forest); font-weight: 700; }
+.closing a { display: inline-block; padding: 5px 0; color: var(--on-forest); font-weight: 700; overflow-wrap: anywhere; }
 .closing a:focus-visible { outline-color: var(--amber); }
 
 /* Footer */
@@ -494,6 +494,11 @@ html:not(.js) .site-nav { position: static; border: 0; }
   .trust-list li + li { border-top: 0; }
   .closing { grid-template-columns: minmax(0, auto) minmax(0, auto); align-items: center; justify-content: start; column-gap: 48px; padding-top: 56px; padding-bottom: 56px; }
   .closing-text { border-left: 2px solid var(--amber); padding-left: 28px; }
+}
+/* Larger text at tablet width: the closing line and its links stack instead of running off the screen. */
+@media (min-width: 640px) and (max-width: 39.99em) {
+  .closing { grid-template-columns: minmax(0, 1fr); }
+  .closing-text { border-left: 0; padding-left: 0; }
 }
 
 /* Desktop: the help sign and the photograph split the opening screen, edge to edge. Each
@@ -807,6 +812,47 @@ body { padding-bottom: 76px; }
   .quick-exit { text-transform: capitalize; }
 }
 
+/* The compact crisis strip. A proposal, not agreed by both founders: see notes/DECISIONS.md.
+   Where the rules above let the full strip scroll away on a short screen or with a larger text
+   setting, a shorter strip pins instead, on one row: "Call 988 · Text 988 · Call 911", with Quick
+   exit inside. It is used only where that row fits and takes a quarter of the screen's height or
+   less. The row is 48px tall at the default text size and grows with larger text. A screen at
+   least 12em and 192px tall keeps it to a quarter at any text size, and so does one 8.3em and
+   265px tall, which lets it pin on shorter screens at 150% text and more. At the default text
+   size the English row needs about 19em of width, and the Spanish one, which keeps "y marca 2",
+   33em. The limits below leave about 3% to spare. About 72px of the row, its padding and Quick
+   exit's frame, gap and icon, is set in px and doesn't shrink with a smaller text setting, so each
+   width limit also has a floor in px: the width it gives at the default text size. Anywhere else,
+   such as a phone held upright with very large text, the strip scrolls away as before and Quick
+   exit floats. Keep the two language blocks the same apart from their width. */
+@media (max-width: 959px) and (max-width: 43.99em) and (max-height: 18.75em), (max-width: 959px) and (max-height: 15em) {
+  @media (min-height: 12em) and (min-height: 192px), (min-height: 8.3em) and (min-height: 265px) {
+    @media (min-width: 19.5em) and (min-width: 312px) {
+      html[lang="en"] .crisis-bar { position: sticky; column-gap: 0; padding: 2px 4px; }
+      html[lang="en"] .strip-988, html[lang="en"] .strip-911 { flex: 0 1 auto; }
+      html[lang="en"] .strip-lead, html[lang="en"] .strip-extra, html[lang="en"] .strip-end { display: none; }
+      /* A dot between the links. The hidden "or" is still there for screen readers. */
+      html[lang="en"] .strip-or { display: inline-block; width: .25rem; height: .25rem; margin: 0 .5rem; border: .125rem solid; border-radius: 50%; font-size: 0; vertical-align: middle; }
+      html[lang="en"] .strip-911::before { content: ""; display: inline-block; width: .25rem; height: .25rem; margin: 0 .5rem; border: .125rem solid; border-radius: 50%; vertical-align: middle; }
+      html[lang="en"] .crisis-bar p a::first-letter { text-transform: uppercase; }
+      html[lang="en"] .quick-exit { position: static; order: 3; flex: none; margin-left: 12px; min-height: 44px; padding: 0 12px; gap: 6px; font-size: .9rem; box-shadow: none; border-color: #9FB2A6; }
+      html[lang="en"] .quick-exit:focus-visible { outline-color: var(--amber); outline-offset: 1px; }
+      html[lang="en"] body { padding-bottom: 0; }
+    }
+    @media (min-width: 34em) and (min-width: 544px) {
+      html[lang="es"] .crisis-bar { position: sticky; column-gap: 0; padding: 2px 4px; }
+      html[lang="es"] .strip-988, html[lang="es"] .strip-911 { flex: 0 1 auto; }
+      html[lang="es"] .strip-lead, html[lang="es"] .strip-extra, html[lang="es"] .strip-end { display: none; }
+      html[lang="es"] .strip-or { display: inline-block; width: .25rem; height: .25rem; margin: 0 .5rem; border: .125rem solid; border-radius: 50%; font-size: 0; vertical-align: middle; }
+      html[lang="es"] .strip-911::before { content: ""; display: inline-block; width: .25rem; height: .25rem; margin: 0 .5rem; border: .125rem solid; border-radius: 50%; vertical-align: middle; }
+      html[lang="es"] .crisis-bar p a::first-letter { text-transform: uppercase; }
+      html[lang="es"] .quick-exit { position: static; order: 3; flex: none; margin-left: 12px; min-height: 44px; padding: 0 12px; gap: 6px; font-size: .9rem; box-shadow: none; border-color: #9FB2A6; }
+      html[lang="es"] .quick-exit:focus-visible { outline-color: var(--amber); outline-offset: 1px; }
+      html[lang="es"] body { padding-bottom: 0; }
+    }
+  }
+}
+
 /* Get Help: the short version first, on an amber tint */
 .right-now {
   padding: 20px 22px;
@@ -943,6 +989,159 @@ body { padding-bottom: 76px; }
   .hero-photo img { filter: brightness(.85); }
   .quick-exit { border-color: #D3DCD5; }
   .quick-exit:focus-visible { outline-color: var(--amber); }
+}
+
+/* ===========================================================================
+   Daily check-in (check-in/ and es/registro-diario/). Proposed November 9, 2026.
+   Drawn in the signage system: square controls, heavy rules, ink buttons, and amber only
+   for what is chosen. assets/check-in.js adds .ci-ready and hides what isn't in use with
+   .ci-off. Without the script, every part shows, one after another.
+   =========================================================================== */
+.ci-off { display: none !important; }
+.ci-body { max-width: 52rem; }
+.page-body.ci-body > *:not(.crisis-panel) { max-width: 46rem; }
+.ci-start-row { margin-top: 20px; }
+.button-start { background: #13261D; color: #fff; min-height: 52px; padding: 10px 28px; font-size: 1.05rem; white-space: normal; text-align: center; max-width: 100%; }
+.button-start:hover { background: var(--forest); }
+.ci-lead { font-size: 1.1rem; max-width: 40em; }
+.ci-note { color: var(--muted); max-width: 40em; margin-top: 8px; }
+
+.ci-privacy { padding: 16px 18px; border-left: 4px solid var(--ink); background: var(--sand); }
+.ci-privacy h2 { font-size: 1.15rem; margin-bottom: 6px; }
+.ci-privacy p + p { margin-top: 6px; }
+
+/* Section tabs: a heavy rule, the current one marked in amber like the menu */
+.ci-tabs ul { display: flex; flex-wrap: wrap; gap: 4px; padding-bottom: 4px; border-bottom: 3px solid var(--ink); }
+.ci-tabs a {
+  display: inline-flex; align-items: center; min-height: 48px; padding: 0 14px;
+  color: var(--ink); font-weight: 700; text-decoration: none;
+  border-bottom: 4px solid transparent;
+}
+.ci-tabs a:hover { background: var(--sand); }
+.ci-tabs a[aria-current="true"] { font-weight: 800; border-bottom-color: var(--amber-deep); }
+
+.ci-panel { display: grid; gap: 18px; }
+.ci-panel > h2 { font-size: clamp(1.7rem, 6vw, 2.3rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.08; }
+.ci-panel h3 { font-size: 1.25rem; line-height: 1.25; }
+.ci-panel h3 label { cursor: pointer; }
+
+/* Steps: one at a time, each opened by a heavy rule */
+.ci-steps { display: grid; gap: 22px; margin: 0; padding: 0; list-style: none; }
+.ci-step, .ci-result, .ci-card, .ci-rediscover-something, .ci-erase {
+  padding: 18px 0 20px; border-top: 3px solid var(--ink);
+}
+.ci-step { display: grid; gap: 12px; }
+.ci-step p { color: var(--muted); }
+
+/* Feelings and needs: real radio buttons and checkboxes in square boxes. A chosen one turns amber. */
+.ci-choices { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(11.5rem, 100%), 1fr)); gap: 8px; }
+.ci-choices-small { grid-template-columns: repeat(auto-fill, minmax(min(9.5rem, 100%), 1fr)); }
+.ci-choice {
+  display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 8px 12px;
+  border: 2px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer;
+}
+.ci-choice:hover { border-color: var(--ink); }
+.ci-choice input { flex: none; width: 20px; height: 20px; margin: 0; accent-color: #13261D; }
+.ci-choice:has(input:checked) { border-color: var(--ink); background: var(--amber-soft); font-weight: 700; }
+.ci-light { flex: none; width: 10px; height: 10px; border: 2px solid var(--line); }
+.ci-choice:has(input:checked) .ci-light { background: var(--amber-deep); border-color: var(--amber-deep); }
+
+textarea {
+  width: 100%; min-height: 6rem; padding: 12px 14px; font: inherit; line-height: 1.5;
+  color: var(--ink); background: var(--paper); border: 2px solid var(--line); border-radius: 0; resize: vertical;
+}
+textarea:hover { border-color: var(--muted); }
+textarea:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-color: var(--ink); }
+
+/* Buttons inside the check-in: square and outlined in ink; the next step is filled */
+.ci-body button {
+  min-height: 44px; padding: 8px 16px; font: inherit; font-weight: 700; cursor: pointer;
+  color: var(--ink); background: transparent; border: 2px solid var(--ink); border-radius: 0;
+}
+.ci-body button:hover { background: var(--sand); }
+.ci-body .ci-next, .ci-body .ci-finish, .ci-body .ci-add-entry, .ci-body .ci-show-idea { background: #13261D; border-color: #13261D; color: #fff; }
+.ci-body .ci-next:hover, .ci-body .ci-finish:hover, .ci-body .ci-add-entry:hover, .ci-body .ci-show-idea:hover { background: var(--forest); border-color: var(--forest); }
+.ci-step-buttons, .ci-suggestion-buttons, .ci-card-buttons, .ci-entry-buttons { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ci-quiet-support { padding: 10px 14px; border-left: 4px solid var(--forest); background: var(--sand); color: var(--ink) !important; }
+.ci-quiet-support a, .ci-talk-first a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
+
+/* Suggestions */
+.ci-result { display: grid; gap: 14px; }
+.ci-result > h3 { font-size: 1.5rem; font-weight: 800; }
+.ci-talk-first { padding: 12px 16px; border-left: 6px solid var(--amber-deep); background: var(--amber-soft); color: var(--ink); }
+.ci-suggestions { display: grid; gap: 12px; }
+.ci-suggestion { padding: 14px 0 16px; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.ci-suggestion h4 { font-size: .95rem; font-weight: 800; color: var(--muted); margin: 0; }
+.ci-suggestion-text { font-size: 1.2rem; font-weight: 650; line-height: 1.4; color: var(--ink); }
+/* Under a suggestion, the three choices are quieter than the steps' buttons. */
+.ci-body .ci-suggestion-buttons button { min-height: 44px; padding: 6px 12px; font-size: .95rem; border-width: 1.5px; }
+.ci-suggestion.is-set-aside .ci-suggestion-text, .ci-suggestion.is-set-aside .ci-suggestion-buttons .ci-not-today { opacity: .55; }
+.ci-set-aside, .ci-kept-note, .ci-kept-reflection-note, .ci-erase-done { color: var(--link); font-weight: 700; }
+.ci-all { margin-top: 4px; }
+.ci-all ul { list-style: square; padding-left: 1.3em; margin-top: 8px; display: grid; gap: 6px; }
+.ci-all h3 { font-size: 1.05rem; margin-top: 12px; }
+
+/* Rediscover */
+.ci-cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(19rem, 100%), 1fr)); }
+.ci-card { display: grid; gap: 10px; align-content: start; }
+.ci-card h3 { font-size: 1.15rem; }
+.ci-rediscover-something { display: grid; gap: 12px; }
+
+/* Journal */
+.ci-prompts ul { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.ci-prompts p, .ci-mood > p, .ci-field label { font-weight: 700; color: var(--ink); }
+.ci-body .ci-prompt { color: var(--ink); border-color: var(--line); text-align: left; font-weight: 400; }
+.ci-prompt-chosen { padding: 10px 14px; border-left: 4px solid var(--amber-deep); background: var(--amber-soft); color: var(--ink); }
+.ci-mood { display: grid; gap: 8px; }
+.ci-add-entry .ci-when-editing, .ci-add-entry.is-editing .ci-when-adding { display: none; }
+.ci-add-entry.is-editing .ci-when-editing { display: inline; }
+.ci-entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 3px solid var(--ink); }
+.ci-entry { padding: 14px 0 16px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+.ci-entry-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: .95rem; color: var(--muted); }
+.ci-entry-mood { color: var(--ink); font-weight: 800; }
+.ci-entry-prompt { font-style: italic; color: var(--muted); }
+.ci-entry-text { white-space: pre-wrap; color: var(--ink); }
+.ci-empty { color: var(--muted); font-style: italic; }
+
+/* Your journey */
+.ci-panel > section { display: grid; gap: 10px; }
+.ci-cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 2.6rem)); gap: 4px; }
+.ci-cal-head { text-align: center; font-size: .8rem; font-weight: 700; color: var(--muted); }
+.ci-cal-day { display: grid; place-items: center; aspect-ratio: 1; font-size: .9rem; color: var(--muted); border: 1px solid var(--line); }
+.ci-cal-day.is-today { border: 2px solid var(--ink); color: var(--ink); font-weight: 700; }
+.ci-cal-day.is-marked { background: #13261D; border-color: #13261D; color: #fff; font-weight: 800; }
+.ci-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 3px solid var(--ink); }
+.ci-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.ci-item-text { flex: 1 1 14rem; color: var(--ink); white-space: pre-wrap; }
+.ci-erase { display: grid; gap: 10px; }
+.ci-erase-confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-weight: 700; color: var(--ink); }
+
+/* Support */
+.ci-support { display: grid; gap: 10px; padding-top: 18px; border-top: 3px solid var(--ink); }
+.ci-support h2 { font-size: 1.5rem; font-weight: 800; }
+.ci-support ul { list-style: square; padding-left: 1.3em; display: grid; gap: 6px; }
+.ci-support a { color: var(--link); font-weight: 700; text-underline-offset: 3px; }
+
+/* Dark mode: filled buttons turn amber with dark text, like the header button. */
+@media (prefers-color-scheme: dark) {
+  .button-start, .ci-body .ci-next, .ci-body .ci-finish, .ci-body .ci-add-entry, .ci-body .ci-show-idea,
+  .ci-cal-day.is-marked { background: var(--amber); border-color: var(--amber); color: #13261D; }
+  .button-start:hover, .ci-body .ci-next:hover, .ci-body .ci-finish:hover, .ci-body .ci-add-entry:hover,
+  .ci-body .ci-show-idea:hover { background: var(--amber-deep); border-color: var(--amber-deep); }
+  .ci-choice input { accent-color: var(--amber); }
+  .ci-choice:has(input:checked), .ci-talk-first, .ci-prompt-chosen { color: var(--ink); }
+}
+
+/* Without the script, the buttons that need it are hidden, so nothing looks broken. */
+html:not(.ci-ready) .ci-step-buttons, html:not(.ci-ready) .ci-result, html:not(.ci-ready) .ci-start-row,
+html:not(.ci-ready) .ci-card-buttons, html:not(.ci-ready) .ci-rediscover-something > .ci-step-buttons,
+html:not(.ci-ready) .ci-idea, html:not(.ci-ready) .ci-prompts, html:not(.ci-ready) .ci-prompt-chosen,
+html:not(.ci-ready) .ci-erase, html:not(.ci-ready) .ci-kept-reflection-note, html:not(.ci-ready) .ci-tabs { display: none; }
+
+@media print {
+  .ci-tabs, .ci-step-buttons, .ci-card-buttons, .ci-entry-buttons, .ci-erase, .ci-privacy, textarea, .ci-choices input { display: none !important; }
+  .ci-off { display: block !important; }
+  .ci-choice, .ci-talk-first, .ci-prompt-chosen, .ci-quiet-support { background: #fff !important; color: #000 !important; }
 }
 
 /* Short screens, such as a phone on its side: smaller titles, so the help sign starts sooner. */
