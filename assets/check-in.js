@@ -399,4 +399,29 @@
   renderEntries();
   renderJourney();
   if (location.hash) followHash();
+
+  // For the phone app only (app/), which saves on the phone. The website never calls these, and
+  // this script still sends and stores nothing.
+  window.TidelightCheckIn = {
+    getState: function () {
+      var copy = JSON.parse(JSON.stringify(state));
+      copy.editing = null;
+      copy.step = 0;
+      return copy;
+    },
+    setState: function (saved) {
+      state = emptyState();
+      Object.keys(state).forEach(function (key) {
+        if (saved && Object.prototype.hasOwnProperty.call(saved, key)) state[key] = saved[key];
+      });
+      state.editing = null;
+      state.step = 0;
+      $$('.ci-card', body).forEach(function (card) {
+        var kept = state.reflections[card.getAttribute('data-reflection')];
+        $('textarea', card).value = kept ? kept.answer : '';
+      });
+      renderEntries();
+      renderJourney();
+    }
+  };
 })();

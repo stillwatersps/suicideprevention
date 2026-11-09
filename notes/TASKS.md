@@ -18,6 +18,9 @@ Planning tasks below are suggestions; ownership has not been agreed.
   are hard for me", an opt-in safety-plan feature for the phone app, and the question about it at
   the top of [[CONTENT-REVIEW]]. One founder likes it (Nov 9, 2026); the other founder decides too.
   Nothing is built. Owner: the founder arranging the review. Details at the top of [[IDEAS]].
+- [ ] **⚠️ Important:** decide which app suggestions at the end of [[AGE-STRATEGIES]] to build, after
+  the reviewer has read them. One founder marked them Important on November 9, 2026, and said not to
+  build them yet. Owner: both founders, with the reviewer.
 - [ ] Decide what the public GitHub Pages link should show until the site is
   reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes. The one-page
   option is built as draft pull request 12, next to pull request 8.
@@ -86,6 +89,15 @@ Planning tasks below are suggestions; ownership has not been agreed.
 Nothing else has been claimed. Add an owner above when you start.
 
 ## Ready for review
+
+- [ ] Phone app first draft: on-phone saving, age setup, and Share this reflection for the Daily check-in,
+  at one founder's request. Owner: Claude. Branch: `app/first-build`, draft pull request into
+  `claude/jolly-mayer-2m6eno`. Not merged, never run on a phone. Next: the reviewer reads
+  `app/src/text/en.html` and [[AGE-STRATEGIES]], a fluent reader checks `app/src/text/es.html`, a lawyer
+  advises on under-13s, and someone tries it on a real iPhone and Android phone. Handoff:
+  [[worklogs/2026-11-09-claude-phone-app-first-build]].
+- [ ] Add the app's words (`app/src/text/`) to the review packets, so the reviewer's packet covers them.
+  Owner: unassigned.
 
 - [ ] Daily check-in page, English and Spanish, at one founder's request. Owner: Claude. Branch:
   `site/daily-check-in`, merged into `claude/jolly-mayer-2m6eno` (pull request 5's branch) on

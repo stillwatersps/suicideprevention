@@ -91,7 +91,7 @@ whether to share with the circle or keep it private, so the app still feels like
 
 | # | Idea | How it would work | Founder decision |
 | --- | --- | --- | --- |
-| E2a | "Share this reflection" button in the phone app | A button on a kept reflection, check-in, or journal entry opens the phone's own share sheet. The person picks who gets it and how (text, email, or another app) and can read or change the words before sending. Nothing goes to Tidelight, and nothing is shared unless they tap it. No accounts and no server, so it fits the phone app plan in [[CHECK-IN-BACKEND]] | Chosen by one founder, Nov 9, 2026. The other founder hasn't agreed. Not built. Needs the licensed reviewer |
+| E2a | "Share this reflection" button in the phone app | A button on a kept reflection, check-in, or journal entry opens the phone's own share sheet. The person picks who gets it and how (text, email, or another app) and can read or change the words before sending. Nothing goes to Tidelight, and nothing is shared unless they tap it. No accounts and no server, so it fits the phone app plan in [[CHECK-IN-BACKEND]] | Chosen by one founder, Nov 9, 2026. The other founder hasn't agreed. **Built in the phone app draft** (`app/`, branch `app/first-build`), not reviewed |
 
 Notes for building it:
 
@@ -108,6 +108,11 @@ Notes for building it:
 
 ## Phone app idea, November 9, 2026: help shaped by age (E3)
 
+> **⚠️ Important.** One founder marked the app suggestions at the end of [[AGE-STRATEGIES]] as
+> Important on November 9, 2026, to build later: a note for the grown-up with a child, keeping
+> "an adult you trust" for teens, letting teens choose a support circle, plan reminders for adults,
+> and call reminders for older adults. Not built yet, and the reviewer sees them first.
+
 One founder chose, on November 9, 2026: every age is supported; date of birth is required at
 sign-up; and the age group decides how the app helps, using what research shows works for that
 age group. **Not agreed by the other founder, not reviewed, not built.** It also answers open
@@ -115,7 +120,7 @@ decision 6 in [[DECISIONS]] for this founder.
 
 | # | Idea | How it could work | Founder decision |
 | --- | --- | --- | --- |
-| E3 | Help shaped by age group | Sign-up asks for date of birth, required. The app works out an age group and keeps only that. Each group gets the suggestions, wording, and resources the reviewer approves for it. For example, younger people get trusted-adult and school wording, the way the teen page does now | Chosen by one founder, Nov 9, 2026. Not built. Needs the licensed reviewer and a lawyer first |
+| E3 | Help shaped by age group | Sign-up asks for date of birth, required. The app works out an age group and keeps only that. Each group gets the suggestions, wording, and resources the reviewer approves for it. For example, younger people get trusted-adult and school wording, the way the teen page does now | Chosen by one founder, Nov 9, 2026. **Built in the phone app draft** (`app/`, branch `app/first-build`), with the research in [[AGE-STRATEGIES]]. Needs the licensed reviewer and a lawyer before anyone uses it |
 
 Claude's notes for both founders, the reviewer, and a lawyer:
 

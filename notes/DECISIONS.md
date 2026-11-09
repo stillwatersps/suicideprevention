@@ -325,6 +325,40 @@ publish nothing. **The other founder's agreement isn't recorded.** Merged into
 
 Still open, and publishing: 5, 8 and 12. Merging any of them still needs both founders.
 
+## November 9, 2026: phone app first draft, proposed
+
+One founder asked Claude to build the reflections and sharing, and the age setup, and to research
+what works for which age groups. **The other founder hasn't agreed, and no reviewer or lawyer has
+seen it.** Built on `app/first-build`, in `app/`, which the website never publishes. Choices, all easy
+to reverse:
+
+- **Capacitor, wrapping the website's own pages,** as [[CHECK-IN-BACKEND]] proposed, so the reviewed
+  words stay in one place. The app adds blocks to the Daily check-in at build time; the website is
+  unchanged except for a small hook in `assets/check-in.js` that the website never uses.
+- **Saved on the phone only,** with Capacitor Preferences, which the phone's own backups are expected
+  to include. To confirm on a phone.
+- **Age groups:** under 13, 13 to 17, 18 to 24, 25 to 64, 65 and over, from [[AGE-STRATEGIES]]. Only
+  the group is kept. 988, 911, and Quick exit come before and during the question.
+- **Delete everything keeps the age group,** so the person isn't asked again. A button in Your
+  journey asks again.
+- **Sharing shows a notice first,** and the person can change the words before the share sheet opens.
+
+## November 9, 2026: age-based accommodations in the app, proposed
+
+One founder asked to show people their accommodations by age, and to make plain that an accurate
+age matters. **The other founder hasn't agreed, and no reviewer has seen it.** Built in the app
+draft (`app/`, branch `app/first-build`):
+
+- **Accuracy comes first.** Before the date of birth, the app says to enter the real date, because
+  a wrong one means ideas meant for a different age that may not fit or be safe.
+- **The group is checked before it's kept.** After the date, the app shows the age group and what
+  it will do for that age, and keeps nothing until the person taps "Yes, that's right".
+- **Accommodations by age:** a box at the top of Today for each group (for the grown-up with a
+  child; under-18 and LGBTQ+ help for teens; reaching out for 18 to 24; a safety plan with a
+  professional for 25 to 64; the doctor and staying in touch for 65 and over), the card in today's
+  results, and larger text by default for 65 and over, which anyone can switch.
+- Your journey lists what the app does for the person's age, and lets them enter the date again.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
