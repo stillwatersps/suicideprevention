@@ -48,7 +48,7 @@ In Chromium on Linux, November 9, 2026. Not on a real phone.
 | --- | --- |
 | `python3 tools/check_site.py` | All checks passed, 21 pages |
 | `python3 tools/test_browser.py` | All groups passed, after the fixes |
-| `python3 tools/test_the_tests.py --only strip` | See the result line below |
+| `python3 tools/test_the_tests.py --only strip` | All 30 planted bugs caught |
 
 ## Next step
 
