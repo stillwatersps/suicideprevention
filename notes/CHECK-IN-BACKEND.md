@@ -57,6 +57,7 @@ knowledge; confirm the platform details on Apple's and Google's developer pages 
 | Crisis links | Call and text links must open the phone's dialer and messages from inside the app. Test on real phones, stopping at the dial or compose screen ([[SAFETY]] rule 7) |
 | Quick exit | Means something different in an app. Leaving the app, plus an optional lock, is the closest match. A question for the reviewer |
 | Store review | Apple often turns down apps that are only a website in a wrapper. Saving, the app lock, and working offline should make this more than the website, but that is Apple's call |
+| Support circle | Asked about by one founder. It would need accounts and a server, so it isn't part of this plan. See [[IDEAS]], idea E2 |
 | Location alerts | Asked about by one founder. Not part of this plan. See [[IDEAS]], idea E1, and the reviewer's question in [[CONTENT-REVIEW]] |
 | Nobody is watching | Entries never reach Tidelight, so nobody reads them. The app must say so, and keep 988 and 911 on screen, as the website does |
 

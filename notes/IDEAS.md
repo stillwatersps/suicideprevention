@@ -49,6 +49,48 @@ run on the phone, so the location need never reach Tidelight. It needs the user 
 
 The version with a built-in list of places is set aside: see "Not proposed" below.
 
+## Phone app idea, November 9, 2026: a support circle (E2)
+
+One founder asked for this idea to be recorded. **An idea only: not approved by the other founder,
+not reviewed, not built.**
+
+**The idea.** A person signs up for an account and invites people they trust, such as a parent, a
+doctor, a therapist, or a friend, who sign up too. Together they form a circle. The circle can see
+how the person is doing. In the reflections and journal, the person chooses, entry by entry,
+whether to share with the circle or keep it private, so the app still feels like a safe space.
+
+| # | Idea | How it could work | Founder decision |
+| --- | --- | --- | --- |
+| E2 | Support circle | The person creates the circle and is the only one who can invite or remove people. Everything is private unless they tap "Share with my circle" on one check-in or reflection. They can unshare, pause the circle, or leave it at any time. Circle members see only what was shared, never scores or a summary of the person's mood | Asked for by one founder, Nov 9, 2026. Not approved, not built. Needs the licensed reviewer and a lawyer first |
+
+**What it would change.** Claude's notes for both founders and the reviewer:
+
+- **It needs accounts and a server.** People on different phones can only see each other's
+  entries through a server. That reverses the phone app plan in [[CHECK-IN-BACKEND]], where
+  nothing reaches Tidelight, and brings back everything in its accounts-and-server table:
+  encryption (ideally end-to-end, so Tidelight can't read shared entries), a privacy policy,
+  deleting, breaches, and someone to run and pay for it. "Not proposed" below also lists accounts.
+- **Nobody at Tidelight watches, but the circle does.** If someone shares something worrying, a
+  parent might see it hours later, or a therapist might not see it until the next session. The
+  app must say clearly that sharing isn't a way to ask for urgent help, keep 988 and 911 on
+  screen, and give circle members guidance on what to do if they're worried.
+- **Choosing must stay free.** People can feel pressure to share, or be asked to show what they
+  kept private. Sharing should be off by default, with no sign to the circle of how much is kept
+  private.
+- **Minors and parents.** A teen might write less honestly if a parent can see it, and not every
+  home is safe. Whether parents can join, and who controls the circle for someone under 18, are
+  questions for the reviewer and a lawyer, after supported ages are decided ([[DECISIONS]], open
+  decision 6).
+- **Doctors and therapists.** If a clinician uses the app as part of care, U.S. health privacy
+  law (HIPAA) and their own professional rules may apply. A lawyer should advise before
+  clinicians are invited.
+- **No monitoring features.** No alerts to the circle based on what someone writes, no mood
+  charts, and no reading of entries, matching the spec's rule on scoring and analysis.
+
+**A smaller first step to consider:** a "Share this reflection" button that opens the phone's own
+share sheet, so the person sends one reflection to someone they choose by text or email. It needs
+no accounts and no server, and fits the current phone app plan.
+
 ## Group A: no clinical review needed
 
 | # | Idea | Why | Founder decision |

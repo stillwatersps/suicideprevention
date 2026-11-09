@@ -773,6 +773,11 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   What should the page say about shared or school devices?
 - **Spanish.** The feelings are phrased as states ("Con tristeza") to avoid gendered forms. A
   fluent reader should check them.
+- **A support circle (idea E2).** One founder asked about a circle where a person, and people they
+  invite such as parents, a doctor, or a therapist, can see shared check-ins and reflections, with
+  each entry private unless the person shares it. Is it safe and helpful? What should circle
+  members be told to do if a shared entry worries them? Should parents of minors be able to join,
+  and who controls a minor's circle? See [[IDEAS]].
 
 ## Human-only checklist
 
