@@ -44,8 +44,9 @@ Planning tasks below are suggestions; ownership has not been agreed.
   (Nov 9, 2026, idea E3 in [[IDEAS]]); the other founder decides too, and a lawyer advises on under-13s.
 - [ ] Choose website tools after agreeing on first-version scope.
   Owner: both. Branch: to choose.
-- [ ] Review the planning drafts on `planning/morning-brief` and merge or revise.
-  They predate the website. Owner: both. Branch: `planning/morning-brief`.
+- [x] Review the planning drafts on `planning/morning-brief` and merge or revise.
+  Merged into `main` as pull request 1 on November 9, 2026, now in `notes/planning/`. They predate
+  the website.
 - [ ] Licensed therapist reviews [[RESEARCH-BRIEF]] and fills in its review
   tracker. Owner: the founder who supplied the brief arranges it. Branch: not
   needed for the review; record results on a task branch.
@@ -66,8 +67,8 @@ Planning tasks below are suggestions; ownership has not been agreed.
 - [ ] Try the first version on a real iPhone and Android phone, using [[PHONE-TEST]]. Owner:
   both. The iOS Simulator run on November 7 doesn't replace this.
 - [ ] Decide on idea D4, recovery stories, in [[IDEAS]]. Owner: both.
-- [ ] Close or keep draft pull requests 1, 7 and 8 (idea C5). Owner: the founder who
-  opened them. Pull request 5 now covers what 7 and 8 fix.
+- [ ] Close or keep draft pull request 8 (idea C5). Owner: the founder who opened it. Pull
+  request 5 now covers what 8 fixes. Pull requests 1 and 7 were merged into `main` on November 9.
 - [ ] Run the small user test in [[USER-TEST]] after the reviewer approves the plan.
   Owner: unassigned.
 - [ ] Agree who gets failed-run notices from the daily and monthly checks. GitHub sends a
@@ -113,9 +114,8 @@ Move a task here when its branch is ready for the other person to review.
   [[SAFETY]]. A person still needs to confirm them.
 - [ ] Correct `main`'s notes, with no page changes, so `main` stops saying pull
   request 4 is unmerged. Owner: Claude, at the user's request. Branch:
-  `claude/charming-swartz-e8d31c`, draft pull request 7 into `main`. Not merged. A
-  founder decides: merging publishes those notes. Its description covers the
-  conflict with pull request 5.
+  `claude/charming-swartz-e8d31c`, pull request 7 into `main`. Merged November 9, 2026, so
+  those notes are public.
 - [ ] Correct the four known problems on the live pages, with no draft content. Owner:
   Claude, at the user's request. Branch: `site/live-page-corrections`, draft pull
   request 8 into `main`. Not merged. A founder decides: merging publishes. No qualified

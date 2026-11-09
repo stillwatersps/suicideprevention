@@ -17,9 +17,9 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | `site/minimal-public-preview` | One crisis page with 988 and 911 in English and Spanish, in place of the four live pages: option B for open decision 1 in [[DECISIONS]]. Its handoff is on that branch | Draft pull request 12 into `main`, **not merged. Merging publishes it within about a minute.** It replaces the same pages as pull requests 5 and 8, so it conflicts with both |
 | `site/first-version-build` | Everything on the branch above, plus the rest of the first version: Not sure what you're feeling?, After a loss, About and privacy, saving 988 to contacts, review status, the full Spanish Research page, review packets, phone test steps, and browser tests. See [[worklogs/2026-11-06-claude-first-version\|the handoff]] | Merged into `claude/jolly-mayer-2m6eno` on November 7, 2026, at a founder's request, which closes pull request 9. **Not on the public website** |
 | `site/phone-accessibility-content` | A second round: fixes from an independent review, stronger site checks, and updated notes | Merged into `claude/jolly-mayer-2m6eno` on November 6, 2026, at a founder's request, so pull request 6 is closed by that merge. Pull request 5 is the one place to review. **Not on the public website** |
-| `claude/charming-swartz-e8d31c`, commit `546308d` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, plus a handoff, no page changes | Draft pull request 7 into `main`, **not merged**. Merging publishes those two notes and the handoff. Its description covers the conflict with pull request 5 |
+| `claude/charming-swartz-e8d31c`, commit `546308d` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, plus a handoff, no page changes | Merged into `main` as pull request 7 on November 9, 2026, so those notes are public |
 | `site/live-page-corrections`, commit `dd44812` when checked | Only the first four known issues below, on the four live pages, plus a handoff. No draft content | Draft pull request 8 into `main`, **not merged**. Merging publishes those page changes and the handoff. Its description covers the conflict with pull request 5 |
-| `planning/morning-brief` | First planning drafts | Draft pull request 1, not merged, partly out of date |
+| `planning/morning-brief` | First planning drafts, now in `notes/planning/` | Merged into `main` as pull request 1 on November 9, 2026, so they are public. Partly out of date |
 
 Unmerged doesn't mean private. The repository is public, so anyone on GitHub can
 read every branch.
@@ -100,9 +100,8 @@ request 8 would correct the first four on its own:
   visitors' IP addresses.
 - Help Someone says to "call or text 988 together". The official pages Claude read
   don't describe that, so the draft dropped it.
-- `notes/STATUS.md` and `notes/TASKS.md` on `main` still say pull request 4 is not
-  merged, and page writing has not started. A session opened on `main` reads that as
-  true. Draft pull request 7 would correct that. See [[TASKS]].
+- `notes/STATUS.md` and `notes/TASKS.md` on `main` describe the project as of November 6, from
+  pull request 7, merged November 9. A session opened on `main` reads that older picture. See [[TASKS]].
 
 Everywhere:
 
@@ -141,10 +140,10 @@ into `claude/jolly-mayer-2m6eno`: 15 (Daily check-in) into 14 (Shoreline), 14 an
 into 10, and 10 into pull request 5's branch. Pull request 11 (signage) stays open, because it
 rewrites the same stylesheet as Shoreline. Merging pull
 request 5 into `main` publishes everything, so do that only after the decision and review. Pull
-requests 7, 8 and 12 are separate, and merging any one publishes it: 7 corrects `main`'s notes,
-8 corrects four problems on its pages, and 12 replaces those pages with one crisis page. Merge
-or close each one. Pull request 11 goes into `site/first-version-finish` and publishes nothing; it
-would now conflict with Shoreline.
+requests 8 and 12 are separate, and merging either one publishes it: 8 corrects four problems on
+`main`'s pages, and 12 replaces those pages with one crisis page. Pull requests 1 and 7 were merged
+into `main` on November 9. Pull request 11 goes into this branch and publishes nothing; merging it
+swaps Shoreline for signage.
 
 ## End-of-session update
 
