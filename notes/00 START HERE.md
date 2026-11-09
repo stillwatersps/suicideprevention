@@ -32,6 +32,7 @@ Our shared notebook for building a suicide prevention website.
 | [[CONTENT-REVIEW\|Content review]] | What each control does and what a reviewer needs to check |
 | [[RESEARCH-BRIEF\|Research brief]] | Research and website copy, awaiting therapist review |
 | [[IDEAS\|Ideas]] | Improvement ideas and which ones are approved |
+| [[AGE-STRATEGIES\|Help by age]] | Research on what helps at which age, for the phone app's age groups |
 | [[CHECK-IN-BACKEND\|Saving the check-in]] | Ways to save, and the phone app plan |
 | [[USER-TEST\|User test plan]] | A small, safe test with made-up situations |
 | [[FOUNDER-BRIEF\|Founder brief]] | Decisions needed from both founders, with recommendations |

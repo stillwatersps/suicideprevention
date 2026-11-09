@@ -79,6 +79,9 @@ Proposed on a task branch, for both founders to confirm. Follow them until then.
 - Only the Daily check-in (check-in/ and es/registro-diario/) may have places to type or choose.
   Nothing typed there may leave the page or be stored until both founders agree to the plan in
   notes/CHECK-IN-BACKEND.md. tools/check_site.py enforces this.
+- The phone app in app/ is built from the website and never published by it. It may save on the
+  phone only, never send anything to Tidelight. Every word it adds is in app/src/text/, in English and
+  Spanish. Before sharing an app change, run `npm test` in app/.
 - Each English page has a Spanish twin in es/. Change both together, and keep the
   Spanish pages marked as an unreviewed AI translation until a fluent reader signs off.
 - When adding a page, add it to the CORE list in sw.js (and change its VERSION) and,

@@ -1,0 +1,60 @@
+/* Tidelight phone app additions to the Daily check-in. Uses the website's Shoreline tokens. */
+
+/* Until the age group is known, show only the age question and support. The crisis strip,
+   Quick exit, and the 988 panel stay on screen the whole time. */
+.app-asking-age .ci-start-row,
+.app-asking-age .ci-tabs,
+.app-asking-age .ci-panel { display: none !important; }
+/* Before the app has loaded what's saved, don't flash the age question. */
+html.app:not(.app-ready) .app-age { display: none; }
+
+.app-age,
+.app-share-panel,
+.app-settings,
+.app-foryou {
+  border: 2px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px;
+  margin: 24px 0;
+}
+.app-age h2, .app-share-panel h2 { margin-top: 0; }
+.app-age input[type="date"] {
+  font: inherit;
+  font-size: 1.1rem;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--ink);
+  max-width: 100%;
+}
+.app-age-problem { color: var(--plum); font-weight: 600; }
+.app-age-crisis { background: var(--green-soft); padding: 12px; }
+
+.app-foryou { border-color: var(--line); border-top: 5px solid var(--green); }
+.app-foryou h4 { margin-top: 0; }
+.app-foryou-note { color: var(--muted); font-size: 0.95rem; }
+.app-group-names { display: none; }
+
+.app-share-panel textarea { width: 100%; font: inherit; }
+.app-share-intro-text,
+.app-share-feeling-text { display: none; }
+.app-share-copied { font-weight: 600; }
+
+.app-share {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 2px solid var(--green);
+  border-radius: 0;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+}
+.app-share:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+@media print {
+  .app-age, .app-share-panel, .app-share, .app-settings { display: none !important; }
+}

@@ -39,7 +39,11 @@ stays for comparison.
 | Breaches | A plan for what happens if data leaks, and who tells the people affected |
 | Review | The licensed reviewer, and ideally someone with lived experience, review the saved-data design before launch |
 
-## The phone app plan (proposed, not built)
+## The phone app plan (proposed; a first draft is built)
+
+A first draft of this plan is in `app/`, on branch `app/first-build`, built November 9, 2026: on-phone
+saving, age setup, and Share this reflection for the Daily check-in. It has never run on a phone. See
+`app/README.md` and [[worklogs/2026-11-09-claude-phone-app-first-build]].
 
 One founder's choice on November 9, 2026. Claude's proposal for how to build it, from general
 knowledge; confirm the platform details on Apple's and Google's developer pages before building.

@@ -87,6 +87,15 @@ Nothing else has been claimed. Add an owner above when you start.
 
 ## Ready for review
 
+- [ ] Phone app first draft: on-phone saving, age setup, and Share this reflection for the Daily check-in,
+  at one founder's request. Owner: Claude. Branch: `app/first-build`, draft pull request into
+  `claude/jolly-mayer-2m6eno`. Not merged, never run on a phone. Next: the reviewer reads
+  `app/src/text/en.html` and [[AGE-STRATEGIES]], a fluent reader checks `app/src/text/es.html`, a lawyer
+  advises on under-13s, and someone tries it on a real iPhone and Android phone. Handoff:
+  [[worklogs/2026-11-09-claude-phone-app-first-build]].
+- [ ] Add the app's words (`app/src/text/`) to the review packets, so the reviewer's packet covers them.
+  Owner: unassigned.
+
 - [ ] Daily check-in page, English and Spanish, at one founder's request. Owner: Claude. Branch:
   `site/daily-check-in`, merged into `claude/jolly-mayer-2m6eno` (pull request 5's branch) on
   November 9, 2026, at a founder's request. Not on `main`. Both founders decide whether typing

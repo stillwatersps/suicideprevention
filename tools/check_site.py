@@ -27,7 +27,7 @@ import urllib.parse
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-NOT_SITE = {"notes", "design", "tools", ".git", ".claude", "node_modules"}
+NOT_SITE = {"notes", "design", "tools", ".git", ".claude", "node_modules", "app"}  # app/ is the phone app, built from the site; it is never published
 # These two pages have no draft health content, so they need no review note.
 NOT_DRAFT = {"index.html", "404.html"}
 # 404.html is served from any address, so it alone links from the site root.

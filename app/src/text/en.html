@@ -1,0 +1,99 @@
+<!-- Every word the phone app adds to the Daily check-in, in English. Draft for review: no licensed
+     reviewer has read it. tools/build.mjs puts each block into the app's copy of check-in/index.html.
+     The website itself never shows these. Blocks start with BLOCK:name and end with END. -->
+
+<!-- BLOCK:privacy -->
+      <aside class="ci-privacy" aria-labelledby="ci-privacy-title">
+        <h2 id="ci-privacy-title">What happens to what you share here</h2>
+        <p>In this app, what you choose and write is saved on this phone only, so it's here next time. Tidelight never receives it, reads it, or analyzes it.</p>
+        <p>If this phone's iCloud or Google backup is on, the backup includes it. Delete everything, in Your journey, removes it from the phone now. A copy in an earlier backup can last until the phone's next backup.</p>
+        <p>Anyone who can unlock this phone can open the app. Quick exit leaves fast. Nobody at Tidelight sees what you write, so it isn't a way to ask for help. In a crisis, call or text 988, or call 911.</p>
+      </aside>
+<!-- END -->
+
+<!-- BLOCK:age -->
+      <section class="app-age" id="app-age" tabindex="-1" aria-labelledby="app-age-title">
+        <h2 id="app-age-title">Before you start: your date of birth</h2>
+        <p>Tidelight shows different ideas for different ages, because research finds that different things help at different ages. Your date of birth is asked once.</p>
+        <p>The app works out your age group, keeps only the group on this phone, and forgets the date. It never leaves the phone.</p>
+        <p class="app-age-crisis">You don't need to answer this to get help. You can <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a> at any time. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</p>
+        <p class="ci-field"><label for="app-birth-date">Date of birth</label></p>
+        <input type="date" id="app-birth-date" autocomplete="off" required>
+        <p class="app-age-problem" role="status">Please enter a date of birth in the past.</p>
+        <p class="ci-step-buttons"><button type="button" class="app-age-save">Continue</button></p>
+        <p class="app-age-under13">If you're under 13, please use Tidelight with a parent, carer, or another adult you trust.</p>
+      </section>
+<!-- END -->
+
+<!-- BLOCK:foryou -->
+          <section class="app-foryou" aria-labelledby="app-foryou-title">
+            <h4 id="app-foryou-title">For your age</h4>
+            <div class="app-group" data-age-group="child">
+              <p>Tell a grown-up you trust how you're feeling, like a parent, a carer, a teacher, or a school counselor. You don't have to find the right words. "I'm not okay" is enough.</p>
+              <p>If you ever think about hurting yourself, tell an adult right away, or call or text 988.</p>
+            </div>
+            <div class="app-group" data-age-group="teen">
+              <p>Learning about feelings and mental health can help, and so can telling an adult you trust: a parent, a relative, a teacher, a coach, or a school counselor.</p>
+              <p>If you'd like a plan for hard moments, make it with a trusted adult or a counselor, not alone.</p>
+            </div>
+            <div class="app-group" data-age-group="young">
+              <p>Reach out to one person today, even with a short message. If you're a student, your school's counseling or health service is one place to start.</p>
+              <p>A plan for hard moments can help most when you make it with someone.</p>
+            </div>
+            <div class="app-group" data-age-group="adult">
+              <p>A safety plan is a short list for hard moments: signs that one is coming, things that help you cope, people and places to go to, professionals to call, and your reasons for living. It helps most when you make or review it with a doctor or counselor.</p>
+              <p>Talking to a doctor about how you've been feeling is a good place to start.</p>
+            </div>
+            <div class="app-group" data-age-group="older">
+              <p>Tell your doctor how you've been feeling, not only how your body is. Low mood is worth bringing up, and care for it helps.</p>
+              <p>Staying in touch with people and staying active, in whatever way suits you, can help too.</p>
+            </div>
+            <p class="app-foryou-note">Ideas for your age group, from research summarized in the app's notes. Not a treatment, and not reviewed by a professional yet.</p>
+          </section>
+<!-- END -->
+
+<!-- BLOCK:result-share -->
+          <p class="ci-step-buttons"><button type="button" class="app-share" data-share="result">Share how I'm feeling</button></p>
+<!-- END -->
+
+<!-- BLOCK:share-label -->Share<!-- END -->
+
+<!-- BLOCK:share-dialog -->
+    <section class="app-share-panel" id="app-share-panel" tabindex="-1" aria-labelledby="app-share-title">
+      <h2 id="app-share-title">Share with someone you choose</h2>
+      <p>You choose who gets this and how, in the next step. It goes to them, stays in their messages or email, and can't be taken back.</p>
+      <p>The person may not see it for hours, so this isn't a way to get urgent help. If you need help now, <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a>. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</p>
+      <p class="ci-field"><label for="app-share-text">What will be shared. You can change it.</label></p>
+      <textarea id="app-share-text" rows="5" autocomplete="off"></textarea>
+      <p class="ci-field"><label><input type="checkbox" id="app-share-intro"> Start with "I wanted to share this with you."</label></p>
+      <p class="app-share-intro-text">I wanted to share this with you.</p>
+      <p class="app-share-feeling-text">Today I'm feeling:</p>
+      <p class="ci-step-buttons"><button type="button" class="app-share-go">Choose who to share with</button> <button type="button" class="app-share-cancel">Cancel</button></p>
+      <p class="app-share-copied" role="status">Copied. You can paste it into a message.</p>
+    </section>
+<!-- END -->
+
+<!-- BLOCK:journal-note -->
+        <p class="ci-note">Your entries are saved on this phone only, and are never read, analyzed, or sent anywhere unless you share one.</p>
+<!-- END -->
+
+<!-- BLOCK:journey-note -->
+        <p class="ci-note">What you've shared, saved on this phone. There are no streaks or scores.</p>
+<!-- END -->
+
+<!-- BLOCK:settings -->
+        <section class="app-settings" aria-labelledby="app-settings-title">
+          <h3 id="app-settings-title">Your age group</h3>
+          <p>The app shows ideas for <strong class="app-group-name"></strong>.</p>
+          <p class="app-group-names"><span data-age-group="child">children under 13</span><span data-age-group="teen">ages 13 to 17</span><span data-age-group="young">ages 18 to 24</span><span data-age-group="adult">ages 25 to 64</span><span data-age-group="older">ages 65 and over</span></p>
+          <p class="ci-step-buttons"><button type="button" class="app-age-change">Enter my date of birth again</button></p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:erase-note -->
+          <p>In the app, this also deletes what's saved on this phone. A copy in an earlier iCloud or Google backup can last until the phone's next backup. Your age group stays, so you aren't asked again.</p>
+<!-- END -->
+
+<!-- BLOCK:about-checkin -->
+            <li><strong>The Daily check-in.</strong> In the app, what you choose and write there is saved on this phone only, and is included in the phone's iCloud or Google backup if that's on. Tidelight never receives it. Delete everything, in Your journey, removes it from the phone. <a href="../check-in/">Go to the Daily check-in</a>.</li>
+<!-- END -->

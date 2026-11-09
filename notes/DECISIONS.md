@@ -325,6 +325,24 @@ publish nothing. **The other founder's agreement isn't recorded.** Merged into
 
 Still open, and publishing: 5, 8 and 12. Merging any of them still needs both founders.
 
+## November 9, 2026: phone app first draft, proposed
+
+One founder asked Claude to build the reflections and sharing, and the age setup, and to research
+what works for which age groups. **The other founder hasn't agreed, and no reviewer or lawyer has
+seen it.** Built on `app/first-build`, in `app/`, which the website never publishes. Choices, all easy
+to reverse:
+
+- **Capacitor, wrapping the website's own pages,** as [[CHECK-IN-BACKEND]] proposed, so the reviewed
+  words stay in one place. The app adds blocks to the Daily check-in at build time; the website is
+  unchanged except for a small hook in `assets/check-in.js` that the website never uses.
+- **Saved on the phone only,** with Capacitor Preferences, which the phone's own backups are expected
+  to include. To confirm on a phone.
+- **Age groups:** under 13, 13 to 17, 18 to 24, 25 to 64, 65 and over, from [[AGE-STRATEGIES]]. Only
+  the group is kept. 988, 911, and Quick exit come before and during the question.
+- **Delete everything keeps the age group,** so the person isn't asked again. A button in Your
+  journey asks again.
+- **Sharing shows a notice first,** and the person can change the words before the share sheet opens.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

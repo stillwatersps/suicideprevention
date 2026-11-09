@@ -1,0 +1,159 @@
+// Tests the app's Daily check-in in desktop Chromium, after `node tools/build.mjs`.
+// Native saving and sharing can't run here: the app's browser fallbacks (localStorage and a
+// stubbed share sheet) stand in for them. This is not a phone test.
+import { createServer } from 'node:http';
+import { readFile } from 'node:fs/promises';
+import { extname, join, normalize } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { chromium } = require('playwright');
+const www = fileURLToPath(new URL('../www/', import.meta.url));
+const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml',
+  '.png': 'image/png', '.jpg': 'image/jpeg', '.webmanifest': 'application/manifest+json', '.vcf': 'text/vcard' };
+
+const server = createServer(async (req, res) => {
+  let path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
+  if (path.endsWith('/')) path += 'index.html';
+  try {
+    const file = join(www, normalize(path));
+    res.writeHead(200, { 'content-type': TYPES[extname(file)] || 'application/octet-stream' });
+    res.end(await readFile(file));
+  } catch { res.writeHead(404); res.end('not found'); }
+});
+await new Promise((ok) => server.listen(0, '127.0.0.1', ok));
+const base = `http://127.0.0.1:${server.address().port}/`;
+
+let failures = 0;
+let passes = 0;
+function check(ok, what) {
+  if (ok) { passes++; console.log('  ok   ' + what); } else { failures++; console.log('  FAIL ' + what); }
+}
+
+function birthDateYearsAgo(years) {
+  const d = new Date();
+  d.setFullYear(d.getFullYear() - years);
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().slice(0, 10);
+}
+
+async function run(browser, lang) {
+  const page_ = lang === 'es' ? 'es/registro-diario/' : 'check-in/';
+  console.log(`\n${lang === 'es' ? 'Spanish' : 'English'}: ${page_}`);
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const errors = [];
+  const outside = [];
+  context.on('request', (r) => { if (!r.url().startsWith(base) && !r.url().startsWith('data:')) outside.push(r.url()); });
+  await context.addInitScript(() => {
+    window.__shared = [];
+    Object.defineProperty(navigator, 'share', { value: async (data) => { window.__shared.push(data.text); }, configurable: true });
+  });
+  const page = await context.newPage();
+  page.on('pageerror', (e) => errors.push(e.message));
+  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  await page.goto(base + page_);
+  await page.waitForSelector('html.app-ready');
+
+  // Age setup comes first, with crisis help on screen.
+  check(await page.isVisible('#app-age'), 'asks for a date of birth on first open');
+  check(!(await page.isVisible('.ci-tabs')), 'hides the check-in until the age is given');
+  check(await page.isVisible('.crisis-bar a[href="tel:988"]'), 'crisis strip stays on screen during age setup');
+  check(await page.isVisible('#app-age a[href="tel:988"]') && await page.isVisible('#app-age a[href="tel:911"]'), 'age question shows 988 and 911');
+
+  await page.click('.app-age-save');
+  check(await page.isVisible('.app-age-problem'), 'an empty date is refused');
+  const tomorrow = new Date(Date.now() + 2 * 86400000).toISOString().slice(0, 10);
+  await page.fill('#app-birth-date', tomorrow);
+  await page.click('.app-age-save');
+  check(await page.isVisible('#app-age'), 'a date in the future is refused');
+
+  const birth = birthDateYearsAgo(15);
+  await page.fill('#app-birth-date', birth);
+  await page.click('.app-age-save');
+  check(!(await page.isVisible('#app-age')), 'a valid date closes the age question');
+  check(await page.isVisible('.ci-tabs'), 'the check-in appears');
+
+  let stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
+  check(stored.includes('"teen"'), 'keeps the age group (15 years old is 13 to 17)');
+  check(!stored.includes(birth) && !stored.includes(birth.slice(0, 4)), 'never keeps the birth date');
+
+  // Check in, and see the age group's ideas.
+  await page.click('[data-ci-start]');
+  await page.click('#ci-step-feeling label:has(input[value="hopeful"])');
+  await page.click('#ci-step-feeling .ci-next');
+  for (const id of ['mind', 'difficult', 'self']) await page.click(`#ci-step-${id} .ci-skip`);
+  await page.click('.ci-finish');
+  check(await page.isVisible('.app-foryou [data-age-group="teen"]'), 'shows ideas for ages 13 to 17');
+  const others = await page.$$eval('.app-foryou [data-age-group]', (els) => els.filter((e) => e.offsetParent !== null).length);
+  check(others === 1, 'shows only one age group\'s ideas');
+
+  // Share how I'm feeling.
+  await page.click('[data-share="result"]');
+  check(await page.isVisible('#app-share-panel'), 'Share opens the notice before sharing');
+  check(await page.isVisible('#app-share-panel a[href="tel:988"]'), 'the share notice shows 988');
+  const preview = await page.inputValue('#app-share-text');
+  check(preview.length > 0 && !preview.includes('undefined'), 'the share text can be read and changed first');
+  await page.click('.app-share-cancel');
+  check(!(await page.isVisible('#app-share-panel')), 'Cancel closes it without sharing');
+  check((await page.evaluate(() => window.__shared.length)) === 0, 'nothing is shared on Cancel');
+
+  // Write a journal entry, then share it with the opening line.
+  await page.click('.ci-tabs a[href="#ci-journal"]');
+  await page.fill('#ci-entry', 'A made-up entry for the test.');
+  await page.click('.ci-add-entry');
+  await page.click('.ci-entry .app-share');
+  await page.check('#app-share-intro');
+  await page.click('.app-share-go');
+  const shared = await page.evaluate(() => window.__shared);
+  check(shared.length === 1 && shared[0].includes('A made-up entry for the test.'), 'shares the entry through the share sheet');
+  check(/^(I wanted|Quería)/.test(shared[0] || ''), 'adds the opening line when chosen');
+
+  // Close the app and open it again: everything is still there, and no age question.
+  await page.waitForTimeout(400);
+  await page.reload();
+  await page.waitForSelector('html.app-ready');
+  check(!(await page.isVisible('#app-age')), 'does not ask the age again');
+  await page.click('.ci-tabs a[href="#ci-journal"]');
+  check((await page.textContent('.ci-entries')).includes('A made-up entry for the test.'), 'the journal entry is still there after reopening');
+  await page.click('.ci-tabs a[href="#ci-journey"]');
+  check(await page.isVisible('.app-settings .app-group-name'), 'Your journey shows the age group');
+
+  // Delete everything removes it from the phone, and keeps the age group.
+  await page.click('.ci-erase-start');
+  await page.click('.ci-erase-yes');
+  await page.waitForTimeout(400);
+  await page.reload();
+  await page.waitForSelector('html.app-ready');
+  await page.click('.ci-tabs a[href="#ci-journal"]');
+  check(!(await page.textContent('.ci-entries')).includes('A made-up entry'), 'Delete everything removes saved entries');
+  stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
+  check(stored.includes('"teen"') && !stored.includes('made-up'), 'the age group stays, the writing is gone');
+
+  // Changing the birth date changes the group.
+  await page.click('.ci-tabs a[href="#ci-journey"]');
+  await page.click('.app-age-change');
+  await page.fill('#app-birth-date', birthDateYearsAgo(70));
+  await page.click('.app-age-save');
+  stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
+  check(stored.includes('"older"'), 'a new date of birth changes the group to 65 and over');
+
+  // The About page describes the app, not the website.
+  await page.goto(base + (lang === 'es' ? 'es/acerca-de/' : 'about/'));
+  check((await page.textContent('main')).match(/saved on this phone only|se guarda solo en este teléfono/) !== null, 'About says what the app keeps');
+
+  check(outside.length === 0, 'no requests to other sites' + (outside.length ? ': ' + outside.join(', ') : ''));
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+}
+
+const browser = await chromium.launch();
+try {
+  await run(browser, 'en');
+  await run(browser, 'es');
+} finally {
+  await browser.close();
+  server.close();
+}
+console.log(`\n${passes} passed, ${failures} failed. Desktop Chromium only, with the app's browser fallbacks; not a phone.`);
+process.exit(failures ? 1 : 0);
