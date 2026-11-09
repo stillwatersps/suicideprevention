@@ -16,18 +16,22 @@ Planning tasks below are suggestions; ownership has not been agreed.
 
 - [ ] **⚠️ Important, first for attention:** the licensed reviewer looks at idea E1, "Places that
   are hard for me", an opt-in safety-plan feature for the phone app, and the question about it at
-  the top of [[CONTENT-REVIEW]]. One founder likes it (Nov 9, 2026); the other founder decides too.
+  the top of [[CONTENT-REVIEW]]. Both founders agreed on Nov 9, 2026, that it waits for the reviewer.
   Nothing is built. Owner: the founder arranging the review. Details at the top of [[IDEAS]].
-- [ ] Decide what the public GitHub Pages link should show until the site is
-  reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes. The one-page
-  option is built as draft pull request 12, next to pull request 8.
+- [x] Decide what the public GitHub Pages link should show until the site is reviewed. Both
+  founders chose pull request 12, the one crisis page, on November 9, 2026. See [[DECISIONS]].
+- [ ] Publish the one crisis page. Claude prepares a website-only publish step for `main` that
+  publishes pull request 12's page; both founders approve it and 12; the repository owner switches
+  Pages to GitHub Actions; pull request 8 is closed. Owner: both. **Merging publishes.**
+- [ ] Answer whether the Daily check-in saves to the person's own iCloud or Google account, or to
+  a Tidelight account, which needs a server. Owner: both. Nothing is built until then.
+- [ ] Each founder moves any private notes outside the project folder (decided November 9).
+  Owner: each founder.
 - [ ] Read [[FOUNDER-BRIEF]] and [[LAUNCH-CHECKLIST]], and name an owner for each part of
   [[UPKEEP]]. Owner: both.
-- [ ] Agree who reviews the content. Pull request 5 and [[RESEARCH-BRIEF]] name a
-  licensed therapist, arranged by the founder who supplied the brief. Confirm that
-  person also covers the draft pages and [[CONTENT-REVIEW]], and whether to add a
-  suicide prevention specialist, someone with lived experience, or someone who works
-  with young people. Owner: unassigned.
+- [x] Agree who reviews the content. Both founders decided on November 9, 2026: the licensed
+  therapist reviews the research brief, every draft page, and the phone app's words. A fluent
+  Spanish reader is still to be found.
 - [ ] Tap-test call and text links on a real iPhone and Android phone, stopping at
   the dial or compose screen. Owner: unassigned. Checklist in [[CONTENT-REVIEW]].
 - [ ] Read each crisis resource in [[SAFETY]] on the provider's site and fill in
@@ -35,13 +39,15 @@ Planning tasks below are suggestions; ownership has not been agreed.
 - [ ] Confirm the 988 LGBTQ+ youth option (press 3, PRIDE to 988) with 988, including
   its age range and any chat route. The draft Get Help page lists it. Owner:
   unassigned. See [[SAFETY]].
-- [ ] Agree on the safety ground rules in [[SAFETY]]. Owner: unassigned, needs both
-  founders' agreement.
+- [ ] Both founders read the safety ground rules in [[SAFETY]] and the crisis rules in
+  `CLAUDE.md`, change anything needed, and record them as agreed in [[DECISIONS]]. Agreed as the
+  next step on November 9, 2026. Owner: both.
+- [ ] Both founders read the updated [[FIRST-VERSION]] and agree it. Owner: both.
 - [ ] Confirm both people can download the project, open this vault, and open the
   project in Claude Code. Owner: both. Branch: not needed.
-- [ ] Agree on supported ages and whether the prototype needs saved data.
-  Owner: both. Branch: to choose. One founder chose every age, with date of birth at sign-up
-  (Nov 9, 2026, idea E3 in [[IDEAS]]); the other founder decides too, and a lawyer advises on under-13s.
+- [x] Agree on supported ages. Both founders decided on November 9, 2026: every age, with date of
+  birth at sign-up in the app, and the app held back from under-13s until a lawyer advises. The
+  website asks no age. Saved data is the check-in question above.
 - [ ] Choose website tools after agreeing on first-version scope.
   Owner: both. Branch: to choose.
 - [x] Review the planning drafts on `planning/morning-brief` and merge or revise.
@@ -54,30 +60,33 @@ Planning tasks below are suggestions; ownership has not been agreed.
   the draft page text on `claude/jolly-mayer-2m6eno`. [[CONTENT-REVIEW]] has a
   table comparing the two. Owner: unassigned.
 
-- [ ] GitHub settings for the approved ideas: require a second founder's approval
-  on `main` (A2), switch Pages to publish with GitHub Actions just before merging
-  pull request 5 (A3), and turn off Issues and the Wiki (A4). Owner: the repository
-  owner. Steps in [[worklogs/2026-11-06-claude-approved-ideas]].
+- [ ] GitHub settings both founders agreed on November 9, 2026: turn off Issues and the Wiki
+  (A4) and require the other founder's approval on `main` (A2) now, and switch Pages to GitHub
+  Actions (A3) together with pull request 12. Owner: the repository owner. Steps in
+  [[worklogs/2026-11-06-claude-approved-ideas]].
 - [ ] A fluent Spanish reader checks all nine pages in `es/` and the Spanish lines on the English pages, using
   `notes/review-packet/tidelight-spanish-review-packet.pdf`. Owner: unassigned.
 - [ ] Give `notes/review-packet/tidelight-review-packet.pdf` to the licensed therapist, and
   record the results in [[CONTENT-REVIEW]]. Owner: the founder arranging the review.
 - [ ] Someone with lived experience of a suicide loss reads After a loss. Owner: unassigned.
-- [ ] A lawyer reads About and privacy. Owner: unassigned.
+- [ ] A lawyer reads About and privacy, and advises on under-13s (COPPA) and the app stores'
+  rules before the app is offered to them. Owner: unassigned.
 - [ ] Try the first version on a real iPhone and Android phone, using [[PHONE-TEST]]. Owner:
   both. The iOS Simulator run on November 7 doesn't replace this.
 - [ ] Decide on idea D4, recovery stories, in [[IDEAS]]. Owner: both.
-- [ ] Close or keep draft pull request 8 (idea C5). Owner: the founder who opened it. Pull
-  request 5 now covers what 8 fixes. Pull requests 1 and 7 were merged into `main` on November 9.
+- [ ] Close draft pull request 8 (idea C5), as both founders decided on November 9, 2026, with
+  pull request 12 replacing those pages. Owner: the founder who opened it. Pull requests 1 and 7 were merged into `main` on November 9.
 - [ ] Run the small user test in [[USER-TEST]] after the reviewer approves the plan.
   Owner: unassigned.
-- [ ] Agree who gets failed-run notices from the daily and monthly checks. GitHub sends a
+- [ ] Name who rechecks the crisis numbers monthly, and who gets failed-run notices from the
+  daily and monthly checks. Both founders agreed on November 9, 2026, to split the two jobs. GitHub sends a
   scheduled workflow's notices to one account: the one that created it, last changed its
   schedule lines, or re-enabled it. That founder checks their notification settings, and the
   other checks the Actions tab on a set day. Owner: both.
 
-- [ ] Check the name Tidelight against existing organizations and trademarks before
-  buying a domain or printing cards. Owner: both. The rename is in [[DECISIONS]].
+- [ ] Check the name Tidelight against the U.S. trademark office's search and existing
+  organizations before buying a domain or printing cards. Both founders agreed to keep the name
+  on November 9, 2026. Owner: both. The rename is in [[DECISIONS]].
 - [ ] Optional: rename the GitHub organization `stillwatersps`. This changes the
   website address, so update `tools/check_live.py`, the 404 page links, and the notes
   in the same change. Owner: the repository owner.

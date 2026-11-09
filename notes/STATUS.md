@@ -17,6 +17,7 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | `site/minimal-public-preview` | One crisis page with 988 and 911 in English and Spanish, in place of the four live pages: option B for open decision 1 in [[DECISIONS]]. Its handoff is on that branch | Draft pull request 12 into `main`, **not merged. Merging publishes it within about a minute.** It replaces the same pages as pull requests 5 and 8, so it conflicts with both |
 | `site/first-version-build` | Everything on the branch above, plus the rest of the first version: Not sure what you're feeling?, After a loss, About and privacy, saving 988 to contacts, review status, the full Spanish Research page, review packets, phone test steps, and browser tests. See [[worklogs/2026-11-06-claude-first-version\|the handoff]] | Merged into `claude/jolly-mayer-2m6eno` on November 7, 2026, at a founder's request, which closes pull request 9. **Not on the public website** |
 | `site/phone-accessibility-content` | A second round: fixes from an independent review, stronger site checks, and updated notes | Merged into `claude/jolly-mayer-2m6eno` on November 6, 2026, at a founder's request, so pull request 6 is closed by that merge. Pull request 5 is the one place to review. **Not on the public website** |
+| `notes/founder-decisions` | Both founders' answers to 14 questions recorded in [[DECISIONS]], this note, [[TASKS]], and an updated [[FIRST-VERSION]]. See [[worklogs/2026-11-09-claude-founder-decisions\|the handoff]] | A draft pull request into `claude/jolly-mayer-2m6eno`, built on pull request 17. Publishes nothing. **Not on the public website** |
 | `claude/charming-swartz-e8d31c`, commit `546308d` when checked | Corrections to `notes/STATUS.md` and `notes/TASKS.md` on `main`, plus a handoff, no page changes | Merged into `main` as pull request 7 on November 9, 2026, so those notes are public |
 | `site/live-page-corrections`, commit `dd44812` when checked | Only the first four known issues below, on the four live pages, plus a handoff. No draft content | Draft pull request 8 into `main`, **not merged**. Merging publishes those page changes and the handoff. Its description covers the conflict with pull request 5 |
 | `planning/morning-brief` | First planning drafts, now in `notes/planning/` | Merged into `main` as pull request 1 on November 9, 2026, so they are public. Partly out of date |
@@ -32,7 +33,8 @@ GitHub. On `main` you won't see them until the branch is merged and you download
 
 `main` is a public early preview. A complete first version, with unreviewed draft content, is
 on a task branch, ready for phone testing and human review. It is not ready for the public.
-Product decisions and professional review have not happened yet. It has been tried in desktop
+Both founders agreed 14 decisions on November 9, 2026, listed in [[DECISIONS]]; most still
+need a setting changed or work done. Professional review hasn't happened yet. It has been tried in desktop
 Chrome, phone-size emulation, WebKit on a Mac, and the iOS Simulator (iPhone 17, iOS 27.2), but
 not on a real phone.
 
@@ -108,32 +110,37 @@ Everywhere:
 - No qualified person has reviewed any crisis or health wording, on `main` or on
   the task branches.
 - Pages publishes every file on `main`, including these notes, so unverified or
-  draft notes are public web addresses. See the open decision in [[DECISIONS]].
-- Merging pull request 5 publishes notes and pages together, so its corrected notes
-  can't reach `main` while the pages wait for review. Same open decision.
+  draft notes are public web addresses. Both founders decided on November 9 to publish the
+  website only, through GitHub Actions. Not done yet.
+- Until then, merging pull request 5 publishes notes and pages together.
 - Call and text links have never been tried on a real phone, or with VoiceOver or
   TalkBack. The iOS Simulator showed the contact card and Quick exit, but it can't place calls.
 
 ## Still to confirm
 
 - Both people have the latest project on their computers and can open this vault.
-- What the public site should show until review.
-- Who reviews crisis content, and who re-checks the numbers.
-- First-version scope, supported ages, and saved-data needs. One founder chose every age, with
-  date of birth at sign-up in the app (idea E3 in [[IDEAS]]).
+- Which design, after trying both on a real phone.
+- Whether the check-in saves to the person's iCloud or Google account, or to a Tidelight account.
+- The names: who rechecks crisis numbers, who gets GitHub's emails, the Spanish reader, a lawyer.
 
 ## Next useful step
 
-0. **Important, first for attention:** the licensed reviewer looks at idea E1 in [[IDEAS]], the
-   opt-in "Places that are hard for me" safety-plan feature for the phone app. One founder chose it
-   on November 9, 2026. Not built. In the notes on `claude/jolly-mayer-2m6eno`.
-1. Try the first version on a real phone, using [[PHONE-TEST]], from pull request 5's branch,
-   `claude/jolly-mayer-2m6eno`, which now holds everything except signage (pull request 11).
-2. Both founders read [[FOUNDER-BRIEF]], [[FIRST-VERSION]], [[LAUNCH-CHECKLIST]], [[IDEAS]], and the open
-   decisions in [[DECISIONS]], and decide what the public site should show until review. Draft pull
-   request 12 is the one-page option, ready to compare.
-3. Give `notes/review-packet/tidelight-review-packet.pdf` to the licensed therapist, and the
-   Spanish packet to a fluent reader. Record results in "Review records" in [[CONTENT-REVIEW]].
+Both founders agreed these on November 9, 2026. Details in [[DECISIONS]] and [[TASKS]].
+
+1. **In GitHub's settings, today:** turn off Issues and the Wiki, and require the other founder's
+   approval for merges into `main`. The repository owner does this.
+2. **Book the licensed therapist and find a fluent Spanish reader.** Give them the packets in
+   `notes/review-packet/`, and record results in [[CONTENT-REVIEW]]. The reviewer looks first at idea
+   E1 in [[IDEAS]], marked Important. Everything in pull request 5 waits for this.
+3. **Publish the one crisis page.** Claude prepares a website-only publish step for `main`; both
+   founders approve it and pull request 12, the repository owner switches Pages to GitHub Actions,
+   and pull request 8 is closed. Merging publishes.
+4. **Try Shoreline and signage on a real phone,** using [[PHONE-TEST]], and merge or close pull
+   request 11.
+5. **Both founders read** the updated [[FIRST-VERSION]], [[SAFETY]], and the crisis rules in
+   `CLAUDE.md`, and record them as agreed. Merge pull request 17 into pull request 5's branch.
+6. **Smaller steps:** the trademark check, a lawyer for under-13s, owners for upkeep, and private
+   notes moved outside the project folder.
 
 On November 9, 2026, at one founder's request, every pull request that publishes nothing was merged
 into `claude/jolly-mayer-2m6eno`: 15 (Daily check-in) into 14 (Shoreline), 14 and 13 (compact strip)

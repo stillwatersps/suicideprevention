@@ -117,38 +117,17 @@ counts only bold items as open. Keep the numbers, because other notes refer to t
 repository is public, so record people by role,
 such as "founder A", or by a handle the person chooses.
 
-1. **What should the public site show until review?** Keep the preview out of search
-   results, cut it to one page with 988, 911, and what Tidelight is, or turn Pages
-   off. Claude's suggestion: one of the last two until a reviewer has signed off,
-   because reaching 988 and 911 is the part that helps most and the drafts carry the
-   most risk. Draft pull request 8 corrects only the four known problems on the live
-   pages, so it doesn't settle this. The one-page option is built as draft pull request
-   12: 988 and 911 in English and Spanish, what the site isn't, and no project name.
-   Building it settles nothing.
-2. **Should the website be published without the notes?** Pages now serves every file
-   on `main`, including these notes and `CLAUDE.md`. Moving the site to a `docs`
-   folder or a deploy step would stop that. The notes would stay in the public
-   repository either way. Making the repository private may affect Pages on the free
-   plan, so check first. The two are also tied together the other way: one merge
-   publishes notes and pages, so corrected notes can't reach `main` while pages wait
-   for review, and `main`'s notes still say pull request 4 is unmerged. Draft pull
-   request 7 would fix that for now, with notes only.
-3. **Who reviews, and how does a sign-off get recorded?** A founder's brief names a
-   licensed therapist. Does that review also cover the draft pages? Record the role
-   and the date, never personal contact details.
-4. **Should changes to `main` need the other person's approval?** Merging publishes
-   within about a minute, and `main` has no protection.
-5. **Is there any contact route, and what if someone writes in crisis?** GitHub
-   Issues and the Wiki are on for this public repository. Turning them off is a
-   simple first step.
-6. **Which ages are supported?** One founder answered on November 9, 2026: every age, with
-   date of birth required at sign-up and help shaped by age group. See that entry below. It
-   stays open until the other founder agrees and a lawyer has advised on children's privacy.
-   (The name is now Tidelight; see the November 7 entry below. A trademark check is still open.)
-7. **Where do private notes live?** The vault folder can hold private notes,
-   `.gitignore` has no rule for them, and GitHub Desktop selects every changed file by
-   default, so one could be committed and published by accident. Keep them outside
-   `notes/`, or in one ignored folder?
+1. Settled: pull request 12, the one crisis page, until the content is reviewed. See the
+   November 9 entry near the end of this note.
+2. Settled: publish the website without the notes, through GitHub Actions. Same entry.
+3. Settled: the licensed therapist reviews everything, and a fluent Spanish reader is still to
+   be found. Same entry.
+4. Settled: every merge into `main` needs the other founder's approval, once the GitHub
+   setting is on. Same entry.
+5. Settled: turn off GitHub Issues and the Wiki. Same entry.
+6. Settled: every age, with the app held back from under-13s until a lawyer has advised.
+   Same entry.
+7. Settled: private notes live outside the project folder. Same entry.
 
 ## November 6, 2026: improvement ideas approved by one founder
 
@@ -324,6 +303,49 @@ publish nothing. **The other founder's agreement isn't recorded.** Merged into
   homepage cards stack on tablet-width screens with larger text. Full browser tests pass.
 
 Still open, and publishing: 5, 8 and 12. Merging any of them still needs both founders.
+
+## November 9, 2026: both founders' answers to 14 questions
+
+Founder A answered 14 questions Claude listed, and founder B agreed to every answer the same day.
+These are the first decisions both founders have agreed. They answer the open decisions above and
+the earlier entries that say the other founder hasn't agreed to every age, the phone app, or typing
+in the Daily check-in. Who owns each step isn't named yet.
+
+1. **Public site until review: pull request 12.** Merge it, the one crisis page with 988 and 911 in
+   English and Spanish, and close pull request 8. Merging publishes.
+2. **The licensed therapist reviews everything:** the research brief, every draft page, and the
+   phone app's words. Sign-offs go in [[CONTENT-REVIEW]] by role and date. A fluent Spanish reader is
+   still needed. Nothing in pull request 5 goes live until both have signed off.
+3. **Every merge into `main` needs the other founder's approval,** set as branch protection in
+   GitHub's settings.
+4. **Publish the website without the notes,** by switching Pages to the GitHub Actions publish
+   step. The notes stay readable in the public repository but stop being web pages. That step is
+   only on pull request 5's branch now, and `tools/launch_gate.py` stops it until reviews are
+   recorded, so `main` needs a version that publishes pull request 12's page.
+5. **Turn off GitHub Issues and the Wiki,** so nobody in crisis posts where no one is watching.
+6. **Design: decide after trying Shoreline and signage on a real phone.** Not chosen yet.
+   Shoreline is on pull request 5's branch; pull request 11 swaps in signage.
+7. **Every age, with date of birth asked at sign-up in the app.** The app isn't released to
+   under-13s until a lawyer has advised on children's privacy law (COPPA) and the app stores' rules.
+   The website asks no age. A lawyer is still to be found.
+8. **The Daily check-in keeps typing, saved to the person's own account.** Nobody else, Tidelight
+   included, can see it unless the person shares it. In the phone app that means saved on the
+   phone and shared only through Share. The website saves nothing until accounts and a server
+   exist ([[CHECK-IN-BACKEND]]). **Still to answer:** whether "own account" means the person's
+   iCloud or Google account, as chosen earlier on November 9, with no server, or a Tidelight
+   account, which needs one. Claude builds neither until both founders say which.
+9. **Keep building the phone app,** pull request 16, as a draft until the reviewer and a lawyer
+   have read it and it has run on real phones. Idea E1, places that are hard for me, waits for
+   the reviewer.
+10. **Claude updates [[FIRST-VERSION]] with these decisions first,** then both founders read and
+    agree it.
+11. **Both founders read [[SAFETY]] and the crisis rules in `CLAUDE.md`,** change anything needed,
+    and then record them here as agreed. Not done yet, so both stay proposals.
+12. **Keep the name Tidelight,** and check the U.S. trademark office's search and existing
+    organizations before buying a domain or printing anything.
+13. **Private notes live outside the project folder,** so they can't be committed or published.
+14. **Upkeep is split:** one founder rechecks the crisis numbers monthly; the other gets GitHub's
+    failed-check emails and looks at the Actions tab on a set day. Who does which isn't named.
 
 ## Decision format
 
