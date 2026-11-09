@@ -72,7 +72,7 @@ All on November 9, 2026, in Chromium on Linux. None of it was on a real phone.
 
 ## Decisions and open questions
 
-- All proposals, in [[DECISIONS]]. Questions for the reviewer are in [[CONTENT-REVIEW]], under
+- All proposals, in [[DECISIONS]]. [[CHECK-IN-BACKEND]] now compares ways to save, including a phone app. Questions for the reviewer are in [[CONTENT-REVIEW]], under
   "Questions about the Daily check-in".
 - The page is reached from the phone menu and the footer only. Whether Home should link to it is
   for both founders.

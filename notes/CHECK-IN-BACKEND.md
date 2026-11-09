@@ -37,9 +37,38 @@ saving would take, so the founders can decide whether and how to build it. Nothi
 | Breaches | A plan for what happens if data leaks, and who tells the people affected |
 | Review | The licensed reviewer, and ideally someone with lived experience, review the saved-data design before launch |
 
+## Ways to save, compared
+
+Added November 9, 2026, after one founder asked whether an App Store or Play Store app would come
+with a server. It wouldn't: the stores distribute apps and their updates, but don't store users'
+data. This table is Claude's summary from general knowledge. Nobody has read Apple's or Google's
+current pages for it, so confirm prices and rules there before deciding.
+
+| Option | Server needed | Who can read entries | If the phone is lost | Main costs and risks |
+| --- | --- | --- | --- | --- |
+| Nothing saved (built now) | No | Nobody. Gone when the page closes | Nothing to lose | People lose what they wrote |
+| Saved in the browser, on the website | No | Anyone who can open that browser | Lost, unless the browser syncs | Needs [[SAFETY]] rule 5 changed. A shared device keeps the entries, and Quick exit can't hide them |
+| A phone app, saved on the phone only | No | Anyone who can unlock the phone. An app lock (Face ID or a code) helps | Lost, unless the phone's own backup is on | Building and keeping two apps, store fees (about $99 a year for Apple, $25 once for Google, to confirm), store review |
+| A phone app with the user's own iCloud (iPhone) or Google backup (Android) | No, Apple or Google runs it | The user. Tidelight can't read it | Comes back on a new phone | As above, plus each platform works differently |
+| Accounts and Tidelight's own server (the founder's choice) | Yes | Tidelight could, unless entries are end-to-end encrypted | Comes back on sign-in | Everything in "What saving would need" above |
+
+Store rules to know, also to confirm:
+
+- Apple often turns down apps that are only a website in a wrapper. The app would need to do more
+  than the site.
+- Both stores ask health and mental-health apps for privacy labels or a data-safety form, and check
+  what the app claims to do.
+- Under-13s bring COPPA and stricter store rules, so supported ages ([[DECISIONS]], open decision 6)
+  come first.
+
+Claude's suggestion, not a decision: if a store app is the goal, saving on the phone, with iCloud or
+Google backup as an option, gives saving without running a server, and nothing leaks from
+Tidelight's side because Tidelight holds nothing.
+
 ## Questions for both founders
 
 1. Is saving worth the risk and cost, given that the site's promise today is that nothing is kept?
 2. Who would run and pay for the server, and who answers if something breaks?
 3. Should saving be on the visitor's own device only, with no account? That was offered on
    November 9 and not chosen, but it needs no server.
+4. Is a phone app in the stores a goal? If so, see "Ways to save, compared" above.
