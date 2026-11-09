@@ -1117,6 +1117,11 @@ h1 { letter-spacing: -.025em; }
 .closing { background: var(--tide-deep); border-radius: var(--radius); }
 /* Long addresses such as chat.988lifeline.org may break at large text instead of pushing the page sideways. */
 .closing { grid-template-columns: minmax(0, 1fr); }
+/* With larger text on a tablet-width screen, such as a phone on its side at 200%, three cards
+   don't fit side by side: stack them, and let any column shrink instead of pushing the page sideways. */
+.cards { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 640px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 640px) and (max-width: 39.99em) { .cards { grid-template-columns: minmax(0, 1fr); } }
 .closing a { overflow-wrap: anywhere; }
 @media (min-width: 640px) { .closing { grid-template-columns: auto auto; } }
 .closing-text { border-left-color: var(--tide-line); }
