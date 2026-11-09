@@ -61,8 +61,47 @@ D1 to D3 on November 6, 2026. The other founder hasn't agreed to them yet.
 | D3 | A page for teens, once supported ages are decided | Young people need their own wording about trusted adults, school, and privacy | Approved by one founder, Nov 6, 2026. Built on draft pull request 5; ages still undecided |
 | D4 | Recovery stories from people with lived experience, with consent and safe messaging | Safe messaging guidance recommends hope and recovery stories. Needs a careful consent process | Not chosen yet (Nov 6, 2026) |
 
+## Phone app idea, November 9, 2026: location alerts
+
+One founder asked whether the planned phone app ([[CHECK-IN-BACKEND]]) could use location
+services to send a notification when someone is at a bridge or another place known for suicide,
+prompting them to stop and reach out. **Recorded as asked, not approved, not built. It needs the
+licensed reviewer before anything is designed further.**
+
+**Can it be done?** Technically, yes. iPhones and Android phones let an app watch a small number
+of places and wake when the phone enters one (called geofencing), even with the app closed. It can
+run on the phone, so the location need never reach Tidelight. It needs the user to allow location
+"always", which both stores review closely for a health app.
+
+**Why Claude doesn't recommend the version that ships a list of places:**
+
+- **The list itself is the risk.** Safe messaging guidance, summarized in [[SAFETY]], says to leave
+  out locations. A list built into the app, and kept in this public repository, would publish
+  exactly that, and anyone could pull it out of the app.
+- **Most people at those places are not in crisis.** People cross bridges every day. Repeated
+  suicide alerts would be upsetting, would teach people to ignore them, and on a shared or
+  checked phone a lock-screen alert could reveal something private, including about a minor.
+- **"Rethink their decision" assumes intent** the app can't know. A wrong guess can feel
+  accusing.
+- **Always-on location** for a mental-health app is a big privacy ask, and it changes the promise
+  that the app keeps nothing.
+- **Evidence.** Claude hasn't read research on whether location alerts help, so this note makes
+  no claim either way. What helps at such places, such as barriers, signs, and crisis phones, is
+  the work of the place's owners, not an app. The reviewer should advise.
+
+**A safer version to ask the reviewer about (E1):**
+
+| # | Idea | How it would work | Founder decision |
+| --- | --- | --- | --- |
+| E1 | "Places that are hard for me", part of a personal safety plan in the app | Off by default. The person chooses their own places, if any, on a map, and nothing is suggested. The app ships with no list. Places stay on the phone and are deleted with Delete everything. When the phone enters one, a quiet notification with neutral words on the lock screen (for example "Tidelight: your plan is here") opens a screen with their own reasons, people they chose, and 988 and 911. The person can pause or remove it at any time | Asked about by one founder, Nov 9, 2026. Not approved, not built. Needs the licensed reviewer first |
+
+The version with a built-in list of places is set aside: see "Not proposed" below.
+
 ## Not proposed
 
 Accounts, saved journals, AI chat, and risk scores. They conflict with [[SAFETY]]
 rule 5 and the brief's own limits. Also not proposed: a "Was this helpful?" button or
 any feedback form, because it would collect data from visitors who may be in distress.
+
+Also not proposed (Nov 9, 2026): an app list of places known for suicide, or alerts sent to
+everyone near such a place. See "Phone app idea, November 9, 2026" above.

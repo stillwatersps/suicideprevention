@@ -762,6 +762,11 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   What should the page say about shared or school devices?
 - **Spanish.** The feelings are phrased as states ("Con tristeza") to avoid gendered forms. A
   fluent reader should check them.
+- **Location alerts in the phone app.** One founder asked about an alert when someone is at a
+  place known for suicide. Claude recorded it in [[IDEAS]] and suggested, instead of a built-in
+  list of places, an opt-in safety-plan feature where the person picks their own places (E1). Is
+  either version safe and helpful? What should the notification say, if anything, and what does
+  the research show?
 
 ## Human-only checklist
 
