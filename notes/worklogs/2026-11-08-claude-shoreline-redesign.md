@@ -80,7 +80,8 @@ All on November 8, 2026, in Chromium on Linux. None of this is a real phone.
 | --- | --- |
 | `python3 tools/check_site.py` | All checks passed, 19 pages |
 | `python3 tools/test_browser.py`, all 18 groups | 5,178 checks, 0 failures. The first run found two problems, both fixed: panels printed dark from dark mode, and at 200% text on a 320px phone two places pushed the page sideways |
-| `python3 tools/test_the_tests.py` | See the pull request; it runs longer than one command allows here |
+| `python3 tools/test_the_tests.py` | All 121 planted bugs caught, on the final version with square buttons (November 9) |
+| GitHub's own checks on the pull request | Check the website and Test in a real browser both pass, after the font fix |
 | Real iPhone or Android phone | **Not done.** See [[PHONE-TEST]] |
 
 ## Follow-up, November 9, 2026
