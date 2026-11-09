@@ -14,6 +14,8 @@ Read these short shared notes at the start of a session:
 @notes/DECISIONS.md
 @notes/SAFETY.md
 
+Before changing code, read notes/CODE-MAP.md: where every file is, what to edit for each kind of
+change, and which checks to run. Keep it current when the layout changes.
 Read other notes and design files only when relevant to the current task.
 For any health, crisis, or research wording on the website, read
 notes/RESEARCH-BRIEF.md first. Publish a section only after its review tracker

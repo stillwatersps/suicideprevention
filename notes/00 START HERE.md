@@ -29,6 +29,7 @@ Our shared notebook for building a suicide prevention website.
 | [[PROJECT\|Project brief]] | What we know and the questions still to decide |
 | [[FIRST-VERSION\|First version]] | What the first version is and isn't, and its main journeys. A proposal for both founders |
 | [[STATUS\|Current status]] | Where we stand and the next useful step |
+| [[CODE-MAP\|Code map]] | Where every file is, what to edit, and which checks to run |
 | [[TASKS\|Task board]] | Completed work and tasks to choose from |
 | [[DECISIONS\|Decisions]] | What we agreed, what is proposed, and what is still open |
 | [[DESIGN\|Homepage design]] | The supplied design and a preview |
