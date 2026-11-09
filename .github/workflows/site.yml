@@ -1,0 +1,128 @@
+# Publishes only the one crisis page, not the notes, when main changes. Both founders chose
+# this on November 9, 2026: pull request 12's page until the content is reviewed (answer 1),
+# published without the notes (answer 4). See notes/DECISIONS.md.
+#
+# It checks every pull request the same way, so a page can't go live without its call and text
+# links, its noindex tag, or a file it needs. It never opens or contacts a crisis service.
+#
+# For the publish step to be used, GitHub Pages must be set to "GitHub Actions" in the
+# repository's Settings > Pages. Until then, Pages keeps publishing every file on main. Right
+# after this file reaches main, switch that setting, then open this workflow's latest run on main
+# in the Actions tab and choose "Re-run all jobs". The Run workflow button only checks.
+#
+# Pull request 5 has its own version of this file, with the full site, the browser tests, and the
+# review check. When it merges, take its version.
+#
+# Each action is pinned to the commit of a release, named after the #, so a changed tag can't
+# change what runs. Its token is not kept in the checked-out folder.
+name: Site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new run replaces an older one only for pull requests. On main, a publish in progress is never
+# cancelled, by a new push or by the Run workflow button, which only runs the checks and never publishes.
+concurrency:
+  group: site-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    name: Check and gather the website
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Copy only the website files, and check them
+        run: |
+          mkdir -p _site/assets
+          # The one crisis page and its copies, and the two files they load. Nothing else:
+          # notes, designs, instructions and the old pages' pictures and scripts stay out.
+          for item in index.html 404.html get-help help-someone research; do
+            cp -R "$item" _site/
+          done
+          cp assets/preview.css assets/preview-icon.svg _site/assets/
+
+          problems=0
+
+          # Stop if a new page exists in the project but was not copied.
+          find . -name '*.html' -not -path './_site/*' -not -path './notes/*' -not -path './design/*' -not -path './.git/*' -not -path './.claude/*' | sed 's#^\./##' | sort > "$RUNNER_TEMP/expected.txt"
+          (cd _site && find . -name '*.html' | sed 's#^\./##' | sort) > "$RUNNER_TEMP/published.txt"
+          if ! diff "$RUNNER_TEMP/expected.txt" "$RUNNER_TEMP/published.txt"; then
+            echo "A page is missing from the published site. Add it to the list above."
+            problems=1
+          fi
+
+          # Only the site's own kinds of file, so a stray note, document or photo can't go live.
+          unexpected=$(find _site \( -type l -o \( -type f ! \( -name '*.html' -o -name '*.css' -o -name '*.svg' \) \) \))
+          if [ -n "$unexpected" ]; then
+            echo "These are not website files:"
+            echo "$unexpected"
+            problems=1
+          fi
+
+          # Every page keeps its crisis links and asks search engines not to list it, and every
+          # call and text link, in either language, goes to 988 or 911 as notes/SAFETY.md records.
+          for page in $(cd _site && find . -name '*.html' | sort); do
+            for needed in 'href="tel:988"' 'href="sms:988"' 'href="tel:911"' 'href="https://chat.988lifeline.org/"' '<meta name="robots" content="noindex">'; do
+              if ! grep -qF "$needed" "_site/$page"; then
+                echo "$page has no $needed"
+                problems=1
+              fi
+            done
+            other=$(grep -oE 'href="(tel|sms):[^"]*"' "_site/$page" | grep -vxE 'href="(tel:988|sms:988|tel:911)"' || true)
+            if [ -n "$other" ]; then
+              echo "$page has a call or text link that isn't 988 or 911: $other"
+              problems=1
+            fi
+          done
+
+          # Every file a page loads or links to on this site is published.
+          for page in $(cd _site && find . -name '*.html' | sort); do
+            dir=$(dirname "$page")
+            for ref in $(grep -oE '(href|src)="[^"#:]+"' "_site/$page" | sed -E 's/^(href|src)="//; s/"$//'); do
+              case "$ref" in
+                /suicideprevention/*) path="_site/${ref#/suicideprevention/}" ;;
+                /*) path="_site$ref" ;;
+                *) path="_site/$dir/$ref" ;;
+              esac
+              case "$path" in */) path="${path}index.html" ;; esac
+              if [ ! -e "$path" ]; then
+                echo "$page links to $ref, which isn't published"
+                problems=1
+              fi
+            done
+          done
+
+          if [ "$problems" -ne 0 ]; then
+            echo "Nothing is published until these are fixed."
+            exit 1
+          fi
+          echo "Published files:"
+          (cd _site && find . -type f | sort)
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+
+  publish:
+    name: Publish the website only
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    # Permissions named here replace the ones above.
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
