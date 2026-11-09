@@ -310,6 +310,21 @@ check-in, or journal entry to someone the person picks, through the phone's shar
 other founder hasn't agreed, no reviewer has seen it, and nothing is built.** It isn't on the
 website, because nothing typed there may leave the page until both founders agree.
 
+## November 9, 2026: every pull request that publishes nothing, merged
+
+One founder asked to merge all the pull requests. Claude explained that 5, 8 and 12 publish to the
+public website and that 11 and 14 are rival designs, and the founder chose to merge only those that
+publish nothing. **The other founder's agreement isn't recorded.** Merged into
+`claude/jolly-mayer-2m6eno`, pull request 5's branch, which is still not on `main`:
+
+- 15, the Daily check-in, into 14, Shoreline. So **Shoreline is the look on pull request 5's branch.**
+  Signage, pull request 11, stays open, and would conflict.
+- 13, the compact crisis strip, and 14 into 10, and 10 into pull request 5's branch.
+- Two fixes the combined version needed: the check-in pages got the compact strip's markup, and the
+  homepage cards stack on tablet-width screens with larger text. Full browser tests pass.
+
+Still open, and publishing: 5, 8 and 12. Merging any of them still needs both founders.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

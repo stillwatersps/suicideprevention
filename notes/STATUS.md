@@ -1,6 +1,6 @@
 # Current status
 
-Checked November 7, 2026, on the task branch named below. A note inside a pull
+Checked November 9, 2026, on the task branch named below. A note inside a pull
 request can't say when it merged, so check GitHub if this looks out of date.
 
 ## What is where
@@ -9,11 +9,11 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | --- | --- | --- |
 | `main`, commit `d610002` when checked | Homepage, placeholder Get Help, Help Someone, and Research pages, notes | Public through GitHub Pages |
 | `claude/jolly-mayer-2m6eno` | Everything below from `site/phone-accessibility-content`, the [[RESEARCH-BRIEF]] PDF and notes, and improvement ideas one founder approved: Spanish pages, quick exit, dark mode, offline support, a shorter Get Help, automatic checks, website-only publishing, live-site monitoring, a readability report, myths and facts, printable wallet cards, and a teen page. See [[worklogs/2026-11-06-claude-approved-ideas\|first batch]] and [[worklogs/2026-11-06-claude-second-batch\|second batch]] | Draft pull request 5 into `main`, **not merged, not on the public website** |
-| `site/first-version-finish` | Everything on the branch below, renamed Tidelight, plus the November 7 work: every finding of a 14-area AI audit checked and applied in both languages, three independent code reviews and their fixes, an iPhone landscape fix found in the iOS Simulator, a stricter publish check, the audit's questions for the reviewer, and rebuilt review packets. Later on November 7 it also took in a one-page first-version description, [[FIRST-VERSION]], and review sections for the Spanish lines on English pages. See [[worklogs/2026-11-07-claude-first-version-finish\|the handoff]] | Draft pull request 10 into `claude/jolly-mayer-2m6eno`. Merging it publishes nothing. **Not merged, not on the public website** |
-| `site/compact-crisis-strip` | A compact one-row crisis strip that stays on screen with larger text and on older phones on their side, where the full strip scrolls away. A proposal. Its handoff is on that branch | Draft pull request 13 into `site/first-version-finish`. Merging it publishes nothing. It and pull request 11 both change `assets/styles.css`, so whichever merges second needs the strip's limits measured again. **Not merged** |
+| `site/first-version-finish` | Everything on the branch below, renamed Tidelight, plus the November 7 work: every finding of a 14-area AI audit checked and applied in both languages, three independent code reviews and their fixes, an iPhone landscape fix found in the iOS Simulator, a stricter publish check, the audit's questions for the reviewer, and rebuilt review packets. Later on November 7 it also took in a one-page first-version description, [[FIRST-VERSION]], and review sections for the Spanish lines on English pages. See [[worklogs/2026-11-07-claude-first-version-finish\|the handoff]] | Merged into `claude/jolly-mayer-2m6eno` on November 9, 2026, at a founder's request, with pull requests 13, 14 and 15 merged into it first. Closes pull request 10. **Not on the public website** |
+| `site/compact-crisis-strip` | A compact one-row crisis strip that stays on screen with larger text and on older phones on their side, where the full strip scrolls away. A proposal. Its handoff is on that branch | Merged into `site/first-version-finish`, and so into `claude/jolly-mayer-2m6eno`, on November 9, 2026, at a founder's request. Closes pull request 13. **Not on the public website** |
 | `site/signage-redesign` | A new visual design for every page, built in a separate session at one founder's request | Draft pull request 11 into `site/first-version-finish`. Merging it publishes nothing. **Not merged.** See its description |
-| `site/pro-max-redesign` | A second proposed visual design, "Shoreline", built with the ui-ux-pro-max design skill at one founder's request: paper and ink, one tide blue for help, AAA contrast, stylesheet only. An alternative to pull request 11. See [[worklogs/2026-11-08-claude-shoreline-redesign\|the handoff]] | Draft pull request into `site/first-version-finish`. Merging it publishes nothing. **Not merged, not on the public website** |
-| `site/daily-check-in` | A Daily check-in and self-discovery page in English and Spanish, built from one founder's spec on Shoreline. Works in the page; saves nothing. One founder chose a phone app with iCloud or Google backup for saving; not built. See [[worklogs/2026-11-09-claude-daily-check-in\|the handoff]] and [[CHECK-IN-BACKEND]] | Draft pull request into `site/pro-max-redesign`. Merging it publishes nothing. **Not merged, not on the public website** |
+| `site/pro-max-redesign` | A second proposed visual design, "Shoreline", built with the ui-ux-pro-max design skill at one founder's request: paper and ink, one tide blue for help, AAA contrast, stylesheet only. An alternative to pull request 11. See [[worklogs/2026-11-08-claude-shoreline-redesign\|the handoff]] | Merged into `site/first-version-finish`, and so into `claude/jolly-mayer-2m6eno`, on November 9, 2026, at a founder's request, so Shoreline is now the look on pull request 5. Closes pull request 14. Pull request 11, signage, stays open. **Not on the public website** |
+| `site/daily-check-in` | A Daily check-in and self-discovery page in English and Spanish, built from one founder's spec on Shoreline. Works in the page; saves nothing. One founder chose a phone app with iCloud or Google backup for saving; not built. See [[worklogs/2026-11-09-claude-daily-check-in\|the handoff]] and [[CHECK-IN-BACKEND]] | Merged into `site/pro-max-redesign`, and so into `claude/jolly-mayer-2m6eno`, on November 9, 2026, at a founder's request. Closes pull request 15. **Not on the public website** |
 | `site/minimal-public-preview` | One crisis page with 988 and 911 in English and Spanish, in place of the four live pages: option B for open decision 1 in [[DECISIONS]]. Its handoff is on that branch | Draft pull request 12 into `main`, **not merged. Merging publishes it within about a minute.** It replaces the same pages as pull requests 5 and 8, so it conflicts with both |
 | `site/first-version-build` | Everything on the branch above, plus the rest of the first version: Not sure what you're feeling?, After a loss, About and privacy, saving 988 to contacts, review status, the full Spanish Research page, review packets, phone test steps, and browser tests. See [[worklogs/2026-11-06-claude-first-version\|the handoff]] | Merged into `claude/jolly-mayer-2m6eno` on November 7, 2026, at a founder's request, which closes pull request 9. **Not on the public website** |
 | `site/phone-accessibility-content` | A second round: fixes from an independent review, stronger site checks, and updated notes | Merged into `claude/jolly-mayer-2m6eno` on November 6, 2026, at a founder's request, so pull request 6 is closed by that merge. Pull request 5 is the one place to review. **Not on the public website** |
@@ -87,8 +87,9 @@ not on a real phone.
   summaries, and the longest explain when 988 may involve emergency services.
   `tools/check_readability.py` lists them for the reviewer.
 - With larger text, and on short screens 568 to 703 px wide such as older phones on their side,
-  the crisis strip scrolls away and only Quick exit stays on screen. Draft pull request 13
-  proposes a compact strip for short screens, including with larger text. See [[DECISIONS]].
+  the full crisis strip scrolls away. A compact one-row strip now pins there instead, merged into
+  pull request 5's branch on November 9, 2026 (it was pull request 13). Still a proposal for both
+  founders and the reviewer. See [[DECISIONS]].
 
 On `main`, and public now. The task branches correct each of these, and draft pull
 request 8 would correct the first four on its own:
@@ -126,19 +127,24 @@ Everywhere:
 
 0. **Important, first for attention:** the licensed reviewer looks at idea E1 in [[IDEAS]], the
    opt-in "Places that are hard for me" safety-plan feature for the phone app. One founder chose it
-   on November 9, 2026. Not built. On `site/daily-check-in`.
-1. Try the first version on a real phone, using [[PHONE-TEST]], from pull request 10's branch.
+   on November 9, 2026. Not built. In the notes on `claude/jolly-mayer-2m6eno`.
+1. Try the first version on a real phone, using [[PHONE-TEST]], from pull request 5's branch,
+   `claude/jolly-mayer-2m6eno`, which now holds everything except signage (pull request 11).
 2. Both founders read [[FOUNDER-BRIEF]], [[FIRST-VERSION]], [[LAUNCH-CHECKLIST]], [[IDEAS]], and the open
    decisions in [[DECISIONS]], and decide what the public site should show until review. Draft pull
    request 12 is the one-page option, ready to compare.
 3. Give `notes/review-packet/tidelight-review-packet.pdf` to the licensed therapist, and the
    Spanish packet to a fluent reader. Record results in "Review records" in [[CONTENT-REVIEW]].
 
-Merging pull request 10 into `claude/jolly-mayer-2m6eno` publishes nothing. Merging pull
+On November 9, 2026, at one founder's request, every pull request that publishes nothing was merged
+into `claude/jolly-mayer-2m6eno`: 15 (Daily check-in) into 14 (Shoreline), 14 and 13 (compact strip)
+into 10, and 10 into pull request 5's branch. Pull request 11 (signage) stays open, because it
+rewrites the same stylesheet as Shoreline. Merging pull
 request 5 into `main` publishes everything, so do that only after the decision and review. Pull
 requests 7, 8 and 12 are separate, and merging any one publishes it: 7 corrects `main`'s notes,
 8 corrects four problems on its pages, and 12 replaces those pages with one crisis page. Merge
-or close each one. Pull requests 11 and 13 go into pull request 10's branch and publish nothing.
+or close each one. Pull request 11 goes into `site/first-version-finish` and publishes nothing; it
+would now conflict with Shoreline.
 
 ## End-of-session update
 
