@@ -108,6 +108,11 @@ Notes for building it:
 
 ## Phone app idea, November 9, 2026: help shaped by age (E3)
 
+> **⚠️ Important.** One founder marked the app suggestions at the end of [[AGE-STRATEGIES]] as
+> Important on November 9, 2026, to build later: a note for the grown-up with a child, keeping
+> "an adult you trust" for teens, letting teens choose a support circle, plan reminders for adults,
+> and call reminders for older adults. Not built yet, and the reviewer sees them first.
+
 One founder chose, on November 9, 2026: every age is supported; date of birth is required at
 sign-up; and the age group decides how the app helps, using what research shows works for that
 age group. **Not agreed by the other founder, not reviewed, not built.** It also answers open

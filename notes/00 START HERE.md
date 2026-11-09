@@ -18,6 +18,10 @@ Our shared notebook for building a suicide prevention website.
 > work.
 > Details: [[IDEAS]], at the top. Reviewer question: [[CONTENT-REVIEW]], at the top.
 
+> [!important] Important: the app suggestions from the age research
+> Marked by one founder on November 9, 2026, to come back to, not to build yet. They're at the end
+> of [[AGE-STRATEGIES]], and the reviewer sees them first.
+
 ## Project map
 
 | Open | What it contains |

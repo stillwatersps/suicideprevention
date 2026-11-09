@@ -238,7 +238,9 @@ listed as a starting point.
 
 Every group: no scores, no reading of what's written, and nothing that replaces care.
 
-## What the second round suggests for the app
+## ⚠️ Important: what the second round suggests for the app
+
+**Marked Important by one founder on November 9, 2026, to come back to. Not to be built yet.**
 
 Proposals from Claude, for the founders and the reviewer. **None of these is built, and the app's
 words haven't changed.**

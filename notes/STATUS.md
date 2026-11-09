@@ -129,6 +129,8 @@ Everywhere:
 0. **Important, first for attention:** the licensed reviewer looks at idea E1 in [[IDEAS]], the
    opt-in "Places that are hard for me" safety-plan feature for the phone app. One founder chose it
    on November 9, 2026. Not built. In the notes on `claude/jolly-mayer-2m6eno`.
+   Also **Important:** the app suggestions at the end of [[AGE-STRATEGIES]], marked by the same
+   founder to come back to. Not built. On `app/first-build`.
 1. Try the first version on a real phone, using [[PHONE-TEST]], from pull request 5's branch,
    `claude/jolly-mayer-2m6eno`, which now holds everything except signage (pull request 11).
 2. Both founders read [[FOUNDER-BRIEF]], [[FIRST-VERSION]], [[LAUNCH-CHECKLIST]], [[IDEAS]], and the open

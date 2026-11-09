@@ -18,6 +18,9 @@ Planning tasks below are suggestions; ownership has not been agreed.
   are hard for me", an opt-in safety-plan feature for the phone app, and the question about it at
   the top of [[CONTENT-REVIEW]]. One founder likes it (Nov 9, 2026); the other founder decides too.
   Nothing is built. Owner: the founder arranging the review. Details at the top of [[IDEAS]].
+- [ ] **⚠️ Important:** decide which app suggestions at the end of [[AGE-STRATEGIES]] to build, after
+  the reviewer has read them. One founder marked them Important on November 9, 2026, and said not to
+  build them yet. Owner: both founders, with the reviewer.
 - [ ] Decide what the public GitHub Pages link should show until the site is
   reviewed. Owner: both. See [[DECISIONS]]. Do this first: merging publishes. The one-page
   option is built as draft pull request 12, next to pull request 8.
