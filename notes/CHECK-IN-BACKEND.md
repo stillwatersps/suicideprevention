@@ -57,6 +57,7 @@ knowledge; confirm the platform details on Apple's and Google's developer pages 
 | Crisis links | Call and text links must open the phone's dialer and messages from inside the app. Test on real phones, stopping at the dial or compose screen ([[SAFETY]] rule 7) |
 | Quick exit | Means something different in an app. Leaving the app, plus an optional lock, is the closest match. A question for the reviewer |
 | Store review | Apple often turns down apps that are only a website in a wrapper. Saving, the app lock, and working offline should make this more than the website, but that is Apple's call |
+| Share this reflection | Chosen by one founder (idea E2a in [[IDEAS]]). A button that opens the phone's share sheet, so the person sends one entry to someone they choose. Fits this plan: no accounts, no server, nothing goes to Tidelight |
 | Support circle | Asked about by one founder. It would need accounts and a server, so it isn't part of this plan. See [[IDEAS]], idea E2 |
 | Age and sign-up | One founder chose every age, with date of birth required at sign-up and help shaped by age group (idea E3 in [[IDEAS]]). In this plan, that's a setup screen on the phone, kept on the phone, and only the age group is kept. 988 and 911 come before it. A lawyer advises on under-13s first |
 | Location alerts | Asked about by one founder. Not part of this plan. See [[IDEAS]], idea E1, and the reviewer's question in [[CONTENT-REVIEW]] |

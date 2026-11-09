@@ -782,6 +782,10 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   sign-up and help chosen by age group. Which age groups, and which kinds of help, have good
   evidence for each? What should a child under 13 see? Should crisis options ever depend on age?
   See [[IDEAS]].
+- **Share this reflection (idea E2a).** One founder chose a button in the phone app that sends one
+  reflection to a person the user picks, through the phone's share sheet. What should the app say
+  next to it, so people know who will see it and that it isn't a way to get urgent help?
+  See [[IDEAS]].
 
 ## Human-only checklist
 

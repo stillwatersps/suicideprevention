@@ -87,9 +87,24 @@ whether to share with the circle or keep it private, so the app still feels like
 - **No monitoring features.** No alerts to the circle based on what someone writes, no mood
   charts, and no reading of entries, matching the spec's rule on scoring and analysis.
 
-**A smaller first step to consider:** a "Share this reflection" button that opens the phone's own
-share sheet, so the person sends one reflection to someone they choose by text or email. It needs
-no accounts and no server, and fits the current phone app plan.
+**A smaller first step, chosen (E2a):**
+
+| # | Idea | How it would work | Founder decision |
+| --- | --- | --- | --- |
+| E2a | "Share this reflection" button in the phone app | A button on a kept reflection, check-in, or journal entry opens the phone's own share sheet. The person picks who gets it and how (text, email, or another app) and can read or change the words before sending. Nothing goes to Tidelight, and nothing is shared unless they tap it. No accounts and no server, so it fits the phone app plan in [[CHECK-IN-BACKEND]] | Chosen by one founder, Nov 9, 2026. The other founder hasn't agreed. Not built. Needs the licensed reviewer |
+
+Notes for building it:
+
+- **Not on the website yet.** `CLAUDE.md` and [[SAFETY]] rule 5 say nothing typed on the website's
+  check-in may leave the page until both founders agree. A share button on the website would
+  break that, so it's planned for the app. Putting it on the website too needs both founders and a
+  change to `tools/check_site.py`.
+- **Say what sharing means** next to the button: the message goes to the person chosen, is kept in
+  their messages or email, and Tidelight can't take it back.
+- **Not a way to ask for urgent help.** The person who receives it may not see it for hours. Keep
+  988 and 911 next to the button.
+- **A short line of wording** may be added at the top, chosen by the person, such as "I wanted to
+  share this with you." The reviewer approves any suggested wording.
 
 ## Phone app idea, November 9, 2026: help shaped by age (E3)
 
