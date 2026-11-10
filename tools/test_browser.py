@@ -1535,7 +1535,13 @@ def test_print(browser, site, pages, report, screens=None):
             isCard: !!document.querySelector('.pc-cards'),
             // The safety plan page prints only its blank plan, which must carry 988 and 911 itself.
             isPlan: !!document.querySelector('.sp-sheet'),
-            planText: document.querySelector('.sp-sheet') ? document.querySelector('.sp-sheet').innerText : ''})""")
+            planText: document.querySelector('.sp-sheet') ? document.querySelector('.sp-sheet').innerText : '',
+            // Chrome splits a grid or flex box badly across printed pages: on November 10, 2026 the
+            // plan's closing note printed on top of step 6's lines. The layout on screen can't show
+            // page splits, so this checks the cause: on paper the plan and its steps must be blocks.
+            planLayout: Array.prototype.filter.call(document.querySelectorAll('.sp-sheet, .sp-steps'), function (e) {
+                return /grid|flex/.test(getComputedStyle(e).display); }).map(function (e) {
+                return e.className + ' is ' + getComputedStyle(e).display; })})""")
         if state["main"] < 200:
             report.fail("print", page, f"prints almost nothing ({state['main']} characters)")
         if not state["has988"]:
@@ -1580,6 +1586,8 @@ def test_print(browser, site, pages, report, screens=None):
                 report.fail("print", page, f"the blank safety plan should print on 1 or 2 pages, got {pages_printed}")
             if not ("988" in state["planText"] and "911" in state["planText"]):
                 report.fail("print", page, "the printed safety plan does not show both 988 and 911")
+            for item in state["planLayout"]:
+                report.fail("print", page, f"the blank safety plan prints as grid or flex, which Chrome splits badly across pages: {item}")
         report.ok("print")
         if screens:
             shutil.copy(path, pathlib.Path(screens) / path.name)

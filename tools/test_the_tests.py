@@ -201,6 +201,7 @@ BUGS = [
     ("blank printouts", append_css("@media print { main { display: none; } }"), "print", "get-help", "prints almost nothing"),
     ("Quick exit printing", replace("assets/styles.css", "  .quick-exit, .skip-link, .menu-button,", "  .skip-link, .menu-button,"), "print", "get-help", "Quick exit would print"),
     ("a blank safety plan printing on too many pages", append_css("@media print { .sp-line { height: 40mm; } }"), "print", "safety-plan", "should print on 1 or 2 pages"),
+    ("a blank safety plan printing as a grid", append_css("@media print { .sp-sheet { display: grid; } }"), "print", "safety-plan", "prints as grid or flex"),
     ("a blank safety plan printing without 911", replace("safety-plan/index.html", '<p class="pc-urgent">In immediate danger, call 911.</p>\n', ""), "print", "safety-plan", "does not show both 988 and 911"),
     ("a safety plan page left out of the offline list", replace("sw.js", "  'safety-plan/',\n", ""), "offline", "safety-plan", "not available offline"),
     ("a wrong crisis number", replace("get-help/index.html", 'href="sms:838255"', 'href="sms:838256"'), "contact", "get-help", "not a number recorded"),
