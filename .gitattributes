@@ -1,0 +1,2 @@
+# vCards need CRLF line endings, whatever a computer's git settings are.
+*.vcf -text

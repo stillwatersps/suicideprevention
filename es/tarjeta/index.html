@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Imprimir una tarjeta — Tidelight</title>
+  <meta name="description" content="Tarjetas para la billetera y un cartel para imprimir, con la Línea 988 en español y el 911.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../assets/icon-180.png">
+  <!-- Not for search engines until the content and the Spanish translation have had review. See notes/DECISIONS.md. -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="en" href="../../card/">
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
+</head>
+<body class="print-page">
+  <a class="skip-link" href="#main">Saltar al contenido principal</a>
+  <!-- Línea de crisis siempre visible, requerida por notes/SAFETY.md regla 1. En teléfonos, la salida rápida va dentro de ella, para que nada quede debajo. -->
+  <aside class="crisis-bar" aria-label="Ayuda en una crisis y salida rápida">
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Salida rápida: salir de este sitio ahora e ir a la página de weather.gov"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg>Salida<span class="exit-extra"> rápida</span></a>
+    <p class="strip-988"><span class="strip-extra">¿Necesitas ayuda ahora? </span><a href="tel:988" aria-label="Llama al 988 y marca 2, la Línea 988 en español">Llama al 988</a> y marca 2<span class="strip-or">, o </span><a href="sms:988" aria-label="Envía AYUDA al 988, la Línea 988">envía AYUDA al 988</a><span class="strip-extra">, a cualquier hora</span><span class="strip-end">.</span></p>
+    <p class="strip-911"><span class="strip-lead">Si hay peligro inmediato, </span><a href="tel:911" aria-label="Llama al 911, servicios de emergencia">llama al 911</a><span class="strip-end">.</span></p>
+  </aside>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
+          <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
+          <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">Tidelight</span>
+          <span class="brand-tag">Prevención del suicidio y apoyo</span>
+        </span>
+        <span class="visually-hidden">, inicio</span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menú</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Principal">
+        <ul>
+          <li class="nav-home"><a href="../">Inicio</a></li>
+          <li><a href="../obtener-ayuda/">Obtener ayuda</a></li>
+          <li><a href="../ayudar-a-alguien/">Ayudar a alguien</a></li>
+          <li><a href="../adolescentes/">Adolescentes</a></li>
+          <li class="nav-phone"><a href="../registro-diario/">Registro diario</a></li>
+          <li class="nav-phone"><a href="../que-siento/">¿No sabes bien qué sientes?</a></li>
+          <li class="nav-phone"><a href="../despues-de-una-perdida/">Después de una pérdida</a></li>
+          <li><a href="../investigacion/">Investigación</a></li>
+          <li><a href="../acerca-de/">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <a class="button button-plum header-cta" href="#support">Obtén apoyo ahora</a>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="page-hero-inner">
+        <p class="lang-switch"><a href="../../card/" hreflang="en" lang="en">Read in English</a></p>
+        <p class="breadcrumb"><a href="../"><span aria-hidden="true">←</span> Inicio</a></p>
+        <p class="eyebrow">Para imprimir y compartir</p>
+        <h1 id="page-title">Imprime una tarjeta o un cartel</h1>
+        <p class="hero-lead">Ten el 988 a mano, o reparte tarjetas en una escuela, una clínica o un centro comunitario. Una tarjeta impresa se puede leer sin señal, pero llamar o enviar textos requiere servicio telefónico.</p>
+      </div>
+    </section>
+
+    <div class="page-body">
+      <section class="crisis-panel" id="support" tabindex="-1" aria-labelledby="crisis-title">
+        <h2 id="crisis-title">¿Necesitas hablar con alguien ahora?</h2>
+        <ul class="crisis-actions" aria-label="Comunícate con la Línea 988">
+          <li>
+            <a class="action action-primary" href="tel:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <span><span class="action-title">Llamar al 988</span><span class="action-sub">Marca 2 para español</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="sms:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Texto al 988</span><span class="action-sub">Escribe AYUDA</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="https://chat.988lifeline.org/?lang=es">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <span><span class="action-title">Chatear en línea</span><span class="action-sub">Chat en español con la 988</span></span>
+            </a>
+          </li>
+        </ul>
+
+        <p>La 988 dice que un texto empieza con unos pasos: aceptas sus términos, contestas una breve encuesta y esperas a un consejero.</p>
+        <p>La Línea 988 de Prevención del Suicidio y Crisis es gratuita, confidencial y está disponible a cualquier hora. Es un servicio aparte de Tidelight.</p>
+        <p class="fallback">¿Usas un aparato que no puede llamar ni enviar textos? Desde un teléfono, llama al <strong>988</strong> y marca 2, o envía AYUDA al <strong>988</strong>. También puedes chatear en <a href="https://chat.988lifeline.org/?lang=es">chat.988lifeline.org</a>. Si hay peligro inmediato, llama al <strong>911</strong>.</p>
+        <p class="access-link"><a href="../obtener-ayuda/#deaf-hoh">Personas sordas o con dificultades auditivas</a></p>
+        <p class="save-contact" id="save-988"><a class="pill" href="../../assets/988-linea-es.vcf">Guarda el 988 en tus contactos</a></p>
+        <p class="provider-note">Esto te da un pequeño archivo de contacto de la Línea 988. Según tu aparato, puede mostrar una vista previa del contacto o guardarse en tus descargas. Tú decides si lo agregas a tus contactos, y no se envía nada a Tidelight. En un iPhone, desplázate hasta el final de la vista previa y toca Agregar a Contactos. Si cierras la vista previa, no se guarda. En un teléfono o una computadora compartidos, otras personas pueden ver el archivo o un contacto guardado.</p>
+      </section>
+
+      <aside class="page-status review-note" aria-label="Estado de la revisión">
+        <p><strong>Borrador para revisión.</strong> Un profesional de la prevención del suicidio no ha revisado esta página. Por favor, no imprimas copias para repartir hasta que se haya revisado. Un asistente de IA la tradujo del inglés, y ninguna persona hispanohablante ha revisado la traducción todavía. Un asistente de IA comparó los números y enlaces con el sitio de cada proveedor el 6 de noviembre de 2026. Ninguna persona los ha confirmado ni los ha probado en un teléfono.</p>
+      </aside>
+
+      <!-- Draft (ideas D2 and B6). Printed text comes only from the resource table in notes/SAFETY.md. -->
+      <section class="print-area" aria-labelledby="print-title">
+        <h2 id="print-title" class="no-print-heading">Cartel</h2>
+        <p class="print-actions"><button type="button" class="print-button" hidden>Imprimir el cartel y las tarjetas</button></p>
+        <p class="print-actions print-hint" hidden>Si no pasa nada, abre esta página en tu navegador web e imprímela desde el botón Compartir o el menú.</p>
+        <div class="pc-poster">
+          <p class="pc-kicker">No estás solo.</p>
+          <p class="pc-big">Llama al 988 y marca 2</p>
+          <p class="pc-sub">O envía la palabra AYUDA al 988. La Línea 988 de Prevención del Suicidio y Crisis es gratuita, confidencial y está disponible las 24 horas. También puedes chatear en español en chat.988lifeline.org/?lang=es.</p>
+          <ul>
+            <li lang="en">In English: call or text 988.</li>
+            <li>Veteranos y miembros del servicio militar: llama al 988 y marca 1, o envía un texto al 838255.</li>
+            <li>Información y referidos para tratamiento, en español: Línea Nacional de Ayuda de SAMHSA, 1-800-662-4357.</li>
+            <li>Personas sordas o con dificultades auditivas: marca 988 desde un videoteléfono o usa un servicio de retransmisión.</li>
+          </ul>
+          <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+        </div>
+        <h2 class="no-print-heading pc-cards-title">Tarjetas, ocho por página</h2>
+        <p class="no-print-heading">Una vez impresas, corta por las líneas punteadas.</p>
+        <ul class="pc-cards">
+            <li class="pc-card">
+              <p class="pc-kicker">¿Necesitas hablar?</p>
+              <p class="pc-big">Llama al 988 y marca 2</p>
+              <p>O envía AYUDA al 988. Línea 988 de Prevención del Suicidio y Crisis: gratis, confidencial, las 24 horas. Chat en español: chat.988lifeline.org/?lang=es</p>
+              <p lang="en">In English: call or text 988.</p>
+              <p>Veteranos: llama al 988 y marca 1.</p>
+              <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">¿Necesitas hablar?</p>
+              <p class="pc-big">Llama al 988 y marca 2</p>
+              <p>O envía AYUDA al 988. Línea 988 de Prevención del Suicidio y Crisis: gratis, confidencial, las 24 horas. Chat en español: chat.988lifeline.org/?lang=es</p>
+              <p lang="en">In English: call or text 988.</p>
+              <p>Veteranos: llama al 988 y marca 1.</p>
+              <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">¿Necesitas hablar?</p>
+              <p class="pc-big">Llama al 988 y marca 2</p>
+              <p>O envía AYUDA al 988. Línea 988 de Prevención del Suicidio y Crisis: gratis, confidencial, las 24 horas. Chat en español: chat.988lifeline.org/?lang=es</p>
+              <p lang="en">In English: call or text 988.</p>
+              <p>Veteranos: llama al 988 y marca 1.</p>
+              <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">¿Necesitas hablar?</p>
+              <p class="pc-big">Llama al 988 y marca 2</p>
+              <p>O envía AYUDA al 988. Línea 988 de Prevención del Suicidio y Crisis: gratis, confidencial, las 24 horas. Chat en español: chat.988lifeline.org/?lang=es</p>
+              <p lang="en">In English: call or text 988.</p>
+              <p>Veteranos: llama al 988 y marca 1.</p>
+              <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">¿Necesitas hablar?</p>
+              <p class="pc-big">Llama al 988 y marca 2</p>
+              <p>O envía AYUDA al 988. Línea 988 de Prevención del Suicidio y Crisis: gratis, confidencial, las 24 horas. Chat en español: chat.988lifeline.org/?lang=es</p>
+              <p lang="en">In English: call or text 988.</p>
+              <p>Veteranos: llama al 988 y marca 1.</p>
+              <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">¿Necesitas hablar?</p>
+              <p class="pc-big">Llama al 988 y marca 2</p>
+              <p>O envía AYUDA al 988. Línea 988 de Prevención del Suicidio y Crisis: gratis, confidencial, las 24 horas. Chat en español: chat.988lifeline.org/?lang=es</p>
+              <p lang="en">In English: call or text 988.</p>
+              <p>Veteranos: llama al 988 y marca 1.</p>
+              <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">¿Necesitas hablar?</p>
+              <p class="pc-big">Llama al 988 y marca 2</p>
+              <p>O envía AYUDA al 988. Línea 988 de Prevención del Suicidio y Crisis: gratis, confidencial, las 24 horas. Chat en español: chat.988lifeline.org/?lang=es</p>
+              <p lang="en">In English: call or text 988.</p>
+              <p>Veteranos: llama al 988 y marca 1.</p>
+              <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">¿Necesitas hablar?</p>
+              <p class="pc-big">Llama al 988 y marca 2</p>
+              <p>O envía AYUDA al 988. Línea 988 de Prevención del Suicidio y Crisis: gratis, confidencial, las 24 horas. Chat en español: chat.988lifeline.org/?lang=es</p>
+              <p lang="en">In English: call or text 988.</p>
+              <p>Veteranos: llama al 988 y marca 1.</p>
+              <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+            </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <nav class="footer-nav" aria-label="Todas las páginas">
+        <ul>
+          <li><a href="../">Inicio</a></li>
+          <li><a href="../obtener-ayuda/">Obtener ayuda</a></li>
+          <li><a href="../ayudar-a-alguien/">Ayudar a alguien</a></li>
+          <li><a href="../adolescentes/">Adolescentes</a></li>
+          <li><a href="../investigacion/">Investigación</a></li>
+          <li><a href="../tarjeta/" aria-current="page">Tarjeta para imprimir</a></li>
+          <li><a href="../registro-diario/">Registro diario</a></li>
+          <li><a href="../que-siento/">¿No sabes bien qué sientes?</a></li>
+          <li><a href="../despues-de-una-perdida/">Después de una pérdida</a></li>
+          <li><a href="../acerca-de/">Acerca de y privacidad</a></li>
+        </ul>
+      </nav>
+      <h2>Acerca de Tidelight</h2>
+      <p>Tidelight es un proyecto nuevo para ayudar a las personas en los Estados Unidos a encontrar apoyo para la prevención del suicidio. Tidelight no es un servicio de crisis. Los enlaces para llamar, enviar textos y chatear en este sitio te conectan con servicios externos, como la Línea 988. Si tú u otra persona está en peligro inmediato, llama al 911.</p>
+      <p>Privacidad: este sitio no te pide registrarte ni llenar formularios, y no usa analíticas ni cookies. Está alojado en GitHub Pages, y <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub dice que registra y guarda las direcciones IP de los visitantes</a> por seguridad (página en inglés). La Salida rápida y las copias guardadas sin conexión tienen límites. <a href="../acerca-de/#privacy">Lee sobre la privacidad y lo que este sitio no puede ocultar</a>.</p>
+      <p class="footer-note">Versión preliminar. Un profesional de la prevención del suicidio no ha revisado este contenido. Un asistente de IA hizo la traducción al español, y una persona hispanohablante aún no la ha revisado. Un asistente de IA comparó los números y enlaces de crisis con el sitio de cada proveedor el 6 de noviembre de 2026. Ninguna persona los ha confirmado ni los ha probado en un teléfono. <a href="../acerca-de/#review-status">Consulta el estado de revisión de cada página</a>.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/menu.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

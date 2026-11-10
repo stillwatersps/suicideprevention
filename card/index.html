@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Print a wallet card — Tidelight</title>
+  <meta name="description" content="Printable wallet cards and a poster with 988, the Spanish options, and 911.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/icon-180.png">
+  <!-- Not for search engines until the content has had professional review. See notes/DECISIONS.md. -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="es" href="../es/tarjeta/">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
+</head>
+<body class="print-page">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1. On phones Quick exit sits inside it, so nothing is ever underneath Quick exit. -->
+  <aside class="crisis-bar" aria-label="Crisis help and quick exit">
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
+    <p class="strip-988"><span class="strip-lead">Need help now? </span><a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a><span class="strip-or"> or </span><a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a><span class="strip-extra"> any time</span><span class="strip-end">.</span></p>
+    <p class="strip-911"><span class="strip-lead">In immediate danger, </span><a href="tel:911" aria-label="Call 911, emergency services">call 911</a><span class="strip-end">.</span></p>
+  </aside>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
+          <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
+          <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">Tidelight</span>
+          <span class="brand-tag">Suicide prevention &amp; support</span>
+        </span>
+        <span class="visually-hidden">, home</span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menu</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul>
+          <li class="nav-home"><a href="../">Home</a></li>
+          <li><a href="../get-help/">Get Help</a></li>
+          <li><a href="../help-someone/">Help Someone</a></li>
+          <li><a href="../teens/">For Teens</a></li>
+          <li class="nav-phone"><a href="../check-in/">Daily check-in</a></li>
+          <li class="nav-phone"><a href="../not-sure/">Not sure what you're feeling?</a></li>
+          <li class="nav-phone"><a href="../after-a-loss/">After a loss</a></li>
+          <li><a href="../research/">Research</a></li>
+          <li><a href="../about/">About</a></li>
+        </ul>
+      </nav>
+
+      <a class="button button-plum header-cta" href="#support">Get Support Now</a>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="page-hero-inner">
+        <p class="lang-switch"><a href="../es/tarjeta/" hreflang="es" lang="es">Leer en español</a></p>
+        <p class="breadcrumb"><a href="../"><span aria-hidden="true">←</span> Home</a></p>
+        <p class="eyebrow">Print and share</p>
+        <h1 id="page-title">Print a wallet card or poster</h1>
+        <p class="hero-lead">Keep 988 close, or hand cards out at a school, clinic, or community space. A printed card stays readable with no signal, but calling or texting needs phone service.</p>
+      </div>
+    </section>
+
+    <div class="page-body">
+      <section class="crisis-panel" id="support" tabindex="-1" aria-labelledby="crisis-title">
+        <h2 id="crisis-title">Need to talk to someone now?</h2>
+        <ul class="crisis-actions" aria-label="Reach the 988 Suicide and Crisis Lifeline">
+          <li>
+            <a class="action action-primary" href="tel:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <span><span class="action-title">Call 988</span><span class="action-sub">Talk to a counselor</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="sms:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Text 988</span><span class="action-sub">Send any message</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="https://chat.988lifeline.org/">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <span><span class="action-title">Chat Online</span><span class="action-sub">Web chat with 988</span></span>
+            </a>
+          </li>
+        </ul>
+
+        <p>988 says a text starts with a few steps. Reply NEXT to accept its terms, answer a brief survey, and wait for a counselor.</p>
+        <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.</p>
+        <p class="fallback">On a device that can't call or text? Call or text <strong>988</strong> from a phone, or go to <a href="https://988lifeline.org/">988lifeline.org</a>. In immediate danger, call <strong>911</strong>.</p>
+        <p class="lang-link" lang="es"><a href="../get-help/#en-espanol">Ayuda en español</a></p>
+        <p class="access-link"><a href="../get-help/#deaf-hoh">Deaf or hard of hearing</a></p>
+        <p class="save-contact" id="save-988"><a class="pill" href="../assets/988-lifeline.vcf">Save 988 to your contacts</a></p>
+        <p class="provider-note">This gives you a small contact card file for the 988 Lifeline. Depending on your device, it may show a preview of the contact, or save to your downloads. Adding it to your contacts is up to you, and nothing is sent to Tidelight. On an iPhone, scroll to the bottom of the preview and tap Create New Contact. Closing the preview doesn't save it. On a shared phone or computer, other people may see the file or a saved contact.</p>
+      </section>
+
+      <aside class="page-status review-note" aria-label="Review status">
+        <p><strong>Draft for review.</strong> A suicide prevention professional has not reviewed this page yet. Please don't print copies to hand out until it has been reviewed. An AI assistant drafted it and compared the phone numbers and links with each provider's website on November 6, 2026. No person has confirmed them or tried them on a phone.</p>
+      </aside>
+
+      <!-- Draft (idea D2). Printed text comes only from the resource table in notes/SAFETY.md. -->
+      <section class="print-area" aria-labelledby="print-title">
+        <h2 id="print-title" class="no-print-heading">Poster</h2>
+        <p class="print-actions"><button type="button" class="print-button" hidden>Print poster and wallet cards</button></p>
+        <p class="print-actions print-hint" hidden>If nothing happens, open this page in your web browser and print from its Share button or menu.</p>
+        <div class="pc-poster">
+          <p class="pc-kicker">You are not alone.</p>
+          <p class="pc-big">Call or text 988</p>
+          <p class="pc-sub">988 Suicide &amp; Crisis Lifeline. Free, confidential, and available 24/7. You can also chat at chat.988lifeline.org.</p>
+          <ul>
+            <li lang="es">En español: llama al 988 y marca 2, o envía AYUDA al 988.</li>
+            <li>Veterans and service members: call 988, then press 1, or text 838255.</li>
+            <li>LGBTQ+ young people: The Trevor Project, call 1-866-488-7386 or text START to 678-678.</li>
+            <li>Deaf or hard of hearing: dial 988 from a videophone, or use a relay service.</li>
+          </ul>
+          <p class="pc-urgent">In immediate danger, call 911.</p>
+        </div>
+        <h2 class="no-print-heading pc-cards-title">Wallet cards, eight to a page</h2>
+        <p class="no-print-heading">When printed, cut along the dashed lines.</p>
+        <ul class="pc-cards">
+            <li class="pc-card">
+              <p class="pc-kicker">Need to talk?</p>
+              <p class="pc-big">Call or text 988</p>
+              <p>988 Suicide &amp; Crisis Lifeline. Free, confidential, 24/7. Chat: chat.988lifeline.org</p>
+              <p lang="es">En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+              <p>Veterans: call 988, then press 1.</p>
+              <p class="pc-urgent">In immediate danger, call 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">Need to talk?</p>
+              <p class="pc-big">Call or text 988</p>
+              <p>988 Suicide &amp; Crisis Lifeline. Free, confidential, 24/7. Chat: chat.988lifeline.org</p>
+              <p lang="es">En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+              <p>Veterans: call 988, then press 1.</p>
+              <p class="pc-urgent">In immediate danger, call 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">Need to talk?</p>
+              <p class="pc-big">Call or text 988</p>
+              <p>988 Suicide &amp; Crisis Lifeline. Free, confidential, 24/7. Chat: chat.988lifeline.org</p>
+              <p lang="es">En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+              <p>Veterans: call 988, then press 1.</p>
+              <p class="pc-urgent">In immediate danger, call 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">Need to talk?</p>
+              <p class="pc-big">Call or text 988</p>
+              <p>988 Suicide &amp; Crisis Lifeline. Free, confidential, 24/7. Chat: chat.988lifeline.org</p>
+              <p lang="es">En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+              <p>Veterans: call 988, then press 1.</p>
+              <p class="pc-urgent">In immediate danger, call 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">Need to talk?</p>
+              <p class="pc-big">Call or text 988</p>
+              <p>988 Suicide &amp; Crisis Lifeline. Free, confidential, 24/7. Chat: chat.988lifeline.org</p>
+              <p lang="es">En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+              <p>Veterans: call 988, then press 1.</p>
+              <p class="pc-urgent">In immediate danger, call 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">Need to talk?</p>
+              <p class="pc-big">Call or text 988</p>
+              <p>988 Suicide &amp; Crisis Lifeline. Free, confidential, 24/7. Chat: chat.988lifeline.org</p>
+              <p lang="es">En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+              <p>Veterans: call 988, then press 1.</p>
+              <p class="pc-urgent">In immediate danger, call 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">Need to talk?</p>
+              <p class="pc-big">Call or text 988</p>
+              <p>988 Suicide &amp; Crisis Lifeline. Free, confidential, 24/7. Chat: chat.988lifeline.org</p>
+              <p lang="es">En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+              <p>Veterans: call 988, then press 1.</p>
+              <p class="pc-urgent">In immediate danger, call 911.</p>
+            </li>
+            <li class="pc-card">
+              <p class="pc-kicker">Need to talk?</p>
+              <p class="pc-big">Call or text 988</p>
+              <p>988 Suicide &amp; Crisis Lifeline. Free, confidential, 24/7. Chat: chat.988lifeline.org</p>
+              <p lang="es">En español: llama al 988 y marca 2, o envía AYUDA al 988.</p>
+              <p>Veterans: call 988, then press 1.</p>
+              <p class="pc-urgent">In immediate danger, call 911.</p>
+            </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <nav class="footer-nav" aria-label="All pages">
+        <ul>
+          <li><a href="../">Home</a></li>
+          <li><a href="../get-help/">Get Help</a></li>
+          <li><a href="../help-someone/">Help Someone</a></li>
+          <li><a href="../teens/">For Teens</a></li>
+          <li><a href="../research/">Research</a></li>
+          <li><a href="../card/" aria-current="page">Wallet card</a></li>
+          <li><a href="../check-in/">Daily check-in</a></li>
+          <li><a href="../not-sure/">Not sure what you're feeling?</a></li>
+          <li><a href="../after-a-loss/">After a loss</a></li>
+          <li><a href="../about/">About and privacy</a></li>
+        </ul>
+      </nav>
+      <h2>About Tidelight</h2>
+      <p>Tidelight is an early project to help people in the United States find suicide prevention support. Tidelight is not a crisis service. The call, text, and chat links on this site connect you to outside services, such as the 988 Suicide &amp; Crisis Lifeline. If you or someone else is in immediate danger, call 911.</p>
+      <p>Privacy: this site has no sign-ups, forms, analytics, or cookies. It is hosted on GitHub Pages, and <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub says it logs and stores visitors' IP addresses</a> for security. Quick exit and saved offline copies have limits. <a href="../about/#privacy">Read about privacy and what this site can't hide</a>.</p>
+      <p class="footer-note">Early preview. A suicide prevention professional has not reviewed this content yet. An AI assistant compared crisis numbers and links with each provider's website on November 6, 2026. No person has confirmed them or tried them on a phone. <a href="../about/#review-status">See the review status of each page</a>.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/menu.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

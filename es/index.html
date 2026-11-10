@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tidelight — Prevención del suicidio y apoyo</title>
+  <meta name="description" content="Si estás pensando en el suicidio o te preocupa alguien, no estás solo. Llama al 988 y marca 2, o envía AYUDA al 988, a cualquier hora.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/icon-180.png">
+  <!-- Not for search engines until the content and the Spanish translation have had review. See notes/DECISIONS.md. -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="en" href="../">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido principal</a>
+  <!-- Línea de crisis siempre visible, requerida por notes/SAFETY.md regla 1. En teléfonos, la salida rápida va dentro de ella, para que nada quede debajo. -->
+  <aside class="crisis-bar" aria-label="Ayuda en una crisis y salida rápida">
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Salida rápida: salir de este sitio ahora e ir a la página de weather.gov"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg>Salida<span class="exit-extra"> rápida</span></a>
+    <p class="strip-988"><span class="strip-extra">¿Necesitas ayuda ahora? </span><a href="tel:988" aria-label="Llama al 988 y marca 2, la Línea 988 en español">Llama al 988</a> y marca 2<span class="strip-or">, o </span><a href="sms:988" aria-label="Envía AYUDA al 988, la Línea 988">envía AYUDA al 988</a><span class="strip-extra">, a cualquier hora</span><span class="strip-end">.</span></p>
+    <p class="strip-911"><span class="strip-lead">Si hay peligro inmediato, </span><a href="tel:911" aria-label="Llama al 911, servicios de emergencia">llama al 911</a><span class="strip-end">.</span></p>
+  </aside>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
+          <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
+          <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">Tidelight</span>
+          <span class="brand-tag">Prevención del suicidio y apoyo</span>
+        </span>
+        <span class="visually-hidden">, inicio</span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menú</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Principal">
+        <ul>
+          <li class="nav-home"><a href="./" aria-current="page">Inicio</a></li>
+          <li><a href="./obtener-ayuda/">Obtener ayuda</a></li>
+          <li><a href="./ayudar-a-alguien/">Ayudar a alguien</a></li>
+          <li><a href="./adolescentes/">Adolescentes</a></li>
+          <li class="nav-phone"><a href="registro-diario/">Registro diario</a></li>
+          <li class="nav-phone"><a href="que-siento/">¿No sabes bien qué sientes?</a></li>
+          <li class="nav-phone"><a href="despues-de-una-perdida/">Después de una pérdida</a></li>
+          <li><a href="./investigacion/">Investigación</a></li>
+          <li><a href="acerca-de/">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <a class="button button-plum header-cta" href="#support">Obtén apoyo ahora</a>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <svg class="hero-curve" viewBox="0 0 700 470" width="0" height="0" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <path d="M0 0 H690 Q790 154 680 314 Q640 409 590 470 H0Z"/>
+      </svg>
+
+      <div class="hero-content" id="support" tabindex="-1">
+        <p class="lang-switch"><a href="../" hreflang="en" lang="en">Read in English</a></p>
+        <p class="eyebrow">Apoyo para la prevención del suicidio</p>
+        <h1 id="hero-title">No estás solo.</h1>
+        <p class="hero-lead">Si te sientes abrumado, estás en crisis o tienes pensamientos de suicidio, la Línea 988 está para ayudarte, de día o de noche.</p>
+
+        <ul class="crisis-actions" aria-label="Comunícate con la Línea 988">
+          <li>
+            <a class="action action-primary" href="tel:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <span><span class="action-title">Llamar al 988</span><span class="action-sub">Marca 2 para español</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="sms:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Texto al 988</span><span class="action-sub">Escribe AYUDA</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="https://chat.988lifeline.org/?lang=es">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <span><span class="action-title">Chatear en línea</span><span class="action-sub">Chat en español con la 988</span></span>
+            </a>
+          </li>
+        </ul>
+
+        <p class="fallback">La 988 dice que un texto empieza con unos pasos: aceptas sus términos, contestas una breve encuesta y esperas a un consejero.</p>
+        <p class="fallback">¿Usas un aparato que no puede llamar ni enviar textos? Desde un teléfono, llama al <strong>988</strong> y marca 2, o envía AYUDA al <strong>988</strong>. También puedes chatear en <a href="https://chat.988lifeline.org/?lang=es">chat.988lifeline.org</a>. Estas opciones te conectan con la Línea 988 de Prevención del Suicidio y Crisis, no con Tidelight.</p>
+        <p class="access-link"><a href="obtener-ayuda/#deaf-hoh">Personas sordas o con dificultades auditivas</a></p>
+
+        <a class="text-link" href="#resources">¿No sabes qué necesitas? Explora recursos y&nbsp;apoyo&nbsp;<span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-photo">
+        <picture>
+          <source type="image/webp" srcset="../assets/images/joshua-tree-sunset-800.webp 800w, ../assets/images/joshua-tree-sunset-1600.webp 1600w" sizes="(min-width: 960px) 60vw, 100vw">
+          <img src="../assets/images/joshua-tree-sunset-1600.jpg" srcset="../assets/images/joshua-tree-sunset-800.jpg 800w, ../assets/images/joshua-tree-sunset-1600.jpg 1600w" sizes="(min-width: 960px) 60vw, 100vw" width="1600" height="1067" alt="Un árbol de Josué frente a un cielo de atardecer rosado y azul en el desierto.">
+        </picture>
+      </div>
+    </section>
+
+    <section class="trust" aria-label="Sobre este sitio y la Línea 988">
+      <ul class="trust-list">
+        <li>
+          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 40 40" width="30" height="30"><path d="M20 4 l13 5 v10 q0 12-13 19 q-13-7-13-19 v-10Z"/></svg></span>
+          <span><span class="trust-title">Tu privacidad</span><span class="trust-text">Tidelight no te pide registrarte ni llenar formularios, y no te rastrea. <a href="acerca-de/#privacy">Nuestro servicio de alojamiento registra las direcciones IP de los visitantes.</a></span></span>
+        </li>
+        <li>
+          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 40 40" width="30" height="30"><circle cx="20" cy="20" r="14"/><path d="M20 9 V21 L28 25"/></svg></span>
+          <span><span class="trust-title">La 988 atiende las 24 horas</span><span class="trust-text">Consejeros capacitados responden llamadas, textos y chats.</span></span>
+        </li>
+        <li>
+          <span class="trust-icon" aria-hidden="true"><svg viewBox="0 0 40 40" width="30" height="30"><circle cx="20" cy="13" r="6"/><path d="M7 33 q0-13 13-13 q13 0 13 13"/></svg></span>
+          <span><span class="trust-title">Para ti y tus seres queridos</span><span class="trust-text">Busca apoyo para ti o para alguien que te preocupa.</span></span>
+        </li>
+      </ul>
+    </section>
+
+    <div class="page-body">
+      <aside class="page-status review-note" aria-label="Estado de la revisión">
+        <p><strong>Borrador para revisión.</strong> Un profesional de la prevención del suicidio no ha revisado esta página. Un asistente de IA la tradujo del inglés, y ninguna persona hispanohablante ha revisado la traducción todavía. Un asistente de IA comparó los números y enlaces con el sitio de cada proveedor el 6 de noviembre de 2026. Ninguna persona los ha confirmado ni los ha probado en un teléfono.</p>
+      </aside>
+    </div>
+
+    <section class="resources" id="resources" aria-labelledby="resources-title">
+      <div class="resources-intro">
+        <p class="eyebrow">Encuentra el apoyo que necesitas</p>
+        <h2 id="resources-title">¿Por dónde quieres empezar?</h2>
+        <p>Ya sea que estés en crisis, buscando maneras de sobrellevarlo o apoyando a alguien que quieres, estas páginas pueden orientarte hacia el apoyo.</p>
+      </div>
+
+      <ul class="cards">
+        <li class="card card-green">
+          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 40 40" width="28" height="28"><path d="M20 33 l-12-12 q-7-10 2-13 q6-2 10 5 q6-9 13-5 q9 6 1 15Z"/></svg></span>
+          <h3><a class="card-link" href="obtener-ayuda/">Estoy pasando por un momento difícil</a></h3>
+          <p>Encuentra apoyo para los momentos difíciles y aprende cómo es pedir ayuda.</p>
+          <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 12 H18 M13 7 L18 12 L13 17"/></svg></span>
+        </li>
+        <li class="card card-plum">
+          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 40 40" width="28" height="28"><circle cx="20" cy="13" r="5"/><path d="M8 33 q0-13 12-13 q12 0 12 13"/></svg></span>
+          <h3><a class="card-link" href="ayudar-a-alguien/">Me preocupa alguien</a></h3>
+          <p>Aprende cómo apoyar a un amigo, a un familiar o a un ser querido.</p>
+          <span class="card-arrow card-arrow-plum" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 12 H18 M13 7 L18 12 L13 17"/></svg></span>
+        </li>
+        <li class="card card-sand">
+          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 40 40" width="28" height="28"><path d="M3 9 q9-5 17 1 q8-6 17-1 v23 q-9-5-17 1 q-8-6-17-1Z"/><path d="M20 10 V33"/></svg></span>
+          <h3><a class="card-link" href="investigacion/">Quiero saber más</a></h3>
+          <p>Lo que muestran los estudios sobre la prevención del suicidio, y dónde la evidencia todavía es escasa.</p>
+          <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 12 H18 M13 7 L18 12 L13 17"/></svg></span>
+        </li>
+        <li class="card card-green">
+          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 40 40" width="28" height="28"><circle cx="20" cy="20" r="15"/><path d="M15 16 q1-5 6-4.5 q5 .8 4 5 q-1 3-5 4.5 v3"/><path d="M20 29 v.5"/></svg></span>
+          <h3><a class="card-link" href="que-siento/">¿No sabes bien qué sientes?</a></h3>
+          <p>Empieza aquí, a tu propio ritmo. Lo que abras no se guarda, y no hay puntajes.</p>
+          <span class="card-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 12 H18 M13 7 L18 12 L13 17"/></svg></span>
+        </li>
+        <li class="card card-plum">
+          <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 40 40" width="28" height="28"><path d="M20 4 q8 8 0 15 q-8-7 0-15Z"/><rect x="13" y="21" width="14" height="15" rx="2"/></svg></span>
+          <h3><a class="card-link" href="despues-de-una-perdida/">Perdí a alguien por suicidio</a></h3>
+          <p>Lo que puedes sentir, dónde encontrar apoyo y cómo hablar con los niños.</p>
+          <span class="card-arrow card-arrow-plum" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 12 H18 M13 7 L18 12 L13 17"/></svg></span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="closing" aria-label="Recordatorio">
+      <p class="closing-title">No tienes que enfrentar esto sin apoyo.</p>
+      <div class="closing-text">
+        <p>Hay apoyo disponible cuando quieras.</p>
+        <p class="closing-sub"><a href="tel:988">Llama al 988</a> y marca 2, <a href="sms:988">envía AYUDA al 988</a>, o <a href="https://chat.988lifeline.org/?lang=es">chatea en español</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <nav class="footer-nav" aria-label="Todas las páginas">
+        <ul>
+          <li><a href="./" aria-current="page">Inicio</a></li>
+          <li><a href="./obtener-ayuda/">Obtener ayuda</a></li>
+          <li><a href="./ayudar-a-alguien/">Ayudar a alguien</a></li>
+          <li><a href="./adolescentes/">Adolescentes</a></li>
+          <li><a href="./investigacion/">Investigación</a></li>
+          <li><a href="./tarjeta/">Tarjeta para imprimir</a></li>
+          <li><a href="registro-diario/">Registro diario</a></li>
+          <li><a href="que-siento/">¿No sabes bien qué sientes?</a></li>
+          <li><a href="despues-de-una-perdida/">Después de una pérdida</a></li>
+          <li><a href="acerca-de/">Acerca de y privacidad</a></li>
+        </ul>
+      </nav>
+      <h2>Acerca de Tidelight</h2>
+      <p>Tidelight es un proyecto nuevo para ayudar a las personas en los Estados Unidos a encontrar apoyo para la prevención del suicidio. Tidelight no es un servicio de crisis. Los enlaces para llamar, enviar textos y chatear en este sitio te conectan con servicios externos, como la Línea 988. Si tú u otra persona está en peligro inmediato, llama al 911.</p>
+      <p>Privacidad: este sitio no te pide registrarte ni llenar formularios, y no usa analíticas ni cookies. Está alojado en GitHub Pages, y <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub dice que registra y guarda las direcciones IP de los visitantes</a> por seguridad (página en inglés). La Salida rápida y las copias guardadas sin conexión tienen límites. <a href="acerca-de/#privacy">Lee sobre la privacidad y lo que este sitio no puede ocultar</a>.</p>
+      <p class="footer-note">Versión preliminar. Un profesional de la prevención del suicidio no ha revisado este contenido. Un asistente de IA hizo la traducción al español, y una persona hispanohablante aún no la ha revisado. Un asistente de IA comparó los números y enlaces de crisis con el sitio de cada proveedor el 6 de noviembre de 2026. Ninguna persona los ha confirmado ni los ha probado en un teléfono. <a href="acerca-de/#review-status">Consulta el estado de revisión de cada página</a>.</p>
+      <p class="credit">Foto: un árbol de Josué al atardecer en Queen Valley, de Emily Hassell, Servicio de Parques Nacionales (dominio público), vía <a href="https://commons.wikimedia.org/wiki/File:Joshua_tree_at_sunset_in_Queen_Valley_(50601665443).jpg">Wikimedia Commons</a>.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/menu.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

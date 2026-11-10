@@ -1,0 +1,48 @@
+# Keeps an eye on the public website (ideas C2 and C3).
+# - Every day: the live site loads, every page still shows its crisis help, and no notes or tools are published.
+# - Once a month: every outside link that allows automated checks still opens (the rest are listed
+#   for a person), and each crisis provider's page that can be read still shows our details.
+# Scheduled runs only start once this file is on main. GitHub pauses schedules in a
+# public repository after 60 days with no commits; re-enable them under Actions if so.
+# A failed run shows a red mark under Actions. GitHub notifies one account: the one that
+# created this workflow, or whoever last changed the schedule lines below or re-enabled it.
+name: Monitor
+
+on:
+  schedule:
+    - cron: "17 13 * * *"   # daily, 13:17 UTC (morning in the U.S.)
+    - cron: "41 14 1 * *"   # monthly, on the 1st at 14:41 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    name: Live site shows crisis help
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '17 13 * * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: python3 tools/check_live.py
+
+  links:
+    name: Outside links still open
+    if: github.event_name == 'workflow_dispatch' || github.event.schedule == '41 14 1 * *'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Open every outside link
+        # Some sites block automated checks (403); those are listed for a person to open, not failed.
+        # A crisis service that can't be reached, after one retry, fails the run.
+        run: python3 tools/check_site.py --check-links
+      - name: Check crisis details on each provider's page
+        # Runs even if a link above failed, so one dead research link can't skip the crisis numbers.
+        if: ${{ !cancelled() }}
+        env:
+          TIDELIGHT_CHROME_NO_SANDBOX: "1"
+        run: python3 tools/check_crisis_sources.py

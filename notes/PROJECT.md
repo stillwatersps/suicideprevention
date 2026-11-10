@@ -2,21 +2,27 @@
 
 ## Confirmed
 
-- We are starting a suicide prevention app idea.
+- This is a suicide prevention project that started as an app idea.
 - The first version will be a phone-friendly website.
 - The initial launch country is the United States.
 - The intended audience includes adults and minors; exact ages are undecided.
 - Two collaborators will work on separate computers using Claude Code.
 - The shared Obsidian vault is the project's notes/ folder.
-- The supplied SVG is a desktop homepage reference labeled Stillwater.
+- The project is named Tidelight. It was called Stillwater until November 7, 2026,
+  and the supplied SVG, a desktop homepage reference, still shows that name.
 - The GitHub repository is `stillwatersps/suicideprevention`.
-- A first homepage exists on shared main, implemented with HTML, CSS, and a
-  small navigation script. This is an initial build, not a completed product.
+- A website exists on shared main, implemented with HTML, CSS, and a small
+  navigation script: a homepage and three other pages. It is public as an early
+  preview, not a completed product, and its content has not had professional review.
 
 ## Current goal
 
-Keep both computers' shared notes current, review the first homepage, and agree
-on the next website tasks. Start with [[00 START HERE]] and [[SHARED-MEMORY]].
+Keep both computers' shared notes current, decide what the public site should show
+until its content is reviewed, and find a qualified reviewer. Start with
+[[00 START HERE]], [[STATUS]], and [[SHARED-MEMORY]].
+
+[[FIRST-VERSION]] describes the first version and its main user journeys. It is a
+proposal, not agreed by both founders.
 
 ## Open product decisions
 

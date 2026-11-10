@@ -2,45 +2,63 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What the research shows — Stillwater</title>
-  <meta name="description" content="What studies show about suicide prevention and the effects of reaching out for support.">
-  <meta name="theme-color" content="#FAF8F4">
+  <title>What the research shows — Tidelight</title>
+  <meta name="description" content="What studies show about crisis lines, safety plans, treatment, and other parts of suicide prevention, with the source named for each finding.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/icon-180.png">
+  <!-- Not for search engines until the content has had professional review. See notes/DECISIONS.md. -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="es" href="../es/investigacion/">
   <link rel="stylesheet" href="../assets/styles.css">
-  <script>document.documentElement.classList.add('js');</script>
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
-
-  <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1 -->
-  <div class="crisis-bar" role="note" aria-label="Crisis help">
-    <p>In crisis? <strong>Call or text 988</strong> any time. In immediate danger, <strong>call 911</strong>.</p>
-  </div>
+  <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1. On phones Quick exit sits inside it, so nothing is ever underneath Quick exit. -->
+  <aside class="crisis-bar" aria-label="Crisis help and quick exit">
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
+    <p class="strip-988"><span class="strip-lead">Need help now? </span><a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a><span class="strip-or"> or </span><a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a><span class="strip-extra"> any time</span><span class="strip-end">.</span></p>
+    <p class="strip-911"><span class="strip-lead">In immediate danger, </span><a href="tel:911" aria-label="Call 911, emergency services">call 911</a><span class="strip-end">.</span></p>
+  </aside>
 
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="../" aria-label="Stillwater home">
-        <svg class="brand-mark" viewBox="0 0 70 50" aria-hidden="true" focusable="false">
+      <a class="brand" href="../">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
           <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
           <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
         </svg>
         <span class="brand-text">
-          <span class="brand-name">Stillwater</span>
+          <span class="brand-name">Tidelight</span>
           <span class="brand-tag">Suicide prevention &amp; support</span>
         </span>
+        <span class="visually-hidden">, home</span>
       </a>
 
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         <span>Menu</span>
       </button>
 
       <nav id="site-nav" class="site-nav" aria-label="Main">
         <ul>
+          <li class="nav-home"><a href="../">Home</a></li>
           <li><a href="../get-help/">Get Help</a></li>
           <li><a href="../help-someone/">Help Someone</a></li>
+          <li><a href="../teens/">For Teens</a></li>
+          <li class="nav-phone"><a href="../check-in/">Daily check-in</a></li>
+          <li class="nav-phone"><a href="../not-sure/">Not sure what you're feeling?</a></li>
+          <li class="nav-phone"><a href="../after-a-loss/">After a loss</a></li>
           <li><a href="../research/" aria-current="page">Research</a></li>
-          <li><a href="#about">About</a></li>
+          <li><a href="../about/">About</a></li>
         </ul>
       </nav>
 
@@ -48,53 +66,215 @@
     </div>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="page-hero" aria-labelledby="page-title">
       <div class="page-hero-inner">
-        <p class="breadcrumb"><a href="../">← Home</a></p>
+        <p class="lang-switch"><a href="../es/investigacion/" hreflang="es" lang="es">Leer en español</a></p>
+        <p class="breadcrumb"><a href="../"><span aria-hidden="true">←</span> Home</a></p>
         <p class="eyebrow">Learn more</p>
         <h1 id="page-title">What the research shows</h1>
-        <p class="hero-lead">This page will share what studies say about suicide prevention and the difference that reaching out and getting support can make. Every finding will link to its source.</p>
+        <p class="hero-lead">Studies can show what tends to help, and where the evidence is still thin. Thin evidence usually means there aren't enough strong studies yet, not that help doesn't work.</p>
       </div>
     </section>
 
     <div class="page-body">
-      <section class="crisis-panel" id="support" aria-labelledby="crisis-title">
+      <section class="crisis-panel" id="support" tabindex="-1" aria-labelledby="crisis-title">
         <h2 id="crisis-title">Need to talk to someone now?</h2>
-        <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time.</p>
         <ul class="crisis-actions" aria-label="Reach the 988 Suicide and Crisis Lifeline">
           <li>
             <a class="action action-primary" href="tel:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
-              <span><span class="action-title">Call 988</span><span class="action-sub">Talk to someone now</span></span>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <span><span class="action-title">Call 988</span><span class="action-sub">Talk to a counselor</span></span>
             </a>
           </li>
           <li>
             <a class="action" href="sms:988">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
-              <span><span class="action-title">Text 988</span><span class="action-sub">Reach out by text</span></span>
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Text 988</span><span class="action-sub">Send any message</span></span>
             </a>
           </li>
           <li>
-            <a class="action" href="https://988lifeline.org/chat/" rel="noopener">
-              <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
-              <span><span class="action-title">Chat Online</span><span class="action-sub">988 Lifeline web chat</span></span>
+            <a class="action" href="https://chat.988lifeline.org/">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <span><span class="action-title">Chat Online</span><span class="action-sub">Web chat with 988</span></span>
             </a>
           </li>
         </ul>
 
-        <p class="fallback">On a device that can't call or text? Dial or text <strong>988</strong> from any phone, or go to <strong>988lifeline.org</strong>. In immediate danger, call <strong>911</strong>.</p>
+        <p>988 says a text starts with a few steps. Reply NEXT to accept its terms, answer a brief survey, and wait for a counselor.</p>
+        <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight. You don't need research to reach out.</p>
+        <p class="fallback">On a device that can't call or text? Call or text <strong>988</strong> from a phone, or go to <a href="https://988lifeline.org/">988lifeline.org</a>. In immediate danger, call <strong>911</strong>.</p>
+        <p class="lang-link" lang="es"><a href="../get-help/#en-espanol">Ayuda en español</a></p>
+        <p class="access-link"><a href="../get-help/#deaf-hoh">Deaf or hard of hearing</a></p>
       </section>
 
-      <section class="page-status" aria-labelledby="status-title">
-        <h2 id="status-title">This page is being written</h2>
-        <p>It will cover:</p>
+      <aside class="page-status review-note" aria-label="Review status">
+        <p><strong>Draft for review.</strong> A suicide prevention professional has not reviewed this page yet. An AI assistant drafted these plain-language summaries for Tidelight, and every number should be checked against its source before people rely on it. Links were checked on November 6, 2026.</p>
+      </aside>
+
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">On this page</h2>
         <ul>
-            <li>What research says about crisis lines like 988</li>
-            <li>What helps people stay safe and recover</li>
-            <li>How talking about suicide safely makes a difference</li>
+          <li><a href="#myths">Myths and facts</a></li>
+          <li><a href="#crisis-lines">Crisis lines such as 988</a></li>
+          <li><a href="#asking">Asking someone about suicide</a></li>
+          <li><a href="#safety-plans">Safety plans</a></li>
+          <li><a href="#staying-in-touch">Staying in touch after a crisis</a></li>
+          <li><a href="#safer-surroundings">Safer surroundings</a></li>
+          <li><a href="#treatment">Treatment</a></li>
+          <li><a href="#talking">How suicide is talked about</a></li>
+          <li><a href="#limits">What this page can't tell you</a></li>
         </ul>
-      </section>
+      </nav>
+
+      <div class="prose">
+        <!-- Draft (idea D1). Each fact repeats text already on this site, where its source is cited. Facts come first, so the myth isn't the headline. -->
+        <section id="myths" aria-labelledby="myths-title">
+          <h2 id="myths-title">Myths and facts</h2>
+          <p class="lead-in">Some common worries stop people from asking for help, or from helping someone else. Here is what the sources on this site say.</p>
+          <div class="finding">
+            <h3>Asking someone about suicide does not put the idea in their head</h3>
+            <p>It's a common worry. The National Institute of Mental Health (NIMH) says studies show that asking does not increase suicidal thoughts or behavior. <a href="#asking">What the research shows about asking</a></p>
+          </div>
+          <div class="finding">
+            <h3>Talk of suicide should always be taken seriously</h3>
+            <p>Some people think it's just a bid for attention. NIMH advises taking all talk of suicide seriously. <a href="../help-someone/#conversation">What helps in the conversation</a></p>
+          </div>
+          <div class="finding">
+            <h3>You don't need to be in an emergency to contact 988</h3>
+            <p>The 988 Lifeline says anyone who is struggling can reach out, whether you are depressed, need to talk, or are thinking about suicide. You can also contact it if you're worried about someone. <a href="../get-help/#what-to-expect">What happens when you reach out to 988</a></p>
+          </div>
+          <div class="finding">
+            <h3>Most 988 calls don't involve emergency services</h3>
+            <p>Some people worry that reaching out means the police will come. The 988 Lifeline reports that fewer than 2 in 100 calls involve emergency services, and that more than half of those happen with the caller's consent. This is not a guarantee. <a href="../get-help/#emergency-services">When emergency services get involved</a></p>
+          </div>
+          <div class="finding">
+            <h3>Effective help exists, and recovery is possible</h3>
+            <p>NIMH says effective treatments are available for people at risk of suicide. The American Foundation for Suicide Prevention says recovery is possible with evidence-based treatment for depression and other mental health conditions. <a href="#treatment">What the research shows about treatment</a></p>
+          </div>
+        </section>
+
+        <section id="crisis-lines" aria-labelledby="crisis-lines-title">
+          <h2 id="crisis-lines-title">Crisis lines such as 988</h2>
+
+          <article class="finding">
+            <h3>Many callers say the call helped</h3>
+            <p>Researchers interviewed 437 adults who had called the Lifeline while having suicidal thoughts. About 7 in 10 said the call helped a lot, and about 1 in 4 said it helped a little.</p>
+            <p class="limit"><strong>What it can't show:</strong> These are callers' own reports, with no comparison group, from before the 988 number launched. Counselors chose which callers to ask, callers who needed emergency services were not asked, and only people who agreed and could be reached were interviewed. Only English-speaking callers took part, and calls to the Spanish line weren't included. The interviews took place during the COVID-19 pandemic. Some people had suicidal thoughts again later. If that happens, you can call, text, or chat again.</p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/40405822/">Gould and colleagues, Suicide and Life-Threatening Behavior, 2025</a></p>
+          </article>
+
+          <article class="finding">
+            <h3>Studies of crisis lines are still limited</h3>
+            <p>A review of 33 studies found only low-strength evidence that crisis lines work. There was some support for people feeling better by the end of a contact, and little good evidence about what happens later. This means there are too few strong studies, not that crisis lines don't help. The authors still concluded that the evidence supports keeping and expanding crisis lines.</p>
+            <p class="limit"><strong>What it can't show:</strong> The search ended in 2018, before 988, with little evidence on chat and none on text.</p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/32010655/">Hoffberg and colleagues, Frontiers in Public Health, 2020</a></p>
+          </article>
+
+          <article class="finding">
+            <h3>Early research since 988 launched</h3>
+            <p>One short study found that suicide deaths among people aged 15 to 34 were lower than a statistical model predicted after 988 began in 2022.</p>
+            <p class="limit"><strong>What it can't show:</strong> It cannot show that 988 caused this, because other things changed at the same time. Letters in JAMA questioned how deaths were counted and how differences between states were handled, and the authors replied.</p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/42018312/">Patel and colleagues, JAMA, 2026</a></p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/42606846/">Letter from Herring, JAMA, 2026</a></p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/42606880/">Letter from Purtle, JAMA, 2026</a></p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/42606879/">Reply from the authors, JAMA, 2026</a></p>
+          </article>
+        </section>
+
+        <section id="asking" aria-labelledby="asking-title">
+          <h2 id="asking-title">Asking someone about suicide</h2>
+
+          <article class="finding">
+            <h3>Asking does not appear to raise suicidal thoughts</h3>
+            <p>A review that pooled 8 randomized trials found no significant increase in suicidal thoughts or behavior, self-harm, or distress among people who were asked about these topics. A 2026 experiment with 700 U.S. teens also found that anonymous suicide questionnaires did not raise the desire to self-injure or to die right afterward.</p>
+            <p class="limit"><strong>What it can't show:</strong> These studies used questionnaires, interviews, and screening, not conversations between friends or relatives. The teen study measured only immediate effects, and the review's authors asked for more high-quality trials.</p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/32715986/">Polihronis and colleagues, Archives of Suicide Research, 2022</a></p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/41747434/">McGuire and colleagues, Psychiatry Research, 2026</a></p>
+          </article>
+        </section>
+
+        <section id="safety-plans" aria-labelledby="safety-plans-title">
+          <h2 id="safety-plans-title">Safety plans</h2>
+
+          <article class="finding">
+            <h3>Safety planning is linked to less suicidal behavior in adults</h3>
+            <p>A review of 6 studies in adults found that people who received a safety planning-type intervention had a lower risk of later suicidal behavior than people in comparison groups. It found no significant effect on suicidal thoughts.</p>
+            <p class="limit"><strong>What it can't show:</strong> Four of the 6 studies were rated at high risk of bias, the pattern of results suggests some less favorable studies may be missing, and no children or teens were included. Some of these programs paired the plan with clinician contact and follow-up calls, so the results don't show what a plan made alone would do. A therapist or other mental health professional can help you make a plan.</p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/35048835/">Nuij and colleagues, British Journal of Psychiatry, 2021</a></p>
+          </article>
+
+          <article class="finding">
+            <h3>For children and teens, the evidence is thinner</h3>
+            <p>A review of brief programs built around a safety plan for children and teens found no clear benefit, based on 10 studies, 5 of which could be pooled. Many of these programs also included family sessions or follow-up calls.</p>
+            <p class="limit"><strong>What it can't show:</strong> The evidence is thin, mostly small studies with moderate to high risk of bias. A benefit has not been shown, and these studies are too small to settle small effects in either direction. The American Academy of Pediatrics says a pediatrician can help a family make a safety plan. You can call or text 988 any time.</p>
+            <p class="cite"><a href="https://jamanetwork.com/journals/jamapediatrics/fullarticle/2834286">Albaum and colleagues, JAMA Pediatrics, 2025, corrected 2026</a></p>
+          </article>
+        </section>
+
+        <section id="staying-in-touch" aria-labelledby="staying-in-touch-title">
+          <h2 id="staying-in-touch-title">Staying in touch after a crisis</h2>
+
+          <article class="finding">
+            <h3>Follow-up may help after an attempt, but results are mixed</h3>
+            <p>A 2026 review of randomized trials in adults who had attempted suicide found fewer repeat attempts after a mix of brief therapy and follow-up contact. It could not test follow-up contact alone. It also found a small drop in suicidal thoughts, with low certainty, and that drop got weaker with longer follow-up. It found no clear effect on self-harm or on connecting people to care, though few studies looked at those. The evidence on these two results is very uncertain.</p>
+            <p>A separate 2026 trial with 709 American Indian and Alaska Native adults at high suicide risk added culturally adapted caring messages to help connecting with local resources. People in both groups had fewer suicidal thoughts and attempts over the year, and the messages added no clear benefit. The study can't say why both groups improved.</p>
+            <p class="limit"><strong>What it can't show:</strong> The review covered programs in treatment and emergency settings. The trial ran in tribal communities and included only English-speaking adults. About a third of participants had no 12-month data. Neither result may apply to other groups or settings. Tidelight does not offer follow-up contact. If you have survived an attempt, the American Foundation for Suicide Prevention has a page called <a href="https://afsp.org/after-an-attempt/">After an attempt</a>. It lists things you can do to support your recovery. You can call or text 988 any time.</p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/41859679/">Homan and colleagues, eClinicalMedicine, 2026</a></p>
+            <p class="cite"><a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2856150">Comtois and colleagues, JAMA Network Open, 2026</a></p>
+          </article>
+        </section>
+
+        <section id="safer-surroundings" aria-labelledby="safer-surroundings-title">
+          <h2 id="safer-surroundings-title">Safer surroundings</h2>
+
+          <article class="finding">
+            <h3>Making dangerous items and places harder to reach has support</h3>
+            <p>An overview of 20 research reviews found good support for making dangerous items and places harder to reach across whole populations, with several approaches that appear to work.</p>
+            <p class="limit"><strong>What it can't show:</strong> These reviews studied laws, sales rules, and structural changes across whole populations, not steps a family takes at home. The strength of the evidence varies by approach, and most of it is observational. Twelve of the 20 reviews got the lowest quality rating, mostly for reporting gaps, and many draw on the same studies. If you're worried about someone, <a href="../help-someone/#five-steps">Help Someone</a> has steps you can take.</p>
+            <p class="cite">Steeg and colleagues, BMJ Mental Health, 2025.</p>
+          </article>
+        </section>
+
+        <section id="treatment" aria-labelledby="treatment-title">
+          <h2 id="treatment-title">Treatment</h2>
+
+          <article class="finding">
+            <h3>Some therapies have evidence, with limited certainty</h3>
+            <p>A Cochrane review of 76 trials in adults who self-harm called the evidence for most psychosocial treatments uncertain. It found low-certainty evidence that cognitive behavioral therapy may mean fewer people repeat self-harm at longer follow-up. A review of treatments for young people also called the evidence uncertain overall, with moderate evidence that dialectical behavior therapy reduces suicidal thoughts.</p>
+            <p class="limit"><strong>What it can't show:</strong> These reviews looked at different ages and outcomes, so they can't be compared directly. Another analysis of 26 trials in teens found that no one therapy worked better than the care the other group received, for repeat self-harm at 12 months. That doesn't mean care doesn't help. A health care provider can talk through what might fit you.</p>
+            <p class="cite">Witt and colleagues, Cochrane Database of Systematic Reviews, 2021.</p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/41021221/">Sim and colleagues, JAMA Pediatrics, 2025</a></p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/41556887/">Cottrell and colleagues, Health Technology Assessment, 2026</a></p>
+          </article>
+        </section>
+
+        <section id="talking" aria-labelledby="talking-title">
+          <h2 id="talking-title">How suicide is talked about</h2>
+
+          <article class="finding">
+            <h3>News coverage can matter</h3>
+            <p>A review found that suicides rose on average in the weeks after the media reported a celebrity's death by suicide. This is one reason safe messaging guidance exists. If a death in the news is weighing on you, you can call or text 988 any time.</p>
+            <p class="limit"><strong>What it can't show:</strong> It found no clear rise after general news reporting on suicide. But only 5 studies looked at that, and only in the days right after the reports. The authors said a link with some kinds of reporting can't be ruled out. Results varied widely, and some studies showing no effect may be unpublished. This kind of study cannot prove cause, and it does not cover talking with someone you care about.</p>
+            <p class="cite">Niederkrotenthaler and colleagues, BMJ, 2020.</p>
+          </article>
+
+          <article class="finding">
+            <h3>Stories of coping may help a little</h3>
+            <p>When researchers combined several controlled trials, stories of people recovering from a suicidal crisis slightly reduced suicidal thoughts in people already at some risk.</p>
+            <p class="limit"><strong>What it can't show:</strong> The effect is small, and it was measured only in the short term, from right after the story to 4 weeks later. The trials measured suicidal thoughts, not suicidal behavior. All were done in Australia or Austria, by members of the review's own team. There was not enough evidence to say whether these stories change attitudes toward seeking help.</p>
+            <p class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/35122759/">Niederkrotenthaler and colleagues, The Lancet Public Health, 2022</a></p>
+          </article>
+        </section>
+
+        <section id="limits" aria-labelledby="limits-title">
+          <h2 id="limits-title">What this page can't tell you</h2>
+          <p>Research describes groups of people. It can't predict what will happen for any one person.</p>
+          <p>No study has tested Tidelight, and nothing here shows that this website prevents suicide. In one trial on a Dutch helpline's website, a short message did not increase use of the helpline link. People who saw it did rate themselves as more likely to contact the helpline later, but the study could not check whether they did (<a href="https://pubmed.ncbi.nlm.nih.gov/39235321/">van der Burgt and colleagues, JMIR Mental Health, 2024</a>). Evidence specific to minors is thin.</p>
+          <p>Thin evidence usually means there aren't enough strong studies yet. It doesn't mean help doesn't work, or that nothing can help you. The American Foundation for Suicide Prevention says recovery is possible with evidence-based treatment. You can call or text 988 any time.</p>
+          <p>An AI assistant drafted these summaries for Tidelight, and no qualified person has reviewed them yet. The authors and journals have not reviewed them either. Links were checked on November 6, 2026.</p>
+        </section>
+      </div>
     </div>
   </main>
 
@@ -105,15 +285,22 @@
           <li><a href="../">Home</a></li>
           <li><a href="../get-help/">Get Help</a></li>
           <li><a href="../help-someone/">Help Someone</a></li>
-          <li><a href="../research/">Research</a></li>
+          <li><a href="../teens/">For Teens</a></li>
+          <li><a href="../research/" aria-current="page">Research</a></li>
+          <li><a href="../card/">Wallet card</a></li>
+          <li><a href="../check-in/">Daily check-in</a></li>
+          <li><a href="../not-sure/">Not sure what you're feeling?</a></li>
+          <li><a href="../after-a-loss/">After a loss</a></li>
+          <li><a href="../about/">About and privacy</a></li>
         </ul>
       </nav>
-      <h2>About Stillwater</h2>
-      <p>Stillwater is an early project to help people in the United States find suicide prevention support. Stillwater is not a crisis service. The calling, texting, and chat options on this site connect you to the 988 Suicide &amp; Crisis Lifeline. If you or someone else is in immediate danger, call 911.</p>
-      <p class="footer-note">Early preview. Content is still being reviewed.</p>
+      <h2>About Tidelight</h2>
+      <p>Tidelight is an early project to help people in the United States find suicide prevention support. Tidelight is not a crisis service. The call, text, and chat links on this site connect you to outside services, such as the 988 Suicide &amp; Crisis Lifeline. If you or someone else is in immediate danger, call 911.</p>
+      <p>Privacy: this site has no sign-ups, forms, analytics, or cookies. It is hosted on GitHub Pages, and <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub says it logs and stores visitors' IP addresses</a> for security. Quick exit and saved offline copies have limits. <a href="../about/#privacy">Read about privacy and what this site can't hide</a>.</p>
+      <p class="footer-note">Early preview. A suicide prevention professional has not reviewed this content yet. An AI assistant compared crisis numbers and links with each provider's website on November 6, 2026. No person has confirmed them or tried them on a phone. <a href="../about/#review-status">See the review status of each page</a>.</p>
     </div>
   </footer>
 
-  <script src="../assets/menu.js" defer></script>
+  <script src="../assets/menu.js" defer onerror="document.documentElement.classList.remove('js')"></script>
 </body>
 </html>

@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cómo obtener ayuda para ti — Tidelight</title>
+  <meta name="description" content="Maneras de comunicarte con alguien cuando estás pasando por un momento difícil, qué esperar al contactar a la 988, y apoyo a largo plazo.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../assets/icon-180.png">
+  <!-- Not for search engines until the content and the Spanish translation have had review. See notes/DECISIONS.md. -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="en" href="../../get-help/">
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido principal</a>
+  <!-- Línea de crisis siempre visible, requerida por notes/SAFETY.md regla 1. En teléfonos, la salida rápida va dentro de ella, para que nada quede debajo. -->
+  <aside class="crisis-bar" aria-label="Ayuda en una crisis y salida rápida">
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Salida rápida: salir de este sitio ahora e ir a la página de weather.gov"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg>Salida<span class="exit-extra"> rápida</span></a>
+    <p class="strip-988"><span class="strip-extra">¿Necesitas ayuda ahora? </span><a href="tel:988" aria-label="Llama al 988 y marca 2, la Línea 988 en español">Llama al 988</a> y marca 2<span class="strip-or">, o </span><a href="sms:988" aria-label="Envía AYUDA al 988, la Línea 988">envía AYUDA al 988</a><span class="strip-extra">, a cualquier hora</span><span class="strip-end">.</span></p>
+    <p class="strip-911"><span class="strip-lead">Si hay peligro inmediato, </span><a href="tel:911" aria-label="Llama al 911, servicios de emergencia">llama al 911</a><span class="strip-end">.</span></p>
+  </aside>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
+          <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
+          <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">Tidelight</span>
+          <span class="brand-tag">Prevención del suicidio y apoyo</span>
+        </span>
+        <span class="visually-hidden">, inicio</span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menú</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Principal">
+        <ul>
+          <li class="nav-home"><a href="../">Inicio</a></li>
+          <li><a href="../obtener-ayuda/" aria-current="page">Obtener ayuda</a></li>
+          <li><a href="../ayudar-a-alguien/">Ayudar a alguien</a></li>
+          <li><a href="../adolescentes/">Adolescentes</a></li>
+          <li class="nav-phone"><a href="../registro-diario/">Registro diario</a></li>
+          <li class="nav-phone"><a href="../que-siento/">¿No sabes bien qué sientes?</a></li>
+          <li class="nav-phone"><a href="../despues-de-una-perdida/">Después de una pérdida</a></li>
+          <li><a href="../investigacion/">Investigación</a></li>
+          <li><a href="../acerca-de/">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <a class="button button-plum header-cta" href="#support">Obtén apoyo ahora</a>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="page-hero-inner">
+        <p class="lang-switch"><a href="../../get-help/" hreflang="en" lang="en">Read in English</a></p>
+        <p class="breadcrumb"><a href="../"><span aria-hidden="true">←</span> Inicio</a></p>
+        <p class="eyebrow">Para ti</p>
+        <h1 id="page-title">Cómo obtener ayuda para ti</h1>
+        <p class="hero-lead">Si estás pasando por un momento difícil o tienes pensamientos de suicidio, no tienes que enfrentarlo sin apoyo. Aquí hay maneras de comunicarte con alguien y qué esperar.</p>
+      </div>
+    </section>
+
+    <div class="page-body">
+      <section class="crisis-panel" id="support" tabindex="-1" aria-labelledby="crisis-title">
+        <h2 id="crisis-title">¿Necesitas hablar con alguien ahora?</h2>
+        <ul class="crisis-actions" aria-label="Comunícate con la Línea 988">
+          <li>
+            <a class="action action-primary" href="tel:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <span><span class="action-title">Llamar al 988</span><span class="action-sub">Marca 2 para español</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="sms:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Texto al 988</span><span class="action-sub">Escribe AYUDA</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="https://chat.988lifeline.org/?lang=es">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <span><span class="action-title">Chatear en línea</span><span class="action-sub">Chat en español con la 988</span></span>
+            </a>
+          </li>
+        </ul>
+
+        <p>La 988 dice que un texto empieza con unos pasos: aceptas sus términos, contestas una breve encuesta y esperas a un consejero.</p>
+        <p>La Línea 988 de Prevención del Suicidio y Crisis es gratuita, confidencial y está disponible a cualquier hora. Es un servicio aparte de Tidelight.</p>
+        <p class="fallback">¿Usas un aparato que no puede llamar ni enviar textos? Desde un teléfono, llama al <strong>988</strong> y marca 2, o envía AYUDA al <strong>988</strong>. También puedes chatear en <a href="https://chat.988lifeline.org/?lang=es">chat.988lifeline.org</a>. Si hay peligro inmediato, llama al <strong>911</strong>.</p>
+        <p class="access-link"><a href="#deaf-hoh">Personas sordas o con dificultades auditivas</a></p>
+      </section>
+
+      <!-- Draft (idea B1): the short version first. Every line repeats text already on this page. -->
+      <section class="right-now" aria-labelledby="right-now-title">
+        <h2 id="right-now-title">Ahora mismo</h2>
+        <ol>
+          <li><strong>Comunícate con la 988:</strong> <a class="tel-link" href="tel:988">llama al 988</a> y marca 2, <a class="tel-link" href="sms:988">envía AYUDA al 988</a> o <a class="tel-link" href="https://chat.988lifeline.org/?lang=es">chatea en español</a>. No necesitas tener certeza de que sea una emergencia. Es gratis y confidencial.</li>
+          <li><strong>¿Hay peligro inmediato?</strong> <a class="tel-link" href="tel:911">Llama al 911</a>.</li>
+          <li><strong>Si una manera no conecta,</strong> prueba otra: llamar, enviar un texto o chatear.</li>
+          <li>El resto de esta página puede esperar. Abre una sección cuando quieras.</li>
+        </ol>
+      </section>
+
+      <div class="save-contact-block">
+        <p class="save-contact" id="save-988"><a class="pill" href="../../assets/988-linea-es.vcf">Guarda el 988 en tus contactos</a></p>
+        <p class="provider-note">Esto te da un pequeño archivo de contacto de la Línea 988. Según tu aparato, puede mostrar una vista previa del contacto o guardarse en tus descargas. Tú decides si lo agregas a tus contactos, y no se envía nada a Tidelight. En un iPhone, desplázate hasta el final de la vista previa y toca Agregar a Contactos. Si cierras la vista previa, no se guarda. En un teléfono o una computadora compartidos, otras personas pueden ver el archivo o un contacto guardado.</p>
+      </div>
+
+      <aside class="page-status review-note" aria-label="Estado de la revisión">
+        <p><strong>Borrador para revisión.</strong> Un profesional de la prevención del suicidio no ha revisado esta página. Un asistente de IA la tradujo del inglés, y ninguna persona hispanohablante ha revisado la traducción todavía. Un asistente de IA comparó los números y enlaces con el sitio de cada proveedor el 6 de noviembre de 2026. Ninguna persona los ha confirmado ni los ha probado en un teléfono.</p>
+      </aside>
+
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">En esta página</h2>
+        <ul>
+          <li><a href="#what-to-expect">Qué pasa cuando te comunicas con la 988</a></li>
+          <li><a href="#other-ways">Otras maneras de comunicarte con alguien</a></li>
+          <li><a href="#deaf-hoh">Personas sordas o con dificultades auditivas</a></li>
+          <li><a href="#over-time">Apoyo a largo plazo</a></li>
+          <li><a href="#hard-moment">Cómo prepararte para un momento difícil</a></li>
+          <li><a href="#under-18">Si tienes menos de 18 años</a></li>
+          <li><a href="#sources">Fuentes</a></li>
+        </ul>
+      </nav>
+
+      <div class="prose">
+        <section id="what-to-expect" aria-labelledby="what-to-expect-title">
+          <h2 id="what-to-expect-title">Qué pasa cuando te comunicas con la 988</h2>
+          <p class="lead-in">No necesitas tener certeza de que sea una emergencia. La Línea 988 dice que cualquier persona que esté pasando por un momento difícil puede comunicarse, ya sea que te sientas deprimido, necesites hablar o estés pensando en el suicidio. También atiende preocupaciones por el consumo de alcohol o drogas.</p>
+          <details class="more">
+            <summary><span class="when-closed">Ver más</span><span class="when-open">Ver menos</span><span class="visually-hidden">: Qué pasa cuando te comunicas con la 988</span></summary>
+            <h3>Si llamas</h3>
+            <p>Escucharás un breve mensaje grabado con opciones. Para hablar en español, marca 2. No tienes que marcar nada más. Si te quedas en la línea, te conectarán con un consejero. Mientras te conectan, escucharás música de espera. SAMHSA, una agencia federal que financia la 988, dice que los tiempos de espera varían. Si tu espera es más larga, te pide que te quedes en la línea. Luego un consejero te saluda, te pregunta si estás a salvo, escucha lo que está pasando y te comparte recursos que pueden ayudarte.</p>
+
+            <h3>Si envías un texto</h3>
+            <p>Para recibir apoyo en español, envía la palabra AYUDA al 988. Primero llegan mensajes automáticos. En inglés, te piden aceptar los términos del servicio y contestar algunas preguntas que ayudan al consejero a saber cómo apoyarte; los pasos en español pueden ser un poco distintos. Es posible que luego recibas un mensaje que te pide esperar. Después un consejero te saluda, te pregunta si estás a salvo y te escucha.</p>
+
+            <h3>Si chateas en línea</h3>
+            <p>El <a href="https://chat.988lifeline.org/?lang=es">chat en español</a> empieza con un formulario corto que ayuda al consejero a saber cómo apoyarte. Te pide tu código postal, si tienes pensamientos de suicidio y qué tan angustiado te sientes. Dar un número de teléfono es opcional. Al empezar el chat aceptas los términos del servicio. Luego esperas a que te conecten con un consejero.</p>
+
+            <h3>Cuánto cuesta</h3>
+            <p>Comunicarte con la 988 es gratis y no necesitas seguro médico. Tu compañía telefónica igual podría cobrarte las llamadas o los textos si tu plan no los incluye sin límite. Si un consejero se comunica con servicios de emergencia, como el 911 o un equipo móvil de crisis, podrías recibir una factura. Podría incluir una ambulancia o atención en un hospital. Los servicios a los que te refieran también podrían cobrar, así que pregunta primero por los costos. Según los términos de la Línea 988, unos pocos de sus centros cobran a Medicaid o a otros seguros médicos. Podrían pedirte tus datos personales, y deben explicarte por qué. Puedes decir que no y aun así recibir apoyo. Si los das y se presenta un cobro al seguro, podría llegar un estado de cuenta del seguro. Lo podrían recibir tú, tu padre, tu madre o tu tutor, o la persona por la que llamaste.</p>
+
+            <h3>Si no logras comunicarte</h3>
+            <p>Prueba otra manera. Si una llamada no conecta, prueba con un texto o el chat. Si la línea de textos está ocupada, prueba con una llamada o el chat. En una emergencia, llama al 911.</p>
+
+            <h3>Qué se mantiene en privado</h3>
+            <p>La Línea 988 dice que las conversaciones son confidenciales, pero comunicarte con ella no es anónimo. No tienes que dar tu nombre ni tu ubicación exacta para recibir apoyo. El consejero tiene tu número de teléfono si llamas o envías un texto, o tu dirección IP si chateas. En emergencias poco comunes, deben darle esta información al 911, y el 911 puede pedirle tu ubicación exacta a tu compañía de teléfono o de internet.</p>
+            <p>Los consejeros toman notas, y los centros guardan registros por lo menos tres años. Las grabaciones de llamadas o los textos de chats y mensajes pueden usarse para mejorar el servicio. Puedes pedirle a un consejero que no comparta tu información personal. La <a href="https://988lifeline.org/es/confidencialidad/">declaración de confidencialidad</a> de la Línea 988 explica cuándo se puede compartir información, por ejemplo cuando alguien corre un riesgo inminente de daño, cuando la ley lo exige o cuando tú estás de acuerdo.</p>
+            <p>En un teléfono o una computadora compartidos, las visitas a este sitio pueden aparecer en el historial del navegador, y las llamadas o los textos pueden aparecer en los registros del teléfono. En un aparato o una cuenta de la escuela o del trabajo, la escuela o el empleador podría ver lo que buscas y lees, incluso en una ventana privada. Que una llamada aparezca en la factura del teléfono depende de la compañía. La Salida rápida y las copias guardadas sin conexión tienen límites. <a href="../acerca-de/#quick-exit">Mira lo que pueden y no pueden ocultar</a>.</p>
+
+            <h3 id="emergency-services">Cuándo intervienen los servicios de emergencia</h3>
+            <p>La Línea 988 es aparte del 911, y SAMHSA dice que la mayoría de las crisis las manejan los consejeros trabajando contigo, sin la participación de la policía. La Línea 988 recomienda que los consejeros llamen a servicios de emergencia, lo que puede significar el 911, la policía o el sheriff, solo si alguien está en peligro de sufrir daño ahora o muy pronto y no pueden llegar juntos a un plan más seguro. Informa que menos de 2 de cada 100 llamadas incluyen servicios de emergencia, y que más de la mitad de esas ocurren con el consentimiento de la persona que llama.</p>
+            <p>Esto es una recomendación, no una garantía. Los términos de la Línea 988 dicen que si un consejero cree que hay una amenaza inmediata a la seguridad física de alguien, es posible que no puedas opinar: podría pedir que el 911 o un equipo móvil de crisis vaya a tu ubicación, y puede compartir tu información sin tu permiso. Si necesitas ayuda por una amenaza inmediata a tu seguridad, los términos piden que llames primero al 911.</p>
+            <p class="provider-note">Estos detalles vienen del sitio web de la Línea 988 y de SAMHSA, y pueden cambiar. Tidelight no administra la 988 y no puede ver quién se comunica con ella.</p>
+          </details>
+        </section>
+
+        <section id="other-ways" aria-labelledby="other-ways-title">
+          <h2 id="other-ways-title">Otras maneras de comunicarte con alguien</h2>
+          <p>Estos son servicios aparte, con sus propias reglas. Tidelight no los administra. Algunos de ellos atienden solo en inglés; pregunta cuando te comuniques.</p>
+
+          <ul class="service-list">
+            <li class="service" id="en-espanol">
+              <h3>Línea 988 en español</h3>
+              <p>Para hablar con un consejero de la Línea 988 en español, marca 988 y luego presiona 2. Para enviar un mensaje de texto, envía la palabra AYUDA al 988. También puedes chatear en español. Es gratis y confidencial, y está disponible las 24 horas.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:988">Llamar al 988 y marcar 2</a>
+                <a class="pill" href="sms:988">Enviar AYUDA al 988</a>
+                <a class="pill" href="https://chat.988lifeline.org/?lang=es">Chatear en español</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>Línea Nacional de Ayuda de SAMHSA</h3>
+              <p>No es una línea de crisis y no ofrece consejería. Ofrece referidos para tratamiento e información gratis, las 24 horas, en inglés y en español. Para español, elige la opción para hablar con un representante nacional. TTY: <a href="tel:+18004874889">1-800-487-4889</a>.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:+18006624357">Llamar al 1-800-662-4357</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>Otros idiomas</h3>
+              <p>Llama al 988 y pide un intérprete, o di el nombre de tu idioma. La Línea 988 ofrece más de 240 idiomas de esta manera, solo en llamadas de voz.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:988">Llamar al 988</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3 id="deaf-hoh">Personas sordas o con dificultades auditivas</h3>
+              <p>Puedes comunicarte con consejeros de la 988 en lengua de señas americana (ASL) marcando 988 desde un número de videoteléfono (VP). También puedes enviar un texto o chatear. Si usas TTY, usa tu servicio de retransmisión preferido o marca 711 y luego 988. Una página de preguntas frecuentes de la 988 dice que el servicio TTY no está disponible en español en este momento. En una emergencia, enviar textos al 911 solo funciona en algunos lugares. Si no está disponible, usa un TTY o un servicio de retransmisión si puedes.</p>
+              <p class="service-links">
+                <a class="pill" href="sms:988">Enviar AYUDA al 988</a>
+                <a class="pill" href="https://chat.988lifeline.org/?lang=es">Chatear en español</a>
+                <a class="pill" href="https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/">Opciones de la 988 para personas sordas (en inglés)</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>Línea de Crisis para Veteranos</h3>
+              <p>Para veteranos, miembros del servicio militar, de la Guardia Nacional y de la Reserva, y las personas que los apoyan. Gratis, confidencial y disponible las 24 horas. No necesitas estar inscrito en los beneficios ni en la atención médica del VA. Su página de chat está en español, pero no dice en qué idioma atienden.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:988">Llamar al 988 y marcar 1</a>
+                <a class="pill" href="sms:838255">Texto al 838255</a>
+                <a class="pill" href="https://www.veteranscrisisline.net/es/como-ayudamos/chat/">Chat de la Línea de Crisis para Veteranos</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>Jóvenes LGBTQ+, a través de la 988</h3>
+              <p>La Línea 988 dice que restableció su servicio especializado para jóvenes LGBTQ+. Es aparte de The Trevor Project. Una página de preguntas frecuentes de la 988 dice que este servicio no está disponible en español en este momento. Para recibir apoyo en español, llama al 988 y marca 2, o envía AYUDA al 988.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:988">Llamar al 988 y marcar 3</a>
+                <a class="pill" href="sms:988">Enviar <span lang="en">PRIDE</span> al 988</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>The Trevor Project</h3>
+              <p>Para jóvenes LGBTQ+. Sus términos describen la línea telefónica como un servicio para personas menores de 25 años. Consejeros capacitados te atienden por teléfono, texto o chat. Es gratis y confidencial, las 24 horas. Los textos pueden tener cargos de mensajes y datos. En un teléfono, The Trevor Project sugiere llamar o enviar un texto, y usar el chat desde una computadora. Sus términos dicen que, en las llamadas, ofrece acceso a intérpretes, según la disponibilidad. Puedes elegir la opción de idioma en el teclado o pedirle un intérprete al consejero.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:+18664887386">Llamar al 1-866-488-7386</a>
+                <a class="pill" href="sms:678678">Enviar <span lang="en">START</span> al 678-678</a>
+                <a class="pill" href="https://www.thetrevorproject.org/get-help/">Chat y TTY de The Trevor Project (en inglés)</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>Crisis Text Line</h3>
+              <p>Consejeros voluntarios capacitados te atienden por texto. Es gratis y confidencial, las 24 horas, en cualquier lugar de los Estados Unidos. Crisis Text Line dice que tu primer mensaje puede decir cualquier cosa. Una palabra como HOME le ayuda a saber cómo llegaste a su servicio. Dice que atiende en inglés y en español. Sus páginas dan palabras distintas para recibir apoyo en español, y Tidelight todavía no ha confirmado cuál usar. Sus preguntas frecuentes dicen que los mensajes son gratis con AT&amp;T, T-Mobile, Sprint y Verizon. Con otras compañías, dicen que se aplican las tarifas normales y que el 741741 aparecerá en la factura. Sus términos dicen que puede haber cargos de mensajes y datos. Crisis Text Line dice que muchos planes prepagados de T-Mobile no permiten números como el 741741. También dice que todavía no está disponible en Google Voice ni TextNow. Si un texto no llega, ofrece chat web y WhatsApp en su sitio web. Su política de privacidad dice que WhatsApp también podría tener acceso a tu información. También puedes llamar al 988 y marcar 2, o enviar AYUDA al 988.</p>
+              <p class="service-links">
+                <a class="pill" href="sms:741741">Enviar <span lang="en">HOME</span> al 741741</a>
+                <a class="pill" href="https://www.crisistextline.org/">Sitio web de Crisis Text Line (en inglés)</a>
+              </p>
+            </li>
+            <li class="service">
+              <h3>911</h3>
+              <p>Si tú u otra persona está en peligro inmediato, llama al 911. Enviar textos al 911 solo funciona en algunos lugares, y la Comisión Federal de Comunicaciones (FCC) aconseja hacer una llamada de voz si puedes. Si envías un texto al 911 donde no está disponible, deberías recibir un mensaje automático que te pide usar otra manera. Si eres sordo, tienes dificultades auditivas o no puedes hablar, y enviar textos al 911 no está disponible, usa un TTY o un servicio de retransmisión si puedes.</p>
+              <p class="service-links">
+                <a class="pill" href="tel:911">Llamar al 911</a>
+              </p>
+            </li>
+          </ul>
+          <p class="provider-note">La Línea 988, la Línea de Crisis para Veteranos, The Trevor Project y Crisis Text Line mantienen las conversaciones en confidencialidad, con límites. Cada una dice que puede comunicarse con servicios de emergencia u otras autoridades en algunas situaciones. Sus sitios web explican cuándo.</p>
+        </section>
+
+        <section id="over-time" aria-labelledby="over-time-title">
+          <h2 id="over-time-title">Apoyo a largo plazo</h2>
+          <p>Una línea de crisis puede ayudarte en un momento difícil. La atención a largo plazo puede ayudar con lo que hay detrás. El Instituto Nacional de la Salud Mental (NIMH) dice que hay tratamientos eficaces para las personas en riesgo de suicidio. Entre ellos hay tipos de terapia de conversación, como la terapia cognitivo-conductual y la terapia dialéctica conductual. La American Foundation for Suicide Prevention (AFSP) dice que la recuperación es posible con tratamiento basado en evidencia para la depresión y otras condiciones de salud mental.</p>
+          <details class="more">
+            <summary><span class="when-closed">Ver más</span><span class="when-open">Ver menos</span><span class="visually-hidden">: Apoyo a largo plazo</span></summary>
+            <ul>
+              <li><strong>Habla con un proveedor de atención médica.</strong> Si tienes un médico o una enfermera que te atiende, puedes hablarle de tu salud mental por tu cuenta, y te puede referir a un especialista. El NIMH tiene <a href="https://www.nimh.nih.gov/health/publications/espanol/consejos-para-hablar-con-su-proveedor">consejos para esa conversación</a>.</li>
+              <li><strong>Busca atención cerca de ti.</strong> SAMHSA describe <a href="https://findtreatment.gov/es/">FindTreatment.gov</a> como un buscador de tratamiento confidencial y anónimo.</li>
+              <li><strong>Llama para pedir un referido.</strong> La Línea Nacional de Ayuda de SAMHSA, <a href="tel:+18006624357">1-800-662-4357</a>, ofrece referidos para tratamiento e información gratis, las 24 horas, en inglés y en español. No ofrece consejería y no es una línea de crisis. Para español, elige la opción para hablar con un representante nacional. TTY: <a href="tel:+18004874889">1-800-487-4889</a>.</li>
+            </ul>
+          </details>
+        </section>
+
+        <section id="hard-moment" aria-labelledby="hard-moment-title">
+          <h2 id="hard-moment-title">Cómo prepararte para un momento difícil</h2>
+          <p>Un plan de seguridad es una lista corta y escrita de qué hacer cuando las cosas se ponen difíciles. Se hace con anticipación para que no tengas que pensarlo durante una crisis. Un terapeuta u otro profesional de la salud mental puede ayudarte a hacerlo. Un plan no reemplaza la atención profesional.</p>
+          <details class="more">
+            <summary><span class="when-closed">Ver más</span><span class="when-open">Ver menos</span><span class="visually-hidden">: Cómo prepararte para un momento difícil</span></summary>
+            <p>El NIMH dice que los estudios han mostrado que los planes de seguridad pueden ayudar a reducir el riesgo de que una persona actúe según sus pensamientos de suicidio. Parte de esa investigación combinó el plan con contacto y seguimiento de un profesional clínico, así que no muestra qué haría un plan hecho a solas. En niños y adolescentes, una revisión de programas breves basados en un plan de seguridad no encontró un beneficio claro. Consulta <a href="../investigacion/#safety-plans">lo que muestra la investigación sobre los planes de seguridad</a>.</p>
+            <p>Un plan de seguridad suele incluir:</p>
+            <ul>
+              <li>Tus propias señales de que las cosas se están poniendo más difíciles</li>
+              <li>Cosas que puedes hacer por tu cuenta para salir adelante</li>
+              <li>Personas y lugares que te ayudan a distraerte</li>
+              <li>Familiares o amigos con quienes puedes comunicarte</li>
+              <li>Profesionales y líneas de crisis con quienes puedes comunicarte</li>
+              <li>Maneras de hacer que tu entorno sea más seguro</li>
+            </ul>
+            <p>No tienes que completar una lista antes de pedir ayuda. Puedes llamar al 988 y marcar 2, o enviar AYUDA al 988, o llamar al 911 en una emergencia, en cualquier momento.</p>
+            <p>Los creadores del Plan de Seguridad Stanley-Brown ofrecen <a href="https://suicidesafetyplan.com/wp-content/uploads/2024/12/Stanley-Brown-Safety-Plan-05-02-2024.pdf">un formulario (PDF, en inglés)</a> para uso personal. Tidelight no ve ni guarda lo que escribes en él. Una copia en un aparato compartido, o en papel, podría ser vista por otras personas, así que guárdala en un lugar donde te sientas seguro.</p>
+          </details>
+        </section>
+
+        <section id="under-18" aria-labelledby="under-18-title">
+          <h2 id="under-18-title">Si tienes menos de 18 años</h2>
+          <p>Puedes llamar al 988 y marcar 2, o enviar AYUDA al 988 por tu cuenta, aunque no haya un adulto a quien puedas contarle. Las reglas de la Línea 988 no fijan una edad mínima, y no tienes que dar tu nombre ni tu edad para recibir apoyo. Puede ayudar <a href="#save-988">guardar el 988 en tu teléfono</a> ahora, por si lo necesitas más adelante.</p>
+          <p><a href="../adolescentes/">Más para adolescentes: cómo pedir ayuda, adultos de confianza y privacidad</a></p>
+          <details class="more">
+            <summary><span class="when-closed">Ver más</span><span class="when-open">Ver menos</span><span class="visually-hidden">: Si tienes menos de 18 años</span></summary>
+            <p>También puede ayudar contarle a un adulto de confianza, como tu padre, tu madre o tu tutor, un familiar, un maestro, un entrenador, un líder espiritual o un médico. Está bien preguntarle primero qué puede mantener en privado.</p>
+            <p>Si le dices a un consejero escolar que estás pensando en el suicidio, ten en cuenta que se lo dirá a tu padre, tu madre o tu tutor. Su asociación nacional lo considera obligatorio, incluso para estudiantes de 18 años. La asociación hace una excepción. Se aplica si dices que piensas en el suicidio por el abuso o la negligencia de tu padre, tu madre o tu tutor. Entonces el consejero debe comunicarse con los servicios de protección infantil. Una hoja informativa federal dice que el personal de esos servicios puede luego hablar con tus padres y con otras personas cercanas a ti.</p>
+            <p>Los maestros y otro personal de la escuela también podrían tener que avisar. Una política modelo nacional para distritos escolares dice que todo el personal debe reportar a un estudiante que crea que está en riesgo. Dice que luego la escuela le avisa al padre, la madre o el tutor ese mismo día o lo antes posible. La excepción es cuando eso pondría al estudiante en mayor riesgo. Las reglas cambian según el estado y el distrito.</p>
+            <p>Las líneas de crisis mantienen las conversaciones en confidencialidad, con límites. La Línea 988 dice que puede compartir información sin tu permiso en algunas situaciones. Esa información puede llegar al 911, a la policía o a un equipo móvil de crisis (un equipo de crisis que va a donde estás). Por ejemplo, esto puede pasar si alguien está en peligro de sufrir daño muy pronto. También puede pasar si un joven sufre abuso o negligencia, según lo defina la ley del estado. The Trevor Project y Crisis Text Line tienen límites parecidos. The Trevor Project dice que no les avisará a tus padres ni a tu tutor a menos que la ley o una orden legal lo exija.</p>
+            <p>Unos pocos centros de la Línea 988 cobran al seguro médico y podrían pedirte tus datos. Puedes decir que no y aun así recibir apoyo. Si los das y el centro le cobra a tu seguro, tu padre, tu madre o tu tutor podría recibir un aviso de la compañía de seguros.</p>
+          </details>
+        </section>
+
+        <section id="related" aria-labelledby="related-title">
+          <h2 id="related-title">Más en este sitio</h2>
+          <p class="page-links">
+            <a class="pill" href="../que-siento/">¿No sabes bien qué sientes?</a>
+            <a class="pill" href="../despues-de-una-perdida/">Después de una pérdida por suicidio</a>
+            <a class="pill" href="../adolescentes/">Para adolescentes</a>
+            <a class="pill" href="../acerca-de/#privacy">Acerca de y privacidad</a>
+          </p>
+        </section>
+
+        <section id="sources" aria-labelledby="sources-title">
+          <h2 id="sources-title">Fuentes</h2>
+          <p>Fuentes consultadas el 6 de noviembre de 2026. La mayoría están en inglés. Un asistente de IA redactó estos resúmenes para Tidelight y los tradujo al español, y ninguna persona calificada los ha revisado todavía. Las organizaciones de la lista no los han revisado ni respaldado.</p>
+          <details class="source-toggle">
+            <summary>Ver fuentes</summary>
+            <ul class="sources">
+              <li><a href="https://www.thetrevorproject.org/blog/the-trevor-project-applauds-the-return-of-the-988-lifelines-press-3-specialized-services-for-lgbtq-youth/" lang="en">The Trevor Project Applauds the Return of the 988 Lifeline’s “Press 3” Specialized Services for LGBTQ+ Youth</a>, The Trevor Project</li>
+              <li><a href="https://988lifeline.org/es/obten-ayuda/que-puede-esperar/">Qué Puede Esperar</a>, Línea 988</li>
+              <li><a href="https://988lifeline.org/es/confidencialidad/">Confidencialidad</a>, Línea 988</li>
+              <li><a href="https://988lifeline.org/es/terminos-de-servicio/">Términos de Servicio</a>, Línea 988</li>
+              <li><a href="https://www.samhsa.gov/find-help/helplines/linea-nacional-ayuda">Línea Nacional de Ayuda de SAMHSA</a>, SAMHSA</li>
+              <li><a href="https://www.veteranscrisisline.net/es/como-ayudamos/chat/">Chat</a>, Línea de Crisis para Veteranos</li>
+              <li><a href="https://988lifeline.org/es/PreguntasFrecuentes/llamada-a-lifeline/pregunta-lifeline-cuenta-con-servicios-tty-para-personas-con-discapacidad-auditiva/">¿Lifeline cuenta con servicios TTY para personas con discapacidad auditiva?</a>, Línea 988</li>
+              <li><a href="https://988lifeline.org/es/PreguntasFrecuentes/llamada-a-lifeline/pregunta-existen-servicios-especializados-para-jovenes-lgbtqia-que-contacten-al-988/">¿Existen servicios especializados para jóvenes LGBTQIA+ que contacten al 988?</a>, Línea 988</li>
+              <li><a href="https://988lifeline.org/get-help/what-to-expect/" lang="en">What to Expect</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/get-help/" lang="en">988 Lifeline: Get Help</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/faq/texting-the-988-lifeline/" lang="en">Texting the 988 Lifeline (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/faq/calling-the-988-lifeline/" lang="en">Calling the 988 Lifeline (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/faq/calling-the-988-lifeline/faq-is-the-988-lifeline-available-in-other-languages-for-non-english-speakers/" lang="en">Other languages (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/" lang="en">Deaf, Hard of Hearing, Hearing Loss</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/confidentiality/" lang="en">Confidentiality</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/terms-of-service/" lang="en">988 Lifeline: Terms of Service</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/faq/about-us/faq-does-vibrant-use-police-intervention-for-callers-texters-and-chatters-to-the-988-lifeline/" lang="en">Police intervention (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/faq/about-us/faq-does-the-988-lifeline-trace-callers-texters-or-chatters/" lang="en">Tracing callers, texters, and chatters (FAQ)</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://chat.988lifeline.org/" lang="en">988 Lifeline chat</a>. Se leyó el formulario, pero no se envió.</li>
+              <li><a href="https://www.samhsa.gov/mental-health/988/faqs" lang="en">988 Frequently Asked Questions</a>, Substance Abuse and Mental Health Services Administration (SAMHSA)</li>
+              <li><a href="https://www.samhsa.gov/find-help/helplines/national-helpline" lang="en">National Helpline</a>, SAMHSA</li>
+              <li><a href="https://findtreatment.gov/">FindTreatment.gov</a>, SAMHSA</li>
+              <li><a href="https://www.samhsa.gov/mental-health/what-is-mental-health/how-to-talk/young-people" lang="en">For Young People Looking for Help</a>, SAMHSA</li>
+              <li><a href="https://www.veteranscrisisline.net/">Veterans Crisis Line</a>, U.S. Department of Veterans Affairs</li>
+              <li><a href="https://www.thetrevorproject.org/get-help/" lang="en">The Trevor Project: Get Help</a>, The Trevor Project</li>
+              <li><a href="https://www.thetrevorproject.org/terms-of-service/" lang="en">The Trevor Project: Terms of Service</a>, The Trevor Project</li>
+              <li><a href="https://www.crisistextline.org/about-us/faq/" lang="en">FAQ</a>, Crisis Text Line</li>
+              <li><a href="https://www.crisistextline.org/privacy-policy/" lang="en">Privacy Policy</a>, Crisis Text Line</li>
+              <li><a href="https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911" lang="en">Text to 911: What You Need to Know</a>, Federal Communications Commission</li>
+              <li><a href="https://www.nimh.nih.gov/health/publications/suicide-faq" lang="en">Frequently Asked Questions About Suicide</a>, National Institute of Mental Health</li>
+              <li><a href="https://www.nimh.nih.gov/health/publications/tips-for-talking-with-your-health-care-provider" lang="en">Tips for Talking With a Health Care Provider</a>, National Institute of Mental Health</li>
+              <li><a href="https://www.nimh.nih.gov/health/topics/child-and-adolescent-mental-health" lang="en">Child and Adolescent Mental Health</a>, National Institute of Mental Health</li>
+              <li><a href="https://afsp.org/after-an-attempt/" lang="en">After an attempt</a>, American Foundation for Suicide Prevention</li>
+              <li><a href="https://afsp.org/story/afsp-statement-on-the-importance-of-antidepressants-and-evidence-based-treatment" lang="en">Statement on the Importance of Antidepressants and Evidence-Based Treatment</a>, American Foundation for Suicide Prevention</li>
+              <li><a href="https://suicidesafetyplan.com/" lang="en">Stanley-Brown Safety Planning Intervention</a></li>
+              <li><a href="https://www.schoolcounselor.org/Standards-Positions/Position-Statements/ASCA-Position-Statements/The-School-Counselor-and-Suicide-Risk-Assessment" lang="en">The School Counselor and Suicide Risk Assessment</a>, American School Counselor Association</li>
+              <li><a href="https://artifacts.childwelfare.gov/public/documents/how-child-welfare-system-works.pdf" lang="en">How the Child Welfare System Works (PDF)</a>, Child Welfare Information Gateway, Children's Bureau</li>
+              <li><a href="https://afsp.org/model-school-policy-on-suicide-prevention/" lang="en">Model School District Policy on Suicide Prevention</a>, American Foundation for Suicide Prevention</li>
+              <li><a href="https://support.google.com/chrome/answer/95464?hl=en" lang="en">Browse in Incognito mode</a>, Google Chrome Help</li>
+            </ul>
+          </details>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <nav class="footer-nav" aria-label="Todas las páginas">
+        <ul>
+          <li><a href="../">Inicio</a></li>
+          <li><a href="../obtener-ayuda/" aria-current="page">Obtener ayuda</a></li>
+          <li><a href="../ayudar-a-alguien/">Ayudar a alguien</a></li>
+          <li><a href="../adolescentes/">Adolescentes</a></li>
+          <li><a href="../investigacion/">Investigación</a></li>
+          <li><a href="../tarjeta/">Tarjeta para imprimir</a></li>
+          <li><a href="../registro-diario/">Registro diario</a></li>
+          <li><a href="../que-siento/">¿No sabes bien qué sientes?</a></li>
+          <li><a href="../despues-de-una-perdida/">Después de una pérdida</a></li>
+          <li><a href="../acerca-de/">Acerca de y privacidad</a></li>
+        </ul>
+      </nav>
+      <h2>Acerca de Tidelight</h2>
+      <p>Tidelight es un proyecto nuevo para ayudar a las personas en los Estados Unidos a encontrar apoyo para la prevención del suicidio. Tidelight no es un servicio de crisis. Los enlaces para llamar, enviar textos y chatear en este sitio te conectan con servicios externos, como la Línea 988. Si tú u otra persona está en peligro inmediato, llama al 911.</p>
+      <p>Privacidad: este sitio no te pide registrarte ni llenar formularios, y no usa analíticas ni cookies. Está alojado en GitHub Pages, y <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub dice que registra y guarda las direcciones IP de los visitantes</a> por seguridad (página en inglés). La Salida rápida y las copias guardadas sin conexión tienen límites. <a href="../acerca-de/#privacy">Lee sobre la privacidad y lo que este sitio no puede ocultar</a>.</p>
+      <p class="footer-note">Versión preliminar. Un profesional de la prevención del suicidio no ha revisado este contenido. Un asistente de IA hizo la traducción al español, y una persona hispanohablante aún no la ha revisado. Un asistente de IA comparó los números y enlaces de crisis con el sitio de cada proveedor el 6 de noviembre de 2026. Ninguna persona los ha confirmado ni los ha probado en un teléfono. <a href="../acerca-de/#review-status">Consulta el estado de revisión de cada página</a>.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/menu.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

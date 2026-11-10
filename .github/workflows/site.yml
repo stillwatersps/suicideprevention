@@ -1,0 +1,110 @@
+# Checks the website on every pull request (idea A1), and publishes only the
+# website, not the notes, when main changes (idea A3). Publishing waits for the
+# checks, so a page can't go live while a call or text link doesn't match a number
+# recorded in notes/SAFETY.md, a crisis control is hidden, or the browser tests fail.
+# The checks don't open outside links; the monthly run in monitor.yml does.
+#
+# For the publish step to be used, GitHub Pages must be set to "GitHub Actions"
+# in the repository's Settings > Pages. See notes/worklogs/2026-11-06-claude-approved-ideas.md.
+# Each action is pinned to the commit of a release, named after the #, so a changed tag can't
+# change what runs. Its token is not kept in the checked-out folder.
+name: Site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A new run replaces an older one only for pull requests. On main, a publish in progress is never
+# cancelled, by a new push or by the Run workflow button, which only runs the checks and never publishes.
+concurrency:
+  group: site-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    name: Check the website
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Run the site checks
+        run: python3 tools/check_site.py
+      - name: Check how the monthly link check reads answers
+        run: python3 tools/check_site.py --self-test
+      - name: Check how the publish step reads review records
+        run: python3 tools/launch_gate.py --self-test
+      - name: Check how the monthly crisis check reads provider pages, and that every crisis number has one
+        run: python3 tools/check_crisis_sources.py --self-test
+      - name: Check that the daily live-site check would notice published notes, on a local copy
+        run: python3 tools/check_live.py --local
+      - name: Plain-language report (information only)
+        run: python3 tools/check_readability.py
+
+  browser:
+    name: Test in a real browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Test every page in Chrome
+        env:
+          TIDELIGHT_CHROME_NO_SANDBOX: "1"
+        run: python3 tools/test_browser.py
+
+  publish:
+    name: Publish the website only
+    needs: [check, browser]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    # Permissions named here replace the ones above, so contents: read is repeated for the checkout.
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # Stops unreviewed crisis content going live by accident. See notes/LAUNCH-CHECKLIST.md.
+      - name: Check that reviews are on record
+        env:
+          PUBLISH_UNREVIEWED: ${{ vars.PUBLISH_UNREVIEWED }}
+        run: python3 tools/launch_gate.py --publish
+      - name: Copy only the website files
+        run: |
+          mkdir _site
+          # The website, and nothing else. Notes, designs, tools and instructions stay out.
+          for item in index.html 404.html sw.js manifest.webmanifest .nojekyll assets get-help help-someone teens research card es check-in not-sure after-a-loss about; do
+            cp -R "$item" _site/
+          done
+          # Stop if a new page exists in the project but was not copied.
+          find . -name '*.html' -not -path './_site/*' -not -path './notes/*' -not -path './design/*' -not -path './tools/*' -not -path './.git/*' | sed 's#^\./##' | sort > expected.txt
+          (cd _site && find . -name '*.html' | sed 's#^\./##' | sort) > published.txt
+          if ! diff expected.txt published.txt; then
+            echo "A page is missing from the published site. Add its folder to the list above."
+            exit 1
+          fi
+          # Only the site's own kinds of file, so a stray note, document, photo or copied folder can't go live.
+          # .nojekyll stays in the list for the preview server; the upload below leaves out files starting with a dot.
+          unexpected=$(find _site \( -type l -o \( -type f ! -path '_site/.nojekyll' ! \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.svg' -o -name '*.png' -o -name '*.jpg' -o -name '*.webp' -o -name '*.vcf' -o -name '*.webmanifest' \) \) \))
+          if [ -n "$unexpected" ]; then
+            echo "These are not website files, so nothing is published:"
+            echo "$unexpected"
+            exit 1
+          fi
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
