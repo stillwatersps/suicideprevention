@@ -120,6 +120,16 @@ firewall prompt; the QR output was tried with localhost addresses instead.
 Not run: the full browser suite, the full planted-bug suite, and the 25 to 35 minute full suite script;
 no item asked for it. The workflow changes haven't run on GitHub.
 
+### Rechecked November 10, 2026
+
+On the same commits, unchanged. https://registry.npmjs.org/axe-core/4.14.0 still gives the same
+`dist.integrity` and license, and `latest` is still 4.14.0. These gave the same result lines as above:
+`tools/qr.py --self-test` (51 of 51 read back, 0 problems), `tools/axe_core.py --check` and `--self-test`,
+`tools/check_site.py` (all checks passed, no NOTE), `tools/test_browser.py --only axe,a11ytree,links`
+(links 974, a11ytree 21, axe 412, all passed, with the three allowed target-size NOTEs),
+`tools/test_webkit.py` (207 checks, 0 problems), and `tools/test_the_tests.py --only` "axe:" (7 of 7),
+"QR code" (7 of 7) and "preview server printing" (1 of 1).
+
 ## Decisions and open questions
 
 None of this is agreed by both founders; each part is easy to remove.
