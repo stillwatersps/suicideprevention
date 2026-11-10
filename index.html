@@ -23,6 +23,7 @@
   <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <!-- Welcome screen, shown by assets/loader.js for about a second and a half on the first page of a visit. A proposal; see notes/DECISIONS.md. -->
   <div class="tl-loader" id="tl-loader" role="status" aria-live="polite" aria-label="Loading Tidelight">
     <div class="tl-glow" aria-hidden="true"></div>
@@ -41,9 +42,8 @@
       <p class="tl-tag">Suicide prevention &amp; support</p>
       <div class="tl-status" aria-hidden="true"><span></span></div>
     </div>
-    <p class="tl-crisis">In crisis? <strong>Call or text 988</strong> any time. In immediate danger, <strong>call 911</strong>.</p>
+    <p class="tl-crisis">In crisis? <a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a> or <a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a> any time. In immediate danger, <a href="tel:911" aria-label="Call 911, emergency services">call 911</a>.</p>
   </div>
-  <a class="skip-link" href="#main">Skip to main content</a>
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1. On phones Quick exit sits inside it, so nothing is ever underneath Quick exit. -->
   <aside class="crisis-bar" aria-label="Crisis help and quick exit">
     <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>

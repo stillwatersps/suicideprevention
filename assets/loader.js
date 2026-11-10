@@ -4,7 +4,8 @@
 // - to people who ask their device for less motion,
 // - again when moving around the site in the same tab (it remembers in window.name, which the
 //   browser clears when the tab leaves the site; nothing is stored).
-// Any tap or key closes it at once. It sends and stores nothing.
+// Any tap or key closes it at once. Its 988 and 911 lines are real links, so help stays one tap
+// away even while it covers the crisis strip. It sends and stores nothing.
 (function () {
   var root = document.documentElement;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -32,6 +33,6 @@
   document.addEventListener('DOMContentLoaded', function () {
     var loader = document.getElementById('tl-loader');
     if (!loader) { finish(); return; }
-    loader.addEventListener('click', finish);
+    loader.addEventListener('click', finish); // a tap on a 988 or 911 link still follows the link
   });
 })();

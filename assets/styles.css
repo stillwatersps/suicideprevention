@@ -1434,7 +1434,7 @@ html.tl-loading .tl-loader {
 }
 html.tl-loading { overflow: hidden; }
 html.tl-leaving .tl-loader { opacity: 0; }
-.tl-glow {
+html.tl-loading .tl-glow {
   position: absolute;
   left: 50%;
   top: 46%;
@@ -1457,24 +1457,24 @@ html.tl-leaving .tl-loader { opacity: 0; }
   fill: none;
   stroke-linecap: round;
 }
-.tl-waves path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: tl-draw 1.4s ease-out forwards; }
-.tl-w1 path { stroke: var(--tide-line); stroke-width: 2; }
-.tl-w2 path { stroke: var(--green); stroke-width: 2.5; animation-delay: .15s; }
-.tl-w3 path { stroke: var(--tide-deep); stroke-width: 3; animation-delay: .3s; }
-.tl-w1 { animation: tl-drift 6s linear infinite; }
-.tl-w2 { animation: tl-drift 8s linear infinite reverse; }
-.tl-w3 { animation: tl-drift 10s linear infinite; }
+html.tl-loading .tl-waves path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: tl-draw 1.4s ease-out forwards; }
+html.tl-loading .tl-w1 path { stroke: var(--tide-line); stroke-width: 2; }
+html.tl-loading .tl-w2 path { stroke: var(--green); stroke-width: 2.5; animation-delay: .15s; }
+html.tl-loading .tl-w3 path { stroke: var(--tide-deep); stroke-width: 3; animation-delay: .3s; }
+html.tl-loading .tl-w1 { animation: tl-drift 6s linear infinite; }
+html.tl-loading .tl-w2 { animation: tl-drift 8s linear infinite reverse; }
+html.tl-loading .tl-w3 { animation: tl-drift 10s linear infinite; }
 .tl-center { position: relative; text-align: center; }
 .tl-mark { width: 4.5rem; height: auto; margin: 0 auto .5rem; display: block; overflow: visible; }
-.tl-leaf { fill: var(--green); opacity: 0; transform-origin: 30px 42px; animation: tl-leaf .7s ease-out forwards; }
-.tl-leaf-b { fill: var(--tide-line); animation-delay: .2s; }
-.tl-welcome { margin: 0; font-family: var(--sans); color: var(--muted); font-size: 1rem; letter-spacing: .04em;
+html.tl-loading .tl-leaf { fill: var(--green); opacity: 0; transform-origin: 30px 42px; animation: tl-leaf .7s ease-out forwards; }
+html.tl-loading .tl-leaf-b { fill: var(--tide-line); animation-delay: .2s; }
+html.tl-loading .tl-welcome { margin: 0; font-family: var(--sans); color: var(--muted); font-size: 1rem; letter-spacing: .04em;
   animation: tl-rise .7s ease-out .2s both; }
-.tl-name { margin: .1em 0 .2em; font-family: var(--serif); font-size: clamp(2.6rem, 11vw, 4rem); line-height: 1.05;
+html.tl-loading .tl-name { margin: .1em 0 .2em; font-family: var(--serif); font-size: clamp(2.6rem, 11vw, 4rem); line-height: 1.05;
   color: var(--ink); animation: tl-rise .8s ease-out .35s both; }
-.tl-tag { margin: 0 0 1.4rem; font-family: var(--sans); color: var(--muted); animation: tl-rise .8s ease-out .5s both; }
+html.tl-loading .tl-tag { margin: 0 0 1.4rem; font-family: var(--sans); color: var(--muted); animation: tl-rise .8s ease-out .5s both; }
 .tl-status { width: 9rem; height: 3px; margin: 0 auto; background: var(--line); overflow: hidden; }
-.tl-status span { display: block; height: 100%; width: 100%; background: var(--green); transform-origin: left;
+html.tl-loading .tl-status span { display: block; height: 100%; width: 100%; background: var(--green); transform-origin: left;
   animation: tl-fill 1.4s ease-in-out forwards; }
 .tl-crisis {
   position: absolute;
@@ -1489,7 +1489,9 @@ html.tl-leaving .tl-loader { opacity: 0; }
   background: var(--tide-deep);
   color: #fff;
 }
-.tl-crisis strong { color: #fff; }
+.tl-crisis a { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 2px;
+  display: inline-block; min-height: 44px; line-height: 44px; padding: 0 2px; }
+.tl-crisis a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 @keyframes tl-draw { to { stroke-dashoffset: 0; } }
 @keyframes tl-drift { from { transform: translateX(0); } to { transform: translateX(-400px); } }
 @keyframes tl-breathe { 0%, 100% { opacity: .7; transform: translate(-50%, -50%) scale(.96); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.04); } }

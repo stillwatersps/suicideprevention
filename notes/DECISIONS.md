@@ -357,13 +357,17 @@ A screen in front of a crisis site can slow someone down, so it follows narrow r
 - It shows for about a second and a half on the first page of a visit, and closes at once on any
   tap or key. It never comes back while moving around the site in that tab.
 - It never shows to people who ask their device for less motion, or when scripts don't run.
-- While it shows, it covers the crisis strip, so it carries 988 and 911 itself.
+- While it shows, it covers the crisis strip, so it carries its own Call 988, Text 988, and Call 911
+  links. A tap on one of them calls or texts at once. Without them, the first tap in that moment would
+  only close the screen, and help would take two taps.
 - It remembers it was shown in `window.name`, which the browser clears when the tab leaves the
   site. Nothing is stored. `assets/loader.js` sends and stores nothing.
 - "Tidelight" is a paragraph, not a heading, so the homepage keeps one main heading.
 
-Questions for the reviewer: should a crisis site have a welcome screen at all, and should its 988
-and 911 lines be tappable?
+`tools/test_browser.py` has a new `welcome` group that checks all of this. Its other groups start
+past the welcome screen.
+
+A question for the reviewer: should a crisis site have a welcome screen at all?
 
 ## Decision format
 
