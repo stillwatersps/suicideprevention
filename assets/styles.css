@@ -1423,9 +1423,14 @@ html:not(.ci-ready) .ci-erase, html:not(.ci-ready) .ci-kept-reflection-note, htm
 .sp-line { display: block; height: 2em; border-bottom: 1px solid #6B6B6B; }
 .sp-note { font-size: .9rem; }
 @media print {
-  .sp-sheet { border: 0; border-radius: 0; padding: 0; gap: 6pt; font-size: 10.5pt; }
+  /* Block layout with margins on paper, not grid with gap. When a step moved to page 2,
+     desktop Chrome split the grid across pages and printed the closing note on top of
+     step 6's write-in lines. Found November 10, 2026, by printing to PDF. */
+  .sp-sheet { border: 0; border-radius: 0; padding: 0; display: block; font-size: 10.5pt; }
+  .sp-sheet > * + * { margin-top: 6pt; }
   .sp-title { font-size: 18pt; }
-  .sp-steps { gap: 9pt; }
+  .sp-steps { display: block; }
+  .sp-step + .sp-step { margin-top: 9pt; }
   .sp-step { break-inside: avoid; }
   .sp-step h3 { font-size: 12pt; }
   .sp-line { height: 9mm; border-bottom-color: #555; }
