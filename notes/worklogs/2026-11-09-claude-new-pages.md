@@ -6,7 +6,7 @@ branch: build/new-pages-1109
 
 # Two new draft pages: Make a safety plan, and After a suicide attempt
 
-Date: November 9, 2026.
+Date: November 9, 2026, with an update on November 10 at the end.
 
 **State when written: local only,** on branch `build/new-pages-1109`, made from `830f766`, the tip of
 `claude/jolly-mayer-2m6eno` (draft pull request 5's branch). Not pushed, not in any pull request, not
@@ -51,8 +51,8 @@ Stanley-Brown form, and the page links that form through Get Help.
   review lists, `tools/make_review_packet.py` (sections PLAN, ATT, E-PLAN, E-ATT), rebuilt packets,
   `README.md`.
 - `tools/check_site.py`: `SOURCES_READ_LATER`. Every page shows one date for its sources, and the older
-  pages' sources were checked November 6. These four pages' sources were read November 9, so they
-  share a date of their own, compared with each other. When every page's sources are checked again,
+  pages' sources were checked November 6. These four pages' sources were read November 9 and again November 10,
+  so they share a date of their own, compared with each other. When every page's sources are checked again,
   move both dates with `tools/set_checked_date.py` and empty the set.
 - `tools/test_browser.py`: the print test now treats only pages with wallet cards as card pages, and
   checks that the blank plan prints on one or two pages with 988 and 911.
@@ -121,3 +121,37 @@ kept apart. Nothing ran on a real phone or in the iOS Simulator.
 
 A founder reviews the branch and decides whether to push it and open a draft pull request into
 `claude/jolly-mayer-2m6eno`. Merging there publishes nothing.
+
+## Update, November 10, 2026
+
+Same branch, still **local only**. A second session picked up this branch and checked it again.
+
+- **Sources read again.** Every source on both pages was read again in the built-in browser on November
+  10, 2026: 988's Get Help, What to Expect, and Help Someone Else; AFSP's After an attempt and When a
+  loved one has made an attempt; SPRC's Care Transitions, Safety Planning Guide, and Stanley-Brown Safety
+  Plan pages; the Stanley-Brown site; NIMH's FAQ and Suicide Prevention pages; FindTreatment.gov. The
+  claims still match. The four pages' source date is now November 10 (`Checked November 10, 2026` and
+  `Fuentes consultadas el 10 de noviembre de 2026`), and the two planted bugs that quote it follow.
+- **One wording change.** AFSP's safety plan list says to call 988, so After a suicide attempt's list
+  item is now "Calling 988", not "Calling or texting 988", and the Spanish twin matches.
+- **SAMHSA's guides, tried again.** The library opened today. A Journey Toward Health and Hope's product
+  page gives October 2015; the family guide's old address answered "not found"; the guide files refused
+  automated reads (403). Still not read or cited. They predate 988, so they may give older numbers. In
+  [[CONTENT-REVIEW]].
+- **Notes:** [[SAFETY]] records the 988 and NIMH re-read; [[CONTENT-REVIEW]] says how and when the
+  sources were read; packets rebuilt.
+
+Checks on November 10, on this Mac:
+
+- `python3 tools/check_site.py`: "Checked 25 pages. 117 different outside links." and "All checks
+  passed. This does not replace a real phone test or a content review.", with no "out of date" note.
+- `tools/test_browser.py --only print,keyboard,jumps,nojs,language,offline` on the four new pages and on
+  Get Help, Help Someone, and their twins: keyboard 1315, jumps 301, language 8, nojs 8, print 8,
+  offline 24 checks passed, 0 distinct failures. "All browser checks passed." Desktop Chrome and its
+  phone-size emulation only.
+- `tools/test_webkit.py`: "243 checks in WebKit on this Mac, 0 problems." macOS WebKit, not iOS Safari.
+- `tools/test_the_tests.py --only`: "safety plan" 4 of 4, "added later" 2 of 2, "left out of the" 13 of
+  13, "blank printouts" 1 of 1, "wallet card" 1 of 1, "new page" 1 of 1 caught.
+- Not run: the full suite, `--check-links`, and the browser groups links, matrix, textsize, folds, menu,
+  quickexit, reducedmotion, contact, a11ytree, speed, modes, and privacy. Nothing on a real phone or in
+  the iOS Simulator.
