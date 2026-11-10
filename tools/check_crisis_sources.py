@@ -54,6 +54,24 @@ CALL_911 = Near(r"\b(?:call|text|dial)(?:ing)?\b(?:\s*,?\s*(?:or\s+|and\s+)?(?:c
 # follow reply, text, send or type, so "what happens next" doesn't count.
 REPLY_NEXT = Near(r"\b(?:reply|text|send|type)\b\W{1,3}(?:with\W{1,3})?next\b", "text Next")
 
+# Lines for specific groups on Get Help, read on their providers' pages on November 9, 2026. See notes/SAFETY.md.
+# HRSA's English page shows the maternal hotline's number only in its links and as 1-833-TLC-MAMA.
+MATERNAL_VANITY = Near(r"\b1-833-tlc-mama\b", "1-833-TLC-MAMA", "8338526262")
+MATERNAL_TEXT = Near(r"\bsms:\+?1?-?833-?852-?6262\b", "a text link to 1-833-852-6262", "8338526262")
+DDH_CALL_OR_TEXT = Near(r"\bcall or text\W{1,3}(?:1-)?800-985-5990\b", "call or text 1-800-985-5990", "8009855990")
+# "Español: Llama o envía un mensaje de texto 1-800-985-5990 presiona “2.”"
+DDH_SPANISH = Near(r"\b(?:presiona|oprima|press)\W{0,3}2\b", "press 2 for Spanish")
+# The keyword next to its number, so "TEEN LINE" in a heading can't stand in for it.
+TEXT_TEEN = Near(r"\btext\W{1,3}TEEN\W{1,3}to\W{1,3}839863\b", "text TEEN to 839863", "839863")
+# Teen Line and Trans Lifeline keep set hours, and both Get Help pages give them in Pacific time. Teen
+# Line's page says "6–10 PM PT" for calls and "6–9 PM PT" for texts, and "PST" in its header; Trans
+# Lifeline's says "10 AM – 6 PM Pacific" on weekdays. Each pattern needs the hours followed by a
+# Pacific zone, so changed hours, or the same hours in another time zone, fail.
+PACIFIC = r"\s*(?:PT|PST|PDT|Pacific)\b"
+TEEN_CALL_HOURS = Near(r"\b6(?:\s*PM)?\s*[-–—]\s*10\s*PM" + PACIFIC, "calls 6 to 10 PM Pacific")
+TEEN_TEXT_HOURS = Near(r"\b6(?:\s*PM)?\s*[-–—]\s*9\s*PM" + PACIFIC, "texts 6 to 9 PM Pacific")
+TRANS_HOURS = Near(r"\b10\s*AM\s*[-–—]\s*6\s*PM\s+Pacific\b", "10 AM to 6 PM Pacific")
+
 # Each page, and what must appear on it. A tuple means any one of those wordings will do.
 # A number such as "838255" or "866-488-7386" must appear as a whole number, written with or without
 # its 1- and dashes, or as a call or text link, so 711 inside 1-800-711-2400 doesn't count.
@@ -69,6 +87,11 @@ CHECKS = [
     ("https://www.crisistextline.org/about-us/faq/", ["741741", Word("HOME")]),
     ("https://www.samhsa.gov/find-help/helplines/national-helpline", [("800-662-4357", Near(r"800-662-help", "1-800-662-HELP", "8006624357")), "800-487-4889"]),
     ("https://www.taps.org/suicide", [("800-959-8277", Near(r"800-959-taps", "1-800-959-TAPS", "8009598277"))]),
+    ("https://mchb.hrsa.gov/programs-impact/national-maternal-mental-health-hotline", [("833-852-6262", MATERNAL_VANITY), MATERNAL_TEXT, "24/7", "English and Spanish"]),
+    ("https://www.samhsa.gov/find-help/helplines/disaster-distress-helpline", ["800-985-5990", DDH_CALL_OR_TEXT, "24/7", DDH_SPANISH, "relay"]),
+    ("https://didihirsch.org/teenline/hotline-support/", ["800-852-8336", TEXT_TEEN, TEEN_CALL_HOURS, TEEN_TEXT_HOURS]),
+    ("https://didihirsch.org/teenline/", ["800-852-8336", "up to the age of 19", "only available in English"]),
+    ("https://translifeline.org/hotline/", ["877-565-8860", "Monday through Friday", TRANS_HOURS, "oprime 2"]),
     ("https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911", [CALL_911, "voice call"]),
     ("https://findtreatment.gov/", []),
 ]
@@ -236,6 +259,13 @@ def self_test():
     other_number = "<p>Call our office at 1-800-711-2400 or use a videophone. " + filler + "</p>"
     relay = "<p>TTY users can use a relay service or dial 711, then 988. Use a videophone too. " + filler + "</p>"
     link_only = '<p><a href="tel:+18009598277">Call us</a> any time. ' + filler + "</p>"
+    teen_name = "<h1>TEEN LINE</h1><p>Text HELLO to 839863 any night. " + filler + "</p>"
+    teen_line = "<p>Call every night from 6–10 PM PT. Text “TEEN” to 839863 between 6–9 PM PT. " + filler + "</p>"
+    teen_changed = teen_line.replace("6–10 PM", "7–11 PM").replace("6–9 PM", "7–10 PM")
+    trans_line = "<p>Monday through Friday: 10 AM – 6 PM Pacific. " + filler + "</p>"
+    other_zone = trans_line.replace("Pacific", "Mountain")
+    teen_other_zone = teen_line.replace("PM PT", "PM ET")
+    maternal = '<p>1-833-TLC-MAMA <a href="sms:1-833-852-6262">Text</a> <a href="tel:1-833-852-6262">Call</a>. ' + filler + "</p>"
     cases = [
         # What is being shown, the plain read, the browser read (None means no Chrome), what is expected.
         ("a full page passes", (200, full), None, wanted, "ok"),
@@ -256,6 +286,18 @@ def self_test():
         ("711 on its own passes", (200, relay), None, ["videophone", "711"], "ok"),
         ("a number only in a call link counts", (200, link_only), None, ["800-959-8277"], "ok"),
         ("a number with one digit changed doesn't count", (200, link_only.replace("9598277", "9598278")), None, ["800-959-8277"], "MISSING"),
+        # Lines for specific groups keep keywords and set hours, and their pages must still give both.
+        ("a keyword in a service's name isn't its texting keyword", (200, teen_name), None, [TEXT_TEEN], "MISSING"),
+        ("a texting keyword next to its number, and set hours, pass", (200, teen_line), None, [TEXT_TEEN, TEEN_CALL_HOURS, TEEN_TEXT_HOURS], "ok"),
+        ("changed calling hours are noticed", (200, teen_changed), None, [TEEN_CALL_HOURS], "MISSING"),
+        ("changed texting hours are noticed", (200, teen_changed), None, [TEEN_TEXT_HOURS], "MISSING"),
+        ("weekday hours in Pacific time pass", (200, trans_line), None, [TRANS_HOURS], "ok"),
+        ("the same hours in another time zone don't count", (200, other_zone), None, [TRANS_HOURS], "MISSING"),
+        ("Teen Line calling hours in another zone don't count", (200, teen_other_zone), None, [TEEN_CALL_HOURS], "MISSING"),
+        ("Teen Line texting hours in another zone don't count", (200, teen_other_zone), None, [TEEN_TEXT_HOURS], "MISSING"),
+        ("Teen Line hours written with PST, as in its page's header, pass", (200, teen_line.replace("PM PT", "PM PST")), None, [TEEN_CALL_HOURS, TEEN_TEXT_HOURS], "ok"),
+        ("a number only in call and text links, and its letters, pass", (200, maternal), None, [("833-852-6262", MATERNAL_VANITY), MATERNAL_TEXT], "ok"),
+        ("a dropped text link is noticed", (200, maternal.replace("sms:", "https://example.org/")), None, [MATERNAL_TEXT], "MISSING"),
     ]
     wrong = 0
     for name, plain, browser, items, expected in cases:
@@ -267,6 +309,12 @@ def self_test():
     unread_ok = len(problems) == 1 and "988lifeline" in problems[0] and len(notes) == 1
     wrong += not unread_ok
     print(f"  {'ok' if unread_ok else 'WRONG'}: an unread provider page fails the run, a known blocker is a note")
+    # HRSA's maternal hotline page answers scripts with 403, so a person opens it instead.
+    hrsa = [check for check in CHECKS if urllib.parse.urlsplit(check[0]).hostname == "mchb.hrsa.gov"]
+    problems, notes = run(lambda _url: (403, ""), None, hrsa, out=lambda _line: None)
+    hrsa_ok = len(hrsa) == 1 and not problems and len(notes) == 1
+    wrong += not hrsa_ok
+    print(f"  {'ok' if hrsa_ok else 'WRONG'}: HRSA's blocked page is left for a person, not failed")
     # Every number and row in notes/SAFETY.md has a check, and a missing one is noticed.
     gaps = check_coverage()
     without_taps = check_coverage([check for check in CHECKS if "taps.org" not in check[0]])
@@ -278,7 +326,7 @@ def self_test():
     if wrong:
         print(f"{wrong} case(s) read wrongly. The monthly check can't be trusted until this is fixed.")
         return 1
-    print(f"All {len(cases) + 2} made-up cases were read correctly, and every crisis number in notes/SAFETY.md has a check.")
+    print(f"All {len(cases) + 3} made-up cases were read correctly, and every crisis number in notes/SAFETY.md has a check.")
     return 0
 
 

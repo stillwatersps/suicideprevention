@@ -1776,11 +1776,13 @@ def check_compact_copies(failures, css=None):
                             "selector there with its copy's html[lang=\"...\"]")
 
 
-# Crisis services known to refuse scripts. Both answer 403, and a person checks them in a browser instead.
+# Crisis services known to refuse scripts. Two answer 403, and a person checks them in a browser instead.
 # findtreatment.gov came off this list on November 8, 2026, after it answered this link check normally
 # twice, and it did so twice more on November 9 and on November 10. A plain read still gets a nearly
-# empty page from it, so tools/check_crisis_sources.py reads it in Chrome.
-KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov"}
+# empty page from it, so tools/check_crisis_sources.py reads it in Chrome. HRSA's maternal hotline page
+# answered 403 to both of tools/check_crisis_sources.py's reads on November 9, 2026, though it opened in
+# the desktop app's browser.
+KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov", "mchb.hrsa.gov"}
 
 
 def open_link(url):
