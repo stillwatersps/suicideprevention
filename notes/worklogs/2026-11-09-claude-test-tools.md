@@ -17,8 +17,9 @@ on a real phone, and no qualified person has reviewed anything here.
 
 One founder asked Claude to build everything still to build. This task was two testing tools: a QR code
 that `tools/preview_server.py --lan` prints, so a phone can open the preview without typing the address,
-and axe-core accessibility checks in the browser tests. The founder approved downloading axe-core for the
-tests only.
+and axe-core accessibility checks in the browser tests. No note records that either founder agreed to
+download axe-core, even for the tests only, so that is a proposal for both founders to confirm, like the
+other tool choices. See the open points below.
 
 ## Completed
 
@@ -64,7 +65,7 @@ Triage on November 9, 2026. No violation needed a page change:
 
 | Finding | Pages | What was done |
 | --- | --- | --- |
-| `target-size`: a tab partly hidden | Both Daily check-in pages, phone size, after choosing a tab or step | Allowed, with the reason written in `AXE_ALLOWED` and printed as a NOTE each run. Choosing a tab scrolls its section to just below the pinned crisis strip, so the tab row sits partly behind the strip, about 13 px of it showing, until the visitor scrolls up. At the top of the page every tab passes. The allowance only covers "partially obscured", and a planted bug shows tabs that are simply too small still fail |
+| `target-size`: the tab row hidden | Both Daily check-in pages, phone size, after choosing any tab, Today included | Allowed, with the reason written in `AXE_ALLOWED` and printed as a NOTE each run. Choosing a tab scrolls its section to just below the pinned crisis strip, and the whole tab row ends up behind the strip: in phone-size emulation at 390x844 the row is at -11 to 84 px and the strip covers 0 to 98 px, so none of it shows. A visitor scrolls back up about 110 px to see or change tabs. After choosing a step, the row is further up, off the screen, so axe-core doesn't flag it. axe-core calls the tabs "partially obscured" with "12.6px" left because it counts only the strip's own links as covering them, not the strip's background; 12.6 px is the space between those links. At the top of the page every tab passes. The allowance only covers "partially obscured", and a planted bug shows tabs that are simply too small still fail. A decision for the founders, below |
 | Undecided contrast, text over a photo or drawn behind a link | Both homepages at desktop size, one link on Help Someone | Measured on screen. Every one passes |
 | Undecided contrast, `nonBmp` | Arrows in "← Home" and similar links on every page | Counted as fine, with the reason in `AXE_UNDECIDED_FINE`: each is a symbol hidden from screen readers, inside a link whose words are checked |
 
@@ -134,9 +135,14 @@ On the same commits, unchanged. https://registry.npmjs.org/axe-core/4.14.0 still
 
 None of this is agreed by both founders; each part is easy to remove.
 
-- **For the founders: the check-in tab row after choosing a tab.** On a phone, choosing Rediscover,
-  Journal, or Your journey leaves the tab row half behind the crisis strip. A visitor scrolls up a little to
-  choose another tab. Keeping the row in view would change the page's behavior, so it wasn't changed.
+- **For the founders to decide: the check-in tab row after choosing a tab.** In phone-size emulation,
+  choosing any tab, Today included, leaves the whole tab row behind the pinned crisis strip, with none of
+  it showing. To see or change tabs, a visitor scrolls back up about 110 px; after choosing a step, further.
+  Measured in Chrome's phone-size emulation only, not on a real phone. Keeping the row in view would change
+  the page's behavior, so it wasn't changed here. The founders decide whether it should stay in view.
+- **For both founders to confirm: downloading axe-core for the tests.** No note records an agreement. The
+  `axe` group, the browser workflow, and `README.md` depend on that one outside download. Removing it means
+  removing the `axe` group and `tools/axe_core.py`.
 - **No phone has scanned the QR code yet.** Core Image reads it on this Mac. When trying [[PHONE-TEST]],
   note whether the camera opened the address, and which terminal and text size were used.
 - axe-core's first download needs the internet. Without it, and with no cached copy, the `axe` group
