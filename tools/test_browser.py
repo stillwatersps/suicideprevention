@@ -1668,13 +1668,17 @@ def test_a11ytree(browser, site, pages, report):
 AXE_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"]
 AXE_SIZES = [("phone 390x844", 390, 844, True), ("desktop 1440x900", 1440, 900, False)]
 # Findings allowed, each with the written reason it isn't a problem: (rule, pages, or () for every page, text in
-# the element's selector or markup, text in axe-core's explanation, reason). Each one allowed is still printed as
-# a NOTE. Add one only with a reason a person could check.
+# the element's selector or markup, text in axe-core's explanation, the states it's allowed in, as the end of the
+# place each state is reported, or () for every state, reason). Each one allowed is still printed as a NOTE. Add
+# one only with a reason a person could check.
 # axe-core says "partially obscured" for the check-in tabs because it counts only the crisis strip's own links as
 # covering them, not the strip's solid background. Its "12.6px" is the space between those links. Measured with
 # document.elementFromPoint in phone-size emulation at 390x844 on November 9, 2026, none of the tab row shows.
+# It's allowed only after a tab is chosen, so the same finding with the page at the top, or after a step, fails.
+CHECK_IN_TABS = ("#ci-today", "#ci-rediscover", "#ci-journal", "#ci-journey", "today's suggestions")
 AXE_ALLOWED = [
     ("target-size", ("check-in/index.html", "es/registro-diario/index.html"), 'a[href$="#ci-', "partially obscured",
+     tuple(", " + state for state in CHECK_IN_TABS),
      "Choosing any tab, Today included, scrolls its section to just below the pinned crisis strip, so the whole tab "
      "row is behind the strip and none of it shows. To see or change tabs, the visitor scrolls back up about 110 px. "
      "After choosing a step, the row is further up, off the screen. axe-core calls the tabs partially obscured because "
@@ -1819,11 +1823,11 @@ MEASURE_JS = """(async function (png, clip, boxes, text) {
 })(%s, %s, %s, %s)"""
 
 
-def axe_allowance(rule, page, node):
+def axe_allowance(rule, page, node, where):
     """The written reason a finding is allowed, or None."""
-    for allowed_rule, allowed_pages, text, why, reason in AXE_ALLOWED:
+    for allowed_rule, allowed_pages, text, why, states, reason in AXE_ALLOWED:
         if allowed_rule == rule and (not allowed_pages or page in allowed_pages) and text in node["target"] + " " + node["html"] \
-                and why in node["why"]:
+                and why in node["why"] and (not states or where.endswith(states)):
             return reason
     return None
 
@@ -1861,7 +1865,7 @@ def check_with_axe(tab, source, page, where, report, context=None):
         report.fail("axe", page, f"the page reports axe-core {result['version']}, not the pinned {axe_core.VERSION}", where)
     for rule in result["violations"]:
         for node in rule["nodes"]:
-            reason = axe_allowance(rule["id"], page, node)
+            reason = axe_allowance(rule["id"], page, node, where)
             if reason:
                 report.note("axe", page, f"{rule['id']} allowed on {node['target']}: {reason}", where)
             else:

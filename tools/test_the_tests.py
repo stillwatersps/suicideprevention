@@ -258,8 +258,13 @@ BUGS = [
     # axe-core can't judge text over the homepage's photo, so the test measures it on screen.
     ("axe: a color made faint over the photo", append_css(".hero-lead { color: #a8a8a8 !important; }"), "axe", "es/index.html", "measured on screen"),
     # The allowance for check-in tabs behind the pinned strip must not cover tabs that are simply too small.
-    # Small and stacked tightly, so the spacing that WCAG accepts for small targets isn't there either.
-    ("axe: check-in tabs too small to tap", append_css(".ci-tabs ul { display: block !important; } .ci-tabs a { display: block !important; min-height: 0 !important; padding: 0 !important; font-size: 9px !important; line-height: 1 !important; }"), "axe", "check-in", "target-size"),
+    # Small and stacked tightly, so the spacing that WCAG accepts for small targets isn't there either. Only the #ci-
+    # tabs the allowance names are made small, and only after a tab is chosen, where the allowance applies, so neither
+    # the Support tab nor the page at the top, which the allowance never covers, can make this count as caught.
+    ("axe: check-in tabs too small to tap", append_css("body:has(.ci-panel:target) .ci-tabs ul { display: block !important; } body:has(.ci-panel:target) .ci-tabs a[href^=\"#ci-\"] { display: block !important; min-height: 0 !important; padding: 0 !important; font-size: 9px !important; line-height: 1 !important; }"), "axe", "check-in", 'a[href$="#ci-today"]: Fix any of the following: Target has insufficient size ('),
+    # The allowance covers only the states after a tab is chosen. Here the tab row is behind the strip where the page
+    # is first checked, at the top, as it would be if the strip grew: that must fail, not pass as a NOTE.
+    ("axe: check-in tabs behind the strip at the top of the page", replace("tools/test_browser.py", "                tab.goto(site.url(page))\n                tab.js(OPEN_ALL)\n                ran.add(", "                tab.goto(site.url(page))\n                tab.js(\"if (document.getElementById('ci-today')) location.hash = '#ci-today'; true\")\n                tab.browser.pump(0.05)\n                tab.js(OPEN_ALL)\n                ran.add("), "axe", "check-in", "insufficient size because it is partially obscured"),
 ]
 
 # Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.
