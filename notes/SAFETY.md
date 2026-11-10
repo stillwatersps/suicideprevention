@@ -209,13 +209,57 @@ NIMH's Suicide Prevention page still says to call 911 in life-threatening situat
 - The recorded menu on a 988 call. Nobody here has listened to it live, and it
   must not be tested by calling. Ask 988 or listen to the audio on its website.
 
+### Read November 9, 2026, for the section on posts online
+
+Claude read these in the desktop app's built-in browser for the draft section "If a friend posts
+about suicide online" on Help Someone and its Spanish twin, and read every one again on November 10,
+2026, when each still said what is recorded below. Nothing was called, texted, chatted,
+reported, or submitted, no platform's report form was opened, and no person has confirmed them. The
+section adds no new number or keyword, and the resource table above is unchanged.
+
+- **988's Get Help page** (https://988lifeline.org/get-help/) lists call, text, and chat, and for
+  Spanish, dial 988 then press 2, or text AYUDA to 988, as the rows for 988 and 988 in Spanish above
+  say.
+- **988's Support on Social Media page**
+  (https://988lifeline.org/help-someone-else/support-on-social-media/) says that if you're worried
+  about someone on social media, you can contact safety teams, who will reach out to connect the
+  person with help. It explains how to report on 11 platforms and links their report or help pages:
+  Discord, Facebook, Instagram, Pinterest, Reddit, Snapchat, TikTok, Twitch, X, YouTube, and Bluesky.
+  It notes that Tumblr no longer responds directly to reports of suicide or self-harm. In its advice
+  for people who run online communities, it says to call 911 if the person may be at imminent risk.
+- **988's Help Someone Else page** (https://988lifeline.org/help-someone-else/) says never to keep
+  it a secret if a friend tells you about a plan to hurt themselves, and to contact 988 at any time
+  if a friend is struggling. Its Spanish twin (https://988lifeline.org/es/ayude-a-alguien-mas/) says
+  to call 988 at any time if a friend is struggling, and has no section on social media.
+- **#chatsafe, from Orygen in Australia** (https://www.orygen.org.au/chatsafe/responding and
+  https://www.orygen.org.au/chatsafe/talking). Responding says to take a worrying post seriously,
+  even if it's said as a joke; to call emergency services if someone may be in danger right now,
+  since life-saving help matters more than a secret; that what you do can depend on how you feel and
+  how well you know the person; and to report the post. Talking says not to post or share unsafe
+  images or videos, and to report unsafe content. Its emergency number and helplines are
+  Australia's, so the pages say to use 988 and 911 in the U.S. and copy none of its numbers. It also
+  says calling emergency services and reporting won't get the person into trouble. The pages leave
+  that out, because Meta's page below says a report can lead to a wellness check. Orygen's footer
+  says no part may be reproduced without its prior written permission, so the pages paraphrase
+  #chatsafe and link to it.
+- **CDC, How to Talk to a Friend** (https://www.cdc.gov/free-mind/teens/talk-to-a-friend.html, last
+  reviewed March 27, 2026) suggests a parent or a trusted adult such as a coach, teacher, or school
+  counselor.
+- **Meta's Safety Center page on suicide prevention**
+  (https://www.meta.com/safety/topics/wellbeing/suicide-prevention/) says Meta reviews reported
+  posts and, when it thinks there is an imminent risk of harm, alerts first responders or emergency
+  services for a wellness check. Read for a question in [[CONTENT-REVIEW]]. The pages don't cite it.
+
 ## Guidance to read before writing content
 
 - Framework for Successful Messaging (Action Alliance): https://suicidepreventionmessaging.org/safety
 - Recommendations for reporting on suicide (SAVE): https://www.save.org/media/media-recommendations/
   (reportingonsuicide.org now redirects here)
 - #chatsafe guidelines for young people online (Orygen): https://www.orygen.org.au/chatsafe
-  (Australian phone numbers, and reproduction needs permission, so link to it)
+  (Australian phone numbers, and reproduction needs permission, so link to it). Its Responding and
+  Talking pages were read November 9, 2026, for Help Someone. For visitors outside Australia, its
+  home page links a list of international guidelines, which includes a U.S. English edition and a
+  Spanish edition for Mexico. Nobody here has read either.
 - NIMH action steps: https://www.nimh.nih.gov/health/publications/5-action-steps-to-help-someone-having-thoughts-of-suicide
 
 Claude's working summary, for the reviewer to confirm. It draws on those sources and

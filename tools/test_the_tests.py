@@ -264,6 +264,8 @@ BUGS = [
     ("sideways scrolling", append_css("body { min-width: 500px; }"), "matrix", "get-help", "scrolls sideways"),
     ("low contrast text", append_css(".hero-lead { color: #bbbbbb; }"), "matrix", "get-help", "low contrast"),
     ("an image that doesn't load", replace("index.html", 'src="assets/images/joshua-tree-sunset-1600.jpg"', 'src="assets/images/none.jpg"'), "links", "index", "answered 404"),
+    # For Teens links to the section on posts online on Help Someone. Renaming that section would break it.
+    ("a link to a section on another page that isn't there", replace("teens/index.html", 'href="../help-someone/#online"', 'href="../help-someone/#posts-online"'), "links", "teens", "points to a missing section"),
     ("something loaded from another site", regex("get-help/index.html", r'<meta name="referrer"', '<link rel="prefetch" href="https://example.com/x.css"><meta name="referrer"'), "matrix", "get-help", "contacted another site"),
     ("a script error", replace("assets/menu.js", "// Opens and closes the phone navigation menu.", "throw new Error('planted');"), "matrix", "get-help", "script error"),
     ("overlapping controls", append_css(".lang-switch { margin-bottom: -40px; }"), "matrix", "get-help", "controls overlap"),
@@ -461,6 +463,7 @@ COMMAND_BUGS = [
     ("a rule without its language inside the Spanish copy of the compact crisis strip", replace("assets/styles.css", '      html[lang="es"] body { padding-bottom: 0; }', '      html[lang="es"] body { padding-bottom: 0; }\n      .strip-or { margin: 0 2rem; }'), ["tools/check_site.py"], "isn't written for that language alone"),
     ("an upper-case text link with a wrong number, in the site check", replace("get-help/index.html", 'href="sms:838255"', 'href="SMS:838256"'), ["tools/check_site.py"], "not a number recorded"),
     ("a link above the site's root", replace("index.html", 'href="get-help/"', 'href="../get-help/"'), ["tools/check_site.py"], "broken link"),
+    ("a link to a section on another page that isn't there, in the site check", replace("es/adolescentes/index.html", 'href="../ayudar-a-alguien/#online"', 'href="../ayudar-a-alguien/#publicaciones"'), ["tools/check_site.py"], "points to a missing section"),
     ("a wrong number printed on the wallet card", replace("card/index.html", "call 1-866-488-7386", "call 1-866-488-7368"), ["tools/check_site.py"], "printed card or poster"),
     ("a wrong number printed on the blank safety plan", replace("safety-plan/index.html", "call or text 988, any time.</p>", "call or text 989, any time.</p>"), ["tools/check_site.py"], "printed card or poster"),
     ("a page added later with a source date unlike the other later page's", replace("es/plan-de-seguridad/index.html", "Fuentes consultadas el 10 de noviembre de 2026.", "Fuentes consultadas el 8 de noviembre de 2026."), ["tools/check_site.py"], "sources on the pages added later"),

@@ -184,7 +184,9 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Call 1-877-565-8860 (Llamar al 1-877-565-8860 y marcar 2) | Get Help and its Spanish twin | `tel:+18775658860` | Trans Lifeline | Link format only | Phone test |
 | Trans Lifeline hotline page / Línea de ayuda de Trans Lifeline | Get Help and its Spanish twin | translifeline.org/hotline/, translifeline.org/es/linea-de-ayuda/ | Trans Lifeline | Page read in a browser | None |
 | A form (PDF) | Get Help | Stanley-Brown safety plan PDF | Its developers | File loads | See the question on permission |
-| How this works on different platforms | Help Someone | 988's social media page | 988 Lifeline | Page opens | None |
+| How to report on different platforms / Cómo reportar en distintas plataformas | Help Someone and its Spanish twin, in the section on posts online | 988's social media page | 988 Lifeline | Page opens. Read in the built-in browser November 9, 2026 | None |
+| #chatsafe | Help Someone and its Spanish twin, in the section on posts online | #chatsafe's Responding page, https://www.orygen.org.au/chatsafe/responding | Orygen, in Australia | Page opens. Read in the built-in browser November 9, 2026 | Reviewer: should a U.S. site link it? Its emergency number and helplines are Australian |
+| What to do if a friend posts about suicide online / Qué hacer si un amigo publica algo sobre el suicidio en internet | For Teens and its Spanish twin | The section on posts online on Help Someone | Tidelight | Link and its target checked by the site check and browser tests, November 9, 2026 | None |
 | Our web host logs visitors' IP addresses | Home | Privacy section of the About page | Tidelight | Tested in browser | Lawyer question |
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
 | Get Support Now | Header | Crisis options on the same page. On Home it rings the three buttons already on screen; on other pages it jumps to them | Tidelight | Tested in browser | Founders: is the label right? |
@@ -314,7 +316,9 @@ Wording is proposed. Nothing here is clinical advice.
   people get?
 - For a worrying post, the page offers 911 and the site's safety team. 911 needs a location,
   and a reader often won't know where the person is. No source read says what to do then.
-  Should it mention calling or texting 988 for advice, or telling a trusted adult?
+  Should it mention calling or texting 988 for advice, or telling a trusted adult? (November 9,
+  2026: the new section on posts online now mentions both. See the questions about that section
+  below.)
 - The warning signs follow NIMH's 2025 list with no urgent tier, because official
   sources sort urgent signs differently. Is that right?
 - Sources differ on when not to leave someone alone. The general rule on the page
@@ -343,6 +347,52 @@ Wording is proposed. Nothing here is clinical advice.
 - For a young person whose friend told them by text or online, the page says to keep
   talking if you can while you get an adult, or call or text 988. That wording is
   Claude's, because the sources don't cover it. Is it right?
+
+**Help Someone: if a friend posts about suicide online**
+
+Drafted by Claude on November 8, 2026, and checked again on November 9, 2026, as a task in one
+founder's session, in English and Spanish. It draws on 988's Support on Social Media, Help Someone
+Else, and Get Help pages, #chatsafe's Responding and Talking pages, and CDC's page on talking to a
+friend, all read again on November 9 and on November 10. For Teens links to it. Wording is proposed. [[SAFETY]] records
+what each page says.
+
+- The section gives five steps: call 911 if they may be in danger right now, reach out privately if
+  you feel able to, tell a trusted adult if you're a teen, report the post, and don't share or repost
+  it. The task that asked for the section listed 911 last. Claude put it first, as the urgent note at
+  the top of the page does. Is the order right?
+- Should a young person be told to reach out to someone who may be at risk at all, or only to tell an
+  adult and report the post? #chatsafe offers a conversation for someone who feels able to have one,
+  and a supportive comment or direct message for someone who doesn't. "Privately" is Claude's choice,
+  to keep the person's distress out of public view. Is that right?
+- "Don't share or repost it" is Claude's wording. #chatsafe says not to post or share unsafe images
+  or videos, meaning those that show the place, method, or outcome, and to report unsafe content. No
+  source read says in so many words not to share a friend's post. The page adds that showing it to a
+  trusted adult is fine. Is that right, and could "don't share" make a young person slow to show it to
+  an adult?
+- Reporting: 988 says a platform's safety team will reach out to connect the person with help, and
+  that Tumblr no longer responds directly to these reports. Is naming one platform useful, or likely
+  to go out of date? #chatsafe says reporting won't get the person into trouble, and that a report
+  could get the content taken down. The page leaves out "won't get them into trouble", because Meta's
+  Safety Center (read November 9, 2026, and not cited on the page) says Meta alerts first responders
+  or emergency services for a wellness check when it thinks there is an imminent risk of harm. Should
+  the page say a report may lead to that?
+- 911 needs a location, and a reader may not know where the person is. The section doesn't say what
+  to do then, beyond reporting the post and calling or texting 988 for advice. No source read on
+  November 9 covers it. What should it say?
+- "Getting them help matters more than keeping their secret" paraphrases #chatsafe, which says
+  getting someone life-saving help is more important than keeping a secret told in confidence. 988
+  says never to keep it a secret if a friend tells you about a plan to hurt themselves. Is the
+  sentence right for young people?
+- #chatsafe is Australian: its emergency number and helplines are Australia's, and the page says so.
+  Orygen's footer says no part may be reproduced without its written permission, so the page
+  paraphrases it and links. Is it right to link an Australian page from a U.S. site? Orygen's list of
+  international guidelines includes "US - English Edition Two", which nobody here has read. Should the
+  page link that instead, once someone has read it?
+- Spanish: the Spanish page links #chatsafe's English page and 988's English social media page, since
+  988's Spanish Help Someone Else page has no social media section. Orygen's list includes a Spanish
+  edition for Mexico, which nobody here has read, so nobody has checked which phone numbers it gives.
+  Should Spanish readers get it, with a warning about numbers? A fluent reader should check this
+  section too.
 
 **Research**
 
