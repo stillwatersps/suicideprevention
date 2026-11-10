@@ -191,6 +191,7 @@ request 5, not merged. What changed:
 
 Still open: check Tidelight against existing organizations and trademarks before
 buying a domain or printing cards.
+A first scan by an AI assistant on November 8, 2026, not a trademark search, is in [[NAME-CHECK]].
 
 ## Recorded November 7, 2026: publish safety check, proposed
 
