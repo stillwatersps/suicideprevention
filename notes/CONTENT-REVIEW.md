@@ -53,6 +53,10 @@ One founder asked that this come first, November 9, 2026.
 | Spanish About (`es/acerca-de/`) | AI translation | On the page | Not reviewed; no fluent reader yet |
 | Daily check-in (`check-in/`) | Draft, from a founder's spec. Questions, suggestions, and prompts written by Claude | None; general well-being ideas, not health claims | Not reviewed |
 | Spanish Daily check-in (`es/registro-diario/`) | AI translation | None | Not reviewed; no fluent reader yet |
+| Make a safety plan (`safety-plan/`) | Draft, November 9, 2026, from AFSP, SPRC, NIMH, the Stanley-Brown site, and 988. Blank plan to print, in Tidelight's own words | On the page | Not reviewed |
+| Spanish Make a safety plan (`es/plan-de-seguridad/`) | AI translation | On the page, in English | Not reviewed; no fluent reader yet |
+| After a suicide attempt (`after-an-attempt/`) | Draft, November 9, 2026, from AFSP, SPRC, NIMH, FindTreatment.gov, and 988 | On the page | Not reviewed; needs someone who has survived an attempt |
+| Spanish After a suicide attempt (`es/despues-de-un-intento/`) | AI translation | On the page, in English | Not reviewed; no fluent reader yet |
 
 Every draft page says so on screen. Remove those notes only after review.
 
@@ -133,12 +137,13 @@ these: tap, stop at the dial or compose screen, and cancel.
 | --- | --- | --- | --- | --- | --- |
 | Call 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `tel:988` | 988 Lifeline | Link format only | Phone test |
 | Text 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `sms:988` | 988 Lifeline | Link format only | Phone test |
-| Call 911 | Crisis strip, Get Help, For Teens, Not sure, After a loss, Help Someone urgent note, and their Spanish twins | `tel:911` | Local 911 | Link format only | Phone test. Decide whether it should be a link at all |
+| Call 911 | Crisis strip, Get Help, For Teens, Not sure, After a loss, Make a safety plan, After a suicide attempt, Help Someone urgent note, and their Spanish twins | `tel:911` | Local 911 | Link format only | Phone test. Decide whether it should be a link at all |
 | Chat Online | Buttons, closing banner | chat.988lifeline.org | 988 Lifeline | Page opens; form not submitted | Open on a phone |
 | Text 988 / Chat with 988 (Enviar AYUDA al 988 / Chatear en español) | Deaf or hard of hearing card on Get Help, For Teens, and their Spanish twins | `sms:988`, chat.988lifeline.org | 988 Lifeline | Link format only | Phone test, a Deaf-led reviewer |
 | Deaf or hard of hearing / Personas sordas o con dificultades auditivas | Under the crisis buttons on every page | The Deaf card on Get Help | Tidelight | Tested in browser | A Deaf-led reviewer: is the wording right? |
 | Go to the feelings / Ir a los sentimientos | Not sure | The list of feelings on the same page | Tidelight | Tested in browser | Reviewer |
 | Print poster and wallet cards / Imprimir el cartel y las tarjetas | Wallet card | The phone's or computer's print screen | Tidelight | Print view tested in browser | Print one on a real printer |
+| Print the blank plan / Imprimir el plan en blanco | Make a safety plan and its Spanish twin | The phone's or computer's print screen. Only the blank plan prints | Tidelight | Print view tested in desktop Chrome: two pages, with 988 and 911 | Print one on a real printer, and fill it in by hand |
 | Ayuda en español | Every English page | Spanish block on Get Help | Tidelight | Tested in browser | Spanish reviewer |
 | Llamar al 988 y marcar 2 | Get Help, Spanish block; Spanish Get Help | `tel:988` | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
 | Enviar AYUDA al 988 | Get Help, Spanish block | `sms:988`, message blank | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
@@ -173,7 +178,7 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Llamar al 988 y marcar 3 / Enviar PRIDE al 988 / Llamar al 1-866-488-7386 / Enviar START al 678-678 / Enviar HOME al 741741 / Llama al 911 | Spanish Get Help and Spanish For Teens | `tel:988`, `sms:988`, `tel:+18664887386`, `sms:678678`, `sms:741741`, `tel:911` | 988 LGBTQ+ youth service; The Trevor Project; Crisis Text Line; local 911 | Link format only | Phone test; fluent reader. Confirm the 988 option with 988 |
 | Menu | Header, phones and tablets | Opens the page list | Tidelight | Tested in browser | Real phone with a screen reader |
 | Five homepage cards | Home | Get Help, Help Someone, Research, Not sure, After a loss | Tidelight | Tested in browser | None |
-| Show sources / Ver fuentes / Mostrar fuentes | Get Help, Help Someone, For Teens, Not sure, After a loss, About, and their Spanish twins | Opens the source list | Tidelight | Tested in browser | None |
+| Show sources / Ver fuentes / Mostrar fuentes | Get Help, Help Someone, For Teens, Not sure, After a loss, Make a safety plan, After a suicide attempt, About, and their Spanish twins | Opens the source list | Tidelight | Tested in browser | None |
 
 Text and chat with a crisis service start with automated steps. Texting asks you
 to accept terms and answer a few questions. The Get Help page says chat asks for a zip
@@ -410,6 +415,16 @@ Spanish guide (page 19). Surviving a Suicide Loss had no method wording, and the
 only advises against sharing the method. The reviewer and someone with lived experience of loss
 should decide whether these links stay. No person has read them line by line. 988's
 old loss survivors page now answers "not found", so it isn't cited.
+
+### How the November 9 pages' sources were read
+
+Claude read these on November 9, 2026, for Make a safety plan and After a suicide attempt. Not human
+review. 988's Get Help and What to Expect pages, SPRC's two resource pages, FindTreatment.gov, and 988's
+Help Someone Else page were read in the built-in browser. AFSP's two pages, NIMH's two pages, the
+Stanley-Brown site, and SPRC's Care Transitions page were read through a page reader that returns the
+text with quotes, not line by line in a browser. SPRC's quick guide for clinicians is a PDF of page
+images, so only its resource page was read, and the page cites that. SAMHSA's guides couldn't be read;
+see the questions above.
 
 ## How the pages compare with the research brief
 
@@ -791,6 +806,42 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   reflection to a person the user picks, through the phone's share sheet. What should the app say
   next to it, so people know who will see it and that it isn't a way to get urgent help?
   See [[IDEAS]].
+
+## Questions about Make a safety plan and After a suicide attempt
+
+Built November 9, 2026, at one founder's request, as drafts. Sources were read that day; see "How the
+November 9 pages' sources were read" below.
+
+- **A safety plan made alone.** The page says a professional can help and that a plan doesn't replace
+  care, and Research says the evidence comes mostly from plans made with a clinician. Is it right to
+  offer a blank plan to fill in alone? Should the page say more strongly to make it with someone?
+- **The six steps.** They follow the order the Stanley-Brown site and AFSP describe, in Tidelight's own
+  words, and the blank plan is not a copy of the Stanley-Brown form. Should it add their optional step,
+  reasons for living? Is "People and places that take my mind off things" the right wording?
+- **Examples in step 2** (music, a walk, a shower, something that keeps your hands busy) are Claude's,
+  not from a source. Keep, change, or remove them?
+- **Making the space safer.** Both pages stay general, with no method details: keep things you could
+  use to hurt yourself away, ask someone to keep or store them, and ask a professional. AFSP's page for
+  families names firearms and medicines, and NIMH speaks of safe storage of lethal means. Should the
+  pages name them, as those sources do?
+- **Under 18.** Step 4 suggests adding a trusted adult, and says a young person can still call or text
+  988 if no adult feels safe. Is that enough? (Research brief question 3.)
+- **On paper.** The page says a printed plan could be read by others. Is that the right warning for a
+  shared home, and should it say anything about keeping a photo of the plan on a phone?
+- **After an attempt: risk after a hospital stay.** The page gives SPRC's and AFSP's words that risk
+  stays higher for months, and through the first year, to explain why follow-up matters. It leaves out
+  SPRC's figure for the first week. Is even this too much for someone who just survived an attempt?
+- **Who reads it.** The page speaks to the person who survived and to their family in one place. Should
+  they be two pages? Someone who has survived an attempt should read it.
+- **Peer support.** AFSP says there are support groups for people who survived an attempt. The page
+  links no such group. Which, if any, should it list?
+- **SAMHSA's guides.** SAMHSA has guides for attempt survivors and families: After an Attempt (for the
+  person, for a family member) and A Journey Toward Health and Hope. On November 9, 2026, its library
+  showed a human verification page instead of the files, and the old store links no longer open them,
+  so they weren't read or cited. A person should open them and decide whether to add them, including
+  the Spanish version of the guide for the person who survived.
+- **988 pages.** 988's older page for attempt survivors now answers "not found". Its current site has
+  no page on safety plans or attempt survivors, so the pages use 988 only for how to reach it.
 
 ## Human-only checklist
 

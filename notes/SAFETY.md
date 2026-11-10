@@ -56,7 +56,7 @@ column. Recheck close to publication and at least monthly (proposed).
 | Resource | How to reach it | Official page | Read on | Person confirmed |
 | --- | --- | --- | --- | --- |
 | 988 Suicide & Crisis Lifeline | Call or text 988; chat at chat.988lifeline.org. 24/7 | https://988lifeline.org/get-help/ | Nov 6 and 9, 2026 | |
-| 988 by text, first steps | Send any message to 988. Reply NEXT to accept the terms of service, answer a brief survey, then a Wait message comes before a counselor. 988's Spanish What to Expect page lists the same steps and says the word "siguiente" accepts the terms | https://988lifeline.org/faq/texting-the-988-lifeline/ and https://988lifeline.org/get-help/what-to-expect/ (Spanish: https://988lifeline.org/es/obten-ayuda/que-puede-esperar/) | Nov 7, 2026 | |
+| 988 by text, first steps | Send any message to 988. Reply NEXT to accept the terms of service, answer a brief survey, then a Wait message comes before a counselor. 988's Spanish What to Expect page lists the same steps and says the word "siguiente" accepts the terms | https://988lifeline.org/faq/texting-the-988-lifeline/ and https://988lifeline.org/get-help/what-to-expect/ (Spanish: https://988lifeline.org/es/obten-ayuda/que-puede-esperar/) | Nov 7, 2026; What to Expect again Nov 9, 2026 | |
 | 988 in Spanish | Call 988, then press 2; text AYUDA to 988; chat at chat.988lifeline.org/?lang=es | https://988lifeline.org/get-help/ | Nov 6 and 9, 2026 | |
 | 988 in other languages | Call 988 and ask for an interpreter or say the language. More than 240 languages, voice only | https://988lifeline.org/faq/calling-the-988-lifeline/faq-is-the-988-lifeline-available-in-other-languages-for-non-english-speakers/ | Nov 6, 2026 | |
 | 988 for Deaf and hard of hearing people | Dial 988 from a videophone; TTY users use a relay service or dial 711, then 988; text; chat | https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/ | Nov 6, 2026 | |
@@ -95,6 +95,16 @@ column. Recheck close to publication and at least monthly (proposed).
   supports Spanish and that the word isn't confirmed. A person should ask Crisis Text Line.
 - **Veterans Crisis Line TTY number.** Older VA pages list a 10-digit TTY number.
   The current call page says to use a relay service or dial 711, then 988.
+
+### Read for the November 9 pages
+
+Claude read 988's Get Help page (https://988lifeline.org/get-help/) and What to Expect page in the
+built-in browser on November 9, 2026, for the draft Make a safety plan and After a suicide attempt
+pages. Get Help still says call or text 988, press 2 or text AYUDA for Spanish, and press 1 or text
+838255 for the Veterans Crisis Line. What to Expect still says reply "Next" to accept the terms, then
+a brief survey and a Wait message. Those pages give only 988 and 911, and the Spanish pages also 988
+press 2 and AYUDA. The 911 wording on them matches NIMH's Suicide Prevention page, read the same day:
+"In life-threatening situations, call 911."
 
 ### Only a person can check
 
