@@ -65,8 +65,18 @@ The 988 chat addresses weren't requested. The full `--check-links` wasn't run, b
 
 ## Checked
 
-On a Mac, November 9, 2026. None of these is a phone test or a content review. Results are in the
-section below, filled in after the final run.
+On a Mac, November 9, 2026, at about 8:36 p.m. Eastern, on the merge commit's files. None of these is
+a phone test or a content review.
+
+| Command | Result line | Exit, time |
+| --- | --- | --- |
+| `python3 tools/make_review_packet.py` | Wrote both packets, as HTML and PDF. Fingerprint `0d1ac348a3f6` | 0, 3 s |
+| `python3 tools/check_site.py` | "All checks passed. This does not replace a real phone test or a content review." 21 pages, 112 outside links, no notes, so the packets are current | 0, 1.2 s |
+| `python3 tools/check_site.py --self-test` | "All 7 made-up link answers were read correctly." | 0, 0.2 s |
+| `python3 tools/check_crisis_sources.py --self-test` | "All 20 made-up cases were read correctly, and every crisis number in notes/SAFETY.md has a check." | 0, 0.2 s |
+| `python3 tools/launch_gate.py --self-test` | "All 61 made-up cases were read correctly." | 0, 3.8 s |
+| `python3 tools/test_the_tests.py --only "counted as fine"` | "All 2 planted bugs were caught." | 0, 0.7 s |
+| Link check on the two findtreatment.gov links only, twice | Both 200 both times, no notes or failures | 0, under 1 s each |
 
 ## Not run
 
