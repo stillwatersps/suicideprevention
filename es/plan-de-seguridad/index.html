@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Haz un plan de seguridad — Tidelight</title>
+  <meta name="description" content="Qué es un plan de seguridad, los pasos de siempre en palabras sencillas y un plan en blanco para imprimir y llenar a mano. No se escribe ni se guarda nada. Llama al 988 y marca 2, o envía AYUDA al 988 a cualquier hora.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../../assets/icon-180.png">
+  <!-- Not for search engines until the content and the Spanish translation have had review. See notes/DECISIONS.md. -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="en" href="../../safety-plan/">
+  <link rel="stylesheet" href="../../assets/styles.css">
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
+</head>
+<body class="print-page">
+  <a class="skip-link" href="#main">Saltar al contenido principal</a>
+  <!-- Línea de crisis siempre visible, requerida por notes/SAFETY.md regla 1. En teléfonos, la salida rápida va dentro de ella, para que nada quede debajo. -->
+  <aside class="crisis-bar" aria-label="Ayuda en una crisis y salida rápida">
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Salida rápida: salir de este sitio ahora e ir a la página de weather.gov"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg>Salida<span class="exit-extra"> rápida</span></a>
+    <p class="strip-988"><span class="strip-extra">¿Necesitas ayuda ahora? </span><a href="tel:988" aria-label="Llama al 988 y marca 2, la Línea 988 en español">Llama al 988</a> y marca 2<span class="strip-or">, o </span><a href="sms:988" aria-label="Envía AYUDA al 988, la Línea 988">envía AYUDA al 988</a><span class="strip-extra">, a cualquier hora</span><span class="strip-end">.</span></p>
+    <p class="strip-911"><span class="strip-lead">Si hay peligro inmediato, </span><a href="tel:911" aria-label="Llama al 911, servicios de emergencia">llama al 911</a><span class="strip-end">.</span></p>
+  </aside>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
+          <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
+          <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">Tidelight</span>
+          <span class="brand-tag">Prevención del suicidio y apoyo</span>
+        </span>
+        <span class="visually-hidden">, inicio</span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menú</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Principal">
+        <ul>
+          <li class="nav-home"><a href="../">Inicio</a></li>
+          <li><a href="../obtener-ayuda/">Obtener ayuda</a></li>
+          <li><a href="../ayudar-a-alguien/">Ayudar a alguien</a></li>
+          <li><a href="../adolescentes/">Adolescentes</a></li>
+          <li class="nav-phone"><a href="../registro-diario/">Registro diario</a></li>
+          <li class="nav-phone"><a href="../que-siento/">¿No sabes bien qué sientes?</a></li>
+          <li class="nav-phone"><a href="../despues-de-una-perdida/">Después de una pérdida</a></li>
+          <li><a href="../investigacion/">Investigación</a></li>
+          <li><a href="../acerca-de/">Acerca de</a></li>
+        </ul>
+      </nav>
+
+      <a class="button button-plum header-cta" href="#support">Obtén apoyo ahora</a>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="page-hero-inner">
+        <p class="lang-switch"><a href="../../safety-plan/" hreflang="en" lang="en">Read in English</a></p>
+        <p class="breadcrumb"><a href="../"><span aria-hidden="true">←</span> Inicio</a></p>
+        <p class="eyebrow">Prepararte para un momento difícil</p>
+        <h1 id="page-title">Haz un plan de seguridad</h1>
+        <p class="hero-lead">Un plan de seguridad es una lista corta que escribes con anticipación, para saber qué hacer si las cosas se ponen muy difíciles. Aquí están los pasos de siempre y un plan en blanco para imprimir y llenar a mano.</p>
+      </div>
+    </section>
+
+    <div class="page-body">
+      <section class="crisis-panel" id="support" tabindex="-1" aria-labelledby="crisis-title">
+        <h2 id="crisis-title">¿Necesitas hablar con alguien ahora?</h2>
+        <ul class="crisis-actions" aria-label="Comunícate con la Línea 988">
+          <li>
+            <a class="action action-primary" href="tel:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <span><span class="action-title">Llamar al 988</span><span class="action-sub">Marca 2 para español</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="sms:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Texto al 988</span><span class="action-sub">Escribe AYUDA</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="https://chat.988lifeline.org/?lang=es">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <span><span class="action-title">Chatear en línea</span><span class="action-sub">Chat en español con la 988</span></span>
+            </a>
+          </li>
+        </ul>
+
+        <p>La 988 dice que un texto empieza con unos pasos: aceptas sus términos, contestas una breve encuesta y esperas a un consejero.</p>
+        <p>La Línea 988 de Prevención del Suicidio y Crisis es gratuita, confidencial y está disponible a cualquier hora. Es un servicio aparte de Tidelight.</p>
+        <p class="fallback">¿Usas un aparato que no puede llamar ni enviar textos? Desde un teléfono, llama al <strong>988</strong> y marca 2, o envía AYUDA al <strong>988</strong>. También puedes chatear en <a href="https://chat.988lifeline.org/?lang=es">chat.988lifeline.org</a>. Si hay peligro inmediato, llama al <strong>911</strong>.</p>
+        <p class="access-link"><a href="../obtener-ayuda/#deaf-hoh">Personas sordas o con dificultades auditivas</a></p>
+      </section>
+
+      <section class="right-now" aria-labelledby="right-now-title">
+        <h2 id="right-now-title">Ahora mismo</h2>
+        <ol>
+          <li><strong>Si estás pasando por un momento difícil ahora, no necesitas un plan primero.</strong> Puedes <a class="tel-link" href="tel:988">llamar al 988</a> y marcar 2, o <a class="tel-link" href="sms:988">enviar AYUDA al 988</a> a cualquier hora.</li>
+          <li><strong>¿Hay peligro inmediato?</strong> <a class="tel-link" href="tel:911">Llama al 911</a>.</li>
+          <li>Vuelve al plan cuando las cosas estén más tranquilas.</li>
+        </ol>
+      </section>
+
+      <aside class="page-status review-note" aria-label="Estado de la revisión">
+        <p><strong>Borrador para revisión.</strong> Un profesional de la prevención del suicidio no ha revisado esta página. Un asistente de IA la tradujo del inglés, y ninguna persona hispanohablante ha revisado la traducción todavía. El plan en blanco está escrito con las palabras de Tidelight y no es un formulario oficial. <a href="../acerca-de/#review-status">Consulta el estado de revisión de cada página</a>.</p>
+      </aside>
+
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">En esta página</h2>
+        <ul>
+          <li><a href="#what-it-is">Qué es un plan de seguridad</a></li>
+          <li><a href="#steps">Los pasos de siempre</a></li>
+          <li><a href="#keeping-it">Cómo hacer y guardar tu plan</a></li>
+          <li><a href="#blank-plan">Un plan en blanco para imprimir</a></li>
+          <li><a href="#sources">Fuentes</a></li>
+        </ul>
+      </nav>
+
+      <!-- Draft, November 9, 2026: AI translation of safety-plan/. No method details. Nothing on this page can be typed, saved, or sent. -->
+      <div class="prose">
+        <section id="what-it-is" aria-labelledby="what-it-is-title">
+          <h2 id="what-it-is-title">Qué es un plan de seguridad</h2>
+          <p class="lead-in">Un plan de seguridad es una lista corta y escrita de cosas que puedes hacer y personas a quienes acudir si empieza una crisis. Lo haces con anticipación, en un momento más tranquilo, para no tener que pensarlo en medio de un momento difícil.</p>
+          <p>El Suicide Prevention Resource Center (SPRC) es un centro de recursos para la prevención del suicidio. Lo describe como una lista escrita de maneras de sobrellevar la situación y de fuentes de apoyo, en el orden en que las usarías. El Instituto Nacional de la Salud Mental (NIMH) dice que un plan de seguridad puede ayudar a reducir el riesgo de que una persona actúe según sus pensamientos de suicidio. Parte de esa investigación combinó el plan con contacto y seguimiento de un profesional clínico, así que no muestra qué haría un plan hecho a solas. En niños y adolescentes, una revisión de programas breves basados en un plan de seguridad no encontró un beneficio claro.</p>
+          <p>Un terapeuta, un consejero o un médico puede ayudarte a hacerlo. La American Foundation for Suicide Prevention (AFSP), una fundación para la prevención del suicidio, dice que un profesional de la salud mental puede ayudarte a preparar un plan. Un plan no reemplaza la atención profesional. <a href="../investigacion/#safety-plans">Consulta lo que muestran los estudios sobre los planes de seguridad</a>.</p>
+          <p>No tienes que terminar un plan antes de pedir ayuda. Puedes llamar al 988 y marcar 2, o enviar AYUDA al 988, en cualquier paso. Si hay peligro inmediato, llama al 911.</p>
+        </section>
+
+        <section id="steps" aria-labelledby="steps-title">
+          <h2 id="steps-title">Los pasos de siempre</h2>
+          <p>La mayoría de los planes de seguridad siguen los mismos pasos, desde lo que puedes hacer por tu cuenta hasta las personas que pueden ayudarte. Son los pasos que describen los creadores del Plan de Seguridad Stanley-Brown y la AFSP, con las palabras de Tidelight.</p>
+          <ol class="steps">
+            <li>
+              <h3>Reconoce tus señales de alerta</h3>
+              <p>Escribe los pensamientos, sentimientos o situaciones que suelen llegar antes de un momento difícil para ti. Notarlos pronto te dice que es hora de usar el resto del plan.</p>
+            </li>
+            <li>
+              <h3>Lo que te ayuda por tu cuenta</h3>
+              <p>Haz una lista de cosas que puedes hacer a solas para pasar un momento difícil, sin necesitar a nadie más. Solo tú sabes qué te funciona. Puede ser música, una caminata, una ducha o algo que mantenga tus manos ocupadas.</p>
+            </li>
+            <li>
+              <h3>Personas y lugares que te distraen</h3>
+              <p>Escribe personas con quienes te gusta estar y lugares donde te sientes un poco mejor, como la casa de una amistad, un parque o una biblioteca. No tienes que hablar con ellas de cómo te sientes.</p>
+            </li>
+            <li>
+              <h3>Personas a quienes puedes pedir ayuda</h3>
+              <p>Haz una lista de familiares o amistades a quienes puedes decirles que estás pasando por un mal momento, con sus números de teléfono. Si tienes menos de 18 años, puede ayudar incluir a un adulto de confianza, como un familiar, un maestro, un entrenador o un consejero escolar. Si no hay ningún adulto a quien te sientas seguro de decírselo, igual puedes llamar al 988 o enviarle un texto por tu cuenta.</p>
+            </li>
+            <li>
+              <h3>Profesionales y líneas de crisis</h3>
+              <p>Escribe a tu médico, terapeuta o consejero, si tienes uno. Agrega la Línea 988: puedes llamar al 988 y marcar 2, o enviar AYUDA al 988, a cualquier hora. Si hay peligro inmediato, llama al 911.</p>
+            </li>
+            <li>
+              <h3>Hacer más seguro tu espacio</h3>
+              <p>Piensa cómo mantener lejos de ti, durante un momento difícil, las cosas que podrías usar para hacerte daño. Podrías pedirle a alguien de confianza que las guarde, o que te ayude a guardarlas de forma segura. Un médico, un consejero o la 988 puede ayudarte a ver qué tiene sentido para ti.</p>
+            </li>
+          </ol>
+          <p class="provider-note">El NIMH dice que los estudios respaldan guardar de forma segura los objetos peligrosos para ayudar a prevenir el suicidio. <a href="../investigacion/#safer-surroundings">Consulta lo que muestran los estudios sobre un entorno más seguro</a>.</p>
+        </section>
+
+        <section id="keeping-it" aria-labelledby="keeping-it-title">
+          <h2 id="keeping-it-title">Cómo hacer y guardar tu plan</h2>
+          <ul>
+            <li><strong>Hazlo en un momento más tranquilo,</strong> a solas o con alguien de confianza. Un profesional también puede ayudarte.</li>
+            <li><strong>Guárdalo donde puedas encontrarlo rápido.</strong> En papel, otras personas podrían leerlo, así que elige un lugar que te parezca seguro.</li>
+            <li><strong>Compártelo si quieres.</strong> Algunas personas le dan una copia a alguien del paso 4, para que esa persona sepa cómo ayudar.</li>
+            <li><strong>Cámbialo cuando cambien las cosas,</strong> como un número de teléfono nuevo, un lugar nuevo que te ayuda o un médico nuevo.</li>
+          </ul>
+          <p>Esta página no guarda nada y no tiene dónde escribir. Tidelight nunca ve tu plan. Los creadores del Plan de Seguridad Stanley-Brown también ofrecen su propio formulario, en inglés, con un enlace en <a href="../obtener-ayuda/#hard-moment">Obtener ayuda</a>.</p>
+        </section>
+      </div>
+
+      <!-- The blank plan. On paper, only this part prints (the print-page class), and it carries 988 and 911 itself. Its numbers come only from notes/SAFETY.md. -->
+      <section class="print-area" id="blank-plan" aria-labelledby="blank-plan-title">
+        <h2 id="blank-plan-title" class="no-print-heading">Un plan en blanco para imprimir</h2>
+        <p class="no-print-heading">Imprímelo y llénalo a mano. Solo se imprime el plan, en una o dos páginas, con el 988 y el 911. También puedes copiar los pasos en cualquier hoja de papel.</p>
+        <p class="print-actions"><button type="button" class="print-button" hidden>Imprimir el plan en blanco</button></p>
+        <p class="print-actions print-hint" hidden>Si no pasa nada, abre esta página en tu navegador e imprímela desde el botón Compartir o el menú.</p>
+        <div class="sp-sheet">
+          <p class="sp-title">Mi plan de seguridad</p>
+          <p>Cuando las cosas se pongan difíciles, puedo seguir estos pasos en orden. Puedo pasar directo al paso 5 en cualquier momento.</p>
+          <ol class="sp-steps">
+            <li class="sp-step">
+              <h3>1. Mis señales de alerta</h3>
+              <p>Pensamientos, sentimientos o situaciones que me dicen que puede estar empezando un momento difícil:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>2. Lo que puedo hacer por mi cuenta</h3>
+              <p>Cosas que me ayudan a pasar un momento difícil, sin necesitar a nadie más:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>3. Personas y lugares que me distraen</h3>
+              <p>Personas con quienes me gusta estar y lugares donde me siento un poco mejor:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>4. Personas a quienes puedo pedir ayuda</h3>
+              <p>Nombre y número de teléfono:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>5. Profesionales y líneas de crisis</h3>
+              <p>Línea 988 de Prevención del Suicidio y Crisis: llama al 988 y marca 2, o envía AYUDA al 988, a cualquier hora.</p>
+              <p class="pc-urgent">Si hay peligro inmediato, llama al 911.</p>
+              <p>Mi médico, terapeuta o consejero, y su número de teléfono:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>6. Hacer más seguro mi espacio</h3>
+              <p>Cómo puedo mantener lejos de mí, durante un momento difícil, las cosas que podría usar para hacerme daño, y quién puede ayudarme:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+          </ol>
+          <p class="sp-note">Un borrador de Tidelight, que no es un servicio de crisis. Un profesional de la prevención del suicidio todavía no lo ha revisado.</p>
+        </div>
+      </section>
+
+      <div class="prose">
+        <section id="related" aria-labelledby="related-title">
+          <h2 id="related-title">Más en este sitio</h2>
+          <p class="page-links">
+            <a class="pill" href="../despues-de-un-intento/">Después de un intento de suicidio</a>
+            <a class="pill" href="../que-siento/">¿No sabes bien qué sientes?</a>
+            <a class="pill" href="../tarjeta/">Imprime una tarjeta</a>
+            <a class="pill" href="../adolescentes/">Para adolescentes</a>
+          </p>
+        </section>
+
+        <section id="sources" aria-labelledby="sources-title">
+          <h2 id="sources-title">Fuentes</h2>
+          <p>Fuentes consultadas el 10 de noviembre de 2026. Un asistente de IA redactó estos resúmenes para Tidelight y los tradujo al español, y ninguna persona calificada los ha revisado todavía. Las organizaciones que aparecen aquí no los han revisado ni respaldado. Todas las fuentes están en inglés.</p>
+          <details class="source-toggle">
+            <summary>Mostrar fuentes (10)</summary>
+            <ul class="sources">
+              <li><a href="https://suicidesafetyplan.com/" lang="en">Stanley-Brown Safety Planning Intervention</a>, sus creadores</li>
+              <li><a href="https://sprc.org/resources/safety-planning-guide-quick-guide-clinicians/" lang="en">Safety Planning Guide: A Quick Guide for Clinicians</a>, Suicide Prevention Resource Center (SPRC)</li>
+              <li><a href="https://sprc.org/resources/stanley-brown-safety-plan/" lang="en">Stanley-Brown Safety Plan</a>, SPRC</li>
+              <li><a href="https://afsp.org/after-an-attempt/" lang="en">After an attempt</a>, American Foundation for Suicide Prevention (AFSP)</li>
+              <li><a href="https://www.nimh.nih.gov/health/publications/suicide-faq" lang="en">Frequently Asked Questions About Suicide</a>, Instituto Nacional de la Salud Mental (NIMH)</li>
+              <li><a href="https://www.nimh.nih.gov/health/topics/suicide-prevention" lang="en">Suicide Prevention</a>, NIMH</li>
+              <li><a href="https://www.cambridge.org/core/journals/the-british-journal-of-psychiatry/article/safety-planningtype-interventions-for-suicide-prevention-metaanalysis/D6ED382A1C3F5CD29E56AED0557A8235" lang="en">Safety planning-type interventions for suicide prevention: meta-analysis</a>, Nuij y colegas, British Journal of Psychiatry, 2021</li>
+              <li><a href="https://europepmc.org/article/MED/40388177" lang="en">Safety Planning Interventions for Suicide Prevention in Children and Adolescents</a>, Albaum y colegas, JAMA Pediatrics, 2025, corregido en 2026</li>
+              <li><a href="https://988lifeline.org/get-help/" lang="en">988 Lifeline: Get Help</a>, Línea 988 de Prevención del Suicidio y Crisis</li>
+              <li><a href="https://988lifeline.org/get-help/what-to-expect/" lang="en">What to Expect</a>, Línea 988 de Prevención del Suicidio y Crisis</li>
+            </ul>
+          </details>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <nav class="footer-nav" aria-label="Todas las páginas">
+        <ul>
+          <li><a href="../">Inicio</a></li>
+          <li><a href="../obtener-ayuda/">Obtener ayuda</a></li>
+          <li><a href="../ayudar-a-alguien/">Ayudar a alguien</a></li>
+          <li><a href="../adolescentes/">Adolescentes</a></li>
+          <li><a href="../investigacion/">Investigación</a></li>
+          <li><a href="../tarjeta/">Tarjeta para imprimir</a></li>
+          <li><a href="../registro-diario/">Registro diario</a></li>
+          <li><a href="../que-siento/">¿No sabes bien qué sientes?</a></li>
+          <li><a href="../despues-de-una-perdida/">Después de una pérdida</a></li>
+          <li><a href="../plan-de-seguridad/" aria-current="page">Haz un plan de seguridad</a></li>
+          <li><a href="../despues-de-un-intento/">Después de un intento</a></li>
+          <li><a href="../acerca-de/">Acerca de y privacidad</a></li>
+        </ul>
+      </nav>
+      <h2>Acerca de Tidelight</h2>
+      <p>Tidelight es un proyecto nuevo para ayudar a las personas en los Estados Unidos a encontrar apoyo para la prevención del suicidio. Tidelight no es un servicio de crisis. Los enlaces para llamar, enviar textos y chatear en este sitio te conectan con servicios externos, como la Línea 988. Si tú u otra persona está en peligro inmediato, llama al 911.</p>
+      <p>Privacidad: este sitio no te pide registrarte ni llenar formularios, y no usa analíticas ni cookies. Está alojado en GitHub Pages, y <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub dice que registra y guarda las direcciones IP de los visitantes</a> por seguridad (página en inglés). La Salida rápida y las copias guardadas sin conexión tienen límites. <a href="../acerca-de/#privacy">Lee sobre la privacidad y lo que este sitio no puede ocultar</a>.</p>
+      <p class="footer-note">Versión preliminar. Un profesional de la prevención del suicidio no ha revisado este contenido. Un asistente de IA hizo la traducción al español, y una persona hispanohablante aún no la ha revisado. Un asistente de IA comparó los números y enlaces de crisis con el sitio de cada proveedor el 6 de noviembre de 2026. Ninguna persona los ha confirmado ni los ha probado en un teléfono. <a href="../acerca-de/#review-status">Consulta el estado de revisión de cada página</a>.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/menu.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

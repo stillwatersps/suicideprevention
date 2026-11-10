@@ -97,7 +97,7 @@ jobs:
         run: |
           mkdir _site
           # The website, and nothing else. Notes, designs, tools and instructions stay out.
-          for item in index.html 404.html sw.js manifest.webmanifest .nojekyll assets get-help help-someone teens research card es check-in not-sure after-a-loss about; do
+          for item in index.html 404.html sw.js manifest.webmanifest .nojekyll assets get-help help-someone teens research card es check-in not-sure after-a-loss safety-plan after-an-attempt about; do
             cp -R "$item" _site/
           done
           # Stop if a new page exists in the project but was not copied.

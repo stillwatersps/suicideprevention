@@ -1185,16 +1185,26 @@ def date_kind(text_before):
     return "sources"
 
 
+# Pages added after the last check of every page's sources. Their own sources were read when they were written
+# (November 9, 2026) and again on November 10. Their source dates are compared with each other's, not with the
+# older pages', so no page has to claim a check it didn't have. When every page's sources are checked again together, move both
+# dates to that day with tools/set_checked_date.py and empty this set.
+SOURCES_READ_LATER = {"safety-plan/index.html", "after-an-attempt/index.html",
+                      "es/plan-de-seguridad/index.html", "es/despues-de-un-intento/index.html"}
+
+
 def check_dates(failures, pages):
     """Every page shows the same date for each kind of check, so a re-check can't update only some pages.
     The crisis details, the source lists and the browser makers' help pages are checked on their own
-    schedules, so each has its own date."""
+    schedules, so each has its own date. The pages in SOURCES_READ_LATER share a source date of their own."""
     for lang, pattern in (("en", DATE_EN), ("es", DATE_ES)):
         seen = {}
         for name, page in pages.items():
             if language_of(name) == lang:
                 for match in pattern.finditer(page.text):
                     kind = date_kind(page.text[: match.start()])
+                    if kind == "sources" and name in SOURCES_READ_LATER:
+                        kind = "sources on the pages added later (SOURCES_READ_LATER)"
                     seen.setdefault(kind, {}).setdefault(match.group(0), []).append(name)
         for kind, dates in sorted(seen.items()):
             if len(dates) > 1:

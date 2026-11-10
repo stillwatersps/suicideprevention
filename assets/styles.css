@@ -1552,4 +1552,30 @@ html:not(.ci-ready) .ci-erase, html:not(.ci-ready) .ci-kept-reflection-note, htm
   border-radius: var(--radius);
   background: var(--green-soft);
   font-size: 1.05rem;
+
+/* ===========================================================================
+   Safety plan page (safety-plan/ and es/plan-de-seguridad/). Proposed November 9, 2026.
+   A blank plan to fill in by hand. It sits in the wallet card page's .print-area, so on
+   paper only the plan prints. Like the poster, it is dark on white in every mode, and its
+   write-in lines are borders, because browsers leave out backgrounds when printing.
+   =========================================================================== */
+.sp-sheet { background: #fff; color: #1B2A22; border: 2px solid #315A45; border-radius: var(--radius); padding: 20px; display: grid; gap: 10px; overflow-wrap: anywhere; }
+.sp-sheet h3, .sp-sheet p { color: #1B2A22; }
+.sp-title { font-family: var(--serif); font-size: 1.6rem; line-height: 1.15; }
+.sp-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.sp-step h3 { font-size: 1.15rem; margin-bottom: 2px; }
+.sp-line { display: block; height: 2em; border-bottom: 1px solid #6B6B6B; }
+.sp-note { font-size: .9rem; }
+@media print {
+  /* Block layout with margins on paper, not grid with gap. When a step moved to page 2,
+     desktop Chrome split the grid across pages and printed the closing note on top of
+     step 6's write-in lines. Found November 10, 2026, by printing to PDF. */
+  .sp-sheet { border: 0; border-radius: 0; padding: 0; display: block; font-size: 10.5pt; }
+  .sp-sheet > * + * { margin-top: 6pt; }
+  .sp-title { font-size: 18pt; }
+  .sp-steps { display: block; }
+  .sp-step + .sp-step { margin-top: 9pt; }
+  .sp-step { break-inside: avoid; }
+  .sp-step h3 { font-size: 12pt; }
+  .sp-line { height: 9mm; border-bottom-color: #555; }
 }
