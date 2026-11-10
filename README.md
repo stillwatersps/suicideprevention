@@ -57,6 +57,7 @@ Each person uses their own Claude access and conversation.
 | `teens/`, `card/` | For Teens page, and printable wallet cards and poster |
 | `check-in/`, `assets/check-in.js` | Daily check-in, which saves nothing. See `notes/CHECK-IN-BACKEND.md` |
 | `not-sure/`, `after-a-loss/`, `about/` | Not sure what you're feeling?, After a loss, and About and privacy |
+| `safety-plan/`, `after-an-attempt/` | Make a safety plan, with a blank plan to print, and After a suicide attempt. Drafts, proposed November 9, 2026 |
 | `assets/*.vcf` | Contact cards for saving 988 to a phone |
 | `tools/preview_server.py` | Serves the site the way GitHub Pages will, on this computer or a phone on the same Wi-Fi |
 | `tools/test_browser.py`, `tools/browser.py` | Browser tests, using Python and the Chrome already on the computer |

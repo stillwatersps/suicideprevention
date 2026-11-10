@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <!-- Nothing loads from other sites, and other sites aren't told a visitor came from here. See notes/SAFETY.md rule 5. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-jJgppaw/ROKUt26E91bQINVcw+2cGxN/JkDIQKSSKU0=' 'sha256-NXgJIJJYQbjLZDdAmJyEXQ0ldk+Rf0iQY7WdZ1mQrZ4=' 'unsafe-hashes'; style-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Make a safety plan — Tidelight</title>
+  <meta name="description" content="What a safety plan is, the usual steps in plain words, and a blank plan to print and fill in by hand. Nothing is typed or saved. Call or text 988 any time.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#FAF8F4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#131915" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="apple-touch-icon" href="../assets/icon-180.png">
+  <!-- Not for search engines until the content has had professional review. See notes/DECISIONS.md. -->
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="alternate" hreflang="es" href="../es/plan-de-seguridad/">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
+</head>
+<body class="print-page">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1. On phones Quick exit sits inside it, so nothing is ever underneath Quick exit. -->
+  <aside class="crisis-bar" aria-label="Crisis help and quick exit">
+    <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>
+    <p class="strip-988"><span class="strip-lead">Need help now? </span><a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a><span class="strip-or"> or </span><a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a><span class="strip-extra"> any time</span><span class="strip-end">.</span></p>
+    <p class="strip-911"><span class="strip-lead">In immediate danger, </span><a href="tel:911" aria-label="Call 911, emergency services">call 911</a><span class="strip-end">.</span></p>
+  </aside>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../">
+        <svg class="brand-mark" viewBox="0 0 70 50" width="44" height="32" aria-hidden="true" focusable="false">
+          <path d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z" fill="#718974"/>
+          <path d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z" fill="#B6C4AE"/>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">Tidelight</span>
+          <span class="brand-tag">Suicide prevention &amp; support</span>
+        </span>
+        <span class="visually-hidden">, home</span>
+      </a>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <span>Menu</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Main">
+        <ul>
+          <li class="nav-home"><a href="../">Home</a></li>
+          <li><a href="../get-help/">Get Help</a></li>
+          <li><a href="../help-someone/">Help Someone</a></li>
+          <li><a href="../teens/">For Teens</a></li>
+          <li class="nav-phone"><a href="../check-in/">Daily check-in</a></li>
+          <li class="nav-phone"><a href="../not-sure/">Not sure what you're feeling?</a></li>
+          <li class="nav-phone"><a href="../after-a-loss/">After a loss</a></li>
+          <li><a href="../research/">Research</a></li>
+          <li><a href="../about/">About</a></li>
+        </ul>
+      </nav>
+
+      <a class="button button-plum header-cta" href="#support">Get Support Now</a>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="page-hero-inner">
+        <p class="lang-switch"><a href="../es/plan-de-seguridad/" hreflang="es" lang="es">Leer en español</a></p>
+        <p class="breadcrumb"><a href="../"><span aria-hidden="true">←</span> Home</a></p>
+        <p class="eyebrow">Planning for a hard moment</p>
+        <h1 id="page-title">Make a safety plan</h1>
+        <p class="hero-lead">A safety plan is a short list you write ahead of time, so you know what to do if things get very hard. Here are the usual steps, and a blank plan to print and fill in by hand.</p>
+      </div>
+    </section>
+
+    <div class="page-body">
+      <section class="crisis-panel" id="support" tabindex="-1" aria-labelledby="crisis-title">
+        <h2 id="crisis-title">Need to talk to someone now?</h2>
+        <ul class="crisis-actions" aria-label="Reach the 988 Suicide and Crisis Lifeline">
+          <li>
+            <a class="action action-primary" href="tel:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M7 5 q-5 10 8 23 q13 13 22 7 l-7-8 -6 4 q-8-4-12-12 l4-6 -8-8Z"/></svg>
+              <span><span class="action-title">Call 988</span><span class="action-sub">Talk to a counselor</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="sms:988">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><path d="M9 7 h22 q7 0 7 7 v7 q0 7-7 7 h-10 l-9 7 v-7 h-3 q-7 0-7-7 v-7 q0-7 7-7Z"/></svg>
+              <span><span class="action-title">Text 988</span><span class="action-sub">Send any message</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="action" href="https://chat.988lifeline.org/">
+              <svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" focusable="false"><rect x="8" y="9" width="24" height="18" rx="2"/><path d="M4 32 H36"/></svg>
+              <span><span class="action-title">Chat Online</span><span class="action-sub">Web chat with 988</span></span>
+            </a>
+          </li>
+        </ul>
+
+        <p>988 says a text starts with a few steps. Reply NEXT to accept its terms, answer a brief survey, and wait for a counselor.</p>
+        <p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.</p>
+        <p class="fallback">On a device that can't call or text? Call or text <strong>988</strong> from a phone, or go to <a href="https://988lifeline.org/">988lifeline.org</a>. In immediate danger, call <strong>911</strong>.</p>
+        <p class="lang-link" lang="es"><a href="../get-help/#en-espanol">Ayuda en español</a></p>
+        <p class="access-link"><a href="../get-help/#deaf-hoh">Deaf or hard of hearing</a></p>
+      </section>
+
+      <section class="right-now" aria-labelledby="right-now-title">
+        <h2 id="right-now-title">Right now</h2>
+        <ol>
+          <li><strong>If you're struggling now, you don't need a plan first.</strong> You can <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a> any time.</li>
+          <li><strong>In immediate danger?</strong> <a class="tel-link" href="tel:911">Call 911</a>.</li>
+          <li>Come back to the plan when things feel calmer.</li>
+        </ol>
+      </section>
+
+      <aside class="page-status review-note" aria-label="Review status">
+        <p><strong>Draft for review.</strong> A suicide prevention professional has not reviewed this page yet. An AI assistant drafted it from the sources listed below. The blank plan is in Tidelight's own words, and it is not an official form. <a href="../about/#review-status">See the review status of each page</a>.</p>
+      </aside>
+
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">On this page</h2>
+        <ul>
+          <li><a href="#what-it-is">What a safety plan is</a></li>
+          <li><a href="#steps">The usual steps</a></li>
+          <li><a href="#keeping-it">Making and keeping your plan</a></li>
+          <li><a href="#blank-plan">A blank plan to print</a></li>
+          <li><a href="#sources">Sources</a></li>
+        </ul>
+      </nav>
+
+      <!-- Draft, November 9, 2026. Section 6 of notes/RESEARCH-BRIEF.md (safety planning), checked against the sources listed on this page. No method details. Nothing on this page can be typed, saved, or sent. -->
+      <div class="prose">
+        <section id="what-it-is" aria-labelledby="what-it-is-title">
+          <h2 id="what-it-is-title">What a safety plan is</h2>
+          <p class="lead-in">A safety plan is a short, written list of things to do and people to reach if a crisis starts. You make it ahead of time, at a calmer moment, so you don't have to work it out during a hard one.</p>
+          <p>The Suicide Prevention Resource Center (SPRC) describes it as a written list of ways to cope and sources of support, in the order you would use them. The National Institute of Mental Health (NIMH) says a safety plan can help lower a person's risk of acting on thoughts of suicide.</p>
+          <p>A therapist, counselor, or doctor can help you make one. The American Foundation for Suicide Prevention (AFSP) says a mental health professional can help you build a plan. A plan does not replace professional care. <a href="../research/#safety-plans">See what the research shows about safety plans</a>.</p>
+          <p>You don't have to finish a plan before asking for help. You can call or text 988 at any step, and in immediate danger, call 911.</p>
+        </section>
+
+        <section id="steps" aria-labelledby="steps-title">
+          <h2 id="steps-title">The usual steps</h2>
+          <p>Most safety plans go through the same steps, from things you can do on your own to people who can help. These are the steps the developers of the Stanley-Brown Safety Plan and AFSP describe, in Tidelight's own words.</p>
+          <ol class="steps">
+            <li>
+              <h3>Notice your warning signs</h3>
+              <p>Write down the thoughts, feelings, or situations that tend to come before a hard time for you. Spotting them early tells you it's time to use the rest of the plan.</p>
+            </li>
+            <li>
+              <h3>Things that help, on your own</h3>
+              <p>List things you can do by yourself to get through a hard moment, without needing anyone else there. Only you know what works for you. It might be music, a walk, a shower, or something that keeps your hands busy.</p>
+            </li>
+            <li>
+              <h3>People and places that take your mind off things</h3>
+              <p>Write down people you like being around, and places where you feel a little better, such as a friend's home, a park, or a library. You don't have to talk about how you feel with them.</p>
+            </li>
+            <li>
+              <h3>People you can ask for help</h3>
+              <p>List family members or friends you can tell that you're struggling, with their phone numbers. If you're under 18, it can help to include an adult you trust, such as a relative, teacher, coach, or school counselor. If there's no adult you feel safe telling, you can still call or text 988 yourself.</p>
+            </li>
+            <li>
+              <h3>Professionals and crisis lines</h3>
+              <p>Write down your doctor, therapist, or counselor, if you have one. Add the 988 Lifeline: you can call or text 988 any time. In immediate danger, call 911.</p>
+            </li>
+            <li>
+              <h3>Making your space safer</h3>
+              <p>Think about how to keep things you could use to hurt yourself away from you during a hard time. You might ask someone you trust to keep them, or to help you store them safely. A doctor, a counselor, or 988 can help you work out what makes sense for you.</p>
+            </li>
+          </ol>
+          <p class="provider-note">NIMH says research supports storing dangerous items safely to help prevent suicide. <a href="../research/#safer-surroundings">See what the research shows about safer surroundings</a>.</p>
+        </section>
+
+        <section id="keeping-it" aria-labelledby="keeping-it-title">
+          <h2 id="keeping-it-title">Making and keeping your plan</h2>
+          <ul>
+            <li><strong>Make it at a calmer time,</strong> on your own or with someone you trust. A professional can help, too.</li>
+            <li><strong>Keep it where you can reach it quickly.</strong> On paper, other people could read it, so choose a place that feels safe to you.</li>
+            <li><strong>Share it if you want to.</strong> Some people give a copy to someone in step 4, so that person knows how to help.</li>
+            <li><strong>Change it when things change,</strong> such as a new phone number, a new place that helps, or a new doctor.</li>
+          </ul>
+          <p>This page saves nothing and has nothing to type. Tidelight never sees your plan. The developers of the Stanley-Brown Safety Plan also offer their own form, linked on <a href="../get-help/#hard-moment">Get Help</a>.</p>
+        </section>
+      </div>
+
+      <!-- The blank plan. On paper, only this part prints (the print-page class), and it carries 988 and 911 itself. Its numbers come only from notes/SAFETY.md. -->
+      <section class="print-area" id="blank-plan" aria-labelledby="blank-plan-title">
+        <h2 id="blank-plan-title">A blank plan to print</h2>
+        <p class="no-print-heading">Print it, then fill it in by hand. Only the plan prints, on one or two pages, with 988 and 911 on it. You can also copy the steps onto any piece of paper.</p>
+        <p class="print-actions"><button type="button" class="print-button" hidden>Print the blank plan</button></p>
+        <p class="print-actions print-hint" hidden>If nothing happens, open this page in your web browser and print from its Share button or menu.</p>
+        <div class="sp-sheet">
+          <p class="sp-title">My safety plan</p>
+          <p>When things get hard, I can go through these steps in order. I can skip straight to step 5 at any time.</p>
+          <ol class="sp-steps">
+            <li class="sp-step">
+              <h3>1. My warning signs</h3>
+              <p>Thoughts, feelings, or situations that tell me a hard time may be starting:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>2. Things I can do on my own</h3>
+              <p>Things that help me get through a hard moment, without needing anyone else:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>3. People and places that take my mind off things</h3>
+              <p>People I like being around, and places where I feel a little better:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>4. People I can ask for help</h3>
+              <p>Name and phone number:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>5. Professionals and crisis lines</h3>
+              <p>988 Suicide &amp; Crisis Lifeline: call or text 988, any time.</p>
+              <p class="pc-urgent">In immediate danger, call 911.</p>
+              <p>My doctor, therapist, or counselor, and their phone number:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+            <li class="sp-step">
+              <h3>6. Making my space safer</h3>
+              <p>How I can keep things I could use to hurt myself away from me during a hard time, and who can help:</p>
+              <div class="sp-lines" aria-hidden="true"><span class="sp-line"></span><span class="sp-line"></span><span class="sp-line"></span></div>
+            </li>
+          </ol>
+          <p class="sp-note">A draft from Tidelight, which is not a crisis service. A suicide prevention professional has not reviewed it yet.</p>
+        </div>
+      </section>
+
+      <div class="prose">
+        <section id="related" aria-labelledby="related-title">
+          <h2 id="related-title">More on this site</h2>
+          <p class="page-links">
+            <a class="pill" href="../after-an-attempt/">After a suicide attempt</a>
+            <a class="pill" href="../not-sure/">Not sure what you're feeling?</a>
+            <a class="pill" href="../card/">Print a wallet card</a>
+            <a class="pill" href="../teens/">For teens</a>
+          </p>
+        </section>
+
+        <section id="sources" aria-labelledby="sources-title">
+          <h2 id="sources-title">Sources</h2>
+          <p>Checked November 9, 2026. An AI assistant drafted these summaries for Tidelight, and no qualified person has reviewed them yet. The organizations listed here have not reviewed or endorsed them.</p>
+          <details class="source-toggle">
+            <summary>Show sources (8)</summary>
+            <ul class="sources">
+              <li><a href="https://suicidesafetyplan.com/">Stanley-Brown Safety Planning Intervention</a>, its developers</li>
+              <li><a href="https://sprc.org/resources/safety-planning-guide-quick-guide-clinicians/">Safety Planning Guide: A Quick Guide for Clinicians</a>, Suicide Prevention Resource Center (SPRC)</li>
+              <li><a href="https://sprc.org/resources/stanley-brown-safety-plan/">Stanley-Brown Safety Plan</a>, SPRC</li>
+              <li><a href="https://afsp.org/after-an-attempt/">After an attempt</a>, American Foundation for Suicide Prevention (AFSP)</li>
+              <li><a href="https://www.nimh.nih.gov/health/publications/suicide-faq">Frequently Asked Questions About Suicide</a>, National Institute of Mental Health (NIMH)</li>
+              <li><a href="https://www.nimh.nih.gov/health/topics/suicide-prevention">Suicide Prevention</a>, NIMH</li>
+              <li><a href="https://988lifeline.org/get-help/">988 Lifeline: Get Help</a>, 988 Suicide &amp; Crisis Lifeline</li>
+              <li><a href="https://988lifeline.org/get-help/what-to-expect/">What to Expect</a>, 988 Suicide &amp; Crisis Lifeline</li>
+            </ul>
+          </details>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="about">
+    <div class="footer-inner">
+      <nav class="footer-nav" aria-label="All pages">
+        <ul>
+          <li><a href="../">Home</a></li>
+          <li><a href="../get-help/">Get Help</a></li>
+          <li><a href="../help-someone/">Help Someone</a></li>
+          <li><a href="../teens/">For Teens</a></li>
+          <li><a href="../research/">Research</a></li>
+          <li><a href="../card/">Wallet card</a></li>
+          <li><a href="../check-in/">Daily check-in</a></li>
+          <li><a href="../not-sure/">Not sure what you're feeling?</a></li>
+          <li><a href="../after-a-loss/">After a loss</a></li>
+          <li><a href="../safety-plan/" aria-current="page">Make a safety plan</a></li>
+          <li><a href="../after-an-attempt/">After an attempt</a></li>
+          <li><a href="../about/">About and privacy</a></li>
+        </ul>
+      </nav>
+      <h2>About Tidelight</h2>
+      <p>Tidelight is an early project to help people in the United States find suicide prevention support. Tidelight is not a crisis service. The call, text, and chat links on this site connect you to outside services, such as the 988 Suicide &amp; Crisis Lifeline. If you or someone else is in immediate danger, call 911.</p>
+      <p>Privacy: this site has no sign-ups, forms, analytics, or cookies. It is hosted on GitHub Pages, and <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub says it logs and stores visitors' IP addresses</a> for security. Quick exit and saved offline copies have limits. <a href="../about/#privacy">Read about privacy and what this site can't hide</a>.</p>
+      <p class="footer-note">Early preview. A suicide prevention professional has not reviewed this content yet. An AI assistant compared crisis numbers and links with each provider's website on November 6, 2026. No person has confirmed them or tried them on a phone. <a href="../about/#review-status">See the review status of each page</a>.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/menu.js" defer onerror="document.documentElement.classList.remove('js')"></script>
+</body>
+</html>

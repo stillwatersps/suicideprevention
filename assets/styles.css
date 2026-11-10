@@ -1408,3 +1408,25 @@ html:not(.ci-ready) .ci-erase, html:not(.ci-ready) .ci-kept-reflection-note, htm
   .pc-card .pc-kicker { font-size: 9pt; }
   .pc-card .pc-big { font-size: 15pt; }
 }
+
+/* ===========================================================================
+   Safety plan page (safety-plan/ and es/plan-de-seguridad/). Proposed November 9, 2026.
+   A blank plan to fill in by hand. It sits in the wallet card page's .print-area, so on
+   paper only the plan prints. Like the poster, it is dark on white in every mode, and its
+   write-in lines are borders, because browsers leave out backgrounds when printing.
+   =========================================================================== */
+.sp-sheet { background: #fff; color: #1B2A22; border: 2px solid #315A45; border-radius: var(--radius); padding: 20px; display: grid; gap: 10px; overflow-wrap: anywhere; }
+.sp-sheet h3, .sp-sheet p { color: #1B2A22; }
+.sp-title { font-family: var(--serif); font-size: 1.6rem; line-height: 1.15; }
+.sp-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.sp-step h3 { font-size: 1.15rem; margin-bottom: 2px; }
+.sp-line { display: block; height: 2em; border-bottom: 1px solid #6B6B6B; }
+.sp-note { font-size: .9rem; }
+@media print {
+  .sp-sheet { border: 0; border-radius: 0; padding: 0; gap: 6pt; font-size: 10.5pt; }
+  .sp-title { font-size: 18pt; }
+  .sp-steps { gap: 9pt; }
+  .sp-step { break-inside: avoid; }
+  .sp-step h3 { font-size: 12pt; }
+  .sp-line { height: 9mm; border-bottom-color: #555; }
+}
