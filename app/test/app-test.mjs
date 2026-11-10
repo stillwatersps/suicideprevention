@@ -48,6 +48,16 @@ async function run(browser, lang) {
   await context.addInitScript(() => {
     window.__shared = [];
     Object.defineProperty(navigator, 'share', { value: async (data) => { window.__shared.push(data.text); }, configurable: true });
+    // Stand-ins for the phone (Places that are hard for me): a map picker, a contact picker, and
+    // records of what the phone would be told. Nothing is watched or sent.
+    window.__tidelight = {
+      configs: [], composed: [], acknowledged: [],
+      pickPlace: async (options) => ({ name: options.name ? options.name + ' (changed)' : 'The old footbridge', latitude: 40.7, longitude: -74.0, radius: options.radius || 200 }),
+      pickContact: async () => ({ name: 'A made-up friend', phone: '555-0100' }),
+      onSetPlaces: (config) => window.__tidelight.configs.push(config),
+      onCompose: (options) => window.__tidelight.composed.push(options),
+      onAcknowledge: (id) => window.__tidelight.acknowledged.push(id),
+    };
   });
   const page = await context.newPage();
   page.on('pageerror', (e) => errors.push(e.message));
@@ -93,6 +103,7 @@ async function run(browser, lang) {
   check(await page.isVisible('.app-age-box [data-age-group="teen"]'), 'Today starts with the box for ages 13 to 17');
   check(await page.isVisible('.app-age-box [data-age-group="teen"] a[href*="#other-ways"]'), 'the teen box links to LGBTQ+ support on Get Help');
   check(!(await page.isVisible('.app-age-box [data-age-group="child"]')), 'other ages\' boxes stay hidden');
+  check(await page.isVisible('.app-rem-hint a[href="#app-reminders"]'), 'Today points to the check-in reminders');
   check(!(await page.evaluate(() => document.documentElement.classList.contains('app-large-text'))), 'regular text for ages 13 to 17');
 
   stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
@@ -130,6 +141,98 @@ async function run(browser, lang) {
   check(shared.length === 1 && shared[0].includes('A made-up entry for the test.'), 'shares the entry through the share sheet');
   check(/^(I wanted|Quería)/.test(shared[0] || ''), 'adds the opening line when chosen');
 
+  // Today's check-ins: one line per check-in, filed by the time of day, shared only on purpose.
+  await page.click('.ci-tabs a[href="#ci-today"]');
+  const feelingLabel = (await page.textContent('.ci-fill-feeling')).trim();
+  await page.click('.ci-tabs a[href="#ci-journey"]');
+  const logText = await page.textContent('.app-log');
+  check(/(Morning|Midday|After school|Before bed|Mañana|Mediodía|Después de la escuela|Antes de dormir), /.test(logText), 'Your journey lists today\'s check-in with its time of day');
+  check(feelingLabel.length > 0 && logText.includes(feelingLabel), 'the line shows the feeling that was chosen');
+  check(!(await page.isVisible('.app-log-empty')), 'the "no check-ins" line hides once there is one');
+  await page.click('.app-share-days[data-days="1"]');
+  check(await page.isVisible('#app-share-panel'), 'Share today\'s check-ins opens the notice first');
+  const daySummary = await page.inputValue('#app-share-text');
+  check(daySummary.includes('Tidelight') && daySummary.includes(feelingLabel), 'the summary names Tidelight and today\'s feeling');
+  check(!daySummary.includes('A made-up entry'), 'the summary leaves journal entries out');
+  await page.click('.app-share-cancel');
+  await page.click('.app-share-days[data-days="7"]');
+  const weekSummary = await page.inputValue('#app-share-text');
+  check(weekSummary.includes(feelingLabel) && weekSummary.split('\n').length > daySummary.split('\n').length - 2, 'the 7-day summary groups check-ins by day');
+  await page.click('.app-share-cancel');
+  check((await page.evaluate(() => window.__shared.length)) === 1, 'nothing more is shared on Cancel');
+
+  // Reminders: all off until turned on, kept on the phone, never sent anywhere.
+  check(await page.isVisible('#app-reminders'), 'Your journey has the check-in reminders');
+  const onCount = await page.$$eval('.app-rem-on', (els) => els.filter((e) => e.checked).length);
+  check(onCount === 0, 'every reminder is off to start with');
+  check(!(await page.isVisible('.app-rem-web')), 'no browser note while every reminder is off');
+  await page.check('.app-rem-on[data-slot="morning"]');
+  await page.fill('.app-rem-time[data-slot="morning"]', '07:45');
+  await page.waitForTimeout(300);
+  stored = await page.evaluate(() => localStorage.getItem('tidelight.reminders.v1') || '');
+  check(stored.includes('"morning":{"on":true,"time":"07:45"}'), 'the morning reminder and its time are kept');
+  check(stored.includes('"evening":{"on":false'), 'the other reminders stay off');
+  check(await page.isVisible('.app-rem-web'), 'in a browser it says reminders need the app on a phone');
+
+  // Places that are hard for me: off, no places suggested, and nothing watched until turned on.
+  check(await page.isVisible('.app-places'), 'Your journey has Places that are hard for me');
+  check(!(await page.isChecked('.app-places-on')), 'it starts off');
+  check(!(await page.isVisible('.app-places-setup')), 'the setup is hidden while it is off');
+  check((await page.$$('.app-places-list li')).length === 0, 'no place is suggested');
+  await page.check('.app-places-on');
+  await page.waitForTimeout(300);
+  check(await page.isVisible('.app-places-setup'), 'turning it on shows the setup');
+  check(await page.isVisible('.app-places a[href="tel:988"]') && await page.isVisible('.app-places a[href="tel:911"]'), 'the setup shows 988 and 911');
+  check(await page.isVisible('.app-places-empty') && await page.isVisible('.app-people-empty'), 'starts with no places and no people');
+  await page.click('.app-place-add');
+  await page.waitForTimeout(300);
+  check((await page.textContent('.app-places-list')).includes('The old footbridge'), 'a place chosen on the map is listed with its name');
+  check(/200/.test(await page.textContent('.app-places-list')), 'and its radius');
+  await page.click('.app-place-edit');
+  await page.waitForTimeout(300);
+  check((await page.textContent('.app-places-list')).includes('(changed)'), 'a place can be edited');
+  await page.click('.app-person-add');
+  await page.waitForTimeout(300);
+  check((await page.textContent('.app-people-list')).includes('A made-up friend'), 'a person from the contacts is listed');
+  await page.selectOption('.app-dwell', '10');
+  await page.waitForTimeout(300);
+  let told = await page.evaluate(() => window.__tidelight.configs.slice(-1)[0]);
+  check(told.enabled === true && told.dwellMinutes === 10 && told.places.length === 1 && told.contacts.length === 1, 'the phone is told the places, the person, and the wait time');
+  check(told.words && told.words.body && told.words.okay && told.words.call988 && told.words.call911, 'the phone gets the notification\'s words from the page');
+  check(told.showPlaceOnLockScreen === false, 'the lock screen stays neutral unless chosen');
+  check(!(await page.isVisible('.app-dwell-test')), 'the 1-minute test choice is hidden outside test builds');
+  stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
+  check(stored.includes('The old footbridge') && stored.includes('555-0100'), 'places and people are kept on this phone');
+
+  // The alert screen: pretend the phone says the person has stayed at the place.
+  await page.evaluate(() => { window.__tidelight.pendingAlert = { placeId: 'x', placeName: 'The old footbridge (changed)', since: Date.now() - 600000, minutes: 10 }; });
+  await page.evaluate(() => window.dispatchEvent(new CustomEvent('tidelight-launch', { detail: '#app-place-alert' })));
+  await page.waitForTimeout(300);
+  check(await page.isVisible('#app-place-alert'), 'the alert screen opens');
+  check((await page.textContent('#app-alert-title')).includes('The old footbridge (changed)') && (await page.textContent('#app-alert-title')).includes('10'), 'it names the place and the minutes');
+  check((await page.textContent('.app-alert-names')).includes('A made-up friend'), 'it names the person it would go to');
+  check(await page.isVisible('#app-place-alert a[href="tel:988"]') && await page.isVisible('#app-place-alert a[href="tel:911"]'), '988 and 911 are on the alert screen');
+  check(await page.isVisible('.app-alert-countdown'), 'a countdown runs');
+  await page.click('.app-alert-okay');
+  await page.waitForTimeout(300);
+  check(await page.isVisible('.app-alert-okay-done'), '"I\'m okay" stops it');
+  check((await page.evaluate(() => window.__tidelight.composed.length)) === 0, 'nothing is composed or sent after "I\'m okay"');
+  check((await page.evaluate(() => window.__tidelight.acknowledged)).includes('x'), 'the phone is told not to ask again during this visit');
+  await page.click('.app-alert-close');
+  await page.evaluate(() => window.dispatchEvent(new CustomEvent('tidelight-launch', { detail: '#app-place-alert-send' })));
+  await page.waitForTimeout(300);
+  const composed = await page.evaluate(() => window.__tidelight.composed);
+  check(composed.length === 1 && composed[0].message.length > 0 && composed[0].placeId === 'x', '"Send my message" from the notification hands the message to the phone\'s composer, never sends it itself');
+  check(await page.isVisible('.app-alert-fallback') || await page.isVisible('.app-alert-cancelled'), 'says what happened');
+  await page.click('.app-alert-close');
+  await page.evaluate(() => { delete window.__tidelight.pendingAlert; });
+  await page.uncheck('.app-places-on');
+  await page.waitForTimeout(300);
+  told = await page.evaluate(() => window.__tidelight.configs.slice(-1)[0]);
+  check(told.enabled === false, 'turning it off tells the phone to stop watching');
+  await page.check('.app-places-on');
+  await page.waitForTimeout(300);
+
   // Close the app and open it again: everything is still there, and no age question.
   await page.waitForTimeout(400);
   await page.reload();
@@ -137,8 +240,14 @@ async function run(browser, lang) {
   check(!(await page.isVisible('#app-age')), 'does not ask the age again');
   await page.click('.ci-tabs a[href="#ci-journal"]');
   check((await page.textContent('.ci-entries')).includes('A made-up entry for the test.'), 'the journal entry is still there after reopening');
+  const entryDate = (await page.textContent('.ci-entry .ci-entry-date')).trim();
+  check(entryDate.length > 0 && !/\d{4}-\d{2}-\d{2}T/.test(entryDate), 'the entry\'s date still reads as a date after reopening');
   await page.click('.ci-tabs a[href="#ci-journey"]');
   check(await page.isVisible('.app-settings .app-group-name'), 'Your journey shows the age group');
+  check((await page.$$('.ci-cal-day.is-marked')).length === 1, 'the calendar still marks today after reopening');
+  check((await page.textContent('.app-log')).includes(feelingLabel), 'today\'s check-in is still listed after reopening');
+  check(await page.isChecked('.app-rem-on[data-slot="morning"]') && (await page.inputValue('.app-rem-time[data-slot="morning"]')) === '07:45', 'the reminder is still set after reopening');
+  check(await page.isChecked('.app-places-on') && (await page.textContent('.app-places-list')).includes('The old footbridge'), 'the places are still there after reopening');
 
   // Delete everything removes it from the phone, and keeps the age group.
   await page.click('.ci-erase-start');
@@ -153,6 +262,9 @@ async function run(browser, lang) {
 
   // Changing the birth date changes the group.
   await page.click('.ci-tabs a[href="#ci-journey"]');
+  check((await page.textContent('.app-log')).trim() === '' && await page.isVisible('.app-log-empty'), 'Delete everything clears today\'s check-ins');
+  check(await page.isChecked('.app-rem-on[data-slot="morning"]'), 'the reminders stay after Delete everything');
+  check(!stored.includes('footbridge') && !stored.includes('555-0100') && !(await page.isChecked('.app-places-on')), 'Delete everything removes the places and people and turns the feature off');
   await page.click('.app-age-change');
   await page.fill('#app-birth-date', birthDateYearsAgo(70));
   await page.click('.app-age-save');

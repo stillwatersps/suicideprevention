@@ -359,6 +359,28 @@ draft (`app/`, branch `app/first-build`):
   results, and larger text by default for 65 and over, which anyone can switch.
 - Your journey lists what the app does for the person's age, and lets them enter the date again.
 
+## November 9, 2026: reminders, shared check-ins, and forty ideas, proposed
+
+Late on November 9, one founder asked Claude to check the whole project, to work out two ideas in full, and to list
+thirty things that would make the app the best of its kind, then ten more. **The other founder hasn't agreed to any
+of it, and no reviewer or lawyer has seen it.**
+
+- **Alerting chosen people when someone stays near a hard place** is worked out in [[LOCATION-ALERT]]. Claude's
+  recommendation: build it on the person's own places (E1), with a wait time and a one-tap send through Messages,
+  and no built-in list of places. Nothing is built.
+- **Four daily check-ins, shared with a guardian or a doctor**, is designed in [[CHECK-IN-SCHEDULE]] and partly built
+  as a draft on `app/daily-check-ins`: four reminders, all off until turned on, with neutral words; today's check-ins
+  listed; Share today or Share the last 7 days through the share sheet. Nothing is sent without a tap, and nothing
+  automatic is built, because that needs accounts and a server.
+- **Forty ideas** are in [[IDEAS-ROUND-3]], none approved.
+- Also done while checking the code: the app's tests now run on GitHub for every pull request, the test browser is
+  listed in `app/package.json`, and a fix so saved check-in and journal dates still read as dates after the app
+  reopens. Node.js was installed on one founder's Mac with Homebrew to run the app's tests there.
+
+Choices Claude made, all easy to reverse: every reminder off by default; the third reminder named "After school
+(or after work)"; the shared summary leaves out journal entries and reflections; reminders survive Delete everything,
+like the age group.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

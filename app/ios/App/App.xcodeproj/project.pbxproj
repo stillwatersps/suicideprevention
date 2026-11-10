@@ -15,6 +15,12 @@
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
 		A084ECDBA7D38E1E42DFC39D /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */; };
+		7A1D00010000000000000000 /* TidelightPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01010000000000000000 /* TidelightPlugin.swift */; };
+		7A1D00020000000000000000 /* PlaceWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01020000000000000000 /* PlaceWatcher.swift */; };
+		7A1D00030000000000000000 /* PlacePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01030000000000000000 /* PlacePickerViewController.swift */; };
+		7A1D00040000000000000000 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01040000000000000000 /* MainViewController.swift */; };
+		7A1D00050000000000000000 /* DwellTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01050000000000000000 /* DwellTracker.swift */; };
+		7A1D01060000000000000000 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D00060000000000000000 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +36,12 @@
 		AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		FC68EB0AF532CFC21C3344DD /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
+		7A1D01010000000000000000 /* TidelightPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TidelightPlugin.swift; path = "TidelightPlugin.swift"; sourceTree = "<group>"; };
+		7A1D01020000000000000000 /* PlaceWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaceWatcher.swift; path = "PlaceWatcher.swift"; sourceTree = "<group>"; };
+		7A1D01030000000000000000 /* PlacePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlacePickerViewController.swift; path = "PlacePickerViewController.swift"; sourceTree = "<group>"; };
+		7A1D01040000000000000000 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = "MainViewController.swift"; sourceTree = "<group>"; };
+		7A1D01050000000000000000 /* DwellTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DwellTracker.swift; path = "../../TidelightLogic/Sources/TidelightLogic/DwellTracker.swift"; sourceTree = "<group>"; };
+		7A1D00060000000000000000 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = "SceneDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +87,12 @@
 			children = (
 				50379B222058CBB4000EE86E /* capacitor.config.json */,
 				504EC3071FED79650016851F /* AppDelegate.swift */,
+				7A1D00060000000000000000 /* SceneDelegate.swift */,
+				7A1D01010000000000000000 /* TidelightPlugin.swift */,
+				7A1D01020000000000000000 /* PlaceWatcher.swift */,
+				7A1D01030000000000000000 /* PlacePickerViewController.swift */,
+				7A1D01040000000000000000 /* MainViewController.swift */,
+				7A1D01050000000000000000 /* DwellTracker.swift */,
 				504EC30B1FED79650016851F /* Main.storyboard */,
 				504EC30E1FED79650016851F /* Assets.xcassets */,
 				504EC3101FED79650016851F /* LaunchScreen.storyboard */,
@@ -210,6 +228,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				504EC3081FED79650016851F /* AppDelegate.swift in Sources */,
+				7A1D01060000000000000000 /* SceneDelegate.swift in Sources */,
+				7A1D00010000000000000000 /* TidelightPlugin.swift in Sources */,
+				7A1D00020000000000000000 /* PlaceWatcher.swift in Sources */,
+				7A1D00030000000000000000 /* PlacePickerViewController.swift in Sources */,
+				7A1D00040000000000000000 /* MainViewController.swift in Sources */,
+				7A1D00050000000000000000 /* DwellTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,7 +307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -334,7 +358,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -350,7 +374,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = App/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) \"-D\" \"COCOAPODS\" \"-DDEBUG\"";
@@ -370,7 +394,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = App/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.tidelight.app;

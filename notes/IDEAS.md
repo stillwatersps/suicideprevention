@@ -13,6 +13,10 @@ date, and move approved ones to [[TASKS]]. Ideas that change crisis or health
 wording also need the licensed reviewer (see [[RESEARCH-BRIEF]] and
 [[CONTENT-REVIEW]]).
 
+**November 9, 2026:** forty more ideas are in [[IDEAS-ROUND-3]]. Two were worked out in full at one
+founder's request: alerting chosen people when someone stays near a hard place ([[LOCATION-ALERT]]) and
+four daily check-ins shared with a guardian or a doctor ([[CHECK-IN-SCHEDULE]], partly built as a draft).
+
 ## ⚠️ Important, first for attention: location alerts and idea E1 (November 9, 2026)
 
 One founder asked whether the planned phone app ([[CHECK-IN-BACKEND]]) could use location
@@ -45,7 +49,7 @@ run on the phone, so the location need never reach Tidelight. It needs the user 
 
 | # | Idea | How it would work | Founder decision |
 | --- | --- | --- | --- |
-| E1 | "Places that are hard for me", part of a personal safety plan in the app | Off by default. The person chooses their own places, if any, on a map, and nothing is suggested. The app ships with no list. Places stay on the phone and are deleted with Delete everything. When the phone enters one, a quiet notification with neutral words on the lock screen (for example "Tidelight: your plan is here") opens a screen with their own reasons, people they chose, and 988 and 911. The person can pause or remove it at any time | **Important.** One founder likes it and marked it first for attention, Nov 9, 2026. The other founder hasn't agreed. Not built. Needs the licensed reviewer first |
+| E1 | "Places that are hard for me", part of a personal safety plan in the app | Off by default. The person chooses their own places, if any, on a map, and nothing is suggested. The app ships with no list. Places stay on the phone and are deleted with Delete everything. When the phone enters one, a quiet notification with neutral words on the lock screen (for example "Tidelight: your plan is here") opens a screen with their own reasons, people they chose, and 988 and 911. The person can pause or remove it at any time | **Important.** One founder likes it and marked it first for attention, Nov 9, 2026. The other founder hasn't agreed. **Built as a draft** on branch `app/hard-places-and-reminders` (November 10, 2026), following [[LOCATION-ALERT]]'s route A: the person's own places, a wait time, and a one-tap send through Messages; no built-in list. Never run on a real phone; the reviewer hasn't seen it. Handoff: [[worklogs/2026-11-10-claude-hard-places]] |
 
 The version with a built-in list of places is set aside: see "Not proposed" below.
 

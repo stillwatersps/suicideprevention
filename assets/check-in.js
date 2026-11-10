@@ -416,6 +416,14 @@
       });
       state.editing = null;
       state.step = 0;
+      // Dates come back from the phone as text, so turn them back into dates.
+      state.checkins = (state.checkins || []).map(function (date) { return new Date(date); })
+        .filter(function (date) { return !isNaN(date); });
+      state.entries = (state.entries || []).filter(function (entry) { return entry && entry.text; });
+      state.entries.forEach(function (entry) {
+        entry.date = new Date(entry.date);
+        if (isNaN(entry.date)) entry.date = new Date();
+      });
       $$('.ci-card', body).forEach(function (card) {
         var kept = state.reflections[card.getAttribute('data-reflection')];
         $('textarea', card).value = kept ? kept.answer : '';
