@@ -148,6 +148,8 @@ def self_test():
         except AxeError as error:
             if words not in str(error):
                 problems.append(f"{label} was refused for another reason: {error}")
+        except Exception as error:  # it got past the check meant to stop it, and failed later
+            problems.append(f"{label} was accepted by the check meant to refuse it, then failed: {error}")
     if not problem_with(b"x" * AXE_SIZE):
         problems.append("an axe.min.js of the right size with the wrong hash was accepted")
     if not problem_with(b"x"):

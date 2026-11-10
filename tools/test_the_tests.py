@@ -258,7 +258,8 @@ BUGS = [
     # axe-core can't judge text over the homepage's photo, so the test measures it on screen.
     ("axe: a color made faint over the photo", append_css(".hero-lead { color: #a8a8a8 !important; }"), "axe", "es/index.html", "measured on screen"),
     # The allowance for check-in tabs behind the pinned strip must not cover tabs that are simply too small.
-    ("axe: check-in tabs too small to tap", append_css(".ci-tabs a { min-height: 0 !important; padding: 0 1px !important; font-size: 9px !important; line-height: 1 !important; }"), "axe", "check-in", "target-size"),
+    # Small and stacked tightly, so the spacing that WCAG accepts for small targets isn't there either.
+    ("axe: check-in tabs too small to tap", append_css(".ci-tabs ul { display: block !important; } .ci-tabs a { display: block !important; min-height: 0 !important; padding: 0 !important; font-size: 9px !important; line-height: 1 !important; }"), "axe", "check-in", "target-size"),
 ]
 
 # Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.
@@ -334,9 +335,10 @@ if platform.system() == "Darwin" and shutil.which("swiftc"):
         ("the crisis strip see-through only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { opacity: 0.01; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "see-through"),
         ("the crisis strip hidden in WebKit", append_css("body > aside { display: none !important; }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not on screen at the top"),
         # The QR code printed by tools/preview_server.py --lan, read back with Core Image.
-        ("a QR code with the wrong format bits", replace("tools/qr.py", "FORMAT_MASK = 0x5412", "FORMAT_MASK = 0x5413"), ["tools/qr.py", "--self-test"], "could not read the code back"),
+        # Readers correct a few wrong format bits, so the self-test compares them with the standard's own value.
+        ("a QR code with the wrong format bits", replace("tools/qr.py", "FORMAT_MASK = 0x5412", "FORMAT_MASK = 0x5413"), ["tools/qr.py", "--self-test"], "the format bits for level M"),
         ("a QR code with the wrong error correction", replace("tools/qr.py", "        root = gf_multiply(root, 2)", "        root = gf_multiply(root, 3)"), ["tools/qr.py", "--self-test"], "could not read the code back"),
-        ("a QR code with its data in the wrong order", replace("tools/qr.py", "upward = ((right + 1) & 2) == 0", "upward = (right + 1) & 2 == 0"), ["tools/qr.py", "--self-test"], "could not read the code back"),
+        ("a QR code with its data in the wrong order", replace("tools/qr.py", "                for x in (right, right - 1):", "                for x in (right - 1, right):"), ["tools/qr.py", "--self-test"], "could not read the code back"),
         ("a QR code version too small for its data", replace("tools/qr.py", "5: (24, (2, 43)),", "5: (24, (2, 44)),"), ["tools/qr.py", "--self-test"], "the block table has"),
         ("a QR code mask chosen without the penalty rules", replace("tools/qr.py", "        mask = scores.index(min(scores))", "        mask = 0"), ["tools/qr.py", "--self-test"], "has a lower penalty"),
         ("a QR code penalty rule 3 that ignores the border", replace("tools/qr.py", "        padded = [False] * 4 + list(line) + [False] * 4", "        padded = list(line)"), ["tools/qr.py", "--self-test"], "penalty rule 3"),

@@ -486,6 +486,12 @@ def self_test():
         problems.append(f"the format bits for level M, mask 0, are {format_bits(0):015b}, not 101010000010010")
     if version_bits(7) != 0b000111110010010100:
         problems.append(f"version 7's version bits are {version_bits(7):018b}, not 000111110010010100")
+    if problems:
+        # Codes can't be drawn from wrong tables, so the rest is left out.
+        for problem in problems:
+            print("FAIL", problem)
+        print(f"QR self-test: {len(problems)} problems, so no codes were drawn.")
+        return 1
     # The penalty rules, one at a time, on cases worked out by hand.
     light = [[False] * 21 for _ in range(21)]
     checker = [[(x + y) % 2 == 0 for x in range(21)] for y in range(21)]
