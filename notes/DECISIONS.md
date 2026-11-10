@@ -73,6 +73,12 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
   640 by 290. A phone held upright with very large text, such as 390 px wide at 200%, can't fit
   one row, so the strip still scrolls away there. WebKit on a Mac agrees at the default text
   size. Not tried on a real phone. [[CONTENT-REVIEW]] asks the reviewer about the shorter wording.
+  **Added November 8, 2026, on the same branch:** each of the full strip's own limits, set in em
+  only, also has a floor in px, its value at the default text size, because with smaller text they
+  shrank: at 232 by 240 with 75% text the strip pinned, taking 47% of the height in English and 65%
+  in Spanish. Smaller text now pins the strip, full or compact, only where the default size does,
+  nothing changes at the default size or larger, and a few narrow screens that pinned it with
+  smaller text, such as 250 by 844 at 75%, now scroll it away, as at the default size.
   At 960 px and wider the strip scrolls away and the sticky header's button stays, which takes
   two steps to start a call. Why: on phones, the header's button took two taps.
 - **Crisis strip uses links.** Call 988, text 988, and call 911 can be tapped. Why:

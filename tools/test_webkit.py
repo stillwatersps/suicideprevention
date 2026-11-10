@@ -31,9 +31,14 @@ from check_site import find_pages  # noqa: E402
 from preview_server import BASE, make_server  # noqa: E402
 from test_browser import AUDIT_JS, MUST_PIN, ONE_ROW, VIEWPORTS, strip_problems  # noqa: E402
 
-# Width, height, dark mode. 640x290 and 568x300 show the compact one-row strip.
+# Width, height, dark mode. 640x290 and 568x300 show the compact one-row strip. The last six are the
+# sizes the Chrome tests try with 75% text, where the full strip's limits have floors in px. Here they
+# are at the default text size, where the floors change nothing: the strip scrolls away and Quick exit
+# floats at 232x240, 250x350 and 750x185, and at 400x290 in Spanish, where the English compact strip
+# pins. It pins at 320x390 and 750x370.
 SIZES = [(390, 844, False), (320, 568, False), (568, 300, False), (640, 290, False), (750, 292, False), (844, 390, False),
-         (768, 1024, False), (1440, 900, False), (390, 844, True)]
+         (768, 1024, False), (1440, 900, False), (390, 844, True), (232, 240, False), (250, 350, False), (400, 290, False),
+         (750, 185, False), (320, 390, False), (750, 370, False)]
 AUDIT_KEYS = {
     "hscroll": "scrolls sideways", "offscreen": "runs off the screen", "clipped": "text cut off", "overlaps": "controls overlap",
     "brokenImages": "image did not load", "contrast": "low contrast", "unnamed": "control has no name",
