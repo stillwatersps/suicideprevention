@@ -6,7 +6,9 @@ branch: build/friend-online-1109, cut from 830f766, the tip of claude/jolly-maye
 
 # A draft section on helping a friend who posts about suicide online
 
-Date: November 9, 2026.
+Date: November 9, 2026. Updated November 10, 2026, when a second run of the same task read every
+source again, found each still said what is recorded here, rebuilt the packets, and ran the checks
+again (see "November 10" below).
 
 **State when written: local only.** Commits on `build/friend-online-1109` on one computer. Not pushed,
 no pull request, not merged, and not on the public website. No qualified person has reviewed any of
@@ -83,6 +85,25 @@ On a Mac, November 9, 2026. None of these is a real phone, and the iOS Simulator
 
 Not run: the full suite, the full planted-bug run, and the browser tests on other pages, since only
 these four pages changed.
+
+### November 10
+
+Every page in "Sources read" above was read again on November 10, 2026, in the built-in browser, the
+same way: nothing called, texted, chatted, reported, or submitted. Each still says what the table and
+[[SAFETY]] record, including Orygen's copyright notice, the 16 editions on its international list, the
+CDC page's "Last Reviewed: March 27, 2026", and Meta's wellness check. Nothing on the pages changed
+except the HTML comments, and [[SAFETY]] and [[CONTENT-REVIEW]] now say the pages were read again.
+
+| Check, November 10, 2026 | Kind | Result |
+| --- | --- | --- |
+| `python3 tools/make_review_packet.py` | Builds the packets | Both packets rebuilt, HTML and PDF |
+| `python3 tools/check_site.py` | Reads the files | "All checks passed", 21 pages, 114 outside links, no note that the packets are out of date |
+| `python3 tools/check_readability.py` | Report only | No sentence from the new section listed |
+| `python3 tools/test_browser.py --pages help-someone,teens,ayudar-a-alguien,adolescentes`, all 18 groups | Desktop Chrome and its phone-size emulation | "All browser checks passed", 0 distinct failures in every group |
+| `python3 tools/test_webkit.py`, every page | macOS WebKit in a window, not iOS | "207 checks in WebKit on this Mac, 0 problems" |
+| `python3 tools/test_the_tests.py --only "a link to a section on another page"` | Planted bugs | "All 2 planted bugs were caught" |
+
+Still not run: the full suite and the full planted-bug run. No real phone, and no iOS Simulator.
 
 ## Decisions and open questions
 
