@@ -14,6 +14,7 @@ Git is used if it is installed, to tell project notes from private ones.
 """
 import argparse
 import base64
+import collections
 import datetime
 import hashlib
 import html.parser
@@ -93,6 +94,15 @@ SHOWN_BY_SCRIPT = {"print-button", "print-hint"}
 # What is typed there stays in the page: assets/check-in.js may not send or store it, which the asset
 # checks below enforce, and the page has no <form>.
 INTERACTIVE_PAGES = {"check-in/index.html", "es/registro-diario/index.html"}
+# Attributes whose words a screen reader says, or a braille display shows, though the screen doesn't. With the
+# page's title, each image's description, the skip link, and text with the visually-hidden class, the review packets
+# list what they hold on every page, and this check fails on any of it that no packet shows.
+HEARD_ATTRIBUTES = ("aria-label", "aria-description", "aria-roledescription", "aria-valuetext", "aria-placeholder",
+                    "aria-braillelabel", "aria-brailleroledescription", "title")
+# What this check's messages call the parts every page shares, whose screen reader words the packets list once.
+SHARED_PART_NAMES = {"skip-link": "skip link", "crisis-bar": "crisis strip", "quick-exit": "Quick exit link",
+                     "site-header": "header", "crisis-panel": "crisis buttons", "site-footer": "footer",
+                     "lang-switch": "language switch", "lang-link": "link to help in Spanish"}
 # Below this, counting every parent, a crisis control is too faint to count as shown. The browser tests use it too.
 SHOWN_OPACITY = 0.9
 
@@ -166,6 +176,15 @@ class Page(html.parser.HTMLParser):
         self.status_values = []
         # Text inside a hidden element that the script never shows, so no visitor sees it and nothing checks it.
         self.unread_hidden = []
+        # Words a screen reader says that the screen doesn't show, as (language, words): those in HEARD_ATTRIBUTES,
+        # an image's description, text with the visually-hidden class, the skip link, and a drawn image's title. The
+        # page's own title is in self.title. Read here apart from tools/make_review_packet.py, which lists them in
+        # the review packets.
+        self.heard = []
+        # The same words as (classes, words), with the classes of each element around them, outermost first, so a
+        # check can tell which of the parts every page shares holds them.
+        self.heard_where = []
+        self._heard_open = None
         self.csp = None
         self._open_links = []
         self._heading_text = None
@@ -195,6 +214,32 @@ class Page(html.parser.HTMLParser):
         elif url:
             self.local_files.append(url)
 
+    def _unheard(self, tag=None, attrs=None):
+        """Whether a screen reader skips what is here, or the element about to open: hidden text the script never
+        shows, anything marked aria-hidden, and scripts, styles and templates."""
+        around = self.stack + ([(tag, attrs)] if attrs is not None else [])
+        for name, found in around:
+            if name in ("script", "style", "template"):
+                return True
+            if "hidden" in found and not set(found.get("class", "").split()) & SHOWN_BY_SCRIPT:
+                return True
+            if found.get("aria-hidden", "").strip().lower() == "true":
+                return True
+        return False
+
+    def _hear(self, lang, words, around):
+        """Keeps words a screen reader says that the screen doesn't show, with the elements around them."""
+        words = re.sub(r"\s+", " ", words or "").strip()
+        if words:
+            self.heard.append((lang, words))
+            self.heard_where.append(([set(found.get("class", "").split()) for _, found in around], words))
+
+    def _close_heard(self):
+        """Keeps the words of a visually hidden part or skip link once it closes."""
+        if self._heard_open is not None and len(self.stack) <= self._heard_open[0]:
+            self._hear(self._heard_open[2], self._heard_open[1], self._heard_open[3])
+            self._heard_open = None
+
     def handle_starttag(self, tag, attrs):
         attrs = {k: (v or "") for k, v in attrs}
         if attrs.get("id"):
@@ -203,6 +248,17 @@ class Page(html.parser.HTMLParser):
             self.ids.add(attrs["id"])
         classes = attrs.get("class", "").split()
         self.classes.update(classes)
+        if not self._unheard(tag, attrs):
+            around = self.stack + [(tag, attrs)]
+            for key in HEARD_ATTRIBUTES:
+                self._hear(self._lang(attrs), attrs.get(key, ""), around)
+            # A screen reader says an image's description in its place. The screen shows only the image.
+            if tag == "img":
+                self._hear(self._lang(attrs), attrs.get("alt", ""), around)
+            # A skip link is seen only when reached with a keyboard, so its words count, unless a name replaces them.
+            skip = "skip-link" in classes and not attrs.get("aria-label")
+            if self._heard_open is None and tag not in self.VOID and ("visually-hidden" in classes or skip):
+                self._heard_open = [len(self.stack), "", self._lang(attrs), around]
         for key in ("aria-labelledby", "aria-controls"):
             if attrs.get(key):
                 self.aria_refs.extend((key, value) for value in attrs[key].split())
@@ -278,6 +334,7 @@ class Page(html.parser.HTMLParser):
         self.handle_starttag(tag, attrs)
         if tag not in self.VOID and self.stack and self.stack[-1][0] == tag:
             self.stack.pop()
+            self._close_heard()
 
     def handle_endtag(self, tag):
         if tag == "a" and self._open_links:
@@ -290,16 +347,18 @@ class Page(html.parser.HTMLParser):
             return
         if self.stack and self.stack[-1][0] == tag:
             self.stack.pop()
+            self._close_heard()
             return
         self.balance_errors.append(f"unexpected </{tag}>")
         for i in range(len(self.stack) - 1, -1, -1):
             if self.stack[i][0] == tag:
                 del self.stack[i:]
                 break
+        self._close_heard()
 
     def handle_data(self, data):
         tags = [t for t, _ in self.stack]
-        if tags and tags[-1] == "title":
+        if tags and tags[-1] == "title" and "svg" not in tags:
             self.title += data
             self.marked_text.append((self._lang(), data))
             return
@@ -308,12 +367,17 @@ class Page(html.parser.HTMLParser):
                 self.inline_scripts[-1] += data.strip()
             return
         if "style" in tags or "svg" in tags:
+            # A drawn image's title or description names it for a screen reader, unless it is marked aria-hidden.
+            if "svg" in tags and tags[-1] in ("title", "desc") and data.strip() and not self._unheard():
+                self._hear(self._lang(), data, self.stack)
             return
         # Hidden text that the script shows is read like the rest. Other hidden text is never seen.
         if any("hidden" in attrs and not set(attrs.get("class", "").split()) & SHOWN_BY_SCRIPT for _, attrs in self.stack):
             if data.strip():
                 self.unread_hidden.append(data.strip())
             return
+        if self._heard_open is not None and not self._unheard():
+            self._heard_open[1] += data
         self.text_parts.append(data)
         self.marked_text.append((self._lang(), data))
         if not any("status-list" in attrs.get("class", "").split() for _, attrs in self.stack):
@@ -880,13 +944,91 @@ def is_approved(records, page, lang):
 
 
 _LOOSE_TEXT = {}
+_UNSHOWN_HEARD = {}
+
+
+def unshown_heard(name):
+    """Words a screen reader says on a page that no review packet shows, as (language, words), such as an
+    aria-label the packet tool missed. This file reads the page its own way, apart from
+    tools/make_review_packet.py, so a packet that leaves some of these words out is noticed. English words on
+    an English page belong in the therapist's packet, and Spanish ones, and everything on a Spanish page, in
+    the Spanish packet."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_review_packet
+    page = load(name)
+    shown = make_review_packet.heard_in_packets(name)
+    found = []
+    for lang, words in [(page.lang, re.sub(r"\s+", " ", page.title).strip())] + page.heard:
+        packet = "es" if language_of(name) == "es" or is_spanish(lang) else "en"
+        if words and words not in shown[packet] and (lang, words) not in found:
+            found.append((lang, words))
+    return found
+
+
+_SHARED_HEARD = {}
+
+
+def shared_heard_differences(names):
+    """Pages that give a screen reader different words in one of the parts every page shares, such as the crisis
+    strip, than the other pages of their language do, as (page, what differs and what to do). The review packets
+    list the words in those parts once for every page, in the text on every page, and the Spanish words on
+    English pages once too, so a crisis link that lost its full name on one page would reach no reviewer, and no
+    approval would notice. The words are compared part by part, in order, so a name swapped with another, or
+    moved to another part, is noticed too. Each part is the innermost one around the words, so Quick exit
+    counts as itself wherever it sits."""
+    order = sorted(names, key=lambda name: (name not in ("index.html", "es/index.html"), name))
+    key = tuple(order)
+    if key in _SHARED_HEARD:
+        return _SHARED_HEARD[key]
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_review_packet
+    shared = make_review_packet.SHARED_HEARD | make_review_packet.LANGUAGE_LINKS
+    versions = {}  # (language, part): {the words, in order: [pages with them]}
+    for name in order:
+        if not (ROOT / name).exists():
+            continue
+        page = load(name)
+        found = {part: [] for part in shared if part in page.classes}
+        for around, words in page.heard_where:
+            parts = [sorted(classes & shared)[0] for classes in around if classes & shared]
+            if parts:
+                found.setdefault(parts[-1], []).append(words)
+        for part, words in found.items():
+            versions.setdefault((language_of(name), part), {}).setdefault(tuple(words), []).append(name)
+    differences = []
+    for (lang, part), by_words in sorted(versions.items()):
+        if len(by_words) < 2:
+            continue
+        # The words most pages have count as the part's; a tie goes to the homepage, then the first page.
+        usual = min(by_words, key=lambda words: (-len(by_words[words]), order.index(by_words[words][0])))
+        for words, pages in by_words.items():
+            if words == usual:
+                continue
+            missing = list((collections.Counter(usual) - collections.Counter(words)).elements())
+            extra = list((collections.Counter(words) - collections.Counter(usual)).elements())
+            what = " ".join(filter(None, [
+                ("Not here: " + "; ".join(f'"{text[:80]}"' for text in missing) + ".") if missing else "",
+                ("Only here: " + "; ".join(f'"{text[:80]}"' for text in extra) + ".") if extra else "",
+            ])) or "The same words in another order."
+            where = SHARED_PART_NAMES.get(part, part)
+            for name in pages:
+                differences.append((name, f"{name} gives a screen reader different words in its {where} than the other "
+                                          f"{'Spanish' if lang == 'es' else 'English'} pages, such as "
+                                          f"{by_words[usual][0]}. The review packets list the words in that part once "
+                                          "for every page, so no reviewer would read this page's, and an approval "
+                                          f"couldn't notice the change. Make them the same as on the other pages. {what}"))
+    _SHARED_HEARD[key] = differences
+    return differences
 
 
 def missing_sections(names):
     """What the publish step could never ask a reviewer about, each with what to do. Every page needs a section
     in the review packets. Spanish lines on an English page, even a few words, need one in the Spanish packet,
     whether or not the page has a Spanish twin: only a fluent reader can approve them. And text that no part of
-    a packet holds, such as a sentence in a div, would reach no reviewer, and no fingerprint would change with it."""
+    a packet holds, such as a sentence in a div, would reach no reviewer, and no fingerprint would change with it.
+    The same goes for the words a screen reader says that the screen doesn't show, such as an aria-label, and for
+    those words on one page that differ from the other pages in a part every page shares, such as the crisis strip,
+    because the packets list those once for every page."""
     sys.path.insert(0, str(ROOT / "tools"))
     import make_review_packet
     covered = {(page, lang) for _, page, lang in review_sections()}
@@ -907,6 +1049,13 @@ def missing_sections(names):
                            "reviewer would read it and an approval couldn't notice it change. Put it in a paragraph, "
                            "heading, list item or table cell, or add its tag to BLOCK in tools/make_review_packet.py. "
                            f"It says: \"{text[:80]}\"")
+        if name not in _UNSHOWN_HEARD:
+            _UNSHOWN_HEARD[name] = unshown_heard(name)
+        for lang, text in _UNSHOWN_HEARD[name]:
+            missing.append(f"{name} has {'Spanish ' if is_spanish(lang) else ''}screen reader text that no review packet "
+                           "shows, so no reviewer would read it and an approval couldn't notice it change. Make "
+                           "tools/make_review_packet.py list it with what a screen reader reads aloud, or remove it. "
+                           f"It says: \"{text[:80]}\"")
         if language_of(name) != "en":
             continue
         own, shared = make_review_packet.spanish_on_english(name)
@@ -914,6 +1063,7 @@ def missing_sections(names):
             missing.append(f"{name} has Spanish lines in its own text, but no section for them in the Spanish review packet, {add}")
         if shared and (SPANISH_ON_EVERY_PAGE, "es") not in covered:
             shared_on.append(name)
+    missing.extend(problem for _, problem in shared_heard_differences(names))
     if shared_on:
         missing.append(f"the parts every English page shares have Spanish lines, on {len(shared_on)} page(s) such as "
                        f"{shared_on[0]}, but no section for them in the Spanish review packet, {add}")
@@ -1597,7 +1747,9 @@ def write_job_summary(title, lines):
 
 
 def check_packets(notes):
-    """The review packets are built from the pages, so say when they need rebuilding."""
+    """The review packets are built from the pages, the notes, and the packet tool with what it reads from this
+    file, so say when they need rebuilding. The packet fingerprint is made from the packets' own text, so it
+    changes with anything they would show, and with nothing else, such as a test or another check."""
     stamp = ROOT / "notes" / "review-packet" / "FINGERPRINT.txt"
     if not stamp.exists():
         notes.append("no review packets yet: python3 tools/make_review_packet.py")
@@ -1605,11 +1757,21 @@ def check_packets(notes):
     try:
         sys.path.insert(0, str(ROOT / "tools"))
         from make_review_packet import fingerprint
-    except Exception as error:  # the packet tool is optional here
+        current = fingerprint()
+    except (Exception, SystemExit) as error:  # the packet tool is optional here
         notes.append(f"could not check the review packets: {error}")
         return
-    if fingerprint() != stamp.read_text(encoding="utf-8").strip():
+    if current != stamp.read_text(encoding="utf-8").strip():
         notes.append("the review packets are out of date: python3 tools/make_review_packet.py")
+
+
+def check_spanish_questions(failures):
+    """The questions for the fluent Spanish reader in notes/CONTENT-REVIEW.md, which the Spanish packet shows.
+    Each must keep its Spanish, its English twin for the founders, and where it comes from, and the section must
+    say it is an unreviewed AI translation. A question that lost its Spanish would never reach the reader."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_review_packet
+    failures.extend(f"notes/CONTENT-REVIEW.md: {problem}" for problem in make_review_packet.spanish_questions()[1])
 
 
 def run_git(*args):
@@ -1667,6 +1829,7 @@ def main():
     failures, notes = [], []
     outside, count = check_pages(failures, notes)
     check_notes(failures)
+    check_spanish_questions(failures)
     check_packets(notes)
     print(f"Checked {count} pages. {len(outside)} different outside links.")
     if args.check_links:
