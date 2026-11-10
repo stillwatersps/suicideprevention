@@ -1552,6 +1552,7 @@ html:not(.ci-ready) .ci-erase, html:not(.ci-ready) .ci-kept-reflection-note, htm
   border-radius: var(--radius);
   background: var(--green-soft);
   font-size: 1.05rem;
+}
 
 /* ===========================================================================
    Safety plan page (safety-plan/ and es/plan-de-seguridad/). Proposed November 9, 2026.
