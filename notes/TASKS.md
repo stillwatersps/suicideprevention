@@ -91,6 +91,12 @@ Nothing else has been claimed. Add an owner above when you start.
 
 ## Ready for review
 
+- [ ] My circle (E2, no accounts) and Hope box (F9) in the phone app, at one founder's request. Owner:
+  Claude. Branch: `app/my-circle-and-hope-box`, draft pull request into `app/hard-places-and-reminders`.
+  Not merged, never run on a phone. Handoff: [[worklogs/2026-11-10-claude-circle-and-hope-box]].
+- [ ] Give `notes/review-packet/tidelight-app-words.html` (every word the app adds, numbered) to the
+  licensed reviewer and the fluent Spanish reader. Owner: unassigned.
+
 - [ ] Phone app first draft: on-phone saving, age setup, and Share this reflection for the Daily check-in,
   at one founder's request. Owner: Claude. Branch: `app/first-build`, draft pull request into
   `claude/jolly-mayer-2m6eno`. Not merged, never run on a phone. Next: the reviewer reads

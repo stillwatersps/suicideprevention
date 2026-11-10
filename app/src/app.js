@@ -16,6 +16,7 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 import { Capacitor } from '@capacitor/core';
 // Places that are hard for me (idea E1): the phone side and the pure logic. A draft.
 import { Tidelight } from './native.js';
+import './extras.js'; // Hope box and My circle, in their own file
 import { fill, MAX_PLACES, MAX_PEOPLE, DWELL_CHOICES, defaultPlacesConfig, newId, joinNames } from './logic.js';
 
 const STATE_KEY = 'tidelight.checkin.v1';

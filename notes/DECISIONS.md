@@ -381,6 +381,18 @@ Choices Claude made, all easy to reverse: every reminder off by default; the thi
 (or after work)"; the shared summary leaves out journal entries and reflections; reminders survive Delete everything,
 like the age group.
 
+## November 10, 2026: My circle without accounts, and a hope box, proposed
+
+One founder asked to build E2, F9, and F3. **The other founder hasn't agreed to these, and no
+reviewer has seen them.** On `app/my-circle-and-hope-box`, stacked on `app/hard-places-and-reminders`:
+
+- **My circle is built without accounts or a server.** Chosen people get a text message the person
+  sends from their own Messages app. Why: the app may send nothing to Tidelight, and accounts need
+  both founders ([[CHECK-IN-BACKEND]]). A circle whose members see entries inside an app is still
+  an open choice.
+- **Hope box (F9):** words and photos kept in the app on the phone, never shared.
+- **F3 was already being built by the other founder's session,** so nothing of it was rebuilt.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
