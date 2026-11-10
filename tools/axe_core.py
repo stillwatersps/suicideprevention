@@ -3,6 +3,7 @@
 
     python3 tools/axe_core.py --fetch    # download it if it isn't saved yet, and check it
     python3 tools/axe_core.py --check    # check the saved copy, without downloading anything
+    python3 tools/axe_core.py --self-test   # check, offline, that wrong files are refused
 
 The tests use one file, axe.min.js, from one pinned release of axe-core, an open-source checker by
 Deque Systems under the Mozilla Public License 2.0. It comes from the official npm registry, as that
@@ -133,12 +134,39 @@ def source(download_if_missing=True, out=print):
     return data.decode("utf-8")
 
 
+def self_test():
+    """Offline: each check refuses a file that is wrong in the way it looks for."""
+    problems = []
+    cases = [
+        ("a package of the wrong size", lambda: unpack(b"x" * (PACKAGE_SIZE + 1)), "bytes, not"),
+        ("a package of the right size with the wrong hash", lambda: unpack(b"x" * PACKAGE_SIZE), "SHA-512"),
+    ]
+    for label, attempt, words in cases:
+        try:
+            attempt()
+            problems.append(f"{label} was accepted")
+        except AxeError as error:
+            if words not in str(error):
+                problems.append(f"{label} was refused for another reason: {error}")
+    if not problem_with(b"x" * AXE_SIZE):
+        problems.append("an axe.min.js of the right size with the wrong hash was accepted")
+    if not problem_with(b"x"):
+        problems.append("an axe.min.js of the wrong size was accepted")
+    for problem in problems:
+        print("FAIL", problem)
+    print(f"axe-core download self-test: {len(problems)} problems.")
+    return 1 if problems else 0
+
+
 def main():
     parser = argparse.ArgumentParser(description="Download and check axe-core for the accessibility tests.")
     action = parser.add_mutually_exclusive_group(required=True)
     action.add_argument("--fetch", action="store_true", help="download it if it isn't saved yet, then check it")
     action.add_argument("--check", action="store_true", help="only check the saved copy")
+    action.add_argument("--self-test", action="store_true", help="check, offline, that wrong files are refused")
     args = parser.parse_args()
+    if args.self_test:
+        return self_test()
     try:
         source(download_if_missing=args.fetch)
     except AxeError as error:

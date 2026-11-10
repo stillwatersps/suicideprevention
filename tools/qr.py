@@ -386,7 +386,8 @@ def terminal(matrix, color=True):
     rows = [[False] * full for _ in range(QUIET)]
     rows += [[False] * QUIET + list(row) + [False] * QUIET for row in matrix]
     rows += [[False] * full for _ in range(QUIET + (full % 2))]
-    chars = {(False, False): " ", (True, False): "▀", (False, True): "▄", (True, True): "█"}
+    # Upper half block, lower half block, full block.
+    chars = {(False, False): " ", (True, False): "\u2580", (False, True): "\u2584", (True, True): "\u2588"}
     lines = []
     for y in range(0, len(rows), 2):
         line = "".join(chars[(rows[y][x], rows[y + 1][x])] for x in range(full))
@@ -396,8 +397,8 @@ def terminal(matrix, color=True):
 
 def from_terminal(text):
     """Reads terminal() output back into modules, border included, to check the drawing."""
-    top = {" ": False, "▀": True, "▄": False, "█": True}
-    bottom = {" ": False, "▀": False, "▄": True, "█": True}
+    top = {" ": False, "\u2580": True, "\u2584": False, "\u2588": True}
+    bottom = {" ": False, "\u2580": False, "\u2584": True, "\u2588": True}
     rows = []
     for line in text.replace("\033[30;107m", "").replace("\033[0m", "").split("\n"):
         rows.append([top[c] for c in line])

@@ -6,9 +6,12 @@
 
 Each bug goes into a throwaway copy of the project, never the real files. A test that can't
 fail proves nothing, so run this after changing tools/test_browser.py, tools/check_site.py,
-tools/launch_gate.py, tools/make_review_packet.py, tools/check_crisis_sources.py, tools/check_live.py, or tools/test_webkit.py.
-Needs Python and Chrome; the WebKit bugs also need a Mac with Xcode's command line tools. It reads
-no outside website: the checks of other tools run offline, on made-up cases or a local copy.
+tools/launch_gate.py, tools/make_review_packet.py, tools/check_crisis_sources.py, tools/check_live.py,
+tools/test_webkit.py, tools/qr.py, or tools/axe_core.py.
+Needs Python and Chrome; the WebKit and QR code bugs also need a Mac with Xcode's command line tools. It
+reads no outside website: the checks of other tools run offline, on made-up cases or a local copy. The one
+exception: if the axe-core bugs are chosen and tools/cache/ has no checked copy of axe-core yet, it is
+downloaded and checked once, as tools/axe_core.py --fetch does, before anything is copied.
 A bug counts as caught only if the check fails and says so in a FAIL line or its error, not in a NOTE.
 """
 import argparse
@@ -247,6 +250,15 @@ BUGS = [
     ("the crisis strip pinned on a screen too short for it", append_css("@media (max-height: 15em) { .crisis-bar { position: sticky !important; } }"), "matrix", "get-help", "where it must scroll away"),
     ("Quick exit scrolling away with the crisis strip", append_css("@media (max-height: 15em) { .quick-exit { position: static !important; } }"), "matrix", "get-help", "Quick exit scrolls away"),
     ("the audit losing sight of the compact strip after a class is renamed", strip_lead_renamed, "matrix", "get-help", "the audit can't tell"),
+    # axe-core's WCAG 2.2 A and AA rules.
+    # Only the Spanish homepage's path contains "es/index.html", so the bug is planted there.
+    ("axe: an image's alt removed", regex("es/index.html", r'(<img src="\.\./assets/images/joshua-tree-sunset-1600\.jpg"[^>]*?) alt="[^"]*"', r"\1"), "axe", "es/index.html", "image-alt"),
+    ("axe: a control's name removed", replace("get-help/index.html", "        <span>Menu</span>\n      </button>", "      </button>"), "axe", "get-help", "button-name"),
+    ("axe: a color made faint", append_css(".prose p { color: #b4b4b4 !important; }"), "axe", "get-help", "color-contrast"),
+    # axe-core can't judge text over the homepage's photo, so the test measures it on screen.
+    ("axe: a color made faint over the photo", append_css(".hero-lead { color: #a8a8a8 !important; }"), "axe", "es/index.html", "measured on screen"),
+    # The allowance for check-in tabs behind the pinned strip must not cover tabs that are simply too small.
+    ("axe: check-in tabs too small to tap", append_css(".ci-tabs a { min-height: 0 !important; padding: 0 1px !important; font-size: 9px !important; line-height: 1 !important; }"), "axe", "check-in", "target-size"),
 ]
 
 # Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.
@@ -310,6 +322,8 @@ COMMAND_BUGS = [
     ("provider numbers found inside other numbers", replace("tools/check_crisis_sources.py", "return phone_digits(option) in (numbers if numbers is not None else numbers_in(text))", "return option in text"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
     ("988 in the service's name taken as its number", replace("tools/check_crisis_sources.py", "        return re.search(option, text, re.I) is not None", "        return option.number in text if option.number else re.search(option, text, re.I) is not None"), ["tools/check_crisis_sources.py", "--self-test"], "read wrongly"),
     ("a crisis number with no provider check", regex("tools/check_crisis_sources.py", r'\n    \("https://www\.taps\.org/suicide".*?\n', "\n"), ["tools/check_crisis_sources.py", "--self-test"], "no check covers it"),
+    ("axe: a changed copy of axe-core accepted", replace_bytes("tools/cache/axe-core-4.14.0/axe.min.js", b"axe v4.14.0", b"axe v4.14.9"), ["tools/axe_core.py", "--check"], "doesn't match"),
+    ("axe: the download's SHA-512 check removed", replace("tools/axe_core.py", "    if digest != PACKAGE_SHA512:", "    if False:"), ["tools/axe_core.py", "--self-test"], "was accepted"),
     ("notes published without the live check noticing", replace("tools/preview_server.py", 'if ".." in parts or (parts and parts[0] not in allowed):', 'if ".." in parts:'), ["tools/check_live.py", "--local"], "must not be published"),
 ]
 # Bugs only WebKit can show, for tools/test_webkit.py, on a Mac with Xcode's command line tools.
@@ -319,6 +333,15 @@ if platform.system() == "Darwin" and shutil.which("swiftc"):
         ("the crisis strip unpinned only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { position: static !important; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not pinned"),
         ("the crisis strip see-through only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { opacity: 0.01; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "see-through"),
         ("the crisis strip hidden in WebKit", append_css("body > aside { display: none !important; }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not on screen at the top"),
+        # The QR code printed by tools/preview_server.py --lan, read back with Core Image.
+        ("a QR code with the wrong format bits", replace("tools/qr.py", "FORMAT_MASK = 0x5412", "FORMAT_MASK = 0x5413"), ["tools/qr.py", "--self-test"], "could not read the code back"),
+        ("a QR code with the wrong error correction", replace("tools/qr.py", "        root = gf_multiply(root, 2)", "        root = gf_multiply(root, 3)"), ["tools/qr.py", "--self-test"], "could not read the code back"),
+        ("a QR code with its data in the wrong order", replace("tools/qr.py", "upward = ((right + 1) & 2) == 0", "upward = (right + 1) & 2 == 0"), ["tools/qr.py", "--self-test"], "could not read the code back"),
+        ("a QR code version too small for its data", replace("tools/qr.py", "5: (24, (2, 43)),", "5: (24, (2, 44)),"), ["tools/qr.py", "--self-test"], "the block table has"),
+        ("a QR code mask chosen without the penalty rules", replace("tools/qr.py", "        mask = scores.index(min(scores))", "        mask = 0"), ["tools/qr.py", "--self-test"], "has a lower penalty"),
+        ("a QR code penalty rule 3 that ignores the border", replace("tools/qr.py", "        padded = [False] * 4 + list(line) + [False] * 4", "        padded = list(line)"), ["tools/qr.py", "--self-test"], "penalty rule 3"),
+        ("a QR code drawn upside down in the terminal", replace("tools/qr.py", '(True, False): "\\u2580", (False, True): "\\u2584"', '(True, False): "\\u2584", (False, True): "\\u2580"'), ["tools/qr.py", "--self-test"], "terminal drawing doesn't match"),
+        ("the preview server printing no address under the code", replace("tools/preview_server.py", '        f"On a phone on the same Wi-Fi: {address}",\n', ""), ["tools/qr.py", "--self-test"], "doesn't print the address"),
         ("the compact crisis strip on two rows only in Safari", append_css("@supports (font: -apple-system-body) { @media (max-height: 18.75em) and (max-width: 43.99em) { .strip-988 { flex: 1 0 100% !important; } } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "must be one row"),
     ]
 
@@ -360,6 +383,14 @@ def main():
     browser_bugs = [bug for bug in BUGS if args.only.lower() in bug[0].lower()]
     command_bugs = [bug for bug in COMMAND_BUGS if args.only.lower() in bug[0].lower()]
     missed = []
+    if any(bug[0].startswith("axe:") for bug in browser_bugs + command_bugs):
+        sys.path.insert(0, str(ROOT / "tools"))
+        import axe_core
+        try:
+            axe_core.fetch()
+        except axe_core.AxeError as error:
+            print(f"NOT CLEAN: axe-core isn't available: {error}")
+            return 2
     with tempfile.TemporaryDirectory(prefix="tidelight-bugs-") as folder:
         base = pathlib.Path(folder) / "clean"
         shutil.copytree(ROOT, base, ignore=SKIP)

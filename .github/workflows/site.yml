@@ -43,6 +43,10 @@ jobs:
         run: python3 tools/check_crisis_sources.py --self-test
       - name: Check that the daily live-site check would notice published notes, on a local copy
         run: python3 tools/check_live.py --local
+      - name: Check the QR code encoder's tables and penalty rules (reading codes back needs a Mac)
+        run: python3 tools/qr.py --self-test
+      - name: Check that the axe-core download refuses wrong files
+        run: python3 tools/axe_core.py --self-test
       - name: Plain-language report (information only)
         run: python3 tools/check_readability.py
 
@@ -54,6 +58,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # axe-core, for the accessibility group only: one pinned release from the npm registry, checked
+      # against the registry's SHA-512 and axe-core's own SHA-256 for axe.min.js, recorded in
+      # tools/axe_core.py. No npm, no install scripts. The tests inject it into their own browser; the
+      # site never serves it.
+      - name: Download and check axe-core for the accessibility tests
+        run: python3 tools/axe_core.py --fetch
       - name: Test every page in Chrome
         env:
           TIDELIGHT_CHROME_NO_SANDBOX: "1"
