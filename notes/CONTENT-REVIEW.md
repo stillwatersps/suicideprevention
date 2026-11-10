@@ -742,10 +742,10 @@ qualified reviewer decides each one, and nothing here has been reviewed.
 - Should the Spanish pages name a reply word for texting 988, as English names NEXT? 988's Spanish
   What to Expect page gives «siguiente»; its Spanish services page describes no terms step. Ask 988
   which applies to AYUDA.
-- Should the Spanish pages say anything about 911 in Spanish, and from which current source? None
-  says whether a caller can ask for Spanish, or whether a Spanish text will be understood. The FCC's
-  English and Spanish text-to-911 pages don't say. [[SAFETY]] records that the English page refused
-  automated reads on November 6 and 7, so a person should open both to confirm.
+- Should the Spanish pages say anything about 911 in Spanish, and from which current source? No source
+  recorded in [[SAFETY]] says whether a caller can ask for Spanish, or whether a Spanish text will be
+  understood. [[SAFETY]] records that the FCC's English text-to-911 page refused automated reads on
+  November 6 and 7, so a person should open the FCC's English and Spanish pages and read what they say.
 - Should Spanish Get Help link the Stanley-Brown developers' Spanish safety plan form (February
   2025), instead of or beside the English one? Its step 6 is reported to be more specific.
 - Should the pages say "la 988"? They do in many headings and buttons. 988's Spanish site says "la
@@ -815,13 +815,14 @@ section stops saying it is an unreviewed AI translation.
 
 1. ES: ¿Se entiende bien lo que dicen Obtener ayuda y Adolescentes sobre Crisis Text Line en español? Dicen que
    "atiende en inglés y en español" y que "sus páginas dan palabras distintas para recibir apoyo en español, y
-   Tidelight todavía no ha confirmado cuál usar", sin nombrar ninguna. Sus preguntas frecuentes dan HOLA y su
-   página en español da AYUDA, y solo Crisis Text Line puede decir cuál vale. Cuando lo confirme, ¿cómo debería
-   decirse?
+   Tidelight todavía no ha confirmado cuál usar", sin nombrar ninguna. Las páginas no darán ninguna palabra hasta
+   que una persona la confirme con Crisis Text Line y la anote en las notas del proyecto, así que no hace falta
+   proponer una. ¿Es clara la frase de ahora para alguien que busca apoyo en español? ¿Cambiaría la redacción?
    EN: Is what Spanish Get Help and For Teens say about Crisis Text Line in Spanish clear? They say it supports
    English and Spanish, and that its pages give different words for support in Spanish, which Tidelight hasn't
-   confirmed yet, without naming either. Its FAQ gives HOLA and its Spanish page gives AYUDA, and only Crisis
-   Text Line can say which holds. Once it confirms one, how should it be said?
+   confirmed yet, without naming either. The pages won't give a word until a person confirms one with Crisis Text
+   Line and records it in the project's notes, so there's no need to suggest one. Is the current sentence clear
+   for someone looking for support in Spanish? Would you change the wording?
    Source: `notes/SAFETY.md`, "Left off the website until a person confirms": Crisis Text Line in Spanish. Also
    `notes/FOUNDER-BRIEF.md`, "Two words to ask providers about".
 2. ES: En Obtener ayuda, la parte para personas sordas o con dificultades auditivas dice: "Si usas TTY, usa tu
@@ -892,26 +893,29 @@ section stops saying it is an unreviewed AI translation.
    the 988 links, which could sound like the site telling someone to go. Would "Salida rápida, va a weather.gov"
    be better, with the crisis line heard first?
    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Every page.
-9. ES: Una propuesta, que no está en el paquete y que los fundadores no han acordado (borrador de pull request
-   13): en pantallas bajas, como un teléfono de lado, también con letra más grande, la franja de crisis fija se
-   acortaría a una sola fila: "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al 911". La franja completa
-   dice: "¿Necesitas ayuda ahora? Llama al 988 y marca 2, o envía AYUDA al 988, a cualquier hora. Si hay peligro
-   inmediato, llama al 911." En pantallas pequeñas ya deja fuera "¿Necesitas ayuda ahora?" y "a cualquier hora".
-   La fila quitaría también la "o" y "Si hay peligro inmediato,", así que nada en pantalla diría cuándo llamar
-   al 911. Un lector de pantalla seguiría diciendo el nombre completo de cada enlace, como "Llama al 911,
-   servicios de emergencia". ¿Se entiende esa fila? ¿Es aceptable en español donde falta espacio?
-   EN: A proposal, not in the packet and not agreed by the founders (draft pull request 13): on short screens,
-   such as a phone on its side, including with larger text, the pinned crisis strip would shorten to one row:
-   "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al 911". The full strip says "¿Necesitas ayuda ahora?
-   Llama al 988 y marca 2, o envía AYUDA al 988, a cualquier hora. Si hay peligro inmediato, llama al 911." On
-   small screens it already leaves out "¿Necesitas ayuda ahora?" and "a cualquier hora". The row would also drop
-   the "o" and "Si hay peligro inmediato,", so nothing on screen would say when to call 911. A screen reader
-   would still say each link's full name, such as "Llama al 911, servicios de emergencia". Is that row clear? Is
-   it acceptable in Spanish where space is short?
-   Source: draft pull request 13, branch `site/compact-crisis-strip`: its question for the reviewer in
-   `notes/CONTENT-REVIEW.md` and its crisis strip entry in `notes/DECISIONS.md`, both on that branch. This
-   branch's `notes/DECISIONS.md` lists it under "Recorded November 7, 2026: four more items built, proposed".
-   The strip's words are from the pages in `es/`.
+9. ES: Una propuesta que los dos fundadores todavía no han acordado, aunque ya está en estas páginas (pull request
+   13, unido el 9 de noviembre de 2026 a pedido de uno de ellos). El paquete muestra la franja completa, no esta
+   fila. Solo en una pantalla baja, como la de un teléfono de lado, la franja de crisis fija se acorta a una sola
+   fila; con letra más grande también, pero nunca solo por usar letra más grande. La fila dice: "Llama al 988 y
+   marca 2 · Envía AYUDA al 988 · Llama al 911". La franja completa dice: "¿Necesitas ayuda ahora? Llama al 988 y
+   marca 2, o envía AYUDA al 988, a cualquier hora. Si hay peligro inmediato, llama al 911." En pantallas
+   pequeñas ya deja fuera "¿Necesitas ayuda ahora?" y "a cualquier hora". La fila quita también la "o" y "Si hay
+   peligro inmediato,", así que nada en pantalla dice cuándo llamar al 911. Un lector de pantalla sigue diciendo
+   el nombre completo de cada enlace, como "Llama al 911, servicios de emergencia". ¿Se entiende esa fila? ¿Es
+   aceptable en español donde falta espacio?
+   EN: A proposal both founders haven't agreed yet, though it is on these pages (pull request 13, merged on
+   November 9, 2026, at one founder's request). The packet shows the full strip, not this row. Only on a short
+   screen, such as a phone on its side, the pinned crisis strip shortens to one row; with larger text too, but
+   never because of larger text alone. The row says "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al
+   911". The full strip says "¿Necesitas ayuda ahora? Llama al 988 y marca 2, o envía AYUDA al 988, a cualquier
+   hora. Si hay peligro inmediato, llama al 911." On small screens it already leaves out "¿Necesitas ayuda ahora?"
+   and "a cualquier hora". The row also drops the "o" and "Si hay peligro inmediato,", so nothing on screen says
+   when to call 911. A screen reader still says each link's full name, such as "Llama al 911, servicios de
+   emergencia". Is that row clear? Is it acceptable in Spanish where space is short?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", Crisis wording on every page: the
+   compact strip. Also `notes/DECISIONS.md`, the crisis strip entry under "November 6, 2026: proposed on branch
+   `site/phone-accessibility-content`", and "November 9, 2026: every pull request that publishes nothing,
+   merged". The strip's words are from the pages in `es/` and the compact strip's rules in `assets/styles.css`.
 10. ES: La tabla de controles de las notas del proyecto pide que una persona hispanohablante revise los botones
     y enlaces en español, como "Ayuda en español", "Llamar al 988 y marcar 2", "Enviar AYUDA al 988", "Chatear
     en español" y los de la franja de crisis. ¿Son claros y naturales? ¿Dicen bien adónde llevan?
@@ -925,13 +929,15 @@ section stops saying it is an unreviewed AI translation.
     EN: Many headings and buttons say "la 988". 988's Spanish site says "la Línea 988" or "Línea 988" for the
     service, and "el 988" or "al 988" for the number. Should the pages say "la 988"?
     Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
-12. ES: Ninguna fuente leída dice si quien llama al 911 puede pedir español, ni si un texto en español al 911 se
-    entenderá. La página de la FCC sobre textos al 911 rechazó las lecturas automáticas, así que una persona
-    todavía tiene que abrirla. ¿Deberían las páginas en español decir algo sobre el 911 en español? Si es así,
-    ¿qué, y con qué fuente actual?
-    EN: No source read says whether a 911 caller can ask for Spanish, or whether a Spanish text to 911 will be
-    understood. The FCC's text-to-911 page refused automated reads, so a person still needs to open it. Should
-    the Spanish pages say anything about 911 in Spanish? If so, what, and from which current source?
+12. ES: Las notas del proyecto no registran ninguna fuente que diga si quien llama al 911 puede pedir español, ni
+    si un texto en español al 911 se entenderá. Según esas notas, la página de la FCC sobre textos al 911 rechazó
+    las lecturas automáticas el 6 y el 7 de noviembre de 2026, así que una persona todavía tiene que abrirla y
+    leerla. ¿Deberían las páginas en español decir algo sobre el 911 en español? Si es así, ¿qué, y con qué
+    fuente actual?
+    EN: The project's notes record no source that says whether a 911 caller can ask for Spanish, or whether a
+    Spanish text to 911 will be understood. They record that the FCC's text-to-911 page refused automated reads on
+    November 6 and 7, 2026, so a person still needs to open it and read it. Should the Spanish pages say anything
+    about 911 in Spanish? If so, what, and from which current source?
     Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages. Also
     `notes/SAFETY.md`, "Only a person can check": the FCC's text-to-911 page.
 13. ES: La página Get Help en inglés tiene una parte en español, "En español", que Claude, un asistente de IA,
@@ -994,6 +1000,16 @@ section stops saying it is an unreviewed AI translation.
     EN: The printed card names the "Línea 988 de Prevención del Suicidio y Crisis", and other people can see it.
     Is it right to name suicide on the Spanish card?
     Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Wallet card.
+21. ES: En el Registro diario, los sentimientos se escriben como estados, para no usar formas de un solo género:
+    "Con esperanza", "En calma", "Bien, más o menos", "Con dudas", "Con demasiado encima", "Con tristeza", "Con
+    ansiedad", "Con desconexión" y "Sin energía". ¿Suenan naturales para responder a "¿Cómo te sientes hoy?"?
+    ¿Alguno podría confundir o doler a alguien que lo está pasando mal?
+    EN: In the Daily check-in, the feelings are written as states, to avoid forms of one gender: "Con esperanza",
+    "En calma", "Bien, más o menos", "Con dudas", "Con demasiado encima", "Con tristeza", "Con ansiedad", "Con
+    desconexión" and "Sin energía". Do they sound natural as answers to "¿Cómo te sientes hoy?"? Could any confuse
+    or hurt someone who is struggling?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions about the Daily check-in", Spanish. The feelings are from
+    `es/registro-diario/index.html`.
 
 ## Human-only checklist
 
