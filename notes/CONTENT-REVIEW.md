@@ -161,6 +161,14 @@ these: tap, stop at the dial or compose screen, and cancel.
 | 1-800-662-4357 | Get Help | `tel:+18006624357` | SAMHSA | Link format only | Phone test |
 | 1-800-487-4889 (TTY) | Get Help | `tel:+18004874889` | SAMHSA | Link format only | Phone test |
 | FindTreatment.gov | Get Help | findtreatment.gov | SAMHSA | Page opens | None |
+| Call 1-833-852-6262 / Text 1-833-852-6262 (Llamar al / Enviar un texto al) | Get Help, Lines for specific groups, and its Spanish twin | `tel:+18338526262`, `sms:+18338526262`, message blank | National Maternal Mental Health Hotline (HRSA) | Link format only | Phone test |
+| Hotline page, with its chat / Página de la línea, con su chat | Get Help and its Spanish twin | HRSA's English or Spanish hotline page, which has a chat button | HRSA | Page read in a browser. The chat was not opened | Founders: link the chat itself? |
+| Call 1-800-985-5990 / Text 1-800-985-5990 (Llamar al 1-800-985-5990 y marcar 2 / Enviar un texto al) | Get Help and its Spanish twin | `tel:+18009855990`, `sms:+18009855990`, message blank | Disaster Distress Helpline (SAMHSA) | Link format only | Phone test. Ask SAMHSA how to choose Spanish by text |
+| Disaster Distress Helpline page / Página de la línea en español | Get Help and its Spanish twin | SAMHSA's English or Spanish helpline page | SAMHSA | Page read in a browser | None |
+| Call 1-800-852-8336 / Text TEEN to 839863 (Llamar al / Enviar TEEN al) | Get Help and its Spanish twin | `tel:+18008528336`, `sms:839863`, message blank | Teen Line (Didi Hirsch) | Link format only | Phone test. A teen has to type TEEN |
+| Teen Line website | Get Help and its Spanish twin | didihirsch.org/teenline/ | Teen Line | Page read in a browser | None |
+| Call 1-877-565-8860 (Llamar al 1-877-565-8860 y marcar 2) | Get Help and its Spanish twin | `tel:+18775658860` | Trans Lifeline | Link format only | Phone test |
+| Trans Lifeline hotline page / Línea de ayuda de Trans Lifeline | Get Help and its Spanish twin | translifeline.org/hotline/, translifeline.org/es/linea-de-ayuda/ | Trans Lifeline | Page read in a browser | None |
 | A form (PDF) | Get Help | Stanley-Brown safety plan PDF | Its developers | File loads | See the question on permission |
 | How this works on different platforms | Help Someone | 988's social media page | 988 Lifeline | Page opens | None |
 | Our web host logs visitors' IP addresses | Home | Privacy section of the About page | Tidelight | Tested in browser | Lawyer question |
@@ -410,6 +418,23 @@ Spanish guide (page 19). Surviving a Suicide Loss had no method wording, and the
 only advises against sharing the method. The reviewer and someone with lived experience of loss
 should decide whether these links stay. No person has read them line by line. 988's
 old loss survivors page now answers "not found", so it isn't cited.
+
+### How the November 9 Get Help additions' sources were read
+
+Claude read these on November 9, 2026, in the desktop app's built-in browser, page text and folded
+answers included. It called, texted, and submitted nothing, and opened no chat page. Not a person's
+check.
+
+- HRSA: the National Maternal Mental Health Hotline page in English and Spanish.
+- SAMHSA: the Disaster Distress Helpline page in English and Spanish.
+- Didi Hirsch Mental Health Services: Teen Line's main page with its FAQ, and its crisis support page.
+- Trans Lifeline: its English hotline page with its FAQ, and its Spanish help line page.
+- Institute on Aging: its Friendship Line page. Not used, see [[SAFETY]].
+- 988: its home page, Get Help, What to Expect in English and Spanish, the calling and texting FAQ
+  lists, and Help Someone Else. None gives example first words.
+
+`tools/check_crisis_sources.py --self-test` covers the new checks with made-up pages. The tool
+itself wasn't run against the live pages on this branch.
 
 ## How the pages compare with the research brief
 
@@ -792,6 +817,62 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   next to it, so people know who will see it and that it isn't a way to get urgent help?
   See [[IDEAS]].
 
+## Questions about the November 9 Get Help additions
+
+Drafted by Claude on November 9, 2026, on branch `build/more-lines-1109`, for Get Help and its Spanish
+twin. Wording is proposed, and nothing here has been reviewed. Each detail comes from the provider's own
+page, read that day and recorded in [[SAFETY]].
+
+**What to say when you call or text 988** (`#what-to-say`)
+
+- 988's pages give no example first words. They say you can send any message to start a text, that
+  anyone who is struggling, needs to talk, or is thinking about suicide can reach out, that you can
+  contact 988 if a friend is struggling, and that the counselor says hello, introduces themselves, and
+  asks if you are safe. The five example phrases are Tidelight's, and the page says so. Are they
+  right? Is "I'm thinking about suicide" (in Spanish, «Estoy pensando en el suicidio») the right way
+  to offer direct words? Is "I don't know what to say, but I need to talk" a good example for
+  someone who can't find words?
+- The section comes first among the page's sections, before "What happens when you reach out to
+  988", and repeats its first steps briefly. Is the order right, or should the two be one section?
+- The Spanish version starts with the Spanish routes, and gives «siguiente» for accepting the terms by
+  text, from 988's Spanish What to Expect page. The section below it still says the Spanish steps may
+  differ. A fluent reader should check the examples, which use «Me preocupa alguien que conozco» to
+  avoid a gendered form.
+
+**Lines for specific groups** (`#more-lines`)
+
+- Which of these should Get Help list, and should For Teens list Teen Line and Trans Lifeline too?
+  The cards sit behind Show more, with a first paragraph that names each group, says which keep set
+  hours, and says 988 is open any time. Is that the right balance?
+- Two of the four aren't open all day and night, and the cards say so: Teen Line answers 6 to 10 p.m.
+  Pacific by phone and 6 to 9 p.m. by text, and Trans Lifeline answers weekdays, 10 a.m. to 6 p.m.
+  Pacific. Teen Line's texts after hours get no reply. Is that clear enough for someone who reaches a
+  closed line?
+- HRSA's pages don't call the maternal hotline a crisis line, mention 911 or 988, or say what to do
+  in an emergency, and the card says so. Is that the right way to put it?
+- Trans Lifeline says it won't call emergency services or police without the caller's explicit
+  request, even if the caller says someone is in danger, and the card says so, with its stated limits.
+  Is it right to say this on Get Help, and is the wording fair to both Trans Lifeline and 988?
+- Teen Line is for young people up to age 19, answered by teen volunteers from the Los Angeles area
+  under adult supervision. Is it right to list it for every age group the site now supports?
+- The Text TEEN link opens a blank message, so a teen has to type TEEN. Teen Line's own buttons fill
+  the word in. This is the same question as the blank messages for 741741, START, AYUDA, and PRIDE.
+- SAMHSA's English and Spanish pages say to press 2 for Spanish after "call or text", and neither says
+  how that works by text. Both Get Help pages say to call and press 2, and the Spanish card says the
+  pages don't explain Spanish by text. Ask SAMHSA.
+- The maternal hotline's card links HRSA's page, not its chat, because nobody here opened the chat.
+  Should it link the chat?
+- Left off: the Friendship Line for older adults. Its page calls it the nation's only accredited
+  24-hour line of its kind, and also says it serves people in California. Should the site list it with
+  a California note, find a national line for older adults, or leave it off? A person should ask the
+  Institute on Aging.
+- Trans Lifeline's pages list holiday closures for 2025 only. A person should ask for the current
+  dates before release.
+- The pages' review notes and footers still say crisis numbers and links were compared with providers'
+  websites on November 6, 2026. The new sections were read on November 9, and each says it was added
+  later, without a date, because every page must show the same date. Move the date with
+  `tools/set_checked_date.py` only after a full re-check of every page.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].
@@ -802,6 +883,10 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
       whether the text links open with a blank message.
 - [ ] Test with VoiceOver and TalkBack, large text settings, and a slow connection.
 - [ ] Read each provider page in [[SAFETY]] and fill in "Person confirmed".
+- [ ] For the lines added November 9, 2026, ask SAMHSA how to choose Spanish by text on the Disaster
+      Distress Helpline, the Institute on Aging whether the Friendship Line serves callers outside
+      California, Trans Lifeline for its current holiday closures, and Teen Line whether its hours
+      move with daylight saving time.
 - [ ] Open chat.988lifeline.org and chat.988lifeline.org/?lang=es on a phone, without
       submitting anything. Compare the form's questions with Get Help, and note whether a
       security check appears first. Repeat this whenever the numbers are rechecked, because
