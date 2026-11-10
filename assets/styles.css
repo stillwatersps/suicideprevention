@@ -44,13 +44,15 @@ html {
   scroll-padding-bottom: 5.5rem;
 }
 /* Wide screens: the sticky header, 73px tall on one line, 96px on two, and 122px in Spanish on
-   three. Without JavaScript, the whole menu sits in it with larger text: up to 12.1rem. */
-@media (max-width: 64.49em) { html:lang(en) { --jump-em: 6.9rem; } }
-@media (max-width: 80.74em) { html:lang(es) { --jump-em: 6.9rem; } }
-@media (max-width: 63.74em) { html:lang(es) { --jump-em: 8.5rem; } }
-@media (max-width: 1031.84px) { html:lang(en) { --jump-px: 111px; } }
-@media (max-width: 1291.84px) { html:lang(es) { --jump-px: 111px; } }
-@media (max-width: 1019.84px) { html:lang(es) { --jump-px: 136px; } }
+   three, measured on all 21 pages: the current page's menu item is bold, so the widths differ a
+   little from page to page. Without JavaScript, the whole menu sits in it with larger text: up to
+   12.1rem. */
+@media (max-width: 65.18em) { html:lang(en) { --jump-em: 6.9rem; } }
+@media (max-width: 81.49em) { html:lang(es) { --jump-em: 6.9rem; } }
+@media (max-width: 64.49em) { html:lang(es) { --jump-em: 8.5rem; } }
+@media (max-width: 1042.84px) { html:lang(en) { --jump-px: 111px; } }
+@media (max-width: 1303.84px) { html:lang(es) { --jump-px: 111px; } }
+@media (max-width: 1031.84px) { html:lang(es) { --jump-px: 136px; } }
 @media (min-width: 960px) and (max-width: 59.9375em) { html:not(.js) { --jump-em: 13rem; } }
 /* Phones and tablets: the pinned full strip. In English, 98px on two rows, 120px up to 299px wide
    and 142px up to 259px; 48px on one row from 759px, or from 704px on a screen 480px tall or

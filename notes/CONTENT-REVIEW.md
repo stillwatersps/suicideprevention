@@ -197,6 +197,13 @@ Wording is proposed. Nothing here is clinical advice.
   AYUDA al 988 · Llama al 911"). It drops "Need help now?" and "In immediate danger,", so nothing
   on screen says when 911 is the right call. Screen readers still hear "Call 911, emergency
   services". Is that acceptable where space is short? See [[DECISIONS]].
+- A proposal, November 10, 2026: on narrow screens just over 300 px tall, such as a phone in
+  split-screen, the pinned strip now takes no more than a third of the screen. Where the one-row
+  strip above fits, it pins; where it doesn't, the full strip stays pinned up to a third of the
+  height and scrolls away above that, leaving only Quick exit on screen once the page is scrolled.
+  Spanish pages a little wider than a phone also drop "¿Necesitas ayuda ahora?" and "a cualquier
+  hora" where they made the strip take more than a quarter. Is a third the right limit, or should
+  988 and 911 stay on screen even when they cover more of the page? See [[DECISIONS]].
 - The header's "Suicide prevention & support" tagline and "Get Support Now" button
   both come from the supplied design. Both read as if Tidelight provides support, and
   the button doesn't say who does. Claude's suggestion: "Find suicide prevention

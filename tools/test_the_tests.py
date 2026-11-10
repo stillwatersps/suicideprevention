@@ -63,6 +63,14 @@ def append_css(rule):
     return apply
 
 
+def both(*bugs):
+    """Several changes planted together, for a bug that only shows when each of them is made."""
+    def apply(copy):
+        for bug in bugs:
+            bug(copy)
+    return apply
+
+
 def regex(path, pattern, new):
     def apply(copy):
         target = copy / path
@@ -256,7 +264,22 @@ BUGS = [
     ("the compact crisis strip's floors in px removed from its outer limits", replace("assets/styles.css", ",\n       (max-width: 959px) and (max-width: 703.84px) and (max-height: 300px), (max-width: 959px) and (max-height: 240px) {", " {"), "textsize", "get-help", "where it stays pinned at 100% text"),
     ("the crisis strip's extra words shown with smaller text", replace("assets/styles.css", "@media (max-width: 30em), (max-height: 30em), (max-width: 480px), (max-height: 480px) {", "@media (max-width: 30em), (max-height: 30em) {"), "textsize", "es/obtener-ayuda", "as at 100% text"),
     ("the crisis strip's wider row gap with smaller text", replace("assets/styles.css", "@media (max-width: 959px) and (min-height: 30.01em) and (min-height: 480.16px) {", "@media (max-width: 959px) and (min-height: 30.01em) {"), "textsize", "get-help", "as at 100% text"),
-    ("jump links stopping low where the crisis strip scrolls away", replace("assets/styles.css", "@media (max-width: 22.4em) and (min-height: 18.76em) and (min-height: 300.16px) {", "@media (max-width: 22.4em) and (min-height: 18.76em) {"), "jumps", "get-help", "lower half of the screen"),
+    # Where jump links stop, rewritten November 10, 2026: see "Where a jump link stops" in assets/styles.css.
+    ("jump links stopping low where the crisis strip scrolls away", replace("assets/styles.css", "  .site-header { position: relative; }\n  html[lang] { --jump-em: 1rem; --jump-px: 16px; }\n}\n/* Wide screens, which pin", "  .site-header { position: relative; }\n}\n/* Wide screens, which pin"), "jumps", "get-help", "lower half of the screen"),
+    ("jump links behind the crisis strip with smaller text, without the padding's floor in px", replace("assets/styles.css", "  html[lang] { --jump-px: 112px; }", "  html[lang] { --jump-px: 0px; }"), "jumps", "get-help", "behind the pinned crisis strip"),
+    ("jump links behind the Spanish strip's third row at 481px", both(replace("assets/styles.css", "@media (min-width: 480.16px) and (max-width: 504.84px) and (min-height: 480.16px) { html:lang(es) { --jump-px: 156px; } }", ""),
+                                                                    replace("assets/styles.css", "@media (min-width: 30.01em) and (max-width: 31.55em) and (max-width: 959px) and (min-height: 30.01em) { html:lang(es) { --jump-em: 9.75rem; } }", "")), "jumps", "es/obtener-ayuda", "behind the pinned crisis strip"),
+    ("jump links behind the compact crisis strip", replace("assets/styles.css", 'html[lang="en"] { --jump-em: 3.9rem; --jump-px: 62px; }', 'html[lang="en"] { --jump-em: 1rem; --jump-px: 16px; }'), "jumps", "get-help", "behind the pinned crisis strip"),
+    ("jump links in the lower half with larger text, without the padding's limit of half the screen", replace("assets/styles.css", "  scroll-padding-top: min(max(var(--jump-em, 7rem), var(--jump-px, 112px)), 50dvh);", "  scroll-padding-top: max(var(--jump-em, 7rem), var(--jump-px, 112px));"), "jumps", "get-help", "lower half of the screen"),
+    ("jump links behind the header holding the whole menu without JavaScript", replace("assets/styles.css", "{ html:not(.js) { --jump-em: 13rem; } }", "{ }"), "jumps", "get-help", "behind the pinned header"),
+    ("the header pinned over more than half of a short wide screen", replace("assets/styles.css", "@media (min-width: 960px) and (max-height: 15.25em) {\n  .site-header { position: relative; }", "@media (min-width: 960px) and (max-height: 15.25em) {\n  .site-header { }"), "jumps", "es/obtener-ayuda", "more than half"),
+    ("the header holding the whole menu pinned over more than a third without JavaScript", replace("assets/styles.css", "  html:not(.js) .site-header { position: relative; }", ""), "jumps", "get-help", "more than a third"),
+    # Narrow screens just over 300px tall, such as a phone in split-screen, at the default text size.
+    ("the full crisis strip pinned where the compact one fits, on a split-screen phone", replace("assets/styles.css", ",\n       (max-width: 703.84px) and (max-width: 43.99em) and (max-height: 383.84px) {", " {"), "matrix", "get-help", "where the compact strip fits"),
+    ("the Spanish full crisis strip pinned over more than a third of a split-screen phone", replace("assets/styles.css", "  html:lang(es) .crisis-bar { position: static; }", ""), "matrix", "es/obtener-ayuda", "more than a third"),
+    ("the full crisis strip pinned over more than a third of a foldable's cover screen in split-screen", replace("assets/styles.css", "  html:lang(en) .crisis-bar { position: static; }", ""), "matrix", "get-help", "more than a third"),
+    ("the Spanish strip's extra words over a quarter of the screen", replace("assets/styles.css", "  html:lang(es) .strip-extra { display: none; }", ""), "matrix", "es/obtener-ayuda", "shows its extra words"),
+    ("Quick exit inside a crisis strip that scrolls away on a split-screen phone", replace("assets/styles.css", "  html:lang(en) .quick-exit { position: fixed; margin-left: 0; padding: 0 14px; gap: 8px; }", ""), "matrix", "get-help", "Quick exit scrolls away"),
 ]
 
 # Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.
@@ -313,6 +336,7 @@ COMMAND_BUGS = [
     # The compact strip is written once for each language. A change to one copy only must be caught.
     ("the Spanish copy of the compact crisis strip changed alone", replace("assets/styles.css", 'html[lang="es"] .strip-or { display: inline-block; width: .25rem;', 'html[lang="es"] .strip-or { display: inline-block; width: .5rem;'), ["tools/check_site.py"], "English and Spanish copies differ"),
     # A rule without html[lang="..."] inside one copy's block applies to both languages there, out of the comparison's sight.
+    ("where jump links stop, changed in the Spanish copy of the compact crisis strip alone", replace("assets/styles.css", 'html[lang="es"] { --jump-em: 3.9rem; --jump-px: 62px; }', 'html[lang="es"] { --jump-em: 3.9rem; --jump-px: 48px; }'), ["tools/check_site.py"], "English and Spanish copies differ"),
     ("a rule without its language inside the Spanish copy of the compact crisis strip", replace("assets/styles.css", '      html[lang="es"] body { padding-bottom: 0; }', '      html[lang="es"] body { padding-bottom: 0; }\n      .strip-or { margin: 0 2rem; }'), ["tools/check_site.py"], "isn't written for that language alone"),
     ("an upper-case text link with a wrong number, in the site check", replace("get-help/index.html", 'href="sms:838255"', 'href="SMS:838256"'), ["tools/check_site.py"], "not a number recorded"),
     ("a link above the site's root", replace("index.html", 'href="get-help/"', 'href="../get-help/"'), ["tools/check_site.py"], "broken link"),
@@ -335,6 +359,8 @@ if platform.system() == "Darwin" and shutil.which("swiftc"):
         ("the crisis strip hidden in WebKit", append_css("body > aside { display: none !important; }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not on screen at the top"),
         ("the compact crisis strip on two rows only in Safari", append_css("@supports (font: -apple-system-body) { @media (max-height: 18.75em) and (max-width: 43.99em) { .strip-988 { flex: 1 0 100% !important; } } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "must be one row"),
         # The WebKit audit skips the text of closed folds, which WebKit gives boxes to. Real text must still count.
+        # The typical split-screen and foldable sizes: which strip each shows, from EXPECT in tools/test_browser.py.
+        ("the crisis strip pinned over a foldable's cover screen in split-screen only in Safari", append_css("@supports (font: -apple-system-body) { @media (max-width: 299.84px) and (max-height: 353.2px) { html:lang(en) .crisis-bar { position: sticky !important; } } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "where it must show"),
         ("a floating Quick exit over the page's last line only in Safari", append_css("@supports (font: -apple-system-body) { body { padding-bottom: 0 !important; } .quick-exit { left: 8px !important; right: auto !important; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "Quick exit covers something"),
     ]
 
