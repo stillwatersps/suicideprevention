@@ -407,6 +407,7 @@ BUGS = [
 # Bugs for the checks that don't need a browser: name, bug, command, words the failure must contain.
 # The publish gate and the monthly crisis check test themselves on made-up cases, offline.
 COMMAND_BUGS = [
+    ("a style rule left open in the stylesheet", replace("assets/styles.css", "  font-size: 1.05rem;\n}\n", "  font-size: 1.05rem;\n"), ["tools/check_site.py"], "left open"),
     ("a review claimed with none recorded", replace("get-help/index.html", "<h1", "<p>Medically reviewed and approved.</p><h1"), ["tools/check_site.py"], "no approval of this page"),
     ("a wrong number in a contact card's note", replace_bytes("assets/988-lifeline.vcf", b"call 911", b"call 811"), ["tools/check_site.py"], "not a number recorded"),
     ("a contact card pointing to another site", replace_bytes("assets/988-lifeline.vcf", b"URL:https://988lifeline.org/", b"URL:https://example.com/"), ["tools/check_site.py"], "not the website of a service"),

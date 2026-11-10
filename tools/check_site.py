@@ -728,6 +728,7 @@ def check_pages(failures, notes):
     check_dates(failures, pages)
     check_crisis_styles(failures, names)
     check_compact_copies(failures)
+    check_stylesheet_braces(failures)
     outside = {}
     for name, page in pages.items():
         for link in page.links:
@@ -1762,6 +1763,27 @@ def copy_differences(english, spanish):
         else:
             found.extend(rule_differences(en[0], en[1], es[1]))
     return found
+
+
+def check_stylesheet_braces(failures):
+    """Every { in the site's stylesheets has its }. One left open makes browsers read the rest of the file
+    as part of that rule, so every rule after it is silently lost. Comments and quoted text are skipped."""
+    for path in sorted((ROOT / "assets").glob("*.css")):
+        text = re.sub(r"/\*.*?\*/", "", path.read_text(encoding="utf-8"), flags=re.S)
+        text = re.sub(r"\"(?:\\.|[^\"\\])*\"|'(?:\\.|[^'\\])*'", "", text)
+        depth, line = 0, 1
+        for char in text:
+            if char == "\n":
+                line += 1
+            elif char == "{":
+                depth += 1
+            elif char == "}":
+                depth -= 1
+                if depth < 0:
+                    failures.append(f"assets/{path.name}: a }} near line {line} closes nothing, so the rules after it may be lost")
+                    depth = 0
+        if depth:
+            failures.append(f"assets/{path.name}: {depth} {{ left open, so every rule after it is lost; close the rule before it")
 
 
 def check_compact_copies(failures, css=None):
