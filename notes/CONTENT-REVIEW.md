@@ -424,8 +424,10 @@ old loss survivors page now answers "not found", so it isn't cited.
 Claude read these on November 9, 2026, in the desktop app's built-in browser, page text and folded
 answers included, and read them all again the same way on November 10, 2026. It called, texted, and
 submitted nothing, and opened no chat page. Not a person's check. The November 10 read changed one
-line: 988's English and Spanish What to Expect pages say a text gets a "Wait" message, not that it
-may, so both Get Help pages now say so.
+point: 988's English and Spanish What to Expect pages say a text gets a "Wait" message, not that it
+may. Each Get Help page describes the text steps twice, in "What to say" and in "If you text". Both
+places on both pages now say so, and the Spanish "If you text" gives «siguiente» from 988's Spanish
+page, as the Spanish "What to say" does, in place of saying the Spanish steps may differ.
 
 - HRSA: the National Maternal Mental Health Hotline page in English and Spanish.
 - SAMHSA: the Disaster Distress Helpline page in English and Spanish.
@@ -838,8 +840,9 @@ page, read that day and recorded in [[SAFETY]].
 - The section comes first among the page's sections, before "What happens when you reach out to
   988", and repeats its first steps briefly. Is the order right, or should the two be one section?
 - The Spanish version starts with the Spanish routes, and gives «siguiente» for accepting the terms by
-  text, from 988's Spanish What to Expect page. The section below it still says the Spanish steps may
-  differ. A fluent reader should check the examples, which use «Me preocupa alguien que conozco» to
+  text, from 988's Spanish What to Expect page. Since November 10 the section below it, "Si envías un
+  texto", gives the same steps and names that page, where it used to say the Spanish steps may differ.
+  Whether they apply to AYUDA is the question under "Spanish pages" above. A fluent reader should check the examples, which use «Me preocupa alguien que conozco» to
   avoid a gendered form.
 
 **Lines for specific groups** (`#more-lines`)
