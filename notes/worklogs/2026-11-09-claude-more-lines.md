@@ -19,7 +19,8 @@ an unreviewed AI translation like the rest of that page.
 - **What to say when you call or text 988** (`#what-to-say`), first among the page's sections. It says
   you don't need special words, gives five example first words labelled as Tidelight's, not 988's, and
   says what 988 says happens next. On November 10 its text steps were corrected to say a "Wait" message
-  comes, as 988's pages say, rather than that it may. The Spanish version starts with the Spanish routes and gives
+  comes, as 988's pages say, rather than that it may. The older "If you text" paragraph below it still said
+  it may, until the review fix below. The Spanish version starts with the Spanish routes and gives
   «siguiente», from 988's Spanish What to Expect page.
 - **Lines for specific groups** (`#more-lines`), after "Other ways to reach someone": a first paragraph
   that names each group, says which keep set hours, and says 988 is open any time, then four cards
@@ -97,6 +98,56 @@ not a screen reader, and not a content review.
 - `python3 tools/test_webkit.py --pages get-help` and `--pages obtener-ayuda`: 27 checks, 0 problems,
   each.
 - Not run: the full suite, the menu, quickexit, offline, speed, modes, and reducedmotion groups.
+
+## Review fix, November 10, 2026
+
+On branch `fix/more-lines-1109`, from this branch's commit `80e9c00`. State when written: local only.
+A code review found two problems, and both were reproduced first.
+
+1. **Get Help contradicted itself about 988's Wait message.** `#what-to-say` said a text gets a message
+   asking you to wait, but the older "If you text" paragraph still said it may, and in Spanish that the
+   Spanish steps may differ. This note and [[CONTENT-REVIEW]] said both pages already agreed. Claude read
+   988's English and Spanish What to Expect pages and its texting FAQ again on November 10, in the
+   desktop app's built-in browser: step 4 of 6 says you'll receive a "Wait" message while 988 connects
+   you to a counselor, and the Spanish page's step 2 of 7 gives «siguiente» and step 4 of 7 «espere».
+   The FAQ points to What to Expect. "If you text" now says the Wait message comes, on both pages, and
+   the Spanish one names «siguiente» and «espere», attributed to 988's Spanish page. Whether those
+   Spanish steps apply after AYUDA is still a reviewer question in [[CONTENT-REVIEW]]. The two sentences
+   there that described this were corrected. `sw.js` VERSION not changed: no wrong number or route was
+   fixed, Get Help is read from the network first, and this branch isn't published.
+2. **The monthly check let Teen Line's hours pass in any time zone.** Its comment said hours in another
+   zone fail, but only Trans Lifeline's pattern looked at the zone; a made-up page with "6–10 PM ET" and
+   "6–9 PM ET" passed. Both Teen Line patterns now need PT, PST, PDT or Pacific after the hours. Claude
+   read both Teen Line pages in the built-in browser on November 10: they say "6 PM - 10 PM PST",
+   "6 PM - 9 PM PST", "6–10 PM PT" and "6–9 PM PT". Three new self-test cases and two new planted bugs.
+   This change was first made on November 9 in an earlier attempt on a branch from an older commit, now
+   kept as `fix/more-lines-1109-prev-attempt`, and cherry-picked here unchanged.
+
+Checks, November 10, 2026, after the fix (desktop Chrome and its phone-size emulation, and macOS
+WebKit; not a real phone, not the iOS Simulator):
+
+- `python3 tools/check_crisis_sources.py --self-test`: "All 32 made-up cases were read correctly, and
+  every crisis number in notes/SAFETY.md has a check."
+- `python3 tools/check_crisis_sources.py`, against the live pages: "Checked 17 provider pages, 2 left
+  for a person to open." Both Teen Line pages ok.
+- `python3 tools/test_the_tests.py --only "group line"`: "All 14 planted bugs were caught."
+- `python3 tools/make_review_packet.py`, then `python3 tools/check_site.py`: "All checks passed.", no
+  "out of date" note.
+- `python3 tools/test_browser.py --only links,matrix,textsize,folds,language,a11ytree,print,nojs`, for
+  `get-help` and `obtener-ayuda`: "All browser checks passed." on each. The same four older tap-target
+  notes for "Right now".
+- `python3 tools/test_webkit.py --pages get-help` and `--pages obtener-ayuda`: "27 checks in WebKit on
+  this Mac, 0 problems." each.
+- Not run: the full suite, and the other browser groups.
+
+Left as they were, from the same review's other findings, for a founder or the reviewer:
+
+- The Spanish Disaster Distress Helpline card leaves out the interpreter sentence the English card has,
+  and only the Spanish card says SAMHSA doesn't explain how to choose Spanish by text.
+- `tools/check_site.py` doesn't compare the hours printed on Get Help with the providers' hours. Only
+  the monthly check reads the providers' pages, so a person checks the hours on Get Help by eye.
+- The sources line on both Get Help pages still says November 6, though the two new sections' sources
+  were read November 9 and 10. [[CONTENT-REVIEW]] records those dates.
 
 ## Decisions and open questions
 
