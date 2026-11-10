@@ -6,7 +6,9 @@
     python3 tools/test_browser.py --pages get-help/  # only pages whose path has this text
     python3 tools/test_browser.py --screens DIR      # also save phone screenshots
 
-Needs Python 3 and Google Chrome or Chromium. Chrome runs with a throwaway profile.
+Needs Python 3 and Google Chrome or Chromium. Chrome runs with a throwaway profile. The axe group
+runs axe-core's WCAG 2.2 A and AA rules; the first time, it downloads one pinned, hash-checked copy
+of axe-core into tools/cache/ (see tools/axe_core.py). Nothing else is downloaded.
 
 It never calls, texts, chats, or submits anything: clicks on call and text links are
 refused here and blocked in the page. Quick exit is tested against a stand-in for
@@ -36,6 +38,7 @@ import urllib.request
 TOOLS = pathlib.Path(__file__).resolve().parent
 ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
+import axe_core  # noqa: E402
 from browser import Browser, Tab, find_chrome  # noqa: E402
 from check_site import PHONE_SCHEMES, OTHER_PHONE_SCHEMES, SHOWN_OPACITY, allowed_numbers, find_pages, phone_digits, scheme_of  # noqa: E402
 from preview_server import BASE, PAGES_CACHE, Server, make_server, published_items  # noqa: E402
@@ -112,7 +115,7 @@ MUST_PIN_TEXT = {
 }
 GROUPS = [
     "links", "matrix", "textsize", "keyboard", "menu", "jumps", "folds", "language",
-    "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "offline", "speed", "modes", "privacy",
+    "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "axe", "offline", "speed", "modes", "privacy",
 ]
 # Runs in every page and frame before the page's own scripts. A click, tap or Enter on a link that leaves
 # the local test site is stopped, unless the test said to expect that address and answers it with a
@@ -1658,6 +1661,287 @@ def test_a11ytree(browser, site, pages, report):
     tab.close()
 
 
+# ---------------------------------------------------------------- axe-core
+
+# axe-core's rules for WCAG 2.0, 2.1 and 2.2 at levels A and AA. axe-core 4.14 tags no rule wcag22a, since
+# WCAG 2.2's new level A criteria need a person to judge; the tag is listed so a later release's rules run too.
+AXE_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22a", "wcag22aa"]
+AXE_SIZES = [("phone 390x844", 390, 844, True), ("desktop 1440x900", 1440, 900, False)]
+# Findings allowed, each with the written reason it isn't a problem: (rule, pages, or () for every page, text in
+# the element's selector or markup, text in axe-core's explanation, the states it's allowed in, as the end of the
+# place each state is reported, or () for every state, reason). Each one allowed is still printed as a NOTE. Add
+# one only with a reason a person could check.
+# axe-core says "partially obscured" for the check-in tabs because it counts only the crisis strip's own links as
+# covering them, not the strip's solid background. Its "12.6px" is the part of a tab above those links: the tabs'
+# top edge is at -10.6 px, off the screen, and the links start at 2 px. Measured with document.elementFromPoint in
+# phone-size emulation at 390x844 on November 9 and 10, 2026, none of the tab row shows.
+# It's allowed only after a tab is chosen, so the same finding with the page at the top, or after a step, fails.
+# Today's suggestions are checked after the last tab, so the row is where that tab left it.
+CHECK_IN_TAB_STATES = ("#ci-today", "#ci-rediscover", "#ci-journal", "#ci-journey", "today's suggestions")
+AXE_ALLOWED = [
+    ("target-size", ("check-in/index.html", "es/registro-diario/index.html"), 'a[href$="#ci-', "partially obscured",
+     tuple(", " + state for state in CHECK_IN_TAB_STATES),
+     "Choosing any tab, Today included, scrolls its section to just below the pinned crisis strip, so the whole tab "
+     "row is behind the strip and none of it shows. To see or change tabs, the visitor scrolls back up about 110 px. "
+     "After choosing a step, the row is further up, off the screen. axe-core calls the tabs partially obscured because "
+     "it doesn't count the strip's background as covering them. With the page at the top, every tab passes, and the "
+     "test fails if one doesn't. Whether the tab row should stay in view is a decision for the founders in the "
+     "handoff of November 9."),
+]
+# Results axe-core can't decide, which a person doesn't need to look at either: (messageKey, start of the element's
+# markup, reason). Other undecided contrast is measured on the screen below, and anything else is a NOTE.
+AXE_UNDECIDED_FINE = [
+    ("nonBmp", '<span aria-hidden="true">',
+     "an arrow drawn as a symbol, hidden from screen readers, inside a link whose own words are checked"),
+]
+
+AXE_RUN = """(async function (tags, context) {
+  var r = await axe.run(context || document, {runOnly: {type: 'tag', values: tags}, resultTypes: ['violations', 'incomplete']});
+  function rules(list) {
+    return list.map(function (rule) {
+      return {id: rule.id, impact: rule.impact, help: rule.help, nodes: rule.nodes.map(function (n) {
+        var data = (n.any.concat(n.all, n.none)[0] || {}).data || {};
+        return {target: n.target.join(' '), html: n.html.replace(/\\s+/g, ' ').slice(0, 200),
+                why: (n.failureSummary || '').replace(/\\s+/g, ' ').slice(0, 300), key: data.messageKey || ''};
+      })};
+    });
+  }
+  return {version: axe.version, ran: r.passes.length + r.violations.length + r.incomplete.length + r.inapplicable.length,
+          violations: rules(r.violations), incomplete: rules(r.incomplete)};
+})(%s, %s)"""
+
+
+# Text whose contrast axe can't judge, such as text over a gradient, a photo or a drawn shape, is measured on
+# the screen instead. All text is made see-through for a moment, the screen behind an element's own text is
+# captured, and its color is compared with each pixel there. The lowest 1% are left out, for soft edges.
+TEXT_COLORS_JS = """(function (selectors) {
+  return selectors.map(function (selector) {
+    var el = document.querySelector(selector);
+    if (!el) return null;
+    var s = getComputedStyle(el);
+    var m = s.color.match(/rgba?\\(([^)]+)\\)/);
+    if (!m) return null;
+    var p = m[1].split(/[ ,\\/]+/).map(parseFloat);
+    var alpha = p.length > 3 ? p[3] : 1;
+    for (var node = el; node && node.nodeType === 1; node = node.parentElement) {
+      var ns = getComputedStyle(node);
+      alpha *= parseFloat(ns.opacity);
+      (ns.filter.match(/opacity\\([^)]*\\)/g) || []).forEach(function (f) {
+        var o = f.match(/opacity\\(\\s*([\\d.]+)(%%?)/);
+        if (o) alpha *= parseFloat(o[1]) / (o[2] ? 100 : 1);
+      });
+    }
+    var size = parseFloat(s.fontSize), bold = parseInt(s.fontWeight, 10) >= 700;
+    return {color: [p[0], p[1], p[2], alpha], need: (size >= 24 || (size >= 18.66 && bold)) ? 3 : 4.5};
+  });
+})(%s)"""
+HIDE_TEXT_JS = """(function (hide) {
+  var props = {'color': 'transparent', '-webkit-text-fill-color': 'transparent', 'text-shadow': 'none', 'text-decoration-color': 'transparent'};
+  if (hide) {
+    window.__tidelightHidden = Array.prototype.map.call(document.querySelectorAll('body, body *'), function (node) {
+      var saved = Object.keys(props).map(function (p) { return [p, node.style.getPropertyValue(p), node.style.getPropertyPriority(p)]; });
+      Object.keys(props).forEach(function (p) { node.style.setProperty(p, props[p], 'important'); });
+      return [node, saved];
+    });
+  } else {
+    (window.__tidelightHidden || []).forEach(function (item) {
+      item[1].forEach(function (s) { item[0].style.setProperty(s[0], s[1], s[2]); });
+    });
+    window.__tidelightHidden = null;
+  }
+  return true;
+})(%s)"""
+TEXT_BOXES_JS = """(function (selector) {
+  var el = document.querySelector(selector);
+  if (!el) return [];
+  el.scrollIntoView({block: 'center', behavior: 'instant'});
+  // Nothing that can be seen lies over the text there. A clear layer, such as a link stretched over a card, is fine.
+  function clear(s) {
+    var m = s.backgroundColor.match(/rgba?\\(([^)]+)\\)/);
+    var p = m ? m[1].split(/[ ,\\/]+/).map(parseFloat) : [];
+    return p.length > 3 && p[3] === 0 && s.backgroundImage === 'none';
+  }
+  function open(x, y) {
+    var stack = document.elementsFromPoint(x, y);
+    for (var i = 0; i < stack.length; i++) {
+      if (stack[i] === el || el.contains(stack[i])) return true;
+      if (!(clear(getComputedStyle(stack[i])) && clear(getComputedStyle(stack[i], '::before')) && clear(getComputedStyle(stack[i], '::after')))) return false;
+    }
+    return false;
+  }
+  var boxes = [];
+  Array.prototype.forEach.call(el.childNodes, function (text) {
+    if (text.nodeType !== 3 || !text.nodeValue.trim()) return;
+    var range = document.createRange();
+    range.selectNodeContents(text);
+    Array.prototype.forEach.call(range.getClientRects(), function (r) {
+      if (r.width < 1 || r.height < 1 || r.top < 0 || r.left < 0 || r.bottom > innerHeight || r.right > innerWidth) return;
+      if (!open(r.left + r.width / 2, r.top + r.height / 2)) return;  // under something else, such as the pinned strip
+      boxes.push([r.left + scrollX, r.top + scrollY, r.right + scrollX, r.bottom + scrollY]);
+    });
+  });
+  return boxes;
+})(%s)"""
+MEASURE_JS = """(async function (png, clip, boxes, text) {
+  var bytes = Uint8Array.from(atob(png), function (c) { return c.charCodeAt(0); });
+  var bitmap = await createImageBitmap(new Blob([bytes], {type: 'image/png'}));
+  var canvas = new OffscreenCanvas(bitmap.width, bitmap.height);
+  var context = canvas.getContext('2d');
+  context.drawImage(bitmap, 0, 0);
+  var pixels = context.getImageData(0, 0, bitmap.width, bitmap.height).data;
+  var sx = bitmap.width / clip[2], sy = bitmap.height / clip[3], a = text[3];
+  function lum(r, g, b) {
+    function f(v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+    return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+  }
+  // How many pixels of each color lie behind the text.
+  var counts = new Map(), total = 0;
+  boxes.forEach(function (b) {
+    var x0 = Math.max(0, Math.round((b[0] - clip[0]) * sx)), x1 = Math.min(bitmap.width, Math.round((b[2] - clip[0]) * sx));
+    var y0 = Math.max(0, Math.round((b[1] - clip[1]) * sy)), y1 = Math.min(bitmap.height, Math.round((b[3] - clip[1]) * sy));
+    for (var y = y0; y < y1; y++) {
+      for (var x = x0; x < x1; x++) {
+        var i = (y * bitmap.width + x) * 4, key = (pixels[i] << 16) | (pixels[i + 1] << 8) | pixels[i + 2];
+        counts.set(key, (counts.get(key) || 0) + 1);
+        total++;
+      }
+    }
+  });
+  if (!total) return null;
+  var ratios = [];
+  counts.forEach(function (count, key) {
+    var r = key >> 16, g = (key >> 8) & 255, bl = key & 255;
+    var back = lum(r, g, bl), fore = lum(text[0] * a + r * (1 - a), text[1] * a + g * (1 - a), text[2] * a + bl * (1 - a));
+    ratios.push([(Math.max(back, fore) + 0.05) / (Math.min(back, fore) + 0.05), count]);
+  });
+  ratios.sort(function (x, y) { return x[0] - y[0]; });
+  // The lowest ratio once the worst 1 in 100 pixels are left out.
+  var skip = Math.floor(total * 0.01);
+  for (var k = 0; k < ratios.length; k++) {
+    skip -= ratios[k][1];
+    if (skip < 0) return ratios[k][0];
+  }
+  return ratios[ratios.length - 1][0];
+})(%s, %s, %s, %s)"""
+
+
+def axe_allowance(rule, page, node, where):
+    """The written reason a finding is allowed, or None."""
+    for allowed_rule, allowed_pages, text, why, states, reason in AXE_ALLOWED:
+        if allowed_rule == rule and (not allowed_pages or page in allowed_pages) and text in node["target"] + " " + node["html"] \
+                and why in node["why"] and (not states or where.endswith(states)):
+            return reason
+    return None
+
+
+def measure_contrast(tab, nodes):
+    """For each element axe couldn't judge: (lowest contrast measured behind its text, contrast it needs), or None."""
+    selectors = [node["target"] for node in nodes]
+    colors = tab.js(TEXT_COLORS_JS % json.dumps(selectors))
+    results = []
+    tab.js(HIDE_TEXT_JS % "true")
+    try:
+        for selector, color in zip(selectors, colors):
+            boxes = tab.js(TEXT_BOXES_JS % json.dumps(selector)) if color else []
+            if not boxes:
+                results.append(None)
+                continue
+            left, top = min(b[0] for b in boxes), min(b[1] for b in boxes)
+            clip = [left, top, max(b[2] for b in boxes) - left, max(b[3] for b in boxes) - top]
+            png = tab.send("Page.captureScreenshot", {"format": "png", "clip": {
+                "x": clip[0], "y": clip[1], "width": clip[2], "height": clip[3], "scale": 1}})["data"]
+            value = tab.js(MEASURE_JS % (json.dumps(png), json.dumps(clip), json.dumps(boxes), json.dumps(color["color"])))
+            results.append(None if value is None else (value, color["need"]))
+    finally:
+        tab.js(HIDE_TEXT_JS % "false")
+        tab.js("window.scrollTo({top: 0, behavior: 'instant'})")
+    return results
+
+
+def check_with_axe(tab, source, page, where, report, context=None):
+    """Runs axe-core on the page as it is now and reports what it finds. Returns the number of rules it ran."""
+    if not tab.js("typeof window.axe === 'object' && typeof window.axe.run === 'function'"):
+        tab.js(source + "\n;true")
+    result = tab.js(AXE_RUN % (json.dumps(AXE_TAGS), json.dumps(context)))
+    if result["version"] != axe_core.VERSION:
+        report.fail("axe", page, f"the page reports axe-core {result['version']}, not the pinned {axe_core.VERSION}", where)
+    for rule in result["violations"]:
+        for node in rule["nodes"]:
+            reason = axe_allowance(rule["id"], page, node, where)
+            if reason:
+                report.note("axe", page, f"{rule['id']} allowed on {node['target']}: {reason}", where)
+            else:
+                report.fail("axe", page, f"{rule['id']} ({rule['impact']}): {rule['help']}: {node['target']}: {node['why']}", where)
+    undecided = []
+    for rule in result["incomplete"]:
+        for node in rule["nodes"]:
+            if any(node["key"] == key and node["html"].startswith(start) for key, start, _ in AXE_UNDECIDED_FINE):
+                report.ok("axe")
+            elif rule["id"] == "color-contrast":
+                undecided.append(node)
+            else:
+                report.note("axe", page, f"axe-core couldn't decide {rule['id']} ({rule['help']}) for {node['target']}: a person should look", where)
+    for node, measured in zip(undecided, measure_contrast(tab, undecided) if undecided else []):
+        if measured is None:
+            report.note("axe", page, f"axe-core couldn't judge the contrast of {node['target']} ({node['key']}), "
+                        "and it couldn't be measured on screen: a person should look", where)
+        elif measured[0] < measured[1]:
+            report.fail("axe", page, f"low contrast, measured on screen behind the text (needs {measured[1]}:1): {node['target']}",
+                        f"{where}, {measured[0]:.2f}:1")
+        else:
+            report.ok("axe")
+    report.ok("axe")
+    return result["ran"]
+
+
+def test_axe(browser, site, pages, report):
+    """axe-core's WCAG 2.2 A and AA rules on every page, at a phone size and a desktop size, in light and dark,
+    with every fold open, on phones with the menu open too, and on the Daily check-in at each step and tab.
+    axe-core is downloaded once and checked against its recorded hash (tools/axe_core.py). It is injected
+    into this test browser only, never served by the site. Like every automated check, it finds only part
+    of what a person using a screen reader or a keyboard would."""
+    try:
+        source = axe_core.source()
+    except axe_core.AxeError as error:
+        report.fail("axe", "(axe-core)", str(error))
+        return
+    tab = new_tab(browser)
+    ran = set()
+    for label, width, height, phone in AXE_SIZES:
+        tab.resize(width, height, phone)
+        for dark in (False, True):
+            tab.media(dark=dark, reduced=True)
+            where = f"{label}, {'dark' if dark else 'light'}"
+            for page in pages:
+                tab.goto(site.url(page))
+                tab.js(OPEN_ALL)
+                ran.add(check_with_axe(tab, source, page, where, report))
+                if phone and tab.js("!!document.querySelector('.menu-button')"):
+                    tab.js("document.querySelector('.menu-button').click()")
+                    if tab.js("document.querySelector('.menu-button').getAttribute('aria-expanded')") != "true":
+                        report.fail("axe", page, "the menu didn't open, so its links weren't checked", where)
+                    else:
+                        check_with_axe(tab, source, page, where + ", menu open", report, "#site-nav")
+                    tab.js("document.querySelector('.menu-button').click()")
+                # The Daily check-in shows one tab and one step at a time, so each is checked as a visitor sees it.
+                states = tab.js("""Array.prototype.map.call(document.querySelectorAll('.ci-panel[id], .ci-step[id]'),
+                    function (el) { return el.id; })""") or []
+                for state in states:
+                    tab.js(f"location.hash = {json.dumps('#' + state)}; true")
+                    tab.browser.pump(0.05)
+                    tab.js(OPEN_ALL)
+                    check_with_axe(tab, source, page, f"{where}, #{state}", report)
+                if states and tab.js("!!document.querySelector('.ci-finish')"):
+                    tab.js("document.querySelector('.ci-finish').click(); true")
+                    tab.browser.pump(0.05)
+                    tab.js(OPEN_ALL)
+                    check_with_axe(tab, source, page, f"{where}, today's suggestions", report)
+                for problem in page_problems(tab, page, site):
+                    report.fail("axe", page, problem, where)
+    tab.close()
+    print(f"  axe-core {axe_core.VERSION} ran {', '.join(str(n) for n in sorted(ran))} rules on each page (WCAG 2.2 A and AA).")
+
+
 # ---------------------------------------------------------------- offline
 
 
@@ -2137,7 +2421,8 @@ def main():
         "matrix": test_matrix, "textsize": test_textsize, "keyboard": test_keyboard, "menu": test_menu,
         "jumps": test_jumps, "folds": test_folds, "language": test_language, "quickexit": test_quickexit,
         "reducedmotion": test_reducedmotion, "nojs": test_nojs, "print": test_print, "contact": test_contact,
-        "a11ytree": test_a11ytree, "offline": test_offline, "speed": test_speed, "modes": test_modes, "privacy": test_privacy,
+        "a11ytree": test_a11ytree, "axe": test_axe, "offline": test_offline, "speed": test_speed, "modes": test_modes,
+        "privacy": test_privacy,
     }
     try:
         for group in groups:

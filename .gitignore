@@ -31,3 +31,7 @@ coverage/
 *.log
 __pycache__/
 .venv/
+
+# axe-core for the accessibility tests, downloaded and checked by tools/axe_core.py.
+# It is never committed or published.
+tools/cache/
