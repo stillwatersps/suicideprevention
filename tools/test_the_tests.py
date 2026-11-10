@@ -232,6 +232,13 @@ BUGS = [
     ("Quick exit leaving another site's frame on screen", head_script("get-help/index.html", "try{top.location.replace(a.href);}catch(_){location.replace(a.href);}", "location.replace(a.href);"), "quickexit", "get-help", "another site's frame"),
     ("Quick exit leaving the page's title in the tab", head_script("get-help/index.html", "document.title='';", ""), "quickexit", "get-help", "title still names"),
     ("test taps landing on the chat link", chat_under_every_tap, "folds", "get-help", "was stopped"),
+    ("Quick exit by Escape doing nothing", replace("assets/menu.js", "      last = 0;\n      exit.click();", "      last = 0;"), "quickexit", "get-help", "Escape twice did not leave"),
+    ("Quick exit by Escape on a single press", replace("assets/menu.js", "if (last && now - last <= WITHIN_MS) {", "if (true) {"), "quickexit", "get-help", "after one Escape"),
+    ("Quick exit by Escape with no time limit", replace("assets/menu.js", "if (last && now - last <= WITHIN_MS) {", "if (last) {"), "quickexit", "get-help", "1.4 seconds apart"),
+    ("Quick exit by a held-down Escape", replace("assets/menu.js", "    if (event.repeat) return;\n", ""), "quickexit", "get-help", "Escape held down"),
+    ("Quick exit by Escape counting across another key", replace("assets/menu.js", "    if ((event.key !== 'Escape' && event.key !== 'Esc') || !plain", "    if (event.key !== 'Escape' && event.key !== 'Esc') return;\n    if (!plain"), "quickexit", "get-help", "another key"),
+    ("Quick exit by the Escape that closes the menu", replace("assets/menu.js", " || menuOpen || isTextField", " || isTextField"), "quickexit", "get-help", "while the menu was open"),
+    ("Quick exit by Escape from a text field", replace("assets/menu.js", " || menuOpen || isTextField(event.target)) {", " || menuOpen) {"), "quickexit", "check-in", "while a text field had focus"),
     # The compact one-row strip, on short phones on their side and with larger text.
     ("the compact crisis strip not pinned on a short phone", append_css("@media (max-height: 18.75em) and (max-width: 43.99em) { .crisis-bar { position: static !important; } }"), "matrix", "get-help", "crisis strip is not pinned"),
     ("the Spanish compact crisis strip not pinned", replace("assets/styles.css", 'html[lang="es"] .crisis-bar { position: sticky; ', 'html[lang="es"] .crisis-bar { '), "matrix", "es/obtener-ayuda", "crisis strip is not pinned"),

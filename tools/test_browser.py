@@ -1363,7 +1363,187 @@ def test_quickexit(browser, site, pages, report):
     print(f"  Quick exit with no connection: history is {entries}, at {index}; the tab shows {shown}")
     report.ok("quickexit")
     tab.close()
+    quick_exit_keyboard(browser, site, pages, report)
     quick_exit_in_frame(browser, site, report)
+
+
+ESCAPE = {"key": "Escape", "code": "Escape", "windowsVirtualKeyCode": 27, "nativeVirtualKeyCode": 27}
+
+
+def press_escape(tab, times=1, gap=0.15):
+    """Presses Escape, as a person would, with a short pause between presses."""
+    for index in range(times):
+        if index:
+            tab.browser.pump(gap)
+        tab.press("Escape", "Escape", 27)
+
+
+def hold_escape(tab):
+    """Holds Escape down long enough for the key to repeat, then lets go."""
+    tab.send("Input.dispatchKeyEvent", dict(ESCAPE, type="rawKeyDown"))
+    for _ in range(4):
+        tab.browser.pump(0.1)
+        tab.send("Input.dispatchKeyEvent", dict(ESCAPE, type="rawKeyDown", autoRepeat=True))
+    tab.send("Input.dispatchKeyEvent", dict(ESCAPE, type="keyUp"))
+
+
+def left_within(tab, seconds, whole_window=True):
+    """If the tab asks for weather.gov within that time, answers with a stand-in page and returns the
+    request's event. Otherwise None, and the tab is still on the page. whole_window=False doesn't wait
+    for the window to load, since only a frame may change."""
+    try:
+        event = tab.browser.wait_for("Fetch.requestPaused", tab.session, seconds)
+    except TimeoutError:
+        return None
+    tab.send("Fetch.fulfillRequest", {
+        "requestId": event["params"]["requestId"], "responseCode": 200,
+        "responseHeaders": [{"name": "Content-Type", "value": "text/html"}],
+        "body": base64.b64encode(b"<!doctype html><title>Stand-in for weather.gov</title>").decode(),
+    })
+    if whole_window and event["params"].get("resourceType") == "Document":
+        tab.browser.wait_for("Page.loadEventFired", tab.session, 15)
+    else:
+        tab.browser.pump(1.0)
+    return event
+
+
+def quick_exit_keyboard(browser, site, pages, report):
+    """Escape pressed twice within about a second leaves as the Quick exit button does: the page goes
+    blank and is replaced in the tab's history. One Escape, two far apart, a held key, another key in
+    between, an Escape that closes the open menu, and Escape in a text field don't leave."""
+    pattern = {"patterns": [{"urlPattern": WEATHER + "*"}]}
+    # Every page, at a desktop size, where a keyboard is most likely. The page reports for itself
+    # whether it went blank, since Chrome holds back questions while it navigates to another site.
+    for page in pages:
+        tab = new_tab(browser, 1280, 800, False, allow=[WEATHER])
+        tab.send("Fetch.enable", pattern)
+        tab.goto(site.url(page))
+        tab.js("""window.addEventListener('keydown', function () {
+            console.info('esc-check:' + getComputedStyle(document.documentElement).display);
+        })""")
+        count_before = len(tab.send("Page.getNavigationHistory")["entries"])
+        tab.clear_events()
+        press_escape(tab, 2)
+        event = left_within(tab, 3)
+        said = [arg.get("value", "") for e in tab.browser.events if e.get("sessionId") == tab.session
+                and e["method"] == "Runtime.consoleAPICalled" for arg in e["params"]["args"]]
+        _, entries = history_entries(tab)
+        if not event or not event["params"]["request"]["url"].startswith(WEATHER):
+            report.fail("quickexit", page, "pressing Escape twice did not leave for weather.gov")
+        elif len(entries) != count_before or any(e.startswith(site.url(page)) for e in entries):
+            report.fail("quickexit", page, f"after Escape twice, the page stayed in the tab's history: {entries}")
+        elif "esc-check:none" not in said:
+            report.fail("quickexit", page, f"after Escape twice, the page stays on screen while weather.gov loads: {said}")
+        else:
+            report.ok("quickexit")
+        tab.close()
+
+    help_page = site.url("get-help/index.html")
+
+    def stays(page, label, act, size=(1280, 800, False)):
+        tab = new_tab(browser, *size, allow=[WEATHER])
+        tab.send("Fetch.enable", pattern)
+        tab.goto(site.url(page))
+        ready = act(tab)
+        if ready is False:
+            report.fail("quickexit", page, f"could not set up the check: {label}")
+        elif left_within(tab, 1.6):
+            report.fail("quickexit", page, f"Quick exit left the site after {label}")
+        else:
+            report.ok("quickexit")
+        tab.close()
+
+    stays("get-help/index.html", "one Escape", lambda tab: press_escape(tab, 1))
+    stays("get-help/index.html", "two Escapes 1.4 seconds apart", lambda tab: press_escape(tab, 2, gap=1.4))
+    stays("get-help/index.html", "Escape held down", hold_escape)
+
+    def other_key_between(tab):
+        press_escape(tab, 1)
+        tab.press("a", "KeyA", 65)
+        press_escape(tab, 1)
+    stays("get-help/index.html", "Escape, another key, then Escape", other_key_between)
+
+    # With the phone menu open, the first Escape closes the menu and doesn't count.
+    def menu_then_escape(tab):
+        if not guard_click(tab, ".menu-button"):
+            return False
+        press_escape(tab, 1)
+        if tab.js("document.querySelector('.menu-button').getAttribute('aria-expanded')") != "false":
+            return False
+        tab.browser.pump(0.15)
+        press_escape(tab, 1)
+    stays("get-help/index.html", "one Escape to close the menu and one more, while the menu was open", menu_then_escape,
+          size=(390, 844, True))
+    # And after that, two more Escapes leave.
+    tab = new_tab(browser, 390, 844, True, allow=[WEATHER])
+    tab.send("Fetch.enable", pattern)
+    tab.goto(help_page)
+    guard_click(tab, ".menu-button")
+    press_escape(tab, 1)
+    tab.browser.pump(0.15)
+    press_escape(tab, 2)
+    if not left_within(tab, 3):
+        report.fail("quickexit", "get-help/index.html", "after Escape closed the menu, pressing Escape twice did not leave")
+    else:
+        report.ok("quickexit")
+    tab.close()
+
+    # Nothing happens while a text field on the Daily check-in has focus, in either language.
+    for page in ("check-in/index.html", "es/registro-diario/index.html"):
+        def in_text_field(tab):
+            # The first question is a choice. Skipping it shows the next one, a text box.
+            focused = tab.js("""(function () {
+                var skip = document.querySelector('#ci-step-feeling .ci-skip');
+                if (skip) skip.click();
+                var box = Array.prototype.find.call(document.querySelectorAll('textarea'), function (t) {
+                    return t.getBoundingClientRect().height > 0; });
+                if (!box) return false;
+                box.focus();
+                return document.activeElement === box;
+            })()""")
+            if not focused:
+                return False
+            press_escape(tab, 2)
+        stays(page, "Escape twice while a text field had focus", in_text_field)
+
+    # Inside another site's frame. Escape, unlike a click, doesn't let a frame change the whole window
+    # in Chrome, so Quick exit may change only the frame. The About pages say so; this records which.
+    framer = Framer(help_page)
+    try:
+        tab = new_tab(browser, 1100, 800, False, allow=[WEATHER])
+        tab.send("Fetch.enable", pattern)
+        tab.goto(framer.base + "/")
+        tab.browser.pump(0.8)
+        root = tab.send("DOM.getDocument", {"depth": -1, "pierce": True})["root"]
+        found = []
+
+        def walk(node):
+            attrs = node.get("attributes", [])
+            if node.get("nodeName") == "MAIN" and dict(zip(attrs[::2], attrs[1::2])).get("id") == "main":
+                found.append(node["nodeId"])
+            for key in ("children", "contentDocument"):
+                kids = node.get(key) or []
+                for kid in [kids] if isinstance(kids, dict) else kids:
+                    walk(kid)
+        walk(root)
+        if not found:
+            report.fail("quickexit", "get-help/index.html", "inside another site's frame, the page's main part can't be found")
+        else:
+            tab.send("DOM.focus", {"nodeId": found[0]})
+            main_frame = tab.send("Page.getFrameTree")["frameTree"]["frame"]["id"]
+            press_escape(tab, 2)
+            event = left_within(tab, 3, whole_window=False)
+            if not event:
+                report.fail("quickexit", "get-help/index.html", "inside another site's frame, pressing Escape twice did not leave")
+            else:
+                whole = event["params"].get("frameId") == main_frame
+                print(f"  Escape twice inside another site's frame: {'the whole window' if whole else 'only the frame'} left")
+                report.note("quickexit", "(limit)", "inside another site's frame, Escape twice leaves "
+                            + ("the whole window" if whole else "only the frame, and the About pages say it may"))
+                report.ok("quickexit")
+        tab.close()
+    finally:
+        framer.stop()
 
 
 class Framer:
