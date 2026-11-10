@@ -55,7 +55,7 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <h1>Tidelight content review packet</h1>
 <p class="lede">For a licensed therapist reviewing a draft suicide prevention website for adults and young people in the United States.</p>
 <div class="banner"><strong>Draft. Not reviewed.</strong> An AI assistant drafted the website text, and one founder supplied the research brief. No licensed clinician has reviewed any of it, and none of it should be relied on until a review is recorded. Reviewer: not yet recorded. Review date: not yet recorded.</div>
-<p class="small">Built November 9, 2026 from the website files and project notes. Packet fingerprint 5f165219936d. If the pages change, this packet must be rebuilt with <code>python3 tools/make_review_packet.py</code>, and numbers may change.</p>
+<p class="small">Built November 9, 2026 from the website files and project notes. Packet fingerprint e0bd76144163. If the pages change, this packet must be rebuilt with <code>python3 tools/make_review_packet.py</code>, and numbers may change.</p>
 
 <h2 class="first">How to use this packet</h2>
 <p><strong>What's inside:</strong></p>
@@ -85,7 +85,7 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <p class="small" style="margin-top:8pt">You can see the draft website on a screen if you meet a founder in person. Otherwise this packet is how to read it. The draft pages are not on the public website yet. Parts of an older version are public at https://stillwatersps.github.io/suicideprevention/.</p>
 
 <h2>Part 1: Text that appears on every page</h2>
-<p>The crisis strip, header, crisis buttons, and footer. Each page has one version of these. Different wording on different pages is listed here once. The last list is what a screen reader reads aloud in these parts that the screen doesn't show.</p>
+<p>The crisis strip, header, crisis buttons, and footer. Each page has one version of these. Different wording on different pages is listed here once, and a line that isn't on every page says which pages show it, so a line that changes on one page changes this section too. The last list is what a screen reader reads aloud in these parts that the screen doesn't show.</p>
 <section class="review-block">
 <p class="row"><span class="id">SHARED-1</span> Quick exit</p>
 <p class="row"><span class="id">SHARED-2</span> Need help now?</p>
@@ -113,53 +113,72 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <p class="row"><span class="id">SHARED-20</span> No person has confirmed them or tried them on a phone.</p>
 <p class="row"><span class="id">SHARED-21</span> See the review status of each page.</p>
 <p class="row"><span class="id">SHARED-22</span> Photo: Joshua tree at sunset in Queen Valley, by Emily Hassell, National Park Service (public domain), via Wikimedia Commons.</p>
+<p class="row where"><span class="id"></span> <span class="same">Only on Home.</span></p>
 <ul class="links"><li><strong>GitHub says it logs and stores visitors' IP addresses</strong>: <span class="url">https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection</span></li><li><strong>Wikimedia Commons</strong>: <span class="url">https://commons.wikimedia.org/wiki/File:Joshua_tree_at_sunset_in_Queen_Valley_(50601665443).jpg</span></li></ul>
 <p class="decision"><strong>Decision:</strong> <span class="box"></span> OK as written <span class="box"></span> OK with changes <span class="box"></span> Not for the website <span class="line">Notes:</span></p>
 </section>
 <section class="review-block">
 <h4 class="row-heading"><span class="id">SHARED-23</span> Need to talk to someone now?</h4>
+<p class="row where"><span class="id"></span> <span class="same">On every page except Home.</span></p>
 <p class="row in-list"><span class="id">SHARED-24</span> Call 988 | Talk to a counselor</p>
+<p class="row where"><span class="id"></span> <span class="same">On every page except Home.</span></p>
 <p class="row in-list"><span class="id">SHARED-25</span> Text 988 | Send any message</p>
+<p class="row where"><span class="id"></span> <span class="same">On every page except Home.</span></p>
 <p class="row in-list"><span class="id">SHARED-26</span> Chat Online | Web chat with 988</p>
+<p class="row where"><span class="id"></span> <span class="same">On every page except Home.</span></p>
 <p class="row"><span class="id">SHARED-27</span> 988 says a text starts with a few steps.</p>
 <p class="row"><span class="id">SHARED-28</span> Reply NEXT to accept its terms, answer a brief survey, and wait for a counselor.</p>
+<p class="row where"><span class="id"></span> <span class="same">On every page except Home.</span></p>
 <p class="row"><span class="id">SHARED-29</span> The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time.</p>
 <p class="row"><span class="id">SHARED-30</span> It is a separate service from Tidelight.</p>
+<p class="row where"><span class="id"></span> <span class="same">On every page except Home, Help Someone, Research and Page not found.</span></p>
 <p class="row"><span class="id">SHARED-31</span> On a device that can't call or text?</p>
 <p class="row"><span class="id">SHARED-32</span> Call or text 988 from a phone, or go to 988lifeline.org.</p>
 <p class="row repeat"><span class="id">SHARED-33</span> <span class="same">same as SHARED-4:</span> In immediate danger, call 911.</p>
+<p class="row where"><span class="id"></span> <span class="same">On every page except Home.</span></p>
 <p class="row"><span class="id">SHARED-34</span> Ayuda en español</p>
+<p class="row where"><span class="id"></span> <span class="same">Only on Get Help. Its links go to #en-espanol.</span></p>
 <p class="row"><span class="id">SHARED-35</span> Deaf or hard of hearing</p>
+<p class="row where"><span class="id"></span> <span class="same">Only on Get Help. Its links go to #deaf-hoh.</span></p>
 <p class="row repeat"><span class="id">SHARED-36</span> <span class="same">same as SHARED-29:</span> The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time.</p>
 <p class="row"><span class="id">SHARED-37</span> You can contact it about someone else, too.</p>
 <p class="row repeat"><span class="id">SHARED-38</span> <span class="same">same as SHARED-30:</span> It is a separate service from Tidelight.</p>
-<p class="row repeat"><span class="id">SHARED-39</span> <span class="same">same as SHARED-29:</span> The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time.</p>
-<p class="row repeat"><span class="id">SHARED-40</span> <span class="same">same as SHARED-30:</span> It is a separate service from Tidelight.</p>
-<p class="row"><span class="id">SHARED-41</span> You don't need research to reach out.</p>
-<p class="row"><span class="id">SHARED-42</span> Save 988 to your contacts</p>
-<p class="row"><span class="id">SHARED-43</span> This gives you a small contact card file for the 988 Lifeline.</p>
-<p class="row"><span class="id">SHARED-44</span> Depending on your device, it may show a preview of the contact, or save to your downloads.</p>
-<p class="row"><span class="id">SHARED-45</span> Adding it to your contacts is up to you, and nothing is sent to Tidelight.</p>
-<p class="row"><span class="id">SHARED-46</span> On an iPhone, scroll to the bottom of the preview and tap Create New Contact.</p>
-<p class="row"><span class="id">SHARED-47</span> Closing the preview doesn't save it.</p>
-<p class="row"><span class="id">SHARED-48</span> On a shared phone or computer, other people may see the file or a saved contact.</p>
-<p class="row"><span class="id">SHARED-49</span> Trained counselors at the 988 Suicide &amp; Crisis Lifeline answer calls, texts, and chats.</p>
-<p class="row repeat"><span class="id">SHARED-50</span> <span class="same">same as SHARED-30:</span> It is a separate service from Tidelight.</p>
+<p class="row where"><span class="id"></span> <span class="same">Only on Help Someone.</span></p>
+<p class="row repeat"><span class="id">SHARED-39</span> <span class="same">same as SHARED-34:</span> Ayuda en español</p>
+<p class="row where"><span class="id"></span> <span class="same">On every page except Home and Get Help. Its links go to get-help/#en-espanol.</span></p>
+<p class="row repeat"><span class="id">SHARED-40</span> <span class="same">same as SHARED-35:</span> Deaf or hard of hearing</p>
+<p class="row where"><span class="id"></span> <span class="same">On every page except Home and Get Help. Its links go to get-help/#deaf-hoh.</span></p>
+<p class="row repeat"><span class="id">SHARED-41</span> <span class="same">same as SHARED-29:</span> The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time.</p>
+<p class="row repeat"><span class="id">SHARED-42</span> <span class="same">same as SHARED-30:</span> It is a separate service from Tidelight.</p>
+<p class="row"><span class="id">SHARED-43</span> You don't need research to reach out.</p>
+<p class="row where"><span class="id"></span> <span class="same">Only on Research.</span></p>
+<p class="row"><span class="id">SHARED-44</span> Save 988 to your contacts</p>
+<p class="row where"><span class="id"></span> <span class="same">Only on Wallet card and poster.</span></p>
+<p class="row"><span class="id">SHARED-45</span> This gives you a small contact card file for the 988 Lifeline.</p>
+<p class="row"><span class="id">SHARED-46</span> Depending on your device, it may show a preview of the contact, or save to your downloads.</p>
+<p class="row"><span class="id">SHARED-47</span> Adding it to your contacts is up to you, and nothing is sent to Tidelight.</p>
+<p class="row"><span class="id">SHARED-48</span> On an iPhone, scroll to the bottom of the preview and tap Create New Contact.</p>
+<p class="row"><span class="id">SHARED-49</span> Closing the preview doesn't save it.</p>
+<p class="row"><span class="id">SHARED-50</span> On a shared phone or computer, other people may see the file or a saved contact.</p>
+<p class="row where"><span class="id"></span> <span class="same">Only on Wallet card and poster.</span></p>
+<p class="row"><span class="id">SHARED-51</span> Trained counselors at the 988 Suicide &amp; Crisis Lifeline answer calls, texts, and chats.</p>
+<p class="row repeat"><span class="id">SHARED-52</span> <span class="same">same as SHARED-30:</span> It is a separate service from Tidelight.</p>
+<p class="row where"><span class="id"></span> <span class="same">Only on Page not found.</span></p>
 <ul class="links"><li><strong>Call 988 | Talk to a counselor</strong>: <span class="url">tel:988</span></li><li><strong>Text 988 | Send any message</strong>: <span class="url">sms:988</span></li><li><strong>Chat Online | Web chat with 988</strong>: <span class="url">https://chat.988lifeline.org/</span></li><li><strong>988lifeline.org</strong>: <span class="url">https://988lifeline.org/</span></li></ul>
 <p class="decision"><strong>Decision:</strong> <span class="box"></span> OK as written <span class="box"></span> OK with changes <span class="box"></span> Not for the website <span class="line">Notes:</span></p>
 </section>
 <section class="review-block">
 <h4 class="row-heading">Read aloud by a screen reader, not shown on screen</h4>
-<p class="row in-list"><span class="id">SHARED-51</span> Link seen only when reached with a keyboard: Skip to main content</p>
-<p class="row in-list"><span class="id">SHARED-52</span> Area name: Crisis help and quick exit</p>
-<p class="row in-list"><span class="id">SHARED-53</span> Link "Quick exit", read aloud as: Quick exit: leave this site now for the weather.gov home page</p>
-<p class="row in-list"><span class="id">SHARED-54</span> Link "Call 988", read aloud as: Call 988, the Suicide and Crisis Lifeline</p>
-<p class="row in-list"><span class="id">SHARED-55</span> Link "text 988", read aloud as: Text 988, the Suicide and Crisis Lifeline</p>
-<p class="row in-list"><span class="id">SHARED-56</span> Link "call 911", read aloud as: Call 911, emergency services</p>
-<p class="row in-list"><span class="id">SHARED-57</span> Link "Tidelight Suicide prevention &amp; support", read aloud as: Tidelight Suicide prevention &amp; support, home</p>
-<p class="row in-list"><span class="id">SHARED-58</span> Menu name: Main</p>
-<p class="row in-list"><span class="id">SHARED-59</span> Menu name: All pages</p>
-<p class="row in-list"><span class="id">SHARED-60</span> List name: Reach the 988 Suicide and Crisis Lifeline</p>
+<p class="row in-list"><span class="id">SHARED-53</span> Link seen only when reached with a keyboard: Skip to main content</p>
+<p class="row in-list"><span class="id">SHARED-54</span> Area name: Crisis help and quick exit</p>
+<p class="row in-list"><span class="id">SHARED-55</span> Link "Quick exit", read aloud as: Quick exit: leave this site now for the weather.gov home page</p>
+<p class="row in-list"><span class="id">SHARED-56</span> Link "Call 988", read aloud as: Call 988, the Suicide and Crisis Lifeline</p>
+<p class="row in-list"><span class="id">SHARED-57</span> Link "text 988", read aloud as: Text 988, the Suicide and Crisis Lifeline</p>
+<p class="row in-list"><span class="id">SHARED-58</span> Link "call 911", read aloud as: Call 911, emergency services</p>
+<p class="row in-list"><span class="id">SHARED-59</span> Link "Tidelight Suicide prevention &amp; support", read aloud as: Tidelight Suicide prevention &amp; support, home</p>
+<p class="row in-list"><span class="id">SHARED-60</span> Menu name: Main</p>
+<p class="row in-list"><span class="id">SHARED-61</span> Menu name: All pages</p>
+<p class="row in-list"><span class="id">SHARED-62</span> List name: Reach the 988 Suicide and Crisis Lifeline</p>
 
 <p class="decision"><strong>Decision:</strong> <span class="box"></span> OK as written <span class="box"></span> OK with changes <span class="box"></span> Not for the website <span class="line">Notes:</span></p>
 </section>
@@ -222,7 +241,7 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <section class="review-block">
 <h4 class="row-heading">Read aloud by a screen reader, not shown on screen</h4>
 <p class="row in-list"><span class="id">HOME-42</span> Page title, read first when the page opens: Tidelight — Suicide Prevention &amp; Support</p>
-<p class="row repeat in-list"><span class="id">HOME-43</span> <span class="same">same as SHARED-60:</span> List name: Reach the 988 Suicide and Crisis Lifeline</p>
+<p class="row repeat in-list"><span class="id">HOME-43</span> <span class="same">same as SHARED-62:</span> List name: Reach the 988 Suicide and Crisis Lifeline</p>
 <p class="row in-list"><span class="id">HOME-44</span> Area name: About this site and the 988 Lifeline</p>
 <p class="row in-list"><span class="id">HOME-45</span> Area name: Review status</p>
 <p class="row in-list"><span class="id">HOME-46</span> Area name: Reminder</p>
@@ -253,13 +272,13 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <p class="row in-list"><span class="id">HELP-11</span> If one way doesn't connect, try another: call, text, or chat.</p>
 <p class="row in-list"><span class="id">HELP-12</span> The rest of this page can wait.</p>
 <p class="row in-list"><span class="id">HELP-13</span> Open a section below when you're ready.</p>
-<p class="row repeat"><span class="id">HELP-14</span> <span class="same">same as SHARED-42:</span> Save 988 to your contacts</p>
-<p class="row repeat"><span class="id">HELP-15</span> <span class="same">same as SHARED-43:</span> This gives you a small contact card file for the 988 Lifeline.</p>
-<p class="row repeat"><span class="id">HELP-16</span> <span class="same">same as SHARED-44:</span> Depending on your device, it may show a preview of the contact, or save to your downloads.</p>
-<p class="row repeat"><span class="id">HELP-17</span> <span class="same">same as SHARED-45:</span> Adding it to your contacts is up to you, and nothing is sent to Tidelight.</p>
-<p class="row repeat"><span class="id">HELP-18</span> <span class="same">same as SHARED-46:</span> On an iPhone, scroll to the bottom of the preview and tap Create New Contact.</p>
-<p class="row repeat"><span class="id">HELP-19</span> <span class="same">same as SHARED-47:</span> Closing the preview doesn't save it.</p>
-<p class="row repeat"><span class="id">HELP-20</span> <span class="same">same as SHARED-48:</span> On a shared phone or computer, other people may see the file or a saved contact.</p>
+<p class="row repeat"><span class="id">HELP-14</span> <span class="same">same as SHARED-44:</span> Save 988 to your contacts</p>
+<p class="row repeat"><span class="id">HELP-15</span> <span class="same">same as SHARED-45:</span> This gives you a small contact card file for the 988 Lifeline.</p>
+<p class="row repeat"><span class="id">HELP-16</span> <span class="same">same as SHARED-46:</span> Depending on your device, it may show a preview of the contact, or save to your downloads.</p>
+<p class="row repeat"><span class="id">HELP-17</span> <span class="same">same as SHARED-47:</span> Adding it to your contacts is up to you, and nothing is sent to Tidelight.</p>
+<p class="row repeat"><span class="id">HELP-18</span> <span class="same">same as SHARED-48:</span> On an iPhone, scroll to the bottom of the preview and tap Create New Contact.</p>
+<p class="row repeat"><span class="id">HELP-19</span> <span class="same">same as SHARED-49:</span> Closing the preview doesn't save it.</p>
+<p class="row repeat"><span class="id">HELP-20</span> <span class="same">same as SHARED-50:</span> On a shared phone or computer, other people may see the file or a saved contact.</p>
 <p class="row repeat"><span class="id">HELP-21</span> <span class="same">same as HOME-21:</span> Draft for review.</p>
 <p class="row repeat"><span class="id">HELP-22</span> <span class="same">same as HOME-22:</span> A suicide prevention professional has not reviewed this page yet.</p>
 <p class="row repeat"><span class="id">HELP-23</span> <span class="same">same as HOME-23:</span> An AI assistant drafted it and compared the phone numbers and links with each provider's website on November 6, 2026.</p>
@@ -747,13 +766,13 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <p class="row repeat in-list"><span class="id">TEEN-11</span> <span class="same">same as HELP-11:</span> If one way doesn't connect, try another: call, text, or chat.</p>
 <p class="row repeat in-list"><span class="id">TEEN-12</span> <span class="same">same as HELP-12:</span> The rest of this page can wait.</p>
 <p class="row in-list"><span class="id">TEEN-13</span> Read on when you're ready.</p>
-<p class="row repeat"><span class="id">TEEN-14</span> <span class="same">same as SHARED-42:</span> Save 988 to your contacts</p>
-<p class="row repeat"><span class="id">TEEN-15</span> <span class="same">same as SHARED-43:</span> This gives you a small contact card file for the 988 Lifeline.</p>
-<p class="row repeat"><span class="id">TEEN-16</span> <span class="same">same as SHARED-44:</span> Depending on your device, it may show a preview of the contact, or save to your downloads.</p>
-<p class="row repeat"><span class="id">TEEN-17</span> <span class="same">same as SHARED-45:</span> Adding it to your contacts is up to you, and nothing is sent to Tidelight.</p>
-<p class="row repeat"><span class="id">TEEN-18</span> <span class="same">same as SHARED-46:</span> On an iPhone, scroll to the bottom of the preview and tap Create New Contact.</p>
-<p class="row repeat"><span class="id">TEEN-19</span> <span class="same">same as SHARED-47:</span> Closing the preview doesn't save it.</p>
-<p class="row repeat"><span class="id">TEEN-20</span> <span class="same">same as SHARED-48:</span> On a shared phone or computer, other people may see the file or a saved contact.</p>
+<p class="row repeat"><span class="id">TEEN-14</span> <span class="same">same as SHARED-44:</span> Save 988 to your contacts</p>
+<p class="row repeat"><span class="id">TEEN-15</span> <span class="same">same as SHARED-45:</span> This gives you a small contact card file for the 988 Lifeline.</p>
+<p class="row repeat"><span class="id">TEEN-16</span> <span class="same">same as SHARED-46:</span> Depending on your device, it may show a preview of the contact, or save to your downloads.</p>
+<p class="row repeat"><span class="id">TEEN-17</span> <span class="same">same as SHARED-47:</span> Adding it to your contacts is up to you, and nothing is sent to Tidelight.</p>
+<p class="row repeat"><span class="id">TEEN-18</span> <span class="same">same as SHARED-48:</span> On an iPhone, scroll to the bottom of the preview and tap Create New Contact.</p>
+<p class="row repeat"><span class="id">TEEN-19</span> <span class="same">same as SHARED-49:</span> Closing the preview doesn't save it.</p>
+<p class="row repeat"><span class="id">TEEN-20</span> <span class="same">same as SHARED-50:</span> On a shared phone or computer, other people may see the file or a saved contact.</p>
 <p class="row repeat"><span class="id">TEEN-21</span> <span class="same">same as HOME-21:</span> Draft for review.</p>
 <p class="row"><span class="id">TEEN-22</span> A suicide prevention professional has not reviewed this page yet, and its founders are still deciding which ages the site is designed for.</p>
 <p class="row repeat"><span class="id">TEEN-23</span> <span class="same">same as HOME-23:</span> An AI assistant drafted it and compared the phone numbers and links with each provider's website on November 6, 2026.</p>
@@ -1878,13 +1897,13 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <p class="row"><span class="id">ABOUT-96</span> The "Save 988 to your contacts" button gives you a small contact card file.</p>
 <p class="row"><span class="id">ABOUT-97</span> It has the 988 Lifeline's name, number, and website.</p>
 <p class="row"><span class="id">ABOUT-98</span> It also has a short note on how to reach 988, including in Spanish and for veterans, and when to call 911.</p>
-<p class="row repeat"><span class="id">ABOUT-99</span> <span class="same">same as SHARED-44:</span> Depending on your device, it may show a preview of the contact, or save to your downloads.</p>
+<p class="row repeat"><span class="id">ABOUT-99</span> <span class="same">same as SHARED-46:</span> Depending on your device, it may show a preview of the contact, or save to your downloads.</p>
 <p class="row"><span class="id">ABOUT-100</span> It comes from this site, and nothing about you is sent to Tidelight.</p>
 <p class="row"><span class="id">ABOUT-101</span> Adding it to your contacts is up to you.</p>
-<p class="row repeat"><span class="id">ABOUT-102</span> <span class="same">same as SHARED-46:</span> On an iPhone, scroll to the bottom of the preview and tap Create New Contact.</p>
-<p class="row repeat"><span class="id">ABOUT-103</span> <span class="same">same as SHARED-47:</span> Closing the preview doesn't save it.</p>
+<p class="row repeat"><span class="id">ABOUT-102</span> <span class="same">same as SHARED-48:</span> On an iPhone, scroll to the bottom of the preview and tap Create New Contact.</p>
+<p class="row repeat"><span class="id">ABOUT-103</span> <span class="same">same as SHARED-49:</span> Closing the preview doesn't save it.</p>
 <p class="row"><span class="id">ABOUT-104</span> On a shared phone or computer, or if your contacts sync to another device, other people may see the file or the contact.</p>
-<p class="row repeat"><span class="id">ABOUT-105</span> <span class="same">same as SHARED-42:</span> Save 988 to your contacts</p>
+<p class="row repeat"><span class="id">ABOUT-105</span> <span class="same">same as SHARED-44:</span> Save 988 to your contacts</p>
 
 <p class="decision"><strong>Decision:</strong> <span class="box"></span> OK as written <span class="box"></span> OK with changes <span class="box"></span> Not for the website <span class="line">Notes:</span></p>
 </section>
@@ -2321,7 +2340,7 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 <h2>Part 9: Decisions and sign-off</h2>
 <p>Please record your role and the date, such as "licensed clinical social worker, November 2026". Please don't write your name, license number, or contact details here. The founders will keep any such record outside the project.</p>
 <p><strong>What the fingerprint is.</strong> Each website section below has a fingerprint: a 12-character code made from that section's text, exactly as this packet shows it. If even one word of the section changes later, its fingerprint changes. The website can go public only while each section's approval carries the fingerprint of its current text. So if a page changes after you approve it, your approval stops counting until you have seen the change and the founders record it again. You don't need to do anything with the fingerprints yourself.</p>
-<h3>The website</h3><table class="signoff"><thead><tr><th>Section</th><th>Fingerprint</th><th>Approved</th><th>Approved with changes</th><th>Not for the website</th><th>Reviewer's role and date</th></tr></thead><tbody><tr><td>Home</td><td><code>489cb59b8170</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Get Help</td><td><code>26ee997d5273</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Help Someone</td><td><code>a30e69d213ba</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>For Teens</td><td><code>6cafca6ccc75</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Daily check-in</td><td><code>905d47be054d</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Not sure what you're feeling?</td><td><code>10b44a4810e1</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>After a loss</td><td><code>1d5d66bdc7e9</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Research</td><td><code>dec86ab9d119</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Wallet card and poster</td><td><code>4bb88250ba10</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>About and privacy</td><td><code>855cb90f6474</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Page not found</td><td><code>2569c979a487</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Text on every page (Part 1)</td><td><code>344567fb201a</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Wording outside the page text (Part 3)</td><td><code>406cf14f777e</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr></tbody></table>
+<h3>The website</h3><table class="signoff"><thead><tr><th>Section</th><th>Fingerprint</th><th>Approved</th><th>Approved with changes</th><th>Not for the website</th><th>Reviewer's role and date</th></tr></thead><tbody><tr><td>Home</td><td><code>489cb59b8170</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Get Help</td><td><code>26ee997d5273</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Help Someone</td><td><code>a30e69d213ba</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>For Teens</td><td><code>6cafca6ccc75</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Daily check-in</td><td><code>905d47be054d</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Not sure what you're feeling?</td><td><code>10b44a4810e1</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>After a loss</td><td><code>1d5d66bdc7e9</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Research</td><td><code>dec86ab9d119</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Wallet card and poster</td><td><code>4bb88250ba10</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>About and privacy</td><td><code>855cb90f6474</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Page not found</td><td><code>2569c979a487</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Text on every page (Part 1)</td><td><code>f6608768c69f</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Wording outside the page text (Part 3)</td><td><code>406cf14f777e</code></td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr></tbody></table>
 <h3>The research brief</h3><table class="signoff"><thead><tr><th>Section</th><th>Approved</th><th>Approved with changes</th><th>Not for the website</th><th>Reviewer's role and date</th></tr></thead><tbody><tr><td>Brief: 1. Understanding suicide</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: 2. Causes and risk factors</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: 3. Warning signs</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: 4. Effects on families, schools, communities</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: 5. Evidence-based prevention</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: 6. Treatment and recovery</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: 7. Statistics</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: 8. Technology and website design</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: Pathway A: Navigate your thoughts</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: Pathway B: Work through your thoughts</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: Pathway C: Learn about suicide</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr><tr><td>Brief: Universal safety requirements</td><td><span class="box"></span></td><td><span class="box"></span></td><td><span class="box"></span></td><td></td></tr></tbody></table>
 <h3>Overall</h3>
 <p>Is this site safe to show the public with the changes you asked for? <span class="box"></span> Yes <span class="box"></span> Yes, after the changes are made and I have seen them <span class="box"></span> No <span class="box"></span> Not my call</p>

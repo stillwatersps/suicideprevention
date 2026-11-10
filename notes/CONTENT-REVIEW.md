@@ -100,7 +100,9 @@ and fails on any such words that no packet shows, such as a new `aria-label` the
 
 **What the fingerprint means.** It's a 12-character code made from the section's text, as the packet shows
 it, including what a screen reader reads aloud there. When any word of that section changes, its fingerprint
-changes. An approval only counts while its
+changes. The text on every page lists each different line once, with a note under any line that isn't on every
+page of its language saying which pages show it. The notes are part of its fingerprint, so a shared line taken
+off one page, or changed there, changes it too. An approval only counts while its
 fingerprint matches the text on the website now. So after a change, even a small one such as a corrected
 crisis number, the old approval stops counting and publishing stops. To fix that, rebuild the packets with
 `python3 tools/make_review_packet.py`, show the reviewer what changed, and add a new line with the new date

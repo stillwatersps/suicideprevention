@@ -63,11 +63,13 @@ Everyone else's results go under "Other reviews" in [[CONTENT-REVIEW]], which th
   That includes a change only a screen reader would notice, such as a link's `aria-label`, an image's description,
   or a page's title.
 - [ ] Check the parts every page shares, such as the crisis strip and the footer, on every page you changed. The
-  text on every page (Part 1) lists each different wording there once, so a change on one page gives it a new
-  fingerprint only when it makes a new wording. What a screen reader says in those parts must be the same on every
-  page of a language, or `tools/check_site.py` fails, so a crisis link that loses its full name on one page is
-  caught. The words on screen there aren't compared: a line taken off one page while other pages keep it, such as
-  the crisis buttons' "In immediate danger, call 911" line, changes no fingerprint and fails no check.
+  text on every page (Part 1) lists each different line there once, and a line that isn't on every page of its
+  language carries a note saying which pages show it, such as "On every page except Home." The notes are part of
+  the fingerprint, so a line taken off one page, changed there, moved to another part, or given a link to another
+  place there gives Part 1 a new fingerprint, and its approval stops counting. A line that only changes its place
+  among the other lines of its part is still a limit: the notes don't record the order. What a screen reader says
+  in those parts must be the same on every page of a language, or `tools/check_site.py` fails, so a crisis link
+  that loses its full name on one page is caught.
 
 ## 4. Test on real devices
 

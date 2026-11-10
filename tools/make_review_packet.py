@@ -24,6 +24,7 @@ fingerprint. The packet fingerprint in notes/review-packet/FINGERPRINT.txt is ma
 so tools/check_site.py says the packets are out of date whenever what they would show changes.
 """
 import argparse
+import collections
 import datetime
 import hashlib
 import html
@@ -33,12 +34,14 @@ import json
 import pathlib
 import re
 import sys
+import urllib.parse
 
 TOOLS = pathlib.Path(__file__).resolve().parent
 ROOT = TOOLS.parent
 sys.path.insert(0, str(TOOLS))
 from check_site import (DATE_EN, DATE_ES, EVERY_PAGE, HEARD_ATTRIBUTES, OUTSIDE_TEXT, SHOWN_BY_SCRIPT,  # noqa: E402
-                        SPANISH_ON_EVERY_PAGE, SPANISH_SIGNS, find_pages, is_spanish, language_of)
+                        SPANISH_ON_EVERY_PAGE, SPANISH_SIGNS, find_pages, is_spanish, language_of, normal_href,
+                        scheme_of)
 
 OUT = ROOT / "notes" / "review-packet"
 PREVIEW = "https://stillwatersps.github.io/suicideprevention/"
@@ -82,7 +85,7 @@ SPANISH_ON_ENGLISH = [
 # What the Spanish packet says about where a section's lines appear, when the page's address doesn't say it.
 SPANISH_ON_ENGLISH_NOTES = {
     SPANISH_ON_EVERY_PAGE: "Las líneas en español que tienen todas las páginas en inglés, como los enlaces al español. "
-                           "Cada texto distinto aparece una vez.",
+                           "Cada texto distinto aparece una vez, y una línea que no está en todas dice en cuáles está.",
     "card/index.html": "El cartel y cada tarjeta de bolsillo llevan esta línea al imprimirlos. Las tarjetas iguales aparecen una vez.",
     "404.html": "Aparece en cualquier dirección que no existe, y sin conexión en lugar de una página que no se guardó, "
                 "así que también la ven personas que hablan español.",
@@ -100,6 +103,25 @@ HEADINGS = {"h1": "h3", "h2": "h4", "h3": "h5", "h4": "h5", "h5": "h6", "h6": "h
 SKIP_CLASSES = {"visually-hidden", "lang-switch", "breadcrumb", "toc", "card-arrow", "card-icon", "skip-link",
                 "when-closed", "when-open"}
 SHARED_CLASSES = {"crisis-bar", "crisis-panel", "site-footer", "site-header", "quick-exit"}
+# The text on every page lists each different line once, so a reviewer reads it once. A line that isn't on every
+# page of its language gets a note saying which pages show it, and the note is part of the section's fingerprint.
+# So a shared line taken off one page, or changed there, changes the fingerprint and stops that section's approval,
+# though no page lists the shared text again. See listing(). A line belongs to the first of these parts it sits in.
+SHARED_PARTS = ("lang-switch", "lang-link", "crisis-bar", "quick-exit", "site-header", "crisis-panel", "site-footer")
+WHERE_WORDS = {
+    "en": {"only": "Only on {pages}.", "except": "On {every} except {pages}.", "every": "every page", "and": " and ",
+           "part": "In {part}.", "links": "Its links go to {links}.", "tag": "Shown as <{tag}>.",
+           "twin": "the same page in the other language",
+           "parts": {"lang-switch": "the language switch", "lang-link": "the link to help in Spanish",
+                     "crisis-bar": "the crisis strip", "quick-exit": "Quick exit", "site-header": "the header",
+                     "crisis-panel": "the crisis buttons", "site-footer": "the footer"}},
+    "es": {"only": "Solo en {pages}.", "except": "En {every} menos {pages}.", "every": "todas las páginas",
+           "and": " y ", "part": "En {part}.", "links": "Sus enlaces van a {links}.", "tag": "Con la etiqueta <{tag}>.",
+           "twin": "la misma página en el otro idioma",
+           "parts": {"lang-switch": "el cambio de idioma", "lang-link": "el enlace a la ayuda en español",
+                     "crisis-bar": "la franja de crisis", "quick-exit": "Salida rápida", "site-header": "el encabezado",
+                     "crisis-panel": "los botones de crisis", "site-footer": "el pie de página"}},
+}
 # Parts of one control or line that show as separate pieces on screen, such as a button's title and
 # its smaller second line. A " | " keeps them apart, so the packet doesn't show "Call 988Talk to a counselor".
 PART_CLASSES = {"action-sub", "trust-text", "status-line", "brand-tag"}
@@ -640,6 +662,8 @@ def render_blocks(blocks, prefix, numbering, counters, lang):
                     out.append(f'<p class="row repeat{bullet}"><span class="id">{label}</span> <span class="same">same as {same}:</span> {esc(sentence)}{shown}</p>')
                 else:
                     out.append(f'<p class="row{bullet}"><span class="id">{label}</span> {esc(sentence)}{shown}</p>')
+        if block.get("where"):  # which pages show a line of the text on every page, when not every page does
+            out.append(f'<p class="row where"><span class="id"></span> <span class="same">{esc(block["where"])}</span></p>')
         links.extend(block["links"])
     close()
     return "\n".join(out)
@@ -696,17 +720,104 @@ def spanish_lines(name):
 
 
 def spanish_shared_lines(names):
-    """The Spanish lines in the parts every English page shares, listed once with every different wording.
-    A page that doesn't exist is skipped: tools/check_site.py reports it on its own."""
+    """The Spanish lines in the parts every English page shares: each different line once, with a note under any
+    line that isn't on every English page saying which pages show it. A page that doesn't exist is skipped:
+    tools/check_site.py reports it on its own."""
+    pages = [(packet_name(name), name, spanish_text(name)[1]) for name in names if (ROOT / name).exists()]
+    return listing(pages, "es", "todas las páginas en inglés")
+
+
+def packet_name(name):
+    """A page's name in the packets, such as "For Teens" for teens/index.html."""
+    found = {item[0]: item[2] for item in ENGLISH + SPANISH}
+    return found.get(name, name)
+
+
+def site_link(href, name):
+    """Where a link on the page called name leads: a link within the site as its path from the site's root, the
+    same whichever page it's on (../get-help/ on Help Someone and /suicideprevention/get-help/ on the 404 page both
+    lead to get-help/), and any other link as written, with its scheme in lower case. A link to a place on its own
+    page, such as #support, stays as written, because each page's header has one to its own crisis buttons."""
+    href = normal_href(href)
+    if scheme_of(href) or href.startswith("#"):
+        return href
+    folder = name[:-len("index.html")] if name.endswith("index.html") else name
+    full = urllib.parse.urljoin(PREVIEW + folder, href)
+    return (full[len(PREVIEW):] or "./") if full.startswith(PREVIEW) else full
+
+
+def shared_part(block):
+    """The part every page shares that a line sits in, such as "crisis-bar"."""
+    return next((part for part in SHARED_PARTS if part in block["classes"]), "")
+
+
+# How line_key() marks a link to the page's own twin in the other language, whatever page it's on.
+TWIN = "(twin)"
+
+
+def twin_link(name):
+    """The site path of a page's twin in the other language, as site_link() gives it, from ENGLISH and SPANISH."""
+    for spanish, _, _, english in SPANISH:
+        english_page = english if english.endswith(".html") else english + "index.html"
+        if name == english_page:
+            return spanish[:-len("index.html")]
+        if name == spanish:
+            return "./" if english == "index.html" else english
+    return None
+
+
+def line_key(block, name):
+    """What makes a line of a shared part the same line on another page: its part, its kind, its words, and where
+    each of its links leads. A link to the page's own twin in the other language, such as each language switch,
+    counts as one destination on every page."""
+    twin = twin_link(name)
+    return (shared_part(block), block["tag"], block["text"],
+            tuple((link["text"], TWIN if site_link(link["href"], name) == twin
+                   else site_link(link["href"], name)) for link in block["links"]))
+
+
+def join_names(names, lang):
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + WHERE_WORDS[lang]["and"] + names[-1]
+
+
+def listing(pages, lang, every=None):
+    """The lines of the parts every page shares, each different line once, in the order first seen. pages is
+    [(the page's name in the packet, its file, [block, ...]), ...], in the packets' order. A line that isn't on
+    every page gets "where", a note saying which pages show it, and a line whose words are listed twice says what
+    tells the two apart: its part, its links, or its kind. section_fingerprint() holds the notes, so a line taken
+    off one page, or changed there, changes the fingerprint, though the packet shows each wording only once."""
+    words = WHERE_WORDS[lang]
+    every = every or words["every"]
+    labels = [label for label, _, _ in pages]
+    listed = {}  # line: {"block": the first page's block, "on": [page names]}, in the order first seen
+    for label, name, blocks in pages:
+        for block in blocks:
+            entry = listed.setdefault(line_key(block, name), {"block": block, "on": []})
+            if label not in entry["on"]:
+                entry["on"].append(label)
+    same_words = collections.defaultdict(list)
+    for key in listed:
+        same_words[key[2]].append(key)
     found = []
-    seen = set()
-    for name in names:
-        if not (ROOT / name).exists():
-            continue
-        for block in spanish_text(name)[1]:
-            if block["text"] not in seen:
-                seen.add(block["text"])
-                found.append(block)
+    for key, entry in listed.items():
+        notes = []
+        on = entry["on"]
+        if len(on) < len(labels):
+            off = [label for label in labels if label not in on]
+            notes.append(words["only"].format(pages=join_names(on, lang)) if 2 * len(on) <= len(labels)
+                         else words["except"].format(every=every, pages=join_names(off, lang)))
+        twins = same_words[key[2]]
+        if len({twin[0] for twin in twins}) > 1:
+            notes.append(words["part"].format(part=words["parts"].get(key[0], key[0] or "-")))
+        if len({twin[3] for twin in twins}) > 1:
+            notes.append(words["links"].format(links=", ".join(words["twin"] if href == TWIN else href
+                                                                for _, href in key[3]) or "-"))
+        if len({twin[1] for twin in twins}) > 1:
+            notes.append(words["tag"].format(tag=key[1]))
+        block = dict(entry["block"])
+        if notes:
+            block["where"] = " ".join(notes)
+        found.append(block)
     return found
 
 
@@ -727,7 +838,7 @@ def section_blocks(page, lang):
     names = [item[0] for item in (ENGLISH if lang == "en" else SPANISH)]
     english = [item[0] for item in ENGLISH]
     if page == EVERY_PAGE[lang]:
-        return shared_blocks(names) + heard_part(shared_heard(names), lang, once=True)
+        return shared_blocks(names, lang) + heard_part(shared_heard(names), lang, once=True)
     if page == OUTSIDE_TEXT[lang]:
         return outside_blocks(names, lang)
     if lang == "es" and page == SPANISH_ON_EVERY_PAGE:
@@ -739,12 +850,20 @@ def section_blocks(page, lang):
 
 
 def section_fingerprint(page, lang):
-    """The first 12 characters of a SHA-256 hash of a section's text and links, as the packet shows them.
-    Any change a reader of the packet could see changes it, and nothing else does."""
+    """The first 12 characters of a SHA-256 hash of a section's text and links, as the packet shows them, with
+    the notes saying which pages show a line of the text on every page. Any change a reader of the packet could
+    see changes it, and nothing else does."""
+    return blocks_fingerprint(page, lang, section_blocks(page, lang))
+
+
+def blocks_fingerprint(page, lang, blocks):
+    """section_fingerprint() for a section whose blocks are given, such as made-up ones in --self-test."""
     lines = [f"section {lang} {page}"]
-    for block in section_blocks(page, lang):
+    for block in blocks:
         lines.append(f"{block['tag']}: {block['text']}")
         lines.extend(f"  link: {link['text']} -> {link['href']}" for link in block["links"])
+        if block.get("where"):
+            lines.append(f"  where: {block['where']}")
     return hashlib.sha256("\n".join(lines).encode("utf-8")).hexdigest()[:12]
 
 
@@ -828,20 +947,13 @@ def outside_blocks(names, lang):
     return blocks
 
 
-def shared_blocks(names):
-    """The crisis strip, header, panel, and footer, listed once with every different wording."""
-    blocks = []
-    seen = set()
-    for name in names:
-        for block in read_page(name).blocks:
-            if not (block["classes"] & SHARED_CLASSES) or "footer-nav" in block["classes"] or "site-nav" in block["classes"]:
-                continue
-            key = block["text"]
-            if key in seen:
-                continue
-            seen.add(key)
-            blocks.append(block)
-    return blocks
+def shared_blocks(names, lang="en"):
+    """The crisis strip, header, panel, and footer: each different line once, with a note under any line that
+    isn't on every page of the language saying which pages show it. A page that doesn't exist is skipped."""
+    pages = [(packet_name(name), name, [block for block in read_page(name).blocks if block["classes"] & SHARED_CLASSES
+                                        and not block["classes"] & {"footer-nav", "site-nav"}])
+             for name in names if (ROOT / name).exists()]
+    return listing(pages, lang)
 
 
 # ---------------------------------------------------------------- small Markdown reader
@@ -1168,7 +1280,7 @@ def therapist_packet(day, stamp):
 """)
 
     parts.append("<h2>Part 1: Text that appears on every page</h2>")
-    parts.append("<p>The crisis strip, header, crisis buttons, and footer. Each page has one version of these. Different wording on different pages is listed here once. The last list is what a screen reader reads aloud in these parts that the screen doesn't show.</p>")
+    parts.append("<p>The crisis strip, header, crisis buttons, and footer. Each page has one version of these. Different wording on different pages is listed here once, and a line that isn't on every page says which pages show it, so a line that changes on one page changes this section too. The last list is what a screen reader reads aloud in these parts that the screen doesn't show.</p>")
     parts.append(render_blocks(section_blocks(EVERY_PAGE["en"], "en"), "SHARED", numbering, counters, "en"))
 
     parts.append("<h2>Part 2: English pages</h2>")
@@ -1269,7 +1381,7 @@ def spanish_packet(day, stamp):
 <p class="small" style="margin-top:8pt">Los datos de crisis en español salen de la tabla de recursos del proyecto, leída en el sitio de cada proveedor por un asistente de IA. Nadie ha llamado ni enviado textos para comprobarlos, y no debe hacerse.</p>
 """)
     parts.append("<h2>Parte 1: Texto que aparece en cada página</h2>")
-    parts.append("<p>La franja de crisis, el encabezado, los botones de crisis y el pie de página. Cada página tiene una versión de estas partes, y cada texto distinto aparece aquí una vez. La última lista es lo que lee en voz alta un lector de pantalla en estas partes y no se ve en pantalla.</p>")
+    parts.append("<p>La franja de crisis, el encabezado, los botones de crisis y el pie de página. Cada página tiene una versión de estas partes, y cada texto distinto aparece aquí una vez. Una línea que no está en todas las páginas dice en cuáles está, así que una línea que cambia en una sola página también cambia esta sección. La última lista es lo que lee en voz alta un lector de pantalla en estas partes y no se ve en pantalla.</p>")
     parts.append(render_blocks(section_blocks(EVERY_PAGE["es"], "es"), "E-SHARED", numbering, counters, "es"))
     parts.append("<h2>Parte 2: Páginas en español</h2>")
     parts.append("<p>Las secciones plegadas se muestran abiertas. Los enlaces muestran la dirección completa. La versión en inglés de cada página está en el otro paquete. Cada página termina con lo que lee en voz alta un lector de pantalla y no se ve en pantalla, empezando por el título de la página.</p>")
@@ -1357,7 +1469,8 @@ def check_questions():
 def self_test():
     """Checks this tool on made-up cases, and changes nothing: each packet's build date in its own language,
     whatever the computer's language setting, the questions for the fluent Spanish reader reaching the Spanish
-    packet, and the reading of those questions, so a lost Spanish question or source is noticed."""
+    packet, the reading of those questions, so a lost Spanish question or source is noticed, and the notes that
+    say which pages show a line of the text on every page."""
     import locale
 
     day = datetime.date(2026, 11, 7)
@@ -1421,6 +1534,55 @@ def self_test():
     for name, text, expected in cases:
         found = spanish_questions(text)[1]
         report(f"{name}: {'a problem found' if found else 'no problem found'}", bool(found) == expected)
+
+    # The text on every page lists each line once. A line that isn't on every page must say so, and the note must
+    # reach the fingerprint, or a crisis line taken off one page, or changed there, would leave approvals standing.
+    def line(text, href=None, part="crisis-panel"):
+        return {"tag": "p", "text": text, "links": [{"text": text, "href": href}] if href else [], "classes": {part},
+                "ids": [], "lang": "en"}
+
+    def pages(*lists):
+        return [(f"Page {number}", f"p{number}/index.html", blocks) for number, blocks in enumerate(lists, 1)]
+
+    def notes(found):
+        return [(block["text"], block.get("where")) for block in found]
+
+    steps = line("988 says a text starts with a few steps.")
+    danger = line("In immediate danger, call 911.", "tel:911")
+    full = [steps, danger]
+    every = listing(pages(full, full, full), "en")
+    lost = listing(pages(full, full, [steps]), "en")
+    changed = listing(pages(full, full, [steps, line("In danger, call 911.", "tel:911")]), "en")
+    relinked = listing(pages(full, full, [steps, line(danger["text"], "tel:991")]), "en")
+    moved = listing(pages(full, full, [steps, line(danger["text"], "tel:911", "site-footer")]), "en")
+    print_of = {name: blocks_fingerprint("(made up)", "en", found) for name, found in
+                (("every", every), ("lost", lost), ("changed", changed), ("relinked", relinked), ("moved", moved))}
+    report("a shared line on every page: listed once, with no note",
+           notes(every) == [(steps["text"], None), (danger["text"], None)])
+    report("a shared crisis line taken off one page: noted, and the fingerprint changes",
+           (danger["text"], "On every page except Page 3.") in notes(lost) and print_of["lost"] != print_of["every"])
+    report("a shared crisis line changed on one page: both wordings noted, and the fingerprint changes",
+           (danger["text"], "On every page except Page 3.") in notes(changed)
+           and ("In danger, call 911.", "Only on Page 3.") in notes(changed) and print_of["changed"] != print_of["every"])
+    report("a shared crisis line's link changed on one page: noted with where each leads, and the fingerprint changes",
+           (danger["text"], "On every page except Page 3. Its links go to tel:911.") in notes(relinked)
+           and (danger["text"], "Only on Page 3. Its links go to tel:991.") in notes(relinked)
+           and print_of["relinked"] != print_of["every"])
+    report("a shared crisis line moved to another part on one page: noted, and the fingerprint changes",
+           (danger["text"], "Only on Page 3. In the footer.") in notes(moved) and print_of["moved"] != print_of["every"])
+    report("a shared crisis line taken off one page, in Spanish: noted in Spanish",
+           (danger["text"], "En todas las páginas menos Page 3.") in notes(listing(pages(full, full, [steps]), "es")))
+    report("one link written differently on two pages, to the same place: one line, with no note",
+           notes(listing(pages([line("Ayuda en español", "../get-help/#en-espanol")],
+                               [line("Ayuda en español", "/suicideprevention/get-help/#en-espanol")]), "en"))
+           == [("Ayuda en español", None)])
+    switch = [(label, page, [line("Leer en español", href, "lang-switch")]) for label, page, href in
+              (("Home", "index.html", "es/"), ("Get Help", "get-help/index.html", "../es/obtener-ayuda/"))]
+    report("each page's language switch to its own twin: one line, with no note",
+           notes(listing(switch, "es")) == [("Leer en español", None)])
+    switch[1][2][0]["links"][0]["href"] = "../es/"
+    report("a language switch to another page than its twin: noted",
+           ("Leer en español", "Solo en Get Help. Sus enlaces van a es/.") in notes(listing(switch, "es")))
 
     report("the packet fingerprint is the same each time it is made", fingerprint() == fingerprint())
     if wrong:

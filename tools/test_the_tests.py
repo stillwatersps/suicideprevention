@@ -11,8 +11,8 @@ Needs Python and Chrome; the WebKit bugs also need a Mac with Xcode's command li
 no outside website: the checks of other tools run offline, on made-up cases or a local copy.
 A bug counts as caught only if the check fails and says so in a FAIL line or its error, not in a NOTE.
 The one exception is NOTE_BUGS, out-of-date review packets, which tools/check_site.py reports in a NOTE
-on purpose. QUIET_CHANGES are harmless changes that a check must not report at all: it must pass, with no
-NOTE or FAIL line that the untouched copy doesn't print.
+on purpose. QUIET_CHANGES are harmless changes that a check must not report at all: it must exit 0, so
+a crash doesn't count as quiet, and print no NOTE or FAIL line.
 """
 import argparse
 import base64
@@ -197,6 +197,22 @@ def strip_link_name_shortened_after_approval(copy):
              for name, role, approved in zip(names, roles, section_prints(copy, *sections))]
     replace("notes/CONTENT-REVIEW.md", "- No review has been recorded.", "\n".join(lines))(copy)
     replace("get-help/index.html", 'aria-label="Call 988, the Suicide and Crisis Lifeline"', 'aria-label="Call 988"')(copy)
+
+
+def shared_line_on_one_page_after_approval(old, new):
+    """For Teens says it was reviewed, and every section it needs is approved. Then, on For Teens only, a line of a
+    part every page shares is taken off or changed. The text on every page lists each line once, and the other
+    pages still have the line, so only the notes saying which pages show each line change its fingerprint."""
+    def apply(copy):
+        replace("teens/index.html", "<h1", "<p>Medically reviewed and approved.</p><h1")(copy)
+        sections = [("teens/index.html", "en"), ("(text on every page)", "en"), ("(español en cada página en inglés)", "es")]
+        names = ["For Teens", "Text on every page", "Español en cada página en inglés"]
+        roles = ["licensed clinical social worker"] * 2 + ["native Spanish speaker"]
+        lines = [f"- {name}: {role}, 2026-11-01, approved, {approved}"
+                 for name, role, approved in zip(names, roles, section_prints(copy, *sections))]
+        replace("notes/CONTENT-REVIEW.md", "- No review has been recorded.", "\n".join(lines))(copy)
+        replace("teens/index.html", old, new)(copy)
+    return apply
 
 
 def menu_names_swapped(copy):
@@ -403,6 +419,25 @@ COMMAND_BUGS = [
     # Each section's fingerprint holds what a screen reader says, so an approval notices when it changes.
     ("a screen reader's name for an area of Get Help changed after its approval", area_name_changed_after_approval, ["tools/check_site.py"], "isn't an approval of the current text"),
     ("the crisis strip's Call 988 link renamed for screen readers on one page after its approval", strip_link_name_shortened_after_approval, ["tools/check_site.py"], "no approval of this page"),
+    # A line of the parts every page shares, taken off or changed on one page after the text on every page was
+    # approved. Before the notes saying which pages show each line, no fingerprint changed.
+    ("the crisis buttons' 911 line taken off one page after its approval", shared_line_on_one_page_after_approval(
+        '        <p class="fallback">On a device that can\'t call or text? Call or text <strong>988</strong> from a phone, or go to <a href="https://988lifeline.org/">988lifeline.org</a>. In immediate danger, call <strong>911</strong>.</p>\n', ""),
+     ["tools/check_site.py"], "no approval of this page"),
+    ("the 988 texting-steps line taken off one page after its approval", shared_line_on_one_page_after_approval(
+        "        <p>988 says a text starts with a few steps. Reply NEXT to accept its terms, answer a brief survey, and wait for a counselor.</p>\n", ""),
+     ["tools/check_site.py"], "no approval of this page"),
+    ("the crisis strip's 911 line taken off one page after its approval", shared_line_on_one_page_after_approval(
+        '    <p class="strip-911"><span class="strip-lead">In immediate danger, </span><a href="tel:911" aria-label="Call 911, emergency services">call 911</a><span class="strip-end">.</span></p>\n', ""),
+     ["tools/check_site.py"], "no approval of this page"),
+    ("a shared crisis line changed on one page to another page's wording after its approval", shared_line_on_one_page_after_approval(
+        "<p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.</p>",
+        "<p>The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. You can contact it about someone else, too. It is a separate service from Tidelight.</p>"),
+     ["tools/check_site.py"], "no approval of this page"),
+    ("a shared link sent elsewhere on one page after its approval", shared_line_on_one_page_after_approval(
+        '<p class="access-link"><a href="../get-help/#deaf-hoh">Deaf or hard of hearing</a></p>',
+        '<p class="access-link"><a href="../get-help/">Deaf or hard of hearing</a></p>'),
+     ["tools/check_site.py"], "no approval of this page"),
     # The build date in each packet's own language, whatever the computer's language setting.
     ("the Spanish packet giving its build date in English", replace("tools/make_review_packet.py", "Generado el {spanish_date(day)}", "Generado el {english_date(day)}"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
     ("the Spanish build date taken from the computer's language setting", replace("tools/make_review_packet.py", "    return f\"{day.day} de {MONTHS['es'][day.month - 1]} de {day.year}\"", "    return day.strftime(\"%-d de %B de %Y\")"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
@@ -416,8 +451,8 @@ NOTE_BUGS = [
     ("a section name changed in what the packet tool reads from the site check", with_current_packets(replace("tools/check_site.py", '("Wording outside the page text", OUTSIDE_TEXT["en"], "en")', '("Words outside the page text", OUTSIDE_TEXT["en"], "en")')), ["tools/check_site.py"], "the review packets are out of date"),
 ]
 # Harmless changes the site check must not report: none of them changes what a packet shows, and a check that
-# cries wolf gets ignored. Name, change, command, words that must not appear. The check must also pass, with no NOTE
-# or FAIL line the untouched copy doesn't print, so a check that couldn't run doesn't count as quiet.
+# cries wolf gets ignored. Name, change, command, words that must not appear. The check must also exit 0 and print
+# no NOTE or FAIL line, so a check that crashed or couldn't run doesn't count as quiet.
 QUIET_CHANGES = [
     ("a change to the browser tests, with the packets up to date", with_current_packets(replace("tools/test_browser.py", "Needs Python 3 and Google Chrome or Chromium.", "Needs Python 3, and Google Chrome or Chromium.")), ["tools/check_site.py"], "out of date"),
     ("a change to another check in the site check, with the packets up to date", with_current_packets(replace("tools/check_site.py", '"unsuccessful attempt", "completed suicide", "suicide victim",', '"unsuccessful attempt", "completed suicide", "suicide victim", "suicide epidemic",')), ["tools/check_site.py"], "out of date"),
@@ -516,11 +551,10 @@ def main():
             code, output = run_command(copy, command)
             timed_out = " (timed out)" if code is None else ""
             if how == "quiet":
-                # Quiet means it passes as the untouched copy does, with no NOTE or FAIL line the untouched copy
-                # doesn't print, such as a note that the packets couldn't be checked at all.
-                clean_lines = set(clean_output[tuple(command)].splitlines())
-                reported = [line for line in output.splitlines()
-                            if line.strip().startswith(("NOTE", "FAIL")) and line not in clean_lines]
+                # Quiet means it exits 0, so a crash or a failure never counts, and prints no NOTE or FAIL line at
+                # all, not even one the untouched copy prints too, such as a note that the packets couldn't be
+                # checked. Each harmless change marks its copy's packets as just rebuilt, so none is expected.
+                reported = [line for line in output.splitlines() if line.strip().startswith(("NOTE", "FAIL"))]
                 quiet = code == 0 and words.lower() not in output.lower() and not reported
                 print(f"  {'quiet' if quiet else 'NOISY'}: {name} ({label}){timed_out}", flush=True)
                 if not quiet:
