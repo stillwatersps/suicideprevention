@@ -143,7 +143,7 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Deaf or hard of hearing / Personas sordas o con dificultades auditivas | Under the crisis buttons on every page | The Deaf card on Get Help | Tidelight | Tested in browser | A Deaf-led reviewer: is the wording right? |
 | Go to the feelings / Ir a los sentimientos | Not sure | The list of feelings on the same page | Tidelight | Tested in browser | Reviewer |
 | Print poster and wallet cards / Imprimir el cartel y las tarjetas | Wallet card | The phone's or computer's print screen | Tidelight | Print view tested in browser | Print one on a real printer |
-| Print the blank plan / Imprimir el plan en blanco | Make a safety plan and its Spanish twin | The phone's or computer's print screen. Only the blank plan prints | Tidelight | Print view tested in desktop Chrome: two pages, with 988 and 911 | Print one on a real printer, and fill it in by hand |
+| Print the blank plan / Imprimir el plan en blanco | Make a safety plan and its Spanish twin | The phone's or computer's print screen. Only the blank plan prints | Tidelight | Printed to PDF in desktop Chrome, light and dark, both languages, every page looked at: two pages, with 988 and 911, and nothing printed over the write-in lines. Before a fix on November 10, 2026, the closing note printed on top of step 6's lines | Print one on a real printer, and fill it in by hand |
 | Ayuda en español | Every English page | Spanish block on Get Help | Tidelight | Tested in browser | Spanish reviewer |
 | Llamar al 988 y marcar 2 | Get Help, Spanish block; Spanish Get Help | `tel:988` | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
 | Enviar AYUDA al 988 | Get Help, Spanish block | `sms:988`, message blank | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
@@ -428,6 +428,15 @@ Stanley-Brown site, and SPRC's Care Transitions page were read through a page re
 text with quotes, not line by line in a browser. SPRC's quick guide for clinicians is a PDF of page
 images, so only its resource page was read, and the page cites that. SAMHSA's guides couldn't be read;
 see the questions above.
+
+Also on November 10, 2026, Make a safety plan and its Spanish twin took Get Help's two limits on the
+evidence: some of the research paired the plan with clinician contact and follow-up, and for children
+and teens a review found no clear benefit. Their sources, read that day in the built-in browser and now
+listed on both pages: Nuij 2021's full text on Cambridge Core (every plan in it was made face to face
+with a clinician, four of six studies added it to usual care, and the authors ask whether follow-up
+calls play a role), and Albaum 2025's abstract on Europe PMC, with its 2026 correction notice. PubMed
+and JAMA Pediatrics, which Research links, showed browser checks, so the safety plan page links the
+pages that were read.
 
 ## How the pages compare with the research brief
 
@@ -816,11 +825,15 @@ Built November 9, 2026, at one founder's request, as drafts. Sources were read t
 November 10; see "How the November 9 pages' sources were read" above.
 
 - **A safety plan made alone.** The page says a professional can help and that a plan doesn't replace
-  care, and Research says the evidence comes mostly from plans made with a clinician. Is it right to
+  care. Since November 10 it also says, as Get Help does, that some of the research paired the plan
+  with clinician contact and follow-up, so it doesn't show what a plan made alone would do, and that for
+  children and teens a review found no clear benefit. Is it right to
   offer a blank plan to fill in alone? Should the page say more strongly to make it with someone?
 - **The six steps.** They follow the order the Stanley-Brown site and AFSP describe, in Tidelight's own
   words, and the blank plan is not a copy of the Stanley-Brown form. Should it add their optional step,
-  reasons for living? Is "People and places that take my mind off things" the right wording?
+  reasons for living? Is "People and places that take my mind off things" the right wording? The
+  printed plan credits only Tidelight, though the page credits the Stanley-Brown steps. Should the paper
+  also say its steps are based on the Stanley-Brown Safety Plan, and does adapting them need permission?
 - **Examples in step 2** (music, a walk, a shower, something that keeps your hands busy) are Claude's,
   not from a source. Keep, change, or remove them?
 - **Making the space safer.** Both pages stay general, with no method details: keep things you could
@@ -834,6 +847,10 @@ November 10; see "How the November 9 pages' sources were read" above.
 - **After an attempt: risk after a hospital stay.** The page gives SPRC's and AFSP's words that risk
   stays higher for months, and through the first year, to explain why follow-up matters. It leaves out
   SPRC's figure for the first week. Is even this too much for someone who just survived an attempt?
+  Its own opening line, "The time after leaving a hospital is when support matters most", has no source
+  of its own and assumes a hospital stay, while not everyone who survives an attempt stays in one. SPRC
+  and AFSP, as the page reports them, speak of the time after a hospital stay. Should the line be cut, or
+  tied to them, such as "If you stayed in a hospital, ..."? Raised by an AI code review on November 10.
 - **Who reads it.** The page speaks to the person who survived and to their family in one place. Should
   they be two pages? Someone who has survived an attempt should read it.
 - **Peer support.** AFSP says there are support groups for people who survived an attempt. The page
