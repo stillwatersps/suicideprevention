@@ -1408,3 +1408,33 @@ html:not(.ci-ready) .ci-erase, html:not(.ci-ready) .ci-kept-reflection-note, htm
   .pc-card .pc-kicker { font-size: 9pt; }
   .pc-card .pc-big { font-size: 15pt; }
 }
+
+/* ==========================================================================
+   Soothing scroll. Asked for by one founder on November 10, 2026; a proposal.
+   Cards, research findings, and the closing banner rise gently into place as
+   they scroll into view, like a page settling. Rules that keep it safe:
+   - Nothing fades. Ink stays at full strength the whole time, so text is never
+     harder to read and no link is ever see-through. The browser tests check this.
+   - Crisis help never moves: the crisis strip, Quick exit, the header, the
+     "Right now" box, the 988 panel, every support-service card, and the Daily
+     check-in are left alone.
+   - People who ask their device for less motion get none of it.
+   - Browsers without scroll-driven animations show the page as it always was.
+   No script: this is CSS only.
+   ========================================================================== */
+@media screen and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .card,
+    .trust,
+    .finding,
+    .closing {
+      animation: settle-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 100%;
+    }
+    @keyframes settle-in {
+      from { transform: translateY(18px) scale(.985); }
+      to { transform: none; }
+    }
+  }
+}

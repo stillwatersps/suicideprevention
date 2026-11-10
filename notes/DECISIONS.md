@@ -347,6 +347,22 @@ in the Daily check-in. Who owns each step isn't named yet.
 14. **Upkeep is split:** one founder rechecks the crisis numbers monthly; the other gets GitHub's
     failed-check emails and looks at the Actions tab on a set day. Who does which isn't named.
 
+## November 10, 2026: a soothing scroll animation, proposed
+
+One founder asked for a soothing scroll animation. **The other founder hasn't agreed.** On branch
+`site/soothing-scroll`, in `assets/styles.css` only. The November 8 redesign had turned scroll
+animation down for a crisis site, so this one is built to narrow rules:
+
+- Cards, research findings, the trust row, and the closing banner rise about 18 px into place as
+  they scroll into view. **Nothing fades.** A first try with fading failed the browser tests: text
+  lost contrast while moving, and crisis links were see-through. That version was dropped.
+- Crisis help never moves: the crisis strip, Quick exit, the header, the "Right now" box, the 988
+  panel, support-service cards, and the Daily check-in are left alone.
+- People who ask their device for less motion get none. Browsers without scroll-driven animation
+  (Firefox today) show the page as before. No script.
+
+A question for the reviewer: is any motion right for someone in distress?
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
