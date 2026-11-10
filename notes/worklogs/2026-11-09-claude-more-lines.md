@@ -6,7 +6,7 @@ branch: build/more-lines-1109
 
 # Task handoff: more lines and what to say on Get Help
 
-Date: November 9, 2026. State when written: local only. Not pushed, no pull request, not on `main`.
+Date: November 9, 2026, updated November 10, 2026. State when written: local only. Not pushed, no pull request, not on `main`.
 
 Branch `build/more-lines-1109`, started from `830f766`, the tip of `claude/jolly-mayer-2m6eno` (draft
 pull request 5), which uses the Shoreline stylesheet. Merging it there publishes nothing.
@@ -18,7 +18,8 @@ an unreviewed AI translation like the rest of that page.
 
 - **What to say when you call or text 988** (`#what-to-say`), first among the page's sections. It says
   you don't need special words, gives five example first words labelled as Tidelight's, not 988's, and
-  says what 988 says happens next. The Spanish version starts with the Spanish routes and gives
+  says what 988 says happens next. On November 10 its text steps were corrected to say a "Wait" message
+  comes, as 988's pages say, rather than that it may. The Spanish version starts with the Spanish routes and gives
   «siguiente», from 988's Spanish What to Expect page.
 - **Lines for specific groups** (`#more-lines`), after "Other ways to reach someone": a first paragraph
   that names each group, says which keep set hours, and says 988 is open any time, then four cards
@@ -52,9 +53,10 @@ Files:
 detail is corrected. Neither happened: no page was added, and these are new details, not corrections.
 Get Help is read from the network first, so visitors with a connection get the new version.
 
-## Sources read, November 9, 2026
+## Sources read, November 9 and 10, 2026
 
-All in the desktop app's built-in browser. Nothing was called, texted, chatted, or submitted, and no
+All in the desktop app's built-in browser, on both days. On November 10 every detail on the two
+sections still matched, apart from the Wait message above. Nothing was called, texted, chatted, or submitted, and no
 chat page was opened.
 
 - HRSA: https://mchb.hrsa.gov/programs-impact/national-maternal-mental-health-hotline and its Spanish
@@ -71,11 +73,11 @@ chat page was opened.
   https://988lifeline.org/faq/calling-the-988-lifeline/, and https://988lifeline.org/help-someone-else/
 
 The saved patch from November 8 for this task was used only as a reference. Every number, hour, and
-claim was read again today.
+claim was read again on November 9, and again on November 10.
 
 ## Checked
 
-Desktop Chrome and its phone-size emulation, and macOS WebKit. Not a real phone, not the iOS Simulator,
+Results below are from November 10, 2026, after the re-read. Desktop Chrome and its phone-size emulation, and macOS WebKit. Not a real phone, not the iOS Simulator,
 not a screen reader, and not a content review.
 
 - `python3 tools/check_site.py`: all checks passed, no "out of date" note.
@@ -84,14 +86,14 @@ not a screen reader, and not a content review.
 - `python3 tools/check_site.py --self-test`: all 5 made-up link answers read correctly.
 - `python3 tools/check_crisis_sources.py --self-test`: all 29 made-up cases read correctly.
 - `python3 tools/check_crisis_sources.py`, against the live pages: every new detail found on SAMHSA's,
-  Teen Line's, and Trans Lifeline's pages. HRSA's page answered 403, which led to the `KNOWN_BLOCKERS`
-  change. Run again after the change: "Checked 17 provider pages, 2 left for a person to open" (HRSA
-  and the FCC).
+  Teen Line's, and Trans Lifeline's pages. HRSA's page answered 403 on November 9, which led to the
+  `KNOWN_BLOCKERS` change, and again on November 10: "Checked 17 provider pages, 2 left for a person
+  to open" (HRSA and the FCC).
 - `python3 tools/test_the_tests.py --only "group line"`: all 12 planted bugs caught. Existing related
   ones rerun one by one, all caught.
 - `python3 tools/test_browser.py` with links, matrix, textsize, keyboard, jumps, folds, language,
   a11ytree, print, contact, privacy, and nojs, for `get-help` and `obtener-ayuda`: all passed. Four
-  notes per page about tap targets in "Right now" are older than this work.
+  notes per page about tap targets in "Right now" are older than this work (seen November 9).
 - `python3 tools/test_webkit.py --pages get-help` and `--pages obtener-ayuda`: 27 checks, 0 problems,
   each.
 - Not run: the full suite, the menu, quickexit, offline, speed, modes, and reducedmotion groups.
