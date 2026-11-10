@@ -59,7 +59,9 @@ Each person uses their own Claude access and conversation.
 | `not-sure/`, `after-a-loss/`, `about/` | Not sure what you're feeling?, After a loss, and About and privacy |
 | `assets/*.vcf` | Contact cards for saving 988 to a phone |
 | `tools/preview_server.py` | Serves the site the way GitHub Pages will, on this computer or a phone on the same Wi-Fi |
+| `tools/qr.py` | Draws the QR code `preview_server.py --lan` prints for a phone to scan. Plain Python, no downloads |
 | `tools/test_browser.py`, `tools/browser.py` | Browser tests, using Python and the Chrome already on the computer |
+| `tools/axe_core.py` | Downloads and checks axe-core, used only by the browser tests' accessibility group, never by the site |
 | `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader |
 | `notes/PHONE-TEST.md` | How to test on a real phone |
 | `notes/FOUNDER-BRIEF.md`, `notes/LAUNCH-CHECKLIST.md`, `notes/REVIEWER-NOTES.md`, `notes/UPKEEP.md` | Decisions, the path to launch, notes for reviewers, and upkeep |
@@ -98,7 +100,8 @@ python3 tools/test_browser.py
 ```
 
 It takes a few minutes, uses a throwaway Chrome profile, and never calls, texts, or
-submits anything. If you change a page, rebuild the review packets:
+submits anything. Its `axe` group downloads one checked copy of axe-core, an accessibility
+checker, the first time, into `tools/cache/`, which git ignores. If you change a page, rebuild the review packets:
 
 ```bash
 python3 tools/make_review_packet.py

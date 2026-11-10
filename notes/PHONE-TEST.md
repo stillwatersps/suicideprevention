@@ -24,8 +24,12 @@ stays on your own Wi-Fi and doesn't touch the public site.
    python3 tools/preview_server.py --lan
    ```
 
-3. It prints an address like `http://192.168.1.20:8000/suicideprevention/`. Your computer and
-   phone must be on the same Wi-Fi. If macOS asks whether to allow incoming connections, choose
+3. It prints a QR code, and below it an address like `http://192.168.1.20:8000/suicideprevention/`.
+   Point the phone's camera at the code and tap the link it shows, or type the address. If the
+   camera doesn't react, make the Terminal window larger or the text smaller, so the code isn't
+   cut off. `tools/qr.py` draws the code with no downloads, and its self-test reads codes back with
+   macOS's own QR reader; no phone has scanned one yet, so note in your results whether yours did.
+   Your computer and phone must be on the same Wi-Fi. If macOS asks whether to allow incoming connections, choose
    **Allow**. If the phone can't connect, a VPN on either device may be blocking local traffic,
    so pause it while you test. Press Control-C to stop.
 
