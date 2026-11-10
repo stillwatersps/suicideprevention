@@ -94,3 +94,4 @@ await build({
   legalComments: 'none',
 });
 console.log('Built app/www from the website, with the app-only parts added.');
+await import('./build-extras.mjs'); // Hope box and My circle
