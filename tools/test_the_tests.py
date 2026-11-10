@@ -330,6 +330,17 @@ BUGS = [
     ("Quick exit leaving another site's frame on screen", head_script("get-help/index.html", "try{top.location.replace(a.href);}catch(_){location.replace(a.href);}", "location.replace(a.href);"), "quickexit", "get-help", "another site's frame"),
     ("Quick exit leaving the page's title in the tab", head_script("get-help/index.html", "document.title='';", ""), "quickexit", "get-help", "title still names"),
     ("test taps landing on the chat link", chat_under_every_tap, "folds", "get-help", "was stopped"),
+    ("Quick exit by Escape doing nothing", replace("assets/menu.js", "      last = 0;\n      exit.click();", "      last = 0;"), "quickexit", "get-help", "Escape twice did not leave"),
+    ("the Spanish link not standing out for a Spanish browser", replace("assets/menu.js", "  if (link) link.classList.add('lang-offer');", ""), "language", "get-help", "does not stand out"),
+    ("the Spanish link standing out for an English browser", replace("assets/menu.js", "  if (!/^es(-|$)/i.test(first)) return;\n", ""), "language", "get-help", "first language is English"),
+    ("the Spanish link's highlight in low contrast", append_css(".lang-switch a.lang-offer { color: var(--green-soft); }"), "language", "get-help", "low contrast"),
+    ("the Spanish link's highlight storing the language", replace("assets/menu.js", "  if (link) link.classList.add('lang-offer');", "  if (link) link.classList.add('lang-offer');\n  localStorage.setItem('lang', 'es');"), "language", "get-help", "stores something"),
+    ("Quick exit by Escape on a single press", replace("assets/menu.js", "if (last && now - last <= WITHIN_MS) {", "if (true) {"), "quickexit", "get-help", "after one Escape"),
+    ("Quick exit by Escape with no time limit", replace("assets/menu.js", "if (last && now - last <= WITHIN_MS) {", "if (last) {"), "quickexit", "get-help", "1.4 seconds apart"),
+    ("Quick exit by a held-down Escape", replace("assets/menu.js", "    if (event.repeat) return;\n", ""), "quickexit", "get-help", "Escape held down"),
+    ("Quick exit by Escape counting across another key", replace("assets/menu.js", "    if ((event.key !== 'Escape' && event.key !== 'Esc') || !plain", "    if (event.key !== 'Escape' && event.key !== 'Esc') return;\n    if (!plain"), "quickexit", "get-help", "another key"),
+    ("Quick exit by the Escape that closes the menu", replace("assets/menu.js", " || menuOpen || isTextField", " || isTextField"), "quickexit", "get-help", "while the menu was open"),
+    ("Quick exit by Escape from a text field", replace("assets/menu.js", " || menuOpen || isTextField(event.target)) {", " || menuOpen) {"), "quickexit", "check-in", "while a text field had focus"),
     # The compact one-row strip, on short phones on their side and with larger text.
     ("the compact crisis strip not pinned on a short phone", append_css("@media (max-height: 18.75em) and (max-width: 43.99em) { .crisis-bar { position: static !important; } }"), "matrix", "get-help", "crisis strip is not pinned"),
     ("the Spanish compact crisis strip not pinned", replace("assets/styles.css", 'html[lang="es"] .crisis-bar { position: sticky; ', 'html[lang="es"] .crisis-bar { '), "matrix", "es/obtener-ayuda", "crisis strip is not pinned"),
@@ -407,6 +418,7 @@ COMMAND_BUGS = [
     ("the launch list counting a Simulator note as a phone test", replace("tools/launch_gate.py", '        if NOT_A_PHONE.search(name) or NOT_A_PHONE.search(text.split("\\n", 1)[0]):', "        if False:"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
     ("the launch list counting a 'not yet' phone result", replace("tools/launch_gate.py", ' or NOT_DONE.search(match.group("result"))', ""), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
     ("the launch list counting 'not yet' as a person's confirmation", replace("tools/launch_gate.py", "    return bool(cell and DATE_IN_CELL.search(cell) and not NOT_DONE.search(cell))", "    return bool(cell)"), ["tools/launch_gate.py", "--self-test"], "read wrongly"),
+    ("the Spanish About page without its Browse privately section", regex("es/acerca-de/index.html", r'<section id="browse-privately".*?</section>', ""), ["tools/check_site.py"], 'needs a section with the id "browse-privately"'),
     ("a page left out of the review packets", replace("tools/make_review_packet.py", '    ("card/index.html", "CARD", "Wallet card and poster"),\n', ""), ["tools/check_site.py"], "has no section in the review packets"),
     ("the 404 page's Spanish lines left out of the Spanish packet", replace("tools/make_review_packet.py", '    ("404.html", "E-NOTFOUND", "Página no encontrada"),\n', ""), ["tools/check_site.py"], "no section for them in the Spanish review packet"),
     # Spanish on an English page reaches the fluent reader's packet, even on a page with a Spanish twin.
@@ -528,6 +540,7 @@ if platform.system() == "Darwin" and shutil.which("swiftc"):
     COMMAND_BUGS += [
         ("the crisis strip unpinned only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { position: static !important; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not pinned"),
         ("the crisis strip see-through only in Safari", append_css("@supports (font: -apple-system-body) { .crisis-bar { opacity: 0.01; } }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "see-through"),
+        ("Quick exit by Escape doing nothing in WebKit", replace("assets/menu.js", "      last = 0;\n      exit.click();", "      last = 0;"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "Escape twice blanks the page"),
         ("the crisis strip hidden in WebKit", append_css("body > aside { display: none !important; }"), ["tools/test_webkit.py", "--pages", "get-help/index.html"], "not on screen at the top"),
         # The QR code printed by tools/preview_server.py --lan, read back with Core Image.
         # Readers correct a few wrong format bits, so the self-test compares them with the standard's own value.

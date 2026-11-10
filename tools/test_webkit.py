@@ -209,6 +209,15 @@ def behavior_steps(base):
         js("Quick exit leaves", "location.search", "?left"),
         js("Back starts", "(function () { history.back(); return true; })()", True, wait=1.2),
         js("Back skips the page that was left", "location.pathname.indexOf('not-sure') >= 0 && !document.documentElement.hidden", True),
+        load("open Get Help before Escape", base + "get-help/"),
+        js("one Escape stays", """(function () { var e = document.querySelector('.quick-exit');
+            e.href = location.origin + location.pathname.replace('get-help/', '') + 'about/?esc';
+            document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
+            return getComputedStyle(document.documentElement).display; })()""", "block", wait=0.2),
+        js("Escape twice blanks the page at once", """(function () {
+            document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true}));
+            return getComputedStyle(document.documentElement).display; })()""", "none", wait=1),
+        js("Escape twice leaves", "location.search", "?esc"),
         load("open the Spanish home page", base + "es/"),
         js("the offline notice appears in Spanish", """(function () {
             Object.defineProperty(navigator, 'onLine', {get: function () { return false; }, configurable: true});

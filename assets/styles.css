@@ -1540,3 +1540,16 @@ html:not(.ci-ready) .ci-erase, html:not(.ci-ready) .ci-kept-reflection-note, htm
   .pc-card .pc-kicker { font-size: 9pt; }
   .pc-card .pc-big { font-size: 15pt; }
 }
+
+/* The Spanish link for Spanish browsers (draft, November 9, 2026): assets/menu.js adds .lang-offer
+   to an English page's "Leer en español" link when the browser's first language is Spanish, so the
+   link stands out. Without the script nothing changes. Kept apart at the end, with Shoreline's
+   tokens, because draft pull request 11 swaps this stylesheet for another design. Printing hides
+   the link, as above. */
+.lang-switch a.lang-offer {
+  padding: 9px 16px;
+  border: 2px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--green-soft);
+  font-size: 1.05rem;
+}
