@@ -181,9 +181,11 @@ its own. Whichever of the two merges second must:
   reason.
 - Added November 8: carry the floors in px of the full strip's limits too, from "Floors in px" in
   `assets/styles.css`, and those of the rules that follow them. Each floor is its limit in em times 16,
-  so if the other stylesheet moves a limit, move its floor with it. The ten planted bugs added that day
-  replace exact lines, so they stop the run with an error if those lines change, and
-  `python3 tools/check_site.py` fails if the compact block's two copies differ.
+  so if the other stylesheet moves a limit, move its floor with it. Nine of the ten planted bugs added
+  that day replace exact lines, so they stop the run with an error if those lines change. The tenth, the
+  WebKit one, adds a rule, so it can go stale without an error, like the second kind above. And
+  `python3 tools/check_site.py` fails if the compact block's two copies differ. (Corrected November 9:
+  this said all ten replace exact lines.)
 
 Pull request 11 was read on November 7, without changing it, at its commit 4422a15 and again at fc366a3,
 which merges 7d05f06 into the redesign and was its newest commit when this was written. It doesn't
@@ -417,7 +419,9 @@ iPhone itself.
 - The two language blocks in the stylesheet must stay alike apart from their width. Since November 8,
   `tools/check_site.py` compares them. It compares only rules written for both languages inside the
   same @media blocks: a Spanish-only rule elsewhere, such as the Spanish jump padding, isn't compared,
-  and a copy split into two blocks fails the check.
+  and a copy split into two blocks fails the check. November 9: it now ignores differences in spacing
+  alone, which it had reported, and fails on a rule inside one copy's block that isn't written for that
+  copy's language alone, which it had skipped. See [[2026-11-09-claude-strip-fixes]].
 - The floors in px give up some sizes where the row would fit with smaller text, such as English 240 to
   311 px wide with 75% text. The strip scrolls away there, as it did before this branch. One floor per
   language is simpler than a rule for each text size.

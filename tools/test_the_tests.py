@@ -312,6 +312,8 @@ COMMAND_BUGS = [
     ("the crisis strip inside a hidden box", strip_in_hidden_box, ["tools/check_site.py"], "crisis controls are hidden"),
     # The compact strip is written once for each language. A change to one copy only must be caught.
     ("the Spanish copy of the compact crisis strip changed alone", replace("assets/styles.css", 'html[lang="es"] .strip-or { display: inline-block; width: .25rem;', 'html[lang="es"] .strip-or { display: inline-block; width: .5rem;'), ["tools/check_site.py"], "English and Spanish copies differ"),
+    # A rule without html[lang="..."] inside one copy's block applies to both languages there, out of the comparison's sight.
+    ("a rule without its language inside the Spanish copy of the compact crisis strip", replace("assets/styles.css", '      html[lang="es"] body { padding-bottom: 0; }', '      html[lang="es"] body { padding-bottom: 0; }\n      .strip-or { margin: 0 2rem; }'), ["tools/check_site.py"], "isn't written for that language alone"),
     ("an upper-case text link with a wrong number, in the site check", replace("get-help/index.html", 'href="sms:838255"', 'href="SMS:838256"'), ["tools/check_site.py"], "not a number recorded"),
     ("a link above the site's root", replace("index.html", 'href="get-help/"', 'href="../get-help/"'), ["tools/check_site.py"], "broken link"),
     ("a wrong number printed on the wallet card", replace("card/index.html", "call 1-866-488-7386", "call 1-866-488-7368"), ["tools/check_site.py"], "printed card or poster"),

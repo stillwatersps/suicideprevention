@@ -5,7 +5,7 @@ Run from the project folder:
 
     python3 tools/check_site.py                 # pages and notes
     python3 tools/check_site.py --check-links   # also load every outside link
-    python3 tools/check_site.py --self-test     # check how the link check reads answers, offline
+    python3 tools/check_site.py --self-test     # check how the link check reads answers, and the compact strip copy check, offline
 
 It never calls, texts, or submits anything. Phone and text links are only read.
 Passing means the structure is consistent: it does not show that a page is
@@ -1512,22 +1512,44 @@ def check_crisis_styles(failures, names):
                                                 f"for example {node.describe()} on {name}: {why}")
 
 
+def tidy_css(text):
+    """CSS text with its spacing made even, so two copies that differ only in spaces compare the same:
+    runs of spaces become one, and none is kept around : ; , ( ) > + or ~."""
+    return re.sub(r"\s*([:;,()>+~])\s*", r"\1", re.sub(r"\s+", " ", text.strip()))
+
+
 def language_copies(css):
     """Rules written once for each language, by the @media blocks they sit in:
-    {(the blocks around them but the innermost, language): [(innermost block, [(selectors, [declarations])])]}.
-    The selectors are given without their html[lang="..."]."""
-    copies = {}
-    for around, selectors, body in css_rules(css)[0]:
-        parts = [part.strip() for part in split_top(selectors)]
+    {(the blocks around them but the innermost, language): [(innermost block, [(selectors, [declarations])])]},
+    and the rules in those same innermost blocks that aren't written for one language alone:
+    [(the blocks around them, selectors)]. The selectors are given without their html[lang="..."], and
+    everything is given with its spacing made even (tidy_css)."""
+    copies, blocks_of, others = {}, {}, []
+    rules = css_rules(css)[0]
+    for around, selectors, body in rules:
+        parts = [tidy_css(part) for part in split_top(selectors)]
         for lang in ("en", "es"):
             mark = f'html[lang="{lang}"] '
             if around and parts and all(part.startswith(mark) for part in parts):
+                around = tuple(tidy_css(block) for block in around)
                 blocks = copies.setdefault((around[:-1], lang), [])
                 if not blocks or blocks[-1][0] != around[-1]:
                     blocks.append((around[-1], []))
-                said = [re.sub(r"\s+", " ", item.strip()) for item in body.split(";") if item.strip()]
-                blocks[-1][1].append((", ".join(part[len(mark):].strip() for part in parts), said))
-    return copies
+                blocks_of.setdefault(around, lang)  # the block's language is that of its first rule
+                said = [tidy_css(item) for item in body.split(";") if item.strip()]
+                said = [(item.split(":", 1)[0].lower() + ":" + item.split(":", 1)[1]) if ":" in item else item for item in said]
+                blocks[-1][1].append((", ".join(part[len(mark):] for part in parts), said))
+    # A rule without its language in a block that holds one language's copy would apply to both languages,
+    # unseen by the comparison. So would one written for the other language there.
+    for around, selectors, body in rules:
+        around = tuple(tidy_css(block) for block in around)
+        lang = blocks_of.get(around)
+        if not lang:
+            continue
+        parts = [tidy_css(part) for part in split_top(selectors)]
+        if not all(part.startswith(f'html[lang="{lang}"] ') for part in parts):
+            others.append((around, ", ".join(parts)))
+    return copies, others
 
 
 def rule_differences(selector, english, spanish):
@@ -1576,7 +1598,7 @@ def check_compact_copies(failures, css=None):
     if css is None:
         path = ROOT / "assets" / "styles.css"
         css = path.read_text(encoding="utf-8") if path.exists() else ""
-    copies = language_copies(css)
+    copies, others = language_copies(css)
     pairs = [context for context, lang in copies if lang == "en" and (context, "es") in copies]
     if not pairs:
         failures.append("assets/styles.css: the compact crisis strip's English and Spanish copies weren't found side by side, "
@@ -1585,6 +1607,11 @@ def check_compact_copies(failures, css=None):
         for difference in copy_differences(copies[(context, "en")], copies[(context, "es")]):
             failures.append(f"assets/styles.css: the compact crisis strip's English and Spanish copies differ: {difference}. "
                             "Keep them the same apart from their width limits")
+    for around, selectors in others:
+        if around[:-1] in pairs:
+            failures.append(f"assets/styles.css: inside one language's copy of the compact crisis strip, at {around[-1]}, the rule for "
+                            f"{selectors} isn't written for that language alone, so the English and Spanish copies differ. Start each "
+                            "selector there with its copy's html[lang=\"...\"]")
 
 
 # Crisis services known to refuse scripts: two answer 403, and findtreatment.gov gives scripts, even
@@ -1664,6 +1691,44 @@ def self_test_links():
     return 0
 
 
+def self_test_copies():
+    """Made-up edits of the stylesheet, so the check that the compact strip's two copies match can be checked
+    both ways: it passes on edits that change nothing between them and fails on those that do."""
+    path = ROOT / "assets" / "styles.css"
+    css = path.read_text(encoding="utf-8")
+    es_bar = 'html[lang="es"] .crisis-bar { position: sticky; column-gap: 0; padding: 2px 4px; }'
+    es_end = '      html[lang="es"] body { padding-bottom: 0; }'
+    es_width = "@media (min-width: 34em) and (min-width: 544px) {"
+    cases = [
+        # What is being shown, the edit (old, new), whether it should fail.
+        ("the stylesheet as it is passes", ("", ""), False),
+        ("spacing changed in one copy only passes", (es_bar, es_bar.replace(" { ", " {").replace(": ", ":").replace("; ", ";  ").replace(" }", ";}")), False),
+        ("spacing changed in one copy's width limit passes", (es_width, es_width.replace(": ", ":").replace(" {", "{")), False),
+        ("a changed width limit passes", (es_width, es_width.replace("34em", "35em").replace("544px", "560px")), False),
+        ("a value changed in one copy fails", (es_bar, es_bar.replace("2px 4px", "2px 8px")), True),
+        ("a rule without its language in one copy fails", (es_end, es_end + "\n      .strip-or { margin: 0 2rem; }"), True),
+        ("a selector without its language in one copy fails", (es_bar, es_bar.replace('html[lang="es"] .crisis-bar', '.crisis-bar')), True),
+        ("a rule for the other language in one copy fails", (es_end, es_end + '\n      html[lang="en"] .strip-or { margin: 0; }'), True),
+        ("a width limit turned into a height limit fails", (es_width, es_width.replace("min-width: 34em", "min-height: 34em")), True),
+    ]
+    wrong = 0
+    for name, (old, new), should_fail in cases:
+        if old and old not in css:
+            print(f"  WRONG: {name}: the stylesheet no longer contains {old[:60]}")
+            wrong += 1
+            continue
+        failures = []
+        check_compact_copies(failures, css.replace(old, new, 1) if old else css)
+        right = bool(failures) == should_fail
+        wrong += not right
+        print(f"  {'ok' if right else 'WRONG'}: {name}")
+    if wrong:
+        print(f"{wrong} made-up stylesheet edit(s) read wrongly. The check of the compact strip's copies can't be trusted until this is fixed.")
+        return 1
+    print(f"All {len(cases)} made-up stylesheet edits were read correctly.")
+    return 0
+
+
 def write_job_summary(title, lines):
     """On GitHub, also put notes and failures on the run's summary page, so nobody has to open the log."""
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -1735,10 +1800,10 @@ def check_notes(failures):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--check-links", action="store_true", help="also load every outside link")
-    parser.add_argument("--self-test", action="store_true", help="check how the link check reads answers, offline")
+    parser.add_argument("--self-test", action="store_true", help="check how the link check reads answers, and the compact strip copy check, offline")
     args = parser.parse_args()
     if args.self_test:
-        return self_test_links()
+        return max(self_test_links(), self_test_copies())
 
     failures, notes = [], []
     outside, count = check_pages(failures, notes)
