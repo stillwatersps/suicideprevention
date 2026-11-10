@@ -31,7 +31,7 @@ other tool choices. See the open points below.
 | `tools/axe_core.py`, new | Downloads and checks axe-core. See the table below. `--fetch`, `--check`, and an offline `--self-test` that wrong files are refused |
 | `tools/test_browser.py` | A new `axe` group. See below |
 | `.github/workflows/site.yml` | The check job runs both self-tests. The browser job runs `python3 tools/axe_core.py --fetch`, which downloads and checks the same file, before the browser tests. No npm |
-| `tools/test_the_tests.py` | 15 new planted bugs, listed under Checked. The axe-core copy is downloaded once before copying, if it isn't cached yet |
+| `tools/test_the_tests.py` | 16 new planted bugs, listed under Checked. The axe-core copy is downloaded once before copying, if it isn't cached yet |
 | `.gitignore` | `tools/cache/`, where the checked axe.min.js is kept |
 | `notes/PHONE-TEST.md`, `README.md` | The QR code in "Start the preview", the axe group in the table of kinds of test, and the two new tools |
 | `notes/review-packet/` | Rebuilt. They were behind `notes/SAFETY.md`'s November 9 re-read dates on `830f766`; only those dates and the fingerprint changed |
@@ -65,7 +65,7 @@ Triage on November 9, 2026. No violation needed a page change:
 
 | Finding | Pages | What was done |
 | --- | --- | --- |
-| `target-size`: the tab row hidden | Both Daily check-in pages, phone size, after choosing any tab, Today included | Allowed, with the reason written in `AXE_ALLOWED` and printed as a NOTE each run. Choosing a tab scrolls its section to just below the pinned crisis strip, and the whole tab row ends up behind the strip: in phone-size emulation at 390x844 the row is at -11 to 84 px and the strip covers 0 to 98 px, so none of it shows. A visitor scrolls back up about 110 px to see or change tabs. After choosing a step, the row is further up, off the screen, so axe-core doesn't flag it. axe-core calls the tabs "partially obscured" with "12.6px" left because it counts only the strip's own links as covering them, not the strip's background; 12.6 px is the space between those links. At the top of the page every tab passes. The allowance only covers "partially obscured", and a planted bug shows tabs that are simply too small still fail. A decision for the founders, below |
+| `target-size`: the tab row hidden | Both Daily check-in pages, phone size, after choosing any tab, Today included | Allowed, with the reason written in `AXE_ALLOWED` and printed as a NOTE each run. Choosing a tab scrolls its section to just below the pinned crisis strip, and the whole tab row ends up behind the strip: in phone-size emulation at 390x844 the row is at -11 to 84 px and the strip covers 0 to 98 px, so none of it shows. A visitor scrolls back up about 110 px to see or change tabs. After choosing a step, the row is further up, off the screen, so axe-core doesn't flag it. axe-core calls the tabs "partially obscured" with "12.6px" left because it counts only the strip's own links as covering them, not the strip's background; 12.6 px is the part of a tab above those links, from the tabs' top edge at -10.6 px, off the screen, to the links' top at 2 px. At the top of the page every tab passes. The allowance covers only "partially obscured", and only after a tab is chosen. Two planted bugs, described under Checked, show that each of those two limits works. A decision for the founders, below |
 | Undecided contrast, text over a photo or drawn behind a link | Both homepages at desktop size, one link on Help Someone | Measured on screen. Every one passes |
 | Undecided contrast, `nonBmp` | Arrows in "← Home" and similar links on every page | Counted as fine, with the reason in `AXE_UNDECIDED_FINE`: each is a symbol hidden from screen readers, inside a link whose words are checked |
 
@@ -130,6 +130,40 @@ On the same commits, unchanged. https://registry.npmjs.org/axe-core/4.14.0 still
 (links 974, a11ytree 21, axe 412, all passed, with the three allowed target-size NOTEs),
 `tools/test_webkit.py` (207 checks, 0 problems), and `tools/test_the_tests.py --only` "axe:" (7 of 7),
 "QR code" (7 of 7) and "preview server printing" (1 of 1).
+
+### Fixes after review, November 10, 2026
+
+A review found that the planted bug "axe: check-in tabs too small to tap" was caught only through the
+Support tab, which the allowance never names, so it still counted as caught with the "partially obscured"
+limit removed. Reproduced: with that limit removed in a scratch copy, the old planted bug was still
+"caught". Changed:
+
+- The planted bug now makes only the `#ci-` tabs small, and only after a tab is chosen, and it must fail
+  with a `#ci-` tab's own size failure, "Target has insufficient size (".
+- The allowance now applies only after a tab is chosen (`CHECK_IN_TAB_STATES` in `tools/test_browser.py`),
+  so the same finding with the page at the top, after a step, or with the menu open fails. A new planted
+  bug, "axe: check-in tabs behind the strip at the top of the page", makes the first check of the page
+  look like a chosen tab and expects a FAIL.
+- The reason no longer says "a tab or step", and the 12.6 px explanation was corrected after measuring
+  each tab in phone-size emulation on November 10: it is the part of a tab above the strip's links, not
+  the space between them. The row at -10.6 to 84.4 px, the strip at 0 to 98 px, and no point of any tab
+  showing were measured again then, on both pages, after each tab and after today's suggestions.
+
+Checked on this Mac, November 10, 2026, in desktop Chrome and its phone-size emulation:
+
+- `python3 tools/test_the_tests.py --only "axe: check-in tabs"`: "All 2 planted bugs were caught."
+- In a scratch copy with the "partially obscured" limit removed: "1 of 2 planted bugs were missed:
+  ['axe: check-in tabs too small to tap']". With the after-a-tab limit removed instead: "1 of 2 planted
+  bugs were missed: ['axe: check-in tabs behind the strip at the top of the page']".
+- `python3 tools/test_the_tests.py --only "axe:"`: "All 8 planted bugs were caught."
+- `python3 tools/test_browser.py --only axe`: axe 412 checks passed, 0 distinct failures, "All browser
+  checks passed." with the three allowed target-size NOTEs.
+- `python3 tools/check_site.py`: "Checked 21 pages. 112 different outside links." and "All checks
+  passed." with no NOTE.
+
+Not run for this fix: `tools/test_webkit.py`, since no page, stylesheet, or site script changed; the other
+browser groups; and the full suite. A saved patch from an earlier attempt, which moves six QR planted bugs
+so they run on every computer, was not applied: no finding asked for it.
 
 ## Decisions and open questions
 

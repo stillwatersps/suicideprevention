@@ -1672,18 +1672,20 @@ AXE_SIZES = [("phone 390x844", 390, 844, True), ("desktop 1440x900", 1440, 900, 
 # place each state is reported, or () for every state, reason). Each one allowed is still printed as a NOTE. Add
 # one only with a reason a person could check.
 # axe-core says "partially obscured" for the check-in tabs because it counts only the crisis strip's own links as
-# covering them, not the strip's solid background. Its "12.6px" is the space between those links. Measured with
-# document.elementFromPoint in phone-size emulation at 390x844 on November 9, 2026, none of the tab row shows.
+# covering them, not the strip's solid background. Its "12.6px" is the part of a tab above those links: the tabs'
+# top edge is at -10.6 px, off the screen, and the links start at 2 px. Measured with document.elementFromPoint in
+# phone-size emulation at 390x844 on November 9 and 10, 2026, none of the tab row shows.
 # It's allowed only after a tab is chosen, so the same finding with the page at the top, or after a step, fails.
-CHECK_IN_TABS = ("#ci-today", "#ci-rediscover", "#ci-journal", "#ci-journey", "today's suggestions")
+# Today's suggestions are checked after the last tab, so the row is where that tab left it.
+CHECK_IN_TAB_STATES = ("#ci-today", "#ci-rediscover", "#ci-journal", "#ci-journey", "today's suggestions")
 AXE_ALLOWED = [
     ("target-size", ("check-in/index.html", "es/registro-diario/index.html"), 'a[href$="#ci-', "partially obscured",
-     tuple(", " + state for state in CHECK_IN_TABS),
+     tuple(", " + state for state in CHECK_IN_TAB_STATES),
      "Choosing any tab, Today included, scrolls its section to just below the pinned crisis strip, so the whole tab "
      "row is behind the strip and none of it shows. To see or change tabs, the visitor scrolls back up about 110 px. "
      "After choosing a step, the row is further up, off the screen. axe-core calls the tabs partially obscured because "
-     "it doesn't count the strip's background as covering them. With the page at the top, where the tabs are first "
-     "reached, every tab passes. Whether the tab row should stay in view is a decision for the founders in the "
+     "it doesn't count the strip's background as covering them. With the page at the top, every tab passes, and the "
+     "test fails if one doesn't. Whether the tab row should stay in view is a decision for the founders in the "
      "handoff of November 9."),
 ]
 # Results axe-core can't decide, which a person doesn't need to look at either: (messageKey, start of the element's
