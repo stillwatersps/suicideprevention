@@ -359,6 +359,18 @@ draft (`app/`, branch `app/first-build`):
   results, and larger text by default for 65 and over, which anyone can switch.
 - Your journey lists what the app does for the person's age, and lets them enter the date again.
 
+## November 10, 2026: My circle without accounts, and a hope box, proposed
+
+One founder asked to build E2, F9, and F3. **The other founder hasn't agreed to these, and no
+reviewer has seen them.** On `app/circle-and-hope-box`, stacked on `app/hard-places-and-reminders`:
+
+- **My circle is built without accounts or a server.** Chosen people get a text message the person
+  sends from their own Messages app. Why: the app may send nothing to Tidelight, and accounts need
+  both founders ([[CHECK-IN-BACKEND]]). A circle whose members see entries inside an app is still
+  an open choice.
+- **Hope box (F9):** words and photos kept in the app on the phone, never shared.
+- **F3 was already being built by the other founder's session,** so nothing of it was rebuilt.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any

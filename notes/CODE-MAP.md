@@ -70,6 +70,8 @@ All in `app/`. See `app/README.md` for how to build and run it.
 | `app/src/text/en.html`, `es.html` | **Every word the app adds**, as named blocks. Change words here, never in `app.js` |
 | `app/src/app.js` | Saving on the phone, age setup and accommodations, larger text, sharing |
 | `app/src/app.css` | Styles for the app's blocks |
+| `app/src/extras.js`, `extras-logic.js`, `extras.css`, `app/src/text/extras.*.html`, `app/tools/build-extras.mjs` | The Hope box and My circle, kept in their own files. `app.js` and `build.mjs` each pull them in with one line |
+| `app/tools/make-words-packet.mjs` | Writes `notes/review-packet/tidelight-app-words.html`, every word the app adds, numbered for reviewers. Run it after changing `app/src/text/` |
 | `app/test/app-test.mjs` | 47 checks per language in desktop Chromium |
 | `app/test/screens.mjs` | Phone-size screenshots of the age screens |
 | `app/android/`, `app/ios/` | Native projects made by Capacitor. Don't edit by hand except settings |

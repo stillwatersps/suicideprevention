@@ -14,6 +14,7 @@ import { Preferences } from '@capacitor/preferences';
 import { Share } from '@capacitor/share';
 import { Capacitor } from '@capacitor/core';
 import { Tidelight } from './native.js';
+import './extras.js'; // Hope box and My circle, in their own file
 import { SLOTS, slotFor, defaultReminders, parseTime, timeText, fill, summaryText, MAX_PLACES, MAX_PEOPLE,
   DWELL_CHOICES, defaultPlacesConfig, newId, joinNames } from './logic.js';
 export { ageOn, groupFor } from './ages.js';
