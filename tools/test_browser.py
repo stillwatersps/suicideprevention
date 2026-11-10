@@ -1125,6 +1125,80 @@ def test_language(browser, site, pages, report):
         else:
             report.ok("language")
     tab.close()
+    language_preference(browser, site, pages, report)
+
+
+# How the Spanish link looks, and whether it stands out: a border, as .lang-offer in assets/styles.css adds.
+LANG_LINK_JS = """(function () {
+    var a = document.querySelector('.lang-switch a');
+    if (!a) return null;
+    var s = getComputedStyle(a);
+    return {text: a.textContent.trim(), border: parseFloat(s.borderTopWidth) || 0, background: s.backgroundColor,
+            first: (navigator.languages || [])[0] || navigator.language, lang: document.documentElement.lang,
+            stored: localStorage.length + sessionStorage.length + (document.cookie ? 1 : 0)};
+})()"""
+
+
+def prefer_languages(tab, languages):
+    """Sets the browser's preferred languages, as a person's language setting does, through DevTools."""
+    agent = tab.js("navigator.userAgent")
+    tab.send("Emulation.setUserAgentOverride", {"userAgent": agent, "acceptLanguage": languages})
+
+
+def language_preference(browser, site, pages, report):
+    """When the browser's first language is Spanish, an English page's "Leer en español" link stands out,
+    with the same words, nothing stored, and nothing sent. Not on Spanish pages, not when Spanish is only
+    a second choice, and not without JavaScript."""
+    english = [page for page in pages if not page.startswith("es/")]
+    spanish = [page for page in pages if page.startswith("es/")]
+    for dark in (False, True):
+        tab = new_tab(browser, 390, 844, True)
+        tab.media(dark=dark)
+        prefer_languages(tab, "es-US,es;q=0.9,en;q=0.8")
+        where = f"Spanish first, {'dark' if dark else 'light'}"
+        for page in english:
+            tab.goto(site.url(page))
+            info = tab.js(LANG_LINK_JS)
+            if not info:
+                continue  # a page with no language switch, such as the page-not-found page
+            if not str(info["first"]).lower().startswith("es"):
+                report.fail("language", page, f"the test could not set Spanish as the first language: {info['first']}", where)
+                continue
+            if not info["border"]:
+                report.fail("language", page, "the Spanish link does not stand out for a browser whose first language is Spanish", where)
+            if info["text"] != "Leer en español":
+                report.fail("language", page, f"the Spanish link's words changed: \"{info['text']}\"", where)
+            if info["stored"]:
+                report.fail("language", page, "the page stores something after reading the browser's language", where)
+            for problem in page_problems(tab, page, site):
+                report.fail("language", page, problem, where)
+            # The layout audit, for the link's new look. Its notes about tap targets under 44px are the
+            # matrix group's, so they aren't repeated here; under 24px still fails.
+            apply_audit(tab.js(AUDIT_JS), "language", page, where, report, False)
+        tab.close()
+    tab = new_tab(browser, 390, 844, True)
+    for languages, chosen, why in (("en-US,es;q=0.9", english, "a browser whose first language is English"),
+                                   ("es-US,es;q=0.9", spanish, "a Spanish page")):
+        prefer_languages(tab, languages)
+        for page in chosen:
+            tab.goto(site.url(page))
+            info = tab.js(LANG_LINK_JS)
+            if info and info["border"]:
+                report.fail("language", page, f"the language link stands out on {why}")
+            else:
+                report.ok("language")
+    # Without JavaScript, the link looks as it always does.
+    prefer_languages(tab, "es-US,es;q=0.9")
+    for page in english[:3]:
+        tab.send("Emulation.setScriptExecutionDisabled", {"value": True})
+        tab.goto(site.url(page))
+        tab.send("Emulation.setScriptExecutionDisabled", {"value": False})
+        info = tab.js(LANG_LINK_JS)
+        if info and info["border"]:
+            report.fail("language", page, "the Spanish link stands out without JavaScript, where nothing may change")
+        else:
+            report.ok("language")
+    tab.close()
 
 
 # ---------------------------------------------------------------- quick exit
@@ -1395,6 +1469,13 @@ def left_within(tab, seconds, whole_window=True):
         event = tab.browser.wait_for("Fetch.requestPaused", tab.session, seconds)
     except TimeoutError:
         return None
+    # A second press may ask again and cancel the first request, so answer the newest one.
+    tab.browser.pump(0.3)
+    while True:
+        try:
+            event = tab.browser.wait_for("Fetch.requestPaused", tab.session, 0)
+        except TimeoutError:
+            break
     tab.send("Fetch.fulfillRequest", {
         "requestId": event["params"]["requestId"], "responseCode": 200,
         "responseHeaders": [{"name": "Content-Type", "value": "text/html"}],

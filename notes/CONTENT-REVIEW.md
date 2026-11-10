@@ -166,7 +166,7 @@ these: tap, stop at the dial or compose screen, and cancel.
 | Our web host logs visitors' IP addresses | Home | Privacy section of the About page | Tidelight | Tested in browser | Lawyer question |
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
 | Get Support Now | Header | Crisis options on the same page. On Home it rings the three buttons already on screen; on other pages it jumps to them | Tidelight | Tested in browser | Founders: is the label right? |
-| Quick exit / Salida rápida | Every page. In the pinned strip on phones and tablets, bottom right on desktops | https://www.weather.gov/ | Tidelight | Tested in browser: the page goes blank at once, and Back skips the page that was left. Back can still reach earlier Tidelight pages, and that page too after a link within it | Reviewer: label, destination, placement, and what it can't hide |
+| Quick exit / Salida rápida | Every page. In the pinned strip on phones and tablets, bottom right on desktops | https://www.weather.gov/ | Tidelight | Tested in browser: the page goes blank at once, and Back skips the page that was left. Back can still reach earlier Tidelight pages, and that page too after a link within it. Esc pressed twice does the same, tested in desktop Chrome | Reviewer: label, destination, placement, and what it can't hide |
 | Save 988 to your contacts / Guarda el 988 en tus contactos | Get Help, For Teens, Wallet card, About, and their Spanish twins | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` | Tidelight | File checked. Not tried on a phone | Save on a real iPhone and Android phone |
 | Llamar al 988, marca 2 para español / Texto al 988, escribe AYUDA / Chatear en línea / Llama al 988 / envía AYUDA al 988 / llama al 911 | Crisis strip and buttons on every Spanish page, and inside sentences on some | `tel:988`, `sms:988`, `tel:911`, chat.988lifeline.org/?lang=es | 988 Lifeline; local 911 | Link format only | Phone test; fluent reader |
 | Llamar al 988 (otros idiomas) / Llamar al 988 y marcar 1 / Texto al 838255 / Chat de la Línea de Crisis para Veteranos / Llamar al 1-800-662-4357 / 1-800-487-4889 (TTY) / Llamar al 911 | Spanish Get Help | `tel:988`, `sms:838255`, `veteranscrisisline.net/es/como-ayudamos/chat/`, `tel:+18006624357`, `tel:+18004874889`, `tel:911` | 988 Lifeline; Veterans Crisis Line; SAMHSA; local 911 | Link format only | Phone test; fluent reader |
@@ -727,6 +727,34 @@ qualified reviewer decides each one, and nothing here has been reviewed.
 - Should About add that offline copies are saved again each time a page opens with a connection, so
   someone looking in the browser's storage could tell from their dates which pages were opened, and
   roughly when?
+
+### Privacy and language additions, November 9, 2026
+
+Built at one founder's request, as drafts. Wording is proposed. See
+[[worklogs/2026-11-09-claude-privacy|the handoff]].
+
+- **Esc twice to leave.** On a keyboard, Esc pressed twice within about a second does what Quick
+  exit does. An Esc that closes the open menu doesn't count, and nothing happens while someone is
+  typing in a box, such as on the Daily check-in. Is a keyboard shortcut right for this site, and is
+  Esc the right key? Two presses were chosen so a single Esc, which people press to close things,
+  doesn't leave by accident. Is "about a second" right?
+  Inside another website's frame, Chrome lets Esc change only Tidelight's part, and About says so.
+- **Browse privately.** About now has steps for a private window and for clearing history in Safari
+  on iPhone, Chrome on Android and on computers, Firefox and Edge, from each maker's help page read
+  November 9, 2026. Nobody has tried them in each browser. Are these the right browsers? Should the
+  page name Samsung Internet, used on many Android phones, or Safari on a Mac?
+- **What private browsing can't hide.** The section names the network at school, work or home,
+  monitoring software on the device, and synced devices, with what Google, Mozilla, Microsoft and
+  The National Domestic Violence Hotline say. Is the Hotline's line that history "can never be
+  completely erased" right to repeat next to steps that clear it? Should the section suggest a
+  device someone else doesn't control, as the Hotline does, or a call from another phone?
+- **Steps that change.** Browser makers move their menus. Who rechecks these steps, and how often?
+  `tools/set_checked_date.py --part browsers` moves their date on both About pages.
+- **The Spanish link for Spanish browsers.** When a browser's first language is Spanish, an English
+  page's "Leer en español" link gets a border and a tinted background. The words don't change,
+  nothing is stored or sent, and the page never switches language by itself. Is that enough, or too
+  much? Spanish Firefox help shows these menu names in English, and the Spanish About page says so.
+  A fluent reader should check the Spanish menu names against Spanish-language browsers.
 
 ### Spanish pages
 

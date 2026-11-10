@@ -706,7 +706,7 @@ def review_claim(text):
     return None
 
 
-ABOUT_SECTIONS = ("what-this-is", "review-status", "privacy", "quick-exit", "offline", "contact-card")
+ABOUT_SECTIONS = ("what-this-is", "review-status", "privacy", "quick-exit", "browse-privately", "offline", "contact-card")
 # What the About pages' review list may show for a section whose newest record isn't an approval of its
 # current text. Until a record exists, only the first one.
 NOT_YET_STATUS = {"en": ("Pending", "Changes needed", "Not approved"), "es": ("Pendiente", "Cambios pedidos", "No aprobada")}
@@ -1022,15 +1022,22 @@ DATE_ES = re.compile(r"\d{1,2} de (?:enero|febrero|marzo|abril|mayo|junio|julio|
 
 
 def date_kind(text_before):
-    """Whether a date dates the crisis numbers and links, or a list of sources. Reads the sentence
-    the date ends, given the text just before it."""
+    """Whether a date dates the crisis numbers and links, the browser makers' help pages behind the About
+    pages' steps for private browsing, or a list of sources. Reads the sentence the date ends, given the
+    text just before it."""
     sentence = re.split(r"[.!?]\s", text_before[-400:])[-1]
-    return "crisis details" if re.search(r"provider|proveedor", sentence) else "sources"
+    if re.search(r"provider|proveedor", sentence):
+        return "crisis details"
+    # Browsers change their menus on their own schedule, so those steps are checked apart from other sources.
+    if re.search(r"browser makers|fabricantes de navegadores", sentence):
+        return "browser help pages"
+    return "sources"
 
 
 def check_dates(failures, pages):
     """Every page shows the same date for each kind of check, so a re-check can't update only some pages.
-    The crisis details and the source lists are checked on their own schedules, so each has its own date."""
+    The crisis details, the source lists and the browser makers' help pages are checked on their own
+    schedules, so each has its own date."""
     for lang, pattern in (("en", DATE_EN), ("es", DATE_ES)):
         seen = {}
         for name, page in pages.items():
