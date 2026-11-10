@@ -13,6 +13,10 @@ date, and move approved ones to [[TASKS]]. Ideas that change crisis or health
 wording also need the licensed reviewer (see [[RESEARCH-BRIEF]] and
 [[CONTENT-REVIEW]]).
 
+**November 9, 2026:** forty more ideas are in [[IDEAS-ROUND-3]]. Two were worked out in full at one
+founder's request: alerting chosen people when someone stays near a hard place ([[LOCATION-ALERT]]) and
+four daily check-ins shared with a guardian or a doctor ([[CHECK-IN-SCHEDULE]], partly built as a draft).
+
 ## ⚠️ Important, first for attention: location alerts and idea E1 (November 9, 2026)
 
 One founder asked whether the planned phone app ([[CHECK-IN-BACKEND]]) could use location

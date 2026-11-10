@@ -93,6 +93,7 @@ async function run(browser, lang) {
   check(await page.isVisible('.app-age-box [data-age-group="teen"]'), 'Today starts with the box for ages 13 to 17');
   check(await page.isVisible('.app-age-box [data-age-group="teen"] a[href*="#other-ways"]'), 'the teen box links to LGBTQ+ support on Get Help');
   check(!(await page.isVisible('.app-age-box [data-age-group="child"]')), 'other ages\' boxes stay hidden');
+  check(await page.isVisible('.app-rem-hint a[href="#app-reminders"]'), 'Today points to the check-in reminders');
   check(!(await page.evaluate(() => document.documentElement.classList.contains('app-large-text'))), 'regular text for ages 13 to 17');
 
   stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
@@ -130,6 +131,39 @@ async function run(browser, lang) {
   check(shared.length === 1 && shared[0].includes('A made-up entry for the test.'), 'shares the entry through the share sheet');
   check(/^(I wanted|Quería)/.test(shared[0] || ''), 'adds the opening line when chosen');
 
+  // Today's check-ins: one line per check-in, filed by the time of day, shared only on purpose.
+  await page.click('.ci-tabs a[href="#ci-today"]');
+  const feelingLabel = (await page.textContent('.ci-fill-feeling')).trim();
+  await page.click('.ci-tabs a[href="#ci-journey"]');
+  const logText = await page.textContent('.app-log');
+  check(/(Morning|Midday|After school|Before bed|Mañana|Mediodía|Después de la escuela|Antes de dormir), /.test(logText), 'Your journey lists today\'s check-in with its time of day');
+  check(feelingLabel.length > 0 && logText.includes(feelingLabel), 'the line shows the feeling that was chosen');
+  check(!(await page.isVisible('.app-log-empty')), 'the "no check-ins" line hides once there is one');
+  await page.click('.app-share-days[data-days="1"]');
+  check(await page.isVisible('#app-share-panel'), 'Share today\'s check-ins opens the notice first');
+  const daySummary = await page.inputValue('#app-share-text');
+  check(daySummary.includes('Tidelight') && daySummary.includes(feelingLabel), 'the summary names Tidelight and today\'s feeling');
+  check(!daySummary.includes('A made-up entry'), 'the summary leaves journal entries out');
+  await page.click('.app-share-cancel');
+  await page.click('.app-share-days[data-days="7"]');
+  const weekSummary = await page.inputValue('#app-share-text');
+  check(weekSummary.includes(feelingLabel) && weekSummary.split('\n').length > daySummary.split('\n').length - 2, 'the 7-day summary groups check-ins by day');
+  await page.click('.app-share-cancel');
+  check((await page.evaluate(() => window.__shared.length)) === 1, 'nothing more is shared on Cancel');
+
+  // Reminders: all off until turned on, kept on the phone, never sent anywhere.
+  check(await page.isVisible('#app-reminders'), 'Your journey has the check-in reminders');
+  const onCount = await page.$$eval('.app-rem-on', (els) => els.filter((e) => e.checked).length);
+  check(onCount === 0, 'every reminder is off to start with');
+  check(!(await page.isVisible('.app-rem-web')), 'no browser note while every reminder is off');
+  await page.check('.app-rem-on[data-slot="morning"]');
+  await page.fill('.app-rem-time[data-slot="morning"]', '07:45');
+  await page.waitForTimeout(300);
+  stored = await page.evaluate(() => localStorage.getItem('tidelight.reminders.v1') || '');
+  check(stored.includes('"morning":{"on":true,"time":"07:45"}'), 'the morning reminder and its time are kept');
+  check(stored.includes('"evening":{"on":false'), 'the other reminders stay off');
+  check(await page.isVisible('.app-rem-web'), 'in a browser it says reminders need the app on a phone');
+
   // Close the app and open it again: everything is still there, and no age question.
   await page.waitForTimeout(400);
   await page.reload();
@@ -137,8 +171,13 @@ async function run(browser, lang) {
   check(!(await page.isVisible('#app-age')), 'does not ask the age again');
   await page.click('.ci-tabs a[href="#ci-journal"]');
   check((await page.textContent('.ci-entries')).includes('A made-up entry for the test.'), 'the journal entry is still there after reopening');
+  const entryDate = (await page.textContent('.ci-entry .ci-entry-date')).trim();
+  check(entryDate.length > 0 && !/\d{4}-\d{2}-\d{2}T/.test(entryDate), 'the entry\'s date still reads as a date after reopening');
   await page.click('.ci-tabs a[href="#ci-journey"]');
   check(await page.isVisible('.app-settings .app-group-name'), 'Your journey shows the age group');
+  check((await page.$$('.ci-cal-day.is-marked')).length === 1, 'the calendar still marks today after reopening');
+  check((await page.textContent('.app-log')).includes(feelingLabel), 'today\'s check-in is still listed after reopening');
+  check(await page.isChecked('.app-rem-on[data-slot="morning"]') && (await page.inputValue('.app-rem-time[data-slot="morning"]')) === '07:45', 'the reminder is still set after reopening');
 
   // Delete everything removes it from the phone, and keeps the age group.
   await page.click('.ci-erase-start');
@@ -153,6 +192,8 @@ async function run(browser, lang) {
 
   // Changing the birth date changes the group.
   await page.click('.ci-tabs a[href="#ci-journey"]');
+  check((await page.textContent('.app-log')).trim() === '' && await page.isVisible('.app-log-empty'), 'Delete everything clears today\'s check-ins');
+  check(await page.isChecked('.app-rem-on[data-slot="morning"]'), 'the reminders stay after Delete everything');
   await page.click('.app-age-change');
   await page.fill('#app-birth-date', birthDateYearsAgo(70));
   await page.click('.app-age-save');

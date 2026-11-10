@@ -810,6 +810,17 @@ Built November 9, 2026, at one founder's request, on branch `app/first-build`. E
   get urgent help?
 - **Saving.** Is the privacy wording about the phone, its backups, and Delete everything accurate and
   plain? A lawyer should read it too.
+- **Reminders and shared check-ins** (added November 9, 2026, branch `app/daily-check-ins`). Four
+  optional reminders, morning, midday, after school or work, and before bed, each off until turned
+  on. The notification says only "A moment to check in, if you'd like." Is that safe on a lock
+  screen? Are four invitations a day too many for someone in distress, or is choosing them enough?
+  Your journey lists today's check-ins ("Morning, 8:05: feeling: tired. Needs: rest.") and offers
+  Share today's check-ins and Share the last 7 days, through the same notice as Share this
+  reflection. Is that the right level of detail to send a parent or a clinician? Should a minor be
+  pointed toward sharing with a guardian, or only allowed to? See [[CHECK-IN-SCHEDULE]].
+- **Location alerts, worked out** (November 9, 2026). [[LOCATION-ALERT]] lays out how an alert to
+  chosen people could work when someone stays near a hard place. Please read its questions at the
+  end before any of it is built.
 
 ## Human-only checklist
 
