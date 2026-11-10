@@ -24,7 +24,7 @@ reviewed", which isn't true yet.
 | D. Leave it as it is | No work | The site keeps saying something untrue |
 
 **Recommendation:** A today, because it corrects something untrue, then decide between B and C. The notes on
-`main` are also public, and pull request 7 corrects the stale ones.
+`main` are also public, and pull request 7, merged on November 9, corrected the stale ones.
 
 ## Decisions for both of you
 

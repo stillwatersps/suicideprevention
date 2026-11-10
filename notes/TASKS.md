@@ -122,15 +122,10 @@ Move a task here when its branch is ready for the other person to review.
   them.
 - [ ] Verify crisis resources on provider sites. Claude read each page; see
   [[SAFETY]]. A person still needs to confirm them.
-- [ ] Correct `main`'s notes, with no page changes, so `main` stops saying pull
-  request 4 is unmerged. Owner: Claude, at the user's request. Branch:
-  `claude/charming-swartz-e8d31c`, pull request 7 into `main`. Merged November 9, 2026, so
-  those notes are public.
 - [ ] Correct the four known problems on the live pages, with no draft content. Owner:
   Claude, at the user's request. Branch: `site/live-page-corrections`, draft pull
-  request 8 into `main`. Not merged. A founder decides: merging publishes. No qualified
-  person has reviewed the wording. Its description says what to weigh, including the
-  conflict with pull request 5.
+  request 8 into `main`. Not merged. Both founders chose on November 9, 2026, to close it once
+  pull request 12 merges, since 12 replaces those pages.
 
 - [ ] Build nine approved ideas: automatic checks, website-only publishing, offline
   support, dark mode, a shorter Get Help, quick exit, and Spanish pages. Owner:
@@ -176,8 +171,11 @@ Move a task here when its branch is ready for the other person to review.
 
 - [ ] Build a one-page public site as an option for open decision 1. Owner: Claude, at one
   founder's request. Branch: `site/minimal-public-preview`, draft pull request 12 into
-  `main`. Its handoff is on that branch. Not merged. **Merging publishes.** Both founders decide,
-  together with pull requests 5, 7 and 8. No qualified person has reviewed the wording.
+  `main`. Its handoff is on that branch. Not merged. **Merging publishes.** Both founders chose it
+  on November 9, 2026, and it now has a website-only publish step. Next: mark it ready for review,
+  the founder who didn't open it approves it, and then merge it in the order its description gives.
+  No qualified person has reviewed the wording, and no person has confirmed its numbers or tried
+  its links on a real phone.
 
 ## Completed work
 
@@ -190,6 +188,11 @@ Move finished tasks here and link their handoff note.
 - [x] Add placeholder pages and link them from the menu, cards, and footer.
   Merged through pull request 4 on November 5, 2026, Eastern time, commit `d610002`.
   Handoff: [[worklogs/2026-11-06-claude-site-pages]].
+- [x] Correct `main`'s notes, with no page changes, so `main` stops saying pull
+  request 4 is unmerged. Built by Claude at the user's request on
+  `claude/charming-swartz-e8d31c`. Merged into `main` through pull request 7 on November 9,
+  2026, by a founder, so those notes are public.
+  Handoff: [[worklogs/2026-11-06-claude-main-notes-correction]].
 
 Use [[templates/Task|The task template]]. Keep detailed notes in
 [[worklogs/README|Worklogs]]. Coordinate before both people edit this board.

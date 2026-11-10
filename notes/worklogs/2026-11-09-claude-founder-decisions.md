@@ -43,6 +43,16 @@ Notes only. No page, stylesheet, or tool changed.
 - Answer 6, the design, and answer 11, the safety rules, are agreed next steps, not choices yet.
 - Owners for each step weren't named.
 
+## Update, later November 9
+
+A founder merged pull requests 1 and 7 into `main` that morning. These notes already said so; Claude
+updated what was left: `main`'s commit (`ad0ba65`) and contents in [[STATUS]], pull request 11's
+target, pull request 12's state and what it needs before merging (marked ready for review, the other
+founder's approval, and a person confirming its numbers and trying its links on real phones), the
+notes-correction task moved to Completed in [[TASKS]], idea C5 in [[IDEAS]], and one line in
+[[FOUNDER-BRIEF]]. Checked on GitHub: the live site matches `main`, pull request 12 merges cleanly
+with it, and its publish check passes on the merged result.
+
 ## Next step
 
 Merge pull request 17, then this one, into pull request 5's branch. Neither publishes. Then follow the
