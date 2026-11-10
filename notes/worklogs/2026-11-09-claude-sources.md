@@ -6,7 +6,7 @@ branch: build/sources-1109, from 830f766 of claude/jolly-mayer-2m6eno (draft pul
 
 # The November 8 crisis-source recheck and name scan, brought onto pull request 5's branch
 
-Date: November 9, 2026, Eastern time.
+Date: November 9, 2026, Eastern time, with a second pass on November 10 (below).
 
 **State when written: local only.** Local commits on `build/sources-1109`. Not pushed, no pull request,
 not merged, and not on the public website. Notes, one comment in a check tool, and rebuilt review
@@ -55,6 +55,24 @@ address or chat page was opened. 988's cookie banner was declined with "I Reject
 pages' wording, so no page changed and nothing goes in alerts. The other 11 rows weren't read again
 today: the two records didn't differ there.
 
+## Second pass, November 10
+
+The step was run again on November 10, 2026, on the same branch. It found the merge and this handoff
+already committed, and checked them rather than redoing them. At about 5:45 a.m. Eastern it read both
+988 Get Help pages again in the built-in browser, in one tab opened for this and closed afterwards,
+from the page text and code only, clicking nothing:
+
+| Page | What it shows |
+| --- | --- |
+| https://988lifeline.org/get-help/ | tel:988, sms:988, and chat.988lifeline.org behind its Call, Text, and Chat buttons. "dial 988 and then press 2", "text AYUDA to 988", and "start a chat in Spanish". In the page's directory, "24/7" for 988 and for 988 in Spanish. The Veterans Crisis Line by calling 988 and pressing 1, texting 838255, or chatting. The notice that the "Press 3 option" has been restored. No cookie banner showed in the text read |
+| https://988lifeline.org/es/obten-ayuda/ | Llama, Textea, and Chatea lead to tel:988, sms:988, and https://chat.988lifeline.org/?lang=es; one "CHATEA CON 988 LIFELINE" link leads to https://chat.988lifeline.org/. "las 24 horas del día, los 7 días de la semana" |
+
+No difference from the November 8 and 9 records, so the two rows in [[SAFETY]] now say "Nov 8, 9 and
+10, 2026", and the note under the table says so. No page changed and nothing goes in alerts. It also
+ran the findtreatment.gov link check twice again, at 5:48:12 and 5:48:13 a.m. Eastern: both links 200
+both times, no notes or failures. The comment in `tools/check_site.py` now says so, wrapped to the
+file's line length. The packets were rebuilt and every check below run again.
+
 ## findtreatment.gov and the link check
 
 A small script outside the project passed only the site's two findtreatment.gov links,
@@ -65,18 +83,19 @@ The 988 chat addresses weren't requested. The full `--check-links` wasn't run, b
 
 ## Checked
 
-On a Mac, November 9, 2026, at about 8:36 p.m. Eastern, on the merge commit's files. None of these is
-a phone test or a content review.
+On a Mac, November 10, 2026, at about 5:50 a.m. Eastern, after the second pass. None of these is a
+phone test or a content review. The November 9 run of the same commands had the same result lines,
+with packet fingerprint `0d1ac348a3f6`.
 
-| Command | Result line | Exit, time |
+| Command | Result line | Exit |
 | --- | --- | --- |
-| `python3 tools/make_review_packet.py` | Wrote both packets, as HTML and PDF. Fingerprint `0d1ac348a3f6` | 0, 3 s |
-| `python3 tools/check_site.py` | "All checks passed. This does not replace a real phone test or a content review." 21 pages, 112 outside links, no notes, so the packets are current | 0, 1.2 s |
-| `python3 tools/check_site.py --self-test` | "All 7 made-up link answers were read correctly." | 0, 0.2 s |
-| `python3 tools/check_crisis_sources.py --self-test` | "All 20 made-up cases were read correctly, and every crisis number in notes/SAFETY.md has a check." | 0, 0.2 s |
-| `python3 tools/launch_gate.py --self-test` | "All 61 made-up cases were read correctly." | 0, 3.8 s |
-| `python3 tools/test_the_tests.py --only "counted as fine"` | "All 2 planted bugs were caught." | 0, 0.7 s |
-| Link check on the two findtreatment.gov links only, twice | Both 200 both times, no notes or failures | 0, under 1 s each |
+| `python3 tools/make_review_packet.py` | Wrote both packets, as HTML and PDF. Fingerprint `14ca9993b5cb` | 0 |
+| `python3 tools/check_site.py` | "All checks passed. This does not replace a real phone test or a content review." 21 pages, 112 outside links, no notes, so the packets are current | 0 |
+| `python3 tools/check_site.py --self-test` | "All 7 made-up link answers were read correctly." | 0 |
+| `python3 tools/check_crisis_sources.py --self-test` | "All 20 made-up cases were read correctly, and every crisis number in notes/SAFETY.md has a check." | 0 |
+| `python3 tools/launch_gate.py --self-test` | "All 61 made-up cases were read correctly." | 0 |
+| `python3 tools/test_the_tests.py --only "counted as fine"` | "All 2 planted bugs were caught." | 0 |
+| Link check on the two findtreatment.gov links only, twice | Both 200 both times, no notes or failures | 0 |
 
 ## Not run
 
@@ -85,7 +104,7 @@ The rest of `tools/test_the_tests.py`, beyond the planted bugs this merge brough
 `tools/check_site.py --check-links`, which requests the 988 chat addresses. The live
 `tools/check_crisis_sources.py` on every provider page. `tools/check_live.py --local`,
 `tools/check_readability.py`, and the full suite. The iOS Simulator wasn't used, and nothing was tried
-on a real phone. The FCC page and the other provider pages weren't opened today.
+on a real phone. The FCC page and the other provider pages weren't opened on November 9 or 10.
 
 ## Open points
 

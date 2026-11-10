@@ -1513,7 +1513,8 @@ def check_crisis_styles(failures, names):
 
 # Crisis services known to refuse scripts. Both answer 403, and a person checks them in a browser instead.
 # findtreatment.gov came off this list on November 8, 2026, after it answered this link check normally
-# twice, and it did so twice more on November 9. A plain read still gets a nearly empty page from it, so tools/check_crisis_sources.py reads it in Chrome.
+# twice, and it did so twice more on November 9 and on November 10. A plain read still gets a nearly
+# empty page from it, so tools/check_crisis_sources.py reads it in Chrome.
 KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov"}
 
 

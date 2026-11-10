@@ -55,9 +55,9 @@ column. Recheck close to publication and at least monthly (proposed).
 
 | Resource | How to reach it | Official page | Read on | Person confirmed |
 | --- | --- | --- | --- | --- |
-| 988 Suicide & Crisis Lifeline | Call or text 988; chat at chat.988lifeline.org. 24/7 | https://988lifeline.org/get-help/ | Nov 8 and 9, 2026 | |
+| 988 Suicide & Crisis Lifeline | Call or text 988; chat at chat.988lifeline.org. 24/7 | https://988lifeline.org/get-help/ | Nov 8, 9 and 10, 2026 | |
 | 988 by text, first steps | Send any message to 988. Reply NEXT to accept the terms of service, answer a brief survey, then a Wait message comes before a counselor. 988's Spanish What to Expect page lists the same steps and says the word "siguiente" accepts the terms | https://988lifeline.org/faq/texting-the-988-lifeline/ and https://988lifeline.org/get-help/what-to-expect/ (Spanish: https://988lifeline.org/es/obten-ayuda/que-puede-esperar/) | Nov 8, 2026 | |
-| 988 in Spanish | Call 988, then press 2; text AYUDA to 988; chat at chat.988lifeline.org/?lang=es | https://988lifeline.org/get-help/ (Spanish: https://988lifeline.org/es/obten-ayuda/) | Nov 8 and 9, 2026 | |
+| 988 in Spanish | Call 988, then press 2; text AYUDA to 988; chat at chat.988lifeline.org/?lang=es | https://988lifeline.org/get-help/ (Spanish: https://988lifeline.org/es/obten-ayuda/) | Nov 8, 9 and 10, 2026 | |
 | 988 in other languages | Call 988 and ask for an interpreter or say the language. More than 240 languages, voice only | https://988lifeline.org/faq/calling-the-988-lifeline/faq-is-the-988-lifeline-available-in-other-languages-for-non-english-speakers/ | Nov 8, 2026 | |
 | 988 for Deaf and hard of hearing people | Dial 988 from a videophone; TTY users use a relay service or dial 711, then 988; text; chat | https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/ | Nov 8, 2026 | |
 | 988 for LGBTQ+ youth (see the note below) | Call 988, then press 3; text PRIDE to 988 | https://988lifeline.org/get-help/what-to-expect/ | Nov 8, 2026 | |
@@ -69,14 +69,14 @@ column. Recheck close to publication and at least monthly (proposed).
 | FindTreatment.gov (treatment finder) | Website | https://findtreatment.gov | Nov 8, 2026 | |
 | Emergency services | Call 911. Text-to-911 works only in some places; call if you can | https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911 | Nov 8, 2026 | |
 
-The two "Nov 8 and 9" rows: Claude read 988's English Get Help page on November 8 and on November 9,
-2026, once in each of two sessions that day, and its Spanish Get Help page on November 8 and 9. The
-November 8 reads and the second November 9 read were in the Claude desktop app's built-in browser.
-Each read of the English page found call or text 988, dial 988 and press 2 for Spanish, and text
-AYUDA to 988, and chat in Spanish. The November 8 read and the second November 9 read also found
-chat buttons leading to chat.988lifeline.org and "24/7" in its directory. Both
-reads of the Spanish page found Chatea buttons leading to chat.988lifeline.org/?lang=es, read from
-the page's code, not clicked. See [[worklogs/2026-11-08-claude-recheck]],
+The two "Nov 8, 9 and 10" rows: Claude read 988's English Get Help page on November 8, twice on
+November 9, 2026, in two sessions, and on November 10, and its Spanish Get Help page on November 8, 9
+and 10. The November 8 and 10 reads and the second November 9 read were in the Claude desktop app's
+built-in browser. Each read of the English page found call or text 988, dial 988 and press 2 for
+Spanish, text AYUDA to 988, and chat in Spanish. The November 8 and 10 reads and the second November
+9 read also found chat buttons leading to chat.988lifeline.org and "24/7" in its directory. Each read
+of the Spanish page found Chatea buttons leading to chat.988lifeline.org/?lang=es, read from the
+page's code, not clicked. See [[worklogs/2026-11-08-claude-recheck]],
 [[worklogs/2026-11-09-claude-founder-decisions]], and [[worklogs/2026-11-09-claude-sources]].
 
 ### On the website as a draft, a person must confirm
