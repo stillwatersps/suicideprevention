@@ -18,9 +18,30 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="en" href="../">
   <link rel="stylesheet" href="../assets/styles.css">
+  <script src="../assets/loader.js"></script>
   <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
 </head>
 <body>
+  <!-- Welcome screen, shown by assets/loader.js for about a second and a half on the first page of a visit. A proposal; see notes/DECISIONS.md. -->
+  <div class="tl-loader" id="tl-loader" role="status" aria-live="polite" aria-label="Cargando Tidelight">
+    <div class="tl-glow" aria-hidden="true"></div>
+    <svg class="tl-waves" viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <g class="tl-w1"><path pathLength="1" d="M0 40 c50 -12 150 -12 200 0 s150 12 200 0 s150 -12 200 0 s150 12 200 0"/></g>
+      <g class="tl-w2"><path pathLength="1" d="M0 66 c50 -9 150 -9 200 0 s150 9 200 0 s150 -9 200 0 s150 9 200 0"/></g>
+      <g class="tl-w3"><path pathLength="1" d="M0 90 c50 -7 150 -7 200 0 s150 7 200 0 s150 -7 200 0 s150 7 200 0"/></g>
+    </svg>
+    <div class="tl-center">
+      <svg class="tl-mark" viewBox="0 0 70 50" aria-hidden="true" focusable="false">
+        <path class="tl-leaf tl-leaf-a" d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z"/>
+        <path class="tl-leaf tl-leaf-b" d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z"/>
+      </svg>
+      <p class="tl-welcome">Te damos la bienvenida a</p>
+      <p class="tl-name">Tidelight</p>
+      <p class="tl-tag">Prevención del suicidio y apoyo</p>
+      <div class="tl-status" aria-hidden="true"><span></span></div>
+    </div>
+    <p class="tl-crisis">¿En crisis? <strong>Llama al 988 y marca 2, o envía AYUDA al 988</strong>, a cualquier hora. Si hay peligro inmediato, <strong>llama al 911</strong>.</p>
+  </div>
   <a class="skip-link" href="#main">Saltar al contenido principal</a>
   <!-- Línea de crisis siempre visible, requerida por notes/SAFETY.md regla 1. En teléfonos, la salida rápida va dentro de ella, para que nada quede debajo. -->
   <aside class="crisis-bar" aria-label="Ayuda en una crisis y salida rápida">
