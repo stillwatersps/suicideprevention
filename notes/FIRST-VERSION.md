@@ -1,25 +1,33 @@
 ---
 aliases: [First version, First-version brief]
-status: proposal, not agreed by both founders
+status: updated with both founders' November 9 decisions, waiting for both to agree it
 ---
 
 # Tidelight's first version
 
 [[00 START HERE|Back to Start Here]]
 
-> [!warning] Proposal, not agreed by both founders
-> Claude wrote this at one founder's request, from the draft pages on `site/first-version-finish`,
-> November 7, 2026. No qualified person has reviewed the site. No fluent reader has checked the
-> Spanish, and nothing has been tried on a real phone. Once you both agree, record it in [[DECISIONS]].
+> [!warning] Not agreed yet
+> Claude wrote this at one founder's request on November 7, 2026, and updated it on November 9 with
+> the 14 decisions both founders agreed that day, as they asked. Both founders now read it and agree
+> it, and record that in [[DECISIONS]]. No qualified person has reviewed the site. No fluent reader
+> has checked the Spanish, and nothing has been tried on a real phone.
+
+## Until review
+
+The public link shows one crisis page, with 988 and 911 in English and Spanish: pull request 12,
+once it is merged. Everything below stays off the public site until the licensed therapist and a
+fluent Spanish reader have signed off in [[CONTENT-REVIEW]].
 
 ## What it is, and isn't
 
-A phone-friendly information website for adults and minors in the United States. Ages are
-undecided (open decision 6 in [[DECISIONS]]). It points to real crisis services, mainly the 988
+A phone-friendly information website for every age in the United States, and a phone app that
+shows the same pages. The website asks no age. It points to real crisis services, mainly the 988
 Suicide & Crisis Lifeline and 911.
 
 - Not a crisis service. Nobody at Tidelight watches the site, and it can't take messages.
-- No accounts, forms, analytics, or cookies. GitHub, the web host, logs visitors' IP addresses.
+- No accounts, analytics, or cookies. The Daily check-in is the only place to type or choose, and
+  the website saves none of it. GitHub, the web host, logs visitors' IP addresses.
 - No AI chat or counseling, risk scores, or follow-up contact.
 - No coping exercises, though Home mentions coping. See [[FOUNDER-BRIEF]].
 - No recovery stories yet (idea D4 in [[IDEAS]]).
@@ -78,6 +86,12 @@ Suicide & Crisis Lifeline and 911.
 2. It covers ASL by videophone, text, chat, and TTY through a relay service or 711, then 988. No
    Deaf reviewer has read it.
 
+**Someone checking in on a hard day**
+
+1. **Daily check-in** asks how they feel and what they need, then suggests small steps. They can
+   write in a journal. 988 and 911 stay on screen throughout.
+2. On the website, nothing is kept when the page closes. In the app, it is kept on the phone.
+
 ## The pages
 
 Each English page has a Spanish twin in `es/`, except Page not found. [[CONTENT-REVIEW]] says what
@@ -91,8 +105,28 @@ every control does.
 - **After a loss**: support after a suicide loss.
 - **Research**: myths and facts, and what studies show.
 - **Wallet card**: printable poster and cards, not to hand out yet.
+- **Daily check-in**: today's feeling, ideas, a journal, and support. Saves nothing.
 - **About and privacy**: what Tidelight is, review status, and privacy.
 - **Page not found**: crisis options and links.
+
+## The look
+
+Shoreline, paper and one tide blue, is on pull request 5's branch. Signage, a green help sign with
+an amber Call 988 button, is pull request 11. Both founders choose after trying both on a real
+phone. Neither changes any wording, link, or behavior.
+
+## The phone app, a draft
+
+Pull request 16. Both founders agreed to keep building it as a draft until the reviewer and a
+lawyer have read it and it has run on real phones.
+
+- It shows the website's pages, and keeps the Daily check-in on the phone. Nothing goes to Tidelight.
+- It asks for date of birth once, keeps only the age group, and shapes help by age. 988, 911, and
+  Quick exit never wait for it.
+- Not offered to under-13s until a lawyer has advised on COPPA and the app stores' rules.
+- **Share** sends one reflection to someone the person picks, after a notice.
+- Not decided: whether saving reaches the person's own iCloud or Google account, or a Tidelight
+  account, which needs a server. Idea E1, places that are hard for me, waits for the reviewer.
 
 ## Before launch
 

@@ -173,7 +173,7 @@ D1 to D3 on November 6, 2026. The other founder hasn't agreed to them yet.
 | C2 | Monthly automatic link check: GitHub opens every crisis and source link once a month and flags any that break | [[SAFETY]] proposes monthly rechecks. This catches a moved 988 page before a visitor does | Approved by one founder, Nov 6, 2026. Built: starts once on `main` |
 | C3 | Daily check that the live site loads and its crisis strip is there | Finds out within a day if a publish or a GitHub problem breaks the site | Approved by one founder, Nov 6, 2026. Built: starts once on `main` |
 | C4 | Plain-language check: flag sentences that are long or hard to read | The audience includes minors and people in distress. Some draft paragraphs are long | Approved by one founder, Nov 6, 2026. Built as a report |
-| C5 | Close or merge the old draft pull requests (1, 7, 8) | Pull request 5 now covers what 7 and 8 fix. Fewer open pull requests means less confusion | Approved by one founder, Nov 6, 2026. On hold: the other founder opened these pull requests |
+| C5 | Close or merge the old draft pull requests (1, 7, 8) | Pull request 5 now covers what 7 and 8 fix. Fewer open pull requests means less confusion | Approved by one founder, Nov 6, 2026. On November 9 a founder merged 1 and 7 into `main`, and both founders chose to close 8 once pull request 12 merges |
 | C6 | A short test with 3 to 5 people using made-up situations, such as "find how to text for help in Spanish" | Shows whether real people can find help fast, before launch. Nobody shares anything personal | Approved by one founder, Nov 6, 2026. Plan written in [[USER-TEST]]; not run |
 
 ### Group D: new content, needs the licensed reviewer
