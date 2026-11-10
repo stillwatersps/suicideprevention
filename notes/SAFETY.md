@@ -114,7 +114,8 @@ column. Recheck close to publication and at least monthly (proposed).
 ### Read November 9, 2026, for the section on posts online
 
 Claude read these in the desktop app's built-in browser for the draft section "If a friend posts
-about suicide online" on Help Someone and its Spanish twin. Nothing was called, texted, chatted,
+about suicide online" on Help Someone and its Spanish twin, and read every one again on November 10,
+2026, when each still said what is recorded below. Nothing was called, texted, chatted,
 reported, or submitted, no platform's report form was opened, and no person has confirmed them. The
 section adds no new number or keyword, and the resource table above is unchanged.
 

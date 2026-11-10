@@ -324,7 +324,7 @@ Wording is proposed. Nothing here is clinical advice.
 Drafted by Claude on November 8, 2026, and checked again on November 9, 2026, as a task in one
 founder's session, in English and Spanish. It draws on 988's Support on Social Media, Help Someone
 Else, and Get Help pages, #chatsafe's Responding and Talking pages, and CDC's page on talking to a
-friend, all read again on November 9. For Teens links to it. Wording is proposed. [[SAFETY]] records
+friend, all read again on November 9 and on November 10. For Teens links to it. Wording is proposed. [[SAFETY]] records
 what each page says.
 
 - The section gives five steps: call 911 if they may be in danger right now, reach out privately if
