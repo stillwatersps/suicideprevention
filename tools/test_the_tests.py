@@ -166,6 +166,8 @@ BUGS = [
     ("sideways scrolling", append_css("body { min-width: 500px; }"), "matrix", "get-help", "scrolls sideways"),
     ("low contrast text", append_css(".hero-lead { color: #bbbbbb; }"), "matrix", "get-help", "low contrast"),
     ("an image that doesn't load", replace("index.html", 'src="assets/images/joshua-tree-sunset-1600.jpg"', 'src="assets/images/none.jpg"'), "links", "index", "answered 404"),
+    # For Teens links to the section on posts online on Help Someone. Renaming that section would break it.
+    ("a link to a section on another page that isn't there", replace("teens/index.html", 'href="../help-someone/#online"', 'href="../help-someone/#posts-online"'), "links", "teens", "points to a missing section"),
     ("something loaded from another site", regex("get-help/index.html", r'<meta name="referrer"', '<link rel="prefetch" href="https://example.com/x.css"><meta name="referrer"'), "matrix", "get-help", "contacted another site"),
     ("a script error", replace("assets/menu.js", "// Opens and closes the phone navigation menu.", "throw new Error('planted');"), "matrix", "get-help", "script error"),
     ("overlapping controls", append_css(".lang-switch { margin-bottom: -40px; }"), "matrix", "get-help", "controls overlap"),
@@ -302,6 +304,7 @@ COMMAND_BUGS = [
     ("the crisis strip inside a hidden box", strip_in_hidden_box, ["tools/check_site.py"], "crisis controls are hidden"),
     ("an upper-case text link with a wrong number, in the site check", replace("get-help/index.html", 'href="sms:838255"', 'href="SMS:838256"'), ["tools/check_site.py"], "not a number recorded"),
     ("a link above the site's root", replace("index.html", 'href="get-help/"', 'href="../get-help/"'), ["tools/check_site.py"], "broken link"),
+    ("a link to a section on another page that isn't there, in the site check", replace("es/adolescentes/index.html", 'href="../ayudar-a-alguien/#online"', 'href="../ayudar-a-alguien/#publicaciones"'), ["tools/check_site.py"], "points to a missing section"),
     ("a wrong number printed on the wallet card", replace("card/index.html", "call 1-866-488-7386", "call 1-866-488-7368"), ["tools/check_site.py"], "printed card or poster"),
     ("avoided wording in text the script shows", replace("card/index.html", "If nothing happens, open", "If nothing happens after a failed attempt, open"), ["tools/check_site.py"], "failed attempt"),
     ("hidden text that nothing reads", replace("get-help/index.html", "<h1", "<p hidden>Unread words</p><h1"), ["tools/check_site.py"], "hidden text that no check reads"),
