@@ -41,6 +41,15 @@ changes these on purpose:
 - Wording names the 988 Lifeline as the provider of round-the-clock support
   ([[SAFETY]] rule 3), so some labels differ from the drawing.
 
+## Proposed redesign, November 7, 2026
+
+On branch `site/signage-redesign`, draft pull request 11, not merged, and not agreed by both founders.
+Since November 9 it replaces Shoreline (below) if merged. It replaces
+the cream panel, serif headings, and rounded cards above with public-service signage: bold
+system type, a forest-green help sign on every page, an amber Call 988 button, and square
+corners. The supplied SVG stays as the original reference. See
+[[worklogs/2026-11-07-claude-signage-redesign]] for screenshots and the design rules.
+
 ## Second proposed redesign, November 8, 2026: Shoreline
 
 On branch `site/pro-max-redesign`, not merged, and not agreed by either founder. One founder

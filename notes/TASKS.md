@@ -179,6 +179,15 @@ Move a task here when its branch is ready for the other person to review.
   No qualified person has reviewed the wording, and no person has confirmed its numbers or tried
   its links on a real phone.
 
+- [ ] Redesign the site's look: a public-signage system with bold system type, a forest-green
+  help sign on every page with an amber Call 988 button, a numbered index on Home, and a reading
+  layout with a contents column on wide screens. No wording, links, or behavior changed. Owner:
+  Claude, at one founder's request. Branch: `site/signage-redesign`, draft pull request 11 into
+  `claude/jolly-mayer-2m6eno`. Reworked November 9 so merging it swaps Shoreline for signage, with
+  the compact strip and the Daily check-in kept. Merging it publishes nothing. Handoff:
+  [[worklogs/2026-11-07-claude-signage-redesign]]. Not merged. Both founders compare it with
+  Shoreline on a real phone and choose.
+
 ## Completed work
 
 Move finished tasks here and link their handoff note.

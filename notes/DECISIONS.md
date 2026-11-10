@@ -304,6 +304,28 @@ publish nothing. **The other founder's agreement isn't recorded.** Merged into
 
 Still open, and publishing: 5, 8 and 12. Merging any of them still needs both founders.
 
+## November 7 and 9, 2026: signage design, proposed
+
+One founder asked Claude for a complete redesign that doesn't look like a generic template.
+Branch `site/signage-redesign`, draft pull request 11, not merged. **The other founder's agreement
+isn't recorded.** On November 9, after Shoreline was merged into pull request 5's branch, the same
+founder asked Claude to rework pull request 11 so merging it swaps Shoreline for signage. It now goes
+into `claude/jolly-mayer-2m6eno`, keeps the compact crisis strip as it is, and restyles the Daily
+check-in in signage. Neither founder has chosen between Shoreline and signage. What it proposes:
+
+- **Public-service signage, not soft cards.** Bold system type set large, flat color blocks,
+  square corners, fine and heavy rules. No gradients, shadows on content, icon tiles, rounded
+  pastel cards, or spaced capital labels.
+- **One recurring help sign.** Home's opening and every page's crisis panel are the same
+  forest-green block, so call, text, and chat look the same everywhere.
+- **Amber marks the strongest action.** Call 988 is amber with dark text, taken from the
+  photo's sunset. Amber is also the focus ring on green. Plum appears only in the
+  draft-for-review notice.
+- **System fonts only.** The phone's own sans for everything, and the serif wordmark kept.
+  Nothing loads from another site, so privacy and offline copies are unchanged.
+- **Wording, links, and behavior unchanged.** Every review fingerprint is the same as before.
+  Wording a reviewer might change is listed in [[worklogs/2026-11-07-claude-signage-redesign]].
+
 ## November 9, 2026: both founders' answers to 14 questions
 
 Founder A answered 14 questions Claude listed, and founder B agreed to every answer the same day.
