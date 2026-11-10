@@ -63,10 +63,13 @@ DDH_CALL_OR_TEXT = Near(r"\bcall or text\W{1,3}(?:1-)?800-985-5990\b", "call or 
 DDH_SPANISH = Near(r"\b(?:presiona|oprima|press)\W{0,3}2\b", "press 2 for Spanish")
 # The keyword next to its number, so "TEEN LINE" in a heading can't stand in for it.
 TEXT_TEEN = Near(r"\btext\W{1,3}TEEN\W{1,3}to\W{1,3}839863\b", "text TEEN to 839863", "839863")
-# Teen Line and Trans Lifeline keep set hours, and the site gives them: "6–10 PM PT" for calls, "6–9 PM PT"
-# for texts, and "10 AM – 6 PM Pacific" on weekdays. Changed hours, or hours in another time zone, fail.
-TEEN_CALL_HOURS = Near(r"\b6(?:\s*PM)?\s*[-–—]\s*10\s*PM\b", "calls 6 to 10 PM")
-TEEN_TEXT_HOURS = Near(r"\b6(?:\s*PM)?\s*[-–—]\s*9\s*PM\b", "texts 6 to 9 PM")
+# Teen Line and Trans Lifeline keep set hours, and both Get Help pages give them in Pacific time. Teen
+# Line's page says "6–10 PM PT" for calls and "6–9 PM PT" for texts, and "PST" in its header; Trans
+# Lifeline's says "10 AM – 6 PM Pacific" on weekdays. Each pattern needs the hours followed by a
+# Pacific zone, so changed hours, or the same hours in another time zone, fail.
+PACIFIC = r"\s*(?:PT|PST|PDT|Pacific)\b"
+TEEN_CALL_HOURS = Near(r"\b6(?:\s*PM)?\s*[-–—]\s*10\s*PM" + PACIFIC, "calls 6 to 10 PM Pacific")
+TEEN_TEXT_HOURS = Near(r"\b6(?:\s*PM)?\s*[-–—]\s*9\s*PM" + PACIFIC, "texts 6 to 9 PM Pacific")
 TRANS_HOURS = Near(r"\b10\s*AM\s*[-–—]\s*6\s*PM\s+Pacific\b", "10 AM to 6 PM Pacific")
 
 # Each page, and what must appear on it. A tuple means any one of those wordings will do.
@@ -261,6 +264,7 @@ def self_test():
     teen_changed = teen_line.replace("6–10 PM", "7–11 PM").replace("6–9 PM", "7–10 PM")
     trans_line = "<p>Monday through Friday: 10 AM – 6 PM Pacific. " + filler + "</p>"
     other_zone = trans_line.replace("Pacific", "Mountain")
+    teen_other_zone = teen_line.replace("PM PT", "PM ET")
     maternal = '<p>1-833-TLC-MAMA <a href="sms:1-833-852-6262">Text</a> <a href="tel:1-833-852-6262">Call</a>. ' + filler + "</p>"
     cases = [
         # What is being shown, the plain read, the browser read (None means no Chrome), what is expected.
@@ -289,6 +293,9 @@ def self_test():
         ("changed texting hours are noticed", (200, teen_changed), None, [TEEN_TEXT_HOURS], "MISSING"),
         ("weekday hours in Pacific time pass", (200, trans_line), None, [TRANS_HOURS], "ok"),
         ("the same hours in another time zone don't count", (200, other_zone), None, [TRANS_HOURS], "MISSING"),
+        ("Teen Line calling hours in another zone don't count", (200, teen_other_zone), None, [TEEN_CALL_HOURS], "MISSING"),
+        ("Teen Line texting hours in another zone don't count", (200, teen_other_zone), None, [TEEN_TEXT_HOURS], "MISSING"),
+        ("Teen Line hours written with PST, as in its page's header, pass", (200, teen_line.replace("PM PT", "PM PST")), None, [TEEN_CALL_HOURS, TEEN_TEXT_HOURS], "ok"),
         ("a number only in call and text links, and its letters, pass", (200, maternal), None, [("833-852-6262", MATERNAL_VANITY), MATERNAL_TEXT], "ok"),
         ("a dropped text link is noticed", (200, maternal.replace("sms:", "https://example.org/")), None, [MATERNAL_TEXT], "MISSING"),
     ]
