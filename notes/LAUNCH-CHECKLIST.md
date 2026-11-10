@@ -47,7 +47,8 @@ Everyone else's results go under "Other reviews" in [[CONTENT-REVIEW]], which th
 
 - [ ] Licensed therapist: `review-packet/tidelight-review-packet.pdf`. Results under "Review records"
 - [ ] Fluent Spanish reader: `review-packet/tidelight-spanish-review-packet.pdf`, including the Spanish lines on
-  the English pages in its Part 3. Results under "Review records"
+  the English pages in its Part 3 and the questions in its Part 5. Results under "Review records", and answers
+  in the notes each question comes from
 - [ ] Someone with lived experience of a suicide loss: After a loss. Results under "Other reviews"
 - [ ] Someone who works with young people: For Teens. Results under "Other reviews"
 - [ ] A lawyer: About and privacy, minors, and who the publisher is. Results under "Other reviews"
@@ -57,8 +58,18 @@ Everyone else's results go under "Other reviews" in [[CONTENT-REVIEW]], which th
 
 - [ ] Make reviewers' changes on a task branch, and show the reviewer anything that changed a safety message.
 - [ ] Update the Spanish twin of every changed English page.
-- [ ] Run `python3 tools/make_review_packet.py` again. Any change to a section gives it a new fingerprint, so
-  its approval stops counting until the reviewer has seen the change and a new line is recorded.
+- [ ] Run `python3 tools/make_review_packet.py` again. Any change to a page's own section gives it a new
+  fingerprint, so its approval stops counting until the reviewer has seen the change and a new line is recorded.
+  That includes a change only a screen reader would notice, such as a link's `aria-label`, an image's description,
+  or a page's title.
+- [ ] Check the parts every page shares, such as the crisis strip and the footer, on every page you changed. The
+  text on every page (Part 1) lists each different line there once, and a line that isn't on every page of its
+  language carries a note saying which pages show it, such as "On every page except Home." The notes are part of
+  the fingerprint, so a line taken off one page, changed there, moved to another part, or given a link to another
+  place there gives Part 1 a new fingerprint, and its approval stops counting. A line that only changes its place
+  among the other lines of its part is still a limit: the notes don't record the order. What a screen reader says
+  in those parts must be the same on every page of a language, or `tools/check_site.py` fails, so a crisis link
+  that loses its full name on one page is caught.
 
 ## 4. Test on real devices
 
@@ -92,6 +103,10 @@ python3 tools/test_browser.py
 
 ```bash
 python3 tools/check_crisis_sources.py
+```
+
+```bash
+python3 tools/make_review_packet.py --self-test
 ```
 
 - [ ] If the recheck happened on a new day, update the dates on the pages. Replace both dates in this
@@ -150,7 +165,10 @@ Once Pages publishes with GitHub Actions, the publish step runs `python3 tools/l
 It stops publishing unless all of these hold:
 
 - Every page has a section in the review packets, and so do the Spanish lines on every English page. All the
-  text a visitor sees is in a numbered part of a packet, not loose in a div.
+  text a visitor sees is in a numbered part of a packet, not loose in a div. So are the words a screen reader says
+  that the screen doesn't show, of the kinds `tools/check_site.py` reads: each page's title, an `aria-label` or a
+  similar attribute, an image's description, words hidden from the eye, a drawing's title, and the skip link. In
+  the parts every page shares, which the packets list once, those words are the same on every page of a language.
 - Every line under "Review records" in [[CONTENT-REVIEW]] can be read, and none is dated after today.
 - Every English section's newest line by a licensed clinician approves it, and every Spanish section's newest
   line by a fluent or native Spanish reader approves it. The Spanish sections include the Spanish lines on

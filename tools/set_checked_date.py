@@ -5,8 +5,9 @@
     python3 tools/set_checked_date.py 2026-11-06 2026-12-07 --part crisis --by ai --apply    # changes the pages
 
 --part says which check happened: "crisis" for the crisis numbers and links (the routine in
-notes/UPKEEP.md), or "sources" for the lists of sources under health information. Each has its own date,
-so a check of one doesn't move the other.
+notes/UPKEEP.md), "sources" for the lists of sources under health information, or "browsers" for the
+browser makers' help pages behind the About pages' steps for private browsing. Each has its own date,
+so a check of one doesn't move the others.
 
 --by says who did it: "ai" for an AI assistant, or "person". The pages say who made the crisis check,
 and that no person has confirmed the numbers. This tool only moves dates. If the wording around a date
@@ -31,7 +32,7 @@ from check_site import date_kind, find_pages  # noqa: E402
 
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 MONTHS_ES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
-PARTS = {"crisis": "crisis details", "sources": "sources"}
+PARTS = {"crisis": "crisis details", "sources": "sources", "browsers": "browser help pages"}
 
 
 def english(day):

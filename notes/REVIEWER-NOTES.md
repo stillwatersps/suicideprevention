@@ -20,7 +20,10 @@ message itself. Every reviewer should know that the content was drafted by AI an
 > draft pages until someone qualified has reviewed them.
 >
 > The attached packet has every sentence numbered, with its sources. Each section has a box for your decision, and
-> there's a list of questions we'd especially value your view on. Please start with anything that could cause harm.
+> there's a list of questions we'd especially value your view on. Part 1, the text on every page, and each page end
+> with what a screen reader reads aloud there that the screen doesn't show, such as the full names of the crisis
+> links in Part 1, because some visitors hear the site rather than see it. Please start with anything that could
+> cause harm.
 > We especially need to know whether the "Not sure what you're feeling?" page belongs at all.
 >
 > Please record your role and the date, not your name or contact details, since the packet may be stored publicly.
@@ -35,7 +38,10 @@ tunnel.
 > AI assistant translated them, and no fluent person has read them. We need to know whether they're correct and
 > natural, whether anything changes the meaning of the English, and whether anything could confuse someone in crisis.
 > We also need your view on wording such as "No estás solo", which uses a masculine form. The English pages also
-> have a few lines in Spanish, such as the Spanish part of Get Help. They're in the packet too, in Part 3.
+> have a few lines in Spanish, such as the Spanish part of Get Help. They're in the packet too, in Part 3. Part 1
+> and each page end with what a screen reader reads aloud there that the screen doesn't show, and Part 5 has
+> questions written for you in Spanish, each with its English version for us. An AI wrote those questions too, so
+> tell us if one reads badly.
 >
 > Please don't call or text any crisis line to check it. The attached packet numbers each sentence. Medical or
 > crisis translation experience would help. If you notice something that seems clinically wrong, please tell us.
@@ -105,6 +111,40 @@ the result, and the fingerprint printed beside that section in the table. The pu
 - The fingerprint ties the approval to the text the reviewer read. If the section changes afterward, even by one
   word, the approval stops counting and publishing stops. Rebuild the packet, show the reviewer the change, and add
   a new line with the new fingerprint.
+
+**After a change: the "what changed" packets.** Once a reviewer has approved some sections, they don't need the whole
+packet again to see a change. Run:
+
+```bash
+python3 tools/make_review_packet.py --changes
+```
+
+It writes two short packets in `notes/review-packet/`: `tidelight-review-changes` for the therapist and
+`tidelight-spanish-review-changes` for the fluent Spanish reader, HTML and PDF (HTML only with `--no-pdf`). Each holds
+only the sections whose fingerprint now differs from that reviewer's newest approval in "Review records", the newest
+line by a role that counts for that section and says "approved" or "approved with changes, changes made". For each,
+it shows the approved text and the text now side by side, with words taken out struck through and words added
+underlined in bold, and skips unchanged lines between the changes. It then lists the sections unchanged since their
+approval, and those with no approval yet, which the reviewer reads in the full packet. It ends with a sign-off table
+holding each changed section's new fingerprint.
+
+- **Where the approved text comes from.** The project's git history: the newest commit that changed the pages, what
+  the packets read from `assets/`, or the packet tool, and gives the section the approved fingerprint, checked with
+  both that commit's own packet tool and today's. Both columns show the text the way today's tool does, so they
+  compare line for line. If no commit has that fingerprint, for example because it was copied wrongly into the record
+  or comes from a branch this copy doesn't have, or the copy has no git history, the section shows the text now in
+  full and says why. A newer record for the section that isn't an approval is mentioned too.
+- **It changes nothing:** no page, no note, nothing in git. It reads each older commit into a temporary folder. It
+  takes about two seconds for each commit it reads, so a few minutes when a fingerprint isn't found and it reads
+  them all, and it stops once it has found every approved fingerprint.
+- **Don't commit these packets.** They depend on the review records and the text the day they are built, so
+  `.gitignore` keeps them out. Hand them out, then delete them.
+- `python3 tools/make_review_packet.py --self-test` builds them in a scratch copy, with a scratch git history and
+  made-up approvals, so the routine checks notice if they break.
+
+**Answers to the packets' questions** aren't review records. Copy each useful answer into the note its question
+comes from, such as [[SAFETY]] for the Spanish reader's questions about Crisis Text Line or TTY, with the reader's
+role and the date.
 
 **Everyone else**, such as the lawyer, the youth worker, the person with lived experience, and the Deaf reviewer:
 record their results under "Other reviews" in [[CONTENT-REVIEW]]. The publish step never reads that section, so

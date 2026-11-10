@@ -28,7 +28,8 @@ Treat this as urgent. Wrong crisis details can cost someone the chance to reach 
 4. **Change `VERSION` in `sw.js`,** so saved copies get replaced the next time a visitor opens the site with a
    connection. Copies on devices that don't come back to the site keep the old number.
 5. **Rebuild the packets** with `python3 tools/make_review_packet.py`, and write a short note in `worklogs/`.
-6. **Check it:** run `python3 tools/check_site.py` and `python3 tools/test_browser.py`.
+6. **Check it:** run `python3 tools/check_site.py`, `python3 tools/make_review_packet.py --self-test` and
+   `python3 tools/test_browser.py`.
 7. **Publish it.** A wrong number shouldn't wait for a full review. Agree in advance who can approve this
    kind of fix alone. That is an open question in [[SAFETY]]. The publish step stops this fix too: before
    any review, because none is on record, and after the reviews, because the changed number gives that

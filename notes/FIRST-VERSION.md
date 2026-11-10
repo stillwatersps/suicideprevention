@@ -60,6 +60,18 @@ Suicide & Crisis Lifeline and 911.
    just to talk.
 2. Then "It's not your fault", feelings, support, and talking with children.
 
+**Someone who survived a suicide attempt, or their family** (draft, added November 9, 2026)
+
+1. **After a suicide attempt**, linked from Get Help, Help Someone, and every footer, starts with a
+   **Right now** box: 988 if thoughts of suicide come back, 911 in immediate danger.
+2. Then the days and weeks after, care and follow-up, talking with others, and a part for families.
+
+**Someone planning ahead for a hard moment** (draft, added November 9, 2026)
+
+1. **Make a safety plan**, linked from Get Help's "Planning for a hard moment", Help Someone, and every
+   footer, explains the usual steps in plain words.
+2. A blank plan prints on its own, with 988 and 911 on it, to fill in by hand. Nothing is typed or saved.
+
 **A Spanish speaker**
 
 1. **Leer en español** opens each page's Spanish twin. **Ayuda en español** opens Get Help's
@@ -103,6 +115,8 @@ every control does.
 - **For Teens**: reaching out, trusted adults, and privacy.
 - **Not sure what you're feeling?**: five feelings, nothing to type.
 - **After a loss**: support after a suicide loss.
+- **After a suicide attempt**: a draft, added November 9, 2026, for people who survived and their families.
+- **Make a safety plan**: a draft, added November 9, 2026: the usual steps and a blank plan to print.
 - **Research**: myths and facts, and what studies show.
 - **Wallet card**: printable poster and cards, not to hand out yet.
 - **Daily check-in**: today's feeling, ideas, a journal, and support. Saves nothing.

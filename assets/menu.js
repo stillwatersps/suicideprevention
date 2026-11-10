@@ -1,6 +1,6 @@
-// Site script: the phone menu, folded sections, and offline support.
-// It sends nothing anywhere. The only thing it asks a browser to keep is the offline copy
-// of this site's own files. See sw.js.
+// Site script: the phone menu, Quick exit from the keyboard, the Spanish link for Spanish browsers,
+// folded sections, and offline support. It sends nothing anywhere. The only thing it asks a browser
+// to keep is the offline copy of this site's own files. See sw.js.
 
 // Opens and closes the phone navigation menu.
 (function () {
@@ -63,6 +63,53 @@
   } else if (desktop.addListener) {
     desktop.addListener(resetOnDesktop);
   }
+})();
+
+// Quick exit from the keyboard: Escape pressed twice within about a second leaves exactly as the
+// Quick exit button does, because it clicks that button, and the page's head script does the rest.
+// It listens on the way down, before the menu's own Escape handler, so an Escape that closes the
+// open menu does only that and doesn't count. Nothing happens while a text field has focus, such as
+// the Daily check-in's boxes, where Escape has other uses. Any other key starts the count again,
+// and a held-down key counts once. Draft; see notes/CONTENT-REVIEW.md.
+(function () {
+  var exit = document.querySelector('.quick-exit');
+  if (!exit) return;
+  var WITHIN_MS = 1000;
+  var last = 0;
+  var NOT_TEXT = /^(button|checkbox|radio|submit|reset|image|range|color|file)$/i;
+  function isTextField(el) {
+    if (!el || el.nodeType !== 1) return false;
+    if (el.isContentEditable || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') return true;
+    return el.tagName === 'INPUT' && !NOT_TEXT.test(el.getAttribute('type') || '');
+  }
+  window.addEventListener('keydown', function (event) {
+    if (event.repeat) return;
+    var plain = !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.isComposing;
+    var menuOpen = document.querySelector('.menu-button[aria-expanded="true"]');
+    if ((event.key !== 'Escape' && event.key !== 'Esc') || !plain || menuOpen || isTextField(event.target)) {
+      last = 0;
+      return;
+    }
+    var now = Date.now();
+    if (last && now - last <= WITHIN_MS) {
+      last = 0;
+      exit.click();
+    } else {
+      last = now;
+    }
+  }, true);
+})();
+
+// The Spanish link for Spanish browsers: when the browser's first preferred language is Spanish, an
+// English page's "Leer en español" link stands out more. It only reads the browser's language setting.
+// The words don't change, nothing is stored or sent, and without this script the link looks as it
+// always does. Draft; see notes/CONTENT-REVIEW.md.
+(function () {
+  if (!/^en(-|$)/i.test(document.documentElement.lang || '')) return;
+  var first = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+  if (!/^es(-|$)/i.test(first)) return;
+  var link = document.querySelector('.lang-switch a[hreflang="es"]');
+  if (link) link.classList.add('lang-offer');
 })();
 
 // Quick exit's click handler is the small script in each page's head, so it works from the

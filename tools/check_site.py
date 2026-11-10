@@ -5,7 +5,7 @@ Run from the project folder:
 
     python3 tools/check_site.py                 # pages and notes
     python3 tools/check_site.py --check-links   # also load every outside link
-    python3 tools/check_site.py --self-test     # check how the link check reads answers, offline
+    python3 tools/check_site.py --self-test     # check how the link check reads answers, and the compact strip copy check, offline
 
 It never calls, texts, or submits anything. Phone and text links are only read.
 Passing means the structure is consistent: it does not show that a page is
@@ -14,6 +14,7 @@ Git is used if it is installed, to tell project notes from private ones.
 """
 import argparse
 import base64
+import collections
 import datetime
 import hashlib
 import html.parser
@@ -93,6 +94,15 @@ SHOWN_BY_SCRIPT = {"print-button", "print-hint"}
 # What is typed there stays in the page: assets/check-in.js may not send or store it, which the asset
 # checks below enforce, and the page has no <form>.
 INTERACTIVE_PAGES = {"check-in/index.html", "es/registro-diario/index.html"}
+# Attributes whose words a screen reader says, or a braille display shows, though the screen doesn't. With the
+# page's title, each image's description, the skip link, and text with the visually-hidden class, the review packets
+# list what they hold on every page, and this check fails on any of it that no packet shows.
+HEARD_ATTRIBUTES = ("aria-label", "aria-description", "aria-roledescription", "aria-valuetext", "aria-placeholder",
+                    "aria-braillelabel", "aria-brailleroledescription", "title")
+# What this check's messages call the parts every page shares, whose screen reader words the packets list once.
+SHARED_PART_NAMES = {"skip-link": "skip link", "crisis-bar": "crisis strip", "quick-exit": "Quick exit link",
+                     "site-header": "header", "crisis-panel": "crisis buttons", "site-footer": "footer",
+                     "lang-switch": "language switch", "lang-link": "link to help in Spanish"}
 # Below this, counting every parent, a crisis control is too faint to count as shown. The browser tests use it too.
 SHOWN_OPACITY = 0.9
 
@@ -166,6 +176,15 @@ class Page(html.parser.HTMLParser):
         self.status_values = []
         # Text inside a hidden element that the script never shows, so no visitor sees it and nothing checks it.
         self.unread_hidden = []
+        # Words a screen reader says that the screen doesn't show, as (language, words): those in HEARD_ATTRIBUTES,
+        # an image's description, text with the visually-hidden class, the skip link, and a drawn image's title. The
+        # page's own title is in self.title. Read here apart from tools/make_review_packet.py, which lists them in
+        # the review packets.
+        self.heard = []
+        # The same words as (classes, words), with the classes of each element around them, outermost first, so a
+        # check can tell which of the parts every page shares holds them.
+        self.heard_where = []
+        self._heard_open = None
         self.csp = None
         self._open_links = []
         self._heading_text = None
@@ -195,6 +214,32 @@ class Page(html.parser.HTMLParser):
         elif url:
             self.local_files.append(url)
 
+    def _unheard(self, tag=None, attrs=None):
+        """Whether a screen reader skips what is here, or the element about to open: hidden text the script never
+        shows, anything marked aria-hidden, and scripts, styles and templates."""
+        around = self.stack + ([(tag, attrs)] if attrs is not None else [])
+        for name, found in around:
+            if name in ("script", "style", "template"):
+                return True
+            if "hidden" in found and not set(found.get("class", "").split()) & SHOWN_BY_SCRIPT:
+                return True
+            if found.get("aria-hidden", "").strip().lower() == "true":
+                return True
+        return False
+
+    def _hear(self, lang, words, around):
+        """Keeps words a screen reader says that the screen doesn't show, with the elements around them."""
+        words = re.sub(r"\s+", " ", words or "").strip()
+        if words:
+            self.heard.append((lang, words))
+            self.heard_where.append(([set(found.get("class", "").split()) for _, found in around], words))
+
+    def _close_heard(self):
+        """Keeps the words of a visually hidden part or skip link once it closes."""
+        if self._heard_open is not None and len(self.stack) <= self._heard_open[0]:
+            self._hear(self._heard_open[2], self._heard_open[1], self._heard_open[3])
+            self._heard_open = None
+
     def handle_starttag(self, tag, attrs):
         attrs = {k: (v or "") for k, v in attrs}
         if attrs.get("id"):
@@ -203,6 +248,17 @@ class Page(html.parser.HTMLParser):
             self.ids.add(attrs["id"])
         classes = attrs.get("class", "").split()
         self.classes.update(classes)
+        if not self._unheard(tag, attrs):
+            around = self.stack + [(tag, attrs)]
+            for key in HEARD_ATTRIBUTES:
+                self._hear(self._lang(attrs), attrs.get(key, ""), around)
+            # A screen reader says an image's description in its place. The screen shows only the image.
+            if tag == "img":
+                self._hear(self._lang(attrs), attrs.get("alt", ""), around)
+            # A skip link is seen only when reached with a keyboard, so its words count, unless a name replaces them.
+            skip = "skip-link" in classes and not attrs.get("aria-label")
+            if self._heard_open is None and tag not in self.VOID and ("visually-hidden" in classes or skip):
+                self._heard_open = [len(self.stack), "", self._lang(attrs), around]
         for key in ("aria-labelledby", "aria-controls"):
             if attrs.get(key):
                 self.aria_refs.extend((key, value) for value in attrs[key].split())
@@ -278,6 +334,7 @@ class Page(html.parser.HTMLParser):
         self.handle_starttag(tag, attrs)
         if tag not in self.VOID and self.stack and self.stack[-1][0] == tag:
             self.stack.pop()
+            self._close_heard()
 
     def handle_endtag(self, tag):
         if tag == "a" and self._open_links:
@@ -290,16 +347,18 @@ class Page(html.parser.HTMLParser):
             return
         if self.stack and self.stack[-1][0] == tag:
             self.stack.pop()
+            self._close_heard()
             return
         self.balance_errors.append(f"unexpected </{tag}>")
         for i in range(len(self.stack) - 1, -1, -1):
             if self.stack[i][0] == tag:
                 del self.stack[i:]
                 break
+        self._close_heard()
 
     def handle_data(self, data):
         tags = [t for t, _ in self.stack]
-        if tags and tags[-1] == "title":
+        if tags and tags[-1] == "title" and "svg" not in tags:
             self.title += data
             self.marked_text.append((self._lang(), data))
             return
@@ -308,12 +367,17 @@ class Page(html.parser.HTMLParser):
                 self.inline_scripts[-1] += data.strip()
             return
         if "style" in tags or "svg" in tags:
+            # A drawn image's title or description names it for a screen reader, unless it is marked aria-hidden.
+            if "svg" in tags and tags[-1] in ("title", "desc") and data.strip() and not self._unheard():
+                self._hear(self._lang(), data, self.stack)
             return
         # Hidden text that the script shows is read like the rest. Other hidden text is never seen.
         if any("hidden" in attrs and not set(attrs.get("class", "").split()) & SHOWN_BY_SCRIPT for _, attrs in self.stack):
             if data.strip():
                 self.unread_hidden.append(data.strip())
             return
+        if self._heard_open is not None and not self._unheard():
+            self._heard_open[1] += data
         self.text_parts.append(data)
         self.marked_text.append((self._lang(), data))
         if not any("status-list" in attrs.get("class", "").split() for _, attrs in self.stack):
@@ -663,6 +727,8 @@ def check_pages(failures, notes):
     check_review_status(failures, pages, notes)
     check_dates(failures, pages)
     check_crisis_styles(failures, names)
+    check_compact_copies(failures)
+    check_stylesheet_braces(failures)
     outside = {}
     for name, page in pages.items():
         for link in page.links:
@@ -706,7 +772,7 @@ def review_claim(text):
     return None
 
 
-ABOUT_SECTIONS = ("what-this-is", "review-status", "privacy", "quick-exit", "offline", "contact-card")
+ABOUT_SECTIONS = ("what-this-is", "review-status", "privacy", "quick-exit", "browse-privately", "offline", "contact-card")
 # What the About pages' review list may show for a section whose newest record isn't an approval of its
 # current text. Until a record exists, only the first one.
 NOT_YET_STATUS = {"en": ("Pending", "Changes needed", "Not approved"), "es": ("Pendiente", "Cambios pedidos", "No aprobada")}
@@ -880,13 +946,91 @@ def is_approved(records, page, lang):
 
 
 _LOOSE_TEXT = {}
+_UNSHOWN_HEARD = {}
+
+
+def unshown_heard(name):
+    """Words a screen reader says on a page that no review packet shows, as (language, words), such as an
+    aria-label the packet tool missed. This file reads the page its own way, apart from
+    tools/make_review_packet.py, so a packet that leaves some of these words out is noticed. English words on
+    an English page belong in the therapist's packet, and Spanish ones, and everything on a Spanish page, in
+    the Spanish packet."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_review_packet
+    page = load(name)
+    shown = make_review_packet.heard_in_packets(name)
+    found = []
+    for lang, words in [(page.lang, re.sub(r"\s+", " ", page.title).strip())] + page.heard:
+        packet = "es" if language_of(name) == "es" or is_spanish(lang) else "en"
+        if words and words not in shown[packet] and (lang, words) not in found:
+            found.append((lang, words))
+    return found
+
+
+_SHARED_HEARD = {}
+
+
+def shared_heard_differences(names):
+    """Pages that give a screen reader different words in one of the parts every page shares, such as the crisis
+    strip, than the other pages of their language do, as (page, what differs and what to do). The review packets
+    list the words in those parts once for every page, in the text on every page, and the Spanish words on
+    English pages once too, so a crisis link that lost its full name on one page would reach no reviewer, and no
+    approval would notice. The words are compared part by part, in order, so a name swapped with another, or
+    moved to another part, is noticed too. Each part is the innermost one around the words, so Quick exit
+    counts as itself wherever it sits."""
+    order = sorted(names, key=lambda name: (name not in ("index.html", "es/index.html"), name))
+    key = tuple(order)
+    if key in _SHARED_HEARD:
+        return _SHARED_HEARD[key]
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_review_packet
+    shared = make_review_packet.SHARED_HEARD | make_review_packet.LANGUAGE_LINKS
+    versions = {}  # (language, part): {the words, in order: [pages with them]}
+    for name in order:
+        if not (ROOT / name).exists():
+            continue
+        page = load(name)
+        found = {part: [] for part in shared if part in page.classes}
+        for around, words in page.heard_where:
+            parts = [sorted(classes & shared)[0] for classes in around if classes & shared]
+            if parts:
+                found.setdefault(parts[-1], []).append(words)
+        for part, words in found.items():
+            versions.setdefault((language_of(name), part), {}).setdefault(tuple(words), []).append(name)
+    differences = []
+    for (lang, part), by_words in sorted(versions.items()):
+        if len(by_words) < 2:
+            continue
+        # The words most pages have count as the part's; a tie goes to the homepage, then the first page.
+        usual = min(by_words, key=lambda words: (-len(by_words[words]), order.index(by_words[words][0])))
+        for words, pages in by_words.items():
+            if words == usual:
+                continue
+            missing = list((collections.Counter(usual) - collections.Counter(words)).elements())
+            extra = list((collections.Counter(words) - collections.Counter(usual)).elements())
+            what = " ".join(filter(None, [
+                ("Not here: " + "; ".join(f'"{text[:80]}"' for text in missing) + ".") if missing else "",
+                ("Only here: " + "; ".join(f'"{text[:80]}"' for text in extra) + ".") if extra else "",
+            ])) or "The same words in another order."
+            where = SHARED_PART_NAMES.get(part, part)
+            for name in pages:
+                differences.append((name, f"{name} gives a screen reader different words in its {where} than the other "
+                                          f"{'Spanish' if lang == 'es' else 'English'} pages, such as "
+                                          f"{by_words[usual][0]}. The review packets list the words in that part once "
+                                          "for every page, so no reviewer would read this page's, and an approval "
+                                          f"couldn't notice the change. Make them the same as on the other pages. {what}"))
+    _SHARED_HEARD[key] = differences
+    return differences
 
 
 def missing_sections(names):
     """What the publish step could never ask a reviewer about, each with what to do. Every page needs a section
     in the review packets. Spanish lines on an English page, even a few words, need one in the Spanish packet,
     whether or not the page has a Spanish twin: only a fluent reader can approve them. And text that no part of
-    a packet holds, such as a sentence in a div, would reach no reviewer, and no fingerprint would change with it."""
+    a packet holds, such as a sentence in a div, would reach no reviewer, and no fingerprint would change with it.
+    The same goes for the words a screen reader says that the screen doesn't show, such as an aria-label, and for
+    those words on one page that differ from the other pages in a part every page shares, such as the crisis strip,
+    because the packets list those once for every page."""
     sys.path.insert(0, str(ROOT / "tools"))
     import make_review_packet
     covered = {(page, lang) for _, page, lang in review_sections()}
@@ -907,6 +1051,13 @@ def missing_sections(names):
                            "reviewer would read it and an approval couldn't notice it change. Put it in a paragraph, "
                            "heading, list item or table cell, or add its tag to BLOCK in tools/make_review_packet.py. "
                            f"It says: \"{text[:80]}\"")
+        if name not in _UNSHOWN_HEARD:
+            _UNSHOWN_HEARD[name] = unshown_heard(name)
+        for lang, text in _UNSHOWN_HEARD[name]:
+            missing.append(f"{name} has {'Spanish ' if is_spanish(lang) else ''}screen reader text that no review packet "
+                           "shows, so no reviewer would read it and an approval couldn't notice it change. Make "
+                           "tools/make_review_packet.py list it with what a screen reader reads aloud, or remove it. "
+                           f"It says: \"{text[:80]}\"")
         if language_of(name) != "en":
             continue
         own, shared = make_review_packet.spanish_on_english(name)
@@ -914,6 +1065,7 @@ def missing_sections(names):
             missing.append(f"{name} has Spanish lines in its own text, but no section for them in the Spanish review packet, {add}")
         if shared and (SPANISH_ON_EVERY_PAGE, "es") not in covered:
             shared_on.append(name)
+    missing.extend(problem for _, problem in shared_heard_differences(names))
     if shared_on:
         missing.append(f"the parts every English page shares have Spanish lines, on {len(shared_on)} page(s) such as "
                        f"{shared_on[0]}, but no section for them in the Spanish review packet, {add}")
@@ -1022,21 +1174,38 @@ DATE_ES = re.compile(r"\d{1,2} de (?:enero|febrero|marzo|abril|mayo|junio|julio|
 
 
 def date_kind(text_before):
-    """Whether a date dates the crisis numbers and links, or a list of sources. Reads the sentence
-    the date ends, given the text just before it."""
+    """Whether a date dates the crisis numbers and links, the browser makers' help pages behind the About
+    pages' steps for private browsing, or a list of sources. Reads the sentence the date ends, given the
+    text just before it."""
     sentence = re.split(r"[.!?]\s", text_before[-400:])[-1]
-    return "crisis details" if re.search(r"provider|proveedor", sentence) else "sources"
+    if re.search(r"provider|proveedor", sentence):
+        return "crisis details"
+    # Browsers change their menus on their own schedule, so those steps are checked apart from other sources.
+    if re.search(r"browser makers|fabricantes de navegadores", sentence):
+        return "browser help pages"
+    return "sources"
+
+
+# Pages added after the last check of every page's sources. Their own sources were read when they were written
+# (November 9, 2026) and again on November 10. Their source dates are compared with each other's, not with the
+# older pages', so no page has to claim a check it didn't have. When every page's sources are checked again together, move both
+# dates to that day with tools/set_checked_date.py and empty this set.
+SOURCES_READ_LATER = {"safety-plan/index.html", "after-an-attempt/index.html",
+                      "es/plan-de-seguridad/index.html", "es/despues-de-un-intento/index.html"}
 
 
 def check_dates(failures, pages):
     """Every page shows the same date for each kind of check, so a re-check can't update only some pages.
-    The crisis details and the source lists are checked on their own schedules, so each has its own date."""
+    The crisis details, the source lists and the browser makers' help pages are checked on their own
+    schedules, so each has its own date. The pages in SOURCES_READ_LATER share a source date of their own."""
     for lang, pattern in (("en", DATE_EN), ("es", DATE_ES)):
         seen = {}
         for name, page in pages.items():
             if language_of(name) == lang:
                 for match in pattern.finditer(page.text):
                     kind = date_kind(page.text[: match.start()])
+                    if kind == "sources" and name in SOURCES_READ_LATER:
+                        kind = "sources on the pages added later (SOURCES_READ_LATER)"
                     seen.setdefault(kind, {}).setdefault(match.group(0), []).append(name)
         for kind, dates in sorted(seen.items()):
             if len(dates) > 1:
@@ -1511,9 +1680,141 @@ def check_crisis_styles(failures, names):
                                                 f"for example {node.describe()} on {name}: {why}")
 
 
-# Crisis services known to refuse scripts: two answer 403, and findtreatment.gov gives scripts, even
-# Chrome, a nearly empty page. A person checks these in a browser instead.
-KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov", "findtreatment.gov"}
+def tidy_css(text):
+    """CSS text with its spacing made even, so two copies that differ only in spaces compare the same:
+    runs of spaces become one, and none is kept around : ; , ( ) > + or ~."""
+    return re.sub(r"\s*([:;,()>+~])\s*", r"\1", re.sub(r"\s+", " ", text.strip()))
+
+
+def language_copies(css):
+    """Rules written once for each language, by the @media blocks they sit in:
+    {(the blocks around them but the innermost, language): [(innermost block, [(selectors, [declarations])])]},
+    and the rules in those same innermost blocks that aren't written for one language alone:
+    [(the blocks around them, selectors)]. The selectors are given without their html[lang="..."], and
+    everything is given with its spacing made even (tidy_css). A rule for html[lang="..."] itself, the
+    page's root, such as where jump links stop, counts as part of its language's copy, given as ":root"."""
+    copies, blocks_of, others = {}, {}, []
+    rules = css_rules(css)[0]
+
+    def for_language(part, lang):
+        return part.startswith(f'html[lang="{lang}"] ') or part == f'html[lang="{lang}"]'
+
+    for around, selectors, body in rules:
+        parts = [tidy_css(part) for part in split_top(selectors)]
+        for lang in ("en", "es"):
+            mark = f'html[lang="{lang}"] '
+            if around and parts and all(for_language(part, lang) for part in parts):
+                around = tuple(tidy_css(block) for block in around)
+                blocks = copies.setdefault((around[:-1], lang), [])
+                if not blocks or blocks[-1][0] != around[-1]:
+                    blocks.append((around[-1], []))
+                blocks_of.setdefault(around, lang)  # the block's language is that of its first rule
+                said = [tidy_css(item) for item in body.split(";") if item.strip()]
+                said = [(item.split(":", 1)[0].lower() + ":" + item.split(":", 1)[1]) if ":" in item else item for item in said]
+                blocks[-1][1].append((", ".join(part[len(mark):] or ":root" for part in parts), said))
+    # A rule without its language in a block that holds one language's copy would apply to both languages,
+    # unseen by the comparison. So would one written for the other language there.
+    for around, selectors, body in rules:
+        around = tuple(tidy_css(block) for block in around)
+        lang = blocks_of.get(around)
+        if not lang:
+            continue
+        parts = [tidy_css(part) for part in split_top(selectors)]
+        if not all(for_language(part, lang) for part in parts):
+            others.append((around, ", ".join(parts)))
+    return copies, others
+
+
+def rule_differences(selector, english, spanish):
+    """What differs between the English and Spanish declarations of one rule, in words."""
+    def by_name(said):
+        return dict((item.split(":", 1) + [""])[:2] for item in said)
+    en, es = by_name(english), by_name(spanish)
+    found = []
+    for name in dict.fromkeys(list(en) + list(es)):
+        if name not in es:
+            found.append(f"{selector} has {name}:{en[name]} in English only")
+        elif name not in en:
+            found.append(f"{selector} has {name}:{es[name]} in Spanish only")
+        elif en[name].strip() != es[name].strip():
+            found.append(f"{selector} has {name}:{en[name]} in English but {name}:{es[name]} in Spanish")
+    if not found and english != spanish:
+        found.append(f"{selector} lists its declarations in another order, or one twice, in one of them")
+    return found
+
+
+def copy_differences(english, spanish):
+    """What differs between the English and Spanish copies of a block, in words, or []. Their innermost
+    @media blocks, the width limits, may differ only in their numbers."""
+    if len(english) != 1 or len(spanish) != 1:
+        return [f"they are split into {len(english)} block(s) in English and {len(spanish)} in Spanish, where each must be one block"]
+    (en_media, en_rules), (es_media, es_rules) = english[0], spanish[0]
+    found = []
+    if re.sub(r"\d+(\.\d+)?", "N", en_media) != re.sub(r"\d+(\.\d+)?", "N", es_media):
+        found.append(f"their limits differ in more than their numbers: {en_media} in English, {es_media} in Spanish")
+    for index in range(max(len(en_rules), len(es_rules))):
+        en = en_rules[index] if index < len(en_rules) else None
+        es = es_rules[index] if index < len(es_rules) else None
+        if en is None or es is None:
+            only, rule = ("Spanish", es) if en is None else ("English", en)
+            found.append(f"only the {only} copy has {rule[0]} {{ {'; '.join(rule[1])} }}")
+        elif en[0] != es[0]:
+            found.append(f"rule {index + 1} is for {en[0]} in English but for {es[0]} in Spanish")
+        else:
+            found.extend(rule_differences(en[0], en[1], es[1]))
+    return found
+
+
+def check_stylesheet_braces(failures):
+    """Every { in the site's stylesheets has its }. One left open makes browsers read the rest of the file
+    as part of that rule, so every rule after it is silently lost. Comments and quoted text are skipped."""
+    for path in sorted((ROOT / "assets").glob("*.css")):
+        text = re.sub(r"/\*.*?\*/", "", path.read_text(encoding="utf-8"), flags=re.S)
+        text = re.sub(r"\"(?:\\.|[^\"\\])*\"|'(?:\\.|[^'\\])*'", "", text)
+        depth, line = 0, 1
+        for char in text:
+            if char == "\n":
+                line += 1
+            elif char == "{":
+                depth += 1
+            elif char == "}":
+                depth -= 1
+                if depth < 0:
+                    failures.append(f"assets/{path.name}: a }} near line {line} closes nothing, so the rules after it may be lost")
+                    depth = 0
+        if depth:
+            failures.append(f"assets/{path.name}: {depth} {{ left open, so every rule after it is lost; close the rule before it")
+
+
+def check_compact_copies(failures, css=None):
+    """The compact crisis strip is written twice in assets/styles.css, once for each language, because the
+    Spanish row needs more width. Apart from their width limits, the two copies must stay the same."""
+    if css is None:
+        path = ROOT / "assets" / "styles.css"
+        css = path.read_text(encoding="utf-8") if path.exists() else ""
+    copies, others = language_copies(css)
+    pairs = [context for context, lang in copies if lang == "en" and (context, "es") in copies]
+    if not pairs:
+        failures.append("assets/styles.css: the compact crisis strip's English and Spanish copies weren't found side by side, "
+                        "inside the same @media blocks, so tools/check_site.py can't compare them")
+    for context in pairs:
+        for difference in copy_differences(copies[(context, "en")], copies[(context, "es")]):
+            failures.append(f"assets/styles.css: the compact crisis strip's English and Spanish copies differ: {difference}. "
+                            "Keep them the same apart from their width limits")
+    for around, selectors in others:
+        if around[:-1] in pairs:
+            failures.append(f"assets/styles.css: inside one language's copy of the compact crisis strip, at {around[-1]}, the rule for "
+                            f"{selectors} isn't written for that language alone, so the English and Spanish copies differ. Start each "
+                            "selector there with its copy's html[lang=\"...\"]")
+
+
+# Crisis services known to refuse scripts. Two answer 403, and a person checks them in a browser instead.
+# findtreatment.gov came off this list on November 8, 2026, after it answered this link check normally
+# twice, and it did so twice more on November 9 and on November 10. A plain read still gets a nearly
+# empty page from it, so tools/check_crisis_sources.py reads it in Chrome. HRSA's maternal hotline page
+# answered 403 to both of tools/check_crisis_sources.py's reads on November 9, 2026, though it opened in
+# the desktop app's browser.
+KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov", "mchb.hrsa.gov"}
 
 
 def open_link(url):
@@ -1572,6 +1873,8 @@ def self_test_links():
         ("a crisis link moved within its own site passes", "https://www.veteranscrisisline.net", (200, "https://www.veteranscrisisline.net/get-help-now/"), False),
         ("a crisis link sent to another site fails", "https://www.taps.org/suicide", (200, "https://parked-domain.example/for-sale"), True),
         ("a crisis link that answers 404 fails", "https://988lifeline.org/gone/", (404, "https://988lifeline.org/gone/"), True),
+        ("a block from a crisis service not known to block scripts fails", "https://www.taps.org/suicide", (403, "https://www.taps.org/suicide"), True),
+        ("a block from a crisis service known to block scripts is only a note", "https://www.fcc.gov/x", (403, "https://www.fcc.gov/x"), False),
         ("another link sent elsewhere is only printed", "https://www.nimh.nih.gov/x", (200, "https://www.nih.gov/x"), False),
     ]
     wrong = 0
@@ -1588,6 +1891,46 @@ def self_test_links():
     return 0
 
 
+def self_test_copies():
+    """Made-up edits of the stylesheet, so the check that the compact strip's two copies match can be checked
+    both ways: it passes on edits that change nothing between them and fails on those that do."""
+    path = ROOT / "assets" / "styles.css"
+    css = path.read_text(encoding="utf-8")
+    es_bar = 'html[lang="es"] .crisis-bar { position: sticky; column-gap: 0; padding: 2px 4px; }'
+    es_end = '      html[lang="es"] body { padding-bottom: 0; }'
+    es_width = "@media (min-width: 34em) and (min-width: 544px) {"
+    es_jump = 'html[lang="es"] { --jump-em: 3.9rem; --jump-px: 62px; }'
+    cases = [
+        # What is being shown, the edit (old, new), whether it should fail.
+        ("the stylesheet as it is passes", ("", ""), False),
+        ("spacing changed in one copy only passes", (es_bar, es_bar.replace(" { ", " {").replace(": ", ":").replace("; ", ";  ").replace(" }", ";}")), False),
+        ("spacing changed in one copy's width limit passes", (es_width, es_width.replace(": ", ":").replace(" {", "{")), False),
+        ("a changed width limit passes", (es_width, es_width.replace("34em", "35em").replace("544px", "560px")), False),
+        ("a value changed in one copy fails", (es_bar, es_bar.replace("2px 4px", "2px 8px")), True),
+        ("a rule without its language in one copy fails", (es_end, es_end + "\n      .strip-or { margin: 0 2rem; }"), True),
+        ("a selector without its language in one copy fails", (es_bar, es_bar.replace('html[lang="es"] .crisis-bar', '.crisis-bar')), True),
+        ("a rule for the other language in one copy fails", (es_end, es_end + '\n      html[lang="en"] .strip-or { margin: 0; }'), True),
+        ("a width limit turned into a height limit fails", (es_width, es_width.replace("min-width: 34em", "min-height: 34em")), True),
+        ("where jump links stop, changed in one copy only, fails", (es_jump, es_jump.replace("62px", "48px")), True),
+    ]
+    wrong = 0
+    for name, (old, new), should_fail in cases:
+        if old and old not in css:
+            print(f"  WRONG: {name}: the stylesheet no longer contains {old[:60]}")
+            wrong += 1
+            continue
+        failures = []
+        check_compact_copies(failures, css.replace(old, new, 1) if old else css)
+        right = bool(failures) == should_fail
+        wrong += not right
+        print(f"  {'ok' if right else 'WRONG'}: {name}")
+    if wrong:
+        print(f"{wrong} made-up stylesheet edit(s) read wrongly. The check of the compact strip's copies can't be trusted until this is fixed.")
+        return 1
+    print(f"All {len(cases)} made-up stylesheet edits were read correctly.")
+    return 0
+
+
 def write_job_summary(title, lines):
     """On GitHub, also put notes and failures on the run's summary page, so nobody has to open the log."""
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -1597,7 +1940,9 @@ def write_job_summary(title, lines):
 
 
 def check_packets(notes):
-    """The review packets are built from the pages, so say when they need rebuilding."""
+    """The review packets are built from the pages, the notes, and the packet tool with what it reads from this
+    file, so say when they need rebuilding. The packet fingerprint is made from the packets' own text, so it
+    changes with anything they would show, and with nothing else, such as a test or another check."""
     stamp = ROOT / "notes" / "review-packet" / "FINGERPRINT.txt"
     if not stamp.exists():
         notes.append("no review packets yet: python3 tools/make_review_packet.py")
@@ -1605,11 +1950,21 @@ def check_packets(notes):
     try:
         sys.path.insert(0, str(ROOT / "tools"))
         from make_review_packet import fingerprint
-    except Exception as error:  # the packet tool is optional here
+        current = fingerprint()
+    except (Exception, SystemExit) as error:  # the packet tool is optional here
         notes.append(f"could not check the review packets: {error}")
         return
-    if fingerprint() != stamp.read_text(encoding="utf-8").strip():
+    if current != stamp.read_text(encoding="utf-8").strip():
         notes.append("the review packets are out of date: python3 tools/make_review_packet.py")
+
+
+def check_spanish_questions(failures):
+    """The questions for the fluent Spanish reader in notes/CONTENT-REVIEW.md, which the Spanish packet shows.
+    Each must keep its Spanish, its English twin for the founders, and where it comes from, and the section must
+    say it is an unreviewed AI translation. A question that lost its Spanish would never reach the reader."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_review_packet
+    failures.extend(f"notes/CONTENT-REVIEW.md: {problem}" for problem in make_review_packet.spanish_questions()[1])
 
 
 def run_git(*args):
@@ -1659,14 +2014,15 @@ def check_notes(failures):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--check-links", action="store_true", help="also load every outside link")
-    parser.add_argument("--self-test", action="store_true", help="check how the link check reads answers, offline")
+    parser.add_argument("--self-test", action="store_true", help="check how the link check reads answers, and the compact strip copy check, offline")
     args = parser.parse_args()
     if args.self_test:
-        return self_test_links()
+        return max(self_test_links(), self_test_copies())
 
     failures, notes = [], []
     outside, count = check_pages(failures, notes)
     check_notes(failures)
+    check_spanish_questions(failures)
     check_packets(notes)
     print(f"Checked {count} pages. {len(outside)} different outside links.")
     if args.check_links:

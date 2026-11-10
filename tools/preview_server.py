@@ -2,7 +2,7 @@
 """Serves the website the way GitHub Pages will, for testing on this computer or a phone.
 
     python3 tools/preview_server.py               # this computer only
-    python3 tools/preview_server.py --lan         # also phones on the same Wi-Fi
+    python3 tools/preview_server.py --lan         # also phones on the same Wi-Fi, with a QR code to scan
     python3 tools/preview_server.py --port 8123
     python3 tools/preview_server.py --no-cache    # show edits at once, unlike the real site
 
@@ -14,6 +14,9 @@ Like GitHub Pages, it lets browsers keep a copy for 10 minutes, and sends a fing
 file (an ETag) and its date, so a browser can ask whether it changed. So an edited page can take
 up to 10 minutes to show, as on the real site. To see edits at once while working on the pages,
 use --no-cache.
+
+With --lan it also prints a QR code of the address a phone should open, drawn by tools/qr.py,
+so the phone's camera can open it. The address is printed as text below the code too.
 
 It needs only Python 3 and sends nothing anywhere. Stop it with Control-C.
 """
@@ -29,6 +32,9 @@ import socketserver
 import subprocess
 import sys
 import urllib.parse
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import qr  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BASE = "/suicideprevention/"
@@ -205,6 +211,15 @@ def lan_addresses():
     return [address for address in found if not address.startswith("127.")]
 
 
+def phone_address(address, color=False):
+    """What --lan prints for one address: a QR code a phone's camera can open, then the address as text."""
+    return "\n".join([
+        "Scan this with the phone's camera, or type the address below it:",
+        qr.terminal(qr.encode(address), color),
+        f"On a phone on the same Wi-Fi: {address}",
+    ])
+
+
 def main():
     parser = argparse.ArgumentParser(description="Serve the website the way GitHub Pages will.")
     parser.add_argument("--port", type=int, default=8000)
@@ -220,7 +235,7 @@ def main():
     if args.lan:
         addresses = lan_addresses()
         for address in addresses:
-            print(f"On a phone on the same Wi-Fi: http://{address}:{port}{BASE}")
+            print(phone_address(f"http://{address}:{port}{BASE}", qr.use_color()))
         if not addresses:
             print("No Wi-Fi address found. Check that this computer is on a network.")
         print("If macOS asks whether to allow incoming connections, choose Allow.")

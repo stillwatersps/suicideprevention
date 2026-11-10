@@ -39,10 +39,16 @@ jobs:
         run: python3 tools/check_site.py --self-test
       - name: Check how the publish step reads review records
         run: python3 tools/launch_gate.py --self-test
+      - name: Check the review packets' dates, the Spanish reader's questions, the shared-line notes, and the what-changed packets
+        run: python3 tools/make_review_packet.py --self-test
       - name: Check how the monthly crisis check reads provider pages, and that every crisis number has one
         run: python3 tools/check_crisis_sources.py --self-test
       - name: Check that the daily live-site check would notice published notes, on a local copy
         run: python3 tools/check_live.py --local
+      - name: Check the QR code encoder's tables and penalty rules (reading codes back needs a Mac)
+        run: python3 tools/qr.py --self-test
+      - name: Check that the axe-core download refuses wrong files
+        run: python3 tools/axe_core.py --self-test
       - name: Plain-language report (information only)
         run: python3 tools/check_readability.py
 
@@ -54,6 +60,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      # axe-core, for the accessibility group only: one pinned release from the npm registry, checked
+      # against the registry's SHA-512 and axe-core's own SHA-256 for axe.min.js, recorded in
+      # tools/axe_core.py. No npm, no install scripts. The tests inject it into their own browser; the
+      # site never serves it.
+      - name: Download and check axe-core for the accessibility tests
+        run: python3 tools/axe_core.py --fetch
       - name: Test every page in Chrome
         env:
           TIDELIGHT_CHROME_NO_SANDBOX: "1"
@@ -85,7 +97,7 @@ jobs:
         run: |
           mkdir _site
           # The website, and nothing else. Notes, designs, tools and instructions stay out.
-          for item in index.html 404.html sw.js manifest.webmanifest .nojekyll assets get-help help-someone teens research card es check-in not-sure after-a-loss about; do
+          for item in index.html 404.html sw.js manifest.webmanifest .nojekyll assets get-help help-someone teens research card es check-in not-sure after-a-loss safety-plan after-an-attempt about; do
             cp -R "$item" _site/
           done
           # Stop if a new page exists in the project but was not copied.

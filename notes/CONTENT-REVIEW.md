@@ -53,6 +53,10 @@ One founder asked that this come first, November 9, 2026.
 | Spanish About (`es/acerca-de/`) | AI translation | On the page | Not reviewed; no fluent reader yet |
 | Daily check-in (`check-in/`) | Draft, from a founder's spec. Questions, suggestions, and prompts written by Claude | None; general well-being ideas, not health claims | Not reviewed |
 | Spanish Daily check-in (`es/registro-diario/`) | AI translation | None | Not reviewed; no fluent reader yet |
+| Make a safety plan (`safety-plan/`) | Draft, November 9, 2026, from AFSP, SPRC, NIMH, the Stanley-Brown site, and 988. Blank plan to print, in Tidelight's own words | On the page | Not reviewed |
+| Spanish Make a safety plan (`es/plan-de-seguridad/`) | AI translation | On the page, in English | Not reviewed; no fluent reader yet |
+| After a suicide attempt (`after-an-attempt/`) | Draft, November 9, 2026, from AFSP, SPRC, NIMH, FindTreatment.gov, and 988 | On the page | Not reviewed; needs someone who has survived an attempt |
+| Spanish After a suicide attempt (`es/despues-de-un-intento/`) | AI translation | On the page, in English | Not reviewed; no fluent reader yet |
 
 Every draft page says so on screen. Remove those notes only after review.
 
@@ -92,8 +96,17 @@ as ñ or é, or words such as "al 988". Spanish with none of those and no mark i
 visible text, in either language, that sits outside the parts the packets number, such as a sentence in a
 div, because no reviewer would see it.
 
+**What a screen reader says.** Each page's section, and the text on every page, ends with what a screen reader
+reads aloud there that the screen doesn't show: the page's title, names given with `aria-label`, words hidden
+from the eye, such as ", home" after the brand and the section name after each "Show more", and the skip link.
+A reviewer approves those words with the rest of the section. `tools/check_site.py` reads each page its own way
+and fails on any such words that no packet shows, such as a new `aria-label` the packet tool missed.
+
 **What the fingerprint means.** It's a 12-character code made from the section's text, as the packet shows
-it. When any word of that section changes, its fingerprint changes. An approval only counts while its
+it, including what a screen reader reads aloud there. When any word of that section changes, its fingerprint
+changes. The text on every page lists each different line once, with a note under any line that isn't on every
+page of its language saying which pages show it. The notes are part of its fingerprint, so a shared line taken
+off one page, or changed there, changes it too. An approval only counts while its
 fingerprint matches the text on the website now. So after a change, even a small one such as a corrected
 crisis number, the old approval stops counting and publishing stops. To fix that, rebuild the packets with
 `python3 tools/make_review_packet.py`, show the reviewer what changed, and add a new line with the new date
@@ -133,12 +146,13 @@ these: tap, stop at the dial or compose screen, and cancel.
 | --- | --- | --- | --- | --- | --- |
 | Call 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `tel:988` | 988 Lifeline | Link format only | Phone test |
 | Text 988 | Crisis strip, buttons, closing banner, Help Someone urgent note | `sms:988` | 988 Lifeline | Link format only | Phone test |
-| Call 911 | Crisis strip, Get Help, For Teens, Not sure, After a loss, Help Someone urgent note, and their Spanish twins | `tel:911` | Local 911 | Link format only | Phone test. Decide whether it should be a link at all |
+| Call 911 | Crisis strip, Get Help, For Teens, Not sure, After a loss, Make a safety plan, After a suicide attempt, Help Someone urgent note, and their Spanish twins | `tel:911` | Local 911 | Link format only | Phone test. Decide whether it should be a link at all |
 | Chat Online | Buttons, closing banner | chat.988lifeline.org | 988 Lifeline | Page opens; form not submitted | Open on a phone |
 | Text 988 / Chat with 988 (Enviar AYUDA al 988 / Chatear en español) | Deaf or hard of hearing card on Get Help, For Teens, and their Spanish twins | `sms:988`, chat.988lifeline.org | 988 Lifeline | Link format only | Phone test, a Deaf-led reviewer |
 | Deaf or hard of hearing / Personas sordas o con dificultades auditivas | Under the crisis buttons on every page | The Deaf card on Get Help | Tidelight | Tested in browser | A Deaf-led reviewer: is the wording right? |
 | Go to the feelings / Ir a los sentimientos | Not sure | The list of feelings on the same page | Tidelight | Tested in browser | Reviewer |
 | Print poster and wallet cards / Imprimir el cartel y las tarjetas | Wallet card | The phone's or computer's print screen | Tidelight | Print view tested in browser | Print one on a real printer |
+| Print the blank plan / Imprimir el plan en blanco | Make a safety plan and its Spanish twin | The phone's or computer's print screen. Only the blank plan prints | Tidelight | Printed to PDF in desktop Chrome, light and dark, both languages, every page looked at: two pages, with 988 and 911, and nothing printed over the write-in lines. Before a fix on November 10, 2026, the closing note printed on top of step 6's lines | Print one on a real printer, and fill it in by hand |
 | Ayuda en español | Every English page | Spanish block on Get Help | Tidelight | Tested in browser | Spanish reviewer |
 | Llamar al 988 y marcar 2 | Get Help, Spanish block; Spanish Get Help | `tel:988` | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
 | Enviar AYUDA al 988 | Get Help, Spanish block | `sms:988`, message blank | 988 Lifeline | Link format only | Phone test, Spanish reviewer |
@@ -161,19 +175,29 @@ these: tap, stop at the dial or compose screen, and cancel.
 | 1-800-662-4357 | Get Help | `tel:+18006624357` | SAMHSA | Link format only | Phone test |
 | 1-800-487-4889 (TTY) | Get Help | `tel:+18004874889` | SAMHSA | Link format only | Phone test |
 | FindTreatment.gov | Get Help | findtreatment.gov | SAMHSA | Page opens | None |
+| Call 1-833-852-6262 / Text 1-833-852-6262 (Llamar al / Enviar un texto al) | Get Help, Lines for specific groups, and its Spanish twin | `tel:+18338526262`, `sms:+18338526262`, message blank | National Maternal Mental Health Hotline (HRSA) | Link format only | Phone test |
+| Hotline page, with its chat / Página de la línea, con su chat | Get Help and its Spanish twin | HRSA's English or Spanish hotline page, which has a chat button | HRSA | Page read in a browser. The chat was not opened | Founders: link the chat itself? |
+| Call 1-800-985-5990 / Text 1-800-985-5990 (Llamar al 1-800-985-5990 y marcar 2 / Enviar un texto al) | Get Help and its Spanish twin | `tel:+18009855990`, `sms:+18009855990`, message blank | Disaster Distress Helpline (SAMHSA) | Link format only | Phone test. Ask SAMHSA how to choose Spanish by text |
+| Disaster Distress Helpline page / Página de la línea en español | Get Help and its Spanish twin | SAMHSA's English or Spanish helpline page | SAMHSA | Page read in a browser | None |
+| Call 1-800-852-8336 / Text TEEN to 839863 (Llamar al / Enviar TEEN al) | Get Help and its Spanish twin | `tel:+18008528336`, `sms:839863`, message blank | Teen Line (Didi Hirsch) | Link format only | Phone test. A teen has to type TEEN |
+| Teen Line website | Get Help and its Spanish twin | didihirsch.org/teenline/ | Teen Line | Page read in a browser | None |
+| Call 1-877-565-8860 (Llamar al 1-877-565-8860 y marcar 2) | Get Help and its Spanish twin | `tel:+18775658860` | Trans Lifeline | Link format only | Phone test |
+| Trans Lifeline hotline page / Línea de ayuda de Trans Lifeline | Get Help and its Spanish twin | translifeline.org/hotline/, translifeline.org/es/linea-de-ayuda/ | Trans Lifeline | Page read in a browser | None |
 | A form (PDF) | Get Help | Stanley-Brown safety plan PDF | Its developers | File loads | See the question on permission |
-| How this works on different platforms | Help Someone | 988's social media page | 988 Lifeline | Page opens | None |
+| How to report on different platforms / Cómo reportar en distintas plataformas | Help Someone and its Spanish twin, in the section on posts online | 988's social media page | 988 Lifeline | Page opens. Read in the built-in browser November 9, 2026 | None |
+| #chatsafe | Help Someone and its Spanish twin, in the section on posts online | #chatsafe's Responding page, https://www.orygen.org.au/chatsafe/responding | Orygen, in Australia | Page opens. Read in the built-in browser November 9, 2026 | Reviewer: should a U.S. site link it? Its emergency number and helplines are Australian |
+| What to do if a friend posts about suicide online / Qué hacer si un amigo publica algo sobre el suicidio en internet | For Teens and its Spanish twin | The section on posts online on Help Someone | Tidelight | Link and its target checked by the site check and browser tests, November 9, 2026 | None |
 | Our web host logs visitors' IP addresses | Home | Privacy section of the About page | Tidelight | Tested in browser | Lawyer question |
 | GitHub says it logs and stores visitors' IP addresses | Every footer | GitHub's documentation | GitHub | Page opens | Lawyer question |
 | Get Support Now | Header | Crisis options on the same page. On Home it rings the three buttons already on screen; on other pages it jumps to them | Tidelight | Tested in browser | Founders: is the label right? |
-| Quick exit / Salida rápida | Every page. In the pinned strip on phones and tablets, bottom right on desktops | https://www.weather.gov/ | Tidelight | Tested in browser: the page goes blank at once, and Back skips the page that was left. Back can still reach earlier Tidelight pages, and that page too after a link within it | Reviewer: label, destination, placement, and what it can't hide |
+| Quick exit / Salida rápida | Every page. In the pinned strip on phones and tablets, bottom right on desktops | https://www.weather.gov/ | Tidelight | Tested in browser: the page goes blank at once, and Back skips the page that was left. Back can still reach earlier Tidelight pages, and that page too after a link within it. Esc pressed twice does the same, tested in desktop Chrome | Reviewer: label, destination, placement, and what it can't hide |
 | Save 988 to your contacts / Guarda el 988 en tus contactos | Get Help, For Teens, Wallet card, About, and their Spanish twins | `assets/988-lifeline.vcf`, `assets/988-linea-es.vcf` | Tidelight | File checked. Not tried on a phone | Save on a real iPhone and Android phone |
 | Llamar al 988, marca 2 para español / Texto al 988, escribe AYUDA / Chatear en línea / Llama al 988 / envía AYUDA al 988 / llama al 911 | Crisis strip and buttons on every Spanish page, and inside sentences on some | `tel:988`, `sms:988`, `tel:911`, chat.988lifeline.org/?lang=es | 988 Lifeline; local 911 | Link format only | Phone test; fluent reader |
 | Llamar al 988 (otros idiomas) / Llamar al 988 y marcar 1 / Texto al 838255 / Chat de la Línea de Crisis para Veteranos / Llamar al 1-800-662-4357 / 1-800-487-4889 (TTY) / Llamar al 911 | Spanish Get Help | `tel:988`, `sms:838255`, `veteranscrisisline.net/es/como-ayudamos/chat/`, `tel:+18006624357`, `tel:+18004874889`, `tel:911` | 988 Lifeline; Veterans Crisis Line; SAMHSA; local 911 | Link format only | Phone test; fluent reader |
 | Llamar al 988 y marcar 3 / Enviar PRIDE al 988 / Llamar al 1-866-488-7386 / Enviar START al 678-678 / Enviar HOME al 741741 / Llama al 911 | Spanish Get Help and Spanish For Teens | `tel:988`, `sms:988`, `tel:+18664887386`, `sms:678678`, `sms:741741`, `tel:911` | 988 LGBTQ+ youth service; The Trevor Project; Crisis Text Line; local 911 | Link format only | Phone test; fluent reader. Confirm the 988 option with 988 |
 | Menu | Header, phones and tablets | Opens the page list | Tidelight | Tested in browser | Real phone with a screen reader |
 | Five homepage cards | Home | Get Help, Help Someone, Research, Not sure, After a loss | Tidelight | Tested in browser | None |
-| Show sources / Ver fuentes / Mostrar fuentes | Get Help, Help Someone, For Teens, Not sure, After a loss, About, and their Spanish twins | Opens the source list | Tidelight | Tested in browser | None |
+| Show sources / Ver fuentes / Mostrar fuentes | Get Help, Help Someone, For Teens, Not sure, After a loss, Make a safety plan, After a suicide attempt, About, and their Spanish twins | Opens the source list | Tidelight | Tested in browser | None |
 
 Text and chat with a crisis service start with automated steps. Texting asks you
 to accept terms and answer a few questions. The Get Help page says chat asks for a zip
@@ -197,6 +221,13 @@ Wording is proposed. Nothing here is clinical advice.
   AYUDA al 988 · Llama al 911"). It drops "Need help now?" and "In immediate danger,", so nothing
   on screen says when 911 is the right call. Screen readers still hear "Call 911, emergency
   services". Is that acceptable where space is short? See [[DECISIONS]].
+- A proposal, November 10, 2026: on narrow screens just over 300 px tall, such as a phone in
+  split-screen, the pinned strip now takes no more than a third of the screen. Where the one-row
+  strip above fits, it pins; where it doesn't, the full strip stays pinned up to a third of the
+  height and scrolls away above that, leaving only Quick exit on screen once the page is scrolled.
+  Spanish pages a little wider than a phone also drop "¿Necesitas ayuda ahora?" and "a cualquier
+  hora" where they made the strip take more than a quarter. Is a third the right limit, or should
+  988 and 911 stay on screen even when they cover more of the page? See [[DECISIONS]].
 - The header's "Suicide prevention & support" tagline and "Get Support Now" button
   both come from the supplied design. Both read as if Tidelight provides support, and
   the button doesn't say who does. Claude's suggestion: "Find suicide prevention
@@ -285,7 +316,9 @@ Wording is proposed. Nothing here is clinical advice.
   people get?
 - For a worrying post, the page offers 911 and the site's safety team. 911 needs a location,
   and a reader often won't know where the person is. No source read says what to do then.
-  Should it mention calling or texting 988 for advice, or telling a trusted adult?
+  Should it mention calling or texting 988 for advice, or telling a trusted adult? (November 9,
+  2026: the new section on posts online now mentions both. See the questions about that section
+  below.)
 - The warning signs follow NIMH's 2025 list with no urgent tier, because official
   sources sort urgent signs differently. Is that right?
 - Sources differ on when not to leave someone alone. The general rule on the page
@@ -314,6 +347,52 @@ Wording is proposed. Nothing here is clinical advice.
 - For a young person whose friend told them by text or online, the page says to keep
   talking if you can while you get an adult, or call or text 988. That wording is
   Claude's, because the sources don't cover it. Is it right?
+
+**Help Someone: if a friend posts about suicide online**
+
+Drafted by Claude on November 8, 2026, and checked again on November 9, 2026, as a task in one
+founder's session, in English and Spanish. It draws on 988's Support on Social Media, Help Someone
+Else, and Get Help pages, #chatsafe's Responding and Talking pages, and CDC's page on talking to a
+friend, all read again on November 9 and on November 10. For Teens links to it. Wording is proposed. [[SAFETY]] records
+what each page says.
+
+- The section gives five steps: call 911 if they may be in danger right now, reach out privately if
+  you feel able to, tell a trusted adult if you're a teen, report the post, and don't share or repost
+  it. The task that asked for the section listed 911 last. Claude put it first, as the urgent note at
+  the top of the page does. Is the order right?
+- Should a young person be told to reach out to someone who may be at risk at all, or only to tell an
+  adult and report the post? #chatsafe offers a conversation for someone who feels able to have one,
+  and a supportive comment or direct message for someone who doesn't. "Privately" is Claude's choice,
+  to keep the person's distress out of public view. Is that right?
+- "Don't share or repost it" is Claude's wording. #chatsafe says not to post or share unsafe images
+  or videos, meaning those that show the place, method, or outcome, and to report unsafe content. No
+  source read says in so many words not to share a friend's post. The page adds that showing it to a
+  trusted adult is fine. Is that right, and could "don't share" make a young person slow to show it to
+  an adult?
+- Reporting: 988 says a platform's safety team will reach out to connect the person with help, and
+  that Tumblr no longer responds directly to these reports. Is naming one platform useful, or likely
+  to go out of date? #chatsafe says reporting won't get the person into trouble, and that a report
+  could get the content taken down. The page leaves out "won't get them into trouble", because Meta's
+  Safety Center (read November 9, 2026, and not cited on the page) says Meta alerts first responders
+  or emergency services for a wellness check when it thinks there is an imminent risk of harm. Should
+  the page say a report may lead to that?
+- 911 needs a location, and a reader may not know where the person is. The section doesn't say what
+  to do then, beyond reporting the post and calling or texting 988 for advice. No source read on
+  November 9 covers it. What should it say?
+- "Getting them help matters more than keeping their secret" paraphrases #chatsafe, which says
+  getting someone life-saving help is more important than keeping a secret told in confidence. 988
+  says never to keep it a secret if a friend tells you about a plan to hurt themselves. Is the
+  sentence right for young people?
+- #chatsafe is Australian: its emergency number and helplines are Australia's, and the page says so.
+  Orygen's footer says no part may be reproduced without its written permission, so the page
+  paraphrases it and links. Is it right to link an Australian page from a U.S. site? Orygen's list of
+  international guidelines includes "US - English Edition Two", which nobody here has read. Should the
+  page link that instead, once someone has read it?
+- Spanish: the Spanish page links #chatsafe's English page and 988's English social media page, since
+  988's Spanish Help Someone Else page has no social media section. Orygen's list includes a Spanish
+  edition for Mexico, which nobody here has read, so nobody has checked which phone numbers it gives.
+  Should Spanish readers get it, with a warning about numbers? A fluent reader should check this
+  section too.
 
 **Research**
 
@@ -411,6 +490,50 @@ only advises against sharing the method. The reviewer and someone with lived exp
 should decide whether these links stay. No person has read them line by line. 988's
 old loss survivors page now answers "not found", so it isn't cited.
 
+### How the November 9 Get Help additions' sources were read
+
+Claude read these on November 9, 2026, in the desktop app's built-in browser, page text and folded
+answers included, and read them all again the same way on November 10, 2026. It called, texted, and
+submitted nothing, and opened no chat page. Not a person's check. The November 10 read changed one
+point: 988's English and Spanish What to Expect pages say a text gets a "Wait" message, not that it
+may. Each Get Help page describes the text steps twice, in "What to say" and in "If you text". Both
+places on both pages now say so, and the Spanish "If you text" gives «siguiente» from 988's Spanish
+page, as the Spanish "What to say" does, in place of saying the Spanish steps may differ.
+
+- HRSA: the National Maternal Mental Health Hotline page in English and Spanish.
+- SAMHSA: the Disaster Distress Helpline page in English and Spanish.
+- Didi Hirsch Mental Health Services: Teen Line's main page with its FAQ, and its crisis support page.
+- Trans Lifeline: its English hotline page with its FAQ, and its Spanish help line page.
+- Institute on Aging: its Friendship Line page. Not used, see [[SAFETY]].
+- 988: its home page, Get Help, What to Expect in English and Spanish, the calling and texting FAQ
+  lists, and Help Someone Else. None gives example first words.
+
+`tools/check_crisis_sources.py --self-test` covers the new checks with made-up pages. Run against the
+live pages the same day, it found every new detail on SAMHSA's, Teen Line's, and Trans Lifeline's
+pages. HRSA's page answered 403 to it, so it is now listed with the FCC's page for a person to open.
+
+### How the November 9 pages' sources were read
+
+Claude read these on November 9, 2026, for Make a safety plan and After a suicide attempt, and read
+every one of them again in the built-in browser on November 10, 2026, when the pages' source date moved
+to that day. The claims on both pages still matched. One list item changed: AFSP's safety plan list says
+"Call 988", so After a suicide attempt now says "Calling 988", not "Calling or texting 988". Not human
+review. On November 9: 988's Get Help and What to Expect pages, SPRC's two resource pages, FindTreatment.gov, and 988's
+Help Someone Else page were read in the built-in browser. AFSP's two pages, NIMH's two pages, the
+Stanley-Brown site, and SPRC's Care Transitions page were read through a page reader that returns the
+text with quotes, not line by line in a browser. SPRC's quick guide for clinicians is a PDF of page
+images, so only its resource page was read, and the page cites that. SAMHSA's guides couldn't be read;
+see the questions above.
+
+Also on November 10, 2026, Make a safety plan and its Spanish twin took Get Help's two limits on the
+evidence: some of the research paired the plan with clinician contact and follow-up, and for children
+and teens a review found no clear benefit. Their sources, read that day in the built-in browser and now
+listed on both pages: Nuij 2021's full text on Cambridge Core (every plan in it was made face to face
+with a clinician, four of six studies added it to usual care, and the authors ask whether follow-up
+calls play a role), and Albaum 2025's abstract on Europe PMC, with its 2026 correction notice. PubMed
+and JAMA Pediatrics, which Research links, showed browser checks, so the safety plan page links the
+pages that were read.
+
 ## How the pages compare with the research brief
 
 The first drafts of Get Help, Help Someone, and Research were written separately from
@@ -455,8 +578,8 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   visit. Is the benefit worth it, and is what the About pages and footers say about it enough?
 - **Spanish (B6).** An AI translated all nine pages in `es/`. A fluent
   reader should check every line, and the reviewer should decide whether the
-  wording should avoid masculine-only forms such as "No estás solo" and "estés
-  listo". The pages use "tú". 988's own Spanish pages mostly use "usted", with "tú" in
+  wording should avoid masculine-only forms such as "No estás solo" and "te sientes
+  abrumado". The pages use "tú". 988's own Spanish pages mostly use "usted", with "tú" in
   buttons and headings. Texting steps in
   Spanish are described as possibly different from English, because no one has
   seen them.
@@ -569,8 +692,11 @@ qualified reviewer decides each one, and nothing here has been reviewed.
   pediatrician or therapist can help you make a plan, and you can call or text 988 any time."
 - Is the Deaf or hard of hearing card's emergency advice right, and enough? It now says texting 911
   only works in some places and, if it isn't available, to use a TTY or relay service. Its FCC
-  source (https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911) refused AI reads,
-  so a person needs to open it.
+  source (https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911) refuses
+  automated reads (403 on November 6, 7 and 8, 2026), so the monthly check can't read it and lists
+  it for a person. Claude read it twice in the Claude desktop app's built-in browser on November 8,
+  2026. This card and the 911 card on Get Help, their Spanish twins, and the "Emergency services"
+  row in [[SAFETY]] match it. A person should still open it and confirm the wording.
 - For someone with immigration fears, should Get Help say, in both languages, that you don't have to
   give your citizenship status (988's Spanish terms, August 2026) or speak English (988's Spanish
   services page), without promising what police or 911 will do?
@@ -728,14 +854,43 @@ qualified reviewer decides each one, and nothing here has been reviewed.
   someone looking in the browser's storage could tell from their dates which pages were opened, and
   roughly when?
 
+### Privacy and language additions, November 9, 2026
+
+Built at one founder's request, as drafts. Wording is proposed. See
+[[worklogs/2026-11-09-claude-privacy|the handoff]].
+
+- **Esc twice to leave.** On a keyboard, Esc pressed twice within about a second does what Quick
+  exit does. An Esc that closes the open menu doesn't count, and nothing happens while someone is
+  typing in a box, such as on the Daily check-in. Is a keyboard shortcut right for this site, and is
+  Esc the right key? Two presses were chosen so a single Esc, which people press to close things,
+  doesn't leave by accident. Is "about a second" right?
+  Inside another website's frame, Chrome lets Esc change only Tidelight's part, and About says so.
+- **Browse privately.** About now has steps for a private window and for clearing history in Safari
+  on iPhone, Chrome on Android and on computers, Firefox and Edge, from each maker's help page read
+  November 9, 2026. Nobody has tried them in each browser. Are these the right browsers? Should the
+  page name Samsung Internet, used on many Android phones, or Safari on a Mac?
+- **What private browsing can't hide.** The section names the network at school, work or home,
+  monitoring software on the device, and synced devices, with what Google, Mozilla, Microsoft and
+  The National Domestic Violence Hotline say. Is the Hotline's line that history "can never be
+  completely erased" right to repeat next to steps that clear it? Should the section suggest a
+  device someone else doesn't control, as the Hotline does, or a call from another phone?
+- **Steps that change.** Browser makers move their menus. Who rechecks these steps, and how often?
+  `tools/set_checked_date.py --part browsers` moves their date on both About pages.
+- **The Spanish link for Spanish browsers.** When a browser's first language is Spanish, an English
+  page's "Leer en español" link gets a border and a tinted background. The words don't change,
+  nothing is stored or sent, and the page never switches language by itself. Is that enough, or too
+  much? Spanish Firefox help shows these menu names in English, and the Spanish About page says so.
+  A fluent reader should check the Spanish menu names against Spanish-language browsers.
+
 ### Spanish pages
 
 - Should the Spanish pages name a reply word for texting 988, as English names NEXT? 988's Spanish
   What to Expect page gives «siguiente»; its Spanish services page describes no terms step. Ask 988
   which applies to AYUDA.
-- Should the Spanish pages say anything about 911 in Spanish, and from which current source? None
-  says whether a caller can ask for Spanish, or whether a Spanish text will be understood. The FCC's
-  English and Spanish text-to-911 pages don't say.
+- Should the Spanish pages say anything about 911 in Spanish, and from which current source? No source
+  recorded in [[SAFETY]] says whether a caller can ask for Spanish, or whether a Spanish text will be
+  understood. [[SAFETY]] records that the FCC's English text-to-911 page refused automated reads on
+  November 6 and 7, so a person should open the FCC's English and Spanish pages and read what they say.
 - Should Spanish Get Help link the Stanley-Brown developers' Spanish safety plan form (February
   2025), instead of or beside the English one? Its step 6 is reported to be more specific.
 - Should the pages say "la 988"? They do in many headings and buttons. 988's Spanish site says "la
@@ -792,6 +947,320 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   next to it, so people know who will see it and that it isn't a way to get urgent help?
   See [[IDEAS]].
 
+## Questions for the fluent Spanish reader
+
+Preguntas para la persona hispanohablante. **Unreviewed AI translation:** Claude, an AI assistant, gathered
+these from what the notes leave open about Spanish, wrote each in Spanish for the reader, and gave its English
+twin for the founders. No fluent reader has checked this Spanish. Each question says where it comes from, and
+none adds a claim of its own. They ask about wording: only a person asking the provider can settle the facts,
+and nobody should call, text, or chat with a crisis line to check. The Spanish packet shows them in Parte 5, with
+room for answers. Copy each answer into the note it comes from, with the reader's role and the date.
+`tools/check_site.py` fails if a question loses its Spanish, its English twin, or its source, or if this
+section stops saying it is an unreviewed AI translation.
+
+1. ES: ¿Se entiende bien lo que dicen Obtener ayuda y Adolescentes sobre Crisis Text Line en español? Dicen que
+   "atiende en inglés y en español" y que "sus páginas dan palabras distintas para recibir apoyo en español, y
+   Tidelight todavía no ha confirmado cuál usar", sin nombrar ninguna. Las páginas no darán ninguna palabra hasta
+   que una persona la confirme con Crisis Text Line y la anote en las notas del proyecto, así que no hace falta
+   proponer una. ¿Es clara la frase de ahora para alguien que busca apoyo en español? ¿Cambiaría la redacción?
+   EN: Is what Spanish Get Help and For Teens say about Crisis Text Line in Spanish clear? They say it supports
+   English and Spanish, and that its pages give different words for support in Spanish, which Tidelight hasn't
+   confirmed yet, without naming either. The pages won't give a word until a person confirms one with Crisis Text
+   Line and records it in the project's notes, so there's no need to suggest one. Is the current sentence clear
+   for someone looking for support in Spanish? Would you change the wording?
+   Source: `notes/SAFETY.md`, "Left off the website until a person confirms": Crisis Text Line in Spanish. Also
+   `notes/FOUNDER-BRIEF.md`, "Two words to ask providers about".
+2. ES: En Obtener ayuda, la parte para personas sordas o con dificultades auditivas dice: "Si usas TTY, usa tu
+   servicio de retransmisión preferido o marca 711 y luego 988. Una página de preguntas frecuentes de la 988
+   dice que el servicio TTY no está disponible en español en este momento." Las páginas en español de la 988 no
+   coinciden, y solo la 988, o una organización dirigida por personas sordas, puede decir cuál vale. ¿Queda
+   claro qué puede hacer una persona que usa TTY y habla español? ¿Cambiaría la redacción?
+   EN: On Spanish Get Help, the part for Deaf and hard of hearing people says that TTY users can use their
+   preferred relay service or dial 711, then 988, and that a 988 FAQ page says the TTY service isn't available
+   in Spanish right now. 988's Spanish pages disagree, and only 988, or a Deaf-led organization, can say which
+   holds. Is it clear what a Spanish-speaking TTY user can do? Would you change the wording?
+   Source: `notes/SAFETY.md`, "On the website as a draft, a person must confirm": TTY in Spanish. Also
+   `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", under Spanish.
+3. ES: En Obtener ayuda y Adolescentes, la parte "Jóvenes LGBTQ+, a través de la 988" dice: "Una página de
+   preguntas frecuentes de la 988 dice que este servicio no está disponible en español en este momento. Para
+   recibir apoyo en español, llama al 988 y marca 2, o envía AYUDA al 988." Esa página de la 988 no tiene fecha
+   y puede ser anterior al regreso del servicio, así que solo la 988 puede confirmarlo. ¿Está bien dicho para un
+   joven que habla español? ¿Puede sonar a rechazo, o confundir?
+   EN: On Spanish Get Help and For Teens, the part "LGBTQ+ youth, through 988" says that a 988 FAQ page says
+   this service isn't available in Spanish right now, and that for support in Spanish you can call 988 and press
+   2, or text AYUDA to 988. That 988 page has no date and may predate the service's return, so only 988 can
+   confirm it. Is it well worded for a Spanish-speaking young person? Could it sound like a rejection, or
+   confuse them?
+   Source: `notes/SAFETY.md`, "On the website as a draft, a person must confirm": 988 LGBTQ+ youth option. Also
+   `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", under Spanish.
+4. ES: Las páginas en español tratan de "tú" en todas partes, también en las páginas para padres y para adultos
+   en duelo. Las páginas en español de la 988 usan sobre todo "usted", con "tú" en botones y títulos, y las del
+   NIMH usan "usted". ¿El trato y la redacción son adecuados para alguien en crisis? ¿Y para adolescentes?
+   ¿Debería cambiar según la página?
+   EN: The Spanish pages use "tú" everywhere, including the pages for parents and for bereaved adults. 988's
+   Spanish pages mostly use "usted", with "tú" in buttons and headings, and NIMH's use "usted". Do the form of
+   address and the wording suit someone in crisis? And teens? Should it differ by page?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions about the approved ideas", Spanish (B6), and "Questions from
+   the November 7 audit", Spanish pages.
+5. ES: Algunas frases usan solo la forma masculina, como "No estás solo" y "te sientes abrumado". Ayudar a
+   alguien mezcla "la persona" en los cinco pasos, formas masculinas como "atrapado" en las señales, y "lo" en la
+   parte sobre niños. ¿Qué criterio único deberían seguir todas las páginas?
+   EN: Some phrases use only the masculine form, such as "No estás solo" and "te sientes abrumado". Spanish Help
+   Someone mixes "la persona" in the five steps, masculine forms such as "atrapado" in the signs, and "lo" in the
+   section on children. What one approach should every page take?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions about the approved ideas", Spanish (B6), and "Questions from
+   the November 7 audit", Spanish pages.
+6. ES: Los enlaces para enviar un texto abren un mensaje en blanco, así que la persona tiene que escribir AYUDA,
+   y solo las palabras del botón se lo recuerdan: "Escribe AYUDA" en el botón "Texto al 988", y "Enviar AYUDA al
+   988". Pasa lo mismo con PRIDE y START. ¿Los botones dejan claro qué hay que escribir? ¿Cómo lo diría usted?
+   EN: The text links open a blank message, so the person has to type AYUDA, and only the button's words remind
+   them: "Escribe AYUDA" on the "Texto al 988" button, and "Enviar AYUDA al 988". The same goes for PRIDE and
+   START. Do the buttons make clear what to type? How would you say it?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", Crisis wording on every page. Also
+   `notes/SAFETY.md`, "Only a person can check".
+7. ES: En inglés, la página dice que hay que responder NEXT para aceptar los términos. En español dice que, en
+   inglés, "te piden aceptar los términos del servicio" y que "los pasos en español pueden ser un poco
+   distintos", sin dar una palabra. La página "Qué puede esperar" de la 988 en español dice «siguiente», y su
+   página de servicios en español no describe ese paso, así que solo la 988 puede decir cuál vale al enviar
+   AYUDA. ¿Se entiende la frase de ahora? Si la 988 confirma «siguiente», ¿cómo debería decirse?
+   EN: In English the page says to reply NEXT to accept the terms. In Spanish it says that in English you are
+   asked to accept the terms of service, and that the steps in Spanish may be a little different, giving no
+   word. 988's Spanish What to Expect page says «siguiente», and its Spanish services page describes no such
+   step, so only 988 can say which applies after texting AYUDA. Is the current sentence clear? If 988 confirms
+   «siguiente», how should it be said?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages, and "Questions about
+   the approved ideas", Spanish (B6). Also `notes/SAFETY.md`, "988 by text, first steps", and
+   `notes/FOUNDER-BRIEF.md`, "Two words to ask providers about".
+8. ES: Un lector de pantalla dice "Salida rápida: salir de este sitio ahora e ir a la página de weather.gov"
+   antes de los enlaces del 988, y eso podría sonar como si el sitio le dijera a alguien que se vaya. ¿Sería
+   mejor "Salida rápida, va a weather.gov", y que se oiga primero la línea de crisis?
+   EN: A screen reader says "Salida rápida: salir de este sitio ahora e ir a la página de weather.gov" before
+   the 988 links, which could sound like the site telling someone to go. Would "Salida rápida, va a weather.gov"
+   be better, with the crisis line heard first?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Every page.
+9. ES: Una propuesta que los dos fundadores todavía no han acordado, aunque ya está en estas páginas (pull request
+   13, unido el 9 de noviembre de 2026 a pedido de uno de ellos). El paquete muestra la franja completa, no esta
+   fila. Solo en una pantalla baja, como la de un teléfono de lado, también con letra más grande, la franja de
+   crisis fija se acorta a una sola fila. La fila dice: "Llama al 988 y
+   marca 2 · Envía AYUDA al 988 · Llama al 911". La franja completa dice: "¿Necesitas ayuda ahora? Llama al 988 y
+   marca 2, o envía AYUDA al 988, a cualquier hora. Si hay peligro inmediato, llama al 911." En pantallas
+   pequeñas ya deja fuera "¿Necesitas ayuda ahora?" y "a cualquier hora". La fila quita también la "o" y "Si hay
+   peligro inmediato,", así que nada en pantalla dice cuándo llamar al 911. Un lector de pantalla sigue diciendo
+   el nombre completo de cada enlace, como "Llama al 911, servicios de emergencia". ¿Se entiende esa fila? ¿Es
+   aceptable en español donde falta espacio?
+   EN: A proposal both founders haven't agreed yet, though it is on these pages (pull request 13, merged on
+   November 9, 2026, at one founder's request). The packet shows the full strip, not this row. Only on a short
+   screen, such as a phone on its side, including with larger text, the pinned crisis strip shortens to one row.
+   The row says "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al
+   911". The full strip says "¿Necesitas ayuda ahora? Llama al 988 y marca 2, o envía AYUDA al 988, a cualquier
+   hora. Si hay peligro inmediato, llama al 911." On small screens it already leaves out "¿Necesitas ayuda ahora?"
+   and "a cualquier hora". The row also drops the "o" and "Si hay peligro inmediato,", so nothing on screen says
+   when to call 911. A screen reader still says each link's full name, such as "Llama al 911, servicios de
+   emergencia". Is that row clear? Is it acceptable in Spanish where space is short?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", Crisis wording on every page: the
+   compact strip. Also `notes/DECISIONS.md`, the crisis strip entry under "November 6, 2026: proposed on branch
+   `site/phone-accessibility-content`", and "November 9, 2026: every pull request that publishes nothing,
+   merged". The strip's words are from the pages in `es/` and the compact strip's rules in `assets/styles.css`.
+10. ES: La tabla de controles de las notas del proyecto pide que una persona hispanohablante revise los botones
+    y enlaces en español, como "Ayuda en español", "Llamar al 988 y marcar 2", "Enviar AYUDA al 988", "Chatear
+    en español" y los de la franja de crisis. ¿Son claros y naturales? ¿Dicen bien adónde llevan?
+    EN: The notes' table of controls asks a Spanish reader to check the Spanish buttons and links, such as
+    "Ayuda en español", "Llamar al 988 y marcar 2", "Enviar AYUDA al 988", "Chatear en español" and those in the
+    crisis strip. Are they clear and natural? Do they say where they go?
+    Source: `notes/CONTENT-REVIEW.md`, "What each control does": the rows that need a Spanish reviewer or a
+    fluent reader.
+11. ES: Muchos títulos y botones dicen "la 988". El sitio en español de la 988 dice "la Línea 988" o "Línea 988"
+    para el servicio, y "el 988" o "al 988" para el número. ¿Deberían las páginas decir "la 988"?
+    EN: Many headings and buttons say "la 988". 988's Spanish site says "la Línea 988" or "Línea 988" for the
+    service, and "el 988" or "al 988" for the number. Should the pages say "la 988"?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
+12. ES: Las notas del proyecto no registran ninguna fuente que diga si quien llama al 911 puede pedir español, ni
+    si un texto en español al 911 se entenderá. Según esas notas, la página de la FCC sobre textos al 911 rechazó
+    las lecturas automáticas el 6 y el 7 de noviembre de 2026, así que una persona todavía tiene que abrirla y
+    leerla. ¿Deberían las páginas en español decir algo sobre el 911 en español? Si es así, ¿qué, y con qué
+    fuente actual?
+    EN: The project's notes record no source that says whether a 911 caller can ask for Spanish, or whether a
+    Spanish text to 911 will be understood. They record that the FCC's text-to-911 page refused automated reads on
+    November 6 and 7, 2026, so a person still needs to open it and read it. Should the Spanish pages say anything
+    about 911 in Spanish? If so, what, and from which current source?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages. Also
+    `notes/SAFETY.md`, "Only a person can check": the FCC's text-to-911 page.
+13. ES: La página Get Help en inglés tiene una parte en español, "En español", que Claude, un asistente de IA,
+    escribió a partir de las páginas en inglés y en español de la 988. Está en la Parte 3 del paquete en
+    español, en "Español en Get Help". ¿Es correcta y natural?
+    EN: The English Get Help page has a part in Spanish, "En español", which Claude, an AI assistant, wrote from
+    988's English and Spanish pages. It is in Part 3 of the Spanish packet, under "Español en Get Help". Is it
+    correct and natural?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", Spanish.
+14. ES: Para quien teme por su situación migratoria, ¿debería Obtener ayuda decir, en los dos idiomas, que no
+    tiene que dar su estatus de ciudadanía (según los términos en español de la 988, de agosto de 2026) ni
+    hablar inglés (según la página de servicios en español de la 988), sin prometer lo que harán la policía o el
+    911? Si se agrega, ¿cómo debería decirse en español?
+    EN: For someone with immigration fears, should Get Help say, in both languages, that you don't have to give
+    your citizenship status (988's Spanish terms, August 2026) or speak English (988's Spanish services page),
+    without promising what police or 911 will do? If it's added, how should it be said in Spanish?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Get Help.
+15. ES: La página de servicios en español de la 988 dice que a veces puede hablar a la vez con quien ayuda y con
+    la persona que le preocupa. Sus páginas en inglés no lo dicen, así que habría que preguntarle a la 988.
+    ¿Debería Ayudar a alguien decirlo? Si se agrega, ¿cómo debería decirse en español?
+    EN: 988's Spanish services page says it can sometimes talk with the helper and the person they're worried
+    about at the same time. Its English pages don't, so 988 would need to be asked. Should Help Someone say so?
+    If it's added, how should it be said in Spanish?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Help Someone.
+16. ES: Obtener ayuda en español enlaza el formulario del plan de seguridad Stanley-Brown en inglés. Sus
+    creadores tienen un formulario en español (febrero de 2025), y se dice que su paso 6 es más específico.
+    ¿Debería la página enlazar el formulario en español, en lugar del inglés o junto a él?
+    EN: Spanish Get Help links the English Stanley-Brown safety plan form. Its developers have a Spanish form
+    (February 2025), whose step 6 is reported to be more specific. Should the page link the Spanish form,
+    instead of or beside the English one?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
+17. ES: En Después de una pérdida, ¿qué se lee mejor: el nombre en inglés de AFSP con la explicación "es una
+    fundación estadounidense para la prevención del suicidio", como hace casi siempre el material en español de
+    AFSP, o "Fundación Estadounidense para la Prevención del Suicidio"? Revise también la frase sobre pulsar
+    "Translate" en el formulario de Healing Conversations.
+    EN: On Spanish After a loss, which reads better: AFSP's English name with the gloss "es una fundación
+    estadounidense para la prevención del suicidio", as AFSP's Spanish material mostly does, or "Fundación
+    Estadounidense para la Prevención del Suicidio"? Please also check the sentence on pressing "Translate" on
+    the Healing Conversations form.
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
+18. ES: ¿Debería Después de una pérdida enlazar el sitio en español de AFSP (es.afsp.org)? Tiene Healing
+    Conversations ("Conversaciones que Sanan") y una página de grupos de apoyo casi toda en español, pero parece
+    traducido a máquina y llama a la persona que murió "alguien suicida". ¿El formulario y la persona voluntaria
+    funcionan en español? Por favor, no envíe el formulario para averiguarlo.
+    EN: Should Spanish After a loss link AFSP's Spanish site (es.afsp.org)? It has Healing Conversations
+    ("Conversaciones que Sanan") and a support group page mostly in Spanish, but it reads as machine-translated
+    and calls the person who died "alguien suicida". Do the form and the volunteer work in Spanish? Please don't
+    submit the form to find out.
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
+19. ES: El cartel en español tiene una línea de referidos de SAMHSA donde el cartel en inglés tiene The Trevor
+    Project, así que no tiene una línea para jóvenes LGBTQ+. Esa línea tampoco da la instrucción de SAMHSA de
+    elegir la opción para hablar con un representante nacional para español. ¿Qué líneas debería llevar el
+    cartel en español?
+    EN: The Spanish poster has a SAMHSA referral line where the English poster has The Trevor Project, so it has
+    no line for LGBTQ+ young people. That line also leaves out SAMHSA's instruction to choose the option to
+    speak with a national representative for Spanish. Which lines should the Spanish poster carry?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions about the second batch", Wallet card and poster (D2).
+20. ES: La tarjeta impresa nombra la "Línea 988 de Prevención del Suicidio y Crisis", y otras personas pueden
+    verla. ¿Está bien nombrar el suicidio en la tarjeta en español?
+    EN: The printed card names the "Línea 988 de Prevención del Suicidio y Crisis", and other people can see it.
+    Is it right to name suicide on the Spanish card?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Wallet card.
+21. ES: En el Registro diario, los sentimientos se escriben como estados, para no usar formas de un solo género:
+    "Con esperanza", "En calma", "Bien, más o menos", "Con dudas", "Con demasiado encima", "Con tristeza", "Con
+    ansiedad", "Con desconexión" y "Sin energía". ¿Suenan naturales para responder a "¿Cómo te sientes hoy?"?
+    ¿Alguno podría confundir o doler a alguien que lo está pasando mal?
+    EN: In the Daily check-in, the feelings are written as states, to avoid forms of one gender: "Con esperanza",
+    "En calma", "Bien, más o menos", "Con dudas", "Con demasiado encima", "Con tristeza", "Con ansiedad", "Con
+    desconexión" and "Sin energía". Do they sound natural as answers to "¿Cómo te sientes hoy?"? Could any confuse
+    or hurt someone who is struggling?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions about the Daily check-in", Spanish. The feelings are from
+    `es/registro-diario/index.html`.
+
+## Questions about the November 9 Get Help additions
+
+Drafted by Claude on November 9, 2026, on branch `build/more-lines-1109`, for Get Help and its Spanish
+twin. Wording is proposed, and nothing here has been reviewed. Each detail comes from the provider's own
+page, read that day and recorded in [[SAFETY]].
+
+**What to say when you call or text 988** (`#what-to-say`)
+
+- 988's pages give no example first words. They say you can send any message to start a text, that
+  anyone who is struggling, needs to talk, or is thinking about suicide can reach out, that you can
+  contact 988 if a friend is struggling, and that the counselor says hello, introduces themselves, and
+  asks if you are safe. The five example phrases are Tidelight's, and the page says so. Are they
+  right? Is "I'm thinking about suicide" (in Spanish, «Estoy pensando en el suicidio») the right way
+  to offer direct words? Is "I don't know what to say, but I need to talk" a good example for
+  someone who can't find words?
+- The section comes first among the page's sections, before "What happens when you reach out to
+  988", and repeats its first steps briefly. Is the order right, or should the two be one section?
+- The Spanish version starts with the Spanish routes, and gives «siguiente» for accepting the terms by
+  text, from 988's Spanish What to Expect page. Since November 10 the section below it, "Si envías un
+  texto", gives the same steps and names that page, where it used to say the Spanish steps may differ.
+  Whether they apply to AYUDA is the question under "Spanish pages" above. A fluent reader should check the examples, which use «Me preocupa alguien que conozco» to
+  avoid a gendered form.
+
+**Lines for specific groups** (`#more-lines`)
+
+- Which of these should Get Help list, and should For Teens list Teen Line and Trans Lifeline too?
+  The cards sit behind Show more, with a first paragraph that names each group, says which keep set
+  hours, and says 988 is open any time. Is that the right balance?
+- Two of the four aren't open all day and night, and the cards say so: Teen Line answers 6 to 10 p.m.
+  Pacific by phone and 6 to 9 p.m. by text, and Trans Lifeline answers weekdays, 10 a.m. to 6 p.m.
+  Pacific. Teen Line's texts after hours get no reply. Is that clear enough for someone who reaches a
+  closed line?
+- HRSA's pages don't call the maternal hotline a crisis line, mention 911 or 988, or say what to do
+  in an emergency, and the card says so. Is that the right way to put it?
+- Trans Lifeline says it won't call emergency services or police without the caller's explicit
+  request, even if the caller says someone is in danger, and the card says so, with its stated limits.
+  Is it right to say this on Get Help, and is the wording fair to both Trans Lifeline and 988?
+- Teen Line is for young people up to age 19, answered by teen volunteers from the Los Angeles area
+  under adult supervision. Is it right to list it for every age group the site now supports?
+- The Text TEEN link opens a blank message, so a teen has to type TEEN. Teen Line's own buttons fill
+  the word in. This is the same question as the blank messages for 741741, START, AYUDA, and PRIDE.
+- SAMHSA's English and Spanish pages say to press 2 for Spanish after "call or text", and neither says
+  how that works by text. Both Get Help pages say to call and press 2, and the Spanish card says the
+  pages don't explain Spanish by text. Ask SAMHSA.
+- The maternal hotline's card links HRSA's page, not its chat, because nobody here opened the chat.
+  Should it link the chat?
+- Left off: the Friendship Line for older adults. Its page calls it the nation's only accredited
+  24-hour line of its kind, and also says it serves people in California. Should the site list it with
+  a California note, find a national line for older adults, or leave it off? A person should ask the
+  Institute on Aging.
+- Trans Lifeline's pages list holiday closures for 2025 only. A person should ask for the current
+  dates before release.
+- The pages' review notes and footers still say crisis numbers and links were compared with providers'
+  websites on November 6, 2026. The new sections were read on November 9, and each says it was added
+  later, without a date, because every page must show the same date. Move the date with
+  `tools/set_checked_date.py` only after a full re-check of every page.
+
+## Questions about Make a safety plan and After a suicide attempt
+
+Built November 9, 2026, at one founder's request, as drafts. Sources were read that day and again on
+November 10; see "How the November 9 pages' sources were read" above.
+
+- **A safety plan made alone.** The page says a professional can help and that a plan doesn't replace
+  care. Since November 10 it also says, as Get Help does, that some of the research paired the plan
+  with clinician contact and follow-up, so it doesn't show what a plan made alone would do, and that for
+  children and teens a review found no clear benefit. Is it right to
+  offer a blank plan to fill in alone? Should the page say more strongly to make it with someone?
+- **The six steps.** They follow the order the Stanley-Brown site and AFSP describe, in Tidelight's own
+  words, and the blank plan is not a copy of the Stanley-Brown form. Should it add their optional step,
+  reasons for living? Is "People and places that take my mind off things" the right wording? The
+  printed plan credits only Tidelight, though the page credits the Stanley-Brown steps. Should the paper
+  also say its steps are based on the Stanley-Brown Safety Plan, and does adapting them need permission?
+- **Examples in step 2** (music, a walk, a shower, something that keeps your hands busy) are Claude's,
+  not from a source. Keep, change, or remove them?
+- **Making the space safer.** Both pages stay general, with no method details: keep things you could
+  use to hurt yourself away, ask someone to keep or store them, and ask a professional. AFSP's page for
+  families names firearms and medicines, and NIMH speaks of safe storage of lethal means. Should the
+  pages name them, as those sources do?
+- **Under 18.** Step 4 suggests adding a trusted adult, and says a young person can still call or text
+  988 if no adult feels safe. Is that enough? (Research brief question 3.)
+- **On paper.** The page says a printed plan could be read by others. Is that the right warning for a
+  shared home, and should it say anything about keeping a photo of the plan on a phone?
+- **After an attempt: risk after a hospital stay.** The page gives SPRC's and AFSP's words that risk
+  stays higher for months, and through the first year, to explain why follow-up matters. It leaves out
+  SPRC's figure for the first week. Is even this too much for someone who just survived an attempt?
+  Its own opening line, "The time after leaving a hospital is when support matters most", has no source
+  of its own and assumes a hospital stay, while not everyone who survives an attempt stays in one. SPRC
+  and AFSP, as the page reports them, speak of the time after a hospital stay. Should the line be cut, or
+  tied to them, such as "If you stayed in a hospital, ..."? Raised by an AI code review on November 10.
+- **Who reads it.** The page speaks to the person who survived and to their family in one place. Should
+  they be two pages? Someone who has survived an attempt should read it.
+- **Peer support.** AFSP says there are support groups for people who survived an attempt. The page
+  links no such group. Which, if any, should it list?
+- **SAMHSA's guides.** SAMHSA has guides for attempt survivors and families: After an Attempt (for the
+  person, for a family member) and A Journey Toward Health and Hope. On November 9, 2026, its library
+  showed a human verification page instead of the files, and the old store links no longer open them,
+  so they weren't read or cited. On November 10 the library opened: the product page for A Journey
+  Toward Health and Hope (https://library.samhsa.gov/product/journey-toward-health-and-hope-your-handbook-recovery-after-suicide-attempt/sma15-4419)
+  gives an October 2015 date, and the old address for the family guide answered "not found". The guides'
+  own files refused automated reads (403), so their text still wasn't read or cited. Their dates come
+  before 988 began, so they may list older crisis numbers. A person should open them and decide whether
+  to add them, including the Spanish version of the guide for the person who survived.
+- **988 pages.** 988's older page for attempt survivors now answers "not found". Its current site has
+  no page on safety plans or attempt survivors, so the pages use 988 only for how to reach it.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].
@@ -802,6 +1271,10 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
       whether the text links open with a blank message.
 - [ ] Test with VoiceOver and TalkBack, large text settings, and a slow connection.
 - [ ] Read each provider page in [[SAFETY]] and fill in "Person confirmed".
+- [ ] For the lines added November 9, 2026, ask SAMHSA how to choose Spanish by text on the Disaster
+      Distress Helpline, the Institute on Aging whether the Friendship Line serves callers outside
+      California, Trans Lifeline for its current holiday closures, and Teen Line whether its hours
+      move with daylight saving time.
 - [ ] Open chat.988lifeline.org and chat.988lifeline.org/?lang=es on a phone, without
       submitting anything. Compare the form's questions with Get Help, and note whether a
       security check appears first. Repeat this whenever the numbers are rechecked, because

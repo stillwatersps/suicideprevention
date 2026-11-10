@@ -57,10 +57,13 @@ Each person uses their own Claude access and conversation.
 | `teens/`, `card/` | For Teens page, and printable wallet cards and poster |
 | `check-in/`, `assets/check-in.js` | Daily check-in, which saves nothing. See `notes/CHECK-IN-BACKEND.md` |
 | `not-sure/`, `after-a-loss/`, `about/` | Not sure what you're feeling?, After a loss, and About and privacy |
+| `safety-plan/`, `after-an-attempt/` | Make a safety plan, with a blank plan to print, and After a suicide attempt. Drafts, proposed November 9, 2026 |
 | `assets/*.vcf` | Contact cards for saving 988 to a phone |
 | `tools/preview_server.py` | Serves the site the way GitHub Pages will, on this computer or a phone on the same Wi-Fi |
+| `tools/qr.py` | Draws the QR code `preview_server.py --lan` prints for a phone to scan. Plain Python, no downloads |
 | `tools/test_browser.py`, `tools/browser.py` | Browser tests, using Python and the Chrome already on the computer |
-| `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader |
+| `tools/axe_core.py` | Downloads and checks axe-core, used only by the browser tests' accessibility group, never by the site |
+| `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader. With `--changes`, short packets of only what changed since each reviewer's approvals |
 | `notes/PHONE-TEST.md` | How to test on a real phone |
 | `notes/FOUNDER-BRIEF.md`, `notes/LAUNCH-CHECKLIST.md`, `notes/REVIEWER-NOTES.md`, `notes/UPKEEP.md` | Decisions, the path to launch, notes for reviewers, and upkeep |
 | `notes/FIRST-VERSION.md` | What the first version is and isn't, and its main journeys. A proposal |
@@ -83,7 +86,12 @@ python3 tools/check_site.py
 python3 tools/check_site.py --check-links
 ```
 
-The second command also loads every outside link. To see the site the way GitHub Pages
+```bash
+python3 tools/make_review_packet.py --self-test
+```
+
+The second command also loads every outside link. The third checks the review packet tool on made-up cases,
+such as a crisis line taken off one page, and changes nothing. To see the site the way GitHub Pages
 will serve it, including the 404 page:
 
 ```bash
@@ -98,14 +106,15 @@ python3 tools/test_browser.py
 ```
 
 It takes a few minutes, uses a throwaway Chrome profile, and never calls, texts, or
-submits anything. If you change a page, rebuild the review packets:
+submits anything. Its `axe` group downloads one checked copy of axe-core, an accessibility
+checker, the first time, into `tools/cache/`, which git ignores. If you change a page, rebuild the review packets:
 
 ```bash
 python3 tools/make_review_packet.py
 ```
 
-Where this workflow exists, on `main` or on a pull request's branch, GitHub runs the first check and the
-browser tests automatically. Pull requests 1, 7, and 8 don't have it, so nothing checks them automatically.
+Where this workflow exists, on `main` or on a pull request's branch, GitHub runs the first check, the
+tools' self-tests, the packet tool's among them, and the browser tests automatically. Pull requests 1, 7, and 8 don't have it, so nothing checks them automatically.
 Passing these checks does not replace testing on a real phone or a content
 review. `notes/CONTENT-REVIEW.md` lists what still needs a person.
 

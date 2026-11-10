@@ -179,6 +179,11 @@ Move a task here when its branch is ready for the other person to review.
   No qualified person has reviewed the wording, and no person has confirmed its numbers or tried
   its links on a real phone.
 
+- [ ] Build the ideas approved November 8: strip fixes, packet and test tools, privacy, four more crisis lines, two new
+  draft pages, and a section on a friend online. Owner: Claude, at one founder's request. Branch: `site/approved-items-1110`,
+  a draft pull request into `claude/jolly-mayer-2m6eno`. Not merged. Content is a draft for the licensed reviewer and a
+  fluent Spanish reader; no person has confirmed the new crisis lines.
+
 ## Completed work
 
 Move finished tasks here and link their handoff note.

@@ -17,6 +17,11 @@ CLAUDE.local.md
 .DS_Store
 Thumbs.db
 
+# "What changed" review packets, built on request with python3 tools/make_review_packet.py --changes. They
+# depend on the review records and the text when they are built, so they are handed out, never committed.
+notes/review-packet/*-review-changes.html
+notes/review-packet/*-review-changes.pdf
+
 # Common generated files; refine once the app tools are selected
 node_modules/
 dist/
@@ -26,3 +31,7 @@ coverage/
 *.log
 __pycache__/
 .venv/
+
+# axe-core for the accessibility tests, downloaded and checked by tools/axe_core.py.
+# It is never committed or published.
+tools/cache/
