@@ -72,18 +72,22 @@ was tried on a real phone. The iOS Simulator wasn't used in this task.
    same in split-screen (280 by 320), its inner screen (700 by 840, 840 by 700), and very small
    screens (240 by 320, 280 by 280). `EXPECT` says which strip each must show in each language. Some
    also run with 75%, 150% or 200% text. The matrix also sweeps 38 widths by 21 heights at the
-   default size, both languages, for the rules in item 4. No page problem showed at these sizes,
-   check-in pages included, apart from the header found in item 3. The audit's NOTE lines, links in
-   sentences under the project's 44 px aim, are the same kind as at other narrow sizes.
+   default size, both languages, for the rules in item 4. No page problem showed at these nine
+   sizes, check-in pages included. Two showed elsewhere: the header in item 3, fixed, and the
+   floating Quick exit on narrow, tall screens, not fixed (see "Not done, and open"). The audit's
+   NOTE lines, links in sentences under the project's 44 px aim, are the same kind as at other
+   narrow sizes.
 
 Tests added: the jumps group compares the scroll padding with what is pinned at 56 widths by 25
 heights and 11 text sizes from 12 to 32 px, with and without JavaScript, on one English and one
 Spanish page, and four more sizes follow every jump link. Fourteen planted bugs are new and one is
 rewritten: seven for jump links and the header, five for item 4 in Chrome and one in WebKit, and
 one for the copy check. The jumps test also fails where nothing is pinned and a link would stop
-over a quarter of the screen down, and the text size test tries 640 by 290 at 75%, where only the
-compact strip's floors in px keep it pinned. The bug that removed the compact strip's floors from its outer limits was
-updated for the new outer limit.
+over a quarter of the screen down. The text size test now also fails where smaller text pins the
+strip and 100% doesn't, as "Floors in px" says it must not, and tries 640 by 290 and 250 by 500 at
+75%, where only the floors in px decide. Three older planted bugs were updated, because the new
+rules hid what they plant: the compact strip's floors removed from its outer limits, the full
+strip's width floor removed, and jump links stopping low where the strip scrolls away.
 
 ## Measured
 
@@ -100,12 +104,23 @@ can be a little off.
 
 ## Checked
 
-Exact result lines are in the final report of this task. In short, on the final commit: the full
-suite (below), and before it `check_site.py`, its `--self-test`, the test_browser groups matrix,
-textsize and jumps, `test_webkit.py`, and every planted bug added or touched here.
+Exact result lines are in the final report of this task. Before the final commit: `check_site.py`
+and its `--self-test`, the test_browser groups matrix, textsize and jumps, `test_webkit.py` (543
+checks, 0 problems), and every planted bug added or touched here, all passing. A first full run, on
+022d939, found two planted bugs that the new rules hid, fixed since, and stopped twice when Chrome
+closed its connection in the jumps group, and once on a WebKit page that didn't load, while other
+sessions loaded this Mac (load average about 20). The full suite was run again on the final commit.
 
 ## Not done, and open
 
+- **Quick exit on narrow, tall screens, found, not fixed.** Up to 256 px wide the full strip scrolls
+  away and Quick exit floats in the corner. On a tall screen, from about 844 px at the default text
+  size and 600 px at 75%, such as 250 by 844, it covers a crisis button on the first screen of
+  some pages, at 250 px wide 7 of 21 pages at 844 px tall and 17 at 1000 px. This was so before
+  this task. A possible fix, not built: pin the full strip there while it takes a third of the
+  height or less, as item 4 does. At 250 px wide it is 142 px tall in English and 164 px in
+  Spanish. It would change the full strip's width floor, so it needs its own measurements and
+  tests.
 - **Larger text on narrow, short screens.** With 18 to 28 px text the full strip can still take 40
   to 46% of a narrow screen 300 to 600 px tall, as before. The limits in item 4 are in px for the
   default size. Open for both founders.

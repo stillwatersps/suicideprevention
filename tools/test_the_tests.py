@@ -257,7 +257,7 @@ BUGS = [
     ("the audit losing sight of the compact strip after a class is renamed", strip_lead_renamed, "matrix", "get-help", "the audit can't tell"),
     # The floors in px of the full strip's own limits, which keep smaller text from pinning it over more of
     # the screen than at 100%. Each is removed alone, and only the text size tests below 100% can tell.
-    ("the full crisis strip's width floor in px removed", replace("assets/styles.css", "@media (max-width: 16em), (max-width: 256px) {", "@media (max-width: 16em) {"), "textsize", "get-help", "as at 100% text"),
+    ("the full crisis strip's width floor in px removed", replace("assets/styles.css", "@media (max-width: 16em), (max-width: 256px) {", "@media (max-width: 16em) {"), "textsize", "get-help", "where it scrolls away at 100% text"),
     ("the full crisis strip's height floor in px removed", replace("assets/styles.css", "       (max-height: 300px) and (max-width: 703.84px), (max-height: 240px) {", "       (max-height: 240px) {"), "textsize", "es/obtener-ayuda", "as at 100% text"),
     ("the full crisis strip's height floor in px for wide screens removed", replace("assets/styles.css", "(max-height: 300px) and (max-width: 703.84px), (max-height: 240px) {", "(max-height: 300px) and (max-width: 703.84px) {"), "textsize", "get-help", "as at 100% text"),
     ("Quick exit's floors in px removed, so it scrolls away with the crisis strip", replace("assets/styles.css", "  @media (min-width: 256.16px) and (min-height: 300.16px), (min-width: 704px) and (min-height: 240.16px) {", "  @media all {"), "textsize", "get-help", "Quick exit scrolls away"),

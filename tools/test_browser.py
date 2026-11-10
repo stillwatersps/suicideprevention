@@ -139,6 +139,11 @@ TEXT_SIZES = [
     # Smaller text on a phone on its side wider than the compact strip's em limits, where only their floors in
     # px keep it pinned there, as at 100%.
     ("short screen 640x290", 640, 290, True, (75,)),
+    # A narrow screen with smaller text, where only the full strip's width floor in px keeps it from pinning,
+    # as at 100%. Shorter narrow screens also have the rules for narrow screens just over 300px tall. Not
+    # taller: from about 600px tall at 75% text, and 844px at 100%, the floating Quick exit covers a crisis
+    # button on the first screen of some pages, a known problem in notes/worklogs/2026-11-09-claude-strip-fixes.md.
+    ("narrow screen 250x500", 250, 500, True, (75,)),
     # Typical sizes, not measured on devices: split-screen and foldables. With 75% text the strip must pin
     # as at 100%, where the rules for narrow screens just over 300px tall decide; with larger text the page
     # must still fit.
@@ -939,6 +944,10 @@ def smaller_text_problems(result, default, percent):
     before = default["pinnedShare"] if default.get("pinned") else 0
     if default.get("pinned") and not result.get("pinned"):
         problems.append(f"with text at {percent}%, the crisis strip scrolls away, where it stays pinned at 100% text")
+    # Since November 10, 2026, with the rules for narrow screens just over 300px tall: smaller text pins the
+    # strip only where 100% does, as "Floors in px" in assets/styles.css says.
+    if result.get("pinned") and not default.get("pinned"):
+        problems.append(f"with text at {percent}%, the crisis strip pins, where it scrolls away at 100% text")
     share = result.get("pinnedShare", 0)
     if result.get("pinned") and share > ONE_ROW_MAX_PERCENT and before <= ONE_ROW_MAX_PERCENT:
         problems.append(f"with text at {percent}%, the pinned crisis strip takes {share:g}% of the screen's height, where it must take "
