@@ -569,8 +569,11 @@ qualified reviewer decides each one, and nothing here has been reviewed.
   pediatrician or therapist can help you make a plan, and you can call or text 988 any time."
 - Is the Deaf or hard of hearing card's emergency advice right, and enough? It now says texting 911
   only works in some places and, if it isn't available, to use a TTY or relay service. Its FCC
-  source (https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911) refused AI reads,
-  so a person needs to open it.
+  source (https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911) refuses
+  automated reads (403 on November 6, 7 and 8, 2026), so the monthly check can't read it and lists
+  it for a person. Claude read it twice in the Claude desktop app's built-in browser on November 8,
+  2026. This card and the 911 card on Get Help, their Spanish twins, and the "Emergency services"
+  row in [[SAFETY]] match it. A person should still open it and confirm the wording.
 - For someone with immigration fears, should Get Help say, in both languages, that you don't have to
   give your citizenship status (988's Spanish terms, August 2026) or speak English (988's Spanish
   services page), without promising what police or 911 will do?
