@@ -895,8 +895,8 @@ section stops saying it is an unreviewed AI translation.
    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Every page.
 9. ES: Una propuesta que los dos fundadores todavía no han acordado, aunque ya está en estas páginas (pull request
    13, unido el 9 de noviembre de 2026 a pedido de uno de ellos). El paquete muestra la franja completa, no esta
-   fila. Solo en una pantalla baja, como la de un teléfono de lado, la franja de crisis fija se acorta a una sola
-   fila; con letra más grande también, pero nunca solo por usar letra más grande. La fila dice: "Llama al 988 y
+   fila. Solo en una pantalla baja, como la de un teléfono de lado, también con letra más grande, la franja de
+   crisis fija se acorta a una sola fila. La fila dice: "Llama al 988 y
    marca 2 · Envía AYUDA al 988 · Llama al 911". La franja completa dice: "¿Necesitas ayuda ahora? Llama al 988 y
    marca 2, o envía AYUDA al 988, a cualquier hora. Si hay peligro inmediato, llama al 911." En pantallas
    pequeñas ya deja fuera "¿Necesitas ayuda ahora?" y "a cualquier hora". La fila quita también la "o" y "Si hay
@@ -905,8 +905,8 @@ section stops saying it is an unreviewed AI translation.
    aceptable en español donde falta espacio?
    EN: A proposal both founders haven't agreed yet, though it is on these pages (pull request 13, merged on
    November 9, 2026, at one founder's request). The packet shows the full strip, not this row. Only on a short
-   screen, such as a phone on its side, the pinned crisis strip shortens to one row; with larger text too, but
-   never because of larger text alone. The row says "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al
+   screen, such as a phone on its side, including with larger text, the pinned crisis strip shortens to one row.
+   The row says "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al
    911". The full strip says "¿Necesitas ayuda ahora? Llama al 988 y marca 2, o envía AYUDA al 988, a cualquier
    hora. Si hay peligro inmediato, llama al 911." On small screens it already leaves out "¿Necesitas ayuda ahora?"
    and "a cualquier hora". The row also drops the "o" and "Si hay peligro inmediato,", so nothing on screen says
