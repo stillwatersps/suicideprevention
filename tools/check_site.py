@@ -1523,14 +1523,19 @@ def language_copies(css):
     {(the blocks around them but the innermost, language): [(innermost block, [(selectors, [declarations])])]},
     and the rules in those same innermost blocks that aren't written for one language alone:
     [(the blocks around them, selectors)]. The selectors are given without their html[lang="..."], and
-    everything is given with its spacing made even (tidy_css)."""
+    everything is given with its spacing made even (tidy_css). A rule for html[lang="..."] itself, the
+    page's root, such as where jump links stop, counts as part of its language's copy, given as ":root"."""
     copies, blocks_of, others = {}, {}, []
     rules = css_rules(css)[0]
+
+    def for_language(part, lang):
+        return part.startswith(f'html[lang="{lang}"] ') or part == f'html[lang="{lang}"]'
+
     for around, selectors, body in rules:
         parts = [tidy_css(part) for part in split_top(selectors)]
         for lang in ("en", "es"):
             mark = f'html[lang="{lang}"] '
-            if around and parts and all(part.startswith(mark) for part in parts):
+            if around and parts and all(for_language(part, lang) for part in parts):
                 around = tuple(tidy_css(block) for block in around)
                 blocks = copies.setdefault((around[:-1], lang), [])
                 if not blocks or blocks[-1][0] != around[-1]:
@@ -1538,7 +1543,7 @@ def language_copies(css):
                 blocks_of.setdefault(around, lang)  # the block's language is that of its first rule
                 said = [tidy_css(item) for item in body.split(";") if item.strip()]
                 said = [(item.split(":", 1)[0].lower() + ":" + item.split(":", 1)[1]) if ":" in item else item for item in said]
-                blocks[-1][1].append((", ".join(part[len(mark):] for part in parts), said))
+                blocks[-1][1].append((", ".join(part[len(mark):] or ":root" for part in parts), said))
     # A rule without its language in a block that holds one language's copy would apply to both languages,
     # unseen by the comparison. So would one written for the other language there.
     for around, selectors, body in rules:
@@ -1547,7 +1552,7 @@ def language_copies(css):
         if not lang:
             continue
         parts = [tidy_css(part) for part in split_top(selectors)]
-        if not all(part.startswith(f'html[lang="{lang}"] ') for part in parts):
+        if not all(for_language(part, lang) for part in parts):
             others.append((around, ", ".join(parts)))
     return copies, others
 
@@ -1699,6 +1704,7 @@ def self_test_copies():
     es_bar = 'html[lang="es"] .crisis-bar { position: sticky; column-gap: 0; padding: 2px 4px; }'
     es_end = '      html[lang="es"] body { padding-bottom: 0; }'
     es_width = "@media (min-width: 34em) and (min-width: 544px) {"
+    es_jump = 'html[lang="es"] { --jump-em: 3.9rem; --jump-px: 62px; }'
     cases = [
         # What is being shown, the edit (old, new), whether it should fail.
         ("the stylesheet as it is passes", ("", ""), False),
@@ -1710,6 +1716,7 @@ def self_test_copies():
         ("a selector without its language in one copy fails", (es_bar, es_bar.replace('html[lang="es"] .crisis-bar', '.crisis-bar')), True),
         ("a rule for the other language in one copy fails", (es_end, es_end + '\n      html[lang="en"] .strip-or { margin: 0; }'), True),
         ("a width limit turned into a height limit fails", (es_width, es_width.replace("min-width: 34em", "min-height: 34em")), True),
+        ("where jump links stop, changed in one copy only, fails", (es_jump, es_jump.replace("62px", "48px")), True),
     ]
     wrong = 0
     for name, (old, new), should_fail in cases:

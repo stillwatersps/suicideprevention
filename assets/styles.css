@@ -21,14 +21,66 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* The bottom padding keeps a focused link clear of the Quick exit button. */
-html { scroll-behavior: smooth; scroll-padding-top: 7rem; scroll-padding-bottom: 5.5rem; }
-/* Under 360px the pinned strip can take three or four rows, so jump links stop lower. Only
-   where the strip pins: on a very short screen it scrolls away, and this would push a link
-   to the bottom edge. The height limit has the same floor in px as the strip's own, below. */
-@media (max-width: 22.4em) and (min-height: 18.76em) and (min-height: 300.16px) { html { scroll-padding-top: 12rem; } }
-/* The Spanish strip's longer wording wraps to a third row on mid-size screens. */
-@media (min-width: 30.01em) and (max-width: 38em) and (min-height: 30.01em) { html[lang="es"] { scroll-padding-top: 8.5rem; } }
+/* Where a jump link stops: below whatever stays pinned, with about 14px to spare, and never lower
+   than half the screen. Revised November 10, 2026: before, one length in rem left links behind
+   the pinned crisis strip with smaller text, and on Spanish pages 481px wide, and pushed them into
+   the lower half of short screens with larger text, where nothing is pinned.
+   --jump-px is the pinned area's height at the default text size, plus the spare, set by width in
+   px. With smaller text the strip and header are never taller at the same width, so it covers
+   them. --jump-em is the same height in rem, set by width in em. With larger text the strip has as
+   many rows or fewer at the same width in em, and each row is no taller in rem, so it covers them.
+   The larger of the two is used, at most half the screen. Where nothing is pinned, the rules that
+   unpin the strip and header set both to 1rem, and where the compact strip pins, it sets its own.
+   Heights measured in desktop Chrome's phone-size emulation on November 10, 2026, at the default
+   text size; see notes/worklogs/2026-11-09-claude-strip-fixes.md. Words wrap differently in other
+   fonts, so on a phone the widths can be a little off. A browser without var(), max() or min()
+   uses 7rem. The bottom padding keeps a focused link clear of the Quick exit button. */
+html {
+  scroll-behavior: smooth;
+  --jump-em: 5.45rem; --jump-px: 87px;
+  scroll-padding-top: 7rem;
+  scroll-padding-top: min(max(var(--jump-em, 7rem), var(--jump-px, 112px)), 50vh);
+  scroll-padding-top: min(max(var(--jump-em, 7rem), var(--jump-px, 112px)), 50dvh);
+  scroll-padding-bottom: 5.5rem;
+}
+/* Wide screens: the sticky header, 73px tall on one line, 96px on two, and 122px in Spanish on
+   three. Without JavaScript, the whole menu sits in it with larger text: up to 12.1rem. */
+@media (max-width: 64.49em) { html:lang(en) { --jump-em: 6.9rem; } }
+@media (max-width: 80.74em) { html:lang(es) { --jump-em: 6.9rem; } }
+@media (max-width: 63.74em) { html:lang(es) { --jump-em: 8.5rem; } }
+@media (max-width: 1031.84px) { html:lang(en) { --jump-px: 111px; } }
+@media (max-width: 1291.84px) { html:lang(es) { --jump-px: 111px; } }
+@media (max-width: 1019.84px) { html:lang(es) { --jump-px: 136px; } }
+@media (min-width: 960px) and (max-width: 59.9375em) { html:not(.js) { --jump-em: 13rem; } }
+/* Phones and tablets: the pinned full strip. In English, 98px on two rows, 120px up to 299px wide
+   and 142px up to 259px; 48px on one row from 759px, or from 704px on a screen 480px tall or
+   less. In Spanish, 98px on two rows, 120px up to 366px wide, 142px up to 324px, 164px up to 320px
+   and 186px up to 278px; on screens over 480px tall with its extra words, 142px from 481 to 504px
+   and 121px to 622px; and 48px on one row from 708px on a screen 480px tall or less. */
+@media (max-width: 959px) {
+  html[lang] { --jump-px: 112px; }
+  html:lang(en) { --jump-em: 7rem; }
+  html:lang(es) { --jump-em: 7rem; }
+}
+@media (max-width: 299.84px) { html:lang(en) { --jump-px: 134px; } }
+@media (max-width: 259.84px) { html:lang(en) { --jump-px: 156px; } }
+@media (max-width: 18.74em) { html:lang(en) { --jump-em: 8.4rem; } }
+@media (max-width: 16.24em) { html:lang(en) { --jump-em: 9.75rem; } }
+@media (min-width: 759px) and (max-width: 959px) { html:lang(en) { --jump-px: 62px; } }
+@media (min-width: 47.44em) and (max-width: 959px) { html:lang(en) { --jump-em: 3.9rem; } }
+@media (min-width: 480.16px) and (max-width: 622.84px) and (min-height: 480.16px) { html:lang(es) { --jump-px: 136px; } }
+@media (min-width: 480.16px) and (max-width: 504.84px) and (min-height: 480.16px) { html:lang(es) { --jump-px: 156px; } }
+@media (min-width: 30.01em) and (max-width: 38.92em) and (max-width: 959px) and (min-height: 30.01em) { html:lang(es) { --jump-em: 8.5rem; } }
+@media (min-width: 30.01em) and (max-width: 31.55em) and (max-width: 959px) and (min-height: 30.01em) { html:lang(es) { --jump-em: 9.75rem; } }
+@media (max-width: 366.84px) { html:lang(es) { --jump-px: 134px; } }
+@media (max-width: 324.84px) { html:lang(es) { --jump-px: 156px; } }
+@media (max-width: 320.84px) { html:lang(es) { --jump-px: 178px; } }
+@media (max-width: 278.84px) { html:lang(es) { --jump-px: 200px; } }
+@media (max-width: 22.92em) { html:lang(es) { --jump-em: 8.4rem; } }
+@media (max-width: 20.3em) { html:lang(es) { --jump-em: 9.75rem; } }
+@media (max-width: 20.05em) { html:lang(es) { --jump-em: 11.1rem; } }
+@media (max-width: 17.43em) { html:lang(es) { --jump-em: 12.5rem; } }
+@media (min-width: 708px) and (max-width: 959px) and (max-height: 480px) { html:lang(es) { --jump-px: 62px; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -477,6 +529,8 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
 /* Very large text settings: the strip would fill too much of the screen if pinned. */
 @media (max-width: 16em), (max-width: 256px) {
   .crisis-bar { position: static; }
+  /* Nothing is pinned, so jump links stop near the top: see "Where a jump link stops". */
+  html[lang] { --jump-em: 1rem; --jump-px: 16px; }
 }
 /* Heavily zoomed or very short screens: anything pinned would cover too much. A phone on
    its side still pins the one-row strip: Safari on an iPhone 17 measures 750 by 292 there. */
@@ -484,6 +538,19 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
        (max-height: 300px) and (max-width: 703.84px), (max-height: 240px) {
   .crisis-bar { position: static; }
   .site-header { position: relative; }
+  html[lang] { --jump-em: 1rem; --jump-px: 16px; }
+}
+/* Wide screens, which pin the header instead of the strip, unpin it where it would take more than
+   half the screen: in Spanish it takes 7.6rem on three lines (proposed November 10, 2026). Without
+   JavaScript and with larger text, the header holds the whole menu, up to 12.1rem, so it unpins
+   where that would take more than a third. Quick exit still floats in the corner. */
+@media (min-width: 960px) and (max-width: 59.9375em) and (max-height: 36.25em) {
+  html:not(.js) .site-header { position: relative; }
+  html:not(.js) { --jump-em: 1rem; --jump-px: 16px; }
+}
+@media (min-width: 960px) and (max-height: 15.25em) {
+  .site-header { position: relative; }
+  html[lang] { --jump-em: 1rem; --jump-px: 16px; }
 }
 
 /* Tablet */
@@ -801,6 +868,47 @@ body { padding-bottom: 76px; }
   .quick-exit { text-transform: capitalize; }
 }
 
+/* Narrow screens just over 300px tall, such as a phone in split-screen. A proposal, November 10,
+   2026, not agreed by both founders: see the strip entry in notes/DECISIONS.md. At the default
+   text size the full strip pinned there took up to 61% of the height: a Spanish page 257 by 301,
+   on four rows. Where it would take more than a quarter, the compact strip now pins where it fits
+   (its last outer limit, below). Where that row doesn't fit, the full strip stays pinned while it
+   takes a third of the height or less, and above a third it scrolls away and Quick exit floats,
+   as on other screens too small for it. Each height limit below is three times the full strip's
+   height at the default size there, measured in desktop Chrome's phone-size emulation on November
+   10, 2026: English 139.5px up to 259px wide and 117.75px up to 299px; Spanish 185.5px up to 278px
+   wide (183.5px on screens 480px tall or less), 163.75px up to 320px, 139.5px up to 324px and
+   117.75px up to 366px. They are in px only, so smaller text follows the default size. The words
+   wrap differently in other fonts, so on a phone these widths can be a little off. :lang() rather
+   than html[lang], because tools/check_site.py pairs html[lang] blocks as the compact strip's
+   copies. */
+@media (max-width: 259.84px) and (max-height: 418.4px), (max-width: 299.84px) and (max-height: 353.2px) {
+  html:lang(en) .crisis-bar { position: static; }
+  html:lang(en) .quick-exit { position: fixed; margin-left: 0; padding: 0 14px; gap: 8px; }
+  html:lang(en) .quick-exit:focus-visible { outline-color: #3D3F3C; outline-offset: 3px; }
+  html:lang(en) body { padding-bottom: 76px; }
+  html:lang(en) { --jump-em: 1rem; --jump-px: 16px; }
+}
+@media (max-width: 278.84px) and (max-height: 556.4px), (max-width: 320.84px) and (max-height: 491.2px),
+       (max-width: 324.84px) and (max-height: 418.4px), (max-width: 366.84px) and (max-height: 353.2px) {
+  html:lang(es) .crisis-bar { position: static; }
+  html:lang(es) .quick-exit { position: fixed; margin-left: 0; padding: 0 14px; gap: 8px; }
+  html:lang(es) .quick-exit:focus-visible { outline-color: #3D3F3C; outline-offset: 3px; }
+  html:lang(es) body { padding-bottom: 76px; }
+  html:lang(es) { --jump-em: 1rem; --jump-px: 16px; }
+}
+@media (prefers-color-scheme: dark) {
+  html:lang(en) .quick-exit:focus-visible, html:lang(es) .quick-exit:focus-visible { outline-color: #fff; }
+}
+/* Spanish 481 to 504px wide, its extra words take a third row (142px), and to 622px wide on a screen
+   484px tall or less they make the strip 121px: over a quarter of a screen under 568px or 485px
+   tall. There they go, as on smaller screens. The numbers and links stay. Each width limit is also
+   set in em, so with smaller text, where the words take less room, they stay. */
+@media (min-width: 480.16px) and (max-width: 504.84px) and (max-width: 31.55em) and (max-height: 567.84px),
+       (min-width: 480.16px) and (max-width: 622.84px) and (max-width: 38.92em) and (max-height: 484.84px) {
+  html:lang(es) .strip-extra { display: none; }
+}
+
 /* The compact crisis strip. A proposal, not agreed by both founders: see notes/DECISIONS.md.
    Where the rules above let the full strip scroll away on a short screen or with a larger text
    setting, a shorter strip pins instead, on one row: "Call 988 · Text 988 · Call 911", with Quick
@@ -814,10 +922,14 @@ body { padding-bottom: 76px; }
    width limit also has a floor in px: the width it gives at the default text size. Anywhere else,
    such as a phone held upright with very large text, the strip scrolls away as before and Quick
    exit floats. The outer limits are the full strip's height limits, with the same floors in px:
-   see "Floors in px" above. Keep the two language blocks the same apart from their width:
-   tools/check_site.py compares them. */
+   see "Floors in px" above. The last outer limit, added November 10, 2026, is where the full
+   strip takes two rows, 96px, and so more than a quarter of a screen under 384px tall: see "Narrow
+   screens just over 300px tall" above. Its width limit is also in em, where the full strip takes
+   one row, so with smaller text the one-row full strip stays. Keep the two language blocks the same apart from their
+   width: tools/check_site.py compares them. */
 @media (max-width: 959px) and (max-width: 43.99em) and (max-height: 18.75em), (max-width: 959px) and (max-height: 15em),
-       (max-width: 959px) and (max-width: 703.84px) and (max-height: 300px), (max-width: 959px) and (max-height: 240px) {
+       (max-width: 959px) and (max-width: 703.84px) and (max-height: 300px), (max-width: 959px) and (max-height: 240px),
+       (max-width: 703.84px) and (max-width: 43.99em) and (max-height: 383.84px) {
   @media (min-height: 12em) and (min-height: 192px), (min-height: 8.3em) and (min-height: 265px) {
     @media (min-width: 19.5em) and (min-width: 312px) {
       html[lang="en"] .crisis-bar { position: sticky; column-gap: 0; padding: 2px 4px; }
@@ -830,6 +942,7 @@ body { padding-bottom: 76px; }
       html[lang="en"] .quick-exit { position: static; order: 3; flex: none; margin-left: 12px; min-height: 44px; padding: 0 12px; gap: 6px; font-size: .9rem; box-shadow: none; }
       html[lang="en"] .quick-exit:focus-visible { outline-color: #fff; outline-offset: 1px; }
       html[lang="en"] body { padding-bottom: 0; }
+      html[lang="en"] { --jump-em: 3.9rem; --jump-px: 62px; }
     }
     @media (min-width: 34em) and (min-width: 544px) {
       html[lang="es"] .crisis-bar { position: sticky; column-gap: 0; padding: 2px 4px; }
@@ -841,6 +954,7 @@ body { padding-bottom: 76px; }
       html[lang="es"] .quick-exit { position: static; order: 3; flex: none; margin-left: 12px; min-height: 44px; padding: 0 12px; gap: 6px; font-size: .9rem; box-shadow: none; }
       html[lang="es"] .quick-exit:focus-visible { outline-color: #fff; outline-offset: 1px; }
       html[lang="es"] body { padding-bottom: 0; }
+      html[lang="es"] { --jump-em: 3.9rem; --jump-px: 62px; }
     }
   }
 }
