@@ -56,7 +56,7 @@ column. Recheck close to publication and at least monthly (proposed).
 | Resource | How to reach it | Official page | Read on | Person confirmed |
 | --- | --- | --- | --- | --- |
 | 988 Suicide & Crisis Lifeline | Call or text 988; chat at chat.988lifeline.org. 24/7 | https://988lifeline.org/get-help/ | Nov 6 and 9, 2026 | |
-| 988 by text, first steps | Send any message to 988. Reply NEXT to accept the terms of service, answer a brief survey, then a Wait message comes before a counselor. 988's Spanish What to Expect page lists the same steps and says the word "siguiente" accepts the terms | https://988lifeline.org/faq/texting-the-988-lifeline/ and https://988lifeline.org/get-help/what-to-expect/ (Spanish: https://988lifeline.org/es/obten-ayuda/que-puede-esperar/) | Nov 7 and 9, 2026 | |
+| 988 by text, first steps | Send any message to 988. Reply NEXT to accept the terms of service, answer a brief survey, then a Wait message comes before a counselor. 988's Spanish What to Expect page lists the same steps and says the word "siguiente" accepts the terms | https://988lifeline.org/faq/texting-the-988-lifeline/ and https://988lifeline.org/get-help/what-to-expect/ (Spanish: https://988lifeline.org/es/obten-ayuda/que-puede-esperar/) | Nov 7, 9 and 10, 2026 | |
 | 988 in Spanish | Call 988, then press 2; text AYUDA to 988; chat at chat.988lifeline.org/?lang=es | https://988lifeline.org/get-help/ | Nov 6 and 9, 2026 | |
 | 988 in other languages | Call 988 and ask for an interpreter or say the language. More than 240 languages, voice only | https://988lifeline.org/faq/calling-the-988-lifeline/faq-is-the-988-lifeline-available-in-other-languages-for-non-english-speakers/ | Nov 6, 2026 | |
 | 988 for Deaf and hard of hearing people | Dial 988 from a videophone; TTY users use a relay service or dial 711, then 988; text; chat | https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/ | Nov 6, 2026 | |
@@ -66,10 +66,10 @@ column. Recheck close to publication and at least monthly (proposed).
 | The Trevor Project (LGBTQ+ young people) | Call 1-866-488-7386; text START to 678-678; chat; TTY 1-866-803-3699 | https://www.thetrevorproject.org/get-help/ | Nov 6, 2026 | |
 | SAMHSA National Helpline (referrals, not a crisis line) | 1-800-662-4357; TTY 1-800-487-4889. English and Spanish, 24/7 | https://www.samhsa.gov/find-help/helplines/national-helpline | Nov 6, 2026 | |
 | TAPS (support after a military suicide loss) | Call 1-800-959-8277, 24/7 | https://www.taps.org/suicide | Nov 7, 2026 | |
-| National Maternal Mental Health Hotline (HRSA; for people who are pregnant or just had a baby, and their partners and families. Its pages don't call it a crisis line) | Call or text 1-833-852-6262, also written with letters (see below); chat from its page. 24/7, English and Spanish; interpreters for over sixty languages; TTY or another relay service | https://mchb.hrsa.gov/programs-impact/national-maternal-mental-health-hotline (Spanish: https://mchb.hrsa.gov/es/programas-impacto/linea-nacional-asistencia-salud-mental-materna) | Nov 9, 2026 | |
-| Disaster Distress Helpline (SAMHSA; crisis counseling for emotional distress related to a natural or human-caused disaster) | Call or text 1-800-985-5990, 24/7. Spanish: press 2. American Sign Language: call or text through a relay provider. Interpreters for over a hundred languages | https://www.samhsa.gov/find-help/helplines/disaster-distress-helpline (Spanish: https://www.samhsa.gov/find-help/helplines/disaster-distress-helpline/espanol) | Nov 9, 2026 | |
-| Teen Line (Didi Hirsch Mental Health Services; trained teen volunteers, for young people up to age 19; not open all day and night) | Call 1-800-852-8336, every night 6 to 10 p.m. Pacific; text TEEN to 839863, 6 to 9 p.m. Pacific. After hours, calls go to adult counselors at Didi Hirsch, and texts get no reply. English only | https://didihirsch.org/teenline/ and https://didihirsch.org/teenline/hotline-support/ | Nov 9, 2026 | |
-| Trans Lifeline (peer support run by trans people, for trans and questioning people. Its pages call it a peer support service and say you don't need to be in a crisis to call. Not open all day and night) | Call 1-877-565-8860, Monday to Friday, 10 a.m. to 6 p.m. Pacific (1 to 9 p.m. Eastern); closed on some holidays. Press 2 for Spanish. Phone only: its FAQ says text chat is being prepared | https://translifeline.org/hotline/ (Spanish: https://translifeline.org/es/linea-de-ayuda/) | Nov 9, 2026 | |
+| National Maternal Mental Health Hotline (HRSA; for people who are pregnant or just had a baby, and their partners and families. Its pages don't call it a crisis line) | Call or text 1-833-852-6262, also written with letters (see below); chat from its page. 24/7, English and Spanish; interpreters for over sixty languages; TTY or another relay service | https://mchb.hrsa.gov/programs-impact/national-maternal-mental-health-hotline (Spanish: https://mchb.hrsa.gov/es/programas-impacto/linea-nacional-asistencia-salud-mental-materna) | Nov 9 and 10, 2026 | |
+| Disaster Distress Helpline (SAMHSA; crisis counseling for emotional distress related to a natural or human-caused disaster) | Call or text 1-800-985-5990, 24/7. Spanish: press 2. American Sign Language: call or text through a relay provider. Interpreters for over a hundred languages | https://www.samhsa.gov/find-help/helplines/disaster-distress-helpline (Spanish: https://www.samhsa.gov/find-help/helplines/disaster-distress-helpline/espanol) | Nov 9 and 10, 2026 | |
+| Teen Line (Didi Hirsch Mental Health Services; trained teen volunteers, for young people up to age 19; not open all day and night) | Call 1-800-852-8336, every night 6 to 10 p.m. Pacific; text TEEN to 839863, 6 to 9 p.m. Pacific. After hours, calls go to adult counselors at Didi Hirsch, and texts get no reply. English only | https://didihirsch.org/teenline/ and https://didihirsch.org/teenline/hotline-support/ | Nov 9 and 10, 2026 | |
+| Trans Lifeline (peer support run by trans people, for trans and questioning people. Its pages call it a peer support service and say you don't need to be in a crisis to call. Not open all day and night) | Call 1-877-565-8860, Monday to Friday, 10 a.m. to 6 p.m. Pacific (1 to 9 p.m. Eastern); closed on some holidays. Press 2 for Spanish. Phone only: its FAQ says text chat is being prepared | https://translifeline.org/hotline/ (Spanish: https://translifeline.org/es/linea-de-ayuda/) | Nov 9 and 10, 2026 | |
 | FindTreatment.gov (treatment finder) | Website | https://findtreatment.gov | Nov 6, 2026 | |
 | Emergency services | Call 911. Text-to-911 works only in some places; call if you can | https://www.fcc.gov/consumers/guides/what-you-need-know-about-text-911 | Nov 6, 2026 | |
 
@@ -93,7 +93,8 @@ column. Recheck close to publication and at least monthly (proposed).
   Hotline, the Disaster Distress Helpline, Teen Line, and Trans Lifeline are on Get Help and its
   Spanish twin as drafts. Claude read each provider's own pages that day in the desktop app's
   built-in browser, without calling, texting, chatting, or submitting anything, and opened no chat
-  page. A person should confirm these points:
+  page. Claude read them all again the same way on November 10, 2026, and every detail below still
+  held. A person should confirm these points:
   - HRSA's English and Spanish pages describe listening, local support groups, and referrals. Neither
     calls the maternal hotline a crisis line, mentions 911 or 988, or says what to do in an
     emergency. Both show the number in their call and text links and as 1-833-TLC-MAMA; the Spanish
@@ -122,7 +123,7 @@ column. Recheck close to publication and at least monthly (proposed).
   supports Spanish and that the word isn't confirmed. A person should ask Crisis Text Line.
 - **Veterans Crisis Line TTY number.** Older VA pages list a 10-digit TTY number.
   The current call page says to use a relay service or dial 711, then 988.
-- **Friendship Line (Institute on Aging), for older adults.** Read November 9, 2026, at
+- **Friendship Line (Institute on Aging), for older adults.** Read November 9 and 10, 2026, at
   https://www.ioaging.org/friendship-line/. The page calls it the nation's only accredited 24-hour
   toll-free emotional support line for older adults, caregivers, and adults with disabilities, and
   lists crisis intervention and suicide prevention among its services. The same page says it serves
@@ -136,8 +137,8 @@ column. Recheck close to publication and at least monthly (proposed).
   the 911 card on Get Help, its Spanish twin, and the "Emergency services" row above rest on
   earlier reads. A person should open it in a browser and confirm the wording.
 - HRSA's National Maternal Mental Health Hotline page. Claude read it in the desktop app's browser on
-  November 9, 2026, but it answered 403 to `tools/check_crisis_sources.py`, both as a plain read and
-  in its Chrome, the same day. The monthly check lists it for a person to open, like the FCC's page.
+  November 9 and 10, 2026, but it answered 403 to `tools/check_crisis_sources.py` on both days. The
+  monthly check lists it for a person to open, like the FCC's page.
 
 - That the Call and Text links open the dial and compose screens on a real iPhone
   and Android phone, with the right number filled in. Stop there and cancel.

@@ -422,8 +422,10 @@ old loss survivors page now answers "not found", so it isn't cited.
 ### How the November 9 Get Help additions' sources were read
 
 Claude read these on November 9, 2026, in the desktop app's built-in browser, page text and folded
-answers included. It called, texted, and submitted nothing, and opened no chat page. Not a person's
-check.
+answers included, and read them all again the same way on November 10, 2026. It called, texted, and
+submitted nothing, and opened no chat page. Not a person's check. The November 10 read changed one
+line: 988's English and Spanish What to Expect pages say a text gets a "Wait" message, not that it
+may, so both Get Help pages now say so.
 
 - HRSA: the National Maternal Mental Health Hotline page in English and Spanish.
 - SAMHSA: the Disaster Distress Helpline page in English and Spanish.
