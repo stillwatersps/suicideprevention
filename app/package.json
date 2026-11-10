@@ -6,8 +6,9 @@
   "type": "module",
   "scripts": {
     "build": "node tools/build.mjs",
-    "test": "node tools/build.mjs && node test/app-test.mjs",
-    "sync": "node tools/build.mjs && npx cap sync"
+    "test": "node tools/build.mjs && node test/logic-test.mjs && node test/app-test.mjs",
+    "sync": "node tools/build.mjs && npx cap sync",
+    "test:ios": "cd ios/TidelightLogic && swift test"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.0",

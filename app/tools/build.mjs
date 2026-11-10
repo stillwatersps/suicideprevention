@@ -59,13 +59,15 @@ for (const page of PAGES) {
   html = once(html, '          <p class="ci-set-aside"', b.foryou + '          <p class="ci-set-aside"', 'for your age');
   html = once(html, '          <p class="ci-step-buttons"><button type="button" class="ci-restart">',
     b['result-share'] + '          <p class="ci-step-buttons"><button type="button" class="ci-restart">', 'result share');
-  html = once(html, '  </main>', b['share-dialog'] + '  </main>', 'share panel');
+  // Places that are hard for me (E1): the alert screen sits after the share panel.
+  html = once(html, '  </main>', b['share-dialog'] + b['place-alert'] + '  </main>', 'share panel');
   // The journal's note comes first in the page, then Your journey's.
   const notes = html.match(/        <p class="ci-note">.*<\/p>\n/g) || [];
   if (notes.length !== 2) throw new Error(`notes: expected 2, found ${notes.length}`);
   html = once(html, notes[0], b['journal-note'], 'journal note');
   html = once(html, notes[1], b['journey-note'], 'journey note');
-  html = once(html, '        <section class="ci-erase"', b.reminders + b.settings + '        <section class="ci-erase"', 'settings');
+  // Places that are hard for me (E1) goes between the reminders and the age group.
+  html = once(html, '        <section class="ci-erase"', b.reminders + b.places + b.settings + '        <section class="ci-erase"', 'settings');
   html = once(html, /(<h3 id="ci-erase-title">[^<]*<\/h3>\n {10}<p>[^\n]*<\/p>\n)/, `$1${b['erase-note']}`, 'erase note');
   const share = ` <button type="button" class="app-share" data-share="entry">${b['share-label'].trim()}</button>`;
   html = once(html, /(<button type="button" class="ci-delete-entry">[^<]*<\/button>)/, `$1${share}`, 'entry share');

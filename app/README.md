@@ -18,6 +18,13 @@ five things to the Daily check-in, and nothing else:
 - **Today's check-ins, shared on purpose.** Your journey lists each check-in by the time of day it
   was done, with the feeling and needs chosen, and offers Share today's check-ins and Share the
   last 7 days through the same notice and share sheet. See `notes/CHECK-IN-SCHEDULE.md`.
+- **Places that are hard for me (idea E1).** Off until turned on. The person adds their own places on a
+  map, chooses up to 5 people from their contacts, a wait time, and a message. The phone watches the
+  places itself (region monitoring, at most 20); after the wait, a neutral notification opens an alert
+  screen with a countdown, "I'm okay", 988 and 911, and then the phone's Messages composer, where the
+  person taps Send. The app suggests no places and keeps no record of visits. Native code is in
+  `ios/App/App/` (Swift); the dwell logic and its tests are in `ios/TidelightLogic/`. See
+  `notes/LOCATION-ALERT.md`.
 
 **Draft. No licensed reviewer has read the app's words, no fluent reader has checked the Spanish,
 no lawyer has advised on ages or privacy, and it has never run on a phone.** Every word the app adds
@@ -69,6 +76,23 @@ Then, for Android, open `app/android` in Android Studio and press Run. For iPhon
 and CocoaPods, run `npx cap open ios` and press Run. (`npm run sync` needs CocoaPods for the iPhone
 part; without it, run `npx cap sync android` and the iPhone project's `Podfile` is kept current by hand.) Follow the rule in `notes/PHONE-TEST.md`: tap call and text links only as far
 as the dial or compose screen, then cancel.
+
+## Running on iPhone
+
+The iOS project targets iOS 15 and uses the scene life cycle, which Xcode 27's SDK requires. CocoaPods
+needs a UTF-8 locale on this Mac:
+
+```bash
+LANG=en_US.UTF-8 npm run sync
+```
+
+```bash
+cd ios/TidelightLogic && swift test
+```
+
+The Simulator can't watch places (region monitoring isn't available there) or send texts, so test
+builds show a "Pretend I just arrived" button and a 1-minute wait, and the share sheet stands in for
+Messages. A real iPhone is needed for the rest.
 
 ## Still to do before anyone else uses it
 

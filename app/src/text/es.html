@@ -153,7 +153,7 @@
 <!-- END -->
 
 <!-- BLOCK:erase-note -->
-          <p>En la app, esto también borra lo que está guardado en este teléfono. Una copia en una copia de seguridad anterior de iCloud o de Google puede durar hasta la siguiente copia del teléfono. Tu grupo de edad y las horas de tus recordatorios se quedan, para que no se te vuelva a preguntar.</p>
+          <p>En la app, esto también borra lo que está guardado en este teléfono. Una copia en una copia de seguridad anterior de iCloud o de Google puede durar hasta la siguiente copia del teléfono. También se borran tus lugares y tus personas de Lugares que son difíciles para mí. Tu grupo de edad y las horas de tus recordatorios se quedan, para que no se te vuelva a preguntar.</p>
 <!-- END -->
 
 <!-- BLOCK:about-checkin -->
@@ -190,4 +190,115 @@
           <p class="app-rem-denied" role="status">Este teléfono no deja que Tidelight muestre notificaciones, así que no se puede programar ningún recordatorio. Puedes cambiarlo en los ajustes del teléfono.</p>
           <p class="app-rem-words"><span class="app-rem-title">Tidelight</span><span class="app-rem-body">Un momento para registrarte, si quieres.</span></p>
         </section>
+<!-- END -->
+
+<!-- Places that are hard for me (idea E1): a draft the reviewer hasn't seen. -->
+<!-- BLOCK:places -->
+        <section class="app-places" id="app-places" tabindex="-1" aria-labelledby="app-places-title">
+          <h3 id="app-places-title">Lugares que son difíciles para mí</h3>
+          <p>Algunas personas tienen un lugar cerca del cual les cuesta estar. Si quieres, puedes decirle a este teléfono cuáles son los tuyos, para que, cuando lleves un rato allí, el teléfono te pregunte cómo estás y, si tú lo eliges, avise a personas de tu confianza dónde estás.</p>
+          <p>Esto está apagado hasta que lo enciendas. La app no sugiere ningún lugar: solo tú decides qué cuenta como un lugar difícil para ti. Tus lugares y tus personas se quedan en este teléfono, y Tidelight nunca los recibe. Puedes apagarlo o quitar cualquier cosa en cualquier momento, y nadie se entera.</p>
+          <p class="ci-field"><label><input type="checkbox" class="app-places-on"> Encender esto</label></p>
+          <p class="app-places-web" role="status">Esto funciona en la app, en un teléfono. En un navegador web puedes verlo, pero no se puede vigilar ningún lugar.</p>
+          <div class="app-places-setup">
+            <h4>Permiso</h4>
+            <p class="app-places-perm">Para que funcione con la app cerrada, el teléfono tiene que permitir que Tidelight use tu ubicación "siempre". El teléfono lo pregunta en dos pasos: primero "al usar la app" y después "siempre", a veces unos días más tarde. Tu ubicación solo se usa para notar tus propios lugares, y nunca se envía a menos que tú elijas enviarla.</p>
+            <p class="app-places-perm-state" role="status"><span data-auth="notDetermined">Todavía no se ha pedido el permiso de ubicación.</span><span data-auth="whenInUse">El teléfono permite la ubicación solo mientras la app está abierta, así que con la app cerrada no puede notar un lugar. Para permitir "siempre", abre los Ajustes del teléfono, Tidelight, Ubicación.</span><span data-auth="always">El teléfono permite la ubicación siempre. Tus lugares se pueden notar con la app cerrada.</span><span data-auth="denied">El teléfono no permite que Tidelight use tu ubicación, así que no se puede notar ningún lugar. Puedes cambiarlo en los Ajustes del teléfono, en Tidelight.</span><span data-auth="restricted">Este teléfono no permite la ubicación para esta app.</span></p>
+            <p class="app-places-unavailable" role="status">Este teléfono no puede vigilar lugares, así que aquí no se puede notar nada. Tus lugares se guardan, por si usas la app en un teléfono que sí pueda.</p>
+            <p class="ci-step-buttons"><button type="button" class="app-places-allow">Permitir la ubicación</button></p>
+            <p class="app-places-notif" role="status">Este teléfono no permite que Tidelight muestre notificaciones, así que no podría preguntarte cómo estás. Puedes cambiarlo en los Ajustes del teléfono, en Tidelight.</p>
+
+            <h4>Tus lugares</h4>
+            <p>Agrega un lugar eligiéndolo en un mapa, o buscando una dirección. Ponle un nombre que solo tú necesites entender, y elige qué tan cerca cuenta.</p>
+            <p class="ci-empty app-places-empty">Todavía no hay lugares. No tienes que agregar ninguno.</p>
+            <ul class="ci-list app-places-list" aria-label="Tus lugares"></ul>
+            <p class="ci-step-buttons"><button type="button" class="app-place-add">Agregar un lugar</button></p>
+            <p class="app-places-full" role="status">El teléfono puede vigilar hasta 20 lugares. Quita uno para agregar otro.</p>
+
+            <h4>Personas de tu confianza</h4>
+            <p>Elige hasta 5 personas de tus contactos. La app guarda su nombre y su número de teléfono solo en este teléfono. No se les avisa que las elegiste, y no se les envía nada a menos que tú lo envíes.</p>
+            <p class="ci-empty app-people-empty">Todavía no has elegido a nadie. Sin alguien elegido, el teléfono igual puede preguntarte cómo estás, pero no hay nadie a quien enviarle un mensaje.</p>
+            <ul class="ci-list app-people-list" aria-label="Personas de tu confianza"></ul>
+            <p class="ci-step-buttons"><button type="button" class="app-person-add">Elegir a alguien de mis contactos</button></p>
+            <p class="app-people-full" role="status">Puedes elegir hasta 5 personas. Quita una para agregar otra.</p>
+
+            <h4>Cuánto tiempo antes de que el teléfono te pregunte</h4>
+            <p class="ci-field"><label for="app-dwell">Después de estar en un lugar durante</label></p>
+            <select id="app-dwell" class="app-dwell"><option value="10">10 minutos</option><option value="20" selected>20 minutos</option><option value="30">30 minutos</option><option value="1" class="app-dwell-test">1 minuto (solo en versiones de prueba)</option></select>
+            <p>Pasar por un lugar no hace nada. Solo cuenta quedarse.</p>
+
+            <h4>Lo que muestra el teléfono</h4>
+            <p>Cuando se cumple el tiempo, el teléfono muestra una notificación de Tidelight. Por defecto solo dice "Tu plan está aquí", para que nada privado se vea en la pantalla de bloqueo. Al abrirla ves cuánto tiempo llevas allí, tus personas, el 988 y el 911, y las opciones de abajo.</p>
+            <p class="ci-field"><label><input type="checkbox" class="app-places-lock"> Mostrar el nombre del lugar y el tiempo en la pantalla de bloqueo</label></p>
+
+            <h4>Tu mensaje</h4>
+            <p>Si eliges enviarlo, este mensaje llega a tus personas por la app Mensajes del teléfono, con un enlace de mapa a donde estás. Lo ves primero y tú mismo tocas Enviar; la app no puede enviar un mensaje de texto por su cuenta. Puedes cambiar las palabras ahora.</p>
+            <p class="ci-field"><label for="app-places-message">Tu mensaje</label></p>
+            <textarea id="app-places-message" class="app-places-message" rows="4" autocomplete="off"></textarea>
+            <p class="app-places-message-default">Estoy pasando un momento difícil y me gustaría que me llamaras. Preparé esto en Tidelight para enviarlo cuando me quedo en un lugar que es difícil para mí. Aquí es donde estoy:</p>
+
+            <h4>Bueno saberlo</h4>
+            <ul>
+              <li>Antes de confiar en esto, pruébalo una vez con alguien que elegiste, para que ambos sepan qué llega.</li>
+              <li>No puede funcionar si el teléfono está apagado, en modo avión, sin batería, con la ubicación apagada, o en un sitio donde el teléfono no sabe dónde está, como bajo tierra. El teléfono puede tardar unos minutos en notar un lugar, y los lugares de menos de unos 100 metros no son fiables.</li>
+              <li>El teléfono solo nota los lugares que elegiste. No sigue por dónde vas, y la app no guarda ningún registro de visitas.</li>
+              <li>Un mensaje a tus personas no es una forma de pedir ayuda urgente. Puede que tarden en verlo. Si necesitas ayuda ahora, <a class="tel-link" href="tel:988">llama al 988</a> y marca 2, o <a class="tel-link" href="sms:988">envía AYUDA al 988</a>. Si hay peligro inmediato, <a class="tel-link" href="tel:911">llama al 911</a>.</li>
+            </ul>
+            <p class="app-places-status" role="status"></p>
+            <p class="ci-step-buttons app-places-test"><button type="button" class="app-places-test-enter">Fingir que acabo de llegar a mi primer lugar (solo en versiones de prueba)</button></p>
+          </div>
+          <template class="app-place-template">
+            <li class="ci-item"><span class="ci-item-text"><strong class="app-place-name"></strong> <span class="app-place-radius"></span></span> <span class="app-item-buttons"><button type="button" class="app-place-edit">Cambiar</button> <button type="button" class="app-place-remove">Quitar</button></span></li>
+          </template>
+          <template class="app-person-template">
+            <li class="ci-item"><span class="ci-item-text"><strong class="app-person-name"></strong> <span class="app-person-phone"></span></span> <button type="button" class="app-person-remove">Quitar</button></li>
+          </template>
+          <p class="app-places-words">
+            <span data-word="radiusText">a unos {meters} metros o menos</span>
+            <span data-word="watching">Encendido. El teléfono vigila {count} lugar(es).</span>
+            <span data-word="watchingNone">Encendido, pero todavía no hay ningún lugar.</span>
+            <span data-word="off">Apagado. No se vigila nada.</span>
+            <span data-word="and">y</span>
+            <span data-word="notifTitle">Tidelight</span>
+            <span data-word="notifBody">Tu plan está aquí.</span>
+            <span data-word="notifBodyWithPlace">Llevas {minutes} minutos en {place}. Tu plan está aquí.</span>
+            <span data-word="notifOkay">Estoy bien</span>
+            <span data-word="notifSend">Enviar mi mensaje</span>
+            <span data-word="notifCall988">Llamar al 988</span>
+            <span data-word="notifCall911">Llamar al 911</span>
+            <span data-word="linkLabel">Donde estoy</span>
+            <span data-word="mapTitle">Elegir un lugar</span>
+            <span data-word="mapCancel">Cancelar</span>
+            <span data-word="mapSave">Guardar</span>
+            <span data-word="mapSearchPlaceholder">Buscar una dirección o un lugar</span>
+            <span data-word="mapHint">Mantén presionado el mapa para poner el marcador donde está el lugar, o busca arriba.</span>
+            <span data-word="mapUseHere">Usar donde estoy ahora</span>
+            <span data-word="mapNamePlaceholder">Un nombre que solo tú necesites entender</span>
+            <span data-word="mapNameLabel">Nombre de este lugar</span>
+            <span data-word="mapRadiusLabel">Qué tan cerca cuenta</span>
+            <span data-word="mapRadiusText">A unos {meters} metros o menos</span>
+            <span data-word="mapLabel">Mapa. Mantén presionado para poner el marcador.</span>
+            <span data-word="mapNotFound">No se encontró nada con eso. Prueba otra dirección, o mantén presionado el mapa.</span>
+            <span data-word="mapNoLocation">El teléfono no pudo saber dónde estás ahora. Mantén presionado el mapa en su lugar.</span>
+            <span data-word="mapNeedPin">Primero pon el marcador en el mapa.</span>
+            <span data-word="mapNeedName">Primero ponle un nombre al lugar.</span>
+          </p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:place-alert -->
+    <section class="app-place-alert" id="app-place-alert" tabindex="-1" aria-labelledby="app-alert-title">
+      <h2 id="app-alert-title">Llevas <span class="app-alert-minutes"></span> minutos en <span class="app-alert-place"></span></h2>
+      <p class="app-alert-intro">Tú preparaste esto para ti. ¿Quieres enviar tu mensaje, con dónde estás, a <strong class="app-alert-names"></strong>?</p>
+      <p class="app-alert-nobody">No has elegido a nadie a quien enviarle un mensaje, así que no se puede enviar nada. Puedes elegir personas en Tu camino.</p>
+      <p class="app-alert-countdown" role="status">Tu mensaje se abrirá en Mensajes en <strong class="app-alert-seconds"></strong> segundos, a menos que toques Estoy bien. Allí tú mismo tocas Enviar.</p>
+      <p class="ci-step-buttons"><button type="button" class="app-alert-send">Enviar mi mensaje ahora</button> <button type="button" class="app-alert-okay">Estoy bien</button></p>
+      <p class="app-alert-crisis">También puedes <a class="tel-link" href="tel:988">llamar al 988</a> y marcar 2, o <a class="tel-link" href="sms:988">enviar AYUDA al 988</a> ahora mismo, en cualquier momento. Si hay peligro inmediato, <a class="tel-link" href="tel:911">llama al 911</a>.</p>
+      <p class="app-alert-okay-done" role="status">Está bien. No se envió nada. El teléfono no volverá a preguntar mientras estés aquí.</p>
+      <p class="app-alert-opened" role="status">Tu mensaje está listo en Mensajes. Toca Enviar allí, o cancela. Todavía no se ha enviado nada.</p>
+      <p class="app-alert-fallback" role="status">Este teléfono no puede abrir Mensajes con tus personas ya puestas, así que se abrió la hoja para compartir. Elige Mensajes y a tus personas allí, o cancela.</p>
+      <p class="app-alert-sent" role="status">Tu mensaje se envió. Si puedes, mantén el teléfono cerca para que puedan contactarte. El 988 también está aquí para ti.</p>
+      <p class="app-alert-cancelled" role="status">No se envió nada. Puedes enviarlo más tarde desde aquí, o tocar Estoy bien.</p>
+      <p class="ci-step-buttons app-alert-close-row"><button type="button" class="app-alert-close">Cerrar</button></p>
+    </section>
 <!-- END -->

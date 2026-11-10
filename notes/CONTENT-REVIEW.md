@@ -821,6 +821,27 @@ Built November 9, 2026, at one founder's request, on branch `app/first-build`. E
 - **Location alerts, worked out** (November 9, 2026). [[LOCATION-ALERT]] lays out how an alert to
   chosen people could work when someone stays near a hard place. Please read its questions at the
   end before any of it is built.
+- **"Places that are hard for me" (E1), built as a draft** (November 10, 2026, branch
+  `app/hard-places-and-reminders`, never run on a real phone). Every word is in `app/src/text/en.html`
+  and `es.html`, in the blocks named `places` and `place-alert`, plus two iOS permission sentences in
+  `app/ios/App/App/Info.plist`. Please look at:
+  - **The alert's wording.** The lock screen says only "Tidelight. Your plan is here." unless the
+    person chooses to show the place and time. The screen inside says "You've been at [name] for
+    [N] minutes. You set this up for yourself. Would you like to send your message, with where you
+    are, to [names]?" with "Send my message now", "I'm okay", 988 and 911. Is "You set this up for
+    yourself" the right reminder of consent? Is the title too direct?
+  - **The wait times**: 10, 20, or 30 minutes, 20 to start. Too short, too long, or should there be
+    no wait, as E1 first proposed?
+  - **The countdown**: after the person opens the alert, the message opens in Messages after 30
+    seconds unless they tap "I'm okay". Should it always wait for a tap instead?
+  - **The default message** to the chosen people: "I'm having a hard time right now and I'd like you
+    to call me. I set this up in Tidelight to send when I stay at a place that's hard for me. Here's
+    where I am:" followed by a map link. The person can change it.
+  - **Minors**: a parent or guardian is the obvious person to choose, and the obvious problem when home
+    isn't safe. Does a minor's choice of people, or a guardian adding a place, need consent rules?
+    A lawyer should also advise on "always" location permission and location data for minors.
+  - **No built-in list of places**, as [[LOCATION-ALERT]] recommends. One founder had asked for one;
+    the handoff explains why it wasn't built. Do you agree?
 
 ## Human-only checklist
 
