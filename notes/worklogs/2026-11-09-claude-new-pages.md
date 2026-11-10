@@ -155,3 +155,52 @@ Checks on November 10, on this Mac:
 - Not run: the full suite, `--check-links`, and the browser groups links, matrix, textsize, folds, menu,
   quickexit, reducedmotion, contact, a11ytree, speed, modes, and privacy. Nothing on a real phone or in
   the iOS Simulator.
+
+## Update, November 10, 2026: review fixes
+
+Owner: Claude Code, at one founder's request. Branch `fix/new-pages-1109`, made from `2dfaf6f`, the tip
+of `build/new-pages-1109`. **State when written: local only.** Not pushed, not in any pull request.
+
+An AI code review raised two must-fix findings. Both were reproduced first.
+
+- **The printed blank plan had text over its write-in lines.** Printing to PDF in desktop Chrome, the
+  same way the print test does, showed the closing note ("A draft from Tidelight...", and the Spanish
+  "Un borrador de Tidelight...") on top of step 6's second and third lines on page 2. The earlier
+  "two pages" check above was a print-media screenshot, which can't show page splits. Cause: the plan
+  was a grid, which Chrome splits badly across pages. Fix: in the marked `.sp-*` print block in
+  `assets/styles.css`, the plan and its steps are blocks with margins in print. Every page of the PDFs
+  was then looked at, English and Spanish, light and dark mode: two pages each, with 988 and 911, and
+  nothing printed over the lines. `tools/test_browser.py`'s print test now fails if the plan or its
+  steps print as grid or flex, with a planted bug in `tools/test_the_tests.py`. It checks the cause, not
+  the overlap itself, which only shows in a PDF.
+- **The safety plan page gave the evidence without its limits.** Both languages now add Get Help's two
+  sentences: some of the research paired the plan with clinician contact and follow-up, so it doesn't
+  show what a plan made alone would do, and for children and teens a review found no clear benefit.
+  The two reviews are now in both pages' sources (10).
+
+Sources read November 10, 2026, in the built-in browser: Nuij and colleagues 2021, full text on
+Cambridge Core (every plan was made face to face with a clinician, four of six studies added it to usual
+care, and the authors ask whether follow-up calls play a role); Albaum and colleagues 2025, abstract and
+2026 correction notice on Europe PMC (10 studies, 5 pooled, no significant association). PubMed and JAMA
+Pediatrics showed browser checks, which were left alone, so the page links what was read.
+
+Smaller findings, as reviewer questions in [[CONTENT-REVIEW]] rather than page changes: whether the
+printed plan should credit the Stanley-Brown steps, and the unsourced line "The time after leaving a
+hospital is when support matters most" on After a suicide attempt, which assumes a hospital stay.
+
+Checks, on this Mac, November 10, 2026:
+
+- `python3 tools/check_site.py`: "Checked 25 pages. 119 different outside links." and "All checks
+  passed. This does not replace a real phone test or a content review.", with no "out of date" note
+  after the packets were rebuilt.
+- `tools/test_browser.py --only links,print,keyboard,jumps,nojs,language,offline,folds,textsize,modes
+  --pages plan`: links 105, textsize 36, keyboard 256, jumps 57, folds 2, language 2, nojs 2, print 2,
+  offline 18, modes 8 checks passed, 0 distinct failures. `--only print --pages card,tarjeta`: print 2
+  passed. Desktop Chrome and its phone-size emulation only.
+- `tools/test_webkit.py`: "243 checks in WebKit on this Mac, 0 problems." macOS WebKit, not iOS Safari.
+- `tools/test_the_tests.py --only "safety plan"`: all 5 caught, including the new one; `--only "wallet
+  card"`: 1 of 1.
+- Not run: the full suite, `--check-links`, the other browser groups, a real printer, a real phone, the
+  iOS Simulator.
+
+Next step: a founder decides whether to take these fixes into `build/new-pages-1109`.
