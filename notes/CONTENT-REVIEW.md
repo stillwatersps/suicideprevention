@@ -433,8 +433,9 @@ check.
 - 988: its home page, Get Help, What to Expect in English and Spanish, the calling and texting FAQ
   lists, and Help Someone Else. None gives example first words.
 
-`tools/check_crisis_sources.py --self-test` covers the new checks with made-up pages. The tool
-itself wasn't run against the live pages on this branch.
+`tools/check_crisis_sources.py --self-test` covers the new checks with made-up pages. Run against the
+live pages the same day, it found every new detail on SAMHSA's, Teen Line's, and Trans Lifeline's
+pages. HRSA's page answered 403 to it, so it is now listed with the FCC's page for a person to open.
 
 ## How the pages compare with the research brief
 

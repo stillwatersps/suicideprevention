@@ -302,6 +302,12 @@ def self_test():
     unread_ok = len(problems) == 1 and "988lifeline" in problems[0] and len(notes) == 1
     wrong += not unread_ok
     print(f"  {'ok' if unread_ok else 'WRONG'}: an unread provider page fails the run, a known blocker is a note")
+    # HRSA's maternal hotline page answers scripts with 403, so a person opens it instead.
+    hrsa = [check for check in CHECKS if urllib.parse.urlsplit(check[0]).hostname == "mchb.hrsa.gov"]
+    problems, notes = run(lambda _url: (403, ""), None, hrsa, out=lambda _line: None)
+    hrsa_ok = len(hrsa) == 1 and not problems and len(notes) == 1
+    wrong += not hrsa_ok
+    print(f"  {'ok' if hrsa_ok else 'WRONG'}: HRSA's blocked page is left for a person, not failed")
     # Every number and row in notes/SAFETY.md has a check, and a missing one is noticed.
     gaps = check_coverage()
     without_taps = check_coverage([check for check in CHECKS if "taps.org" not in check[0]])
@@ -313,7 +319,7 @@ def self_test():
     if wrong:
         print(f"{wrong} case(s) read wrongly. The monthly check can't be trusted until this is fixed.")
         return 1
-    print(f"All {len(cases) + 2} made-up cases were read correctly, and every crisis number in notes/SAFETY.md has a check.")
+    print(f"All {len(cases) + 3} made-up cases were read correctly, and every crisis number in notes/SAFETY.md has a check.")
     return 0
 
 

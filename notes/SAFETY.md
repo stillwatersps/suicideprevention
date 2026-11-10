@@ -135,6 +135,9 @@ column. Recheck close to publication and at least monthly (proposed).
 - The FCC's text-to-911 page. It refused automated reads on November 6 and 7, 2026 (403), so
   the 911 card on Get Help, its Spanish twin, and the "Emergency services" row above rest on
   earlier reads. A person should open it in a browser and confirm the wording.
+- HRSA's National Maternal Mental Health Hotline page. Claude read it in the desktop app's browser on
+  November 9, 2026, but it answered 403 to `tools/check_crisis_sources.py`, both as a plain read and
+  in its Chrome, the same day. The monthly check lists it for a person to open, like the FCC's page.
 
 - That the Call and Text links open the dial and compose screens on a real iPhone
   and Android phone, with the right number filled in. Stop there and cancel.

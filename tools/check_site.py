@@ -1511,9 +1511,11 @@ def check_crisis_styles(failures, names):
                                                 f"for example {node.describe()} on {name}: {why}")
 
 
-# Crisis services known to refuse scripts: two answer 403, and findtreatment.gov gives scripts, even
-# Chrome, a nearly empty page. A person checks these in a browser instead.
-KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov", "findtreatment.gov"}
+# Crisis services known to refuse scripts: three answer 403, and findtreatment.gov gives scripts, even
+# Chrome, a nearly empty page. A person checks these in a browser instead. HRSA's maternal hotline page
+# answered 403 to both of tools/check_crisis_sources.py's reads on November 9, 2026, though it opened in
+# the desktop app's browser.
+KNOWN_BLOCKERS = {"chat.988lifeline.org", "www.fcc.gov", "findtreatment.gov", "mchb.hrsa.gov"}
 
 
 def open_link(url):
