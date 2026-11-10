@@ -153,9 +153,153 @@
 <!-- END -->
 
 <!-- BLOCK:erase-note -->
-          <p>In the app, this also deletes what's saved on this phone. A copy in an earlier iCloud or Google backup can last until the phone's next backup. Your age group stays, so you aren't asked again.</p>
+          <p>In the app, this also deletes what's saved on this phone. A copy in an earlier iCloud or Google backup can last until the phone's next backup. Your places, your people, and today's check-ins list go too. Your age group and your reminder times stay, so you aren't asked again.</p>
 <!-- END -->
 
 <!-- BLOCK:about-checkin -->
-            <li><strong>The Daily check-in.</strong> In the app, what you choose and write there is saved on this phone only, and is included in the phone's iCloud or Google backup if that's on. Tidelight never receives it. Delete everything, in Your journey, removes it from the phone. <a href="../check-in/">Go to the Daily check-in</a>.</li>
+            <li><strong>The Daily check-in.</strong> In the app, what you choose and write there is saved on this phone only, and is included in the phone's iCloud or Google backup if that's on. Tidelight never receives it. Delete everything, in Your journey, removes it from the phone. Check-in reminders and "Places that are hard for me" are off until you turn them on; they're shown by the phone itself, and nothing is sent unless you send it. <a href="../check-in/">Go to the Daily check-in</a>.</li>
+<!-- END -->
+
+<!-- BLOCK:reminders-hint -->
+        <p class="app-rem-hint">If a reminder would help, you can choose check-in times in <a href="#app-reminders">Your journey</a>. They're off until you turn one on.</p>
+<!-- END -->
+
+<!-- BLOCK:today-log -->
+        <section class="app-log-section" aria-labelledby="app-log-title">
+          <h3 id="app-log-title">Today's check-ins</h3>
+          <p class="ci-empty app-log-empty">No check-ins today yet.</p>
+          <ul class="ci-list app-log" aria-labelledby="app-log-title"></ul>
+          <h4>Share your check-ins with someone you choose</h4>
+          <p>You can share a short summary of today, or of the last 7 days, with a parent or guardian, a doctor or therapist, or anyone else you choose. It lists the time of each check-in and the feeling and needs you chose, nothing you wrote, and no scores. You'll see the words first and can change them. Nothing leaves this phone unless you tap Share, and Tidelight has no server: it never receives a copy.</p>
+          <p class="ci-step-buttons"><button type="button" class="app-share-days" data-days="1">Share today's check-ins</button> <button type="button" class="app-share-days" data-days="7">Share the last 7 days</button></p>
+          <p class="app-sum-words"><span class="app-sum-title">Tidelight check-ins</span><span class="app-sum-feeling">feeling</span><span class="app-sum-needs">Needs:</span><span class="app-sum-none">No check-ins on these days.</span><span class="app-sum-footer">Shared by me from the Tidelight app. It isn't a way to get urgent help. If you're worried about me, please call me.</span><span class="app-sum-file">Tidelight check-ins</span><span class="app-slot" data-slot="morning">Morning</span><span class="app-slot" data-slot="midday">Midday</span><span class="app-slot" data-slot="afternoon">After school or work</span><span class="app-slot" data-slot="evening">Before bed</span></p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:share-pdf -->
+      <p class="ci-step-buttons app-share-pdf-row"><button type="button" class="app-share-pdf">Share as a PDF instead</button></p>
+<!-- END -->
+
+<!-- BLOCK:reminders -->
+        <section class="app-reminders" id="app-reminders" tabindex="-1" aria-labelledby="app-reminders-title">
+          <h3 id="app-reminders-title">Check-in reminders</h3>
+          <p>If you'd like, this phone can remind you to check in. Each reminder is off until you turn it on, and you choose its time. A reminder only says "A moment to check in, if you'd like." Nothing about you is in it, and nothing is sent anywhere. Tapping it opens the check-in.</p>
+          <ul class="app-rem-list">
+            <li><label><input type="checkbox" class="app-rem-on" data-slot="morning"> Morning</label> <label class="app-rem-at">at <input type="time" class="app-rem-time" data-slot="morning" value="08:00"></label></li>
+            <li><label><input type="checkbox" class="app-rem-on" data-slot="midday"> Midday</label> <label class="app-rem-at">at <input type="time" class="app-rem-time" data-slot="midday" value="12:00"></label></li>
+            <li><label><input type="checkbox" class="app-rem-on" data-slot="afternoon"> After school, or after work</label> <label class="app-rem-at">at <input type="time" class="app-rem-time" data-slot="afternoon" value="15:30"></label></li>
+            <li><label><input type="checkbox" class="app-rem-on" data-slot="evening"> Before bed</label> <label class="app-rem-at">at <input type="time" class="app-rem-time" data-slot="evening" value="21:00"></label></li>
+          </ul>
+          <p class="app-rem-web" role="status">Reminders work in the app on a phone. In a web browser your choices are kept, but no reminder can be shown.</p>
+          <p class="app-rem-denied" role="status">This phone isn't letting Tidelight show notifications, so no reminder can be shown. You can change that in the phone's Settings, under Tidelight.</p>
+          <p class="app-rem-words"><span class="app-rem-title">Tidelight</span><span class="app-rem-body">A moment to check in, if you'd like.</span></p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:places -->
+        <section class="app-places" id="app-places" tabindex="-1" aria-labelledby="app-places-title">
+          <h3 id="app-places-title">Places that are hard for me</h3>
+          <p>Some people have a place that's hard to be near. If you'd like, you can tell this phone about yours, so that when you've stayed there for a while, the phone can check in with you and, if you choose, let people you trust know where you are.</p>
+          <p>This is off until you turn it on. The app suggests no places: only you decide what counts as a hard place for you. Your places and your people stay on this phone, and Tidelight never receives them. You can turn this off or remove anything at any time, and nobody is told.</p>
+          <p class="ci-field"><label><input type="checkbox" class="app-places-on"> Turn this on</label></p>
+          <p class="app-places-web" role="status">This works in the app on a phone. In a web browser you can look at it, but no place can be watched.</p>
+          <div class="app-places-setup">
+            <h4>Permission</h4>
+            <p class="app-places-perm">For this to work with the app closed, the phone needs to allow Tidelight to use your location "always". The phone asks in two steps, first "while using the app", then "always", sometimes a few days later. Your location is only used to notice your own places, and it's never sent unless you choose to send it.</p>
+            <p class="app-places-perm-state" role="status"><span data-auth="notDetermined">Location permission hasn't been asked yet.</span><span data-auth="whenInUse">The phone allows location only while the app is open, so a closed app can't notice a place. To allow "always", open the phone's Settings, Tidelight, Location.</span><span data-auth="always">The phone allows location always. Your places can be noticed with the app closed.</span><span data-auth="denied">The phone isn't allowing Tidelight to use your location, so no place can be noticed. You can change that in the phone's Settings, under Tidelight.</span><span data-auth="restricted">This phone doesn't allow location for this app.</span></p>
+            <p class="ci-step-buttons"><button type="button" class="app-places-allow">Allow location</button></p>
+            <p class="app-places-notif" role="status">This phone isn't letting Tidelight show notifications, so it couldn't check in with you. You can change that in the phone's Settings, under Tidelight.</p>
+
+            <h4>Your places</h4>
+            <p>Add a place by choosing it on a map, or by searching an address. Give it a name only you need to understand, and choose how close counts.</p>
+            <p class="ci-empty app-places-empty">No places yet. You don't have to add any.</p>
+            <ul class="ci-list app-places-list" aria-label="Your places"></ul>
+            <p class="ci-step-buttons"><button type="button" class="app-place-add">Add a place</button></p>
+            <p class="app-places-full" role="status">The phone can watch up to 20 places. Remove one to add another.</p>
+
+            <h4>People you trust</h4>
+            <p>Choose up to 5 people from your contacts. The app keeps their name and phone number on this phone only. They aren't told that you chose them, and nothing is sent to them unless you send it.</p>
+            <p class="ci-empty app-people-empty">No one chosen yet. Without someone chosen, the phone can still check in with you, but there's nobody to send a message to.</p>
+            <ul class="ci-list app-people-list" aria-label="People you trust"></ul>
+            <p class="ci-step-buttons"><button type="button" class="app-person-add">Choose someone from my contacts</button></p>
+            <p class="app-people-full" role="status">You can choose up to 5 people. Remove one to add another.</p>
+
+            <h4>How long before the phone checks in with you</h4>
+            <p class="ci-field"><label for="app-dwell">After staying at a place for</label></p>
+            <select id="app-dwell" class="app-dwell"><option value="10">10 minutes</option><option value="20" selected>20 minutes</option><option value="30">30 minutes</option><option value="1" class="app-dwell-test">1 minute (test builds only)</option></select>
+            <p>Passing through a place does nothing. Only staying counts.</p>
+
+            <h4>What the phone shows</h4>
+            <p>When the time is up, the phone shows a notification from Tidelight. By default it says only "Your plan is here," so nothing private shows on the lock screen. Opening it shows how long you've been there, your people, 988 and 911, and the choices below.</p>
+            <p class="ci-field"><label><input type="checkbox" class="app-places-lock"> Show the place's name and the time on the lock screen</label></p>
+
+            <h4>Your message</h4>
+            <p>If you choose to send it, this message goes to your people through the phone's own Messages app, with a map link to where you are. You see it first and tap Send yourself; the app can't send a text on its own. You can change the words now.</p>
+            <p class="ci-field"><label for="app-places-message">Your message</label></p>
+            <textarea id="app-places-message" class="app-places-message" rows="4" autocomplete="off"></textarea>
+            <p class="app-places-message-default">I'm having a hard time right now and I'd like you to call me. I set this up in Tidelight to send when I stay at a place that's hard for me. Here's where I am:</p>
+
+            <h4>Good to know</h4>
+            <ul>
+              <li>Before you rely on this, try it once with someone you chose, so you both know what arrives.</li>
+              <li>It can't work when the phone is off, in airplane mode, out of battery, has location turned off, or is somewhere the phone can't tell where it is, like underground. It may take the phone a few minutes to notice a place, and places smaller than about 100 meters are unreliable.</li>
+              <li>The phone only notices your chosen places. It doesn't track where you go, and the app keeps no record of visits.</li>
+              <li>A message to your people isn't a way to get urgent help. They may not see it for a while. If you need help now, <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a>. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</li>
+            </ul>
+            <p class="app-places-status" role="status"></p>
+          </div>
+          <template class="app-place-template">
+            <li class="ci-item"><span class="ci-item-text"><strong class="app-place-name"></strong> <span class="app-place-radius"></span></span> <span class="app-item-buttons"><button type="button" class="app-place-edit">Edit</button> <button type="button" class="app-place-remove">Remove</button></span></li>
+          </template>
+          <template class="app-person-template">
+            <li class="ci-item"><span class="ci-item-text"><strong class="app-person-name"></strong> <span class="app-person-phone"></span></span> <button type="button" class="app-person-remove">Remove</button></li>
+          </template>
+          <p class="app-places-words">
+            <span data-word="radiusText">within about {meters} meters</span>
+            <span data-word="watching">On. The phone is watching {count} place(s).</span>
+            <span data-word="watchingNone">On, but no place is added yet.</span>
+            <span data-word="off">Off. Nothing is watched.</span>
+            <span data-word="and">and</span>
+            <span data-word="notifTitle">Tidelight</span>
+            <span data-word="notifBody">Your plan is here.</span>
+            <span data-word="notifBodyWithPlace">You've been at {place} for {minutes} minutes. Your plan is here.</span>
+            <span data-word="notifOkay">I'm okay</span>
+            <span data-word="notifSend">Send my message</span>
+            <span data-word="notifCall988">Call 988</span>
+            <span data-word="notifCall911">Call 911</span>
+            <span data-word="linkLabel">Where I am</span>
+            <span data-word="mapTitle">Choose a place</span>
+            <span data-word="mapCancel">Cancel</span>
+            <span data-word="mapSave">Save</span>
+            <span data-word="mapSearchPlaceholder">Search an address or a place</span>
+            <span data-word="mapHint">Touch and hold the map to put the pin where the place is, or search above.</span>
+            <span data-word="mapUseHere">Use where I am now</span>
+            <span data-word="mapNamePlaceholder">A name only you need to understand</span>
+            <span data-word="mapNameLabel">Name for this place</span>
+            <span data-word="mapRadiusLabel">How close counts</span>
+            <span data-word="mapRadiusText">Within about {meters} meters</span>
+            <span data-word="mapLabel">Map. Touch and hold to place the pin.</span>
+            <span data-word="mapNotFound">Nothing found for that. Try another address, or touch and hold the map.</span>
+            <span data-word="mapNoLocation">The phone couldn't find where you are right now. Touch and hold the map instead.</span>
+            <span data-word="mapNeedPin">Put the pin on the map first.</span>
+            <span data-word="mapNeedName">Give the place a name first.</span>
+          </p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:place-alert -->
+    <section class="app-place-alert" id="app-place-alert" tabindex="-1" aria-labelledby="app-alert-title">
+      <h2 id="app-alert-title">You've been at <span class="app-alert-place"></span> for <span class="app-alert-minutes"></span> minutes</h2>
+      <p class="app-alert-intro">You set this up for yourself. Would you like to send your message, with where you are, to <strong class="app-alert-names"></strong>?</p>
+      <p class="app-alert-nobody">You haven't chosen anyone to send a message to, so nothing can be sent. You can choose people in Your journey.</p>
+      <p class="app-alert-countdown" role="status">Your message will open in Messages in <strong class="app-alert-seconds"></strong> seconds, unless you tap I'm okay. You tap Send there yourself.</p>
+      <p class="ci-step-buttons"><button type="button" class="app-alert-send">Send my message now</button> <button type="button" class="app-alert-okay">I'm okay</button></p>
+      <p class="app-alert-crisis">You can also <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a> right now, any time. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</p>
+      <p class="app-alert-okay-done" role="status">Okay. Nothing was sent. The phone won't ask again while you're here.</p>
+      <p class="app-alert-opened" role="status">Your message is ready in Messages. Tap Send there, or cancel. Nothing has been sent yet.</p>
+      <p class="app-alert-fallback" role="status">This phone can't open Messages with your people filled in, so the share sheet opened instead. Choose Messages and your people there, or cancel.</p>
+      <p class="app-alert-sent" role="status">Your message was sent. If you can, keep your phone nearby so they can reach you. 988 is also here for you.</p>
+      <p class="app-alert-cancelled" role="status">Nothing was sent. You can send it later from here, or tap I'm okay.</p>
+      <p class="ci-step-buttons app-alert-close-row"><button type="button" class="app-alert-close">Close</button></p>
+    </section>
 <!-- END -->

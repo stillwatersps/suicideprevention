@@ -2,12 +2,14 @@
   "name": "tidelight-app",
   "version": "0.1.0",
   "private": true,
-  "description": "Tidelight phone app: the website's pages in a Capacitor shell, with on-phone saving, age setup, and sharing for the Daily check-in. Draft, not reviewed.",
+  "description": "Tidelight phone app: the website's pages in a Capacitor shell, with on-phone saving, age setup, sharing, check-in reminders, and the person's own hard places, for the Daily check-in. Draft, not reviewed.",
   "type": "module",
   "scripts": {
     "build": "node tools/build.mjs",
-    "test": "node tools/build.mjs && node test/app-test.mjs",
-    "sync": "node tools/build.mjs && npx cap sync"
+    "test": "node tools/build.mjs && node test/logic-test.mjs && node test/app-test.mjs",
+    "sync": "node tools/build.mjs && npx cap sync",
+    "test:logic": "node test/logic-test.mjs",
+    "test:ios": "cd ios/TidelightLogic && swift test"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.0",
@@ -18,6 +20,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^7.0.0",
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.25.0",
+    "playwright": "^1.65.0"
   }
 }
