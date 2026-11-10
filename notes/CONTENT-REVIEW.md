@@ -92,8 +92,17 @@ as ñ or é, or words such as "al 988". Spanish with none of those and no mark i
 visible text, in either language, that sits outside the parts the packets number, such as a sentence in a
 div, because no reviewer would see it.
 
+**What a screen reader says.** Each page's section, and the text on every page, ends with what a screen reader
+reads aloud there that the screen doesn't show: the page's title, names given with `aria-label`, words hidden
+from the eye, such as ", home" after the brand and the section name after each "Show more", and the skip link.
+A reviewer approves those words with the rest of the section. `tools/check_site.py` reads each page its own way
+and fails on any such words that no packet shows, such as a new `aria-label` the packet tool missed.
+
 **What the fingerprint means.** It's a 12-character code made from the section's text, as the packet shows
-it. When any word of that section changes, its fingerprint changes. An approval only counts while its
+it, including what a screen reader reads aloud there. When any word of that section changes, its fingerprint
+changes. The text on every page lists each different line once, with a note under any line that isn't on every
+page of its language saying which pages show it. The notes are part of its fingerprint, so a shared line taken
+off one page, or changed there, changes it too. An approval only counts while its
 fingerprint matches the text on the website now. So after a change, even a small one such as a corrected
 crisis number, the old approval stops counting and publishing stops. To fix that, rebuild the packets with
 `python3 tools/make_review_packet.py`, show the reviewer what changed, and add a new line with the new date
@@ -455,8 +464,8 @@ Built at one founder's request on November 6, 2026. Wording is proposed.
   visit. Is the benefit worth it, and is what the About pages and footers say about it enough?
 - **Spanish (B6).** An AI translated all nine pages in `es/`. A fluent
   reader should check every line, and the reviewer should decide whether the
-  wording should avoid masculine-only forms such as "No estás solo" and "estés
-  listo". The pages use "tú". 988's own Spanish pages mostly use "usted", with "tú" in
+  wording should avoid masculine-only forms such as "No estás solo" and "te sientes
+  abrumado". The pages use "tú". 988's own Spanish pages mostly use "usted", with "tú" in
   buttons and headings. Texting steps in
   Spanish are described as possibly different from English, because no one has
   seen them.
@@ -736,9 +745,10 @@ qualified reviewer decides each one, and nothing here has been reviewed.
 - Should the Spanish pages name a reply word for texting 988, as English names NEXT? 988's Spanish
   What to Expect page gives «siguiente»; its Spanish services page describes no terms step. Ask 988
   which applies to AYUDA.
-- Should the Spanish pages say anything about 911 in Spanish, and from which current source? None
-  says whether a caller can ask for Spanish, or whether a Spanish text will be understood. The FCC's
-  English and Spanish text-to-911 pages don't say.
+- Should the Spanish pages say anything about 911 in Spanish, and from which current source? No source
+  recorded in [[SAFETY]] says whether a caller can ask for Spanish, or whether a Spanish text will be
+  understood. [[SAFETY]] records that the FCC's English text-to-911 page refused automated reads on
+  November 6 and 7, so a person should open the FCC's English and Spanish pages and read what they say.
 - Should Spanish Get Help link the Stanley-Brown developers' Spanish safety plan form (February
   2025), instead of or beside the English one? Its step 6 is reported to be more specific.
 - Should the pages say "la 988"? They do in many headings and buttons. 988's Spanish site says "la
@@ -794,6 +804,215 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   reflection to a person the user picks, through the phone's share sheet. What should the app say
   next to it, so people know who will see it and that it isn't a way to get urgent help?
   See [[IDEAS]].
+
+## Questions for the fluent Spanish reader
+
+Preguntas para la persona hispanohablante. **Unreviewed AI translation:** Claude, an AI assistant, gathered
+these from what the notes leave open about Spanish, wrote each in Spanish for the reader, and gave its English
+twin for the founders. No fluent reader has checked this Spanish. Each question says where it comes from, and
+none adds a claim of its own. They ask about wording: only a person asking the provider can settle the facts,
+and nobody should call, text, or chat with a crisis line to check. The Spanish packet shows them in Parte 5, with
+room for answers. Copy each answer into the note it comes from, with the reader's role and the date.
+`tools/check_site.py` fails if a question loses its Spanish, its English twin, or its source, or if this
+section stops saying it is an unreviewed AI translation.
+
+1. ES: ¿Se entiende bien lo que dicen Obtener ayuda y Adolescentes sobre Crisis Text Line en español? Dicen que
+   "atiende en inglés y en español" y que "sus páginas dan palabras distintas para recibir apoyo en español, y
+   Tidelight todavía no ha confirmado cuál usar", sin nombrar ninguna. Las páginas no darán ninguna palabra hasta
+   que una persona la confirme con Crisis Text Line y la anote en las notas del proyecto, así que no hace falta
+   proponer una. ¿Es clara la frase de ahora para alguien que busca apoyo en español? ¿Cambiaría la redacción?
+   EN: Is what Spanish Get Help and For Teens say about Crisis Text Line in Spanish clear? They say it supports
+   English and Spanish, and that its pages give different words for support in Spanish, which Tidelight hasn't
+   confirmed yet, without naming either. The pages won't give a word until a person confirms one with Crisis Text
+   Line and records it in the project's notes, so there's no need to suggest one. Is the current sentence clear
+   for someone looking for support in Spanish? Would you change the wording?
+   Source: `notes/SAFETY.md`, "Left off the website until a person confirms": Crisis Text Line in Spanish. Also
+   `notes/FOUNDER-BRIEF.md`, "Two words to ask providers about".
+2. ES: En Obtener ayuda, la parte para personas sordas o con dificultades auditivas dice: "Si usas TTY, usa tu
+   servicio de retransmisión preferido o marca 711 y luego 988. Una página de preguntas frecuentes de la 988
+   dice que el servicio TTY no está disponible en español en este momento." Las páginas en español de la 988 no
+   coinciden, y solo la 988, o una organización dirigida por personas sordas, puede decir cuál vale. ¿Queda
+   claro qué puede hacer una persona que usa TTY y habla español? ¿Cambiaría la redacción?
+   EN: On Spanish Get Help, the part for Deaf and hard of hearing people says that TTY users can use their
+   preferred relay service or dial 711, then 988, and that a 988 FAQ page says the TTY service isn't available
+   in Spanish right now. 988's Spanish pages disagree, and only 988, or a Deaf-led organization, can say which
+   holds. Is it clear what a Spanish-speaking TTY user can do? Would you change the wording?
+   Source: `notes/SAFETY.md`, "On the website as a draft, a person must confirm": TTY in Spanish. Also
+   `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", under Spanish.
+3. ES: En Obtener ayuda y Adolescentes, la parte "Jóvenes LGBTQ+, a través de la 988" dice: "Una página de
+   preguntas frecuentes de la 988 dice que este servicio no está disponible en español en este momento. Para
+   recibir apoyo en español, llama al 988 y marca 2, o envía AYUDA al 988." Esa página de la 988 no tiene fecha
+   y puede ser anterior al regreso del servicio, así que solo la 988 puede confirmarlo. ¿Está bien dicho para un
+   joven que habla español? ¿Puede sonar a rechazo, o confundir?
+   EN: On Spanish Get Help and For Teens, the part "LGBTQ+ youth, through 988" says that a 988 FAQ page says
+   this service isn't available in Spanish right now, and that for support in Spanish you can call 988 and press
+   2, or text AYUDA to 988. That 988 page has no date and may predate the service's return, so only 988 can
+   confirm it. Is it well worded for a Spanish-speaking young person? Could it sound like a rejection, or
+   confuse them?
+   Source: `notes/SAFETY.md`, "On the website as a draft, a person must confirm": 988 LGBTQ+ youth option. Also
+   `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", under Spanish.
+4. ES: Las páginas en español tratan de "tú" en todas partes, también en las páginas para padres y para adultos
+   en duelo. Las páginas en español de la 988 usan sobre todo "usted", con "tú" en botones y títulos, y las del
+   NIMH usan "usted". ¿El trato y la redacción son adecuados para alguien en crisis? ¿Y para adolescentes?
+   ¿Debería cambiar según la página?
+   EN: The Spanish pages use "tú" everywhere, including the pages for parents and for bereaved adults. 988's
+   Spanish pages mostly use "usted", with "tú" in buttons and headings, and NIMH's use "usted". Do the form of
+   address and the wording suit someone in crisis? And teens? Should it differ by page?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions about the approved ideas", Spanish (B6), and "Questions from
+   the November 7 audit", Spanish pages.
+5. ES: Algunas frases usan solo la forma masculina, como "No estás solo" y "te sientes abrumado". Ayudar a
+   alguien mezcla "la persona" en los cinco pasos, formas masculinas como "atrapado" en las señales, y "lo" en la
+   parte sobre niños. ¿Qué criterio único deberían seguir todas las páginas?
+   EN: Some phrases use only the masculine form, such as "No estás solo" and "te sientes abrumado". Spanish Help
+   Someone mixes "la persona" in the five steps, masculine forms such as "atrapado" in the signs, and "lo" in the
+   section on children. What one approach should every page take?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions about the approved ideas", Spanish (B6), and "Questions from
+   the November 7 audit", Spanish pages.
+6. ES: Los enlaces para enviar un texto abren un mensaje en blanco, así que la persona tiene que escribir AYUDA,
+   y solo las palabras del botón se lo recuerdan: "Escribe AYUDA" en el botón "Texto al 988", y "Enviar AYUDA al
+   988". Pasa lo mismo con PRIDE y START. ¿Los botones dejan claro qué hay que escribir? ¿Cómo lo diría usted?
+   EN: The text links open a blank message, so the person has to type AYUDA, and only the button's words remind
+   them: "Escribe AYUDA" on the "Texto al 988" button, and "Enviar AYUDA al 988". The same goes for PRIDE and
+   START. Do the buttons make clear what to type? How would you say it?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", Crisis wording on every page. Also
+   `notes/SAFETY.md`, "Only a person can check".
+7. ES: En inglés, la página dice que hay que responder NEXT para aceptar los términos. En español dice que, en
+   inglés, "te piden aceptar los términos del servicio" y que "los pasos en español pueden ser un poco
+   distintos", sin dar una palabra. La página "Qué puede esperar" de la 988 en español dice «siguiente», y su
+   página de servicios en español no describe ese paso, así que solo la 988 puede decir cuál vale al enviar
+   AYUDA. ¿Se entiende la frase de ahora? Si la 988 confirma «siguiente», ¿cómo debería decirse?
+   EN: In English the page says to reply NEXT to accept the terms. In Spanish it says that in English you are
+   asked to accept the terms of service, and that the steps in Spanish may be a little different, giving no
+   word. 988's Spanish What to Expect page says «siguiente», and its Spanish services page describes no such
+   step, so only 988 can say which applies after texting AYUDA. Is the current sentence clear? If 988 confirms
+   «siguiente», how should it be said?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages, and "Questions about
+   the approved ideas", Spanish (B6). Also `notes/SAFETY.md`, "988 by text, first steps", and
+   `notes/FOUNDER-BRIEF.md`, "Two words to ask providers about".
+8. ES: Un lector de pantalla dice "Salida rápida: salir de este sitio ahora e ir a la página de weather.gov"
+   antes de los enlaces del 988, y eso podría sonar como si el sitio le dijera a alguien que se vaya. ¿Sería
+   mejor "Salida rápida, va a weather.gov", y que se oiga primero la línea de crisis?
+   EN: A screen reader says "Salida rápida: salir de este sitio ahora e ir a la página de weather.gov" before
+   the 988 links, which could sound like the site telling someone to go. Would "Salida rápida, va a weather.gov"
+   be better, with the crisis line heard first?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Every page.
+9. ES: Una propuesta que los dos fundadores todavía no han acordado, aunque ya está en estas páginas (pull request
+   13, unido el 9 de noviembre de 2026 a pedido de uno de ellos). El paquete muestra la franja completa, no esta
+   fila. Solo en una pantalla baja, como la de un teléfono de lado, también con letra más grande, la franja de
+   crisis fija se acorta a una sola fila. La fila dice: "Llama al 988 y
+   marca 2 · Envía AYUDA al 988 · Llama al 911". La franja completa dice: "¿Necesitas ayuda ahora? Llama al 988 y
+   marca 2, o envía AYUDA al 988, a cualquier hora. Si hay peligro inmediato, llama al 911." En pantallas
+   pequeñas ya deja fuera "¿Necesitas ayuda ahora?" y "a cualquier hora". La fila quita también la "o" y "Si hay
+   peligro inmediato,", así que nada en pantalla dice cuándo llamar al 911. Un lector de pantalla sigue diciendo
+   el nombre completo de cada enlace, como "Llama al 911, servicios de emergencia". ¿Se entiende esa fila? ¿Es
+   aceptable en español donde falta espacio?
+   EN: A proposal both founders haven't agreed yet, though it is on these pages (pull request 13, merged on
+   November 9, 2026, at one founder's request). The packet shows the full strip, not this row. Only on a short
+   screen, such as a phone on its side, including with larger text, the pinned crisis strip shortens to one row.
+   The row says "Llama al 988 y marca 2 · Envía AYUDA al 988 · Llama al
+   911". The full strip says "¿Necesitas ayuda ahora? Llama al 988 y marca 2, o envía AYUDA al 988, a cualquier
+   hora. Si hay peligro inmediato, llama al 911." On small screens it already leaves out "¿Necesitas ayuda ahora?"
+   and "a cualquier hora". The row also drops the "o" and "Si hay peligro inmediato,", so nothing on screen says
+   when to call 911. A screen reader still says each link's full name, such as "Llama al 911, servicios de
+   emergencia". Is that row clear? Is it acceptable in Spanish where space is short?
+   Source: `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", Crisis wording on every page: the
+   compact strip. Also `notes/DECISIONS.md`, the crisis strip entry under "November 6, 2026: proposed on branch
+   `site/phone-accessibility-content`", and "November 9, 2026: every pull request that publishes nothing,
+   merged". The strip's words are from the pages in `es/` and the compact strip's rules in `assets/styles.css`.
+10. ES: La tabla de controles de las notas del proyecto pide que una persona hispanohablante revise los botones
+    y enlaces en español, como "Ayuda en español", "Llamar al 988 y marcar 2", "Enviar AYUDA al 988", "Chatear
+    en español" y los de la franja de crisis. ¿Son claros y naturales? ¿Dicen bien adónde llevan?
+    EN: The notes' table of controls asks a Spanish reader to check the Spanish buttons and links, such as
+    "Ayuda en español", "Llamar al 988 y marcar 2", "Enviar AYUDA al 988", "Chatear en español" and those in the
+    crisis strip. Are they clear and natural? Do they say where they go?
+    Source: `notes/CONTENT-REVIEW.md`, "What each control does": the rows that need a Spanish reviewer or a
+    fluent reader.
+11. ES: Muchos títulos y botones dicen "la 988". El sitio en español de la 988 dice "la Línea 988" o "Línea 988"
+    para el servicio, y "el 988" o "al 988" para el número. ¿Deberían las páginas decir "la 988"?
+    EN: Many headings and buttons say "la 988". 988's Spanish site says "la Línea 988" or "Línea 988" for the
+    service, and "el 988" or "al 988" for the number. Should the pages say "la 988"?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
+12. ES: Las notas del proyecto no registran ninguna fuente que diga si quien llama al 911 puede pedir español, ni
+    si un texto en español al 911 se entenderá. Según esas notas, la página de la FCC sobre textos al 911 rechazó
+    las lecturas automáticas el 6 y el 7 de noviembre de 2026, así que una persona todavía tiene que abrirla y
+    leerla. ¿Deberían las páginas en español decir algo sobre el 911 en español? Si es así, ¿qué, y con qué
+    fuente actual?
+    EN: The project's notes record no source that says whether a 911 caller can ask for Spanish, or whether a
+    Spanish text to 911 will be understood. They record that the FCC's text-to-911 page refused automated reads on
+    November 6 and 7, 2026, so a person still needs to open it and read it. Should the Spanish pages say anything
+    about 911 in Spanish? If so, what, and from which current source?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages. Also
+    `notes/SAFETY.md`, "Only a person can check": the FCC's text-to-911 page.
+13. ES: La página Get Help en inglés tiene una parte en español, "En español", que Claude, un asistente de IA,
+    escribió a partir de las páginas en inglés y en español de la 988. Está en la Parte 3 del paquete en
+    español, en "Español en Get Help". ¿Es correcta y natural?
+    EN: The English Get Help page has a part in Spanish, "En español", which Claude, an AI assistant, wrote from
+    988's English and Spanish pages. It is in Part 3 of the Spanish packet, under "Español en Get Help". Is it
+    correct and natural?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions for the qualified reviewer", Spanish.
+14. ES: Para quien teme por su situación migratoria, ¿debería Obtener ayuda decir, en los dos idiomas, que no
+    tiene que dar su estatus de ciudadanía (según los términos en español de la 988, de agosto de 2026) ni
+    hablar inglés (según la página de servicios en español de la 988), sin prometer lo que harán la policía o el
+    911? Si se agrega, ¿cómo debería decirse en español?
+    EN: For someone with immigration fears, should Get Help say, in both languages, that you don't have to give
+    your citizenship status (988's Spanish terms, August 2026) or speak English (988's Spanish services page),
+    without promising what police or 911 will do? If it's added, how should it be said in Spanish?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Get Help.
+15. ES: La página de servicios en español de la 988 dice que a veces puede hablar a la vez con quien ayuda y con
+    la persona que le preocupa. Sus páginas en inglés no lo dicen, así que habría que preguntarle a la 988.
+    ¿Debería Ayudar a alguien decirlo? Si se agrega, ¿cómo debería decirse en español?
+    EN: 988's Spanish services page says it can sometimes talk with the helper and the person they're worried
+    about at the same time. Its English pages don't, so 988 would need to be asked. Should Help Someone say so?
+    If it's added, how should it be said in Spanish?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Help Someone.
+16. ES: Obtener ayuda en español enlaza el formulario del plan de seguridad Stanley-Brown en inglés. Sus
+    creadores tienen un formulario en español (febrero de 2025), y se dice que su paso 6 es más específico.
+    ¿Debería la página enlazar el formulario en español, en lugar del inglés o junto a él?
+    EN: Spanish Get Help links the English Stanley-Brown safety plan form. Its developers have a Spanish form
+    (February 2025), whose step 6 is reported to be more specific. Should the page link the Spanish form,
+    instead of or beside the English one?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
+17. ES: En Después de una pérdida, ¿qué se lee mejor: el nombre en inglés de AFSP con la explicación "es una
+    fundación estadounidense para la prevención del suicidio", como hace casi siempre el material en español de
+    AFSP, o "Fundación Estadounidense para la Prevención del Suicidio"? Revise también la frase sobre pulsar
+    "Translate" en el formulario de Healing Conversations.
+    EN: On Spanish After a loss, which reads better: AFSP's English name with the gloss "es una fundación
+    estadounidense para la prevención del suicidio", as AFSP's Spanish material mostly does, or "Fundación
+    Estadounidense para la Prevención del Suicidio"? Please also check the sentence on pressing "Translate" on
+    the Healing Conversations form.
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
+18. ES: ¿Debería Después de una pérdida enlazar el sitio en español de AFSP (es.afsp.org)? Tiene Healing
+    Conversations ("Conversaciones que Sanan") y una página de grupos de apoyo casi toda en español, pero parece
+    traducido a máquina y llama a la persona que murió "alguien suicida". ¿El formulario y la persona voluntaria
+    funcionan en español? Por favor, no envíe el formulario para averiguarlo.
+    EN: Should Spanish After a loss link AFSP's Spanish site (es.afsp.org)? It has Healing Conversations
+    ("Conversaciones que Sanan") and a support group page mostly in Spanish, but it reads as machine-translated
+    and calls the person who died "alguien suicida". Do the form and the volunteer work in Spanish? Please don't
+    submit the form to find out.
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Spanish pages.
+19. ES: El cartel en español tiene una línea de referidos de SAMHSA donde el cartel en inglés tiene The Trevor
+    Project, así que no tiene una línea para jóvenes LGBTQ+. Esa línea tampoco da la instrucción de SAMHSA de
+    elegir la opción para hablar con un representante nacional para español. ¿Qué líneas debería llevar el
+    cartel en español?
+    EN: The Spanish poster has a SAMHSA referral line where the English poster has The Trevor Project, so it has
+    no line for LGBTQ+ young people. That line also leaves out SAMHSA's instruction to choose the option to
+    speak with a national representative for Spanish. Which lines should the Spanish poster carry?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions about the second batch", Wallet card and poster (D2).
+20. ES: La tarjeta impresa nombra la "Línea 988 de Prevención del Suicidio y Crisis", y otras personas pueden
+    verla. ¿Está bien nombrar el suicidio en la tarjeta en español?
+    EN: The printed card names the "Línea 988 de Prevención del Suicidio y Crisis", and other people can see it.
+    Is it right to name suicide on the Spanish card?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions from the November 7 audit", Wallet card.
+21. ES: En el Registro diario, los sentimientos se escriben como estados, para no usar formas de un solo género:
+    "Con esperanza", "En calma", "Bien, más o menos", "Con dudas", "Con demasiado encima", "Con tristeza", "Con
+    ansiedad", "Con desconexión" y "Sin energía". ¿Suenan naturales para responder a "¿Cómo te sientes hoy?"?
+    ¿Alguno podría confundir o doler a alguien que lo está pasando mal?
+    EN: In the Daily check-in, the feelings are written as states, to avoid forms of one gender: "Con esperanza",
+    "En calma", "Bien, más o menos", "Con dudas", "Con demasiado encima", "Con tristeza", "Con ansiedad", "Con
+    desconexión" and "Sin energía". Do they sound natural as answers to "¿Cómo te sientes hoy?"? Could any confuse
+    or hurt someone who is struggling?
+    Source: `notes/CONTENT-REVIEW.md`, "Questions about the Daily check-in", Spanish. The feelings are from
+    `es/registro-diario/index.html`.
 
 ## Human-only checklist
 

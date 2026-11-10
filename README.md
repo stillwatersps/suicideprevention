@@ -60,7 +60,7 @@ Each person uses their own Claude access and conversation.
 | `assets/*.vcf` | Contact cards for saving 988 to a phone |
 | `tools/preview_server.py` | Serves the site the way GitHub Pages will, on this computer or a phone on the same Wi-Fi |
 | `tools/test_browser.py`, `tools/browser.py` | Browser tests, using Python and the Chrome already on the computer |
-| `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader |
+| `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader. With `--changes`, short packets of only what changed since each reviewer's approvals |
 | `notes/PHONE-TEST.md` | How to test on a real phone |
 | `notes/FOUNDER-BRIEF.md`, `notes/LAUNCH-CHECKLIST.md`, `notes/REVIEWER-NOTES.md`, `notes/UPKEEP.md` | Decisions, the path to launch, notes for reviewers, and upkeep |
 | `notes/FIRST-VERSION.md` | What the first version is and isn't, and its main journeys. A proposal |
@@ -83,7 +83,12 @@ python3 tools/check_site.py
 python3 tools/check_site.py --check-links
 ```
 
-The second command also loads every outside link. To see the site the way GitHub Pages
+```bash
+python3 tools/make_review_packet.py --self-test
+```
+
+The second command also loads every outside link. The third checks the review packet tool on made-up cases,
+such as a crisis line taken off one page, and changes nothing. To see the site the way GitHub Pages
 will serve it, including the 404 page:
 
 ```bash
@@ -104,8 +109,8 @@ submits anything. If you change a page, rebuild the review packets:
 python3 tools/make_review_packet.py
 ```
 
-Where this workflow exists, on `main` or on a pull request's branch, GitHub runs the first check and the
-browser tests automatically. Pull requests 1, 7, and 8 don't have it, so nothing checks them automatically.
+Where this workflow exists, on `main` or on a pull request's branch, GitHub runs the first check, the
+tools' self-tests, the packet tool's among them, and the browser tests automatically. Pull requests 1, 7, and 8 don't have it, so nothing checks them automatically.
 Passing these checks does not replace testing on a real phone or a content
 review. `notes/CONTENT-REVIEW.md` lists what still needs a person.
 

@@ -27,6 +27,10 @@ from the section's text, so if the text changes after the review, the approval s
   - A record dated after today, or one that can't be read, stops publishing.
   - Every page must have a section in the review packets, and so must Spanish lines on an English page.
     So must all the text a visitor sees: a sentence loose in a div, outside any paragraph, would reach no reviewer.
+    So must the words a screen reader says that the screen doesn't show, of the kinds tools/check_site.py reads:
+    the page's title, an aria-label or a similar attribute, an image's description, words hidden from the eye, a
+    drawing's title, and the skip link. In the parts every page shares, which the packets list once, those words
+    must be the same on every page of a language.
 
 The founders can override this on purpose, for an early preview, by setting a repository variable named
 PUBLISH_UNREVIEWED to the words "both founders agreed". See notes/LAUNCH-CHECKLIST.md.
