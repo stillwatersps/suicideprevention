@@ -1028,9 +1028,9 @@ def date_kind(text_before):
     return "crisis details" if re.search(r"provider|proveedor", sentence) else "sources"
 
 
-# Pages added after the last check of every page's sources, whose own sources were read on the day they were
-# written (November 9, 2026). Their source dates are compared with each other's, not with the older pages', so
-# no page has to claim a check it didn't have. When every page's sources are checked again together, move both
+# Pages added after the last check of every page's sources. Their own sources were read when they were written
+# (November 9, 2026) and again on November 10. Their source dates are compared with each other's, not with the
+# older pages', so no page has to claim a check it didn't have. When every page's sources are checked again together, move both
 # dates to that day with tools/set_checked_date.py and empty this set.
 SOURCES_READ_LATER = {"safety-plan/index.html", "after-an-attempt/index.html",
                       "es/plan-de-seguridad/index.html", "es/despues-de-un-intento/index.html"}

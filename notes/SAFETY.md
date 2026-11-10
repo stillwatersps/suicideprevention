@@ -55,9 +55,9 @@ column. Recheck close to publication and at least monthly (proposed).
 
 | Resource | How to reach it | Official page | Read on | Person confirmed |
 | --- | --- | --- | --- | --- |
-| 988 Suicide & Crisis Lifeline | Call or text 988; chat at chat.988lifeline.org. 24/7 | https://988lifeline.org/get-help/ | Nov 6 and 9, 2026 | |
-| 988 by text, first steps | Send any message to 988. Reply NEXT to accept the terms of service, answer a brief survey, then a Wait message comes before a counselor. 988's Spanish What to Expect page lists the same steps and says the word "siguiente" accepts the terms | https://988lifeline.org/faq/texting-the-988-lifeline/ and https://988lifeline.org/get-help/what-to-expect/ (Spanish: https://988lifeline.org/es/obten-ayuda/que-puede-esperar/) | Nov 7, 2026; What to Expect again Nov 9, 2026 | |
-| 988 in Spanish | Call 988, then press 2; text AYUDA to 988; chat at chat.988lifeline.org/?lang=es | https://988lifeline.org/get-help/ | Nov 6 and 9, 2026 | |
+| 988 Suicide & Crisis Lifeline | Call or text 988; chat at chat.988lifeline.org. 24/7 | https://988lifeline.org/get-help/ | Nov 6, 9 and 10, 2026 | |
+| 988 by text, first steps | Send any message to 988. Reply NEXT to accept the terms of service, answer a brief survey, then a Wait message comes before a counselor. 988's Spanish What to Expect page lists the same steps and says the word "siguiente" accepts the terms | https://988lifeline.org/faq/texting-the-988-lifeline/ and https://988lifeline.org/get-help/what-to-expect/ (Spanish: https://988lifeline.org/es/obten-ayuda/que-puede-esperar/) | Nov 7, 2026; What to Expect again Nov 9 and 10, 2026 | |
+| 988 in Spanish | Call 988, then press 2; text AYUDA to 988; chat at chat.988lifeline.org/?lang=es | https://988lifeline.org/get-help/ | Nov 6, 9 and 10, 2026 | |
 | 988 in other languages | Call 988 and ask for an interpreter or say the language. More than 240 languages, voice only | https://988lifeline.org/faq/calling-the-988-lifeline/faq-is-the-988-lifeline-available-in-other-languages-for-non-english-speakers/ | Nov 6, 2026 | |
 | 988 for Deaf and hard of hearing people | Dial 988 from a videophone; TTY users use a relay service or dial 711, then 988; text; chat | https://988lifeline.org/deaf-hard-of-hearing-hearing-loss/ | Nov 6, 2026 | |
 | 988 for LGBTQ+ youth (see the note below) | Call 988, then press 3; text PRIDE to 988 | https://988lifeline.org/get-help/what-to-expect/ | Nov 6, 2026 | |
@@ -105,6 +105,11 @@ pages. Get Help still says call or text 988, press 2 or text AYUDA for Spanish, 
 a brief survey and a Wait message. Those pages give only 988 and 911, and the Spanish pages also 988
 press 2 and AYUDA. The 911 wording on them matches NIMH's Suicide Prevention page, read the same day:
 "In life-threatening situations, call 911."
+
+Read again in the built-in browser on November 10, 2026: Get Help still gives call or text 988, 988
+then press 2 or AYUDA to 988 in Spanish, and 988 then press 1 or 838255 for the Veterans Crisis Line.
+What to Expect still says texting "Next" accepts the terms, then a brief survey and a "Wait" message.
+NIMH's Suicide Prevention page still says to call 911 in life-threatening situations.
 
 ### Only a person can check
 

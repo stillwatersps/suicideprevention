@@ -418,8 +418,11 @@ old loss survivors page now answers "not found", so it isn't cited.
 
 ### How the November 9 pages' sources were read
 
-Claude read these on November 9, 2026, for Make a safety plan and After a suicide attempt. Not human
-review. 988's Get Help and What to Expect pages, SPRC's two resource pages, FindTreatment.gov, and 988's
+Claude read these on November 9, 2026, for Make a safety plan and After a suicide attempt, and read
+every one of them again in the built-in browser on November 10, 2026, when the pages' source date moved
+to that day. The claims on both pages still matched. One list item changed: AFSP's safety plan list says
+"Call 988", so After a suicide attempt now says "Calling 988", not "Calling or texting 988". Not human
+review. On November 9: 988's Get Help and What to Expect pages, SPRC's two resource pages, FindTreatment.gov, and 988's
 Help Someone Else page were read in the built-in browser. AFSP's two pages, NIMH's two pages, the
 Stanley-Brown site, and SPRC's Care Transitions page were read through a page reader that returns the
 text with quotes, not line by line in a browser. SPRC's quick guide for clinicians is a PDF of page
@@ -809,8 +812,8 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
 
 ## Questions about Make a safety plan and After a suicide attempt
 
-Built November 9, 2026, at one founder's request, as drafts. Sources were read that day; see "How the
-November 9 pages' sources were read" below.
+Built November 9, 2026, at one founder's request, as drafts. Sources were read that day and again on
+November 10; see "How the November 9 pages' sources were read" above.
 
 - **A safety plan made alone.** The page says a professional can help and that a plan doesn't replace
   care, and Research says the evidence comes mostly from plans made with a clinician. Is it right to
@@ -838,8 +841,12 @@ November 9 pages' sources were read" below.
 - **SAMHSA's guides.** SAMHSA has guides for attempt survivors and families: After an Attempt (for the
   person, for a family member) and A Journey Toward Health and Hope. On November 9, 2026, its library
   showed a human verification page instead of the files, and the old store links no longer open them,
-  so they weren't read or cited. A person should open them and decide whether to add them, including
-  the Spanish version of the guide for the person who survived.
+  so they weren't read or cited. On November 10 the library opened: the product page for A Journey
+  Toward Health and Hope (https://library.samhsa.gov/product/journey-toward-health-and-hope-your-handbook-recovery-after-suicide-attempt/sma15-4419)
+  gives an October 2015 date, and the old address for the family guide answered "not found". The guides'
+  own files refused automated reads (403), so their text still wasn't read or cited. Their dates come
+  before 988 began, so they may list older crisis numbers. A person should open them and decide whether
+  to add them, including the Spanish version of the guide for the person who survived.
 - **988 pages.** 988's older page for attempt survivors now answers "not found". Its current site has
   no page on safety plans or attempt survivors, so the pages use 988 only for how to reach it.
 
