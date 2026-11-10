@@ -136,6 +136,9 @@ TEXT_SIZES = [
     ("short screen 750x185", 750, 185, True, (75,)),
     ("short screen 750x370", 750, 370, True, (75,)),
     ("short screen 320x390", 320, 390, True, (75,)),
+    # Smaller text on a phone on its side wider than the compact strip's em limits, where only their floors in
+    # px keep it pinned there, as at 100%.
+    ("short screen 640x290", 640, 290, True, (75,)),
     # Typical sizes, not measured on devices: split-screen and foldables. With 75% text the strip must pin
     # as at 100%, where the rules for narrow screens just over 300px tall decide; with larger text the page
     # must still fit.
@@ -1138,7 +1141,7 @@ def test_menu(browser, site, pages, report):
 JUMP_WIDTHS = (240, 250, 257, 260, 270, 279, 290, 300, 312, 321, 325, 340, 360, 367, 375, 390, 412, 430, 456, 470, 481, 482,
                490, 504, 505, 520, 544, 568, 600, 622, 623, 640, 660, 700, 704, 708, 750, 759, 768, 840, 900, 959, 960, 1000,
                1020, 1021, 1031, 1032, 1042, 1043, 1080, 1200, 1280, 1303, 1304, 1440)
-JUMP_HEIGHTS = (250, 290, 300, 301, 330, 354, 360, 383, 384, 400, 419, 430, 470, 481, 492, 520, 557, 568, 600, 653, 700, 768,
+JUMP_HEIGHTS = (242, 250, 290, 300, 301, 330, 354, 360, 383, 384, 400, 419, 430, 470, 481, 492, 520, 557, 568, 600, 653, 700, 768,
                 844, 1000)
 JUMP_TEXT = (12, 13, 14, 15, 16, 18, 20, 22, 24, 28, 32)
 # What stays pinned when the page is scrolled to its end: the crisis strip, or the sticky header on wide screens.
@@ -1176,17 +1179,21 @@ def jump_padding_problems(browser, site, pages, javascript):
                 for height in JUMP_HEIGHTS:
                     tab.resize(width, height, width < 1024)
                     cover, what, padding, vh = tab.js(JUMP_JS)
-                    # What is pinned may take up to half the screen, and without JavaScript, where the header can
-                    # hold the whole menu, the header only a third. See "Wide screens, which pin the header" in
-                    # assets/styles.css.
+                    # What is pinned may take up to half the screen, and without JavaScript, where the header holds
+                    # the whole menu, on a wide screen under 60em with larger text, the header only a third. See
+                    # "Wide screens, which pin the header" in assets/styles.css.
                     if cover > vh / 2 + 0.5:
                         kind, detail = f"the pinned {what} takes more than half the screen", f"it ends at {cover:g}px of {vh}px"
-                    elif what == "header" and not javascript and cover > vh / 3 + 0.5:
+                    elif what == "header" and not javascript and width < 60 * size and cover > vh / 3 + 0.5:
                         kind, detail = "without JavaScript, the pinned header takes more than a third of the screen", f"it ends at {cover:g}px of {vh}px"
                     elif cover and padding < cover:
                         kind, detail = f"a jump link stops behind the pinned {what}", f"the scroll padding is {padding:g}px and the {what} ends at {cover:g}px"
                     elif padding > vh / 2 + 0.5 and cover <= vh / 3:
                         kind, detail = "a jump link stops in the lower half of the screen", f"the scroll padding is {padding:g}px of {vh}px"
+                    # Where nothing is pinned, the padding is 1rem, so a link stops near the top. Over a quarter of
+                    # the screen means a rule for a pinned strip or header applies where nothing is pinned.
+                    elif not cover and padding > vh / 4:
+                        kind, detail = "a jump link stops lower than it needs to, where nothing is pinned", f"the scroll padding is {padding:g}px of {vh}px"
                     else:
                         continue
                     where = f"{width}x{height}, text at {size}px, {'with' if javascript else 'without'} JavaScript"

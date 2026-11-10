@@ -510,8 +510,8 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
    words and that gap, only where it does at the default size. Without the floors, at 232 by 240
    with 75% text it pinned on two rows taking 47% of the screen's height, or three rows and 65% in
    Spanish. At 16px and more the em limits are the larger, so the floors change nothing there.
-   The rules that follow where the strip pins, for Quick exit, jump links and the compact strip,
-   have the same floors. */
+   The rules that follow where the strip pins, for Quick exit and the compact strip, have the same
+   floors, and jump links have lengths in px of their own: see "Where a jump link stops". */
 /* A gap between the rows, so a tap on a 988 link is less likely to land on call 911: 4px
    wherever the strip pins, and 6px on taller screens. */
 @media (max-width: 959px) and (min-height: 18.76em) {
