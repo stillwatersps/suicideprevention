@@ -83,7 +83,12 @@ python3 tools/check_site.py
 python3 tools/check_site.py --check-links
 ```
 
-The second command also loads every outside link. To see the site the way GitHub Pages
+```bash
+python3 tools/make_review_packet.py --self-test
+```
+
+The second command also loads every outside link. The third checks the review packet tool on made-up cases,
+such as a crisis line taken off one page, and changes nothing. To see the site the way GitHub Pages
 will serve it, including the 404 page:
 
 ```bash
@@ -104,8 +109,8 @@ submits anything. If you change a page, rebuild the review packets:
 python3 tools/make_review_packet.py
 ```
 
-Where this workflow exists, on `main` or on a pull request's branch, GitHub runs the first check and the
-browser tests automatically. Pull requests 1, 7, and 8 don't have it, so nothing checks them automatically.
+Where this workflow exists, on `main` or on a pull request's branch, GitHub runs the first check, the
+tools' self-tests, the packet tool's among them, and the browser tests automatically. Pull requests 1, 7, and 8 don't have it, so nothing checks them automatically.
 Passing these checks does not replace testing on a real phone or a content
 review. `notes/CONTENT-REVIEW.md` lists what still needs a person.
 

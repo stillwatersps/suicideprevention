@@ -105,6 +105,10 @@ python3 tools/test_browser.py
 python3 tools/check_crisis_sources.py
 ```
 
+```bash
+python3 tools/make_review_packet.py --self-test
+```
+
 - [ ] If the recheck happened on a new day, update the dates on the pages. Replace both dates in this
   example:
 
