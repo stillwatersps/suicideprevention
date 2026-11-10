@@ -6,7 +6,9 @@
     python3 tools/test_browser.py --pages get-help/  # only pages whose path has this text
     python3 tools/test_browser.py --screens DIR      # also save phone screenshots
 
-Needs Python 3 and Google Chrome or Chromium. Chrome runs with a throwaway profile.
+Needs Python 3 and Google Chrome or Chromium. Chrome runs with a throwaway profile. The axe group
+runs axe-core's WCAG 2.2 A and AA rules; the first time, it downloads one pinned, hash-checked copy
+of axe-core into tools/cache/ (see tools/axe_core.py). Nothing else is downloaded.
 
 It never calls, texts, chats, or submits anything: clicks on call and text links are
 refused here and blocked in the page. Quick exit is tested against a stand-in for

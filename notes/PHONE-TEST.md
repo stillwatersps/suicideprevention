@@ -115,7 +115,7 @@ Keep these results apart when writing them down.
 
 | Kind | Command or place | Can show | Can't show |
 | --- | --- | --- | --- |
-| Desktop Chrome, and its phone-size emulation | `python3 tools/test_browser.py` | Layout, keyboard, offline, links, print | Safari, real touch, real screen readers |
+| Desktop Chrome, and its phone-size emulation | `python3 tools/test_browser.py` | Layout, keyboard, offline, links, print, and axe-core's automated WCAG 2.2 A and AA rules | Safari, real touch, real screen readers, and the many accessibility needs no automated rule covers |
 | WebKit on a Mac, in a phone-size window | `python3 tools/test_webkit.py` | Layout and main behaviors in the engine family Safari uses | iOS itself, touch, Safari's toolbars, offline, call links |
 | iOS Simulator | Safari in Xcode's Simulator | iOS Safari's layout and toolbars, offline on `localhost`, the contact card screen | A real call or text, real touch, VoiceOver as a person uses it |
 | A real phone | This page | Everything above, plus touch, call and text screens, VoiceOver and TalkBack | Whether the content is right, which needs the reviewers |
