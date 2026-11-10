@@ -153,9 +153,41 @@
 <!-- END -->
 
 <!-- BLOCK:erase-note -->
-          <p>En la app, esto también borra lo que está guardado en este teléfono. Una copia en una copia de seguridad anterior de iCloud o de Google puede durar hasta la siguiente copia del teléfono. Tu grupo de edad se queda, para que no se te vuelva a preguntar.</p>
+          <p>En la app, esto también borra lo que está guardado en este teléfono. Una copia en una copia de seguridad anterior de iCloud o de Google puede durar hasta la siguiente copia del teléfono. Tu grupo de edad y las horas de tus recordatorios se quedan, para que no se te vuelva a preguntar.</p>
 <!-- END -->
 
 <!-- BLOCK:about-checkin -->
-            <li><strong>El registro diario.</strong> En la app, lo que eliges y escribes ahí se guarda solo en este teléfono, y se incluye en la copia de seguridad de iCloud o de Google del teléfono si está activada. Tidelight nunca lo recibe. Borrar todo, en Tu camino, lo quita del teléfono. <a href="../registro-diario/">Ir al registro diario</a>.</li>
+            <li><strong>El registro diario.</strong> En la app, lo que eliges y escribes ahí se guarda solo en este teléfono, y se incluye en la copia de seguridad de iCloud o de Google del teléfono si está activada. Tidelight nunca lo recibe. Borrar todo, en Tu camino, lo quita del teléfono. Los recordatorios que enciendas los muestra el teléfono mismo y no dicen nada sobre ti. <a href="../registro-diario/">Ir al registro diario</a>.</li>
+<!-- END -->
+
+<!-- BLOCK:reminders-hint -->
+        <p class="app-rem-hint">¿Te ayudaría un recordatorio? Puedes elegir horas para tu registro en <a href="#app-reminders">Tu camino</a>.</p>
+<!-- END -->
+
+<!-- BLOCK:today-log -->
+        <section class="app-log-section" aria-labelledby="app-log-title">
+          <h3 id="app-log-title">Registros de hoy</h3>
+          <p class="ci-empty app-log-empty">Todavía no hay registros hoy.</p>
+          <ul class="ci-list app-log" aria-labelledby="app-log-title"></ul>
+          <p class="app-log-words"><span class="app-log-feeling-text">ánimo:</span><span class="app-log-needs-text">Necesidades:</span><span class="app-slot" data-slot="morning">Mañana</span><span class="app-slot" data-slot="midday">Mediodía</span><span class="app-slot" data-slot="afternoon">Después de la escuela</span><span class="app-slot" data-slot="evening">Antes de dormir</span></p>
+          <p>Puedes compartir los registros de hoy, o de los últimos 7 días, con alguien que tú elijas: tu mamá, tu papá o la persona que te cuida, un médico o terapeuta, o una amistad. Verás las palabras primero y puedes cambiarlas. No se comparte nada salvo que toques Compartir.</p>
+          <p class="ci-step-buttons"><button type="button" class="app-share-days" data-days="1">Compartir los registros de hoy</button> <button type="button" class="app-share-days" data-days="7">Compartir los últimos 7 días</button></p>
+          <p class="app-sum-words"><span class="app-sum-title">Registros de Tidelight</span><span class="app-sum-footer">Lo comparto yo desde Tidelight. No es una forma de pedir ayuda urgente. Si te preocupa cómo estoy, por favor llámame.</span><span class="app-sum-none">No hay registros en estos días.</span></p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:reminders -->
+        <section class="app-reminders" id="app-reminders" tabindex="-1" aria-labelledby="app-reminders-title">
+          <h3 id="app-reminders-title">Recordatorios para tu registro</h3>
+          <p>Si quieres, este teléfono puede recordarte hacer tu registro. Cada recordatorio está apagado hasta que lo enciendas, y puedes cambiar su hora. El recordatorio solo dice "Un momento para registrarte, si quieres." No incluye nada sobre ti, y no se envía a ningún lugar.</p>
+          <ul class="app-rem-list">
+            <li><label><input type="checkbox" class="app-rem-on" data-slot="morning"> Mañana</label> <label class="app-rem-at">a las <input type="time" class="app-rem-time" data-slot="morning" value="08:00"></label></li>
+            <li><label><input type="checkbox" class="app-rem-on" data-slot="midday"> Mediodía</label> <label class="app-rem-at">a las <input type="time" class="app-rem-time" data-slot="midday" value="12:00"></label></li>
+            <li><label><input type="checkbox" class="app-rem-on" data-slot="afternoon"> Después de la escuela (o del trabajo)</label> <label class="app-rem-at">a las <input type="time" class="app-rem-time" data-slot="afternoon" value="15:30"></label></li>
+            <li><label><input type="checkbox" class="app-rem-on" data-slot="evening"> Antes de dormir</label> <label class="app-rem-at">a las <input type="time" class="app-rem-time" data-slot="evening" value="21:00"></label></li>
+          </ul>
+          <p class="app-rem-web" role="status">Los recordatorios funcionan en la app, en un teléfono. En un navegador web, tus elecciones se guardan, pero no se puede mostrar ningún recordatorio.</p>
+          <p class="app-rem-denied" role="status">Este teléfono no deja que Tidelight muestre notificaciones, así que no se puede programar ningún recordatorio. Puedes cambiarlo en los ajustes del teléfono.</p>
+          <p class="app-rem-words"><span class="app-rem-title">Tidelight</span><span class="app-rem-body">Un momento para registrarte, si quieres.</span></p>
+        </section>
 <!-- END -->

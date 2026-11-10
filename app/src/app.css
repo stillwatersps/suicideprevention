@@ -95,6 +95,51 @@ html.app-large-text .app-text-large-off { display: none; }
 }
 .app-share:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 
+/* Check-in reminders, and today's check-ins. */
+.app-reminders {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px;
+  margin: 24px 0;
+}
+.app-reminders h3 { margin-top: 0; }
+.app-rem-list { list-style: none; padding: 0; margin: 12px 0; }
+.app-rem-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  min-height: 44px;
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+.app-rem-list input[type="checkbox"] { width: 24px; height: 24px; margin-right: 8px; }
+.app-rem-list input[type="time"] {
+  font: inherit;
+  min-height: 44px;
+  padding: 4px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+.app-rem-web, .app-rem-denied { font-weight: 600; }
+.app-rem-words, .app-log-words, .app-sum-words { display: none; }
+.app-rem-hint { color: var(--muted); }
+.app-log li { padding: 6px 0; border-top: 1px solid var(--line); }
+.app-share-days {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 2px solid var(--green);
+  border-radius: 0;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+}
+.app-share-days:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
 @media print {
-  .app-age, .app-share-panel, .app-share, .app-settings { display: none !important; }
+  .app-age, .app-share-panel, .app-share, .app-settings, .app-reminders, .app-share-days, .app-rem-hint { display: none !important; }
 }
