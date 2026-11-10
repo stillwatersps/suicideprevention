@@ -129,14 +129,17 @@ Everywhere:
 
 Both founders agreed these on November 9, 2026. Details in [[DECISIONS]] and [[TASKS]].
 
-1. **In GitHub's settings, today:** turn off Issues and the Wiki, and require the other founder's
-   approval for merges into `main`. The repository owner does this.
+1. Done November 9, 2026, at a founder's request: Issues and the Wiki are off, and every merge into
+   `main` needs one approval from someone other than its author, with no exception for
+   administrators. An approval is dropped when new commits are pushed. No status check is required
+   by name, because the check is named differently on pull requests 5 and 12. Still to do: switch
+   Pages to GitHub Actions, in step 3.
 2. **Book the licensed therapist and find a fluent Spanish reader.** Give them the packets in
    `notes/review-packet/`, and record results in [[CONTENT-REVIEW]]. The reviewer looks first at idea
    E1 in [[IDEAS]], marked Important. Everything in pull request 5 waits for this.
 3. **Publish the one crisis page.** Pull request 12 now has a website-only publish step, added
-   November 9. Mark it ready for review, since GitHub won't merge a draft. The founder who didn't
-   open it approves it on GitHub, and then either founder merges it. Then the repository owner switches Pages to
+   November 9, and was marked ready for review the same day. It waits for the founder who didn't
+   open it to approve it on GitHub; then either founder merges it. Then the repository owner switches Pages to
    GitHub Actions and re-runs the latest Site run, in the order its description gives. Then close
    pull request 8. Merging publishes. Before or right after the merge, a founder reads 988's Get
    Help page to confirm the page's numbers and words, fills in "Person confirmed" in [[SAFETY]], and taps each link on a real iPhone and Android
@@ -144,7 +147,8 @@ Both founders agreed these on November 9, 2026. Details in [[DECISIONS]] and [[T
 4. **Try Shoreline and signage on a real phone,** using [[PHONE-TEST]], and merge or close pull
    request 11.
 5. **Both founders read** the updated [[FIRST-VERSION]], [[SAFETY]], and the crisis rules in
-   `CLAUDE.md`, and record them as agreed. Merge pull request 17 into pull request 5's branch.
+   `CLAUDE.md`, and record them as agreed. Pull requests 17 and 18 were merged into pull request 5's
+   branch on November 9, 2026, at a founder's request; neither published anything.
 6. **Smaller steps:** the trademark check, a lawyer for under-13s, owners for upkeep, and private
    notes moved outside the project folder.
 

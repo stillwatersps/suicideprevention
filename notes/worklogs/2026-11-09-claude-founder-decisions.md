@@ -53,7 +53,28 @@ notes-correction task moved to Completed in [[TASKS]], idea C5 in [[IDEAS]], and
 [[FOUNDER-BRIEF]]. Checked on GitHub: the live site matches `main`, pull request 12 merges cleanly
 with it, and its publish check passes on the merged result.
 
+## Update, evening of November 9
+
+At a founder's request, Claude did the steps that needed no second person:
+
+- **GitHub settings.** Issues and the Wiki are off. `main` is protected: every merge needs one
+  approval from someone other than the author, administrators included, and an approval is dropped
+  when new commits are pushed. Force pushes and deleting the branch are blocked. No status check is
+  required by name, because the check is "Check the website" on pull request 5 and "Check and
+  gather the website" on pull request 12; naming one would block the other. Pages was not switched;
+  that comes after pull request 12 merges.
+- **Choice to flag:** "administrators included" means an emergency fix, such as a changed crisis
+  number, also waits for the second founder. [[SAFETY]] asks when a fix may skip that review. If the
+  founders want an emergency route, the repository owner can allow administrators to bypass the
+  rule in Settings, Branches.
+- **Pull request 12** is marked ready for review. It waits for the other founder's approval.
+- **988 re-read.** Claude read https://988lifeline.org/get-help/ again on November 9, 2026. It still
+  says call or text 988, dial 988 and press 2 for Spanish, text AYUDA to 988, and chat in Spanish.
+  Recorded in [[SAFETY]]. "Person confirmed" is still empty.
+- **Merges.** Pull request 17, then this one, merged into pull request 5's branch. Neither publishes.
+
 ## Next step
 
-Merge pull request 17, then this one, into pull request 5's branch. Neither publishes. Then follow the
-order in [[STATUS]]: GitHub settings, booking the reviewer, and publishing the one crisis page.
+Follow the order in [[STATUS]]: the other founder approves pull request 12, a founder merges it and
+switches Pages, a person confirms the 988 numbers and taps each link on real phones, and the
+reviewer is booked.

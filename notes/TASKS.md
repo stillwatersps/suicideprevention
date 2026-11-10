@@ -61,9 +61,11 @@ Planning tasks below are suggestions; ownership has not been agreed.
   the draft page text on `claude/jolly-mayer-2m6eno`. [[CONTENT-REVIEW]] has a
   table comparing the two. Owner: unassigned.
 
-- [ ] GitHub settings both founders agreed on November 9, 2026: turn off Issues and the Wiki
-  (A4) and require the other founder's approval on `main` (A2) now, and switch Pages to GitHub
-  Actions (A3) together with pull request 12. Owner: the repository owner. Steps in
+- [x] GitHub settings both founders agreed on November 9, 2026: Issues and the Wiki off (A4) and
+  one approval required for every merge into `main`, administrators included (A2). Done November 9,
+  2026, at a founder's request.
+- [ ] Switch Pages to GitHub Actions (A3), right after pull request 12 merges, then re-run the
+  latest Site run. Owner: the repository owner. Steps in pull request 12's description and
   [[worklogs/2026-11-06-claude-approved-ideas]].
 - [ ] A fluent Spanish reader checks all nine pages in `es/` and the Spanish lines on the English pages, using
   `notes/review-packet/tidelight-spanish-review-packet.pdf`. Owner: unassigned.
