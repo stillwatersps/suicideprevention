@@ -65,7 +65,40 @@ VIEWPORTS = [
     ("laptop 1280x800", 1280, 800, False),
     ("desktop 1440x900", 1440, 900, False),
     ("400% zoom of 1280x900", 320, 225, False),
+    # Typical sizes, not measured on devices: an Android phone in split-screen, upright and on its side,
+    # a foldable's cover screen alone and in split-screen, its inner screen both ways, and very small
+    # screens. EXPECT below says which strip each must show.
+    ("split-screen phone 412x400", 412, 400, True),
+    ("split-screen phone 360x330", 360, 330, True),
+    ("split-screen phone on its side 456x380", 456, 380, True),
+    ("foldable cover screen 280x653", 280, 653, True),
+    ("foldable cover screen in split-screen 280x320", 280, 320, True),
+    ("foldable inner screen 700x840", 700, 840, True),
+    ("foldable inner screen on its side 840x700", 840, 700, True),
+    ("very small screen 240x320", 240, 320, True),
+    ("very small screen 280x280", 280, 280, True),
 ]
+# Which strip these sizes must show at the default text size, in each language: the full strip pinned,
+# the compact strip pinned, or the strip scrolling away with Quick exit floating. Where the full strip
+# would take more than a quarter of the height, the compact strip pins if it fits; if it doesn't, the
+# full strip stays pinned up to a third of the height and scrolls away above that. See "Narrow screens
+# just over 300px tall" in assets/styles.css. tools/test_webkit.py uses this too.
+EXPECT = {
+    "phone 320x568": {"en": "full", "es": "full"},
+    "phone landscape 568x320": {"en": "compact", "es": "compact"},
+    "split-screen phone 412x400": {"en": "full", "es": "full"},
+    "split-screen phone 360x330": {"en": "compact", "es": "scrolls"},
+    "split-screen phone on its side 456x380": {"en": "compact", "es": "full"},
+    "foldable cover screen 280x653": {"en": "full", "es": "full"},
+    "foldable cover screen in split-screen 280x320": {"en": "scrolls", "es": "scrolls"},
+    "foldable inner screen 700x840": {"en": "full", "es": "full"},
+    "foldable inner screen on its side 840x700": {"en": "full", "es": "full"},
+    "very small screen 240x320": {"en": "scrolls", "es": "scrolls"},
+    "very small screen 280x280": {"en": "scrolls", "es": "scrolls"},
+}
+# At the default text size, a pinned full strip may take more than ONE_ROW_MAX_PERCENT of the height only
+# where the compact strip doesn't fit, and never more than this.
+FULL_MAX_PERCENT = 100 / 3
 # Where the crisis strip must stay pinned, so 988 and 911 are always one tap away.
 MUST_PIN = {
     "phone 320x568", "phone 375x667", "phone 390x844", "phone 430x932",
@@ -95,6 +128,33 @@ TEXT_SIZES = [
     # width limits would be without their floors in px. Part of the row doesn't shrink with the text.
     ("short screen 236x200", 236, 200, True, (75,)),
     ("short screen 410x200", 410, 200, True, (75,)),
+    # Smaller text where, without the floors in px of the strip's own limits, the full strip would take
+    # more than a quarter of the screen's height, where at 100% it takes less or scrolls away: past its
+    # width limit (250x350), its height limit (400x290), its height limit on a wide screen (750x185),
+    # both (232x240), and with its extra words (750x370, in Spanish) or its wider row gap (320x390).
+    # Every size with text below 100% is also measured at 100%, for the comparison in test_textsize.
+    ("short screen 232x240", 232, 240, True, (75,)),
+    ("short screen 250x350", 250, 350, True, (75,)),
+    ("short screen 400x290", 400, 290, True, (75,)),
+    ("short screen 750x185", 750, 185, True, (75,)),
+    ("short screen 750x370", 750, 370, True, (75,)),
+    ("short screen 320x390", 320, 390, True, (75,)),
+    # Smaller text on a phone on its side wider than the compact strip's em limits, where only their floors in
+    # px keep it pinned there, as at 100%.
+    ("short screen 640x290", 640, 290, True, (75,)),
+    # A narrow screen with smaller text, where only the full strip's width floor in px keeps it from pinning,
+    # as at 100%. Shorter narrow screens also have the rules for narrow screens just over 300px tall. Not
+    # taller: from about 600px tall at 75% text, and 844px at 100%, the floating Quick exit covers a crisis
+    # button on the first screen of some pages, a known problem in notes/worklogs/2026-11-09-claude-strip-fixes.md.
+    ("narrow screen 250x500", 250, 500, True, (75,)),
+    # Typical sizes, not measured on devices: split-screen and foldables. With 75% text the strip must pin
+    # as at 100%, where the rules for narrow screens just over 300px tall decide; with larger text the page
+    # must still fit.
+    ("split-screen phone 360x330", 360, 330, True, (75,)),
+    ("foldable cover screen in split-screen 280x320", 280, 320, True, (75,)),
+    ("split-screen phone 412x400", 412, 400, True, (150, 200)),
+    ("foldable cover screen 280x653", 280, 653, True, (150,)),
+    ("foldable inner screen 700x840", 700, 840, True, (150, 200)),
     # Larger text on a desktop width must get a header that fits, not one that runs off the screen.
     ("tablet landscape 1024x768", 1024, 768, True, (150, 200)),
     ("laptop 1280x800", 1280, 800, False, (150, 200)),
@@ -143,7 +203,7 @@ AUDIT_JS = r"""
   var out = {hscroll: null, offscreen: [], clipped: [], smallTargets: [], tinyTargets: [], overlaps: [],
              brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: [], stripTargets: [],
              deadCrisis: [], exitCoversTop: [], stripTop: false, stripBottom: false, headerBottom: false, stripHidden: [],
-             stripRows: 0, pinnedShare: 0, compact: false, exitFixed: false};
+             stripRows: 0, pinnedShare: 0, compact: false, exitFixed: false, extraShown: false};
   function shown(el) {
     var s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none') return false;
@@ -362,6 +422,10 @@ AUDIT_JS = r"""
   // immediate danger," or "Si hay peligro inmediato,".
   var lead = document.querySelector('.crisis-bar .strip-911 .strip-lead');
   out.compact = !!lead && getComputedStyle(lead).display === 'none';
+  // Whether the strip shows its extra words, "Need help now?" and "any time", or their Spanish twins.
+  out.extraShown = !!bar && Array.prototype.some.call(bar.querySelectorAll('.strip-extra'), function (el) {
+    return getComputedStyle(el).display !== 'none';
+  });
   // Whether Quick exit floats in the corner, rather than riding inside the strip.
   out.exitFixed = !!exit && getComputedStyle(exit).position === 'fixed';
   // How many rows the strip's links and Quick exit take, counting Quick exit only when it is inside the strip.
@@ -426,6 +490,9 @@ AUDIT_JS = r"""
     var er = exit.getBoundingClientRect();
     Array.prototype.slice.call(document.querySelectorAll('main *, footer *')).forEach(function (el) {
       if (el.closest('svg') || hiddenOnPurpose(el) || !shown(el)) return;
+      // Folded away, whatever boxes a browser reports: macOS WebKit gives a closed fold's text boxes where it
+      // would be, though nothing is drawn there. The Chrome tests open every fold before this audit.
+      if (el.closest('details:not([open])') && !el.closest('summary')) return;
       var hasOwnText = Array.prototype.some.call(el.childNodes, function (n) { return n.nodeType === 3 && n.nodeValue.trim(); });
       if (!hasOwnText && !el.matches('a, button, summary')) return;
       var range = document.createRange();
@@ -753,6 +820,78 @@ def strip_problems(result, one_row=False):
     return problems
 
 
+def strip_kind(result):
+    """Which crisis strip the audit found: "full" or "compact" pinned, or "scrolls" away."""
+    return "scrolls" if not result.get("pinned") else ("compact" if result.get("compact") else "full")
+
+
+STRIP_WORDS = {"full": "the full crisis strip pinned", "compact": "the compact crisis strip pinned",
+               "scrolls": "the crisis strip scrolling away"}
+
+
+def expected_strip_problems(result, label, page):
+    """At the default text size: the strip EXPECT names for this size and language, if it names one, and
+    nowhere a pinned full strip taking more than FULL_MAX_PERCENT of the height. tools/test_webkit.py uses
+    this too."""
+    problems = []
+    want = EXPECT.get(label, {}).get("es" if page.startswith("es/") else "en")
+    got = strip_kind(result)
+    if want and got != want:
+        problems.append(f"shows {STRIP_WORDS[got]}, where it must show {STRIP_WORDS[want]}")
+    if got == "full" and result.get("pinnedShare", 0) > FULL_MAX_PERCENT:
+        problems.append(f"the pinned full crisis strip takes {result['pinnedShare']:g}% of the screen's height, more than a third")
+    return problems
+
+
+# Narrow screens just over 300px tall, such as a phone in split-screen, at the default text size: widths and
+# heights either side of the limits in "Narrow screens just over 300px tall" in assets/styles.css.
+SHARE_WIDTHS = (240, 256, 257, 259, 260, 278, 279, 290, 299, 300, 311, 312, 320, 321, 324, 325, 340, 366, 367, 400, 456,
+                480, 481, 504, 505, 543, 544, 600, 622, 623, 703, 704, 707, 708, 758, 759, 840, 959)
+SHARE_HEIGHTS = (301, 330, 353, 354, 383, 384, 418, 419, 450, 480, 481, 484, 485, 491, 492, 520, 556, 557, 567, 568, 600)
+# Where the compact strip fits at the default text size, by language, as in assets/styles.css.
+COMPACT_FROM = {"en": 312, "es": 544}
+SHARE_JS = """(function () {
+  var bar = document.querySelector('.crisis-bar'), lead = bar.querySelector('.strip-911 .strip-lead');
+  var pinned = getComputedStyle(bar).position === 'sticky';
+  return {pinned: pinned, share: pinned ? Math.round(10000 * bar.getBoundingClientRect().height / innerHeight) / 100 : 0,
+          compact: !!lead && getComputedStyle(lead).display === 'none',
+          extra: Array.prototype.some.call(bar.querySelectorAll('.strip-extra'), function (el) {
+            return getComputedStyle(el).display !== 'none'; })};
+})()"""
+
+
+def strip_share_problems(browser, site, pages):
+    """At the default text size, on one English and one Spanish page, over SHARE_WIDTHS by SHARE_HEIGHTS: a
+    pinned full strip takes more than a quarter of the height only where the compact strip doesn't fit, and
+    with its extra words hidden, and never more than a third. A list of (page, where, problem)."""
+    found = {}
+    tab = new_tab(browser)
+    chosen = [next((p for p in pages if p.startswith("es/") == spanish and p != "404.html"), None) for spanish in (False, True)]
+    for page in [p for p in chosen if p]:
+        lang = "es" if page.startswith("es/") else "en"
+        tab.resize(390, 844, True)
+        tab.goto(site.url(page))
+        for width in SHARE_WIDTHS:
+            for height in SHARE_HEIGHTS:
+                tab.resize(width, height, True)
+                r = tab.js(SHARE_JS)
+                if not r["pinned"] or r["compact"] or r["share"] <= ONE_ROW_MAX_PERCENT:
+                    continue
+                if r["share"] > FULL_MAX_PERCENT:
+                    problem = "the pinned full crisis strip takes more than a third of the screen's height"
+                elif COMPACT_FROM[lang] <= width <= 703:
+                    problem = "the full crisis strip pins over more than a quarter of the screen's height, where the compact strip fits"
+                elif r["extra"]:
+                    problem = "the pinned full crisis strip shows its extra words, taking more than a quarter of the screen's height"
+                else:
+                    continue
+                first_and_count = found.setdefault((page, problem), [f"{width}x{height}, {r['share']:g}%", 0])
+                first_and_count[1] += 1
+    tab.close()
+    return [(page, f"{first}, and {count - 1} more size(s)" if count > 1 else first, problem)
+            for (page, problem), (first, count) in found.items()]
+
+
 def test_matrix(browser, site, pages, report, screens=None):
     tab = new_tab(browser)
     for label, width, height, phone in VIEWPORTS:
@@ -786,20 +925,47 @@ def test_matrix(browser, site, pages, report, screens=None):
                                 "where it must scroll away", where)
                 if label in COMPACT and not result["compact"]:
                     report.fail("matrix", page, "the compact crisis strip is not in use, or the audit can't tell, so its limits go unchecked", where)
+                for problem in expected_strip_problems(result, label, page):
+                    report.fail("matrix", page, problem, where)
                 for item in result["stripHidden"]:
                     report.fail("matrix", page, f"at the top of the page, the crisis strip's {item} (SAFETY rule 1)", where)
                 if width >= 960 and not result["headerBottom"]:
                     report.fail("matrix", page, "the header's Get Support Now button scrolls off the screen", where)
                 apply_audit(result, "matrix", page, where, report, phone, one_row=label in ONE_ROW)
     tab.close()
+    for page, where, problem in strip_share_problems(browser, site, pages):
+        report.fail("matrix", page, problem, f"{where}, default text size")
+    report.ok("matrix")
+
+
+def smaller_text_problems(result, default, percent):
+    """With text smaller than the default, the crisis strip stays pinned wherever it is pinned at 100%,
+    and a pinned strip takes ONE_ROW_MAX_PERCENT of the screen's height or less, unless it already takes
+    more at 100%. "default" is the audit of the same page and size at 100%. The strip's limits have
+    floors in px for this: see "Floors in px" in assets/styles.css."""
+    problems = []
+    before = default["pinnedShare"] if default.get("pinned") else 0
+    if default.get("pinned") and not result.get("pinned"):
+        problems.append(f"with text at {percent}%, the crisis strip scrolls away, where it stays pinned at 100% text")
+    # Since November 10, 2026, with the rules for narrow screens just over 300px tall: smaller text pins the
+    # strip only where 100% does, as "Floors in px" in assets/styles.css says.
+    if result.get("pinned") and not default.get("pinned"):
+        problems.append(f"with text at {percent}%, the crisis strip pins, where it scrolls away at 100% text")
+    share = result.get("pinnedShare", 0)
+    if result.get("pinned") and share > ONE_ROW_MAX_PERCENT and before <= ONE_ROW_MAX_PERCENT:
+        problems.append(f"with text at {percent}%, the pinned crisis strip takes {share:g}% of the screen's height, where it must take "
+                        f"{ONE_ROW_MAX_PERCENT}% or less, as at 100% text ({before:g}%)")
+    return problems
 
 
 def test_textsize(browser, site, pages, report):
-    """Changes the browser's default font size, as a person's text size setting does."""
+    """Changes the browser's default font size, as a person's text size setting does. A size with text
+    below 100% is measured at 100% first, and compared with it: see smaller_text_problems."""
     tab = new_tab(browser)
     for label, width, height, phone, percents in TEXT_SIZES:
         tab.resize(width, height, phone)
-        for percent in percents:
+        at_default = {}
+        for percent in ([100] if min(percents) < 100 and 100 not in percents else []) + sorted(percents, key=lambda p: p != 100):
             tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16 * percent // 100, "fixed": 13 * percent // 100}})
             where = f"{label}, text at {percent}%"
             for page in pages:
@@ -812,6 +978,11 @@ def test_textsize(browser, site, pages, report):
                 # words smaller, by the reader's own choice, such as Home's "Call" at 21px wide at 75%,
                 # so there only the crisis strip's tap targets are measured.
                 apply_audit(result, "textsize", page, where, report, False, one_row=label in ONE_ROW, targets=percent >= 100)
+                if percent == 100:
+                    at_default[page] = result
+                elif percent < 100:
+                    for problem in smaller_text_problems(result, at_default[page], percent):
+                        report.fail("textsize", page, problem, where)
                 if ("es" if page.startswith("es/") else "en") in MUST_PIN_TEXT.get((label, percent), ()):
                     if not result["pinned"]:
                         report.fail("textsize", page, "the crisis strip is not pinned", where)
@@ -976,12 +1147,93 @@ def test_menu(browser, site, pages, report):
     tab.close()
 
 
-def test_jumps(browser, site, pages, report):
-    """Every jump link lands on visible text, not behind the pinned strip."""
+# Where a jump link stops is the page's scroll padding, so it can be compared with the pinned area at many
+# sizes without following a link: widths and heights either side of the limits of the strip, the jump
+# padding and the header, and typical phones, split-screen and foldable sizes, at text sizes from 12 to 32px.
+JUMP_WIDTHS = (240, 250, 257, 260, 270, 279, 290, 300, 312, 321, 325, 340, 360, 367, 375, 390, 412, 430, 456, 470, 481, 482,
+               490, 504, 505, 520, 544, 568, 600, 622, 623, 640, 660, 700, 704, 708, 750, 759, 768, 840, 900, 959, 960, 1000,
+               1020, 1021, 1031, 1032, 1042, 1043, 1080, 1200, 1280, 1303, 1304, 1440)
+JUMP_HEIGHTS = (242, 250, 290, 300, 301, 330, 354, 360, 383, 384, 400, 419, 430, 470, 481, 492, 520, 557, 568, 600, 653, 700, 768,
+                844, 1000)
+JUMP_TEXT = (12, 13, 14, 15, 16, 18, 20, 22, 24, 28, 32)
+# What stays pinned when the page is scrolled to its end: the crisis strip, or the sticky header on wide screens.
+JUMP_JS = """(function () {
+  var bar = document.querySelector('.crisis-bar'), head = document.querySelector('.site-header');
+  window.scrollTo({top: document.documentElement.scrollHeight, behavior: 'instant'});
+  var cover = 0, what = '';
+  if (getComputedStyle(bar).position === 'sticky') { cover = bar.getBoundingClientRect().bottom; what = 'crisis strip'; }
+  if (getComputedStyle(head).position === 'sticky' && head.getBoundingClientRect().bottom > cover) {
+    cover = head.getBoundingClientRect().bottom; what = 'header';
+  }
+  window.scrollTo({top: 0, behavior: 'instant'});
+  return [Math.round(cover * 100) / 100, what, parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0, innerHeight];
+})()"""
+
+
+def jump_padding_problems(browser, site, pages, javascript):
+    """Where a jump link would stop, at every size and text size above, on one English and one Spanish page:
+    never behind the pinned crisis strip or sticky header, and never in the lower half of the screen, unless
+    what is pinned takes more than a third of it. Also that what is pinned takes no more than half the
+    screen, where no jump link could stop in the top half. A list of (page, where, problem), one for each
+    kind of problem and page, with the first size that has it and how many more do."""
+    found = {}
     tab = new_tab(browser)
     tab.media(reduced=True)
-    for label, width, height, phone in (("phone 390x844", 390, 844, True), ("narrow phone 300x568", 300, 568, True), ("phone landscape 844x390", 844, 390, True), ("desktop 1440x900", 1440, 900, False)):
+    if not javascript:
+        tab.send("Emulation.setScriptExecutionDisabled", {"value": True})
+    chosen = [next((p for p in pages if p.startswith("es/") == spanish and p != "404.html"), None) for spanish in (False, True)]
+    for size in JUMP_TEXT:
+        tab.send("Page.setFontSizes", {"fontSizes": {"standard": size, "fixed": round(13 * size / 16)}})
+        for page in [p for p in chosen if p]:
+            tab.resize(390, 844, True)
+            tab.goto(site.url(page))
+            for width in JUMP_WIDTHS:
+                for height in JUMP_HEIGHTS:
+                    tab.resize(width, height, width < 1024)
+                    cover, what, padding, vh = tab.js(JUMP_JS)
+                    # What is pinned may take up to half the screen, and without JavaScript, where the header holds
+                    # the whole menu, on a wide screen under 60em with larger text, the header only a third. See
+                    # "Wide screens, which pin the header" in assets/styles.css.
+                    if cover > vh / 2 + 0.5:
+                        kind, detail = f"the pinned {what} takes more than half the screen", f"it ends at {cover:g}px of {vh}px"
+                    elif what == "header" and not javascript and width < 60 * size and cover > vh / 3 + 0.5:
+                        kind, detail = "without JavaScript, the pinned header takes more than a third of the screen", f"it ends at {cover:g}px of {vh}px"
+                    elif cover and padding < cover:
+                        kind, detail = f"a jump link stops behind the pinned {what}", f"the scroll padding is {padding:g}px and the {what} ends at {cover:g}px"
+                    elif padding > vh / 2 + 0.5 and cover <= vh / 3:
+                        kind, detail = "a jump link stops in the lower half of the screen", f"the scroll padding is {padding:g}px of {vh}px"
+                    # Where nothing is pinned, the padding is 1rem, so a link stops near the top. Over a quarter of
+                    # the screen means a rule for a pinned strip or header applies where nothing is pinned.
+                    elif not cover and padding > vh / 4:
+                        kind, detail = "a jump link stops lower than it needs to, where nothing is pinned", f"the scroll padding is {padding:g}px of {vh}px"
+                    else:
+                        continue
+                    where = f"{width}x{height}, text at {size}px, {'with' if javascript else 'without'} JavaScript"
+                    found.setdefault((page, kind), [where, detail, 0])[2] += 1
+    tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16, "fixed": 13}})
+    if not javascript:
+        tab.send("Emulation.setScriptExecutionDisabled", {"value": False})
+    tab.close()
+    return [(page, f"{where}, and {count - 1} more size(s)" if count > 1 else where, f"{kind}: {detail}")
+            for (page, kind), (where, detail, count) in found.items()]
+
+
+def test_jumps(browser, site, pages, report):
+    """Every jump link lands on visible text, not behind the pinned strip, and in the top half of the screen."""
+    tab = new_tab(browser)
+    tab.media(reduced=True)
+    # The fifth is a short, narrow screen with smaller text, where the strip scrolls away, so jump links must
+    # stop as high as on any screen with nothing pinned. Added November 10, 2026: sizes where a jump once
+    # stopped behind the strip, with 75% text and on a Spanish page 481px wide, a split-screen phone, and
+    # larger text. jump_padding_problems below covers many more sizes and text sizes, with and without
+    # JavaScript, without following links.
+    for label, width, height, phone, percent in (("phone 390x844", 390, 844, True, 100), ("narrow phone 300x568", 300, 568, True, 100),
+                                                 ("phone landscape 844x390", 844, 390, True, 100), ("desktop 1440x900", 1440, 900, False, 100),
+                                                 ("short screen 260x250, text at 75%", 260, 250, True, 75),
+                                                 ("narrow phone 270x568, text at 75%", 270, 568, True, 75), ("phone 481x844", 481, 844, True, 100),
+                                                 ("split-screen phone 412x400", 412, 400, True, 100), ("phone 320x568, text at 200%", 320, 568, True, 200)):
         tab.resize(width, height, phone)
+        tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16 * percent // 100, "fixed": 13 * percent // 100}})
         for page in pages:
             tab.goto(site.url(page))
             hashes = tab.js("""Array.from(new Set(Array.prototype.map.call(document.querySelectorAll('a[href^="#"]'),
@@ -1009,9 +1261,16 @@ def test_jumps(browser, site, pages, report):
                     report.fail("jumps", page, f"{fragment} lands behind the pinned area (top {result['top']}, pinned to {result['pinned']})", label)
                 elif result["top"] > result["vh"] and not result["atEnd"]:
                     report.fail("jumps", page, f"{fragment} leaves its target below the screen", label)
+                elif result["top"] > result["vh"] / 2 and not result["atEnd"]:
+                    report.fail("jumps", page, f"{fragment} leaves its target in the lower half of the screen (top {result['top']} of {result['vh']})", label)
                 else:
                     report.ok("jumps")
             report_after_use(tab, "jumps", page, site, report, label)
+    tab.send("Page.setFontSizes", {"fontSizes": {"standard": 16, "fixed": 13}})
+    for javascript in (True, False):
+        for page, where, problem in jump_padding_problems(browser, site, pages, javascript):
+            report.fail("jumps", page, problem, where)
+        report.ok("jumps")
     # A garbled address must not stop the page's script, which also sets up offline support.
     tab.resize(390, 844, True)
     tab.goto(site.url("get-help/index.html") + "#%E0%A4%A")

@@ -29,11 +29,22 @@ TOOLS = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS))
 from check_site import find_pages  # noqa: E402
 from preview_server import BASE, make_server  # noqa: E402
-from test_browser import AUDIT_JS, MUST_PIN, ONE_ROW, VIEWPORTS, strip_problems  # noqa: E402
+from test_browser import AUDIT_JS, MUST_PIN, ONE_ROW, VIEWPORTS, expected_strip_problems, strip_problems  # noqa: E402
 
-# Width, height, dark mode. 640x290 and 568x300 show the compact one-row strip.
+# Width, height, dark mode. 640x290 and 568x300 show the compact one-row strip. The last six are the
+# sizes the Chrome tests try with 75% text, where the full strip's limits have floors in px. Here they
+# are at the default text size, where the floors change nothing: the strip scrolls away and Quick exit
+# floats at 232x240, 250x350 and 750x185, and at 400x290 in Spanish, where the English compact strip
+# pins. It pins at 320x390 and 750x370.
 SIZES = [(390, 844, False), (320, 568, False), (568, 300, False), (640, 290, False), (750, 292, False), (844, 390, False),
-         (768, 1024, False), (1440, 900, False), (390, 844, True)]
+         (768, 1024, False), (1440, 900, False), (390, 844, True), (232, 240, False), (250, 350, False), (400, 290, False),
+         (750, 185, False), (320, 390, False), (750, 370, False),
+         # Typical sizes, not measured on devices, from the Chrome tests' VIEWPORTS: Android split-screen upright
+         # and on its side, a foldable's cover screen alone and in split-screen, its inner screen both ways, and
+         # very small screens, and a phone on its side at 568x320. EXPECT in tools/test_browser.py says which
+         # strip each must show.
+         (412, 400, False), (360, 330, False), (456, 380, False), (280, 653, False), (280, 320, False), (700, 840, False),
+         (840, 700, False), (240, 320, False), (280, 280, False), (568, 320, False)]
 AUDIT_KEYS = {
     "hscroll": "scrolls sideways", "offscreen": "runs off the screen", "clipped": "text cut off", "overlaps": "controls overlap",
     "brokenImages": "image did not load", "contrast": "low contrast", "unnamed": "control has no name",
@@ -45,6 +56,7 @@ AUDIT_KEYS = {
 # The sizes where the Chrome tests expect the crisis strip to stay pinned, and to be one short row.
 PINNED_SIZES = {(width, height) for label, width, height, _ in VIEWPORTS if label in MUST_PIN}
 ONE_ROW_SIZES = {(width, height) for label, width, height, _ in VIEWPORTS if label in ONE_ROW}
+LABELS = {(width, height): label for label, width, height, _ in VIEWPORTS}
 
 SWIFT = r"""
 // Runs steps in a WebKit view: load an address, run a script, or take a screenshot. Prints one line of JSON per step.
@@ -283,6 +295,9 @@ def main():
                 # At every size: the compact strip, and on a phone on its side any pinned strip, is one short
                 # row, and Quick exit is inside the pinned strip or floats where the strip scrolls away.
                 for problem in strip_problems(result, (width, height) in ONE_ROW_SIZES) if result else []:
+                    problems.append(f"{line['step']}, {where}: {problem}")
+                # Which strip each size shows in each language, and no pinned full strip over a third of the height.
+                for problem in expected_strip_problems(result, LABELS.get((width, height), ""), line["step"]) if result else []:
                     problems.append(f"{line['step']}, {where}: {problem}")
                 if width >= 960 and not result.get("headerBottom"):
                     problems.append(f"{line['step']}, {where}: the header's Get Support Now button scrolls off the screen")

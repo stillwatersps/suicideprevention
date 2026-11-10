@@ -73,6 +73,42 @@ They are in draft pull requests, not merged, and **not agreed by both founders**
   640 by 290. A phone held upright with very large text, such as 390 px wide at 200%, can't fit
   one row, so the strip still scrolls away there. WebKit on a Mac agrees at the default text
   size. Not tried on a real phone. [[CONTENT-REVIEW]] asks the reviewer about the shorter wording.
+  **Added November 8, 2026, on the same branch:** each of the full strip's own limits, set in em
+  only, also has a floor in px, its value at the default text size, because with smaller text they
+  shrank: at 232 by 240 with 75% text the strip pinned, taking 47% of the height in English and 65%
+  in Spanish. Smaller text now pins the strip, full or compact, only where the default size does,
+  and nothing changes at the default size or larger. Some screens that pinned it with smaller text
+  now scroll it away, as at the default size. Measured again on Shoreline on November 10, 2026, at
+  75% text: narrow ones up to 256 px wide, such as 250 by 844; screens 300 px tall or less, up to
+  310 px wide in English and up to 543 px wide in Spanish, where the Spanish compact row doesn't
+  fit; Spanish pages 528 to 543 px wide from about 181 px tall; and screens 528 px and wider about
+  181 to 191 px tall, below the compact strip's 192 px floor. (Corrected November 10: this said "a
+  few narrow screens" only.)
+  **Proposed November 10, 2026, on branch `build/strip-1109`, and not agreed by both founders:**
+  on narrow screens just over 300 px tall, such as a phone in split-screen, the pinned full strip
+  took up to 61% of the height at the default text size, on a Spanish page 257 by 301. Now, where it
+  would take more than a quarter, the compact strip pins where its row fits: under 384 px tall,
+  from 312 px wide in English and 544 px in Spanish, to 703 px. Where the row doesn't fit, the full
+  strip stays pinned while it takes a third of the height or less, and above a third it scrolls
+  away and Quick exit floats: in English up to 299 px wide and 353 px tall, or 259 by 418; in
+  Spanish up to 366 by 353, 324 by 418, 320 by 491 or 278 by 556. Spanish pages 481 to 622 px wide
+  leave out "¿Necesitas ayuda ahora?" and "a cualquier hora" where those words made the strip take
+  more than a quarter. The trade-off: between a quarter and a third, 988 and 911 stay on screen but
+  cover more of the page. Scrolling away at a quarter instead would leave many split-screen sizes,
+  such as a Spanish page 456 by 380, with only Quick exit on screen once scrolled. Above a third
+  little of the page is left to read, so the strip scrolls away, as it already did on screens
+  300 px tall or less. Every size that pinned it at a quarter or less at the default text size is
+  unchanged. With smaller text these limits follow the default size, so some sizes that pinned the
+  full strip at 75% text, at a quarter or less, now scroll it away, such as a Spanish page 258 by
+  450. With larger text the full strip can still take up to 46% of a narrow, short screen, such as a
+  Spanish page 327 by 354 at 18 px text, as before: still open. Jump links now stop below whatever is
+  pinned, at every size tried from 240 to 1440 px wide and 250 to 1000 px tall, with text from 12
+  to 32 px, with and without JavaScript, and never lower than half the screen. Wide screens unpin
+  the sticky header where it would take more than half the screen, and without JavaScript, where it
+  holds the whole menu with larger text, more than a third. Measured in desktop Chrome's phone-size
+  emulation, and checked in WebKit on a Mac at the default text size. Words wrap differently in other
+  fonts, so on a phone these widths can be a little off. Not tried on a real phone. See
+  [[worklogs/2026-11-09-claude-strip-fixes|the handoff]].
   At 960 px and wider the strip scrolls away and the sticky header's button stays, which takes
   two steps to start a call. Why: on phones, the header's button took two taps.
 - **Crisis strip uses links.** Call 988, text 988, and call 911 can be tapped. Why:

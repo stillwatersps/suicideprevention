@@ -5,7 +5,7 @@ Run from the project folder:
 
     python3 tools/check_site.py                 # pages and notes
     python3 tools/check_site.py --check-links   # also load every outside link
-    python3 tools/check_site.py --self-test     # check how the link check reads answers, offline
+    python3 tools/check_site.py --self-test     # check how the link check reads answers, and the compact strip copy check, offline
 
 It never calls, texts, or submits anything. Phone and text links are only read.
 Passing means the structure is consistent: it does not show that a page is
@@ -727,6 +727,7 @@ def check_pages(failures, notes):
     check_review_status(failures, pages, notes)
     check_dates(failures, pages)
     check_crisis_styles(failures, names)
+    check_compact_copies(failures)
     outside = {}
     for name, page in pages.items():
         for link in page.links:
@@ -1661,6 +1662,113 @@ def check_crisis_styles(failures, names):
                                                 f"for example {node.describe()} on {name}: {why}")
 
 
+def tidy_css(text):
+    """CSS text with its spacing made even, so two copies that differ only in spaces compare the same:
+    runs of spaces become one, and none is kept around : ; , ( ) > + or ~."""
+    return re.sub(r"\s*([:;,()>+~])\s*", r"\1", re.sub(r"\s+", " ", text.strip()))
+
+
+def language_copies(css):
+    """Rules written once for each language, by the @media blocks they sit in:
+    {(the blocks around them but the innermost, language): [(innermost block, [(selectors, [declarations])])]},
+    and the rules in those same innermost blocks that aren't written for one language alone:
+    [(the blocks around them, selectors)]. The selectors are given without their html[lang="..."], and
+    everything is given with its spacing made even (tidy_css). A rule for html[lang="..."] itself, the
+    page's root, such as where jump links stop, counts as part of its language's copy, given as ":root"."""
+    copies, blocks_of, others = {}, {}, []
+    rules = css_rules(css)[0]
+
+    def for_language(part, lang):
+        return part.startswith(f'html[lang="{lang}"] ') or part == f'html[lang="{lang}"]'
+
+    for around, selectors, body in rules:
+        parts = [tidy_css(part) for part in split_top(selectors)]
+        for lang in ("en", "es"):
+            mark = f'html[lang="{lang}"] '
+            if around and parts and all(for_language(part, lang) for part in parts):
+                around = tuple(tidy_css(block) for block in around)
+                blocks = copies.setdefault((around[:-1], lang), [])
+                if not blocks or blocks[-1][0] != around[-1]:
+                    blocks.append((around[-1], []))
+                blocks_of.setdefault(around, lang)  # the block's language is that of its first rule
+                said = [tidy_css(item) for item in body.split(";") if item.strip()]
+                said = [(item.split(":", 1)[0].lower() + ":" + item.split(":", 1)[1]) if ":" in item else item for item in said]
+                blocks[-1][1].append((", ".join(part[len(mark):] or ":root" for part in parts), said))
+    # A rule without its language in a block that holds one language's copy would apply to both languages,
+    # unseen by the comparison. So would one written for the other language there.
+    for around, selectors, body in rules:
+        around = tuple(tidy_css(block) for block in around)
+        lang = blocks_of.get(around)
+        if not lang:
+            continue
+        parts = [tidy_css(part) for part in split_top(selectors)]
+        if not all(for_language(part, lang) for part in parts):
+            others.append((around, ", ".join(parts)))
+    return copies, others
+
+
+def rule_differences(selector, english, spanish):
+    """What differs between the English and Spanish declarations of one rule, in words."""
+    def by_name(said):
+        return dict((item.split(":", 1) + [""])[:2] for item in said)
+    en, es = by_name(english), by_name(spanish)
+    found = []
+    for name in dict.fromkeys(list(en) + list(es)):
+        if name not in es:
+            found.append(f"{selector} has {name}:{en[name]} in English only")
+        elif name not in en:
+            found.append(f"{selector} has {name}:{es[name]} in Spanish only")
+        elif en[name].strip() != es[name].strip():
+            found.append(f"{selector} has {name}:{en[name]} in English but {name}:{es[name]} in Spanish")
+    if not found and english != spanish:
+        found.append(f"{selector} lists its declarations in another order, or one twice, in one of them")
+    return found
+
+
+def copy_differences(english, spanish):
+    """What differs between the English and Spanish copies of a block, in words, or []. Their innermost
+    @media blocks, the width limits, may differ only in their numbers."""
+    if len(english) != 1 or len(spanish) != 1:
+        return [f"they are split into {len(english)} block(s) in English and {len(spanish)} in Spanish, where each must be one block"]
+    (en_media, en_rules), (es_media, es_rules) = english[0], spanish[0]
+    found = []
+    if re.sub(r"\d+(\.\d+)?", "N", en_media) != re.sub(r"\d+(\.\d+)?", "N", es_media):
+        found.append(f"their limits differ in more than their numbers: {en_media} in English, {es_media} in Spanish")
+    for index in range(max(len(en_rules), len(es_rules))):
+        en = en_rules[index] if index < len(en_rules) else None
+        es = es_rules[index] if index < len(es_rules) else None
+        if en is None or es is None:
+            only, rule = ("Spanish", es) if en is None else ("English", en)
+            found.append(f"only the {only} copy has {rule[0]} {{ {'; '.join(rule[1])} }}")
+        elif en[0] != es[0]:
+            found.append(f"rule {index + 1} is for {en[0]} in English but for {es[0]} in Spanish")
+        else:
+            found.extend(rule_differences(en[0], en[1], es[1]))
+    return found
+
+
+def check_compact_copies(failures, css=None):
+    """The compact crisis strip is written twice in assets/styles.css, once for each language, because the
+    Spanish row needs more width. Apart from their width limits, the two copies must stay the same."""
+    if css is None:
+        path = ROOT / "assets" / "styles.css"
+        css = path.read_text(encoding="utf-8") if path.exists() else ""
+    copies, others = language_copies(css)
+    pairs = [context for context, lang in copies if lang == "en" and (context, "es") in copies]
+    if not pairs:
+        failures.append("assets/styles.css: the compact crisis strip's English and Spanish copies weren't found side by side, "
+                        "inside the same @media blocks, so tools/check_site.py can't compare them")
+    for context in pairs:
+        for difference in copy_differences(copies[(context, "en")], copies[(context, "es")]):
+            failures.append(f"assets/styles.css: the compact crisis strip's English and Spanish copies differ: {difference}. "
+                            "Keep them the same apart from their width limits")
+    for around, selectors in others:
+        if around[:-1] in pairs:
+            failures.append(f"assets/styles.css: inside one language's copy of the compact crisis strip, at {around[-1]}, the rule for "
+                            f"{selectors} isn't written for that language alone, so the English and Spanish copies differ. Start each "
+                            "selector there with its copy's html[lang=\"...\"]")
+
+
 # Crisis services known to refuse scripts. Both answer 403, and a person checks them in a browser instead.
 # findtreatment.gov came off this list on November 8, 2026, after it answered this link check normally
 # twice, and it did so twice more on November 9 and on November 10. A plain read still gets a nearly
@@ -1739,6 +1847,46 @@ def self_test_links():
         print(f"{wrong} case(s) read wrongly. The monthly link check can't be trusted until this is fixed.")
         return 1
     print(f"All {len(cases)} made-up link answers were read correctly.")
+    return 0
+
+
+def self_test_copies():
+    """Made-up edits of the stylesheet, so the check that the compact strip's two copies match can be checked
+    both ways: it passes on edits that change nothing between them and fails on those that do."""
+    path = ROOT / "assets" / "styles.css"
+    css = path.read_text(encoding="utf-8")
+    es_bar = 'html[lang="es"] .crisis-bar { position: sticky; column-gap: 0; padding: 2px 4px; }'
+    es_end = '      html[lang="es"] body { padding-bottom: 0; }'
+    es_width = "@media (min-width: 34em) and (min-width: 544px) {"
+    es_jump = 'html[lang="es"] { --jump-em: 3.9rem; --jump-px: 62px; }'
+    cases = [
+        # What is being shown, the edit (old, new), whether it should fail.
+        ("the stylesheet as it is passes", ("", ""), False),
+        ("spacing changed in one copy only passes", (es_bar, es_bar.replace(" { ", " {").replace(": ", ":").replace("; ", ";  ").replace(" }", ";}")), False),
+        ("spacing changed in one copy's width limit passes", (es_width, es_width.replace(": ", ":").replace(" {", "{")), False),
+        ("a changed width limit passes", (es_width, es_width.replace("34em", "35em").replace("544px", "560px")), False),
+        ("a value changed in one copy fails", (es_bar, es_bar.replace("2px 4px", "2px 8px")), True),
+        ("a rule without its language in one copy fails", (es_end, es_end + "\n      .strip-or { margin: 0 2rem; }"), True),
+        ("a selector without its language in one copy fails", (es_bar, es_bar.replace('html[lang="es"] .crisis-bar', '.crisis-bar')), True),
+        ("a rule for the other language in one copy fails", (es_end, es_end + '\n      html[lang="en"] .strip-or { margin: 0; }'), True),
+        ("a width limit turned into a height limit fails", (es_width, es_width.replace("min-width: 34em", "min-height: 34em")), True),
+        ("where jump links stop, changed in one copy only, fails", (es_jump, es_jump.replace("62px", "48px")), True),
+    ]
+    wrong = 0
+    for name, (old, new), should_fail in cases:
+        if old and old not in css:
+            print(f"  WRONG: {name}: the stylesheet no longer contains {old[:60]}")
+            wrong += 1
+            continue
+        failures = []
+        check_compact_copies(failures, css.replace(old, new, 1) if old else css)
+        right = bool(failures) == should_fail
+        wrong += not right
+        print(f"  {'ok' if right else 'WRONG'}: {name}")
+    if wrong:
+        print(f"{wrong} made-up stylesheet edit(s) read wrongly. The check of the compact strip's copies can't be trusted until this is fixed.")
+        return 1
+    print(f"All {len(cases)} made-up stylesheet edits were read correctly.")
     return 0
 
 
@@ -1825,10 +1973,10 @@ def check_notes(failures):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--check-links", action="store_true", help="also load every outside link")
-    parser.add_argument("--self-test", action="store_true", help="check how the link check reads answers, offline")
+    parser.add_argument("--self-test", action="store_true", help="check how the link check reads answers, and the compact strip copy check, offline")
     args = parser.parse_args()
     if args.self_test:
-        return self_test_links()
+        return max(self_test_links(), self_test_copies())
 
     failures, notes = [], []
     outside, count = check_pages(failures, notes)
