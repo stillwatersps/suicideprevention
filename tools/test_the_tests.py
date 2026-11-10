@@ -438,6 +438,12 @@ COMMAND_BUGS = [
         '<p class="access-link"><a href="../get-help/#deaf-hoh">Deaf or hard of hearing</a></p>',
         '<p class="access-link"><a href="../get-help/">Deaf or hard of hearing</a></p>'),
      ["tools/check_site.py"], "no approval of this page"),
+    # The "what changed" packets (--changes), which the self-test builds in a scratch copy with a scratch history.
+    ("the what-changed packet comparing with the oldest approval", replace("tools/make_review_packet.py", 'return (max(mine, key=lambda r: (r["date"], r["index"])) if mine else None)', 'return (min(mine, key=lambda r: (r["date"], r["index"])) if mine else None)'), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
+    ("the what-changed packet counting a lawyer's approval", replace("tools/make_review_packet.py", 'and lang in r["kinds"] and r["approved"]]', 'and r["approved"]]'), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
+    ("the what-changed packet leaving out a section changed since its approval", replace("tools/make_review_packet.py", 'elif current and approval["fingerprint"] == current["fingerprint"]:', "elif current:"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
+    ("the what-changed packet taking the approved text from a commit with another fingerprint", replace("tools/make_review_packet.py", 'if found and found["fingerprint"] == wanted:', "if found:"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
+    ("the what-changed packet showing no differences", replace("tools/make_review_packet.py", "    if old == new:\n        return \"\"\n", "    return \"\"\n"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
     # The build date in each packet's own language, whatever the computer's language setting.
     ("the Spanish packet giving its build date in English", replace("tools/make_review_packet.py", "Generado el {spanish_date(day)}", "Generado el {english_date(day)}"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),
     ("the Spanish build date taken from the computer's language setting", replace("tools/make_review_packet.py", "    return f\"{day.day} de {MONTHS['es'][day.month - 1]} de {day.year}\"", "    return day.strftime(\"%-d de %B de %Y\")"), ["tools/make_review_packet.py", "--self-test"], "read wrongly"),

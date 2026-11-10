@@ -3,6 +3,7 @@
 
     python3 tools/make_review_packet.py              # HTML and PDF, in notes/review-packet/
     python3 tools/make_review_packet.py --no-pdf     # HTML only, if Chrome isn't installed
+    python3 tools/make_review_packet.py --changes    # only what changed since each reviewer's approvals
     python3 tools/make_review_packet.py --self-test  # checks this tool on made-up cases, changing nothing
 
 It writes two packets, so each reader gets what they need:
@@ -22,18 +23,33 @@ section's text, exactly as the packet shows it, screen reader words included. A 
 and the publish step (tools/launch_gate.py) counts an approval only while the section's text still has that
 fingerprint. The packet fingerprint in notes/review-packet/FINGERPRINT.txt is made from both packets' text,
 so tools/check_site.py says the packets are out of date whenever what they would show changes.
+
+With --changes it writes, for each reviewer, a short packet instead: tidelight-review-changes for the licensed
+therapist and tidelight-spanish-review-changes for the fluent Spanish reader. Each holds only the sections whose
+fingerprint now differs from that reviewer's newest approval in notes/CONTENT-REVIEW.md, with the approved text
+and the text now side by side and the differences marked. The approved text comes from the project's git
+history: the newest commit that changed the site or this tool and gives the section the approved fingerprint.
+If there is none, it shows the text now and says why. It reads git and changes nothing in it, and .gitignore
+keeps those packets out of the project.
 """
 import argparse
 import collections
 import datetime
+import difflib
 import hashlib
 import html
 import html.parser
 import inspect
+import io
 import json
+import os
 import pathlib
 import re
+import shutil
+import subprocess
 import sys
+import tarfile
+import tempfile
 import urllib.parse
 
 TOOLS = pathlib.Path(__file__).resolve().parent
@@ -1174,7 +1190,7 @@ code { font: 8.5pt Menlo, Consolas, monospace; }
 """
 
 
-def document(title, body):
+def document(title, body, style=STYLE):
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -1182,7 +1198,7 @@ def document(title, body):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>{esc(title)}</title>
-<style>{STYLE}</style>
+<style>{style}</style>
 </head>
 <body>
 {body}
@@ -1232,12 +1248,7 @@ def signoff_table(rows, lang):
 
 def signoff_rows(lang):
     """Each section the publish step reads, named as a review record may name it, with its fingerprint now."""
-    from check_site import review_sections
-
-    part = {EVERY_PAGE["en"]: " (Part 1)", OUTSIDE_TEXT["en"]: " (Part 3)",
-            EVERY_PAGE["es"]: " (Parte 1)", OUTSIDE_TEXT["es"]: " (Parte 4)"}
-    return [(label + part.get(page, ""), section_fingerprint(page, lang))
-            for label, page, section_lang in review_sections() if section_lang == lang]
+    return [(label, section_fingerprint(page, lang)) for label, page, _ in signoff_rows_named(lang)]
 
 
 def therapist_packet(day, stamp):
@@ -1447,6 +1458,410 @@ PACKETS = (
 )
 
 
+# ---------------------------------------------------------------- what changed since each reviewer's approvals
+
+# Each "what changed" packet: its file name, the reviewer's sections ("en" for the licensed clinician, "es" for the
+# fluent Spanish reader), and the label in its PDF's footer. Built only with --changes, and never committed:
+# .gitignore leaves them out, because they depend on the review records and the text at the time they are built.
+CHANGE_PACKETS = (
+    ("tidelight-review-changes", "en", "Tidelight: what changed since the clinical review"),
+    ("tidelight-spanish-review-changes", "es", "Tidelight: qué cambió desde la revisión en español"),
+)
+# What a section's text depends on, so the only commits worth reading: the pages, what the packets read from
+# assets/ and manifest.webmanifest, and the two tools that turn them into sections.
+HISTORY_PATHS = ("*.html", "assets", "manifest.webmanifest", "tools/make_review_packet.py", "tools/check_site.py")
+# Left out of each copy read from history: nothing a section shows comes from them, and they are large.
+HISTORY_SKIP = ("notes/review-packet", "notes/attachments", "notes/worklogs", "assets/images", "design")
+# Run in a copy of the project, with that copy's tools: prints each section's fingerprint and its text as plain
+# lines, as JSON. It reads only the keys every version of this tool has given its blocks, so an older version's
+# tool can run it too. Each line is a block's words, a heading or list mark first, then each link and any note
+# saying which pages show it.
+SECTION_SCRIPT = r'''
+import json, sys
+sys.path.insert(0, "tools")
+import make_review_packet as tool
+found = {}
+for page, lang in json.loads(sys.argv[1]):
+    try:
+        lines = []
+        for block in tool.section_blocks(page, lang):
+            mark = "Heading: " if block["tag"] in ("h1", "h2", "h3", "h4", "h5", "h6") else "- " if block["tag"] == "li" else ""
+            lines.append(mark + block["text"])
+            lines.extend("    Link: %s -> %s" % (link["text"], link["href"]) for link in block.get("links", []))
+            if block.get("where"):
+                lines.append("    (%s)" % block["where"])
+        found[page + "|" + lang] = {"fingerprint": tool.section_fingerprint(page, lang), "lines": lines}
+    except Exception as error:  # an older tool, or a page that didn't exist yet
+        found[page + "|" + lang] = {"error": repr(error)[:300]}
+print(json.dumps(found))
+'''
+CHANGE_WORDS = {
+    "en": {
+        "title": "What changed since your review",
+        "lede": "For the licensed therapist: only the sections of the Tidelight review packet whose text changed after your newest recorded approval.",
+        "banner": "<strong>Draft. Not reviewed.</strong> This short packet doesn't replace the full one. It shows each section's approved text and its text now, with the differences marked. The full packet has every sentence with its number and sources.",
+        "built": "Built {day} from the website files, the review records in notes/CONTENT-REVIEW.md, and the project's history.",
+        "legend": "How the differences are marked: <del>words taken out</del> are struck through, and <ins>words added</ins> are underlined in bold. Unchanged lines between changes are skipped, and the full packet has them.",
+        "none": "No section has changed since its newest approval.",
+        "approved": "Approved on {date} (reviewer: {role}), with the fingerprint {old}. Its fingerprint now is {new}.",
+        "newer": "A newer record, from {date}, isn't an approval. This compares the text with the approval above.",
+        "found": "Approved text: as of commit {commit}, from {date}. It is the newest commit in the project's history that changed the site or the packet tool and gives this section that fingerprint.",
+        "found_old_tool": " That fingerprint was made by the packet tool of that time. Both columns below show the text the way the packet tool shows it now.",
+        "same_words": "The words and links are the same as approved. The fingerprint changed because the packet tool now shows this section differently, so the approval still has to be recorded again.",
+        "not_found": "The approved text wasn't found: {why}. Here is the text now. Please read it in full.",
+        "why_no_git": "this copy of the project has no git history",
+        "why_none": "none of the {count} commits read gives this section the fingerprint {old}, so it may have been copied wrongly into the review record, or come from a branch this copy doesn't have",
+        "side_old": "Approved text",
+        "side_new": "Text now",
+        "skipped": "{count} unchanged lines",
+        "unchanged": "Unchanged since your newest approval",
+        "unapproved": "No approval recorded yet, so please read these in the full packet",
+        "no_print": "Approved without a fingerprint, so the approved text can't be found. Please read these in the full packet",
+        "signoff": "Sign-off for the changed sections",
+        "signoff_note": "Each changed section's new fingerprint is printed beside it. Record the result in \"Review records\" in notes/CONTENT-REVIEW.md as before, with the new fingerprint.",
+    },
+    "es": {
+        "title": "Qué cambió desde su revisión",
+        "lede": "Para la persona hispanohablante: solo las secciones del paquete en español de Tidelight cuyo texto cambió después de su aprobación más reciente.",
+        "banner": "<strong>Borrador sin revisar.</strong> Este paquete corto no reemplaza al completo. Muestra el texto aprobado de cada sección y su texto actual, con las diferencias marcadas. El paquete completo tiene cada oración con su número.",
+        "built": "Generado el {day} a partir de los archivos del sitio, los registros de revisión de notes/CONTENT-REVIEW.md y el historial del proyecto.",
+        "legend": "Cómo se marcan las diferencias: <del>las palabras que se quitaron</del> van tachadas, y <ins>las que se agregaron</ins>, subrayadas en negrita. Las líneas sin cambios entre los cambios se omiten; están en el paquete completo.",
+        "none": "Ninguna sección ha cambiado desde su aprobación más reciente.",
+        "approved": "Aprobada el {date} (quien revisó: {role}), con la huella {old}. Su huella actual es {new}.",
+        "newer": "Un registro más reciente, del {date}, no es una aprobación. Aquí se compara el texto con la aprobación de arriba.",
+        "found": "Texto aprobado: el del commit {commit}, del {date}. Es el commit más reciente del historial del proyecto que cambió el sitio o la herramienta del paquete y le da a esta sección esa huella.",
+        "found_old_tool": " Esa huella la hizo la herramienta del paquete de ese momento. Las dos columnas de abajo muestran el texto como lo muestra ahora la herramienta del paquete.",
+        "same_words": "Las palabras y los enlaces son los mismos que se aprobaron. La huella cambió porque la herramienta del paquete ahora muestra esta sección de otra forma, así que la aprobación tiene que anotarse de nuevo.",
+        "not_found": "No se encontró el texto aprobado: {why}. Este es el texto actual. Léalo completo, por favor.",
+        "why_no_git": "esta copia del proyecto no tiene historial de git",
+        "why_none": "ninguno de los {count} commits leídos le da a esta sección la huella {old}, así que puede haberse copiado mal en el registro, o venir de una rama que esta copia no tiene",
+        "side_old": "Texto aprobado",
+        "side_new": "Texto actual",
+        "skipped": "{count} líneas sin cambios",
+        "unchanged": "Sin cambios desde su aprobación más reciente",
+        "unapproved": "Sin aprobación registrada todavía, así que léalas en el paquete completo",
+        "no_print": "Aprobadas sin huella, así que no se puede encontrar el texto aprobado. Léalas en el paquete completo",
+        "signoff": "Firma de las secciones que cambiaron",
+        "signoff_note": "Junto a cada sección que cambió va su huella nueva. Los fundadores anotan el resultado en \"Review records\" de notes/CONTENT-REVIEW.md, como antes, con la huella nueva.",
+    },
+}
+CHANGES_STYLE = STYLE + """
+del { text-decoration: line-through; background: #FBE3E3; color: #5A1010; }
+ins { text-decoration: underline; font-weight: bold; background: #E1F2E3; color: #0E3D1A; }
+.compare td { width: 50%; font-size: 9pt; }
+.compare p { margin: 0 0 3pt; white-space: pre-wrap; }
+.compare .gap { font-style: italic; color: #555; }
+"""
+
+
+def git(*args, cwd=None, data=False):
+    """Runs git in the project, or in cwd, and returns its output, or None if git isn't there or fails."""
+    try:
+        done = subprocess.run(["git", *args], cwd=cwd or ROOT, capture_output=True, text=not data)
+    except OSError:
+        return None
+    return done.stdout if done.returncode == 0 else None
+
+
+def newest_approvals(records, page, lang):
+    """(the newest approval of a section by the kind of reviewer it needs, the newest record of any result by that
+    kind of reviewer). Records by anyone else, such as a lawyer, are left out, as the publish step leaves them out."""
+    from check_site import latest_review
+
+    mine = [r for r in records if r["page"] == page and r["lang"] == lang and lang in r["kinds"] and r["approved"]]
+    return (max(mine, key=lambda r: (r["date"], r["index"])) if mine else None), latest_review(records, page, lang)
+
+
+def section_states(folder, sections):
+    """{(page, lang): {"fingerprint": ..., "lines": [...]}} for the project in folder, as its own tools see it."""
+    done = subprocess.run([sys.executable, "-c", SECTION_SCRIPT, json.dumps(sections)], cwd=folder,
+                          capture_output=True, text=True)
+    try:
+        found = json.loads(done.stdout)
+    except ValueError:
+        return {}
+    return {tuple(key.split("|", 1)): value for key, value in found.items() if "fingerprint" in value}
+
+
+class History:
+    """Reads the sections' text at older commits, newest first, each commit once. At each commit it asks both
+    that commit's own packet tool, which made the fingerprints reviewers saw then, and this one, so the text
+    compares line for line with the text now."""
+
+    def __init__(self, sections):
+        self.sections = [list(section) for section in sections]
+        listed = git("rev-list", "--full-history", "HEAD", "--", *HISTORY_PATHS)
+        self.commits = listed.split() if listed is not None else None
+        self.read = {}
+
+    def state(self, commit):
+        if commit not in self.read:
+            self.read[commit] = self._state(commit)
+        return self.read[commit]
+
+    def _state(self, commit):
+        archive = git("archive", "--format=tar", commit, "--", ".", *(f":(exclude){path}" for path in HISTORY_SKIP), data=True)
+        if archive is None:
+            return {"own": {}, "now": {}}
+        with tempfile.TemporaryDirectory(prefix="tidelight-history-") as folder:
+            own = pathlib.Path(folder) / "own"
+            with tarfile.open(fileobj=io.BytesIO(archive)) as tar:
+                tar.extractall(own)  # the project's own history, read from its own git
+            found = {"own": section_states(own, self.sections)}
+            now = pathlib.Path(folder) / "now"
+            shutil.copytree(own, now)
+            (now / "tools").mkdir(exist_ok=True)  # an early commit may have no tools at all
+            for tool in TOOLS.glob("*.py"):
+                shutil.copy2(tool, now / "tools" / tool.name)
+            found["now"] = section_states(now, self.sections)
+        return found
+
+    def find(self, page, lang, wanted):
+        """(commit, its date, lines, True if only that commit's own tool gave the fingerprint), or None: the
+        newest commit at which the section has the fingerprint wanted. The lines are that commit's text as this
+        tool shows it, so they compare line for line with the text now, or, if this tool can't read that commit,
+        as that commit's own tool showed it."""
+        for commit in self.commits or []:
+            state = self.state(commit)
+            for which in ("now", "own"):
+                found = state[which].get((page, lang))
+                if found and found["fingerprint"] == wanted:
+                    date = (git("show", "-s", "--format=%cs", commit) or "").strip()
+                    shown = state["now"].get((page, lang)) or found
+                    return commit, date, shown["lines"], which == "own"
+        return None
+
+
+def marked_words(old, new):
+    """Two lines as HTML, with the words taken out of the first and added to the second marked."""
+    a, b = old.split(" "), new.split(" ")
+    left, right = [], []
+    for op, i1, i2, j1, j2 in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes():
+        if op == "equal":
+            left.append(esc(" ".join(a[i1:i2])))
+            right.append(esc(" ".join(b[j1:j2])))
+            continue
+        if i2 > i1:
+            left.append(f"<del>{esc(' '.join(a[i1:i2]))}</del>")
+        if j2 > j1:
+            right.append(f"<ins>{esc(' '.join(b[j1:j2]))}</ins>")
+    return " ".join(left), " ".join(right)
+
+
+def compare_lines(old, new, lang, context=2):
+    """A two-column table of the approved lines and the lines now, with the differences marked and runs of
+    unchanged lines between them skipped. Returns "" when the lines are the same."""
+    if old == new:
+        return ""
+    rows = []
+    matcher = difflib.SequenceMatcher(None, old, new, autojunk=False)
+    groups = list(matcher.get_grouped_opcodes(context))
+    shown_until = 0
+    for group in groups:
+        start = group[0][1]
+        if start > shown_until:
+            gap = CHANGE_WORDS[lang]["skipped"].format(count=start - shown_until)
+            rows.append((f'<p class="gap">{esc(gap)}</p>', f'<p class="gap">{esc(gap)}</p>'))
+        left, right = [], []
+        for op, i1, i2, j1, j2 in group:
+            if op == "equal":
+                left += [esc(line) for line in old[i1:i2]]
+                right += [esc(line) for line in new[j1:j2]]
+                continue
+            pairs = min(i2 - i1, j2 - j1) if op == "replace" else 0
+            for k in range(pairs):
+                a, b = marked_words(old[i1 + k], new[j1 + k])
+                left.append(a)
+                right.append(b)
+            left += [f"<del>{esc(line)}</del>" for line in old[i1 + pairs:i2]]
+            right += [f"<ins>{esc(line)}</ins>" for line in new[j1 + pairs:j2]]
+        rows.append(("".join(f"<p>{line}</p>" for line in left), "".join(f"<p>{line}</p>" for line in right)))
+        shown_until = group[-1][2]
+    if shown_until < len(old):
+        gap = CHANGE_WORDS[lang]["skipped"].format(count=len(old) - shown_until)
+        rows.append((f'<p class="gap">{esc(gap)}</p>', f'<p class="gap">{esc(gap)}</p>'))
+    words = CHANGE_WORDS[lang]
+    body = "".join(f"<tr><td>{a}</td><td>{b}</td></tr>" for a, b in rows)
+    return (f'<table class="compare"><thead><tr><th>{esc(words["side_old"])}</th><th>{esc(words["side_new"])}</th>'
+            f"</tr></thead><tbody>{body}</tbody></table>")
+
+
+def changes_packet(lang, day, records, history):
+    """The "what changed" packet for one reviewer, as HTML."""
+    from check_site import review_sections
+
+    words = CHANGE_WORDS[lang]
+    named = {page: label for label, page, section_lang in signoff_rows_named(lang)}
+    now = section_states(ROOT, [[page, lang] for _, page, section_lang in review_sections() if section_lang == lang])
+    parts = [f"<h1>{esc(words['title'])}</h1>", f'<p class="lede">{esc(words["lede"])}</p>',
+             f'<div class="banner">{words["banner"]}</div>',
+             f'<p class="small">{esc(words["built"].format(day=spanish_date(day) if lang == "es" else english_date(day)))}</p>',
+             f"<p>{words['legend']}</p>"]
+    changed, unchanged, unapproved, no_print = [], [], [], []
+    for label, page, section_lang in review_sections():
+        if section_lang != lang:
+            continue
+        approval, newest = newest_approvals(records, page, lang)
+        current = now.get((page, lang))
+        if not approval:
+            unapproved.append(named.get(page, label))
+        elif not approval["fingerprint"]:
+            no_print.append(named.get(page, label))
+        elif current and approval["fingerprint"] == current["fingerprint"]:
+            unchanged.append(named.get(page, label))
+        else:
+            changed.append((named.get(page, label), page, approval, newest, current))
+    if not changed:
+        parts.append(f"<p><strong>{esc(words['none'])}</strong></p>")
+    for name, page, approval, newest, current in changed:
+        lines_now = current["lines"] if current else []
+        parts.append(f'<section class="review-block"><h3>{esc(name)}</h3>')
+        parts.append(f'<p class="small">{esc(words["approved"].format(date=approval["date"].isoformat(), role=approval["role"], old=approval["fingerprint"], new=current["fingerprint"] if current else "-"))}</p>')
+        if newest and newest is not approval and not newest["approved"]:
+            parts.append(f'<p class="small">{esc(words["newer"].format(date=newest["date"].isoformat()))}</p>')
+        found = None if history.commits is None else history.find(page, lang, approval["fingerprint"])
+        if found:
+            commit, date, lines, old_tool = found
+            parts.append(f'<p class="small">{esc(words["found"].format(commit=commit[:7], date=date) + (words["found_old_tool"] if old_tool else ""))}</p>')
+            table = compare_lines(lines, lines_now, lang)
+            parts.append(table or f"<p>{esc(words['same_words'])}</p>")
+        else:
+            why = words["why_no_git"] if history.commits is None else words["why_none"].format(count=len(history.commits), old=approval["fingerprint"])
+            parts.append(f"<p><strong>{esc(words['not_found'].format(why=why))}</strong></p>")
+            parts.append('<div class="compare">' + "".join(f"<p>{esc(line)}</p>" for line in lines_now) + "</div>")
+        parts.append(decision(lang) + "</section>")
+    for heading, names in (("unchanged", unchanged), ("no_print", no_print), ("unapproved", unapproved)):
+        if names:
+            parts.append(f"<h3>{esc(words[heading])}</h3><ul>" + "".join(f"<li>{esc(name)}</li>" for name in names) + "</ul>")
+    if changed:
+        rows = [(name, current["fingerprint"] if current else "-") for name, _, _, _, current in changed]
+        parts.append(f"<h3>{esc(words['signoff'])}</h3><p>{esc(words['signoff_note'])}</p>" + signoff_table(rows, lang))
+    html_text = document(words["title"], "\n".join(parts), CHANGES_STYLE)
+    return html_text.replace('<html lang="en">', '<html lang="es">', 1) if lang == "es" else html_text
+
+
+def signoff_rows_named(lang):
+    """(the name a sign-off table prints for a section, its page, its language), for the sections of one language."""
+    from check_site import review_sections
+
+    part = {EVERY_PAGE["en"]: " (Part 1)", OUTSIDE_TEXT["en"]: " (Part 3)",
+            EVERY_PAGE["es"]: " (Parte 1)", OUTSIDE_TEXT["es"]: " (Parte 4)"}
+    return [(label + part.get(page, ""), page, section_lang) for label, page, section_lang in review_sections()
+            if section_lang == lang]
+
+
+def build_changes(no_pdf, today=None):
+    """Writes the "what changed" packets, and changes nothing else, in the files or in git."""
+    from check_site import read_review_records, review_records
+
+    lines = review_records()
+    if lines is None:
+        raise SystemExit("notes/CONTENT-REVIEW.md has no \"## Review records\" section, so there is nothing to compare.")
+    records, unreadable = read_review_records(lines)
+    for line, why in unreadable:
+        print(f"NOTE: this review record is left out, because {why}: {line}")
+    day = today or datetime.date.today()
+    history = History([(page, lang) for _, page, lang in signoff_rows_named("en") + signoff_rows_named("es")])
+    if history.commits is None:
+        print("NOTE: this copy of the project has no git history, so the approved text can't be found.")
+    OUT.mkdir(parents=True, exist_ok=True)
+    for name, lang, label in CHANGE_PACKETS:
+        path = OUT / f"{name}.html"
+        path.write_text(changes_packet(lang, day, records, history), encoding="utf-8")
+        print(f"wrote {path.relative_to(ROOT)}")
+        if not no_pdf:
+            pdf = OUT / f"{name}.pdf"
+            make_pdf(path, pdf, label)
+            print(f"wrote {pdf.relative_to(ROOT)} ({pdf.stat().st_size // 1024} KB)")
+    return 0
+
+
+def changes_self_test(report):
+    """--changes on made-up approvals, in a scratch copy of the project with a scratch git history of its own:
+    an approved section changed since, one unchanged, one approved with a fingerprint no commit has, approvals by
+    a reviewer who can't approve that section, and a copy with no history. The project's own git is never used."""
+    if not shutil.which("git"):
+        print("  skipped: the \"what changed\" packets, because git isn't installed")
+        return
+    with tempfile.TemporaryDirectory(prefix="tidelight-changes-") as folder:
+        copy = pathlib.Path(folder) / "project"
+        shutil.copytree(ROOT, copy, ignore=shutil.ignore_patterns(".git", "__pycache__", "*.pdf", *(
+            pathlib.PurePath(path).name for path in HISTORY_SKIP)))
+        # A git of its own: no settings from this computer, such as commit signing, and a made-up author.
+        # GIT_CEILING_DIRECTORIES keeps git from finding a project above the scratch folder.
+        env = dict(os.environ, HOME=folder, GIT_CONFIG_NOSYSTEM="1", GIT_CEILING_DIRECTORIES=folder, GIT_AUTHOR_NAME="Self-test",
+                   GIT_AUTHOR_EMAIL="self-test", GIT_COMMITTER_NAME="Self-test", GIT_COMMITTER_EMAIL="self-test")
+
+        def run(*args, cwd=copy):
+            return subprocess.run(list(args), cwd=cwd, env=env, capture_output=True, text=True)
+
+        def commit(message):
+            run("git", "add", "--all")
+            run("git", "commit", "--quiet", "--no-verify", "-m", message)
+            return run("git", "rev-parse", "HEAD").stdout.strip()
+
+        def edit(path, pattern, new):
+            target = copy / path
+            target.write_text(re.sub(pattern, new, target.read_text(encoding="utf-8"), count=1, flags=re.S), encoding="utf-8")
+
+        run("git", "init", "--quiet")
+        first = commit("Made-up first version")
+        sections = [["get-help/index.html", "en"], ["help-someone/index.html", "en"], ["es/obtener-ayuda/index.html", "es"]]
+        before = section_states(copy, sections)
+        edit("get-help/index.html", r"(<h1[^>]*>.*?)(</h1>)", r"\1 made-up words\2\n<p>A made-up sentence.</p>")
+        edit("es/obtener-ayuda/index.html", r"(<h1[^>]*>.*?)(</h1>)", r"\1 palabras inventadas\2")
+        second = commit("Made-up change")
+        unchanged = section_states(copy, [["help-someone/index.html", "en"]])
+        records = "\n".join([
+            f"- Get Help: licensed clinical social worker, 2026-10-01, approved, {'0' * 12}",
+            f"- Get Help: licensed clinical social worker, 2026-11-01, approved, {before[('get-help/index.html', 'en')]['fingerprint']}",
+            "- Get Help: licensed clinical social worker, 2026-11-02, not for the website",
+            f"- Help Someone: licensed clinical social worker, 2026-11-01, approved, {unchanged[('help-someone/index.html', 'en')]['fingerprint']}",
+            "- Research: licensed clinical social worker, 2026-11-01, approved, 0123456789ab",
+            f"- About and privacy: lawyer, 2026-11-01, approved, {'0' * 12}",
+            f"- Obtener ayuda: native Spanish speaker, 2026-11-01, approved, {before[('es/obtener-ayuda/index.html', 'es')]['fingerprint']}",
+            f"- Inicio: licensed clinical social worker, 2026-11-01, approved, {'0' * 12}",
+        ])
+        edit("notes/CONTENT-REVIEW.md", r"- No review has been recorded\.", records)
+        status = run("git", "status", "--porcelain").stdout
+        done = run(sys.executable, "tools/make_review_packet.py", "--changes", "--no-pdf")
+        english = (copy / OUT.relative_to(ROOT) / "tidelight-review-changes.html")
+        spanish = (copy / OUT.relative_to(ROOT) / "tidelight-spanish-review-changes.html")
+        english = english.read_text(encoding="utf-8") if english.exists() else ""
+        spanish = spanish.read_text(encoding="utf-8") if spanish.exists() else ""
+
+        def section(text, name):
+            start = text.find(f"<h3>{esc(name)}</h3>")
+            return "" if start < 0 else text[start:text.find("</section>", start)]
+
+        get_help = section(english, "Get Help")
+        report("--changes ran and wrote a packet for each reviewer", done.returncode == 0 and bool(english) and bool(spanish))
+        report("a section changed since its newest approval: the approved text, found in the history, beside the text now",
+               f"commit {first[:7]}" in get_help and "<ins>made-up words</ins>" in get_help
+               and "<ins>A made-up sentence.</ins>" in get_help
+               and not any("made-up" in cell for cell in re.findall(r"<tr><td>(.*?)</td><td>", get_help, re.S)))
+        report("a newer record that isn't an approval: said, and the text compared with the approval",
+               "2026-11-02, isn't an approval" in get_help)
+        report("a section unchanged since its approval: only named", "<h3>Help Someone</h3>" not in english
+               and "<li>Help Someone</li>" in english)
+        report("an approval whose fingerprint no commit has: the text now, and why",
+               "wasn't found" in section(english, "Research") and "0123456789ab" in section(english, "Research"))
+        report("an approval by someone who can't approve the section, such as a lawyer: not counted",
+               "<h3>About and privacy</h3>" not in english and "<li>About and privacy</li>" in english)
+        report("the Spanish packet: a changed Spanish section, compared with the fluent reader's approval",
+               "<ins>palabras inventadas</ins>" in section(spanish, "Obtener ayuda") and f"commit {first[:7]}" in spanish)
+        report("a clinician's approval of a Spanish section: not counted", "<h3>Inicio</h3>" not in spanish
+               and "<li>Inicio</li>" in spanish)
+        report("--changes changed nothing in git", run("git", "rev-parse", "HEAD").stdout.strip() == second
+               and run("git", "status", "--porcelain").stdout == status)
+        bare = pathlib.Path(folder) / "no-history"
+        shutil.copytree(copy, bare, ignore=shutil.ignore_patterns(".git"))
+        run(sys.executable, "tools/make_review_packet.py", "--changes", "--no-pdf", cwd=bare)
+        written = bare / OUT.relative_to(ROOT) / "tidelight-review-changes.html"
+        report("a copy with no git history: the text now, and why",
+               written.exists() and "has no git history" in section(written.read_text(encoding="utf-8"), "Get Help"))
+
+
 def check_all_pages_listed():
     """The same rule tools/check_site.py and the publish step apply: every page, and all its text, has a review
     section. Otherwise a packet would leave something out without saying so."""
@@ -1585,6 +2000,7 @@ def self_test():
            ("Leer en español", "Solo en Get Help. Sus enlaces van a es/.") in notes(listing(switch, "es")))
 
     report("the packet fingerprint is the same each time it is made", fingerprint() == fingerprint())
+    changes_self_test(report)
     if wrong:
         print(f"{wrong} of {total} case(s) read wrongly, so the packets can't be trusted until this is fixed.")
         return 1
@@ -1596,9 +2012,13 @@ def main():
     parser = argparse.ArgumentParser(description="Build the printable review packets.")
     parser.add_argument("--no-pdf", action="store_true", help="HTML only")
     parser.add_argument("--self-test", action="store_true", help="check this tool on made-up cases, changing nothing")
+    parser.add_argument("--changes", action="store_true",
+                        help="for each reviewer, only the sections that changed after their newest recorded approval")
     args = parser.parse_args()
     if args.self_test:
         return self_test()
+    if args.changes:
+        return build_changes(args.no_pdf)
     check_all_pages_listed()
     check_questions()
     today = datetime.date.today()

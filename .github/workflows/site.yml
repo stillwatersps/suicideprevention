@@ -39,7 +39,7 @@ jobs:
         run: python3 tools/check_site.py --self-test
       - name: Check how the publish step reads review records
         run: python3 tools/launch_gate.py --self-test
-      - name: Check the review packets' dates in each language, and how they read the Spanish reader's questions
+      - name: Check the review packets' dates, the Spanish reader's questions, the shared-line notes, and the what-changed packets
         run: python3 tools/make_review_packet.py --self-test
       - name: Check how the monthly crisis check reads provider pages, and that every crisis number has one
         run: python3 tools/check_crisis_sources.py --self-test

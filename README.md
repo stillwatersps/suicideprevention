@@ -60,7 +60,7 @@ Each person uses their own Claude access and conversation.
 | `assets/*.vcf` | Contact cards for saving 988 to a phone |
 | `tools/preview_server.py` | Serves the site the way GitHub Pages will, on this computer or a phone on the same Wi-Fi |
 | `tools/test_browser.py`, `tools/browser.py` | Browser tests, using Python and the Chrome already on the computer |
-| `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader |
+| `tools/make_review_packet.py`, `notes/review-packet/` | Printable packets for the therapist and a fluent Spanish reader. With `--changes`, short packets of only what changed since each reviewer's approvals |
 | `notes/PHONE-TEST.md` | How to test on a real phone |
 | `notes/FOUNDER-BRIEF.md`, `notes/LAUNCH-CHECKLIST.md`, `notes/REVIEWER-NOTES.md`, `notes/UPKEEP.md` | Decisions, the path to launch, notes for reviewers, and upkeep |
 | `notes/FIRST-VERSION.md` | What the first version is and isn't, and its main journeys. A proposal |
