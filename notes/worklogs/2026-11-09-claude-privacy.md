@@ -53,6 +53,11 @@ All read in the built-in browser, read only, nothing submitted.
 Mozilla's English page asked the browser to wait a few seconds before showing it; it loaded on its own.
 No crisis number, keyword or crisis detail was added, so [[SAFETY]] is unchanged.
 
+On November 10, 2026, a second session read five of the English pages again (Apple's Private
+Browsing and Delete history pages, Chrome's Incognito page for Android, Firefox's Private Browsing
+page, and Edge's history page) and found the steps and limits still match the About page. The other
+pages weren't read again, so the pages keep the November 9 date.
+
 ## Checks
 
 Results are in the session's final report. Desktop Chrome and its phone-size emulation, and macOS WebKit
