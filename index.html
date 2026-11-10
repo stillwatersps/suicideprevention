@@ -18,11 +18,32 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="alternate" hreflang="es" href="es/">
   <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/loader.js"></script>
   <link rel="preload" as="image" href="assets/images/joshua-tree-sunset-1600.webp" imagesrcset="assets/images/joshua-tree-sunset-800.webp 800w, assets/images/joshua-tree-sunset-1600.webp 1600w" imagesizes="(min-width: 960px) 60vw, 100vw" type="image/webp" media="(min-width: 960px)">
   <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.tidelightMenuReady)document.documentElement.classList.remove('js');},3000);document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.quick-exit');if(a){e.preventDefault();document.title='';document.documentElement.hidden=true;try{top.location.replace(a.href);}catch(_){location.replace(a.href);}}});</script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
+  <!-- Welcome screen, shown by assets/loader.js for about a second and a half on the first page of a visit. A proposal; see notes/DECISIONS.md. -->
+  <div class="tl-loader" id="tl-loader" role="status" aria-live="polite" aria-label="Loading Tidelight">
+    <div class="tl-glow" aria-hidden="true"></div>
+    <svg class="tl-waves" viewBox="0 0 400 120" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <g class="tl-w1"><path pathLength="1" d="M0 40 c50 -12 150 -12 200 0 s150 12 200 0 s150 -12 200 0 s150 12 200 0"/></g>
+      <g class="tl-w2"><path pathLength="1" d="M0 66 c50 -9 150 -9 200 0 s150 9 200 0 s150 -9 200 0 s150 9 200 0"/></g>
+      <g class="tl-w3"><path pathLength="1" d="M0 90 c50 -7 150 -7 200 0 s150 7 200 0 s150 -7 200 0 s150 7 200 0"/></g>
+    </svg>
+    <div class="tl-center">
+      <svg class="tl-mark" viewBox="0 0 70 50" aria-hidden="true" focusable="false">
+        <path class="tl-leaf tl-leaf-a" d="M20 8 C-3 1 -4 28 27 42 C28 27 26 17 20 8Z"/>
+        <path class="tl-leaf tl-leaf-b" d="M31 38 C30 13 48 1 59 0 C64 21 50 37 31 43Z"/>
+      </svg>
+      <p class="tl-welcome">Welcome to</p>
+      <p class="tl-name">Tidelight</p>
+      <p class="tl-tag">Suicide prevention &amp; support</p>
+      <div class="tl-status" aria-hidden="true"><span></span></div>
+    </div>
+    <p class="tl-crisis">In crisis? <a href="tel:988" aria-label="Call 988, the Suicide and Crisis Lifeline">Call 988</a> or <a href="sms:988" aria-label="Text 988, the Suicide and Crisis Lifeline">text 988</a> any time. In immediate danger, <a href="tel:911" aria-label="Call 911, emergency services">call 911</a>.</p>
+  </div>
   <!-- Always-visible crisis line, required by notes/SAFETY.md rule 1. On phones Quick exit sits inside it, so nothing is ever underneath Quick exit. -->
   <aside class="crisis-bar" aria-label="Crisis help and quick exit">
     <a class="quick-exit" href="https://www.weather.gov/" target="_top" rel="noreferrer" aria-label="Quick exit: leave this site now for the weather.gov home page"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 5 L15 15 M15 5 L5 15"/></svg><span class="exit-extra">Quick </span>exit</a>

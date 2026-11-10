@@ -112,7 +112,7 @@ MUST_PIN_TEXT = {
 }
 GROUPS = [
     "links", "matrix", "textsize", "keyboard", "menu", "jumps", "folds", "language",
-    "quickexit", "reducedmotion", "nojs", "print", "contact", "a11ytree", "offline", "speed", "modes", "privacy",
+    "quickexit", "reducedmotion", "welcome", "nojs", "print", "contact", "a11ytree", "offline", "speed", "modes", "privacy",
 ]
 # Runs in every page and frame before the page's own scripts. A click, tap or Enter on a link that leaves
 # the local test site is stopped, unless the test said to expect that address and answers it with a
@@ -544,12 +544,15 @@ class BadHost:
         self.server.close_everything()
 
 
-def new_tab(browser, *args, allow=(), **kwargs):
+def new_tab(browser, *args, allow=(), welcome=False, **kwargs):
     """A tab whose pages can't follow a link away from the local test site, except to the addresses
-    in allow, which the test answers itself with a stand-in page."""
+    in allow, which the test answers itself with a stand-in page. The homepage's welcome screen shows
+    only on the first page of a visit; tabs start past it unless welcome=True (see test_welcome)."""
     tab = Tab(browser, *args, **kwargs)
     tab.allowed = tuple(allow)
     tab.send("Page.addScriptToEvaluateOnNewDocument", {"source": SAFE_CLICKS % json.dumps(list(tab.allowed))})
+    if not welcome:
+        tab.send("Page.addScriptToEvaluateOnNewDocument", {"source": "window.name = 'tidelight-welcomed';"})
     return tab
 
 
@@ -1485,6 +1488,57 @@ def test_reducedmotion(browser, site, pages, report):
     tab.close()
 
 
+def test_welcome(browser, site, pages, report):
+    """The homepage's welcome screen: it shows on the first page of a visit, carries working 988 and
+    911 links, gets out of the way on its own or on a tap, and never shows with reduced motion."""
+    for page in [p for p in pages if p in ("index.html", "es/index.html")]:
+        tab = new_tab(browser, 390, 844, True, welcome=True)
+        tab.goto(site.url(page))
+        state = tab.js("""(function () {
+            var l = document.getElementById('tl-loader');
+            if (!l) return null;
+            var links = Array.prototype.map.call(l.querySelectorAll('.tl-crisis a'), function (a) { return a.getAttribute('href'); });
+            var c = l.querySelector('.tl-crisis a'), r = c && c.getBoundingClientRect();
+            var hit = r ? document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2) : null;
+            return {shown: getComputedStyle(l).display !== 'none', links: links, onTop: !!hit && (hit === c || c.contains(hit))};
+        })()""")
+        if not state:
+            report.fail("welcome", page, "the page has no welcome screen")
+            tab.close()
+            continue
+        problems = []
+        if not state["shown"]:
+            problems.append("it doesn't show on the first page of a visit")
+        if sorted(state["links"]) != ["sms:988", "tel:911", "tel:988"]:
+            problems.append(f"its crisis links are {state['links']}, not call 988, text 988, and call 911")
+        if state["shown"] and not state["onTop"]:
+            problems.append("its 988 link can't be tapped")
+        tab.browser.pump(2.9)
+        if tab.js("getComputedStyle(document.getElementById('tl-loader')).display") != "none":
+            problems.append("it is still on screen after 2.9 seconds")
+        tab.goto(site.url(page))
+        if tab.js("getComputedStyle(document.getElementById('tl-loader')).display") != "none":
+            problems.append("it shows again on the next page of the same visit")
+        tab.close()
+        tab = new_tab(browser, 390, 844, True, welcome=True)
+        tab.goto(site.url(page))
+        tab.js("document.getElementById('tl-loader').click()")
+        tab.browser.pump(0.6)
+        if tab.js("getComputedStyle(document.getElementById('tl-loader')).display") != "none":
+            problems.append("a tap doesn't close it")
+        tab.close()
+        tab = new_tab(browser, 390, 844, True, welcome=True)
+        tab.media(reduced=True)
+        tab.goto(site.url(page))
+        if tab.js("getComputedStyle(document.getElementById('tl-loader')).display") != "none":
+            problems.append("it shows with reduced motion on")
+        tab.close()
+        for problem in problems:
+            report.fail("welcome", page, problem)
+        if not problems:
+            report.ok("welcome", 6)
+
+
 def test_nojs(browser, site, pages, report):
     tab = new_tab(browser, 390, 844, True)
     tab.send("Emulation.setScriptExecutionDisabled", {"value": True})
@@ -2136,7 +2190,7 @@ def main():
     functions = {
         "matrix": test_matrix, "textsize": test_textsize, "keyboard": test_keyboard, "menu": test_menu,
         "jumps": test_jumps, "folds": test_folds, "language": test_language, "quickexit": test_quickexit,
-        "reducedmotion": test_reducedmotion, "nojs": test_nojs, "print": test_print, "contact": test_contact,
+        "reducedmotion": test_reducedmotion, "welcome": test_welcome, "nojs": test_nojs, "print": test_print, "contact": test_contact,
         "a11ytree": test_a11ytree, "offline": test_offline, "speed": test_speed, "modes": test_modes, "privacy": test_privacy,
     }
     try:

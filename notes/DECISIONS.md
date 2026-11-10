@@ -347,6 +347,28 @@ in the Daily check-in. Who owns each step isn't named yet.
 14. **Upkeep is split:** one founder rechecks the crisis numbers monthly; the other gets GitHub's
     failed-check emails and looks at the Actions tab on a set day. Who does which isn't named.
 
+## November 10, 2026: a welcome screen on the homepage, proposed
+
+One founder supplied the markup for a loading screen: "Welcome to Tidelight", a leaf mark, three
+drawn waves, a progress line, and 988 and 911 in plain words. **The other founder hasn't agreed,
+and no reviewer has seen it.** On branch `site/loading-screen`, homepage only, English and Spanish.
+A screen in front of a crisis site can slow someone down, so it follows narrow rules:
+
+- It shows for about a second and a half on the first page of a visit, and closes at once on any
+  tap or key. It never comes back while moving around the site in that tab.
+- It never shows to people who ask their device for less motion, or when scripts don't run.
+- While it shows, it covers the crisis strip, so it carries its own Call 988, Text 988, and Call 911
+  links. A tap on one of them calls or texts at once. Without them, the first tap in that moment would
+  only close the screen, and help would take two taps.
+- It remembers it was shown in `window.name`, which the browser clears when the tab leaves the
+  site. Nothing is stored. `assets/loader.js` sends and stores nothing.
+- "Tidelight" is a paragraph, not a heading, so the homepage keeps one main heading.
+
+`tools/test_browser.py` has a new `welcome` group that checks all of this. Its other groups start
+past the welcome screen.
+
+A question for the reviewer: should a crisis site have a welcome screen at all?
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
