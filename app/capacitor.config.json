@@ -2,5 +2,8 @@
   "appId": "org.tidelight.app",
   "appName": "Tidelight",
   "webDir": "www",
-  "server": { "androidScheme": "https" }
+  "server": {
+    "androidScheme": "https",
+    "appStartPath": "/check-in/index.html"
+  }
 }

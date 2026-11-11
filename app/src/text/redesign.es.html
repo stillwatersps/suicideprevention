@@ -1,0 +1,146 @@
+<!-- Every word the redesigned phone app adds, in Spanish. DRAFT FOR REVIEW, and an unreviewed AI
+     translation: an AI assistant translated these from redesign.en.html, and no fluent Spanish
+     reader or licensed reviewer has read them.
+     tools/build-redesign.mjs puts each block into the app's copy of es/registro-diario/index.html, and
+     tools/make-words-packet.mjs lists every line for reviewers. The website never shows these.
+     Blocks start with BLOCK:name and end with END. Words that scripts fill in are in the "words"
+     block, keyed by data-word; some come in two voices, keyed by data-style. -->
+
+<!-- BLOCK:review -->
+      <aside class="page-status review-note tl-review" id="tl-review" aria-label="Estado de la revisión de los textos nuevos de la app">
+        <p><strong>Borrador para revisión.</strong> Las preguntas del registro, los mensajes de rachas y los textos de meditación de esta app son nuevos. Un profesional de la prevención del suicidio no los ha revisado todavía. Un asistente de IA los escribió a partir de las indicaciones de una persona fundadora y los tradujo del inglés, y ninguna persona hispanohablante ha revisado la traducción. Son ideas para la calma y la reflexión, no un tratamiento, y no reemplazan la atención médica. <a href="../acerca-de/#review-status">Consulta el estado de revisión de cada página</a>.</p>
+      </aside>
+<!-- END -->
+
+<!-- BLOCK:about-app -->
+            <li><a href="../registro-diario/">Las preguntas del registro, los mensajes de rachas y los textos de meditación de la app</a><span class="status-line">Revisión clínica: <span class="status-value">Pendiente</span></span><span class="status-line">Versión en español, persona hispanohablante: <span class="status-value">Pendiente</span></span></li>
+<!-- END -->
+
+<!-- BLOCK:app -->
+      <div class="tl-app" id="tl-app">
+
+        <section class="tl-screen" id="tl-home" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-home-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-head">
+            <h2 class="tl-title tl-greeting" id="tl-home-title">Hola</h2>
+            <button type="button" class="tl-icon-btn" data-tl-push="settings" aria-label="Abrir los ajustes"><span data-tl-icon="gear"></span></button>
+          </div>
+          <div id="tl-home-setup" hidden></div>
+          <div id="tl-home-streak" hidden></div>
+          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-go="checkin" aria-label="Empezar un registro">
+            <span class="tl-card-icon" data-tl-icon="heart"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Próximo registro</span><span class="tl-card-sub" id="tl-home-next-when">Cuando quieras</span></span>
+            <span class="tl-card-go">Empezar</span>
+          </button>
+          <div id="tl-home-suggest" hidden></div>
+          <div class="tl-quick" role="group" aria-label="Acciones rápidas">
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="checkin" data-tl-quick="checkin">Registrarme</button>
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="meditate">Meditar</button>
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="reset">Pausa de 1 min</button>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-checkin" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-checkin-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <h2 class="tl-title" id="tl-checkin-title">Registro</h2>
+          <div id="tl-checkin-quick" hidden></div>
+          <ul class="tl-list">
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-today" data-tl-start>
+              <span class="tl-card-icon" data-tl-icon="heart"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Registro diario</span><span class="tl-card-sub">Cinco preguntas tranquilas</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journal">
+              <span class="tl-card-icon" data-tl-icon="book"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Diario</span><span class="tl-card-sub">Escríbelo</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-rediscover">
+              <span class="tl-card-icon" data-tl-icon="spark"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Redescubrir</span><span class="tl-card-sub">Encuentra tu camino de vuelta</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="app-hope">
+              <span class="tl-card-icon" data-tl-icon="box"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Caja de esperanza</span><span class="tl-card-sub">Razones, palabras, fotos</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
+              <span class="tl-card-icon" data-tl-icon="path"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Tu camino</span><span class="tl-card-sub">Lo que has guardado</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen tl-legacy" id="tl-legacy" data-tl-tab="checkin" tabindex="-1" aria-label="Registro diario, diario y tu camino" hidden>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+        </section>
+
+        <section class="tl-screen" id="tl-meditate" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-meditate-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <h2 class="tl-title" id="tl-meditate-title">Meditar</h2>
+          <div class="tl-empty" id="tl-meditate-empty">
+            <span data-tl-icon="lotus" data-tl-large></span>
+            <p class="tl-sub">Las meditaciones llegarán pronto 🌊</p>
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="home">Volver a Inicio</button>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-location" data-tl-tab="location" tabindex="-1" aria-labelledby="tl-location-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <h2 class="tl-title" id="tl-location-title">Lugares</h2>
+          <div id="tl-location-home" hidden></div>
+          <div id="tl-location-slot"></div>
+        </section>
+
+        <section class="tl-screen" id="tl-friends" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-friends-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <h2 class="tl-title" id="tl-friends-title">Amistades</h2>
+          <div id="tl-friends-slot"></div>
+          <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
+            <span class="tl-card-icon" data-tl-icon="path"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Compartir registros</span><span class="tl-card-sub">Hoy o 7 días, en Tu camino</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
+        </section>
+
+        <section class="tl-screen" id="tl-settings" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-settings-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-settings-title">Ajustes</h2>
+          <div id="tl-settings-sections"></div>
+          <h3 class="tl-section-title">Tu grupo de edad</h3>
+          <div id="tl-settings-age-slot"></div>
+          <h3 class="tl-section-title">Tus datos</h3>
+          <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey" id="tl-settings-erase">
+            <span class="tl-card-icon" data-tl-icon="trash"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Borrar todo</span><span class="tl-card-sub">En Tu camino</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
+          <h3 class="tl-section-title">Acerca de</h3>
+          <p class="tl-status" id="tl-version">App de Tidelight, borrador <span class="tl-version-number">0.2.0</span></p>
+        </section>
+
+      </div>
+<!-- END -->
+
+<!-- BLOCK:tabbar -->
+  <nav class="tl-tabbar" id="tl-tabbar" aria-label="Secciones de la app"></nav>
+<!-- END -->
+
+<!-- BLOCK:words -->
+      <div class="tl-words" hidden>
+        <span data-word="tab.home">Inicio</span>
+        <span data-word="tab.checkin">Registro</span>
+        <span data-word="tab.meditate">Meditar</span>
+        <span data-word="tab.location">Lugares</span>
+        <span data-word="tab.friends">Amistades</span>
+        <span data-word="greet.morning">Buenos días</span>
+        <span data-word="greet.afternoon">Buenas tardes</span>
+        <span data-word="greet.evening">Buenas noches</span>
+        <span data-word="greet.night">Buenas noches</span>
+        <span data-word="greet.withName">{greeting}, {name}</span>
+        <span data-word="more.summary">Cómo funciona</span>
+      </div>
+<!-- END -->

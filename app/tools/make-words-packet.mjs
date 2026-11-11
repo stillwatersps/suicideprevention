@@ -8,7 +8,9 @@ import { fileURLToPath } from 'node:url';
 const appDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const FILES = [
   ['en', 'en.html', 'English'], ['en', 'extras.en.html', 'English: Hope box and My circle'],
+  ['en', 'redesign.en.html', 'English: the redesign (tabs, check-in, streaks, meditation)'],
   ['es', 'es.html', 'Spanish'], ['es', 'extras.es.html', 'Spanish: Hope box and My circle'],
+  ['es', 'redesign.es.html', 'Spanish: the redesign (tabs, check-in, streaks, meditation)'],
 ];
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const unesc = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
@@ -17,7 +19,7 @@ const unesc = (s) => s.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt
 function lines(html) {
   const out = [];
   for (const m of html.matchAll(/(?:aria-label|alt)="([^"]+)"/g)) out.push('[spoken label] ' + unesc(m[1]));
-  const text = html.replace(/<(p|li|h\d|legend|label|button|option|summary|figcaption|span class="app-[a-z-]*")[^>]*>/g, '\n').replace(/<[^>]+>/g, ' ');
+  const text = html.replace(/<(p|li|h\d|legend|label|button|option|summary|figcaption|span class="(?:app|tl)-[a-z- ]*"|span data-word="[^"]*"|div|section|dt|dd)[^>]*>/g, '\n').replace(/<[^>]+>/g, ' ');
   for (const raw of text.split('\n')) {
     const line = unesc(raw).replace(/\s+/g, ' ').trim();
     if (line) out.push(line);
@@ -30,7 +32,7 @@ let total = 0;
 for (const [lang, file, title] of FILES) {
   const text = readFileSync(join(appDir, 'src', 'text', file), 'utf8');
   body += `<h2 lang="en">${esc(title)} <small>(app/src/text/${file})</small></h2>\n`;
-  for (const m of text.matchAll(/<!-- BLOCK:([a-z-]+) -->\n?([\s\S]*?)<!-- END -->/g)) {
+  for (const m of text.matchAll(/<!-- BLOCK:([a-z0-9-]+) -->\n?([\s\S]*?)<!-- END -->/g)) {
     const rows = lines(m[2].replace(/<!-- INSERT:[a-z-]+ -->/g, ''));
     if (!rows.length) continue;
     const prefix = `APP-${lang.toUpperCase()}-${m[1]}`;

@@ -1,0 +1,73 @@
+// Adds the redesigned app (tabs, onboarding, streaks, meditation) to the app's copy of the Daily
+// check-in, after tools/build.mjs and tools/build-extras.mjs have made app/www.
+// Every word comes from src/text/redesign.<lang>.html. The safety frame of the page (crisis
+// strip, Exit, Get Support Now, the Spanish link, the review notices, privacy, Support, the 988
+// panel) is left exactly as it is; the new screens are added beside it.
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const appDir = join(dirname(fileURLToPath(import.meta.url)), '..');
+const www = join(appDir, 'www');
+const PAGES = [
+  { file: 'check-in/index.html', lang: 'en', up: '../', about: 'about/index.html' },
+  { file: 'es/registro-diario/index.html', lang: 'es', up: '../../', about: 'es/acerca-de/index.html' },
+];
+
+export function blocks(lang) {
+  const text = readFileSync(join(appDir, 'src', 'text', `redesign.${lang}.html`), 'utf8');
+  const out = {};
+  for (const m of text.matchAll(/<!-- BLOCK:([a-z0-9-]+) -->\n?([\s\S]*?)<!-- END -->/g)) out[m[1]] = m[2];
+  return out;
+}
+// Each change must match exactly once, so a change elsewhere can't silently skip one.
+function once(html, find, replace, what) {
+  const count = typeof find === 'string' ? html.split(find).length - 1 : (html.match(new RegExp(find.source, 'g')) || []).length;
+  if (count !== 1) throw new Error(`redesign, ${what}: expected 1 match, found ${count}`);
+  return html.replace(find, replace);
+}
+
+// Voice and sound files a founder may add later. The app reads this list instead of guessing,
+// so a missing file is never requested.
+function audioManifest() {
+  const out = { voice: [], ambient: [] };
+  for (const kind of Object.keys(out)) {
+    const dir = join(appDir, 'assets', kind);
+    if (!existsSync(dir)) continue;
+    const walk = (folder, prefix) => {
+      for (const name of readdirSync(folder, { withFileTypes: true })) {
+        if (name.isDirectory()) walk(join(folder, name.name), prefix + name.name + '/');
+        else if (/\.(mp3|m4a|wav|ogg)$/.test(name.name)) out[kind].push(prefix + name.name);
+      }
+    };
+    walk(dir, '');
+    cpSync(dir, join(www, 'assets', kind), { recursive: true });
+  }
+  return out;
+}
+
+const manifest = audioManifest();
+for (const page of PAGES) {
+  const b = blocks(page.lang);
+  const path = join(www, page.file);
+  let html = readFileSync(path, 'utf8');
+  // The new screens go above the page's own review notice; the notice for the new words goes
+  // right under it. Both notices stay on every screen.
+  html = once(html, /( {6}<aside class="page-status review-note"[\s\S]*?<\/aside>\n)/,
+    (all) => b.app + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
+  html = once(html, '  <footer class="site-footer"', b.tabbar + (b.overlays || '') + '  <footer class="site-footer"', 'tab bar');
+  html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/tokens.css">\n  <link rel="stylesheet" href="${page.up}assets/redesign.css">\n</head>`, 'stylesheets');
+  // Recorded voice and sound loops are files inside the app; the page may play its own files only.
+  html = once(html, "img-src 'self' blob:", "img-src 'self' blob:; media-src 'self'", 'media policy');
+  writeFileSync(path, html);
+
+  // About: the review list gains a line for the app's new words, marked pending like the rest.
+  const aboutPath = join(www, page.about);
+  let about = readFileSync(aboutPath, 'utf8');
+  about = once(about, /( {12}<li><a href="\.\.\/(check-in|registro-diario)\/">[^\n]*<\/li>\n)/, (all) => all + b['about-app'], 'about review list');
+  writeFileSync(aboutPath, about);
+}
+mkdirSync(join(www, 'assets'), { recursive: true });
+cpSync(join(appDir, 'src', 'tokens.css'), join(www, 'assets', 'tokens.css'));
+cpSync(join(appDir, 'src', 'redesign.css'), join(www, 'assets', 'redesign.css'));
+console.log('Added the redesigned app to app/www.');
