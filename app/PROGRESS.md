@@ -1,18 +1,18 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 12:25 EST
+Last updated: 2026-11-11 (checkpoint: usage limit reached mid-phase)
 Current branch: app/visual-identity
-Current phase: Visual identity, phase 1 of 10 — Audit (finished)
-Current step: Phase 1 committed. Next: phase 2, design tokens and fonts
+Current phase: Visual identity, phases 2 to 6 of 10 — built, NOT yet verified
+Current step: Checkpoint commit. The full test suite has not passed on this commit. See "Resume instructions (visual identity)"
 
 ## Visual identity ("Dawn at the Shoreline") — in progress
 A second brief from the same founder (`app/DESIGN-BRIEF.md`): a new look, visual layer only. Branch `app/visual-identity`, cut from `app/redesign-dev`; a draft pull request into `app/redesign-dev` at the end. Working in checkpoints: one commit per phase, this file updated each time, the full test suite only at the end of a phase.
 
 - [x] V1 — Audit: 400 "before" pictures (not committed), `design/AUDIT.md`, `tools/screens.mjs`
-- [ ] V2 — Design tokens, Fraunces and Figtree bundled, raw-hex lint
-- [ ] V3 — The horizon component
-- [ ] V4 — Grain, illustration, icons (emoji out of the interface)
-- [ ] V5 — Components: buttons, surfaces, month dots in place of the streak card, chips, inputs, tab bar, review banner, crisis bar
-- [ ] V6 — Screen by screen, the player, the launch screen
+- [x] V2 — Design tokens, Fraunces and Figtree bundled, raw-hex lint
+- [~] V3 — The horizon component (built; tests not yet green)
+- [~] V4 — Grain, illustration, icons (emoji out of the interface) (built; tests not yet green)
+- [~] V5 — (built; tests not yet green) Components: buttons, surfaces, month dots in place of the streak card, chips, inputs, tab bar, review banner, crisis bar
+- [~] V6 — Screen by screen, the player, the launch screen (built; launch screen not yet compiled or seen in the Simulator)
 - [ ] V7 — Motion and haptics
 - [ ] V8 — Accessibility
 - [ ] V9 — Microcopy (decorative only)
@@ -43,8 +43,19 @@ automated run is now muted, without changing the app's own audio code:
 - The brief's `design/` folder is `app/design/`: the repository's `design/` holds the website's original homepage design. The notes in it (`AUDIT.md`, `TOKENS.md`, `COMPARISON.md`, `README.md`) are committed; the pictures are not.
 - "Launch the app in the Simulator (iPhone 17 and iPhone SE)": this Mac has no iPhone SE simulator, and driving every screen and state by hand in a simulator costs more than the usage allows. The pictures come from desktop Chromium at both phone sizes (`tools/screens.mjs`), with a few iPhone 17 Simulator pictures beside them. Said plainly wherever results are reported.
 
+- Streaks (brief section 6.3 against "do not change copy awaiting review"): the streak card, streak screen, milestone card, "new start" card, and freeze lines are no longer shown, so their words left the text source. In their place: "Days you checked in this month" (dots on Home, a calendar behind them), never a zero, no missed or lost wording. The streak data and logic are untouched and still stored. The Settings switch is relabeled "Check-in days on Home".
+- A finished quick check-in no longer returns Home by itself: the brief asks for the dawn, one line, and two choices ("Breathe for a minute", "Back to home").
+- The confetti burst (`celebrate.js`) is removed: the brief says no confetti. Completion is the dawn. On a day with a very low check-in there is no dawn either.
+- Mood choices are a tone and a word (no faces). Emoji used alone as pictures became line icons; the one emoji inside a sentence awaiting review was left.
+- Coral and the faint ink were darkened from the brief's values to pass contrast. Not added because they would be new features: seek buttons in the player, filter chips on Meditate, initials avatars for friends.
+- The old Splash image set is still in the iOS project, unused; it was not deleted.
+
 ### Resume instructions (visual identity)
-On `app/visual-identity`: start V2. Rewrite `src/tokens.css` with the brief's tokens (keep the `--tl-*` names as aliases so nothing breaks), bundle Fraunces and Figtree in `src/fonts/` with their licenses, add `font-src 'self'` to the app page in `tools/build-redesign.mjs`, move the worlds' colors in `src/ui/worlds.js` into tokens, extend `tools/lint.mjs` to fail on raw hex anywhere in `src/` outside the token file, update `test/unit/tokens.test.mjs` for the new pairs (crisis elements at 7 to 1), write `design/TOKENS.md`. Then `npm test`, commit, and go on to V3.
+On `app/visual-identity`. The last commit is a checkpoint: lint and unit tests pass, the browser tests were mid-run and are NOT confirmed green, and the Swift changes for the launch screen (`LaunchScreen.storyboard`, `LaunchSand.colorset`, `MainViewController.swift`) have not been compiled.
+1. `cd app && npm test`. Fix what fails in `test/redesign-test.mjs` (the month tests and `identityTests` are new and have never run; the accessibility sweep clicks `#tl-streak-card`, which is hidden until a first check-in). Also expect `test/app-test.mjs` and `test/extras-test.mjs` to need small fixes for restyled buttons.
+2. Build for the Simulator (`LANG=en_US.UTF-8 npm run sync`, then `xcodebuild` as in the Phase 8 record), install, and start it only with `npm run sim:launch` (muted). Check the launch screen is sand with no white flash.
+3. `node tools/screens.mjs after`, look at dark mode, Spanish, the small phone, and largest text; fix overflow. Then V7 to V9 (motion is mostly in `src/redesign-identity.css`; check 44-point targets and labels; list copy changes).
+4. V10: `design/COMPARISON.md`, add reviewer questions to `notes/CONTENT-REVIEW.md` (the tide mood tones, the month dots replacing streaks, the new short lines), `npm run words`, a worklog in `notes/worklogs/`, `python3 tools/check_site.py` (and the three other root checks, since notes change), push, and open a draft pull request into `app/redesign-dev` with the copy-change table.
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)

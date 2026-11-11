@@ -231,7 +231,7 @@ async function onboardingTests(browser, lang) {
 
   // Setup ring: worked out from real state.
   await page.waitForSelector('#tl-home-setup:not([hidden])');
-  check(/6\/8/.test(await page.textContent('#tl-setup-count')), 'the setup ring says 6 of 8: a first check-in and a first meditation are left');
+  check(new RegExp('\\b6\\D+8\\b').test(await page.textContent('#tl-setup-count')), 'the setup line says 6 of 8: a first check-in and a first meditation are left');
   await page.click('#tl-setup-open');
   const left = await page.$$eval('#tl-setup-list li', (els) => els.filter((e) => !e.hidden).map((e) => e.getAttribute('data-setup')));
   check(JSON.stringify(left) === JSON.stringify(['firstCheckIn', 'firstMeditation']), 'tapping it lists what\'s left');
@@ -250,9 +250,14 @@ async function onboardingTests(browser, lang) {
   await page.click('#tl-flow-done');
   check(await page.isVisible('#tl-flow [data-flow="done"]'), 'Done shows the short thanks');
   check(Date.now() - t0 < 10000, 'a Straightforward check-in takes under 10 seconds here');
+  check(await page.isVisible('#tl-flow-horizon.tl-horizon-complete') && !(await page.isVisible('.tl-burst')), 'on the full dawn, with nothing bursting');
+  check(await page.isVisible('#tl-flow-breathe') && await page.isVisible('#tl-flow [data-flow="done"] [data-tl-go="home"]'), 'and offers two things: breathe for a minute, or back to Home');
+  await page.waitForTimeout(2500);
+  check(await page.isVisible('#tl-flow [data-flow="done"]'), 'it stays until the person chooses');
+  await page.click('#tl-flow [data-flow="done"] [data-tl-go="home"]');
   await page.waitForSelector('#tl-home:not([hidden])', { timeout: 4000 });
-  check(true, 'and returns to Home by itself');
-  check(/7\/8/.test(await page.textContent('#tl-setup-count')), 'the setup ring moves to 7 of 8');
+  check(true, 'Back to home goes Home');
+  check(new RegExp('\\b7\\D+8\\b').test(await page.textContent('#tl-setup-count')), 'the setup line moves to 7 of 8');
   const log = await stored(page, 'tidelight.log.v1');
   check(log.length === 1 && log[0].mood === 4 && log[0].tags.length === 1 && log[0].note === 'A made-up note.' && log[0].kind === 'quick', 'the check-in is kept on this phone, in the same list as before');
   await tab(page, 'checkin');
@@ -342,18 +347,18 @@ async function deniedTests(browser) {
   await page.click('#tl-ob-start');
   check(await page.isVisible('#tl-home'), 'refusing everything still reaches Home');
   await page.waitForSelector('#tl-home-setup:not([hidden])');
-  check(/0\/8/.test(await page.textContent('#tl-setup-count')), 'the setup ring says 0 of 8');
+  check(new RegExp('\\b0\\D+8\\b').test(await page.textContent('#tl-setup-count')), 'the setup line says 0 of 8');
   await page.click('#tl-setup-open');
   await page.fill('#tl-setup-name', 'Lee');
   await page.click('[data-setup-do="name"]');
-  await page.waitForFunction(() => /1\/8/.test(document.querySelector('#tl-setup-count').textContent));
+  await page.waitForFunction(() => new RegExp('\\b1\\D+8\\b').test(document.querySelector('#tl-setup-count').textContent));
   check(true, 'saving a name from the list moves it to 1 of 8');
   await page.click('[data-setup-do="count"]');
-  await page.waitForFunction(() => /2\/8/.test(document.querySelector('#tl-setup-count').textContent));
+  await page.waitForFunction(() => new RegExp('\\b2\\D+8\\b').test(document.querySelector('#tl-setup-count').textContent));
   check(true, 'one tap keeps the check-in count');
   await page.click('[data-setup-do="notifications"]');
   await page.waitForFunction(() => document.querySelector('#tl-setup-note').textContent.trim().length > 0);
-  check(/2\/8/.test(await page.textContent('#tl-setup-count')), 'a refused permission stays on the list, with a note');
+  check(new RegExp('\\b2\\D+8\\b').test(await page.textContent('#tl-setup-count')), 'a refused permission stays on the list, with a note');
 
   // Settings.
   await openSettings(page);
@@ -439,7 +444,10 @@ const keyOf = (offset) => { const d = new Date(); d.setDate(d.getDate() + offset
 const doneDay = (offset, goal = 1) => ({ dateKey: keyOf(offset), checkInsCompleted: goal, checkInGoal: goal, meditationsCompleted: 0, status: 'complete' });
 const daysOf = (...offsets) => JSON.stringify(Object.fromEntries(offsets.map((o) => [keyOf(o), doneDay(o)])));
 const oneADay = JSON.stringify({ checkInsPerDay: 1, countChosen: true });
-const streakIs = (page, n) => page.waitForFunction((want) => document.querySelector('#tl-streak-number').textContent.trim() === want, String(n), { timeout: 5000 }).then(() => true, () => false);
+// How many of these day offsets fall in the month on screen (a run on the 1st has fewer).
+const inMonth = (...offsets) => offsets.filter((o) => keyOf(o).slice(0, 7) === keyOf(0).slice(0, 7)).length;
+const monthDots = (page) => page.locator('#tl-streak-week .tl-day.is-complete').count();
+const NO_STREAK_WORDS = /streak|racha|miss|lost|broke|fail|perdi|rompi|fallaste|\b0\b/i;
 async function quickCheckIn(page, mood) {
   await tab(page, 'home');
   if (!(await page.isVisible('#tl-home'))) await tab(page, 'home');
@@ -449,72 +457,148 @@ async function quickCheckIn(page, mood) {
   await page.click('#tl-flow-done');
 }
 
-async function streakTests(browser, lang) {
-  console.log(`\nStreaks, ${lang === 'es' ? 'Spanish' : 'English'}`);
-  // Two complete days behind, one check-in a day: today's check-in makes three, a milestone.
+// "Days you checked in this month": how the streak feature is shown. Presentation only; the data
+// underneath is still kept.
+async function monthTests(browser, lang) {
+  console.log(`\nDays you checked in this month, ${lang === 'es' ? 'Spanish' : 'English'}`);
   let { context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-2, -1) } });
-  check(await page.isVisible('#tl-streak-card') && await streakIs(page, 2), 'Home shows the streak so far: 2');
-  check((await page.locator('#tl-streak-week .tl-day').count()) === 7, 'with a row of seven days');
-  check(await page.isVisible('#tl-streak-week .tl-day.is-today'), 'today is marked as in progress');
-  check((await page.textContent('#tl-streak-week-words')).trim().length > 10, 'and the row is described in words for screen readers');
+  const before = inMonth(-2, -1);
+  if (before > 0) {
+    check(await page.isVisible('#tl-streak-card') && (await monthDots(page)) === before, `Home shows the days checked in this month as dots: ${before}`);
+    check(await page.isVisible('#tl-streak-week .tl-day.is-today'), 'today is marked');
+    check((await page.textContent('#tl-streak-week-words')).trim().length > 5, 'and the row is said in words for screen readers');
+  }
+  const daysInMonth = await page.locator('#tl-streak-week .tl-day').count();
+  check(daysInMonth >= 28 && daysInMonth <= 31, 'one dot for each day of the month');
+  check((await page.locator('#tl-streak-number, #tl-milestone, #tl-streak-fresh, .tl-burst').count()) === 0, 'there is no streak number, milestone card, or "new start" card in the page at all');
+  check(!NO_STREAK_WORDS.test(await page.textContent('#tl-streak-card')), 'the card never says streak, missed, lost, or zero');
   await quickCheckIn(page, 4);
-  await page.waitForSelector('#tl-home:not([hidden])', { timeout: 5000 });
-  await page.waitForFunction(() => document.querySelector('#tl-streak-number').textContent.trim() === '3');
-  check(true, 'the streak card updates right after the check-in: 3');
-  check(await page.isVisible('#tl-milestone') && (await page.textContent('#tl-milestone-line')).includes('3'), 'a 3-day milestone shows, once');
-  check((await safetyFrame(page)).length === 0, 'the celebration covers none of the safety frame');
-  check(await page.evaluate(() => { const c = document.querySelector('.tl-burst'); return !c || getComputedStyle(c).pointerEvents === 'none'; }), 'and takes no taps');
-  await page.click('#tl-milestone-ok');
-  check(!(await page.isVisible('#tl-milestone')), 'it can be put away');
+  check(await page.isVisible('#tl-flow [data-flow="done"]') && !(await page.isVisible('.tl-burst')), 'a third day in a row ends like any other check-in: nothing celebrates');
+  await page.click('#tl-flow [data-flow="done"] [data-tl-go="home"]');
+  await page.waitForFunction((want) => document.querySelectorAll('#tl-streak-week .tl-day.is-complete').length === want, before + 1);
+  check(true, 'the row gains today right after the check-in');
+  check((await stored(page, 'tidelight.streak')).current === 3, 'the streak data underneath is still kept on the phone (3), unseen');
   await page.click('#tl-streak-card');
-  check(await page.isVisible('#tl-streak') && (await page.textContent('#tl-streak-current')).trim() === '3' && (await page.textContent('#tl-streak-best')).trim() === '3', 'the streak screen shows now and best');
   const monthDays = await page.locator('#tl-streak-month .tl-day:not(.is-blank)').count();
-  check(monthDays >= 28 && monthDays <= 31 && (await page.locator('#tl-streak-month .tl-day.is-complete').count()) >= 1, 'with this month as a calendar of days');
-  check((await page.locator('#tl-streak .tl-legend li').count()) === 4 && (await page.textContent('#tl-streak-freeze-line')).includes('1'), 'a legend in words, and the freezes held');
-  check((await safetyFrame(page)).length === 0 && await page.isVisible('#tl-streak .tl-draft-tag'), 'the streak screen keeps the safety frame and is marked "Draft for review"');
-  check(await noSideways(page), 'the streak screen fits');
-  await page.reload();
-  await page.waitForSelector('html.app-ready');
-  check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')), 'the milestone isn\'t shown again; the streak is remembered');
-  // Developer tools: seed a month to look at, and reset.
+  check(await page.isVisible('#tl-streak') && monthDays === daysInMonth && (await page.locator('#tl-streak-month .tl-day.is-complete').count()) === before + 1, 'the card opens this month as a calendar');
+  check((await page.locator('#tl-streak .tl-legend li').count()) === 2 && (await page.textContent('#tl-streak-count')).trim().length > 5, 'with a two-word legend and the count in words');
+  check(!NO_STREAK_WORDS.test(await page.textContent('#tl-streak')), 'and no streak, missed, or lost words');
+  check((await safetyFrame(page)).length === 0 && await page.isVisible('#tl-streak .tl-draft-tag'), 'the month screen keeps the safety frame and is marked "Draft for review"');
+  check(await noSideways(page), 'the month screen fits');
+  await page.click('#tl-streak [data-tl-back]');
+  // Developer tools: made-up history with frozen and missed days underneath. None of that shows.
   await openSettings(page);
   for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
   await page.click('#tl-dev-seed');
   await page.click('#tl-settings [data-tl-back]');
   await page.click('#tl-streak-card');
-  check((await page.locator('#tl-streak-month .tl-day.is-frozen, #tl-streak-month .tl-day.is-missed, #tl-streak-month .tl-day.is-complete').count()) >= 5, 'seeded history fills the calendar');
-  // Streaks off: nothing of them shows.
+  check((await page.locator('#tl-streak-month .tl-day.is-frozen, #tl-streak-month .tl-day.is-missed').count()) === 0, 'days without a check-in are plain outlines: never marked missed or frozen');
+  const tones = await page.$$eval('#tl-streak-month .tl-day:not(.is-blank)', (els) => [...new Set(els.map((e) => getComputedStyle(e).backgroundColor))]);
+  check(tones.length <= 2, 'and the calendar uses one fill for checked-in days, nothing else');
+  // Turned off: nothing of it shows, and nothing is lost.
   await page.click('#tl-streak [data-tl-anchor="tl-set-feel"]');
   await page.uncheck('#tl-set-streaks');
   await page.click('#tl-settings [data-tl-back]');
   await tab(page, 'home');
-  check(!(await page.isVisible('#tl-streak-card')) && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('#tl-streak-fresh')), 'with streaks turned off, Home shows no streak at all');
+  check(!(await page.isVisible('#tl-streak-card')) && !(await page.isVisible('#tl-streak-first')), 'turned off in Settings, Home shows none of it');
+  check(Object.keys(await stored(page, 'tidelight.days')).length > 5, 'and nothing was erased');
   check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
   await context.close();
 
-  // A very low check-in on a milestone day: support comes first and nothing celebrates.
+  // A new person never meets a zero.
+  ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay } }));
+  check(!(await page.isVisible('#tl-streak-card')) && await page.isVisible('#tl-streak-first'), 'before the first check-in there is a quiet line, not a count');
+  check(!/\d/.test(await page.textContent('#tl-streak-first')), 'with no number in it: never a zero');
+  await context.close();
+
+  // A very low check-in: support comes first and nothing celebrates, in any state.
   ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-2, -1) } }));
   await quickCheckIn(page, 1);
-  check(await page.isVisible('#tl-flow-support') && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('.tl-burst')), 'a very low check-in shows support, with no celebration anywhere');
+  check(await page.isVisible('#tl-flow-support') && !(await page.isVisible('.tl-burst')) && !(await page.isVisible('#tl-flow [data-flow="done"]')), 'a very low check-in shows support, not the usual ending');
+  check(!(await page.isVisible('#tl-flow .tl-horizon')) && (await page.locator('#tl-flow .tl-horizon-complete').count()) === 0, 'with no dawn, no horizon, and no decoration on that screen');
+  check((await page.locator('#tl-flow-support').evaluate((el) => /streak|racha|🎉/i.test(el.textContent))) === false && !(await page.isVisible('#tl-flow-breathe')), 'and no streak words or other offers beside it');
   await page.click('#tl-flow-support [data-tl-go="home"]');
-  check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')), 'back on Home the day still counts, quietly: no milestone card');
+  check((await monthDots(page)) === before + 1, 'back on Home the day still counts, quietly');
   check((await stored(page, 'tidelight.onboarding')).quietDay === keyOf(0), 'the quiet day is remembered on the phone');
   await page.reload();
   await page.waitForSelector('html.app-ready');
-  check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('.tl-burst')), 'and still quiet after closing and reopening the app');
+  check((await monthDots(page)) === before + 1 && !(await page.isVisible('.tl-burst')), 'and still quiet after closing and reopening the app');
   await context.close();
 
-  // A streak that ended while away: a gentle card, no guilt.
+  // Days away: nothing on Home says a run ended.
   const ended = JSON.stringify({ current: 3, best: 3, freezesAvailable: 0, lastFreezeGrantWeek: isoWeek(keyOf(-2)), lastEvaluatedDate: keyOf(-3), celebrated: [3], brokenNotice: null });
   ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-5, -4, -3), 'tidelight.streak': ended } }));
-  check(await streakIs(page, 0), 'after two days away with no freeze, the streak starts again at 0');
-  check(await page.isVisible('#tl-streak-fresh') && (await page.textContent('#tl-streak-fresh-line')).includes('3'), 'a gentle card says the best is still 3');
-  check(!/miss|lost|broke|fail|perd|romp|fall/i.test(await page.textContent('#tl-streak-fresh')), 'with no guilt words');
-  check(await page.evaluate(() => getComputedStyle(document.querySelector('#tl-streak-fresh')).position !== 'fixed'), 'as a card in the page, not a pop-up');
-  await page.click('#tl-streak-fresh-ok');
-  await page.reload();
-  await page.waitForSelector('html.app-ready');
-  check(!(await page.isVisible('#tl-streak-fresh')), 'once put away, it stays away');
+  const home = await page.textContent('#tl-home-streak');
+  check(!/streak|racha|miss|lost|broke|fail|perdi|rompi/i.test(home), 'after two days away, Home says nothing about a streak ending or days missed');
+  check((await page.locator('#tl-streak-fresh, #tl-milestone').count()) === 0, 'and there is no card about it');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+}
+
+// The visual identity: crisis access stays the plainest, strongest thing on screen; fonts are the
+// app's own files; motion stops under Reduce Motion; a quiet day stays quiet; tests make no sound.
+const contrastOf = (page, selector) => page.$eval(selector, (el) => {
+  const lum = (c) => { const [r, g, b] = c.match(/[\d.]+/g).slice(0, 3).map((v) => { const x = v / 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+  const cs = getComputedStyle(el);
+  const a = lum(cs.color);
+  const b = lum(cs.backgroundColor);
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+});
+async function identityTests(browser, lang) {
+  console.log(`\nVisual identity, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  for (const colorScheme of ['light', 'dark']) {
+    const { context, page, errors, outside } = await newPage(browser, lang, { colorScheme, storage: { 'tidelight.settings': oneADay } });
+    for (const [selector, name] of [['.crisis-bar', 'the crisis strip'], ['.crisis-bar .quick-exit', 'Exit'], ['.header-cta', 'Get Support Now'], ['#support .action-primary', 'Call 988 in the support panel']]) {
+      const ratio = await contrastOf(page, selector);
+      check(ratio >= 7, `${colorScheme}: ${name} has at least 7:1 contrast (${ratio.toFixed(1)}:1)`);
+    }
+    const strip = await page.$eval('.crisis-bar', (el) => { const cs = getComputedStyle(el); return { image: cs.backgroundImage, opacity: cs.opacity, animation: cs.animationName, position: cs.position }; });
+    check(strip.image === 'none' && strip.opacity === '1' && strip.animation === 'none', `${colorScheme}: the crisis strip has no texture, no fade, and no animation`);
+    check(strip.position === 'sticky' || strip.position === 'fixed', `${colorScheme}: and it stays at the top`);
+    const cta = await page.$eval('.header-cta', (el) => el.getBoundingClientRect());
+    check(cta.height >= 44 && cta.width >= 44, `${colorScheme}: Get Support Now is at least 44 points tall`);
+    check((await safetyFrame(page)).length === 0, `${colorScheme}: the whole safety frame is on screen on Home`);
+    if (colorScheme === 'light') {
+      await page.evaluate(() => document.fonts.ready);
+      const faces = await page.evaluate(() => ({ title: getComputedStyle(document.querySelector('#tl-home-title')).fontFamily, body: getComputedStyle(document.body).fontFamily, loaded: [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replace(/"/g, '')) }));
+      check(/Fraunces/.test(faces.title) && /Figtree/.test(faces.body), 'headings are set in Fraunces and everything else in Figtree');
+      check(faces.loaded.includes('Fraunces') && faces.loaded.includes('Figtree') && outside.length === 0, 'both fonts load from the app\'s own files: no request leaves the phone');
+      check(await page.$eval('#tl-home .tl-horizon', (el) => el.getAttribute('aria-hidden') === 'true'), 'the horizon is decoration: hidden from screen readers');
+      check((await page.locator('#tl-home .tl-highlight').count()) === 1 && (await page.locator('.crisis-bar .tl-highlight, #support .tl-highlight, .tl-support-now .tl-highlight').count()) === 0, 'one highlighted phrase on Home, and never on crisis words');
+      check(await page.evaluate(() => window.__tidelightQuiet === true && window.speechSynthesis.getVoices().length === 0), 'this test page is muted: speech is a silent stand-in');
+    }
+    check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+    await context.close();
+  }
+
+  // Reduce Motion: nothing moves. The dawn is simply there.
+  let { context, page, errors } = await newPage(browser, lang, { reducedMotion: 'reduce', storage: { 'tidelight.settings': oneADay } });
+  await quickCheckIn(page, 4);
+  const still = await page.evaluate(() => ({
+    dawn: getComputedStyle(document.querySelector('#tl-flow-horizon'), '::before').animationName,
+    glide: getComputedStyle(document.querySelector('#tl-flow-horizon'), '::before').transitionDuration,
+    screen: getComputedStyle(document.querySelector('#tl-flow')).animationName,
+  }));
+  check(await page.isVisible('#tl-flow-horizon.tl-horizon-complete') && still.dawn === 'none' && /^0s/.test(still.glide), 'with Reduce Motion, the finished check-in shows the full dawn without animating it');
+  check(still.screen === 'none' || still.screen === 'tl-appear', 'and screens fade in place instead of drifting');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+
+  // A quiet day stays quiet everywhere: after a very low check-in, a finished meditation has no dawn.
+  ({ context, page, errors } = await newPage(browser, lang, { hooks: { clockRate: 120 }, storage: { 'tidelight.settings': oneADay } }));
+  await quickCheckIn(page, 1);
+  await page.click('#tl-flow-support [data-tl-go="home"]');
+  await tab(page, 'meditate');
+  await page.click('.tl-type[data-type="quick"] [data-type-start]');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 10000 });
+  check(await page.isVisible('#tl-complete-title') && !(await page.isVisible('#tl-complete .tl-horizon')) && (await page.locator('.tl-burst').count()) === 0, 'on a day with a very low check-in, a finished meditation ends without the dawn or any celebration');
+  check((await safetyFrame(page)).length === 0, 'and the safety frame is on screen there');
+  await context.close();
+  ({ context, page, errors } = await newPage(browser, lang, { hooks: { clockRate: 120 }, storage: { 'tidelight.settings': oneADay } }));
+  await tab(page, 'meditate');
+  await page.click('.tl-type[data-type="quick"] [data-type-start]');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 10000 });
+  check(await page.isVisible('#tl-complete .tl-horizon-complete') && (await page.locator('.tl-burst').count()) === 0, 'on an ordinary day it ends on the dawn, with no burst');
   check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
   await context.close();
 }
@@ -868,6 +952,7 @@ async function hapticsTests(browser) {
   await fires('a mood face', () => page.click('#tl-flow-faces [data-value="4"]'));
   await fires('a chip', () => page.click('#tl-flow-tags [data-value="happy"]'));
   await fires('finishing a check-in', () => page.click('#tl-flow-done'));
+  await page.click('#tl-flow [data-flow="done"] [data-tl-go="home"]');
   await page.waitForSelector('#tl-home:not([hidden])', { timeout: 5000 });
   await openSettings(page);
   await fires('the stepper', () => page.click('#tl-set-count [data-tl-step="1"]'));
@@ -889,7 +974,7 @@ async function hapticsTests(browser) {
   await page.click('#tl-complete [data-player-done]');
   // Press states and motion.
   const press = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--tl-press-scale').trim());
-  check(press === '0.96', 'everything tappable scales to 0.96 on press');
+  check(press === '0.98', 'everything tappable scales to 0.98 on press');
   check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
   await context.close();
 
@@ -942,7 +1027,7 @@ async function accessibilityTests(browser) {
     await page.click('#tl-setup-open');
     await audit(page, `${label}, the setup list`, '#tl-home');
     await page.click('#tl-streak-card');
-    await audit(page, `${label}, the streak screen`, '#tl-streak');
+    await audit(page, `${label}, the month screen`, '#tl-streak');
     await openSettings(page);
     for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
     await audit(page, `${label}, Settings with Developer open`, '#tl-settings');
@@ -993,8 +1078,10 @@ try {
   await onboardingTests(browser, 'es');
   await deniedTests(browser);
   await migrationTests(browser);
-  await streakTests(browser, 'en');
-  await streakTests(browser, 'es');
+  await monthTests(browser, 'en');
+  await monthTests(browser, 'es');
+  await identityTests(browser, 'en');
+  await identityTests(browser, 'es');
   await playerTests(browser, 'en');
   await playerTests(browser, 'es');
   await typesTests(browser, 'en');

@@ -2,10 +2,9 @@
 // one button that does it. Every item is read from the app's real state each time.
 import { deriveChecklist, checklistProgress } from '../logic/checklist.js';
 import { t } from './words.js';
-import { state, save, isQuiet } from './state.js';
-import { progressRing } from './components.js';
+import { state, save } from './state.js';
+import { progressLine } from './components.js';
 import { haptic } from './haptics.js';
-import { celebrate } from './celebrate.js';
 import { locationPermission, notificationPermission, requestLocationPermission, requestNotificationPermission, currentPosition } from './device.js';
 import { syncReminders } from './reminders.js';
 
@@ -36,7 +35,7 @@ export async function renderSetup() {
   const progress = checklistProgress(items);
   const finished = state.onboarding.setupCelebrated;
   box.hidden = !state.onboarding.completed || finished || progress.complete;
-  ring.set(progress.done / progress.total, t('setup.ring', progress));
+  ring.set(progress.done / progress.total);
   $('#tl-setup-count').textContent = t('setup.count', progress);
   items.forEach((item) => {
     const row = $('[data-setup="' + item.id + '"]', box);
@@ -49,7 +48,6 @@ export async function renderSetup() {
     await save('onboarding', { setupCelebrated: true });
     $('#tl-setup-done').hidden = false;
     haptic('success');
-    if (!isQuiet()) celebrate();
   }
 }
 
@@ -94,7 +92,7 @@ export function initSetup(shell, context) {
   ctx = context;
   const box = $('#tl-home-setup');
   if (!box) return;
-  ring = progressRing($('#tl-setup-ring'));
+  ring = progressLine($('#tl-setup-ring'));
   const keep = $('[data-setup-do="count"]', box);
   keep.setAttribute('data-words', keep.textContent);
   const open = $('#tl-setup-open');

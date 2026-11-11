@@ -19,15 +19,45 @@
       <div class="tl-app" id="tl-app">
 
         <section class="tl-screen" id="tl-home" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-home-title" hidden>
-          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
-          <div class="tl-head">
-            <h2 class="tl-title tl-greeting" id="tl-home-title">Hello</h2>
-            <button type="button" class="tl-icon-btn" data-tl-push="settings" aria-label="Open settings"><span data-tl-icon="gear"></span></button>
+          <div class="tl-hero">
+            <div class="tl-horizon tl-horizon-hero" aria-hidden="true"></div>
+            <div class="tl-hero-top">
+              <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+              <button type="button" class="tl-icon-btn" data-tl-push="settings" aria-label="Open settings"><span data-tl-icon="gear"></span></button>
+            </div>
+            <h2 class="tl-display tl-greeting" id="tl-home-title">Hello</h2>
+            <p class="tl-hero-line" id="tl-home-line"></p>
+          </div>
+          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-push="flow" data-tl-quick="checkin" aria-label="Start a check-in">
+            <span class="tl-card-icon" data-tl-icon="heart"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Next check-in</span><span class="tl-card-sub" id="tl-home-next-when">Any time you like</span></span>
+            <span class="tl-card-go">Start</span>
+          </button>
+          <button type="button" class="tl-card tl-card-action" id="tl-home-suggest">
+            <span class="tl-cover" data-cover="silent" aria-hidden="true"></span>
+            <span class="tl-card-text"><span class="tl-eyebrow">Suggested for you</span><span class="tl-card-title" data-suggest-title></span><span class="tl-card-sub" data-suggest-reason></span></span>
+            <span class="tl-card-go">Start</span>
+          </button>
+          <div id="tl-home-streak" hidden>
+            <button type="button" class="tl-month-card" id="tl-streak-card" data-tl-push="streak">
+              <span class="tl-eyebrow">Days you checked in this month</span>
+              <span class="tl-days tl-month-row" id="tl-streak-week" aria-hidden="true"></span>
+              <span class="tl-card-sub" id="tl-streak-week-words"></span>
+            </button>
+            <div class="tl-quiet" id="tl-streak-first">
+              <div class="tl-horizon tl-horizon-quiet" aria-hidden="true"></div>
+              <p class="tl-sub">Your first check-in will appear here</p>
+            </div>
+          </div>
+          <div class="tl-tiles" role="group" aria-label="Quick tools">
+            <button type="button" class="tl-tile tl-tile-seafoam" id="tl-home-reset" data-tl-quick="reset"><span class="tl-tile-icon" data-tl-icon="wind"></span><span class="tl-tile-label">1-min reset</span></button>
+            <button type="button" class="tl-tile tl-tile-sky" data-tl-go="meditate" data-tl-quick="meditate"><span class="tl-tile-icon" data-tl-icon="horizon"></span><span class="tl-tile-label">Meditate</span></button>
+            <button type="button" class="tl-tile tl-tile-sun" data-tl-legacy="app-hope"><span class="tl-tile-icon" data-tl-icon="box"></span><span class="tl-tile-label">Hope box</span></button>
+            <a class="tl-tile tl-tile-shell" href="#support"><span class="tl-tile-icon" data-tl-icon="lifebuoy"></span><span class="tl-tile-label">Get help</span></a>
           </div>
           <div id="tl-home-setup" hidden>
             <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
-              <span id="tl-setup-ring"></span>
-              <span class="tl-card-text"><span class="tl-card-title">Finish setting up</span><span class="tl-card-sub" id="tl-setup-count"></span></span>
+              <span class="tl-card-text"><span class="tl-card-title">Finish setting up</span><span class="tl-card-sub" id="tl-setup-count"></span><span class="tl-progress" id="tl-setup-ring" aria-hidden="true"><span></span></span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button>
             <ul class="tl-list tl-setup-list" id="tl-setup-list" hidden>
@@ -45,41 +75,6 @@
           <div class="tl-card tl-card-warm" id="tl-setup-done" role="status" hidden>
             <span class="tl-card-icon" data-tl-icon="check"></span>
             <span class="tl-card-text"><span class="tl-card-title">Setup complete</span><span class="tl-card-sub">Everything is ready</span></span>
-          </div>
-          <div class="tl-card tl-card-warm" id="tl-milestone" role="status" hidden>
-            <span class="tl-card-icon" data-tl-icon="star"></span>
-            <span class="tl-card-text"><span class="tl-card-title" id="tl-milestone-line"></span></span>
-            <button type="button" class="tl-btn tl-btn-quiet" id="tl-milestone-ok">Got it</button>
-          </div>
-          <div class="tl-card" id="tl-streak-fresh" role="status" hidden>
-            <span class="tl-card-icon" data-tl-icon="wave"></span>
-            <span class="tl-card-text"><span class="tl-card-sub" id="tl-streak-fresh-line"></span></span>
-            <button type="button" class="tl-btn tl-btn-quiet" id="tl-streak-fresh-ok">Got it</button>
-          </div>
-          <div id="tl-home-streak" hidden>
-            <button type="button" class="tl-card tl-card-action tl-card-warm tl-streak-card" id="tl-streak-card" data-tl-push="streak">
-              <span class="tl-card-icon tl-streak-wave" data-tl-icon="wave"></span>
-              <span class="tl-card-text">
-                <span class="tl-streak-line"><span class="tl-streak-number" id="tl-streak-number">0</span> <span id="tl-streak-label">day streak</span></span>
-                <span class="tl-days tl-week" id="tl-streak-week" aria-hidden="true"></span>
-                <span class="visually-hidden" id="tl-streak-week-words"></span>
-              </span>
-              <span class="tl-badge" aria-hidden="true">❄️ <span id="tl-streak-freezes-count">0</span></span>
-            </button>
-          </div>
-          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-push="flow" aria-label="Start a check-in">
-            <span class="tl-card-icon" data-tl-icon="heart"></span>
-            <span class="tl-card-text"><span class="tl-card-title">Next check-in</span><span class="tl-card-sub" id="tl-home-next-when">Any time you like</span></span>
-            <span class="tl-card-go">Start</span>
-          </button>
-          <button type="button" class="tl-card tl-card-action tl-card-hero" id="tl-home-suggest">
-            <span class="tl-card-text"><span class="tl-caption">Suggested for you</span><span class="tl-card-title" data-suggest-title></span><span class="tl-card-sub" data-suggest-reason></span></span>
-            <span class="tl-btn tl-btn-primary">Start</span>
-          </button>
-          <div class="tl-quick" role="group" aria-label="Quick actions">
-            <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="flow" data-tl-quick="checkin">Check in</button>
-            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="meditate">Meditate</button>
-            <button type="button" class="tl-btn tl-btn-secondary" id="tl-home-reset" data-tl-quick="reset">1-min reset</button>
           </div>
         </section>
 
@@ -127,6 +122,7 @@
         <section class="tl-screen tl-center" id="tl-flow" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-flow-prompt" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <div class="tl-horizon tl-horizon-progress" id="tl-flow-horizon" aria-hidden="true"></div>
           <div class="tl-flow-step" data-flow="breath" hidden>
             <div class="tl-breath" aria-hidden="true"><span class="tl-breath-dot"></span></div>
             <p class="tl-headline" id="tl-flow-breath-word" role="status"></p>
@@ -135,11 +131,11 @@
           <div class="tl-flow-step" data-flow="mood" hidden>
             <h2 class="tl-title" id="tl-flow-prompt"></h2>
             <div class="tl-faces" id="tl-flow-faces" role="group" aria-labelledby="tl-flow-prompt">
-              <button type="button" class="tl-face" data-value="1" aria-pressed="false"><span data-tl-face="1"></span><span class="tl-face-label">Very low</span></button>
-              <button type="button" class="tl-face" data-value="2" aria-pressed="false"><span data-tl-face="2"></span><span class="tl-face-label">Low</span></button>
-              <button type="button" class="tl-face" data-value="3" aria-pressed="false"><span data-tl-face="3"></span><span class="tl-face-label">Okay</span></button>
-              <button type="button" class="tl-face" data-value="4" aria-pressed="false"><span data-tl-face="4"></span><span class="tl-face-label">Good</span></button>
-              <button type="button" class="tl-face" data-value="5" aria-pressed="false"><span data-tl-face="5"></span><span class="tl-face-label">Great</span></button>
+              <button type="button" class="tl-face" data-value="1" aria-pressed="false"><span class="tl-swatch" data-mood="5" aria-hidden="true"></span><span class="tl-face-label">Very low</span><span class="tl-face-check" data-tl-icon="check"></span></button>
+              <button type="button" class="tl-face" data-value="2" aria-pressed="false"><span class="tl-swatch" data-mood="4" aria-hidden="true"></span><span class="tl-face-label">Low</span><span class="tl-face-check" data-tl-icon="check"></span></button>
+              <button type="button" class="tl-face" data-value="3" aria-pressed="false"><span class="tl-swatch" data-mood="3" aria-hidden="true"></span><span class="tl-face-label">Okay</span><span class="tl-face-check" data-tl-icon="check"></span></button>
+              <button type="button" class="tl-face" data-value="4" aria-pressed="false"><span class="tl-swatch" data-mood="2" aria-hidden="true"></span><span class="tl-face-label">Good</span><span class="tl-face-check" data-tl-icon="check"></span></button>
+              <button type="button" class="tl-face" data-value="5" aria-pressed="false"><span class="tl-swatch" data-mood="1" aria-hidden="true"></span><span class="tl-face-label">Great</span><span class="tl-face-check" data-tl-icon="check"></span></button>
             </div>
             <div class="tl-flow-more" id="tl-flow-more" hidden>
               <div class="tl-row tl-row-center" id="tl-flow-tags" role="group" aria-label="Anything else? Optional">
@@ -154,9 +150,12 @@
               <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-flow-done">Done</button>
             </div>
           </div>
-          <div class="tl-flow-step" data-flow="done" role="status" hidden>
-            <span class="tl-done-mark" data-tl-icon="check" data-tl-large></span>
-            <p class="tl-title" id="tl-flow-thanks"></p>
+          <div class="tl-flow-step" data-flow="done" hidden>
+            <p class="tl-display" id="tl-flow-thanks" role="status"></p>
+            <div class="tl-stack tl-wide">
+              <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-flow-breathe">Breathe for a minute</button>
+              <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" data-tl-go="home">Back to home</button>
+            </div>
           </div>
           <div class="tl-flow-step tl-support-now" data-flow="support" id="tl-flow-support" tabindex="-1" hidden>
             <h2 class="tl-title">That sounds really hard.</h2>
@@ -185,7 +184,8 @@
           <p class="visually-hidden" id="tl-ob-step" role="status"></p>
 
           <div class="tl-ob-page" data-ob="welcome">
-            <div class="tl-art tl-art-wave" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="tl-horizon tl-horizon-hero tl-horizon-tall" aria-hidden="true"></div>
+            <p class="tl-eyebrow">Tidelight</p>
             <h2 class="tl-display">Find your calm, anywhere.</h2>
             <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Let's go</button>
           </div>
@@ -227,8 +227,8 @@
           <div class="tl-ob-page" data-ob="style" hidden>
             <h2 class="tl-title" id="tl-ob-style-title">Pick your style</h2>
             <div class="tl-grid-2" id="tl-ob-style" role="group" aria-labelledby="tl-ob-style-title">
-              <button type="button" class="tl-choice" data-value="calm" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">🌊</span><span class="tl-choice-title">Calm</span><span class="tl-choice-sub">Gentle and slow</span></button>
-              <button type="button" class="tl-choice" data-value="straightforward" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">⚡</span><span class="tl-choice-title">Straightforward</span><span class="tl-choice-sub">Quick and direct</span></button>
+              <button type="button" class="tl-choice" data-value="calm" aria-pressed="false"><span class="tl-choice-art" data-tl-icon="horizon" data-tl-large></span><span class="tl-choice-title">Calm</span><span class="tl-choice-sub">Gentle and slow</span></button>
+              <button type="button" class="tl-choice" data-value="straightforward" aria-pressed="false"><span class="tl-choice-art" data-tl-icon="bolt" data-tl-large></span><span class="tl-choice-title">Straightforward</span><span class="tl-choice-sub">Quick and direct</span></button>
             </div>
             <div class="tl-style-preview" id="tl-ob-style-preview" aria-live="polite"><span class="tl-breath-dot" aria-hidden="true"></span><p class="tl-headline"></p></div>
             <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Next</button>
@@ -256,7 +256,7 @@
           </div>
 
           <div class="tl-ob-page" data-ob="done" hidden>
-            <div class="tl-art tl-art-wave tl-art-done" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="tl-horizon tl-horizon-complete" aria-hidden="true"></div>
             <h2 class="tl-display">You're all set.</h2>
             <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-ob-start">Start</button>
           </div>
@@ -265,28 +265,16 @@
         <section class="tl-screen" id="tl-streak" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-streak-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
-          <h2 class="tl-title" id="tl-streak-title">Your streak</h2>
-          <dl class="tl-grid-2 tl-stats">
-            <div class="tl-panel tl-center"><dt class="tl-sub">Now</dt><dd class="tl-stat" id="tl-streak-current">0</dd></div>
-            <div class="tl-panel tl-center"><dt class="tl-sub">Best</dt><dd class="tl-stat" id="tl-streak-best">0</dd></div>
-          </dl>
-          <div class="tl-panel">
-            <h3 class="tl-headline" id="tl-streak-month-title"></h3>
-            <ol class="tl-days tl-month tl-month-heads" id="tl-streak-heads" aria-hidden="true"></ol>
-            <ol class="tl-days tl-month" id="tl-streak-month" aria-labelledby="tl-streak-month-title"></ol>
-            <ul class="tl-row tl-legend">
-              <li><span class="tl-day is-complete" aria-hidden="true">✓</span> Done</li>
-              <li><span class="tl-day is-frozen" aria-hidden="true">❄️</span> Frozen</li>
-              <li><span class="tl-day is-missed" aria-hidden="true"></span> Rest day</li>
-              <li><span class="tl-day is-today" aria-hidden="true"></span> Today</li>
-            </ul>
-          </div>
-          <div class="tl-panel">
-            <p class="tl-sub">A day counts when you finish your check-ins, or do one check-in and one meditation.</p>
-            <p class="tl-sub">Miss a day and a freeze ❄️ covers it. No freeze? You simply start again.</p>
-            <p class="tl-status" id="tl-streak-freeze-line"></p>
-          </div>
-          <button type="button" class="tl-btn tl-btn-quiet" data-tl-push="settings" data-tl-anchor="tl-set-feel">Turn streaks off in Settings</button>
+          <h2 class="tl-title" id="tl-streak-title">Your month</h2>
+          <p class="tl-eyebrow" id="tl-streak-month-title"></p>
+          <p class="tl-sub" id="tl-streak-count"></p>
+          <ol class="tl-days tl-month tl-month-heads" id="tl-streak-heads" aria-hidden="true"></ol>
+          <ol class="tl-days tl-month" id="tl-streak-month" aria-labelledby="tl-streak-month-title"></ol>
+          <ul class="tl-row tl-legend">
+            <li><span class="tl-day is-complete" aria-hidden="true"></span> Checked in</li>
+            <li><span class="tl-day is-today" aria-hidden="true"></span> Today</li>
+          </ul>
+          <button type="button" class="tl-btn tl-btn-quiet" data-tl-push="settings" data-tl-anchor="tl-set-feel">Turn this off in Settings</button>
         </section>
 
         <section class="tl-screen tl-legacy" id="tl-legacy" data-tl-tab="checkin" tabindex="-1" aria-label="Daily check-in, journal, and your journey" hidden>
@@ -297,13 +285,14 @@
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <h2 class="tl-title" id="tl-meditate-title">Meditate</h2>
           <div id="tl-meditate-body" class="tl-stack">
-            <button type="button" class="tl-card tl-card-action tl-card-hero" id="tl-suggest-card">
-              <span class="tl-card-text"><span class="tl-caption">Suggested for you</span><span class="tl-card-title" data-suggest-title></span><span class="tl-card-sub" data-suggest-reason></span></span>
-              <span class="tl-btn tl-btn-primary">Start</span>
+            <button type="button" class="tl-card tl-card-action tl-feature" id="tl-suggest-card">
+              <span class="tl-cover" data-cover="silent" aria-hidden="true"></span>
+              <span class="tl-card-text"><span class="tl-eyebrow">Suggested for you</span><span class="tl-card-title" data-suggest-title></span><span class="tl-card-sub" data-suggest-reason></span></span>
+              <span class="tl-card-go">Start</span>
             </button>
             <div class="tl-types" id="tl-types">
-              <div class="tl-panel tl-type" data-type="silent">
-                <span class="tl-choice-art" aria-hidden="true">🤫</span>
+              <div class="tl-type" data-type="silent">
+                <span class="tl-choice-art" data-tl-icon="quiet" data-tl-large></span>
                 <h3 class="tl-headline tl-type-name">Silent · anywhere</h3>
                 <span class="tl-row" data-type-length role="group" aria-label="Length"><button type="button" class="tl-chip" data-value="3" aria-pressed="true">3 min</button><button type="button" class="tl-chip" data-value="5" aria-pressed="false">5 min</button></span>
                 <button type="button" class="tl-btn tl-btn-primary" data-type-start>Start</button>
@@ -313,8 +302,8 @@
                   <span class="tl-row" data-type-world role="group" aria-label="World"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Forest</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Night sky</button></span>
                 </div>
               </div>
-              <div class="tl-panel tl-type" data-type="quick">
-                <span class="tl-choice-art" aria-hidden="true">⚡</span>
+              <div class="tl-type" data-type="quick">
+                <span class="tl-choice-art" data-tl-icon="bolt" data-tl-large></span>
                 <h3 class="tl-headline tl-type-name">1-minute reset</h3>
                 <span class="tl-row" data-type-length role="group" aria-label="Length"><button type="button" class="tl-chip" data-value="1" aria-pressed="true">1 min</button></span>
                 <button type="button" class="tl-btn tl-btn-primary" data-type-start>Start</button>
@@ -326,8 +315,8 @@
                   <span class="tl-row" data-type-sound role="group" aria-label="Sound"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">None</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Rain</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">White noise</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Brown noise</button></span>
                 </div>
               </div>
-              <div class="tl-panel tl-type" data-type="deep">
-                <span class="tl-choice-art" aria-hidden="true">🌊</span>
+              <div class="tl-type" data-type="deep">
+                <span class="tl-choice-art" data-tl-icon="horizon" data-tl-large></span>
                 <h3 class="tl-headline tl-type-name">Deep session</h3>
                 <span class="tl-row" data-type-length role="group" aria-label="Length"><button type="button" class="tl-chip" data-value="10" aria-pressed="true">10 min</button><button type="button" class="tl-chip" data-value="15" aria-pressed="false">15 min</button><button type="button" class="tl-chip" data-value="20" aria-pressed="false">20 min</button></span>
                 <button type="button" class="tl-btn tl-btn-primary" data-type-start>Start</button>
@@ -339,8 +328,8 @@
                   <span class="tl-row" data-type-sound role="group" aria-label="Sound"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">None</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Rain</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">White noise</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Brown noise</button></span>
                 </div>
               </div>
-              <div class="tl-panel tl-type" data-type="sleep">
-                <span class="tl-choice-art" aria-hidden="true">🌙</span>
+              <div class="tl-type" data-type="sleep">
+                <span class="tl-choice-art" data-tl-icon="moon" data-tl-large></span>
                 <h3 class="tl-headline tl-type-name">Sleep</h3>
                 <span class="tl-row" data-type-length role="group" aria-label="Length"><button type="button" class="tl-chip" data-value="10" aria-pressed="true">10 min</button><button type="button" class="tl-chip" data-value="20" aria-pressed="false">20 min</button></span>
                 <button type="button" class="tl-btn tl-btn-primary" data-type-start>Start</button>
@@ -408,11 +397,11 @@
           </div>
           <span class="tl-label" id="tl-builder-situation-title">Right now I'm</span>
           <div class="tl-scroll-row" id="tl-builder-situation" role="group" aria-labelledby="tl-builder-situation-title">
-            <button type="button" class="tl-choice" data-value="stressed" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">😮‍💨</span><span class="tl-choice-title">Stressed</span></button>
-            <button type="button" class="tl-choice" data-value="focus" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">🎯</span><span class="tl-choice-title">Focus</span></button>
-            <button type="button" class="tl-choice" data-value="energize" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">⚡</span><span class="tl-choice-title">Energize</span></button>
-            <button type="button" class="tl-choice" data-value="sleep" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">😴</span><span class="tl-choice-title">Sleepy</span></button>
-            <button type="button" class="tl-choice" data-value="breathe" aria-pressed="true"><span class="tl-choice-art" aria-hidden="true">🌊</span><span class="tl-choice-title">Just breathe</span></button>
+            <button type="button" class="tl-choice" data-value="stressed" aria-pressed="false"><span class="tl-choice-art" data-tl-icon="wind" data-tl-large></span><span class="tl-choice-title">Stressed</span></button>
+            <button type="button" class="tl-choice" data-value="focus" aria-pressed="false"><span class="tl-choice-art" data-tl-icon="target" data-tl-large></span><span class="tl-choice-title">Focus</span></button>
+            <button type="button" class="tl-choice" data-value="energize" aria-pressed="false"><span class="tl-choice-art" data-tl-icon="bolt" data-tl-large></span><span class="tl-choice-title">Energize</span></button>
+            <button type="button" class="tl-choice" data-value="sleep" aria-pressed="false"><span class="tl-choice-art" data-tl-icon="moon" data-tl-large></span><span class="tl-choice-title">Sleepy</span></button>
+            <button type="button" class="tl-choice" data-value="breathe" aria-pressed="true"><span class="tl-choice-art" data-tl-icon="horizon" data-tl-large></span><span class="tl-choice-title">Just breathe</span></button>
           </div>
           <span class="tl-label" id="tl-builder-sound-title">Sound</span>
           <div class="tl-row" id="tl-builder-sound" role="group" aria-labelledby="tl-builder-sound-title">
@@ -472,6 +461,7 @@
             <div class="tl-guide" id="tl-guide" aria-hidden="true"><span class="tl-guide-circle"></span></div>
             <p class="tl-guide-words"><span class="tl-guide-word" id="tl-guide-word" aria-live="polite"></span> <span class="tl-guide-count" id="tl-guide-count" aria-hidden="true" hidden></span></p>
             <p class="tl-screen-text" id="tl-screen-text" role="status"></p>
+            <p class="tl-stage-time"><span class="tl-stage-title" id="tl-player-title"></span><span id="tl-player-time" aria-hidden="true"></span></p>
             <p class="tl-stage-hint">Tap for controls</p>
             <div class="tl-controls" id="tl-controls" hidden>
               <div class="tl-controls-top">
@@ -496,7 +486,7 @@
           <div class="tl-complete tl-center" id="tl-complete" hidden>
             <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
             <div class="tl-stack tl-center" id="tl-complete-body">
-              <span class="tl-done-mark" data-tl-icon="check" data-tl-large></span>
+              <div class="tl-horizon tl-horizon-complete" aria-hidden="true"></div>
               <h2 class="tl-title" id="tl-complete-title" tabindex="-1">Well done</h2>
               <p class="tl-display" id="tl-complete-minutes"></p>
               <p class="tl-sub" id="tl-complete-total"></p>
@@ -516,11 +506,11 @@
             </div>
             <h3 class="tl-headline" id="tl-complete-ask">How do you feel now?</h3>
             <div class="tl-faces" id="tl-complete-faces" role="group" aria-labelledby="tl-complete-ask">
-              <button type="button" class="tl-face" data-value="1" aria-pressed="false"><span data-tl-face="1"></span><span class="tl-face-label">Very low</span></button>
-              <button type="button" class="tl-face" data-value="2" aria-pressed="false"><span data-tl-face="2"></span><span class="tl-face-label">Low</span></button>
-              <button type="button" class="tl-face" data-value="3" aria-pressed="false"><span data-tl-face="3"></span><span class="tl-face-label">Okay</span></button>
-              <button type="button" class="tl-face" data-value="4" aria-pressed="false"><span data-tl-face="4"></span><span class="tl-face-label">Good</span></button>
-              <button type="button" class="tl-face" data-value="5" aria-pressed="false"><span data-tl-face="5"></span><span class="tl-face-label">Great</span></button>
+              <button type="button" class="tl-face" data-value="1" aria-pressed="false"><span class="tl-swatch" data-mood="5" aria-hidden="true"></span><span class="tl-face-label">Very low</span><span class="tl-face-check" data-tl-icon="check"></span></button>
+              <button type="button" class="tl-face" data-value="2" aria-pressed="false"><span class="tl-swatch" data-mood="4" aria-hidden="true"></span><span class="tl-face-label">Low</span><span class="tl-face-check" data-tl-icon="check"></span></button>
+              <button type="button" class="tl-face" data-value="3" aria-pressed="false"><span class="tl-swatch" data-mood="3" aria-hidden="true"></span><span class="tl-face-label">Okay</span><span class="tl-face-check" data-tl-icon="check"></span></button>
+              <button type="button" class="tl-face" data-value="4" aria-pressed="false"><span class="tl-swatch" data-mood="2" aria-hidden="true"></span><span class="tl-face-label">Good</span><span class="tl-face-check" data-tl-icon="check"></span></button>
+              <button type="button" class="tl-face" data-value="5" aria-pressed="false"><span class="tl-swatch" data-mood="1" aria-hidden="true"></span><span class="tl-face-label">Great</span><span class="tl-face-check" data-tl-icon="check"></span></button>
             </div>
             <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-player-done>Done</button>
             <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" id="tl-complete-favorite">Save as favorite</button>
@@ -554,6 +544,7 @@
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
           <h2 class="tl-title" id="tl-settings-title">Settings</h2>
           <div id="tl-settings-sections" class="tl-stack">
+            <a class="tl-btn tl-crisis-btn tl-btn-wide" href="#support">Get Support Now</a>
             <h3 class="tl-section-title">You</h3>
             <p class="tl-field"><label for="tl-set-name">Your name (optional, stays on this phone)</label><input class="tl-input" id="tl-set-name" type="text" maxlength="30" autocomplete="off"></p>
 
@@ -573,8 +564,8 @@
               <ul class="tl-times tl-times-edit" id="tl-set-times" aria-labelledby="tl-set-times-title"></ul>
               <span class="tl-label" id="tl-set-style-title">Style</span>
               <div class="tl-grid-2" id="tl-set-style" role="group" aria-labelledby="tl-set-style-title">
-                <button type="button" class="tl-choice" data-value="calm" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">🌊</span><span class="tl-choice-title">Calm</span><span class="tl-choice-sub">Gentle and slow</span></button>
-                <button type="button" class="tl-choice" data-value="straightforward" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">⚡</span><span class="tl-choice-title">Straightforward</span><span class="tl-choice-sub">Quick and direct</span></button>
+                <button type="button" class="tl-choice" data-value="calm" aria-pressed="false"><span class="tl-choice-art" data-tl-icon="horizon" data-tl-large></span><span class="tl-choice-title">Calm</span><span class="tl-choice-sub">Gentle and slow</span></button>
+                <button type="button" class="tl-choice" data-value="straightforward" aria-pressed="false"><span class="tl-choice-art" data-tl-icon="bolt" data-tl-large></span><span class="tl-choice-title">Straightforward</span><span class="tl-choice-sub">Quick and direct</span></button>
               </div>
             </div>
 
@@ -615,8 +606,8 @@
             <div class="tl-panel">
               <label class="tl-switch"><span>Haptics</span><input type="checkbox" id="tl-set-haptics"></label>
               <label class="tl-switch"><span>Reduce animations</span><input type="checkbox" id="tl-set-reduce"></label>
-              <label class="tl-switch"><span>Streaks</span><input type="checkbox" id="tl-set-streaks"></label>
-              <p class="tl-sub">Streaks count the days you check in. Turn them off any time. Nothing is lost.</p>
+              <label class="tl-switch"><span>Check-in days on Home</span><input type="checkbox" id="tl-set-streaks"></label>
+              <p class="tl-sub">Shows the days you checked in this month. Turn it off any time. Nothing is lost.</p>
             </div>
 
             <h3 class="tl-section-title" id="tl-set-places">Places</h3>
@@ -686,8 +677,7 @@
         <span data-word="home.nextAt">At {time}</span>
         <span data-word="home.nextAny">Any time you like</span>
         <span data-word="home.nextDone">All done for today</span>
-        <span data-word="setup.count">Setup {done}/{total}</span>
-        <span data-word="setup.ring">{done}/{total}</span>
+        <span data-word="setup.count">{done} of {total} set up</span>
         <span data-word="setup.denied">The phone said no. You can change that in the phone's Settings.</span>
         <span data-word="setup.unavailable">That only works in the app on a phone.</span>
         <span data-word="setup.saved">Saved.</span>
@@ -723,14 +713,11 @@
         <span data-word="set.homeNone">No home spot saved.</span>
         <span data-word="set.homeSaved">A home spot is saved on this phone.</span>
         <span data-word="set.timeLabel">Check-in {number}</span>
-        <span data-word="streak.day">day streak</span>
-        <span data-word="streak.days">day streak</span>
-        <span data-word="streak.cardLabel">{count} day streak. {freezes} freezes. Open your streak.</span>
-        <span data-word="streak.weekWords">This week: {complete} done, {frozen} frozen, {missed} rest days.</span>
-        <span data-word="streak.fresh">New wave, new start 🌊 Your best is still {best} days.</span>
-        <span data-word="streak.milestone">{days} days. One wave at a time 🌊</span>
-        <span data-word="streak.freezeNext">❄️ {count} held. The next one arrives on {day}.</span>
-        <span data-word="streak.freezeFull">❄️ {count} held. That's the most you can hold.</span>
+        <span data-word="month.words">{count} days so far this month</span>
+        <span data-word="month.one">1 day so far this month</span>
+        <span data-word="month.cardLabel">Days you checked in this month: {count}. Open your month.</span>
+        <span data-word="home.highlight">everything figured out</span>
+        <span data-word="player.left">{time} left</span>
         <span data-word="player.pause">Pause</span>
         <span data-word="player.resume">Resume</span>
         <span data-word="player.minute">{minutes} minute</span>

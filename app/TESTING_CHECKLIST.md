@@ -6,6 +6,10 @@ Haptics, sound and the silent switch, speech, notifications, location, and keepi
 awake only really work on one. Tick each box on a real iPhone and, if you can, a real Android
 phone. Write down the phone and its system version.
 
+**Sound during automated runs:** the browser tests and Simulator checks are muted on purpose (see
+`PROGRESS.md`), so no automated run has ever confirmed how the voice guide or the sounds actually
+sound. Section 6 on a real phone is the only check of that.
+
 **Safety rule for every step:** never place a call, send a text, start a chat, or submit a form on
 a crisis service. Tap a Call or Text link only as far as the phone's dial or message screen, check
 the number, and cancel.
@@ -15,7 +19,7 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
 
 ## 1. The safety frame, on every screen
 
-- [ ] On Home, Check-in, Meditate, Location, Friends, Settings, the streak screen, History, the
+- [ ] On Home, Check-in, Meditate, Location, Friends, Settings, the month screen, History, the
   builder, and each onboarding page: Call 988, Text 988, Call 911, and Exit are at the top, and
   Get Support Now, the Spanish link, and both "Draft for review" notices are on the screen without
   opening anything.
@@ -71,14 +75,19 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
 - [ ] If you used the older four reminders before this version: *Expected:* the ones that were on
   are now your check-in times.
 
-## 5. Streaks
+## 5. Days you checked in this month (how streaks are shown)
 
-- [ ] Finish today's check-ins. *Expected:* the streak card on Home goes up at once.
-- [ ] Settings, Developer, "Seed fake history", then open the streak screen. *Expected:* a month
-  with done days (a tick), frozen days (a snowflake), and rest days (a dashed ring).
-- [ ] Settings, Streaks off. *Expected:* no streak card, no milestone, no "new start" card anywhere.
-- [ ] Read every streak line. *Expected:* nothing that blames or pressures. Tell the reviewer what
-  you felt.
+- [ ] Before any check-in. *Expected:* Home shows a quiet line, "Your first check-in will appear
+  here". No zero, no count.
+- [ ] Finish a check-in. *Expected:* Home shows a row of small dots for this month, with today
+  filled in at once. Nothing bursts, and no number of days in a row appears anywhere.
+- [ ] Settings, Developer, "Seed fake history", then tap the dots. *Expected:* this month as a
+  calendar. Days with a check-in are filled. Every other day is a plain outline: never red, never
+  crossed out, never called missed.
+- [ ] Settings, "Check-in days on Home" off. *Expected:* the row and the calendar are gone from
+  Home, and turning it back on brings every day back.
+- [ ] After a very low check-in. *Expected:* support first, with no horizon, no dawn, and no
+  celebration; a meditation finished later that day also ends without the dawn.
 
 ## 6. Meditation (sound, speech, haptics, and screen need a real phone)
 

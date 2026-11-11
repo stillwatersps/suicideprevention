@@ -9,7 +9,7 @@ import { initSettings, renderSettings } from './ui/settings.js';
 import { syncReminders } from './ui/reminders.js';
 import { initStreaks, refreshStreak, addCheckInToStreak, addMeditationToStreak } from './ui/streaks-ui.js';
 import { initPlayer } from './ui/player.js';
-import { initMeditate, renderSuggestion, renderHistory } from './ui/meditate.js';
+import { initMeditate, renderSuggestion, renderHistory, startType } from './ui/meditate.js';
 import { initBuilder, renderPresets } from './ui/builder.js';
 import { initFeel } from './ui/feel.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
@@ -72,6 +72,7 @@ export async function initRedesign(context) {
   };
   initPlayer(shell, ctx);
   initMeditate(shell, ctx);
+  ctx.startReset = () => startType('quick', { minutes: 1 });
   initBuilder(shell, ctx);
   initOnboarding(shell, ctx);
 

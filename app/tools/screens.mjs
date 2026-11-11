@@ -51,7 +51,7 @@ async function pass(lang, scheme, size, large) {
     await shot('06-checkin-mood');
     await page.click('#tl-flow-faces [data-value="4"]'); await page.click('#tl-flow-tags [data-value="grateful"]'); await shot('07-checkin-mood-picked');
     await page.click('#tl-flow-done'); await shot('08-checkin-done');
-    await page.waitForSelector('#tl-home:not([hidden])', { timeout: 6000 });
+    await page.click('[data-flow="done"] [data-tl-go="home"]'); await page.waitForSelector('#tl-home:not([hidden])', { timeout: 6000 });
     await shot('09-home-after-check-in');
     await page.click('[data-tl-quick="checkin"], #tl-home-next'); if (await page.isVisible('#tl-flow-skip')) await page.click('#tl-flow-skip');
     await page.click('#tl-flow-faces [data-value="1"]'); await page.click('#tl-flow-done'); await shot('10-checkin-support-after-very-low');

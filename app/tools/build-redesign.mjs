@@ -61,9 +61,10 @@ for (const page of PAGES) {
   // A heavy feeling in the five-question check-in shows support at the top of its results.
   html = once(html, '          <div class="ci-talk-first">', b['result-support'] + '          <div class="ci-talk-first">', 'result support');
   html = once(html, '  <footer class="site-footer"', b.tabbar + (b.overlays || '') + '  <footer class="site-footer"', 'tab bar');
-  html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/tokens.css">\n  <link rel="stylesheet" href="${page.up}assets/redesign.css">\n</head>`, 'stylesheets');
-  // Recorded voice and sound loops are files inside the app; the page may play its own files only.
-  html = once(html, "img-src 'self' blob:", "img-src 'self' blob:; media-src 'self'", 'media policy');
+  html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/tokens.css">\n  <link rel="stylesheet" href="${page.up}assets/redesign.css">\n  <link rel="stylesheet" href="${page.up}assets/redesign-identity.css">\n</head>`, 'stylesheets');
+  // Recorded voice, sound loops, and the two bundled fonts are files inside the app; the page may
+  // use its own files only.
+  html = once(html, "img-src 'self' blob:", "img-src 'self' blob:; media-src 'self'; font-src 'self'", 'media policy');
   writeFileSync(path, html);
 
   // About: the review list gains a line for the app's new words, marked pending like the rest.
@@ -90,5 +91,8 @@ for (const page of everyPage(www, 0)) {
 mkdirSync(join(www, 'assets'), { recursive: true });
 cpSync(join(appDir, 'src', 'tokens.css'), join(www, 'assets', 'tokens.css'));
 cpSync(join(appDir, 'src', 'redesign.css'), join(www, 'assets', 'redesign.css'));
+for (const name of ['redesign-identity.css', 'grain.svg', 'grain-dark.svg', 'icon-info.svg']) cpSync(join(appDir, 'src', name), join(www, 'assets', name));
 cpSync(join(appDir, 'src', 'app-safe-area.css'), join(www, 'assets', 'app-safe-area.css'));
+// Fraunces and Figtree, bundled with their licenses: no font is ever fetched from anywhere else.
+cpSync(join(appDir, 'src', 'fonts'), join(www, 'assets', 'fonts'), { recursive: true });
 console.log('Added the redesigned app to app/www.');

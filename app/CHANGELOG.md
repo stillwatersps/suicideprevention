@@ -70,6 +70,28 @@ the decisions behind each line.
 - `TESTING_CHECKLIST.md` for a real phone, this file, and the final `CLAUDE.md`.
 - The reviewer's questions in `notes/CONTENT-REVIEW.md`, and the words packet rebuilt.
 
+## Visual identity: "Dawn at the Shoreline" (`DESIGN-BRIEF.md`)
+
+A visual layer only: no feature was added, removed, or renamed, and no stored data changed.
+
+- New tokens in `src/tokens.css` (ink, sand, paper, shell, coral, seafoam, dawn; five mood tones;
+  a night palette), a type scale in Fraunces and Figtree (both bundled, OFL), 4-point spacing,
+  four radii, one shadow, one easing curve. The lint fails on any raw color outside the token file.
+- The horizon: a flat line with light gathering at its edge, drawn in code. Home's hero, the
+  check-in's progress, completion, empty states, and the Ocean scene. No waves.
+- Paper grain on the background, a low highlight behind one phrase on Home, line icons at one
+  stroke weight, and no emoji in the interface.
+- Surfaces: one feature card per section, list rows with hairlines, tinted tiles for quick tools,
+  and plain text on the page. Coral primary buttons, a tab bar with a dot on the current tab.
+- The crisis strip, Exit, Get Support Now, and the support panel's Call 988 are ink on paper (or
+  paper on ink): the plainest, highest-contrast things on screen, with no texture or motion.
+- Streaks are shown as "Days you checked in this month": dots and a calendar, no count of days in
+  a row, no milestone or "new start" card, never a zero. The streak data underneath is unchanged.
+- Mood choices are a tone and a word, not faces. A finished check-in stays on the dawn with two
+  choices instead of returning Home by itself. The confetti burst is gone.
+- The launch screen and the web view behind the page are sand (night tide in dark mode).
+- Automated runs are muted (`test/quiet.mjs`, and a debug-only Simulator launch argument).
+
 ## What did not change
 - The website's pages and words. One app-only line was added to `assets/check-in.js`.
 - Crisis numbers, crisis wording, the review notices, and the privacy notice, except two sentences

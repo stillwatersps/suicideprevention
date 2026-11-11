@@ -1,21 +1,18 @@
-// Streaks on screen: the Home card, the detail screen with its month, milestones, and the gentle
-// "new start" card. A founder's rules: streak language stays gentle; nothing here ever shows in
-// or near a crisis or support screen (and nothing celebrates on a day with a very low check-in);
-// streaks can be turned off in Settings, and turning them off loses nothing.
-import { CONFIG } from '../core/config.js';
-import { dateKey, evaluate, recordCheckIn, recordMeditation, weekRow, monthGrid, nextFreezeDay, daysFromLog, addDays, emptyStreak } from '../logic/streaks.js';
+// "Days you checked in this month": a row of soft dots on Home and a calendar behind it. This is
+// how the streak feature is shown since the visual redesign. Presentation only: the streak data
+// underneath (days, freezes, best) is still worked out and stored, pending a reviewer's answer on
+// whether streaks belong in this app. Nothing here counts days in a row, shows a zero, or says a
+// day was missed. It can be turned off in Settings, and turning it off loses nothing.
+import { dateKey, evaluate, recordCheckIn, recordMeditation, monthGrid, daysFromLog, addDays, emptyStreak } from '../logic/streaks.js';
 import { t, lang } from './words.js';
-import { state, replace, reducedMotion, isQuiet as quiet } from './state.js';
-import { el, animateNumber } from './components.js';
-import { haptic } from './haptics.js';
-import { celebrate } from './celebrate.js';
+import { state, replace } from './state.js';
+import { el } from './components.js';
 import { addDevAction } from './settings.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
 let ctx = null;
 const todayKey = () => dateKey(new Date());
 const goal = () => state.settings.checkInsPerDay;
-const MARK = { complete: '✓', frozen: '❄️', missed: '', today: '', ahead: '', none: '' };
 
 function dayName(key, style) {
   const [y, m, d] = key.split('-').map(Number);
@@ -26,13 +23,13 @@ function dayName(key, style) {
 export async function refreshStreak() {
   if (!state.streak && !Object.keys(state.days).length) state.days = daysFromLog(ctx.getLog(), goal());
   const out = evaluate({ streak: state.streak, days: state.days, todayKey: todayKey(), nowMs: Date.now(), goal: goal() });
-  // A milestone on a quiet day, or with streaks off, passes without a celebration.
-  const show = out.events.milestone && state.settings.streaksOn && !quiet();
+  // The streak itself is still worked out and kept (a reviewer's open question), but nothing on
+  // screen counts days in a row, celebrates a milestone, or says a run ended.
   if (out.events.milestone) out.streak.celebrated.push(out.events.milestone);
+  out.streak.brokenNotice = null;
   await replace('days', out.days);
   await replace('streak', out.streak);
   render();
-  if (show) showMilestone(out.events.milestone);
   return out.events;
 }
 export async function addCheckInToStreak() {
@@ -44,11 +41,18 @@ export async function addMeditationToStreak() {
   return refreshStreak();
 }
 
-function dots(list, cells, withNumbers) {
+// A day shows as checked in when it has at least one check-in. Other days are an empty outline:
+// never red, never crossed out, never called missed. The count only goes up within a month.
+const checkedIn = (key) => Boolean(state.days[key] && state.days[key].checkInsCompleted > 0);
+
+function monthCells() {
+  return monthGrid(state.days, todayKey()).map((cell) => (cell ? { key: cell.key, day: cell.day, on: checkedIn(cell.key), today: cell.key === todayKey() } : null));
+}
+function dots(list, cells, numbers) {
   list.textContent = '';
   cells.forEach((cell) => {
-    const dot = el('li', 'tl-day' + (cell ? ' is-' + cell.state : ' is-blank'));
-    if (cell) dot.textContent = MARK[cell.state] || (withNumbers ? String(cell.day) : '');
+    const dot = el('li', 'tl-day' + (cell ? (cell.on ? ' is-complete' : '') + (cell.today ? ' is-today' : '') : ' is-blank'));
+    if (cell && numbers) dot.textContent = String(cell.day);
     list.appendChild(dot);
   });
 }
@@ -56,51 +60,31 @@ function dots(list, cells, withNumbers) {
 function render() {
   const card = $('#tl-home-streak');
   if (!card) return;
-  const s = state.streak || emptyStreak();
   const on = Boolean(state.settings.streaksOn) && state.onboarding.completed;
   card.hidden = !on;
-  const fresh = $('#tl-streak-fresh');
-  fresh.hidden = !(on && s.brokenNotice && !quiet());
-  if (!fresh.hidden) $('#tl-streak-fresh-line').textContent = t('streak.fresh', { best: s.best });
-  if (!on) { $('#tl-milestone').hidden = true; return; }
+  if (!on) return;
+  const cells = monthCells();
+  const days = cells.filter(Boolean);
+  const count = days.filter((cell) => cell.on).length;
+  const words = count === 1 ? t('month.one') : t('month.words', { count });
+  // Before the first check-in there is no zero to greet anyone: a quiet horizon and one line.
+  $('#tl-streak-card').hidden = count === 0;
+  $('#tl-streak-first').hidden = count > 0;
+  dots($('#tl-streak-week'), days, false);
+  $('#tl-streak-week-words').textContent = words;
+  $('#tl-streak-card').setAttribute('aria-label', t('month.cardLabel', { count }));
 
-  const week = weekRow(state.days, todayKey());
-  animateNumber($('#tl-streak-number'), s.current, reducedMotion());
-  $('#tl-streak-label').textContent = t(s.current === 1 ? 'streak.day' : 'streak.days');
-  dots($('#tl-streak-week'), week, false);
-  const tally = (name) => week.filter((d) => d.state === name).length;
-  $('#tl-streak-week-words').textContent = t('streak.weekWords', { complete: tally('complete'), frozen: tally('frozen'), missed: tally('missed') });
-  $('#tl-streak-freezes-count').textContent = String(s.freezesAvailable);
-  $('#tl-streak-card').setAttribute('aria-label', t('streak.cardLabel', { count: s.current, freezes: s.freezesAvailable }));
-
-  // The detail screen.
-  $('#tl-streak-current').textContent = String(s.current);
-  $('#tl-streak-best').textContent = String(s.best);
   $('#tl-streak-month-title').textContent = dayName(todayKey(), { month: 'long', year: 'numeric' });
+  $('#tl-streak-count').textContent = words;
   const heads = $('#tl-streak-heads');
   heads.textContent = '';
   for (let i = 0; i < 7; i += 1) heads.appendChild(el('li', '', dayName(addDays('2026-11-02', i), { weekday: 'narrow' })));
-  dots($('#tl-streak-month'), monthGrid(state.days, todayKey()), true);
-  $('#tl-streak-freeze-line').textContent = t(s.freezesAvailable >= CONFIG.streak.freezeMax ? 'streak.freezeFull' : 'streak.freezeNext',
-    { count: s.freezesAvailable, day: dayName(nextFreezeDay(todayKey()), { weekday: 'long' }) });
-}
-
-function showMilestone(days) {
-  const box = $('#tl-milestone');
-  $('#tl-milestone-line').textContent = t('streak.milestone', { days });
-  box.hidden = false;
-  haptic('milestone');
-  celebrate();
+  dots($('#tl-streak-month'), cells, true);
 }
 
 export function initStreaks(shell, context) {
   ctx = context;
   if (!$('#tl-home-streak')) return;
-  $('#tl-milestone-ok').addEventListener('click', () => { $('#tl-milestone').hidden = true; });
-  $('#tl-streak-fresh-ok').addEventListener('click', async () => {
-    await replace('streak', Object.assign({}, state.streak, { brokenNotice: null }));
-    render();
-  });
   shell.onShow('home', render);
   shell.onShow('streak', render);
 

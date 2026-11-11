@@ -18,7 +18,6 @@ export const CONFIG = deepFreeze({
     sleepDefault: '22:00',
     styleDefault: 'calm',
     breathSeconds: 5, // Calm only: one guided breath before the mood pick
-    doneReturnMs: 2000, // back to Home after the done screen
     lowMoodMax: 2, // moods 1 and 2 show support instead of the short done line, and never auto-return
     // Feelings in the five-question Daily check-in that show support at the top of its results.
     distressFeelings: ['overwhelmed', 'sad', 'anxious', 'disconnected', 'exhausted'],

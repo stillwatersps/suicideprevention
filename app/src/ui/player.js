@@ -13,8 +13,7 @@ import { haptic, breathHaptic } from './haptics.js';
 import { createWorld } from './worlds.js';
 import { createAudio } from './audio.js';
 import { keepAwake } from './device.js';
-import { celebrate } from './celebrate.js';
-import { drawFaces, isLowMood } from './checkin.js';
+import { isLowMood } from './checkin.js';
 import { devLog } from '../core/dev.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
@@ -149,6 +148,8 @@ export async function playMeditation(meditation, source) {
 
   const world = createWorld($('#tl-world'), meditation.world, { reduced });
   session.world = world;
+  let shownLeft = -1;
+  $('#tl-player-title').textContent = meditation.title || '';
   const haptics = hapticLayer(switches);
   session.haptics = haptics;
   const layers = [
@@ -158,6 +159,8 @@ export async function playMeditation(meditation, source) {
       const closing = meditation.completionScreen === false ? Math.max(0, 1 - remaining / 60) : 0;
       world.draw(s.breath, s.elapsed, Math.max(meditation.dim || 0, closing * 0.95));
       $('#tl-player-bar').style.transform = 'scaleX(' + s.totalProgress.toFixed(4) + ')';
+      const left = Math.max(0, Math.ceil(remaining));
+      if (left !== shownLeft) { shownLeft = left; $('#tl-player-time').textContent = t('player.left', { time: Math.floor(left / 60) + ':' + String(left % 60).padStart(2, '0') }); }
     },
     guideLayer(meditation, switches),
     voiceLayer(meditation, switches, session.getAudio),
@@ -230,7 +233,10 @@ function showCompletion(entry) {
   $('#tl-complete-favorite').disabled = false;
   window.scrollTo(0, 0);
   $('#tl-complete-title').focus({ preventScroll: true });
-  if (!quiet) { haptic('success'); celebrate(); }
+  // The finish is the full dawn, slowly. After a very low check-in today there is no dawn and no
+  // buzz: just the words and the way back.
+  $('#tl-complete .tl-horizon').hidden = Boolean(quiet);
+  if (!quiet) haptic('success');
 }
 
 // Ending early (after "End session?"), or leaving the player any other way.
@@ -261,7 +267,6 @@ export function initPlayer(shell, context) {
   ctx = context;
   const stage = $('#tl-stage');
   if (!stage) return;
-  drawFaces($('#tl-complete'));
 
   // Tap anywhere on the stage: the controls show for three seconds.
   stage.addEventListener('click', (event) => {

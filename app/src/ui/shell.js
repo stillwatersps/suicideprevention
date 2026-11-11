@@ -7,7 +7,7 @@ import { icon, drawIcons, el } from './components.js';
 import { haptic } from './haptics.js';
 
 export const TABS = [
-  { id: 'home', icon: 'wave' },
+  { id: 'home', icon: 'home' },
   { id: 'checkin', icon: 'heart' },
   { id: 'meditate', icon: 'lotus' },
   { id: 'location', icon: 'pin' },
