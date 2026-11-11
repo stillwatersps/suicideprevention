@@ -10,13 +10,13 @@
 // - "Places that are hard for me" (idea E1): the person's own places, people, dwell time, and
 //   message, kept on this phone and watched by the phone itself. Off until turned on.
 // Every word it shows is already in the page, from app/src/text/*.html.
-import { Preferences } from '@capacitor/preferences';
 import { Share } from '@capacitor/share';
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { Capacitor } from '@capacitor/core';
 // Places that are hard for me (idea E1): the phone side and the pure logic. A draft.
 import { Tidelight } from './native.js';
 import './extras.js'; // Hope box and My circle, in their own file
+import { store } from './core/device-storage.js';
 import { fill, MAX_PLACES, MAX_PEOPLE, DWELL_CHOICES, defaultPlacesConfig, newId, joinNames } from './logic.js';
 
 const STATE_KEY = 'tidelight.checkin.v1';
@@ -33,15 +33,9 @@ const $ = (sel, scope) => (scope || document).querySelector(sel);
 const $$ = (sel, scope) => Array.from((scope || document).querySelectorAll(sel));
 const native = Capacitor.isNativePlatform();
 
-// ---- Storage on this phone only.
-async function load(key) {
-  if (native) return (await Preferences.get({ key })).value;
-  try { return window.localStorage.getItem(key); } catch (e) { return null; }
-}
-async function save(key, value) {
-  if (native) return Preferences.set({ key, value });
-  try { window.localStorage.setItem(key, value); } catch (e) { /* storage blocked: nothing kept */ }
-}
+// ---- Storage on this phone only, through the app's one storage layer (core/storage.js).
+const load = (key) => store.getRaw(key);
+const save = (key, value) => store.setRaw(key, value);
 
 // Age in whole years on a given day. Exported for the tests.
 export function ageOn(birth, today) {
@@ -582,6 +576,7 @@ function start() {
   // ---- Load what's saved, then ask for the age group if it isn't known yet.
   (async () => {
     panel.classList.add('ci-off');
+    try { await store.migrate(); } catch (e) { /* storage blocked: start with defaults */ }
     try { log = JSON.parse((await load(LOG_KEY)) || '[]'); } catch (e) { log = []; }
     if (!Array.isArray(log)) log = [];
     reminders = remDefaults();
