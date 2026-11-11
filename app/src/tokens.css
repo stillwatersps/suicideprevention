@@ -85,6 +85,8 @@
   --tl-preview: 35vh;           /* the builder's live preview */
   --tl-thumb: 1.75rem;
   --tl-track: 0.5rem;
+  --tl-col: 8rem;               /* the narrowest a column of fields gets before it wraps */
+  --tl-col-wide: 9rem;          /* the narrowest a meditation type card gets */
 }
 
 @media (prefers-color-scheme: dark) {

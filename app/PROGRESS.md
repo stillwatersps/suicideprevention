@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 17:20 EST
-Current branch: feature/p7-haptics-polish
-Current phase: 7 — Haptics & interaction polish
-Current step: Phase 7 finished; merging into app/redesign-dev, then Phase 8
+Last updated: 2026-11-11 11:36 EST
+Current branch: app/redesign-dev
+Current phase: 8 — Final QA & handoff (finished)
+Current step: All nine phases are merged into app/redesign-dev and pushed. Nothing is left to build; what's left is for people (see Resume instructions)
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)
@@ -13,9 +13,10 @@ Current step: Phase 7 finished; merging into app/redesign-dev, then Phase 8
 - [x] Phase 5 — Meditation types & smart suggestions (merged to app/redesign-dev)
 - [x] Phase 6 — Custom meditation builder (merged to app/redesign-dev)
 - [x] Phase 7 — Haptics & interaction polish (merged to app/redesign-dev)
+- [x] Phase 8 — Final QA & handoff (merged to app/redesign-dev)
 
 ## Remaining
-- [ ] Phase 8 — Final QA & handoff
+- Nothing to build. For people: a real-phone pass (`TESTING_CHECKLIST.md`), the reviewer's and the lawyer's answers (`notes/CONTENT-REVIEW.md`), and both founders' decision on whether to keep this direction.
 
 ## A founder's safety rules (November 11, 2026). They override the build spec
 1. Never remove, shorten, hide, or move behind a tap any safety feature: the "In immediate danger, call 911" banner, the Exit button, "Get Support Now", any crisis line (e.g. 988), the "Draft for review" notices, or the Spanish link. The 50% text cut does not apply to these. They stay visible on every screen where they appear now.
@@ -102,6 +103,52 @@ Current step: Phase 7 finished; merging into app/redesign-dev, then Phase 8
 - **Motion:** every tappable control scales to 0.96 on press and springs back; screens fade (Calm) or slide (Straightforward) at the style's speed; the streak number counts up; the setup ring and the slider's number move with their values; a shimmer stands in for the suggestion while it is worked out; one shared celebration (`celebrate.js`). Reduce Motion (the phone's setting or the app's) turns all of it into still or fading changes.
 - **Performance and battery:** screens that aren't showing are `display: none`, so their CSS animations don't run; the player's frame loop, the builder's preview, and the celebration stop when their screen is left; haptics never fire while the app is in the background, and haptic breathing only during a session that is playing. In desktop Chromium the player drew about 60 frames a second. Not profiled on a phone.
 
+## Phase 8 record
+- **Tests, last full run:** 1095 checks, 0 failed. Unit tests (Node's runner): 88. Older logic test: 5. App browser test: 180. Hope box and My circle browser test: 56. Redesign browser test: 766, which includes an accessibility sweep of every screen (each control has a spoken name, each new control is at least 44 points, no sideways scrolling) in light mode and in dark mode at 135% text on a 375-point screen. All in **desktop Chromium, with stand-ins for everything a phone does**.
+- **The website's own checks** (one website file changed): `python3 tools/check_site.py` passed. `tools/test_browser.py`: All browser checks passed. This covers desktop Chrome and its phone-size emulation only,. `tools/test_webkit.py` (WebKit on a Mac): This is macOS WebKit in a window: not iOS Safari, not a phone, and not touch, call links, or offline support.. `tools/make_review_packet.py` and `npm run words` were rerun; the app words packet has 1,521 numbered lines.
+- **iOS Simulator** (iPhone 17, iOS 27.2, a debug build from Xcode; the Swift additions compile with no warnings of their own): the app opens on its own screen, not the website's Home; onboarding pages, Home with the tab bar above the home indicator, and a Silent session drawing the ocean were seen. Two problems were found there and fixed: the first line of the crisis strip sat under the status bar on every page of the app (now below it, on all pages), and two quick taps zoomed the page and could slide the strip out of view (now prevented; pinch-to-zoom still works). **Not exercised in the Simulator:** the permission questions, reminders arriving, sound, speech, haptics, Spanish, dark mode, a session to its end.
+- **A real phone:** nothing. **Android:** nothing; this Mac has no Android tools.
+- **Data from before the redesign:** covered by a browser test that starts from the older stored shapes (age group, four reminders, check-in log, journal, kept lists) and by unit tests of migration 2.
+- **Clean-up:** unused exports removed; no console output in app code (the lint enforces it); a bug found in review was fixed (the "quiet day" used an unpadded date in one place, so on a day of the month under 10 a very low check-in would not have silenced celebrations; it is now one key, kept on the phone, with a test).
+- **Words on screen, final count** (`node tools/word-count.mjs`):
+
+Safety frame, kept in full on every screen: about 597 words.
+
+| Screen now | Words on the screen itself | With the safety frame |
+| --- | --- | --- |
+| Onboarding: welcome | 13 | 610 |
+| Onboarding: age | 152 | 749 |
+| Onboarding: name | 21 | 618 |
+| Onboarding: count | 20 | 617 |
+| Onboarding: times | 25 | 622 |
+| Onboarding: style | 23 | 620 |
+| Onboarding: location | 44 | 641 |
+| Onboarding: notifications | 29 | 626 |
+| Onboarding: done | 12 | 609 |
+| Home | 45 | 647 |
+| Check-in | 43 | 645 |
+| Meditate | 83 | 685 |
+| Location (Places off) | 143 | 745 |
+| Friends (My circle) | 204 | 806 |
+| Settings | 282 | 884 |
+| Daily check-in, first question | 111 | 713 |
+| Journal | 103 | 705 |
+| Rediscover | 148 | 750 |
+| Hope box | 190 | 792 |
+| Your journey | 297 | 899 |
+
+| Screen before the redesign | Whole page | Without the safety frame (estimate) |
+| --- | --- | --- |
+| First open (age question) | 720 | 179 |
+| Today | 674 | 133 |
+| Check-in, first question | 701 | 160 |
+| Check-in, result | 881 | 340 |
+| Rediscover | 726 | 185 |
+| Journal | 681 | 140 |
+| Hope box | 768 | 227 |
+| Your journey (reminders, places, circle, settings) | 1336 | 795 |
+| Your journey with Places turned on | 1788 | 1247 |
+
 ## Decisions made
 - Kept Capacitor, HTML, CSS, and JavaScript — the brief from the founder's session says not to port, and the reviewed words stay in one place.
 - Integration branch is `app/redesign-dev`, cut from pull request 19's branch with pull requests 20 and 21 merged in; phases are `feature/p*` branches merged back with merge commits — `main` publishes the website, so the spec's `dev` from `main` can't be used.
@@ -175,7 +222,13 @@ Current step: Phase 7 finished; merging into app/redesign-dev, then Phase 8
 - The global Haptics setting silences every pattern except haptic breathing, which follows its own switch (Settings, the builder, and the player), as the spec says.
 - Haptics on iPhone come from the project's own plugin; on Android the browser's `navigator.vibrate` stands in, which can't vary strength — a known difference to hear about from an Android phone.
 
+- Every page in the app (the website's pages too) now runs edge to edge with its crisis strip pushed below the iPhone status bar (`src/app-safe-area.css`, added by the build). Before this, the strip's first line was under the status bar in the Simulator.
+- The safety frame takes roughly the top 40% of an iPhone 17 screen before the new part of a screen begins (crisis strip, header with Get Support Now, the Spanish link). That is the cost of the founder's rule 1; shrinking any of it is a founders' decision.
+
 ## Known bugs / TODOs
+- The app shows a blank screen for a moment at launch in the Simulator's debug build, before the first page — measure on a phone against the spec's 2 seconds — `ios/App/App/Base.lproj/LaunchScreen.storyboard`, `src/app.js` — medium.
+- The Simulator kept the age group from an earlier install after the app was deleted (a Simulator habit with stored preferences), so a truly fresh first launch with the date-of-birth page was seen only in Chromium — low.
+- Two lists of people (Places and My circle) still exist — noted in pull request 21 — low.
 - Frame rate and battery during a long session are unmeasured on a phone — `src/ui/player.js`, `src/ui/worlds.js` — medium.
 - Text-to-speech voice quality, the audio session while the phone is locked, and whether sound continues in the background are unknown until a real phone — `src/ui/audio.js` — medium.
 - The Swift additions in `ios/App/App/TidelightPlugin.swift` are not compiled yet — to build in the Simulator in Phase 8 — high until done.
@@ -188,4 +241,8 @@ All optional: the app works without them (text-to-speech and made-in-code sound 
 - `app/assets/voice/en/<scriptId>_<style>.mp3` and `app/assets/voice/es/...` — voice recordings, one per script and style. Scripts: `intro.quick`, `outro.quick`, `intro.deep`, `bodyScan`, `outro.deep`, `intro.sleep`, `bodyScan.sleep`, `intro.custom`, `outro.custom`. Styles: `calm`, `straightforward`. Example: `app/assets/voice/en/intro.deep_calm.mp3`. The words to record are the `script.*` lines in `app/src/text/redesign.en.html` (Spanish in `redesign.es.json`).
 
 ## Resume instructions
-On branch `app/redesign-dev`, create `feature/p8-final-qa` and do Phase 8: the full regression pass (`npm test`, `python3 tools/check_site.py`, `test_browser.py`, `test_webkit.py`, `make_review_packet.py`), an accessibility pass, the iOS Simulator build (`LANG=en_US.UTF-8 npm run sync`, then Xcode's build for the Simulator), `app/TESTING_CHECKLIST.md`, `app/CHANGELOG.md`, the final `app/CLAUDE.md`, `npm run words`, the reviewer's questions in `notes/CONTENT-REVIEW.md`, and the handoff and core notes.
+All nine phases are done and merged into `app/redesign-dev` (draft pull request 25 into `app/first-build`). Do not start another phase. If asked to continue this work:
+1. Fetch, then check that pull requests 19, 20, 21, and 25 haven't moved; merge their bases in if they have (never force-push, never touch `main` or `app/first-build`).
+2. Run `npm test` in `app/` and `python3 tools/check_site.py` before any push.
+3. Take changes from people in this order: the founders' decision on direction, the reviewer's answers to `notes/CONTENT-REVIEW.md`, the lawyer's on location and ages, then findings from `TESTING_CHECKLIST.md` on a real phone.
+4. Words change in `src/text/redesign.en.html` and `src/text/redesign.es.json` only, then `npm run words:es` and `npm run words`.

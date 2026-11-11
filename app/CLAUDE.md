@@ -70,10 +70,57 @@ npm run lint      # scripts parse, nothing can leave the phone, token-only style
 npm run test:unit # pure logic only, fast
 npm run build     # makes app/www from the website plus the app's blocks
 npm run words     # rebuilds notes/review-packet/tidelight-app-words.html
+npm run words:es  # makes src/text/redesign.es.html from the English blocks and redesign.es.json
 LANG=en_US.UTF-8 npm run sync   # build, then copy into the iOS and Android projects (needs CocoaPods)
 ```
 
 Before every push, also run `python3 tools/check_site.py` from the repository root.
+
+## Architecture after the redesign
+
+- **Tabs** (`src/ui/shell.js`): `TABS` is the one list; adding a tab is one line there, plus its
+  word (`tab.<id>`) and its screen (`<section class="tl-screen" id="tl-<id>" data-tl-tab="<id>">`)
+  in `src/text/redesign.en.html`. Each tab keeps its own stack; `shell.push('name')` shows
+  `#tl-name`. The older sections live in `#tl-legacy`, inside Check-in. `shell.setFull(true)` hides
+  the tab bar (onboarding, the player) and never hides the safety frame.
+- **Design system**: tokens in `src/tokens.css` (`--tl-*`); components are classes in
+  `src/redesign.css` (`tl-btn`, `tl-card`, `tl-choice`, `tl-chip`, `tl-stepper`, `tl-ring`,
+  `tl-badge`, `tl-empty`) with small helpers in `src/ui/components.js`. The lint fails on a color,
+  size, or duration outside the token file. Button-like rules start with `html.tl` so they win over
+  the website's own button rule.
+- **Words**: every word is in `src/text/redesign.en.html`. Scripts read them with `t('key')` from
+  `src/ui/words.js`; a word with two voices has `data-style="calm"` and `"straightforward"`.
+  Spanish is `src/text/redesign.es.json`; `npm run words:es` makes `redesign.es.html` from the two,
+  and fails if a line has no Spanish. Crisis sentences are whole-line entries copied from the
+  existing Spanish pages.
+- **State and storage**: `src/ui/state.js` holds what's loaded (`state.settings`, `profile`,
+  `onboarding`, `home`, `days`, `streak`, `sessions`, `presets`); `save(name, change)` merges,
+  `replace(name, value)` swaps. Keys are in `KEYS` in `src/core/storage.js`: the older
+  `tidelight.checkin.v1`, `agegroup.v1`, `textsize.v1`, `log.v1`, `reminders.v1` (read once),
+  `places.v1`, `hope.v1`, `circle.v1`, and the new `tidelight.settings`, `profile`, `onboarding`,
+  `home`, `days`, `streak`, `sessions`, `presets`, `schema`.
+- **Config** (`src/core/config.js`): streak rules, check-in limits, reminder limits, meditation
+  timings, builder limits, haptic timings. Change behavior there.
+- **Check-ins**: `src/ui/checkin.js` is the quick check-in; `app.js` keeps the log and fires
+  `tidelight-checkin` for both kinds. Moods 1 and 2, and the feelings in
+  `CONFIG.checkIn.distressFeelings`, show support at once and make the day "quiet".
+- **Streaks**: `src/logic/streaks.js` (pure, local `YYYY-MM-DD` keys); `src/ui/streaks-ui.js`.
+- **Meditation engine**: a meditation is data (`src/logic/meditations.js`: `builtIn(type, options)`).
+  `src/logic/timeline.js` owns the clock; `src/ui/player.js` subscribes five layers to it
+  (`worlds.js`, the guide, the voice and ambient sound in `audio.js`, haptic breathing).
+  `audioPlan()` decides what may sound; Silent is always nothing.
+- **Voice clips**: `app/assets/voice/<language>/<scriptId>_<style>.mp3`, for example
+  `app/assets/voice/en/intro.deep_calm.mp3`. Ambient loops: `app/assets/ambient/rain.mp3`,
+  `ocean.mp3`. The build lists what exists; anything missing falls back to text-to-speech or to
+  sound made in code.
+- **Builder algorithm**: `src/logic/generate.js`, `generateMeditation(choices)`. Intro 10% and outro
+  8% of the time (clamped), an optional body scan from 8 minutes, silence from 10, the rest whole
+  breaths by situation, leftover seconds to silence or the outro so the total is exact.
+- **Suggestions**: `src/logic/suggest.js`, `suggestMeditation(context)`, rules in order.
+- **Haptics**: screens call `haptic('name')` from `src/ui/haptics.js`; patterns and the throttle are
+  in `src/logic/haptic-patterns.js`; `src/ui/feel.js` wires taps and switches for every screen.
+- **The phone's part**: `src/ui/device.js` (permissions, one location, reminders, keep-awake, audio
+  route) over `src/native.js` and the Swift plugin. Tests pretend through `window.__tidelight`.
 
 ## Where things go
 
@@ -82,7 +129,7 @@ Before every push, also run `python3 tools/check_site.py` from the repository ro
 | `src/core/` | Storage layer (`storage.js`, `device-storage.js`, `migrations.js`), tunable numbers (`config.js`), developer notes (`dev.js`) |
 | `src/logic/` | Pure logic with no browser or phone in it, each with unit tests |
 | `src/ui/` | Screens and components. They read words from the page, numbers from `config.js`, and data through the store |
-| `src/text/*.html` | Every word, as named blocks, one file per language |
+| `src/text/*.html`, `redesign.es.json` | Every word, as named blocks, one file per language |
 | `src/tokens.css` | Design tokens. Every other redesign stylesheet uses only these |
 | `src/app.js`, `src/extras.js` | The older app layer and the Hope box / My circle layer |
 | `tools/` | Build steps, the lint, the words packet |

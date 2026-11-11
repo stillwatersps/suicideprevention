@@ -1,0 +1,5 @@
+/* In the phone app, pages run edge to edge. This keeps the crisis strip (Call 988, Text 988,
+   Call 911, Exit) below the phone's status bar and Dynamic Island on every page, and keeps page
+   content clear of the rounded corners when the phone is on its side. App only. */
+.crisis-bar { padding-top: calc(2px + env(safe-area-inset-top, 0px)); }
+body { padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px); }

@@ -26,6 +26,15 @@ five things to the Daily check-in, and nothing else:
   `ios/App/App/` (Swift); the dwell logic and its tests are in `ios/TidelightLogic/`. See
   `notes/LOCATION-ALERT.md`.
 
+## The redesign (a draft on top of the above)
+
+One founder's build spec (`BUILD-SPEC.md`) asked for fewer words, bottom tabs, onboarding, streaks, and
+meditation. It is built on the branch `app/redesign-dev`: five tabs (Home, Check-in, Meditate, Location,
+Friends), a quick check-in in two styles, streaks that can be turned off, a meditation player with four
+types and a builder, and haptics. The crisis strip, Exit, Get Support Now, the Spanish link, and the
+"Draft for review" notices stay on every screen. Read `CLAUDE.md` (the rules), `PROGRESS.md` (what was
+built and every decision), `CHANGELOG.md`, and `TESTING_CHECKLIST.md` (what to try on a real phone).
+
 **Draft. No licensed reviewer has read the app's words, no fluent reader has checked the Spanish,
 no lawyer has advised on ages or privacy, and it has never run on a phone.** Every word the app adds
 is in `src/text/en.html` and `src/text/es.html`.
@@ -38,7 +47,7 @@ is in `src/text/en.html` and `src/text/es.html`.
 | `src/app.js` | Saving, age setup, sharing, today's check-ins, and reminders. Bundled into `www/assets/app.js` |
 | `src/app.css` | Styles for the app's blocks, using the website's Shoreline colors |
 | `src/text/*.html` | Every word the app adds, in English and Spanish |
-| `test/app-test.mjs` | 68 checks per language in desktop Chromium, with browser stand-ins for saving, sharing, and reminders. GitHub runs it on every pull request (`.github/workflows/site.yml`, the `app` job) |
+| `test/app-test.mjs`, `test/extras-test.mjs`, `test/redesign-test.mjs`, `test/unit/` | Browser checks in desktop Chromium with stand-ins for the phone, and unit tests for the pure logic. `npm test` runs the lint and all of them, and GitHub runs it on every pull request (`.github/workflows/site.yml`, the `app` job) |
 | `android/`, `ios/` | Native projects made by `npx cap add`. Open them in Android Studio or Xcode |
 
 The website is unchanged, except that `assets/check-in.js` now offers `window.TidelightCheckIn`, so

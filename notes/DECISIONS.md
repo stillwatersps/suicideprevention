@@ -397,3 +397,29 @@ reviewer has seen them.** On `app/my-circle-and-hope-box`, stacked on `app/hard-
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
 remaining questions. Keep the newest entries at the end.
+
+## November 11, 2026: phone app redesign from a build spec, proposed
+
+One founder sent a build spec for the phone app (`app/BUILD-SPEC.md`): fewer words, bottom tabs, onboarding, streaks,
+and meditation, "like Calm, Headspace and Finch". **The other founder hasn't seen the spec or agreed to any of it, and
+no reviewer or lawyer has seen it.** Built as a draft on `app/redesign-dev`, in `app/` only. It publishes nothing.
+The same founder added six safety rules that override the spec; they are in `app/CLAUDE.md`. Choices, all easy to
+reverse, with the full list in `app/PROGRESS.md`:
+
+- **The safety frame stays on every screen, in full.** The crisis strip, Exit, Get Support Now, the Spanish link,
+  both "Draft for review" notices, the privacy notice, Support, and the 988 panel. Nothing new is a pop-up or a
+  layer over them. During a meditation the strip stays on screen and the rest is in the page below.
+- **Kept Capacitor and the website's own pages.** The spec expected a different kind of app; nothing was ported.
+- **Five tabs:** Home, Check-in, Meditate, Location, Friends. Everything that existed has a place.
+- **The date of birth stays required** in onboarding, as decided on November 9. Every other page can be skipped.
+- **A very low check-in shows 988 and 911 at once,** and nothing celebrates for the rest of that day.
+- **Streaks are built as the spec asks, with gentle words, and can be turned off.** Whether they belong in this app
+  at all is the first question in [[CONTENT-REVIEW]].
+- **The four older reminders became "N check-ins a day".** Reminder words stay discreet.
+- **Location:** one home spot the person saves, read only while the app is open, kept on the phone. No list of places.
+- **No new packages.** Haptics, keeping the screen awake, one location, and the audio route are small additions to
+  the project's own iPhone plugin.
+- **The website gained one line it never uses** (`addCheckIn` in `assets/check-in.js`), so a quick check-in marks
+  the calendar.
+
+Open: whether to keep any of it; the reviewer's and the lawyer's answers; a real phone.

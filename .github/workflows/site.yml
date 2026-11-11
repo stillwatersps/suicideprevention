@@ -64,7 +64,8 @@ jobs:
   app:
     name: Build and test the phone app
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # The redesign added a lint, unit tests, and a longer browser test to `npm test`.
+    timeout-minutes: 45
     defaults:
       run:
         working-directory: app
@@ -74,9 +75,11 @@ jobs:
           persist-credentials: false
       - name: Install the app's packages, exactly as recorded
         run: npm ci
+      # The system packages come from Ubuntu's servers. If those can't be reached (it happened on
+      # November 11, 2026), install the browser alone: the runner already has what Chromium needs.
       - name: Install the browser the tests use
-        run: npx playwright install --with-deps chromium
-      - name: Build the app from the website, and test it
+        run: npx playwright install --with-deps chromium || npx playwright install chromium
+      - name: Lint, unit tests, build the app from the website, and browser tests
         run: npm test
 
   publish:

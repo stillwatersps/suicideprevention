@@ -72,6 +72,11 @@ All in `app/`. See `app/README.md` for how to build and run it.
 | `app/src/app.css` | Styles for the app's blocks |
 | `app/test/app-test.mjs` | 68 checks per language in desktop Chromium. GitHub runs them on every pull request (the `app` job) |
 | `app/src/extras.js`, `extras-logic.js`, `extras.css`, `app/src/text/extras.*.html`, `app/tools/build-extras.mjs` | The Hope box and My circle, kept in their own files. `app.js` and `build.mjs` each pull them in with one line |
+| `app/src/redesign.js`, `app/src/ui/`, `app/src/logic/`, `app/src/core/`, `app/src/tokens.css`, `app/src/redesign.css` | The redesign (a draft from one founder's build spec): tabs, onboarding, quick check-in, streaks, meditation, haptics. `core/` is storage and tunable numbers, `logic/` is pure and unit tested, `ui/` is screens. `app/CLAUDE.md` explains each; `app/PROGRESS.md` says where it stands |
+| `app/src/text/redesign.en.html`, `redesign.es.json`, `redesign.es.html` | Every word the redesign adds. Change Spanish in the `.json`, then `npm run words:es` makes the `.html` |
+| `app/tools/build-redesign.mjs`, `make-redesign-es.mjs`, `lint.mjs`, `word-count.mjs` | The redesign's build step, the Spanish maker, the lint, and the words-on-screen count |
+| `app/test/unit/`, `app/test/redesign-test.mjs`, `app/test/helpers.mjs` | Unit tests for the pure logic, and the redesign's browser tests |
+| `app/BUILD-SPEC.md`, `app/CLAUDE.md`, `app/PROGRESS.md`, `app/TESTING_CHECKLIST.md`, `app/CHANGELOG.md` | The spec, the app's instructions and safety rules, the build record, the real-phone checklist, and what changed |
 | `app/tools/make-words-packet.mjs` | Writes `notes/review-packet/tidelight-app-words.html`, every word the app adds, numbered for reviewers. Run it after changing `app/src/text/` |
 | `app/test/screens.mjs` | Phone-size screenshots of the age screens |
 | `app/android/`, `app/ios/` | Native projects made by Capacitor. Don't edit by hand except settings |

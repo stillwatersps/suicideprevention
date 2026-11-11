@@ -126,4 +126,3 @@ export function createWorld(canvas, name, options = {}) {
   world.resize();
   return world;
 }
-export const WORLD_NAMES = Object.keys(SCENES);
