@@ -924,17 +924,15 @@ Three things on screen did change, and they touch the questions above:
 - **New short lines** (all marked "Draft for review" with the rest): "Quick tools", "Get help" (a tile that goes to
   Support), "Breathe for a minute", "Back to home", "{time} left" in the player, and "Learn more". One phrase of
   the page's own heading is highlighted on Home ("everything figured out"). Crisis words are never highlighted.
-- **"Learn more" on Location and Friends. A lawyer should look at this one.** No word changed, but some
-  explanation is now one tap away instead of on the page. In "Places that are hard for me", the paragraph under
-  each of these headings is folded under a "Learn more" row: "Your places", "People you trust" (which says their
-  name and number stay on this phone and they aren't told), "What the phone shows" (what the notification says on
-  the lock screen), and "Your message". In "My circle", four of the five points are folded: no accounts, they see
-  only what you send, nothing is sent by itself, and once sent it can't be taken back. Always in view: the two
-  opening paragraphs of Places (including "This is off until you turn it on" and what stays on the phone), the
-  location permission paragraph beside "Allow location", "Good to know", every status line and control, and the
-  My circle point that says it isn't a way to get urgent help, with 988 and 911. Should any folded paragraph stay
-  open, in particular the two about people's contact details and about what can't be taken back? (The share
-  screen itself still says "can't be taken back" at the moment of sharing.)
+- **"Learn more" on Location and Friends.** A founder's rule, set after a first version folded too much: every
+  word about privacy or consent stays in view, always. That is anything about what is stored, where data stays,
+  who gets a message, and that a sent message can't be undone. Only plain how-to text folds, and no word changed.
+  Two paragraphs are folded and nothing else: in "Places that are hard for me", the one under "Your places" ("Add
+  a place by choosing it on a map, or by searching an address. Give it a name only you need to understand, and
+  choose how close counts."); in "My circle", the one that says how to share ("To share something, tap Share on a
+  check-in, a journal entry, or something you kept, then choose 'Send to my circle'."). Everything else on both
+  screens is on the page without a tap, including all five My circle points. Is either folded paragraph something
+  a person needs to see before deciding?
 - **The Daily check-in's first question** shows its nine feelings as tiles, two across (one list at the largest
   text). Same nine, same order, same words. Does putting "Hopeful" beside "Calm" and "Overwhelmed" beside "Sad"
   read differently from one long list?

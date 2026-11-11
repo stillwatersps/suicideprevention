@@ -602,37 +602,57 @@ async function layoutTests(browser, lang) {
   console.log(`\nSections, tiles, and the tab bar, ${lang === 'es' ? 'Spanish' : 'English'}`);
   const allText = (page, selector) => page.$eval(selector, (el) => el.textContent.replace(/\s+/g, ' ').trim());
   let { context, page, errors } = await newPage(browser, lang, { viewport: { width: 375, height: 667 } });
-  // Location: the same words, with how-it-works detail under "Learn more".
-  await tab(page, 'location');
-  const places = await page.evaluate(() => {
-    const box = document.querySelector('#app-places');
+  // Location and Friends: only plain how-to text folds under "Learn more". Every word about
+  // privacy or consent (what is stored, where it stays, who gets a message, that a sent message
+  // can't be undone), every 988 or 911 line, and every control stays in view.
+  const folded = (selector) => page.evaluate((sel) => {
+    const box = document.querySelector(sel);
     const rows = Array.from(box.querySelectorAll('details.tl-more'));
-    return { rows: rows.length, open: rows.filter((d) => d.open).length, label: rows[0] && rows[0].querySelector('summary').textContent.trim(),
-      controlsInside: box.querySelectorAll('details.tl-more button, details.tl-more input, details.tl-more select, details.tl-more textarea').length,
-      crisisInside: rows.filter((d) => /988|911/.test(d.textContent)).length,
-      permInside: Boolean(box.querySelector('details.tl-more .app-places-perm')) };
-  });
-  check(places.rows >= 3 && places.open === 0 && places.label.length > 3, `Places has ${places.rows} "Learn more" rows, closed to begin with`);
-  check(places.controlsInside === 0 && places.crisisInside === 0 && !places.permInside, 'no control, no 988 or 911 line, and not the location permission paragraph is folded away');
+    const tidy = (el) => el.textContent.replace(/\s+/g, ' ').trim();
+    return { rows: rows.length, open: rows.filter((d) => d.open).length, label: rows[0] ? tidy(rows[0].querySelector('summary')) : '',
+      text: rows.map((d) => tidy(d.querySelector('.tl-more-body'))),
+      controlsInside: box.querySelectorAll('details.tl-more button, details.tl-more input, details.tl-more select, details.tl-more textarea, details.tl-more a').length,
+      listItemsInside: box.querySelectorAll('details.tl-more li').length,
+      classedInside: box.querySelectorAll('details.tl-more .tl-more-body [class]').length,
+      paragraphs: box.querySelectorAll('p').length, paragraphsInside: box.querySelectorAll('details.tl-more p').length };
+  }, selector);
+  const PRIVATE = /988|911|this phone|stays? |kept|keeps|never|sent|send it|told|taken back|location|lock screen|contacts?\b|private|receive/i;
+  await tab(page, 'location');
+  const places = await folded('#app-places');
+  check(places.rows === 1 && places.open === 0 && places.label.length > 3 && places.paragraphsInside === 1, 'Places folds exactly one paragraph under "Learn more", closed to begin with');
+  check(places.controlsInside === 0 && places.listItemsInside === 0 && places.classedInside === 0, 'no control, link, list, or status line is folded away');
+  if (lang === 'en') {
+    check(places.text[0] === 'Add a place by choosing it on a map, or by searching an address. Give it a name only you need to understand, and choose how close counts.', 'it is the how-to for adding a place, word for word');
+    check(!PRIVATE.test(places.text.join(' ')), 'nothing folded in Places is about what is stored, who is told, or what is sent');
+  }
   await page.check('#app-places .app-places-on');
+  const seen = await page.evaluate(() => {
+    const box = document.querySelector('#app-places');
+    const open = (el) => !el.closest('details.tl-more') && el.offsetParent !== null;
+    const heads = Array.from(box.querySelectorAll('.app-places-setup h4'));
+    return { intro: Array.from(box.querySelectorAll(':scope > p:not([class])')).slice(0, 2).every(open), perm: open(box.querySelector('.app-places-perm')),
+      underHeadings: heads.map((h) => !(h.nextElementSibling && h.nextElementSibling.matches('details.tl-more'))), goodToKnow: Array.from(box.querySelectorAll('.app-places-setup > ul:not(.ci-list) li')).every(open) };
+  });
+  check(seen.intro && seen.perm && seen.goodToKnow, 'the opening paragraphs, the location permission paragraph, and "Good to know" are all in view with Places on');
+  check(seen.underHeadings.filter((inView) => !inView).length === 1, 'under every other heading (people you trust, what the phone shows, your message) the paragraph is in view');
   const row = page.locator('#app-places details.tl-more summary').first();
   const size = await row.boundingBox();
   check(size.height >= 44, 'a "Learn more" row is at least 44 points tall');
   const before = await allText(page, '#app-places');
   await row.click();
-  check(await page.locator('#app-places details.tl-more').first().evaluate((d) => d.open) && await page.locator('#app-places details.tl-more .tl-more-body').first().isVisible(), 'tapping it shows the detail in place');
+  check(await page.locator('#app-places details.tl-more').first().evaluate((d) => d.open) && await page.locator('#app-places details.tl-more .tl-more-body').first().isVisible(), 'tapping it shows the how-to in place');
   check((await allText(page, '#app-places')) === before, 'and opening it changes no words');
   check(await noSideways(page) && (await safetyFrame(page)).length === 0, 'Location fits, with the safety frame on screen');
-  // Friends: four points fold away; the one about urgent help stays in view.
   await tab(page, 'friends');
-  const circle = await page.evaluate(() => {
-    const box = document.querySelector('#app-circle');
-    const more = box.querySelector('details.tl-more');
-    const kept = Array.from(box.querySelectorAll('ul.app-accommodations:not(.tl-more-body) > li'));
-    return { folded: more ? more.querySelectorAll('li').length : 0, kept: kept.length, keptIsCrisis: kept.every((li) => /988/.test(li.textContent) && /911/.test(li.textContent)), moreBeforeKept: Boolean(more && kept[0] && (more.compareDocumentPosition(kept[0]) & Node.DOCUMENT_POSITION_FOLLOWING)) };
-  });
-  check(circle.folded === 4 && circle.kept === 1 && circle.keptIsCrisis && circle.moreBeforeKept, 'My circle folds four points under "Learn more", in their old order, and keeps the urgent-help point in view');
-  check(await page.isVisible('#app-circle ul.app-accommodations:not(.tl-more-body) > li'), 'that point is on screen without a tap');
+  const circle = await folded('#app-circle');
+  check(circle.rows === 1 && circle.open === 0 && circle.paragraphsInside === 1 && circle.controlsInside === 0 && circle.listItemsInside === 0 && circle.classedInside === 0, 'My circle folds exactly one paragraph, and no control, list, or note');
+  if (lang === 'en') {
+    check(circle.text[0] === 'To share something, tap Share on a check-in, a journal entry, or something you kept, then choose "Send to my circle".', 'it is the how-to for sharing, word for word');
+  }
+  const points = await page.$$eval('#app-circle ul.app-accommodations > li', (els) => els.map((li) => ({ inView: !li.closest('details') && li.offsetParent !== null, text: li.textContent })));
+  check(points.length === 5 && points.every((point) => point.inView), 'all five My circle points are in view without a tap: no accounts, what they see, nothing sent by itself, can\'t be taken back');
+  check(/988/.test(points[4].text) && /911/.test(points[4].text), 'including the point about urgent help, with 988 and 911');
+  check(await page.$eval('#app-circle .ci-note', (el) => !el.closest('details')), 'and the note about what is kept on this phone');
   check(await noSideways(page), 'Friends fits');
 
   // The Daily check-in's first question: nine feelings, same order, two across.

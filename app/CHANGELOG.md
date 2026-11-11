@@ -87,8 +87,10 @@ A visual layer only: no feature was added, removed, or renamed, and no stored da
   paper on ink): the plainest, highest-contrast things on screen, with no texture or motion.
 - Streaks keep every word they had. Their days are drawn as dots in the new look (a shape for each
   state, never red), and a milestone no longer sets off a burst.
-- Location and Friends: short sections with headings and room, and how-it-works detail under
-  "Learn more" rows. No word changed. Urgent-help lines and consent paragraphs stay in view.
+- Location and Friends: short sections with headings and room. Only plain how-to text folds under
+  "Learn more" (two paragraphs). All privacy and consent wording, and every urgent-help line,
+  stays in view. No word changed.
+- In the app, a section reached by a link stops below the crisis strip instead of under it.
 - The Daily check-in's first question shows its nine feelings as tiles, two across.
 - At the largest text on a small phone the tab bar shows icons only; the names stay for screen readers.
 - Mood choices are a tone and a word, not faces. A finished check-in stays on the dawn with two

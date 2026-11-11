@@ -90,11 +90,13 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
 
 ## 5b. Layout follow-ups
 
-- [ ] Location, with Places turned on. *Expected:* short sections under headings. Each "Learn
-  more" row opens in place. The paragraph beside "Allow location" and "Good to know" are always
-  open.
-- [ ] Friends. *Expected:* one "Learn more" row, and the point about urgent help, 988, and 911 in
-  view without a tap.
+- [ ] Location, with Places turned on. *Expected:* short sections under headings. One "Learn
+  more" row, under "Your places", holding only how to add a place. Everything about what is kept,
+  who is told, and what is sent is on the page without a tap.
+- [ ] Friends. *Expected:* all five My circle points in view, including the one about urgent
+  help with 988 and 911. One "Learn more" row, holding only how to share.
+- [ ] Tap Get Support Now from any tab. *Expected:* the page stops with "Need to talk to someone
+  now?" just below the crisis strip, not hidden under it.
 - [ ] Daily check-in, first question. *Expected:* nine feelings as tiles, two across, in the same
   order as before.
 - [ ] Set the phone to its largest text. *Expected:* the tab bar shows five icons with no words,

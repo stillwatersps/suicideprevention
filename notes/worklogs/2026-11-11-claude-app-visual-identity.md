@@ -56,12 +56,13 @@ notes.
 
 - **Streak wording restored.** Every streak line is as it was before this branch; only the look
   changed (dots with a shape per state, a line icon for the snowflake, no burst).
-- **Location and Friends:** short sections under their existing headings, more room, and
-  "Learn more" rows for how-it-works detail. No word changed. Always in view: urgent-help lines,
-  the opening paragraphs of Places, the location permission paragraph, "Good to know", controls.
+- **Location and Friends:** short sections under their existing headings, with more room. Only
+  plain how-to text folds under "Learn more" (how to add a place; how to share). No word changed.
+  By a second instruction from the founder, all privacy and consent wording stays in view: what
+  is stored, where data stays, who gets a message, and that a sent message can't be undone.
 - **Daily check-in, first question:** nine feelings as tiles, two across; one list at large text.
 - **Tab bar:** icons only when the labels can't fit; names kept for screen readers; 44-point targets.
-- Checked: `npm test`: lint clean; 92 unit tests; 5, 180, 56, and 889 browser checks; 0 failed (desktop Chromium with stand-ins, muted). New checks cover the restored streak screens, the "Learn more" rows (closed to begin with, no control or 988/911 line inside, opening changes no words), the nine tiles in their order, and the icons-only tab bar with 44-point targets and spoken names. The small-phone pictures were looked at for the four changes. Not rebuilt or looked at in the iOS Simulator after the follow-ups. Not on a real phone.
+- Checked: `npm test`: lint clean; 92 unit tests; 5, 180, 56, and 889 browser checks; 0 failed (desktop Chromium with stand-ins, muted). New checks cover the restored streak screens, the "Learn more" rows (closed to begin with, no control or 988/911 line inside, opening changes no words), the nine tiles in their order, and the icons-only tab bar with 44-point targets and spoken names. The small-phone pictures were looked at for the four changes. Not on a real phone. After the second instruction (privacy and consent wording always in view): 92 unit tests and 5, 180, 56, and 900 browser checks, 0 failed. Rebuilt in the iPhone 17 Simulator and launched muted; Home, Check-in, Location, Friends, and Get Support were pictured in light and dark mode.
 
 ## Not done, and why
 
@@ -75,7 +76,6 @@ notes.
 ## Decisions for both founders
 
 - A new person sees "0 day streak" on Home, as before the redesign. Should a zero be shown?
-- Which folded paragraphs on Location and Friends, if any, must stay open? A lawyer should say.
 - Coral for the main action and ink for crisis controls: agree, or pick differently?
 - The questions for the reviewer are in [[CONTENT-REVIEW]] under "Questions about the app's visual
   redesign".

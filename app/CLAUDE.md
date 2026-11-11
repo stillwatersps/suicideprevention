@@ -115,9 +115,11 @@ Before every push, also run `python3 tools/check_site.py` from the repository ro
   - **Streak wording is the reviewed-or-awaiting-review wording; restyle it, never rewrite it.**
     Days are dots whose state is a shape as well as a color (filled, soft with a ring, dashed,
     double ring). Never red, and a milestone sets off no burst.
-  - **Long explanations fold, they are never cut** (`src/ui/sections.js`): how-it-works detail goes
-    under a "Learn more" row. Anything about urgent help, 988 or 911, consent paragraphs beside a
-    choice, status lines, and controls always stay in view.
+  - **Only plain how-to text folds under "Learn more"** (`src/ui/sections.js`), and it is never
+    cut. A founder's rule: every word about privacy or consent stays in view, always: what is
+    stored, where data stays, who gets a message, that a sent message can't be undone. So do lines
+    about urgent help (988, 911), status lines, and controls. Two paragraphs fold today (how to add
+    a place, how to share). When unsure whether a paragraph is only how-to, leave it in view.
   - **The tab bar** shows icons only when its labels can't fit (`fitTabBar` in `src/ui/shell.js`);
     the labels stay in the page for screen readers.
 - **Words**: every word is in `src/text/redesign.en.html`. Scripts read them with `t('key')` from
