@@ -4,6 +4,8 @@
 import { createRequire } from 'node:module';
 import { tab, openPanel, openSettings, startDaily, safetyFrame, serve, counter, birthDateYearsAgo, pagePath, noSideways, skipOnboarding, SEEDED } from './helpers.mjs';
 
+import { isoWeek } from '../src/logic/streaks.js';
+
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
 const { base, close } = await serve();
@@ -411,6 +413,87 @@ async function migrationTests(browser) {
   await context.close();
 }
 
+
+const keyOf = (offset) => { const d = new Date(); d.setDate(d.getDate() + offset); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const doneDay = (offset, goal = 1) => ({ dateKey: keyOf(offset), checkInsCompleted: goal, checkInGoal: goal, meditationsCompleted: 0, status: 'complete' });
+const daysOf = (...offsets) => JSON.stringify(Object.fromEntries(offsets.map((o) => [keyOf(o), doneDay(o)])));
+const oneADay = JSON.stringify({ checkInsPerDay: 1, countChosen: true });
+const streakIs = (page, n) => page.waitForFunction((want) => document.querySelector('#tl-streak-number').textContent.trim() === want, String(n), { timeout: 5000 }).then(() => true, () => false);
+async function quickCheckIn(page, mood) {
+  await tab(page, 'home');
+  if (!(await page.isVisible('#tl-home'))) await tab(page, 'home');
+  await page.click('#tl-home [data-tl-quick="checkin"]');
+  if (await page.isVisible('#tl-flow-skip')) await page.click('#tl-flow-skip');
+  await page.click(`#tl-flow-faces [data-value="${mood}"]`);
+  await page.click('#tl-flow-done');
+}
+
+async function streakTests(browser, lang) {
+  console.log(`\nStreaks, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  // Two complete days behind, one check-in a day: today's check-in makes three, a milestone.
+  let { context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-2, -1) } });
+  check(await page.isVisible('#tl-streak-card') && await streakIs(page, 2), 'Home shows the streak so far: 2');
+  check((await page.locator('#tl-streak-week .tl-day').count()) === 7, 'with a row of seven days');
+  check(await page.isVisible('#tl-streak-week .tl-day.is-today'), 'today is marked as in progress');
+  check((await page.textContent('#tl-streak-week-words')).trim().length > 10, 'and the row is described in words for screen readers');
+  await quickCheckIn(page, 4);
+  await page.waitForSelector('#tl-home:not([hidden])', { timeout: 5000 });
+  await page.waitForFunction(() => document.querySelector('#tl-streak-number').textContent.trim() === '3');
+  check(true, 'the streak card updates right after the check-in: 3');
+  check(await page.isVisible('#tl-milestone') && (await page.textContent('#tl-milestone-line')).includes('3'), 'a 3-day milestone shows, once');
+  check((await safetyFrame(page)).length === 0, 'the celebration covers none of the safety frame');
+  check(await page.evaluate(() => { const c = document.querySelector('.tl-burst'); return !c || getComputedStyle(c).pointerEvents === 'none'; }), 'and takes no taps');
+  await page.click('#tl-milestone-ok');
+  check(!(await page.isVisible('#tl-milestone')), 'it can be put away');
+  await page.click('#tl-streak-card');
+  check(await page.isVisible('#tl-streak') && (await page.textContent('#tl-streak-current')).trim() === '3' && (await page.textContent('#tl-streak-best')).trim() === '3', 'the streak screen shows now and best');
+  const monthDays = await page.locator('#tl-streak-month .tl-day:not(.is-blank)').count();
+  check(monthDays >= 28 && monthDays <= 31 && (await page.locator('#tl-streak-month .tl-day.is-complete').count()) >= 1, 'with this month as a calendar of days');
+  check((await page.locator('#tl-streak .tl-legend li').count()) === 4 && (await page.textContent('#tl-streak-freeze-line')).includes('1'), 'a legend in words, and the freezes held');
+  check((await safetyFrame(page)).length === 0 && await page.isVisible('#tl-streak .tl-draft-tag'), 'the streak screen keeps the safety frame and is marked "Draft for review"');
+  check(await noSideways(page), 'the streak screen fits');
+  await page.reload();
+  await page.waitForSelector('html.app-ready');
+  check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')), 'the milestone isn\'t shown again; the streak is remembered');
+  // Developer tools: seed a month to look at, and reset.
+  await openSettings(page);
+  for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
+  await page.click('#tl-dev-seed');
+  await page.click('#tl-settings [data-tl-back]');
+  await page.click('#tl-streak-card');
+  check((await page.locator('#tl-streak-month .tl-day.is-frozen, #tl-streak-month .tl-day.is-missed, #tl-streak-month .tl-day.is-complete').count()) >= 5, 'seeded history fills the calendar');
+  // Streaks off: nothing of them shows.
+  await page.click('#tl-streak [data-tl-anchor="tl-set-feel"]');
+  await page.uncheck('#tl-set-streaks');
+  await page.click('#tl-settings [data-tl-back]');
+  await tab(page, 'home');
+  check(!(await page.isVisible('#tl-streak-card')) && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('#tl-streak-fresh')), 'with streaks turned off, Home shows no streak at all');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+
+  // A very low check-in on a milestone day: support comes first and nothing celebrates.
+  ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-2, -1) } }));
+  await quickCheckIn(page, 1);
+  check(await page.isVisible('#tl-flow-support') && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('.tl-burst')), 'a very low check-in shows support, with no celebration anywhere');
+  await page.click('#tl-flow-support [data-tl-go="home"]');
+  check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')), 'back on Home the day still counts, quietly: no milestone card');
+  await context.close();
+
+  // A streak that ended while away: a gentle card, no guilt.
+  const ended = JSON.stringify({ current: 3, best: 3, freezesAvailable: 0, lastFreezeGrantWeek: isoWeek(keyOf(-2)), lastEvaluatedDate: keyOf(-3), celebrated: [3], brokenNotice: null });
+  ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-5, -4, -3), 'tidelight.streak': ended } }));
+  check(await streakIs(page, 0), 'after two days away with no freeze, the streak starts again at 0');
+  check(await page.isVisible('#tl-streak-fresh') && (await page.textContent('#tl-streak-fresh-line')).includes('3'), 'a gentle card says the best is still 3');
+  check(!/miss|lost|broke|fail|perd|romp|fall/i.test(await page.textContent('#tl-streak-fresh')), 'with no guilt words');
+  check(await page.evaluate(() => getComputedStyle(document.querySelector('#tl-streak-fresh')).position !== 'fixed'), 'as a card in the page, not a pop-up');
+  await page.click('#tl-streak-fresh-ok');
+  await page.reload();
+  await page.waitForSelector('html.app-ready');
+  check(!(await page.isVisible('#tl-streak-fresh')), 'once put away, it stays away');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+}
+
 const browser = await chromium.launch();
 try {
   await shellTests(browser, 'en');
@@ -420,6 +503,8 @@ try {
   await onboardingTests(browser, 'es');
   await deniedTests(browser);
   await migrationTests(browser);
+  await streakTests(browser, 'en');
+  await streakTests(browser, 'es');
 } finally {
   await browser.close();
   close();

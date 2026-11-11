@@ -270,3 +270,39 @@ html.tl #tl-version { justify-self: start; }
   .tl-art-wave span, .tl-breath .tl-breath-dot, .tl-style-preview.is-playing .tl-breath-dot, .tl-ob-page, .tl-flow-more { animation: none; }
 }
 html.tl-reduce .tl-art-wave span, html.tl-reduce .tl-breath .tl-breath-dot, html.tl-reduce .tl-style-preview.is-playing .tl-breath-dot, html.tl-reduce .tl-ob-page, html.tl-reduce .tl-flow-more { animation: none; }
+
+/* ---- Phase 3: streaks ---- */
+.tl-app { position: relative; }
+.tl-burst { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+.tl-burst-still { background: var(--tl-accent-warm-soft); opacity: 0; animation: tl-glow var(--tl-pulse) var(--tl-ease); }
+@keyframes tl-glow { 0% { opacity: 0; } 30% { opacity: 0.6; } 100% { opacity: 0; } }
+.tl-streak-line { display: flex; align-items: baseline; gap: var(--tl-space-sm); font-weight: var(--tl-weight-strong); }
+.tl-streak-number { font-size: var(--tl-font-huge); line-height: var(--tl-line-tight); color: var(--tl-accent-warm); font-variant-numeric: tabular-nums; }
+.tl-streak-wave .tl-icon { animation: tl-bob var(--tl-pulse) var(--tl-ease) infinite alternate; }
+@keyframes tl-bob { from { transform: translateY(calc(var(--tl-space-xs) * -0.5)); } to { transform: translateY(calc(var(--tl-space-xs) * 0.5)); } }
+.tl-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: var(--tl-space-xs); margin: 0; padding: 0; list-style: none; }
+.tl-week { max-width: calc(var(--tl-dot) * 7 + var(--tl-space-xs) * 6); margin-top: var(--tl-space-xs); }
+/* Each kind of day has its own shape or mark, not only its own color. */
+.tl-day {
+  display: grid; place-items: center; width: var(--tl-dot); height: var(--tl-dot); justify-self: center;
+  border-radius: var(--tl-radius-full); border: var(--tl-border-strong) solid var(--tl-line);
+  font-size: var(--tl-font-caption); line-height: 1; color: var(--tl-text-secondary); font-variant-numeric: tabular-nums;
+}
+.tl-day.is-complete { background: var(--tl-primary); border-color: var(--tl-primary); color: var(--tl-on-primary); font-weight: var(--tl-weight-strong); }
+.tl-day.is-frozen { border-color: transparent; background: var(--tl-secondary-soft); }
+.tl-day.is-missed { border-style: dashed; }
+.tl-day.is-today { border-color: var(--tl-accent-warm); box-shadow: inset 0 0 0 var(--tl-border-strong) var(--tl-surface), inset 0 0 0 var(--tl-space-sm) var(--tl-accent-warm-soft); animation: tl-pulse var(--tl-pulse) var(--tl-ease) infinite alternate; }
+.tl-day.is-ahead, .tl-day.is-none { border-color: var(--tl-line); opacity: 0.55; }
+.tl-day.is-blank { visibility: hidden; }
+@keyframes tl-pulse { from { transform: scale(0.9); } to { transform: scale(1.08); } }
+.tl-month { gap: var(--tl-space-sm) var(--tl-space-xs); }
+.tl-month .tl-day { width: var(--tl-tap); height: var(--tl-tap); max-width: 100%; }
+.tl-month-heads li { text-align: center; font-size: var(--tl-font-caption); color: var(--tl-text-secondary); }
+.tl-legend { margin: 0; padding: 0; list-style: none; font-size: var(--tl-font-caption); color: var(--tl-text-secondary); }
+.tl-legend li { display: inline-flex; align-items: center; gap: var(--tl-space-xs); }
+.tl-legend .tl-day { animation: none; }
+.tl-stats { margin: 0; }
+.tl-stats dd, .tl-stats dt { margin: 0; }
+.tl-stat { font-size: var(--tl-font-huge); line-height: var(--tl-line-tight); font-weight: var(--tl-weight-strong); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .tl-streak-wave .tl-icon, .tl-day.is-today, .tl-burst-still { animation: none; } }
+html.tl-reduce .tl-streak-wave .tl-icon, html.tl-reduce .tl-day.is-today { animation: none; }

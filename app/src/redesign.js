@@ -7,6 +7,7 @@ import { initOnboarding, startOnboarding } from './ui/onboarding.js';
 import { initSetup, renderSetup } from './ui/setup.js';
 import { initSettings, renderSettings } from './ui/settings.js';
 import { syncReminders } from './ui/reminders.js';
+import { initStreaks, refreshStreak, addCheckInToStreak } from './ui/streaks-ui.js';
 import { loadState, state, clear } from './ui/state.js';
 import { CONFIG } from './core/config.js';
 import { devLog } from './core/dev.js';
@@ -29,33 +30,38 @@ export async function initRedesign(context) {
     renderSettings();
     renderSetup().catch((e) => devLog('setup list', e));
   };
-  ctx.onSettings = refresh;
+  ctx.onSettings = () => { refreshStreak().then(refresh); };
   ctx.onPermission = refresh;
-  ctx.onFinished = refresh;
+  ctx.onFinished = () => { refreshStreak().then(refresh); };
   initHome(shell, ctx);
   initCheckin(shell, ctx);
   initSetup(shell, ctx);
   initSettings(shell, ctx);
+  initStreaks(shell, ctx);
   initOnboarding(shell, ctx);
 
   window.addEventListener('tidelight-checkin', async (event) => {
     const detail = event.detail || {};
     // A very low check-in: nothing celebrates for the rest of today.
     if ((detail.kind === 'quick' && isLowMood(detail.mood)) || CONFIG.checkIn.distressFeelings.indexOf(detail.feeling) !== -1) state.quietToday = todayKey();
+    await addCheckInToStreak();
     await syncReminders(ctx.checkInsToday());
     refresh();
   });
   // Delete everything also removes the name, the home spot, the streak, and meditation history.
   window.addEventListener('tidelight-erased', async () => {
     for (const name of ['profile', 'home', 'days', 'streak', 'sessions']) await clear(name);
+    await refreshStreak();
     refresh();
   });
   document.addEventListener('visibilitychange', async () => {
     if (document.visibilityState !== 'visible') return;
+    await refreshStreak(); // days that ended while the app was away
     await syncReminders(ctx.checkInsToday());
     refresh();
   });
 
+  await refreshStreak();
   await syncReminders(ctx.checkInsToday());
   refresh();
   if (!state.onboarding.completed) startOnboarding();
