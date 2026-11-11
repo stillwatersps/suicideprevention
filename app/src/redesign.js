@@ -7,7 +7,10 @@ import { initOnboarding, startOnboarding } from './ui/onboarding.js';
 import { initSetup, renderSetup } from './ui/setup.js';
 import { initSettings, renderSettings } from './ui/settings.js';
 import { syncReminders } from './ui/reminders.js';
-import { initStreaks, refreshStreak, addCheckInToStreak } from './ui/streaks-ui.js';
+import { initStreaks, refreshStreak, addCheckInToStreak, addMeditationToStreak } from './ui/streaks-ui.js';
+import { initPlayer, playMeditation } from './ui/player.js';
+import { builtIn } from './logic/meditations.js';
+import { replace, style } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
 import { CONFIG } from './core/config.js';
 import { devLog } from './core/dev.js';
@@ -38,6 +41,19 @@ export async function initRedesign(context) {
   initSetup(shell, ctx);
   initSettings(shell, ctx);
   initStreaks(shell, ctx);
+  // The meditation player: a finished session (60% or more) counts toward today and the setup list.
+  ctx.isQuiet = () => state.quietToday === todayKey();
+  ctx.goQuiet = () => { state.quietToday = todayKey(); };
+  ctx.onMeditationDone = async () => { await addMeditationToStreak(); refresh(); };
+  ctx.onPlayerClosed = refresh;
+  ctx.saveFavorite = async (source) => {
+    const name = source.name || source.type;
+    if (state.presets.some((p) => p.favoriteOf === source.key)) return;
+    await replace('presets', state.presets.concat([{ id: 'fav-' + Date.now().toString(36), name, favoriteOf: source.key, builtIn: source.builtIn || null, choices: source.choices || null }]).slice(-CONFIG.builder.presetMax));
+  };
+  initPlayer(shell, ctx);
+  const sample = document.getElementById('tl-sample-play');
+  if (sample) sample.addEventListener('click', () => playMeditation(builtIn('quick', { style: style(), voice: state.settings.meditation.voice, haptics: state.settings.meditation.hapticBreathing }), { key: 'quick-1', builtIn: { type: 'quick', minutes: 1 }, name: sample.querySelector('.tl-card-title').textContent }));
   initOnboarding(shell, ctx);
 
   window.addEventListener('tidelight-checkin', async (event) => {

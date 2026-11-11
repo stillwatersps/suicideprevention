@@ -28,7 +28,7 @@ html:not(.tl) .tl-overlay { display: none; }
   line-height: var(--tl-line-normal);
   color: var(--tl-text-primary);
 }
-.tl-app { max-width: var(--tl-content); margin: 0 auto var(--tl-space-lg); }
+.tl-app { width: 100%; max-width: var(--tl-content); justify-self: center; margin: 0 0 var(--tl-space-lg); min-width: 0; }
 .tl-screen { display: grid; gap: var(--tl-space-md); align-content: start; }
 .tl-screen:focus { outline: none; }
 .tl-stack { display: grid; gap: var(--tl-space-md); align-content: start; }
@@ -306,3 +306,50 @@ html.tl-reduce .tl-art-wave span, html.tl-reduce .tl-breath .tl-breath-dot, html
 .tl-stat { font-size: var(--tl-font-huge); line-height: var(--tl-line-tight); font-weight: var(--tl-weight-strong); font-variant-numeric: tabular-nums; }
 @media (prefers-reduced-motion: reduce) { .tl-streak-wave .tl-icon, .tl-day.is-today, .tl-burst-still { animation: none; } }
 html.tl-reduce .tl-streak-wave .tl-icon, html.tl-reduce .tl-day.is-today { animation: none; }
+
+/* ---- Phase 4: the meditation player ---- */
+/* The stage fills the screen under the crisis strip, which stays in place above it. */
+.tl-player { margin: 0 calc(var(--tl-space-sm) * -1); }
+.tl-stage {
+  position: relative; overflow: hidden; display: grid; place-items: center;
+  height: calc(100vh - var(--tl-top, 7rem) - var(--tl-space-sm)); min-height: calc(var(--tl-guide) * 2.2);
+  border-radius: var(--tl-radius-lg); background: var(--tl-text-primary); color: var(--tl-on-scene);
+  -webkit-tap-highlight-color: transparent; cursor: pointer;
+}
+.tl-stage[hidden] { display: none; }
+.tl-world { position: absolute; inset: 0; width: 100%; height: 100%; }
+.tl-stage > :not(.tl-world) { position: relative; }
+.tl-player-top { position: absolute !important; top: var(--tl-space-sm); left: var(--tl-space-sm); right: var(--tl-space-sm); display: flex; justify-content: space-between; gap: var(--tl-space-sm); margin: 0; z-index: 3; }
+html.tl .tl-scene-chip, html.tl .tl-scene-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--tl-space-xs);
+  min-height: var(--tl-tap); padding: var(--tl-space-xs) var(--tl-space-md);
+  border: var(--tl-border) solid var(--tl-on-scene); border-radius: var(--tl-radius-full);
+  background: var(--tl-scene-shade); color: var(--tl-on-scene);
+  font-family: var(--tl-font); font-size: var(--tl-font-label); font-weight: var(--tl-weight-strong); text-decoration: none;
+}
+html.tl .tl-scene-btn.tl-icon-btn { width: var(--tl-tap); padding: 0; }
+html.tl .tl-scene-btn[aria-pressed="false"] { opacity: 0.55; border-style: dashed; }
+html.tl .tl-scene-btn:disabled { opacity: 0.3; }
+.tl-stage :focus-visible { outline-color: var(--tl-on-scene); }
+.tl-guide { width: var(--tl-guide); height: var(--tl-guide); display: grid; place-items: center; transition: opacity var(--tl-slow) var(--tl-ease); }
+.tl-guide.is-resting { opacity: 0.35; }
+.tl-guide-circle { display: block; width: 100%; height: 100%; border-radius: var(--tl-radius-full); border: var(--tl-border-strong) solid var(--tl-on-scene); background: var(--tl-scene-shade); opacity: 0.85; will-change: transform; }
+.tl-guide-words { position: absolute !important; top: calc(50% + var(--tl-guide) * 0.55); left: 0; right: 0; margin: 0; text-align: center; font-family: var(--tl-font); font-size: var(--tl-font-title); font-weight: var(--tl-weight-strong); }
+.tl-guide-word { transition: opacity var(--tl-slow) var(--tl-ease); }
+.tl-guide-word.is-faded { opacity: 0; }
+.tl-guide-count { font-variant-numeric: tabular-nums; opacity: 0.8; }
+.tl-screen-text { position: absolute !important; top: calc(var(--tl-tap) + var(--tl-space-xl)); left: var(--tl-space-md); right: var(--tl-space-md); margin: 0; text-align: center; font-family: var(--tl-font); font-size: var(--tl-font-display); line-height: var(--tl-line-tight); font-weight: var(--tl-weight-strong); opacity: 0; transition: opacity var(--tl-slow) var(--tl-ease); }
+.tl-screen-text.is-on { opacity: 1; }
+.tl-stage-hint { position: absolute !important; bottom: var(--tl-space-lg); left: 0; right: 0; margin: 0; text-align: center; font-size: var(--tl-font-caption); opacity: 0.7; }
+.tl-controls { position: absolute !important; inset: 0; z-index: 2; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; padding: calc(var(--tl-tap) + var(--tl-space-lg)) var(--tl-space-md) var(--tl-space-xl); background: var(--tl-scene-shade); animation: tl-fade var(--tl-fast) var(--tl-ease); }
+.tl-controls[hidden] { display: none; }
+.tl-controls-top { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: var(--tl-space-sm); }
+html.tl .tl-player-pause { min-height: calc(var(--tl-tap-lg) * 1.5); padding: var(--tl-space-md) var(--tl-space-xl); font-size: var(--tl-font-title); }
+.tl-player-pause[data-state="playing"] .tl-when-paused, .tl-player-pause[data-state="paused"] .tl-when-playing { display: none; }
+.tl-end-confirm { display: grid; gap: var(--tl-space-sm); justify-items: center; padding: var(--tl-space-md); border-radius: var(--tl-radius-lg); background: var(--tl-surface); color: var(--tl-text-primary); }
+.tl-end-confirm[hidden] { display: none; }
+.tl-progress { position: absolute !important; left: 0; right: 0; bottom: 0; height: var(--tl-space-xs); background: var(--tl-scene-shade); z-index: 3; }
+.tl-progress span { display: block; height: 100%; background: var(--tl-on-scene); transform-origin: left center; transform: scaleX(0); }
+.tl-stage.is-dark .tl-guide, .tl-stage.is-dark .tl-guide-words, .tl-stage.is-dark .tl-screen-text { opacity: 0; }
+.tl-complete { display: grid; gap: var(--tl-space-md); padding: var(--tl-space-md) var(--tl-space-sm); }
+.tl-complete[hidden] { display: none; }

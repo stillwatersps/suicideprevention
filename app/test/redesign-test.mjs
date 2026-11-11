@@ -19,7 +19,15 @@ async function newPage(browser, lang, { seed = true, hooks = {}, storage = {}, .
   const outside = [];
   context.on('request', (r) => { if (!r.url().startsWith(base) && !/^(data|blob):/.test(r.url())) outside.push(r.url()); });
   await context.addInitScript(([given, stored]) => {
-    window.__tidelight = Object.assign({ schedules: [], haptics: [], onSchedule(list) { this.schedules.push(list); this.scheduled = list; }, onHaptic(o) { this.haptics.push(o); } }, given);
+    window.__tidelight = Object.assign({
+      schedules: [], haptics: [], spoken: [], ambient: [], awake: [], sessions: [],
+      onSchedule(list) { this.schedules.push(list); this.scheduled = list; }, onHaptic(o) { this.haptics.push(o); },
+      onSpeak(o) { this.spoken.push(o); }, onAmbient(kind) { this.ambient.push(kind); }, onKeepAwake(on) { this.awake.push(on); }, onSession(o) { this.sessions.push(o); },
+    }, given);
+    // Count every time the audio system is opened, to prove Silent and sound-off never open it.
+    window.__audioContexts = 0;
+    const Real = window.AudioContext;
+    if (Real) window.AudioContext = class extends Real { constructor(...args) { super(...args); window.__audioContexts += 1; } };
     try { if (!sessionStorage.getItem('seeded')) { Object.keys(stored).forEach((key) => localStorage.setItem(key, stored[key])); sessionStorage.setItem('seeded', '1'); } } catch (e) { /* first load */ }
   }, [hooks, storage]);
   if (seed) await context.addInitScript(SEEDED);
@@ -494,6 +502,115 @@ async function streakTests(browser, lang) {
   await context.close();
 }
 
+
+const startSample = async (page) => { await tab(page, 'meditate'); if (!(await page.isVisible('#tl-meditate'))) await tab(page, 'meditate'); await page.click('#tl-sample-play'); await page.waitForSelector('#tl-stage:not([hidden])'); };
+const barAt = (page) => page.evaluate(() => Number((document.querySelector('#tl-player-bar').style.transform.match(/[\d.]+/) || [0])[0]));
+
+async function playerTests(browser, lang) {
+  console.log(`\nThe meditation player, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  // The clock runs 20 times fast here, so a one-minute session takes three seconds.
+  let { context, page, errors, outside } = await newPage(browser, lang, { hooks: { clockRate: 20 }, storage: { 'tidelight.settings': oneADay } });
+  await startSample(page);
+  check(!(await page.isVisible('#tl-tabbar')), 'the tab bar steps aside during a session');
+  check(await page.isVisible('.crisis-bar a[href="tel:988"]') && await page.isVisible('.crisis-bar a[href="sms:988"]') && await page.isVisible('.crisis-bar a[href="tel:911"]') && await page.isVisible('.crisis-bar .quick-exit'), 'Call 988, Text 988, Call 911, and Exit stay on screen over the player');
+  check(await page.isVisible('#tl-stage .tl-player-support[href="#support"]') && await page.isVisible('#tl-stage a[href="#tl-review"]'), 'the stage carries Get Support Now and "Draft for review"');
+  check(await page.evaluate(() => { const top = document.querySelector('.crisis-bar').getBoundingClientRect(); const stage = document.querySelector('#tl-stage').getBoundingClientRect(); return stage.top >= top.bottom - 1; }), 'the stage starts under the crisis strip, not over it');
+  check(await page.evaluate(() => Boolean(document.querySelector('.review-note:not(.tl-review)') && document.querySelector('.tl-review') && document.querySelector('#support a[href="tel:988"]') && document.querySelector('.lang-switch a'))), 'the rest of the safety frame is still in the page below');
+  const words = new Set();
+  let painted = false;
+  for (let i = 0; i < 24; i += 1) {
+    const w = (await page.textContent('#tl-guide-word')).trim();
+    if (w) words.add(w);
+    painted = painted || await page.evaluate(() => { const c = document.querySelector('#tl-world'); const d = c.getContext('2d').getImageData(c.width / 2, c.height / 2, 1, 1).data; return d[3] > 0; });
+    await page.waitForTimeout(100);
+  }
+  check(painted, 'layer 1, the world, is drawn');
+  check(words.size >= 3, 'layer 2, the guide, moves through in, hold, and out: ' + [...words].join(' / '));
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 8000 });
+  const pretend = await page.evaluate(() => ({ spoken: window.__tidelight.spoken, haptics: window.__tidelight.haptics.length, awake: window.__tidelight.awake, sessions: window.__tidelight.sessions, audio: window.__audioContexts }));
+  check(pretend.spoken.length === 2 && pretend.spoken[0].scriptId === 'intro.quick' && pretend.spoken[1].scriptId === 'outro.quick' && pretend.spoken.every((line) => line.text.length > 10), 'layer 3, the voice, says the intro and the outro');
+  check(pretend.spoken.every((line) => line.kind === 'tts'), 'with no recording, it falls back to text-to-speech');
+  check(pretend.haptics >= 6, 'layer 5, haptic breathing, pulses with the breath (' + pretend.haptics + ' pulses)');
+  check(pretend.awake[0] === true && pretend.awake[pretend.awake.length - 1] === false, 'the screen is kept awake for the session and released after');
+  check(pretend.audio === 0, 'a session with no background sound never opens the audio system');
+  check(await page.isVisible('#tl-complete') && /1/.test(await page.textContent('#tl-complete-minutes')), 'the session ends on a completion screen with the minutes');
+  check((await safetyFrame(page)).length === 0 && await page.isVisible('#tl-complete .tl-draft-tag'), 'the completion screen keeps the safety frame and is marked "Draft for review"');
+  let sessions = await stored(page, 'tidelight.sessions');
+  check(sessions.length === 1 && sessions[0].completed === true && sessions[0].completedSeconds === 60 && sessions[0].type === 'quick', 'the session is recorded on this phone');
+  const today = (await stored(page, 'tidelight.days'))[keyOf(0)];
+  check(today && today.meditationsCompleted === 1, 'and counts toward today');
+  await page.click('#tl-complete-faces [data-value="4"]');
+  check((await stored(page, 'tidelight.sessions'))[0].moodAfter === 4, 'an optional mood after is kept with it');
+  await page.click('#tl-complete-favorite');
+  await page.waitForFunction(() => (JSON.parse(localStorage.getItem('tidelight.presets') || '[]')).length === 1);
+  check(true, 'Save as favorite keeps it');
+  await page.click('#tl-complete [data-player-done]');
+  check(await page.isVisible('#tl-meditate') && await page.isVisible('#tl-tabbar'), 'Done returns to Meditate, with the tab bar');
+  await tab(page, 'home');
+  await page.waitForFunction(() => /firstMeditation/.test(Array.from(document.querySelectorAll('#tl-setup-list li[hidden]')).map((e) => e.getAttribute('data-setup')).join(' ')));
+  check(true, 'the setup list ticks off "First meditation"');
+
+  // A very low mood after a session: support at once.
+  await startSample(page);
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 8000 });
+  await page.click('#tl-complete-faces [data-value="1"]');
+  check(await page.isVisible('#tl-complete-support a[href="tel:988"]') && await page.isVisible('#tl-complete-support a[href="sms:988"]') && await page.isVisible('#tl-complete-support a[href="tel:911"]'), 'a very low mood after a session shows Call 988, Text 988, and Call 911 at once');
+  check(!(await page.isVisible('#tl-complete-body')), 'in place of "Well done"');
+  await page.click('#tl-complete [data-player-done]');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  check(outside.length === 0, 'no requests to other sites');
+  await context.close();
+
+  // Controls, at a slower clock.
+  ({ context, page, errors } = await newPage(browser, lang, { hooks: { clockRate: 2 }, storage: { 'tidelight.settings': oneADay } }));
+  await startSample(page);
+  check(!(await page.isVisible('#tl-controls')), 'the controls start hidden');
+  await page.click('#tl-stage', { position: { x: 180, y: 560 } });
+  check(await page.isVisible('#tl-player-pause') && await page.isVisible('#tl-player-end') && await page.isVisible('#tl-toggle-sound') && await page.isVisible('#tl-toggle-voice') && await page.isVisible('#tl-toggle-haptics'), 'a tap shows Pause, End, and the three switches');
+  const order = await page.evaluate(() => { const end = document.querySelector('#tl-player-end').getBoundingClientRect(); const sw = document.querySelector('#tl-toggle-sound').getBoundingClientRect(); const stage = document.querySelector('#tl-stage').getBoundingClientRect(); return end.left < stage.left + stage.width / 2 && sw.left > stage.left + stage.width / 2 && end.top < stage.top + stage.height / 3; });
+  check(order, 'End is top left and the switches top right');
+  await page.waitForTimeout(3400);
+  check(!(await page.isVisible('#tl-controls')), 'the controls hide again after three seconds');
+  await page.click('#tl-stage', { position: { x: 180, y: 560 } });
+  await page.click('#tl-player-pause');
+  const paused = await barAt(page);
+  await page.waitForTimeout(700);
+  check(Math.abs((await barAt(page)) - paused) < 0.0005, 'Pause stops the clock');
+  check(await page.isVisible('#tl-controls'), 'and the controls stay while paused');
+  const hapticsPaused = await page.evaluate(() => window.__tidelight.haptics.length);
+  await page.waitForTimeout(600);
+  check((await page.evaluate(() => window.__tidelight.haptics.length)) === hapticsPaused, 'no haptics while paused');
+  await page.click('#tl-player-pause');
+  await page.waitForTimeout(500);
+  check((await barAt(page)) > paused, 'Resume carries on from the same place');
+  // Each layer switches off on its own, mid-session.
+  await page.click('#tl-stage', { position: { x: 180, y: 560 } }).catch(() => {});
+  if (!(await page.isVisible('#tl-controls'))) await page.click('#tl-stage', { position: { x: 180, y: 560 } });
+  await page.click('#tl-toggle-haptics');
+  check((await page.getAttribute('#tl-toggle-haptics', 'aria-pressed')) === 'false', 'haptic breathing can be switched off mid-session');
+  await page.waitForTimeout(300);
+  const hapticsOff = await page.evaluate(() => window.__tidelight.haptics.filter((h) => h.style !== 'light' || h.intensity !== 1).length);
+  await page.waitForTimeout(1500);
+  check((await page.evaluate(() => window.__tidelight.haptics.filter((h) => h.style !== 'light' || h.intensity !== 1).length)) <= hapticsOff + 1, 'and the breath pulses stop');
+  await page.click('#tl-toggle-voice');
+  check((await page.getAttribute('#tl-toggle-voice', 'aria-pressed')) === 'false' && (await page.getAttribute('#tl-toggle-sound', 'aria-pressed')) === 'true', 'the voice switches off without touching the sound switch');
+  // End, with a confirmation, before 60%.
+  await page.click('#tl-player-end');
+  check(await page.isVisible('#tl-end-confirm') && (await page.textContent('#tl-end-title')).trim().length > 5, 'End asks "End session?" first');
+  await page.click('#tl-end-no');
+  check(!(await page.isVisible('#tl-end-confirm')) && await page.isVisible('#tl-stage'), '"Keep going" keeps going');
+  await page.click('#tl-player-end');
+  await page.click('#tl-end-yes');
+  await page.waitForSelector('#tl-meditate:not([hidden])');
+  sessions = await stored(page, 'tidelight.sessions');
+  check(sessions.length === 1 && sessions[0].completed === false && sessions[0].completedSeconds < 36, 'ending before 60% records the session as not completed');
+  const day = (await stored(page, 'tidelight.days'))[keyOf(0)];
+  check(!day || day.meditationsCompleted === 0, 'and it doesn\'t count toward today');
+  check(!(await page.isVisible('#tl-complete')) && await page.isVisible('#tl-tabbar'), 'with no completion screen');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+}
+
 const browser = await chromium.launch();
 try {
   await shellTests(browser, 'en');
@@ -505,6 +622,8 @@ try {
   await migrationTests(browser);
   await streakTests(browser, 'en');
   await streakTests(browser, 'es');
+  await playerTests(browser, 'en');
+  await playerTests(browser, 'es');
 } finally {
   await browser.close();
   close();

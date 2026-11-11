@@ -292,10 +292,77 @@
         <section class="tl-screen" id="tl-meditate" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-meditate-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <h2 class="tl-title" id="tl-meditate-title">Meditar</h2>
-          <div class="tl-empty" id="tl-meditate-empty">
-            <span data-tl-icon="lotus" data-tl-large></span>
-            <p class="tl-sub">Las meditaciones llegarán pronto 🌊</p>
-            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="home">Volver a Inicio</button>
+          <div id="tl-meditate-body">
+            <button type="button" class="tl-card tl-card-action" id="tl-sample-play">
+              <span class="tl-card-icon" data-tl-icon="bolt"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Pausa de 1 minuto</span><span class="tl-card-sub">Respiración en caja</span></span>
+              <span class="tl-card-go">Empezar</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="tl-screen tl-player" id="tl-player" data-tl-tab="meditate" tabindex="-1" aria-label="Meditación" hidden>
+          <div class="tl-stage" id="tl-stage" data-world="ocean">
+            <canvas class="tl-world" id="tl-world" aria-hidden="true"></canvas>
+            <p class="tl-player-top">
+              <a class="tl-scene-chip" href="#tl-review">Borrador para revisión</a>
+              <a class="tl-scene-chip tl-player-support" href="#support">Obtén apoyo ahora</a>
+            </p>
+            <div class="tl-guide" id="tl-guide" aria-hidden="true"><span class="tl-guide-circle"></span></div>
+            <p class="tl-guide-words"><span class="tl-guide-word" id="tl-guide-word" aria-live="polite"></span> <span class="tl-guide-count" id="tl-guide-count" aria-hidden="true" hidden></span></p>
+            <p class="tl-screen-text" id="tl-screen-text" role="status"></p>
+            <p class="tl-stage-hint">Toca para ver los controles</p>
+            <div class="tl-controls" id="tl-controls" hidden>
+              <div class="tl-controls-top">
+                <button type="button" class="tl-btn tl-scene-btn" id="tl-player-end"><span data-tl-icon="close"></span>Terminar</button>
+                <span class="tl-row" role="group" aria-label="Sonido, voz y vibración">
+                  <button type="button" class="tl-icon-btn tl-scene-btn" id="tl-toggle-sound" aria-pressed="true" aria-label="Sonido"><span data-tl-icon="sound"></span></button>
+                  <button type="button" class="tl-icon-btn tl-scene-btn" id="tl-toggle-voice" aria-pressed="true" aria-label="Guía de voz"><span data-tl-icon="voice"></span></button>
+                  <button type="button" class="tl-icon-btn tl-scene-btn" id="tl-toggle-haptics" aria-pressed="true" aria-label="Respiración con vibración"><span data-tl-icon="vibrate"></span></button>
+                </span>
+              </div>
+              <button type="button" class="tl-btn tl-scene-btn tl-player-pause" id="tl-player-pause" data-state="playing"><span data-tl-icon="pause" class="tl-when-playing"></span><span data-tl-icon="play" class="tl-when-paused"></span><span id="tl-player-pause-label">Pausa</span></button>
+              <div class="tl-end-confirm" id="tl-end-confirm" role="alertdialog" aria-labelledby="tl-end-title" hidden>
+                <p class="tl-headline" id="tl-end-title">¿Terminar la sesión?</p>
+                <div class="tl-row tl-row-center">
+                  <button type="button" class="tl-btn tl-btn-primary" id="tl-end-yes">Terminar</button>
+                  <button type="button" class="tl-btn tl-btn-secondary" id="tl-end-no">Seguir</button>
+                </div>
+              </div>
+            </div>
+            <div class="tl-progress" aria-hidden="true"><span id="tl-player-bar"></span></div>
+          </div>
+          <div class="tl-complete tl-center" id="tl-complete" hidden>
+            <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+            <div class="tl-stack tl-center" id="tl-complete-body">
+              <span class="tl-done-mark" data-tl-icon="check" data-tl-large></span>
+              <h2 class="tl-title" id="tl-complete-title" tabindex="-1">Bien hecho</h2>
+              <p class="tl-display" id="tl-complete-minutes"></p>
+              <p class="tl-sub" id="tl-complete-total"></p>
+            </div>
+            <div class="tl-flow-step tl-support-now" id="tl-complete-support" tabindex="-1" hidden>
+              <h2 class="tl-title">Eso suena muy difícil.</h2>
+              <p>No tienes que cargarlo a solas. Puedes hablar con alguien ahora mismo.</p>
+              <ul class="tl-support-actions">
+                <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+                <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+                <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+              </ul>
+              <p class="tl-sub">La Línea 988 de Prevención del Suicidio y Crisis es gratuita, confidencial y está disponible a cualquier hora. Es un servicio aparte de Tidelight.</p>
+              <div class="tl-row tl-row-center">
+                <a class="tl-btn tl-btn-secondary" href="#support">Más formas de recibir apoyo</a>
+              </div>
+            </div>
+            <h3 class="tl-headline" id="tl-complete-ask">¿Cómo te sientes ahora?</h3>
+            <div class="tl-faces" id="tl-complete-faces" role="group" aria-labelledby="tl-complete-ask">
+              <button type="button" class="tl-face" data-value="1" aria-pressed="false"><span data-tl-face="1"></span><span class="tl-face-label">Muy mal</span></button>
+              <button type="button" class="tl-face" data-value="2" aria-pressed="false"><span data-tl-face="2"></span><span class="tl-face-label">Mal</span></button>
+              <button type="button" class="tl-face" data-value="3" aria-pressed="false"><span data-tl-face="3"></span><span class="tl-face-label">Regular</span></button>
+              <button type="button" class="tl-face" data-value="4" aria-pressed="false"><span data-tl-face="4"></span><span class="tl-face-label">Bien</span></button>
+              <button type="button" class="tl-face" data-value="5" aria-pressed="false"><span data-tl-face="5"></span><span class="tl-face-label">Muy bien</span></button>
+            </div>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-player-done>Listo</button>
+            <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" id="tl-complete-favorite">Guardar como favorita</button>
           </div>
         </section>
 
@@ -497,6 +564,41 @@
         <span data-word="streak.milestone">{days} días. Una ola a la vez 🌊</span>
         <span data-word="streak.freezeNext">❄️ {count} guardados. El próximo llega el {day}.</span>
         <span data-word="streak.freezeFull">❄️ {count} guardados. Es el máximo que puedes guardar.</span>
+        <span data-word="player.pause">Pausa</span>
+        <span data-word="player.resume">Continuar</span>
+        <span data-word="player.minute">{minutes} minuto</span>
+        <span data-word="player.minutes">{minutes} minutos</span>
+        <span data-word="player.total">{minutes} minutos en total</span>
+        <span data-word="guide.in" data-style="calm">Inhala</span>
+        <span data-word="guide.in" data-style="straightforward">Inhala</span>
+        <span data-word="guide.hold">Mantén</span>
+        <span data-word="guide.out" data-style="calm">Exhala</span>
+        <span data-word="guide.out" data-style="straightforward">Exhala</span>
+        <span data-word="screen.intro.silent">Acomódate</span>
+        <span data-word="screen.outro.silent">Vuelve con suavidad</span>
+        <span data-word="screen.intro.quick">Un minuto</span>
+        <span data-word="screen.outro.quick">Muy bien</span>
+        <span data-word="screen.intro.deep">Ponte a gusto</span>
+        <span data-word="screen.bodyScan">Afloja el cuerpo</span>
+        <span data-word="screen.silence">Solo descansa</span>
+        <span data-word="screen.outro.deep">Vuelve con suavidad</span>
+        <span data-word="screen.intro.sleep">Hora de descansar</span>
+        <span data-word="screen.bodyScan.sleep">Suelta</span>
+        <span data-word="screen.silence.sleep">Descansa</span>
+        <span data-word="script.intro.quick" data-style="calm">Tomemos un minuto. Respira con el círculo.</span>
+        <span data-word="script.intro.quick" data-style="straightforward">Un minuto. Sigue el círculo.</span>
+        <span data-word="script.outro.quick" data-style="calm">Muy bien. Lleva esta calma contigo.</span>
+        <span data-word="script.outro.quick" data-style="straightforward">Listo. De vuelta a tu día.</span>
+        <span data-word="script.intro.deep" data-style="calm">Te damos la bienvenida. Busca una postura cómoda. Ahora mismo no tienes que hacer nada más que respirar. Si algo se siente demasiado, puedes parar en cualquier momento.</span>
+        <span data-word="script.intro.deep" data-style="straightforward">Ponte a gusto. Solo respira. Para cuando lo necesites.</span>
+        <span data-word="script.bodyScan" data-style="calm">Lleva tu atención a los pies. Deja que se aflojen. Sube despacio: las piernas, el vientre, el pecho. Deja caer los hombros. Afloja la mandíbula y la frente. Si tu mente se va, está bien. Vuelve con suavidad.</span>
+        <span data-word="script.bodyScan" data-style="straightforward">Nota tus pies. Tus piernas. Tu vientre. Tu pecho. Deja caer los hombros. Relaja la mandíbula. Si tu mente se va, vuelve.</span>
+        <span data-word="script.outro.deep" data-style="calm">Poco a poco, lleva tu atención de vuelta a la habitación. Nota cómo te sientes. Gracias por tomarte este tiempo para ti.</span>
+        <span data-word="script.outro.deep" data-style="straightforward">Vuelve a la habitación. Nota cómo te sientes. Bien hecho.</span>
+        <span data-word="script.intro.sleep" data-style="calm">Es hora de descansar. Deja que tu cuerpo se vuelva pesado. Deja que cada exhalación sea un poco más larga que la anterior.</span>
+        <span data-word="script.intro.sleep" data-style="straightforward">Hora de descansar. Deja que tu cuerpo pese. Exhala despacio.</span>
+        <span data-word="script.bodyScan.sleep" data-style="calm">Deja descansar los pies. Deja descansar las piernas. Afloja el vientre. Deja que los hombros se hundan en la cama. Deja el rostro quieto. Hoy ya no queda nada por hacer.</span>
+        <span data-word="script.bodyScan.sleep" data-style="straightforward">Descansa los pies. Las piernas. El vientre. Los hombros. El rostro. Hoy ya no queda nada por hacer.</span>
         <span data-word="dev.phase">Fase de construcción: {phase}</span>
         <span data-word="dev.none">Ninguno.</span>
       </div>

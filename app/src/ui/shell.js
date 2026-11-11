@@ -136,6 +136,11 @@ function relocate(selector, slot) {
 
 export function initShell() {
   root.classList.add('tl');
+  // The height of the crisis strip, which stays above everything, for screens that fill the rest.
+  const strip = $('.crisis-bar');
+  const measure = () => { if (strip) root.style.setProperty('--tl-top', strip.offsetHeight + 'px'); };
+  measure();
+  window.addEventListener('resize', measure);
   buildTabBar();
   adoptLegacy();
   relocate('.app-places', '#tl-location-slot');
