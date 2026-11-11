@@ -225,6 +225,8 @@ Safety frame, kept in full on every screen: about 597 words.
 - Every page in the app (the website's pages too) now runs edge to edge with its crisis strip pushed below the iPhone status bar (`src/app-safe-area.css`, added by the build). Before this, the strip's first line was under the status bar in the Simulator.
 - The safety frame takes roughly the top 40% of an iPhone 17 screen before the new part of a screen begins (crisis strip, header with Get Support Now, the Spanish link). That is the cost of the founder's rule 1; shrinking any of it is a founders' decision.
 
+- `npm run test:unit` names the test files (`test/unit/*.test.mjs`) instead of the folder — GitHub's runner has Node 24, where `node --test` doesn't take a folder; this Mac's Node 26 does. Found on the pull request's first complete run.
+
 ## Known bugs / TODOs
 - The app shows a blank screen for a moment at launch in the Simulator's debug build, before the first page — measure on a phone against the spec's 2 seconds — `ios/App/App/Base.lproj/LaunchScreen.storyboard`, `src/app.js` — medium.
 - The Simulator kept the age group from an earlier install after the app was deleted (a Simulator habit with stored preferences), so a truly fresh first launch with the date-of-birth page was seen only in Chromium — low.
