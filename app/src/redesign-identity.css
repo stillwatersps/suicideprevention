@@ -93,7 +93,7 @@ html.tl .tl-btn { min-height: var(--button); border-radius: var(--radius-pill); 
 html.tl .tl-btn-primary { background: var(--coral); color: var(--on-coral); border-color: var(--coral); }
 html.tl .tl-btn-primary:active { background: var(--coral-press); border-color: var(--coral-press); }
 html.tl .tl-btn-secondary { background: var(--paper); color: var(--ink); border-color: var(--rule); }
-html.tl .tl-btn-quiet { background: transparent; color: var(--seafoam); border-color: transparent; text-decoration: none; min-height: var(--tap); }
+html.tl .tl-btn-quiet { background: transparent; color: var(--seafoam); border-color: transparent; text-decoration: none; min-height: var(--tap); min-width: var(--tap); }
 html.tl .tl-btn-quiet:active { text-decoration: underline; }
 html.tl .tl-icon-btn { background: var(--paper); border: var(--hairline) solid var(--rule); color: var(--ink); }
 html.tl .tl-btn:active, html.tl .tl-icon-btn:active, html.tl .tl-card-action:active, html.tl .tl-choice:active, html.tl .tl-chip:active, html.tl .tl-tab:active, html.tl .tl-face:active, html.tl .tl-tile:active { transform: scale(var(--press-scale)); }

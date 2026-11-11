@@ -52,6 +52,7 @@ automated run is now muted, without changing the app's own audio code:
 
 ### Resume instructions (visual identity)
 On `app/visual-identity`. The last commit is a checkpoint: lint and unit tests pass, the browser tests were mid-run and are NOT confirmed green, and the Swift changes for the launch screen (`LaunchScreen.storyboard`, `LaunchSand.colorset`, `MainViewController.swift`) have not been compiled.
+0. Last browser run (before the two fixes in the commit after the checkpoint): 643 checks passed; the only failures were the onboarding Skip button at 38 points wide (now given a minimum width) and the accessibility sweep clicking the hidden month card (now guarded). Everything after that point in `test/redesign-test.mjs`, including `identityTests`, has still never run.
 1. `cd app && npm test`. Fix what fails in `test/redesign-test.mjs` (the month tests and `identityTests` are new and have never run; the accessibility sweep clicks `#tl-streak-card`, which is hidden until a first check-in). Also expect `test/app-test.mjs` and `test/extras-test.mjs` to need small fixes for restyled buttons.
 2. Build for the Simulator (`LANG=en_US.UTF-8 npm run sync`, then `xcodebuild` as in the Phase 8 record), install, and start it only with `npm run sim:launch` (muted). Check the launch screen is sand with no white flash.
 3. `node tools/screens.mjs after`, look at dark mode, Spanish, the small phone, and largest text; fix overflow. Then V7 to V9 (motion is mostly in `src/redesign-identity.css`; check 44-point targets and labels; list copy changes).

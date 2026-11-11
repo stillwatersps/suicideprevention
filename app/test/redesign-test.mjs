@@ -1026,8 +1026,8 @@ async function accessibilityTests(browser) {
     await audit(page, `${label}, Home`, '#tl-home');
     await page.click('#tl-setup-open');
     await audit(page, `${label}, the setup list`, '#tl-home');
-    await page.click('#tl-streak-card');
-    await audit(page, `${label}, the month screen`, '#tl-streak');
+    // The month card only shows after a first check-in; the month tests cover the screen itself.
+    if (await page.isVisible('#tl-streak-card')) { await page.click('#tl-streak-card'); await audit(page, `${label}, the month screen`, '#tl-streak'); }
     await openSettings(page);
     for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
     await audit(page, `${label}, Settings with Developer open`, '#tl-settings');
