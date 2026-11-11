@@ -1,15 +1,15 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 11:20 EST
-Current branch: feature/p1-design-nav
-Current phase: 1 — Design system & bottom tab navigation
-Current step: Phase 1 finished; merging into app/redesign-dev, then Phase 2
+Last updated: 2026-11-11 13:10 EST
+Current branch: feature/p2-onboarding-settings
+Current phase: 2 — Onboarding, setup checklist & check-in settings
+Current step: Phase 2 finished; merging into app/redesign-dev, then Phase 3
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)
 - [x] Phase 1 — Design system & bottom tab navigation (merged to app/redesign-dev)
+- [x] Phase 2 — Onboarding, setup checklist & check-in settings (merged to app/redesign-dev)
 
 ## Remaining
-- [ ] Phase 2 — Onboarding, setup checklist & check-in settings
 - [ ] Phase 3 — Streaks
 - [ ] Phase 4 — Interactive meditation engine
 - [ ] Phase 5 — Meditation types & smart suggestions
@@ -57,6 +57,11 @@ Current step: Phase 1 finished; merging into app/redesign-dev, then Phase 2
 
   The four older sections at the bottom did not reach 50%. Their words are the website's own (shared with its review packet) or are consent, privacy, and crisis wording, which the founder's rule 1 protects. Cutting them is a decision for the founders and the reviewer, not for this build.
 
+## Phase 2 record
+- **Plan:** pure logic in `src/logic/spread.js` (time spreading, reminder plan), `checklist.js`, `style-profile.js`; screens in `src/ui/onboarding.js`, `checkin.js`, `setup.js`, `settings.js`, `reminders.js`; one state holder `src/ui/state.js`; the phone's part in `src/ui/device.js` and four new methods in the Swift plugin. Risks: permissions can't be exercised in Chromium (stand-ins only), and the Swift additions are uncompiled until the Simulator build in Phase 8.
+- **Saved under:** `tidelight.settings` (check-ins per day, wake and sleep, style, reminders, custom times, meditation defaults, haptics, reduce motion, streaks on), `tidelight.profile` (name), `tidelight.onboarding`, `tidelight.home` (one spot). Schema version 2.
+- **Spanish:** `src/text/redesign.es.html` is made from the English blocks and `src/text/redesign.es.json` by `npm run words:es`, so the two can't drift apart. Crisis sentences are whole-line entries copied from the existing Spanish pages (press 2; text AYUDA).
+
 ## Decisions made
 - Kept Capacitor, HTML, CSS, and JavaScript — the brief from the founder's session says not to port, and the reviewed words stay in one place.
 - Integration branch is `app/redesign-dev`, cut from pull request 19's branch with pull requests 20 and 21 merged in; phases are `feature/p*` branches merged back with merge commits — `main` publishes the website, so the spec's `dev` from `main` can't be used.
@@ -76,11 +81,29 @@ Current step: Phase 1 finished; merging into app/redesign-dev, then Phase 2
 - Tabs have no browser-history entries; each pushed screen has a visible Back button. Android's hardware back button is untested.
 - On iPhone the new screens follow the phone's text size (`font: -apple-system-body`), unless the app's own "larger text" is on. Chromium can't show this; to check in the Simulator and on a phone.
 
+- Onboarding keeps the date of birth as its second page and it can't be skipped — the project's November 9 decision makes the age group required; the spec's "Skip on every page" loses. People who already gave it aren't asked again.
+- Onboarding, the check-in, the setup list, and celebrations are ordinary screens in the page, never sheets or overlays — an overlay would cover Get Support Now, the Spanish link, and the review notices (founder's rule 1). The setup list opens in place under its ring.
+- Check-in times sit in the middle of equal shares of the waking day, rounded to 5 minutes (3 a day, 7:00 to 22:00, gives 9:30, 14:30, 19:30).
+- Reminders are dated notifications for up to 14 days (at most 60 pending), set again whenever the app opens, a check-in is done, or a setting changes. After k check-ins today, the first k of today's times are dropped. If the app isn't opened for two weeks, reminders stop on their own — a nudge that fades rather than nags; a question for the reviewer.
+- Reminder words: Calm keeps the existing "A moment to check in, if you'd like."; Straightforward says "Time for your check-in." (the founder's model). No emoji, nothing about mood or the person (rule 4). The spec's "Time for a gentle check-in 🌊" and "Check-in time." were not used.
+- The four older reminders (morning, midday, after school, before bed) became "N check-ins a day"; migration 2 carries over the ones that were on, at their times. Their section in Your journey and its hint on Today are gone; Settings has them now.
+- The quick check-in is new; the five-question Daily check-in is unchanged and both count as a check-in. Reworking the five questions would change the website's page.
+- Very low mood (rule 2): moods 1 and 2 of 5 show Call 988, Text 988, and Call 911 at once, in place of the thanks line, and the screen stays until the person leaves it. In the Daily check-in, the feelings overwhelmed, sad, anxious, disconnected, and exhausted show a support block at the top of the results. Which moods and feelings should do this is a question for the reviewer. Nothing typed is read, and there is no score.
+- A very low check-in makes the rest of that day "quiet": no celebration, no milestone, no "new start" card (rule 3).
+- The five moods are line-drawn faces with a word under each, not emoji — shape and words carry the meaning, not color.
+- A check-in's note shows in the person's own list and is never part of "Share today's check-ins".
+- Delete everything now also removes the name, the home spot, the streak, and meditation history, and its note says so. Your journey's note no longer says "There are no streaks or scores", because there are streaks now; it says "Nothing here is scored."
+- Location for the home spot asks for "while using the app" only, reads one location when asked, and keeps one spot on the phone. The iPhone permission sentence in `Info.plist` now covers it. For a lawyer to read.
+- The website's `assets/check-in.js` gained one app-only method, `addCheckIn`, so a quick check-in marks the calendar without touching what's typed elsewhere. The website never calls it.
+- "Notifications enabled" on the setup list means the phone allows them and reminders are switched on.
+- Haptics, keep-awake, one-shot location, and the audio route are four small methods added to the project's own Swift plugin, with `navigator.vibrate` and the Wake Lock API as fallbacks — no new packages, so no CocoaPods change. Android has no native part and uses the fallbacks.
+
 ## Known bugs / TODOs
+- The Swift additions in `ios/App/App/TidelightPlugin.swift` are not compiled yet — to build in the Simulator in Phase 8 — high until done.
 - Android hardware Back inside tabs — `src/ui/shell.js` — low (untested; no Android toolchain on this Mac).
 
 ## Assets needed from the human
 - None yet (voice recordings and rain/ocean loops will be listed in Phase 4).
 
 ## Resume instructions
-On branch `app/redesign-dev`, create `feature/p2-onboarding-settings` and start Phase 2: onboarding pages (the age question becomes one of them and stays required), the setup checklist, the style profile, the quick check-in with support shown at once for low moods, reminders from `settings.checkInsPerDay`, and the Settings screen. Run `npm test` in `app/` before merging.
+On branch `app/redesign-dev`, create `feature/p3-streaks` and start Phase 3. `src/logic/streaks.js`, `test/unit/streaks.test.mjs`, `src/ui/streaks-ui.js`, and `src/ui/celebrate.js` may already exist uncommitted or committed: wire them into `src/redesign.js`, add the streak card, detail screen, milestone and "new start" cards to `src/text/redesign.en.html` (then `npm run words:es`), style them, and add browser tests. Run `npm test` in `app/` before merging.

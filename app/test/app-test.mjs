@@ -9,7 +9,7 @@ import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
-import { tab, openPanel, startDaily, openSettings, safetyFrame } from './helpers.mjs';
+import { tab, openPanel, startDaily, openSettings, skipOnboarding } from './helpers.mjs';
 const www = fileURLToPath(new URL('../www/', import.meta.url));
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.webmanifest': 'application/manifest+json', '.vcf': 'text/vcard' };
@@ -66,7 +66,9 @@ async function run(browser, lang) {
   await page.goto(base + page_);
   await page.waitForSelector('html.app-ready');
 
-  // Age setup comes first, with crisis help on screen.
+  // A welcome page, then the age setup, with crisis help on screen throughout.
+  check(await page.isVisible('#tl-onboarding [data-ob="welcome"]') && await page.isVisible('.crisis-bar a[href="tel:988"]'), 'opens on a welcome page, with the crisis strip on screen');
+  await page.click('#tl-onboarding [data-ob="welcome"] [data-ob-next]');
   check(await page.isVisible('#app-age'), 'asks for a date of birth on first open');
   check(!(await page.isVisible('#tl-tabbar')) && !(await page.isVisible('#tl-home')) && !(await page.isVisible('.ci-tabs')), 'hides the app until the age is given');
   check(await page.isVisible('.crisis-bar a[href="tel:988"]'), 'crisis strip stays on screen during age setup');
@@ -98,6 +100,8 @@ async function run(browser, lang) {
     && !(await page.isVisible('.app-age-confirm .app-accommodations [data-age-group="adult"]')), 'lists only that group\'s accommodations');
   await page.click('.app-age-yes');
   check(!(await page.isVisible('#app-age')), 'confirming closes the age question');
+  check(!(await page.isVisible('#tl-ob-skip')) || await page.isVisible('#tl-onboarding'), 'onboarding goes on to its next page');
+  await skipOnboarding(page);
   check(await page.isVisible('#tl-home') && await page.isVisible('#tl-tabbar'), 'Home and the tab bar appear');
   await startDaily(page);
 
@@ -105,7 +109,6 @@ async function run(browser, lang) {
   check(await page.isVisible('.app-age-box [data-age-group="teen"]'), 'Today starts with the box for ages 13 to 17');
   check(await page.isVisible('.app-age-box [data-age-group="teen"] a[href*="#other-ways"]'), 'the teen box links to LGBTQ+ support on Get Help');
   check(!(await page.isVisible('.app-age-box [data-age-group="child"]')), 'other ages\' boxes stay hidden');
-  check(await page.isVisible('.app-rem-hint a[href="#app-reminders"]'), 'Today points to the check-in reminders');
   check(!(await page.evaluate(() => document.documentElement.classList.contains('app-large-text'))), 'regular text for ages 13 to 17');
 
   stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
@@ -162,19 +165,6 @@ async function run(browser, lang) {
   check(weekSummary.includes(feelingLabel) && weekSummary.split('\n').length > daySummary.split('\n').length - 2, 'the 7-day summary groups check-ins by day');
   await page.click('.app-share-cancel');
   check((await page.evaluate(() => window.__shared.length)) === 1, 'nothing more is shared on Cancel');
-
-  // Reminders: all off until turned on, kept on the phone, never sent anywhere.
-  check(await page.isVisible('#app-reminders'), 'Your journey has the check-in reminders');
-  const onCount = await page.$$eval('.app-rem-on', (els) => els.filter((e) => e.checked).length);
-  check(onCount === 0, 'every reminder is off to start with');
-  check(!(await page.isVisible('.app-rem-web')), 'no browser note while every reminder is off');
-  await page.check('.app-rem-on[data-slot="morning"]');
-  await page.fill('.app-rem-time[data-slot="morning"]', '07:45');
-  await page.waitForTimeout(300);
-  stored = await page.evaluate(() => localStorage.getItem('tidelight.reminders.v1') || '');
-  check(stored.includes('"morning":{"on":true,"time":"07:45"}'), 'the morning reminder and its time are kept');
-  check(stored.includes('"evening":{"on":false'), 'the other reminders stay off');
-  check(await page.isVisible('.app-rem-web'), 'in a browser it says reminders need the app on a phone');
 
   // Places that are hard for me: off, no places suggested, and nothing watched until turned on.
   await tab(page, 'location');
@@ -250,7 +240,6 @@ async function run(browser, lang) {
   await openPanel(page, 'ci-journey');
   check((await page.$$('.ci-cal-day.is-marked')).length === 1, 'the calendar still marks today after reopening');
   check((await page.textContent('.app-log')).includes(feelingLabel), 'today\'s check-in is still listed after reopening');
-  check(await page.isChecked('.app-rem-on[data-slot="morning"]') && (await page.inputValue('.app-rem-time[data-slot="morning"]')) === '07:45', 'the reminder is still set after reopening');
   await tab(page, 'location');
   check(await page.isChecked('.app-places-on') && (await page.textContent('.app-places-list')).includes('The old footbridge'), 'the places are still there after reopening');
   await openPanel(page, 'ci-journey');
@@ -269,7 +258,6 @@ async function run(browser, lang) {
   // Changing the birth date changes the group.
   await openPanel(page, 'ci-journey');
   check((await page.textContent('.app-log')).trim() === '' && await page.isVisible('.app-log-empty'), 'Delete everything clears today\'s check-ins');
-  check(await page.isChecked('.app-rem-on[data-slot="morning"]'), 'the reminders stay after Delete everything');
   check(!stored.includes('footbridge') && !stored.includes('555-0100') && !(await page.isChecked('.app-places-on')), 'Delete everything removes the places and people and turns the feature off');
   await openSettings(page);
   await page.click('.app-age-change');

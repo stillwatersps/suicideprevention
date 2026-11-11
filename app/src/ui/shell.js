@@ -147,7 +147,12 @@ export function initShell() {
     const go = event.target.closest('[data-tl-go]');
     if (go) { shell.go(go.getAttribute('data-tl-go')); return; }
     const push = event.target.closest('[data-tl-push]');
-    if (push) { shell.push(push.getAttribute('data-tl-push')); return; }
+    if (push) {
+      shell.push(push.getAttribute('data-tl-push'));
+      const anchor = push.getAttribute('data-tl-anchor') && document.getElementById(push.getAttribute('data-tl-anchor'));
+      if (anchor) anchor.scrollIntoView({ block: 'start' });
+      return;
+    }
     const legacy = event.target.closest('[data-tl-legacy]');
     if (legacy) { shell.openLegacy(legacy.getAttribute('data-tl-legacy'), legacy.hasAttribute('data-tl-start')); return; }
     if (event.target.closest('[data-tl-back]')) { shell.back(); return; }

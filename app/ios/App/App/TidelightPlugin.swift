@@ -5,6 +5,8 @@ import ContactsUI
 import MessageUI
 import UIKit
 import UserNotifications
+import CoreLocation
+import AVFoundation
 
 // The bridge between the app's pages and the phone for "Places that are hard for me" (idea E1).
 // Draft, not reviewed, never run on a phone. Every word shown to the person arrives from
@@ -26,11 +28,21 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         CAPPluginMethod(name: "composeMessage", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "takeLaunchTarget", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "debugEnterPlace", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getCurrentLocation", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "haptic", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setKeepAwake", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "getAudioRoute", returnType: CAPPluginReturnPromise),
     ]
 
     private var launchTarget: String?
     private var composeDelegate: ComposeDelegate?
     private var contactDelegate: ContactPickDelegate?
+    private var oneLocation: OneLocationRequest?
+    private let lightImpact = UIImpactFeedbackGenerator(style: .light)
+    private let mediumImpact = UIImpactFeedbackGenerator(style: .medium)
+    private let softImpact = UIImpactFeedbackGenerator(style: .soft)
+    private let selection = UISelectionFeedbackGenerator()
+    private let notice = UINotificationFeedbackGenerator()
 
     override public func load() {
         bridge?.notificationRouter.localNotificationHandler = self
@@ -196,6 +208,59 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         #endif
     }
 
+    // MARK: - The redesign: one location on request, haptics, keeping the screen awake, audio route
+
+    /// Where the phone is right now, once, and only when the page asks (to save a home spot, or to
+    /// check whether the person is near it). Nothing is watched, kept here, or sent anywhere.
+    @objc func getCurrentLocation(_ call: CAPPluginCall) {
+        DispatchQueue.main.async { [weak self] in
+            let request = OneLocationRequest { location in
+                self?.oneLocation = nil
+                if let l = location {
+                    call.resolve(["latitude": l.coordinate.latitude, "longitude": l.coordinate.longitude, "accuracy": l.horizontalAccuracy])
+                } else {
+                    call.resolve(["unavailable": true])
+                }
+            }
+            self?.oneLocation = request
+            request.start()
+        }
+    }
+
+    /// One short, discrete haptic. The page chooses which and how often; nothing here repeats.
+    @objc func haptic(_ call: CAPPluginCall) {
+        let style = call.getString("style") ?? "light"
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            switch style {
+            case "selection": self.selection.selectionChanged()
+            case "soft": self.softImpact.impactOccurred(intensity: CGFloat(call.getDouble("intensity") ?? 0.6))
+            case "medium": self.mediumImpact.impactOccurred(intensity: CGFloat(call.getDouble("intensity") ?? 1.0))
+            case "success": self.notice.notificationOccurred(.success)
+            case "warning": self.notice.notificationOccurred(.warning)
+            default: self.lightImpact.impactOccurred(intensity: CGFloat(call.getDouble("intensity") ?? 1.0))
+            }
+            call.resolve()
+        }
+    }
+
+    /// Keeps the screen on during a meditation, and lets it sleep again afterwards.
+    @objc func setKeepAwake(_ call: CAPPluginCall) {
+        let on = call.getBool("on") ?? false
+        DispatchQueue.main.async {
+            UIApplication.shared.isIdleTimerDisabled = on
+            call.resolve(["on": on])
+        }
+    }
+
+    /// Whether sound would play through headphones (wired or Bluetooth). Read once, on request.
+    /// iOS doesn't let an app read the silent switch, so "silent" is always unknown here.
+    @objc func getAudioRoute(_ call: CAPPluginCall) {
+        let outputs = AVAudioSession.sharedInstance().currentRoute.outputs
+        let personal: [AVAudioSession.Port] = [.headphones, .bluetoothA2DP, .bluetoothLE, .bluetoothHFP]
+        call.resolve(["headphones": outputs.contains { personal.contains($0.portType) }, "silentKnown": false])
+    }
+
     // MARK: - Where to go when a notification opened the app
 
     @objc func takeLaunchTarget(_ call: CAPPluginCall) {
@@ -263,6 +328,29 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         guard let url = URL(string: string) else { return }
         DispatchQueue.main.async { UIApplication.shared.open(url) }
     }
+}
+
+/// Asks the phone for its location once, then stops. Needs "while using the app" permission.
+private final class OneLocationRequest: NSObject, CLLocationManagerDelegate {
+    private let manager = CLLocationManager()
+    private var completion: ((CLLocation?) -> Void)?
+    init(completion: @escaping (CLLocation?) -> Void) {
+        self.completion = completion
+        super.init()
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+    }
+    func start() {
+        let status = manager.authorizationStatus
+        guard status == .authorizedWhenInUse || status == .authorizedAlways else { finish(nil); return }
+        manager.requestLocation()
+    }
+    private func finish(_ location: CLLocation?) {
+        completion?(location)
+        completion = nil
+    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { finish(locations.last) }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) { finish(nil) }
 }
 
 private final class ComposeDelegate: NSObject, MFMessageComposeViewControllerDelegate {
