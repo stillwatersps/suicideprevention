@@ -16,7 +16,7 @@ any of it. It has not run on a real phone. It publishes nothing.**
 
 ## Completed
 
-On `app/visual-identity`, a draft pull request into `app/redesign-dev`. In `app/` only, plus these
+On `app/visual-identity`, draft pull request 26 into `app/redesign-dev`. In `app/` only, plus these
 notes.
 
 - **Look:** new color, type, spacing, and motion tokens; Fraunces and Figtree bundled as files; a

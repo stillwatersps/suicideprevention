@@ -2,7 +2,7 @@
 Last updated: 2026-11-11 (visual identity finished)
 Current branch: app/visual-identity
 Current phase: Visual identity, all 10 phases done
-Current step: Draft pull request into `app/redesign-dev`. Waiting for both founders and a reviewer
+Current step: Draft pull request 26 into `app/redesign-dev`, pushed. Waiting for both founders and a reviewer
 
 ## Visual identity ("Dawn at the Shoreline") — in progress
 A second brief from the same founder (`app/DESIGN-BRIEF.md`): a new look, visual layer only. Branch `app/visual-identity`, cut from `app/redesign-dev`; a draft pull request into `app/redesign-dev` at the end. Working in checkpoints: one commit per phase, this file updated each time, the full test suite only at the end of a phase.
