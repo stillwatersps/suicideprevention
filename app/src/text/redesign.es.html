@@ -355,6 +355,30 @@
             <h3 class="tl-section-title">Tus preajustes</h3>
             <div id="tl-presets">
               <p class="tl-sub" id="tl-presets-empty">Ninguno todavía. Crea uno abajo.</p>
+              <ul class="tl-scroll-row tl-presets-row" id="tl-presets-list" aria-label="Tus preajustes"></ul>
+              <template id="tl-preset-template">
+                <li class="tl-panel tl-preset">
+                  <span class="tl-badge tl-preset-suggested">Sugerido</span>
+                  <span class="tl-headline tl-preset-name"></span>
+                  <span class="tl-caption tl-preset-detail"></span>
+                  <button type="button" class="tl-btn tl-btn-primary" data-preset="start">Empezar</button>
+                  <button type="button" class="tl-btn tl-btn-secondary" data-preset="keep">Conservar</button>
+                  <button type="button" class="tl-btn tl-btn-quiet" data-preset="more" aria-expanded="false">Más</button>
+                  <span class="tl-stack tl-preset-more" hidden>
+                    <span class="tl-field tl-preset-rename"><label>Nombre<input class="tl-input" type="text" maxlength="24" autocomplete="off"></label></span>
+                    <button type="button" class="tl-btn tl-btn-secondary" data-preset="rename">Cambiar nombre</button>
+                    <button type="button" class="tl-btn tl-btn-secondary" data-preset="edit">Editar</button>
+                    <button type="button" class="tl-btn tl-btn-secondary" data-preset="duplicate">Duplicar</button>
+                    <button type="button" class="tl-btn tl-btn-quiet" data-preset="delete">Borrar</button>
+                    <span class="tl-stack tl-preset-confirm" hidden>
+                      <span class="tl-label">¿Borrar este preajuste?</span>
+                      <button type="button" class="tl-btn tl-btn-primary" data-preset="delete-yes">Borrar</button>
+                      <button type="button" class="tl-btn tl-btn-secondary" data-preset="delete-no">Conservarlo</button>
+                    </span>
+                  </span>
+                </li>
+              </template>
+              <p class="tl-status" id="tl-presets-note" role="status"></p>
             </div>
             <button type="button" class="tl-card tl-card-action" id="tl-build-card" data-tl-push="builder">
               <span class="tl-card-icon" data-tl-icon="sliders"></span>
@@ -367,6 +391,65 @@
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button>
           </div>
+        </section>
+
+        <section class="tl-screen" id="tl-builder" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-builder-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-builder-title">Crea la tuya</h2>
+          <div class="tl-preview" id="tl-builder-preview" aria-hidden="true">
+            <canvas class="tl-world" id="tl-builder-world"></canvas>
+            <span class="tl-guide-circle" id="tl-builder-circle"></span>
+          </div>
+          <div class="tl-slider">
+            <output class="tl-slider-value" id="tl-builder-length-out" for="tl-builder-length"></output>
+            <input type="range" id="tl-builder-length" min="1" max="30" step="1" value="5" aria-label="Duración en minutos">
+          </div>
+          <span class="tl-label" id="tl-builder-situation-title">Ahora mismo siento</span>
+          <div class="tl-scroll-row" id="tl-builder-situation" role="group" aria-labelledby="tl-builder-situation-title">
+            <button type="button" class="tl-choice" data-value="stressed" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">😮‍💨</span><span class="tl-choice-title">Estrés</span></button>
+            <button type="button" class="tl-choice" data-value="focus" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">🎯</span><span class="tl-choice-title">Concentración</span></button>
+            <button type="button" class="tl-choice" data-value="energize" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">⚡</span><span class="tl-choice-title">Energía</span></button>
+            <button type="button" class="tl-choice" data-value="sleep" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">😴</span><span class="tl-choice-title">Sueño</span></button>
+            <button type="button" class="tl-choice" data-value="breathe" aria-pressed="true"><span class="tl-choice-art" aria-hidden="true">🌊</span><span class="tl-choice-title">Solo respirar</span></button>
+          </div>
+          <span class="tl-label" id="tl-builder-sound-title">Sonido</span>
+          <div class="tl-row" id="tl-builder-sound" role="group" aria-labelledby="tl-builder-sound-title">
+            <button type="button" class="tl-chip" data-value="none" aria-pressed="true"><span data-tl-icon="quiet"></span>Ninguno</button>
+            <button type="button" class="tl-chip" data-value="rain" aria-pressed="false"><span data-tl-icon="rain"></span>Lluvia</button>
+            <button type="button" class="tl-chip" data-value="ocean" aria-pressed="false"><span data-tl-icon="wave"></span>Mar</button>
+            <button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false"><span data-tl-icon="noise"></span>Ruido blanco</button>
+            <button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false"><span data-tl-icon="noise"></span>Ruido marrón</button>
+          </div>
+          <span class="tl-label" id="tl-builder-world-title">Mundo</span>
+          <div class="tl-grid-3" id="tl-builder-worlds" role="group" aria-labelledby="tl-builder-world-title">
+            <button type="button" class="tl-choice tl-world-card" data-value="ocean" aria-pressed="true"><canvas class="tl-thumb" data-world="ocean" aria-hidden="true"></canvas><span class="tl-choice-title">Mar</span></button>
+            <button type="button" class="tl-choice tl-world-card" data-value="forest" aria-pressed="false"><canvas class="tl-thumb" data-world="forest" aria-hidden="true"></canvas><span class="tl-choice-title">Bosque</span></button>
+            <button type="button" class="tl-choice tl-world-card" data-value="nightSky" aria-pressed="false"><canvas class="tl-thumb" data-world="nightSky" aria-hidden="true"></canvas><span class="tl-choice-title">Cielo nocturno</span></button>
+          </div>
+          <div class="tl-panel">
+            <label class="tl-switch"><span>Guía de voz</span><input type="checkbox" id="tl-builder-voice"></label>
+            <label class="tl-switch"><span>Respiración con vibración</span><input type="checkbox" id="tl-builder-haptics"></label>
+            <label class="tl-switch" id="tl-builder-scan-row"><span>Recorrido del cuerpo</span><input type="checkbox" id="tl-builder-scan"></label>
+          </div>
+          <span class="tl-label" id="tl-builder-style-title">Estilo</span>
+          <div class="tl-row" id="tl-builder-style" role="group" aria-labelledby="tl-builder-style-title">
+            <button type="button" class="tl-chip" data-value="calm" aria-pressed="true">Calma</button>
+            <button type="button" class="tl-chip" data-value="straightforward" aria-pressed="false">Directo</button>
+          </div>
+          <p class="tl-status" id="tl-builder-summary" role="status"></p>
+          <div class="tl-row tl-row-even">
+            <button type="button" class="tl-btn tl-btn-primary" id="tl-builder-start">Empezar</button>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-builder-save">Guardar preajuste</button>
+          </div>
+          <div class="tl-panel" id="tl-builder-name-box" hidden>
+            <p class="tl-field"><label for="tl-builder-name">Ponle nombre a este preajuste</label><input class="tl-input" id="tl-builder-name" type="text" maxlength="24" autocomplete="off"></p>
+            <div class="tl-row">
+              <button type="button" class="tl-btn tl-btn-primary" id="tl-builder-name-save">Guardar</button>
+              <button type="button" class="tl-btn tl-btn-quiet" id="tl-builder-name-cancel">Cancelar</button>
+            </div>
+          </div>
+          <p class="tl-status" id="tl-builder-note" role="status"></p>
         </section>
 
         <section class="tl-screen" id="tl-history" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-history-title" hidden>
@@ -668,6 +751,12 @@
         <span data-word="screen.intro.sleep">Hora de descansar</span>
         <span data-word="screen.bodyScan.sleep">Suelta</span>
         <span data-word="screen.silence.sleep">Descansa</span>
+        <span data-word="screen.intro.custom">Acomódate</span>
+        <span data-word="screen.outro.custom">Vuelve con suavidad</span>
+        <span data-word="script.intro.custom" data-style="calm">Empecemos. Busca una postura cómoda y sigue el círculo. Puedes parar en cualquier momento.</span>
+        <span data-word="script.intro.custom" data-style="straightforward">Empecemos. Sigue el círculo. Para cuando lo necesites.</span>
+        <span data-word="script.outro.custom" data-style="calm">Vuelve con suavidad. Nota cómo te sientes. Gracias por tomarte este tiempo.</span>
+        <span data-word="script.outro.custom" data-style="straightforward">Vuelve. Nota cómo te sientes. Listo.</span>
         <span data-word="script.intro.quick" data-style="calm">Tomemos un minuto. Respira con el círculo.</span>
         <span data-word="script.intro.quick" data-style="straightforward">Un minuto. Sigue el círculo.</span>
         <span data-word="script.outro.quick" data-style="calm">Muy bien. Lleva esta calma contigo.</span>
@@ -697,6 +786,28 @@
         <span data-word="history.total">{minutes} minutos en total</span>
         <span data-word="history.item">{name} · {minutes} min</span>
         <span data-word="history.partial">{name} · {minutes} min, terminó antes</span>
+        <span data-word="builder.minutes">{minutes} min</span>
+        <span data-word="builder.title">{situation} de {minutes} min · {world}</span>
+        <span data-word="builder.summary">{title}. {breaths}</span>
+        <span data-word="situation.stressed">Estrés</span>
+        <span data-word="situation.focus">Concentración</span>
+        <span data-word="situation.energize">Energía</span>
+        <span data-word="situation.sleep">Dormir</span>
+        <span data-word="situation.breathe">Solo respirar</span>
+        <span data-word="pattern.stressed">Inhala 4, mantén 7, exhala 8, con respiraciones más fáciles en medio.</span>
+        <span data-word="pattern.focus">Respiración en caja: inhala 4, mantén 4, exhala 4, mantén 4.</span>
+        <span data-word="pattern.energize">Respiraciones rápidas al principio, luego parejas.</span>
+        <span data-word="pattern.sleep">Respiraciones lentas, con una exhalación cada vez más larga.</span>
+        <span data-word="pattern.breathe">Inhala en 4, exhala en 6.</span>
+        <span data-word="world.ocean">Mar</span>
+        <span data-word="world.forest">Bosque</span>
+        <span data-word="world.nightSky">Cielo nocturno</span>
+        <span data-word="preset.saved">Guardado en tus preajustes.</span>
+        <span data-word="preset.full">Puedes guardar hasta 20. Borra uno para agregar otro.</span>
+        <span data-word="preset.copy">{name} 2</span>
+        <span data-word="preset.bus">Viaje en autobús</span>
+        <span data-word="preset.bed">Antes de dormir</span>
+        <span data-word="preset.startLabel">Empezar {name}</span>
         <span data-word="dev.phase">Fase de construcción: {phase}</span>
         <span data-word="dev.none">Ninguno.</span>
       </div>

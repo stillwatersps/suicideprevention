@@ -239,3 +239,21 @@ test('haptic breathing is spaced pulses that rise on the inhale and fade on the 
   assert.deepEqual(breathPulses('holdIn', 7), [{ at: 0, strength: 0.15 }], 'a hold is one very light tick');
   assert.deepEqual(breathPulses('holdOut', 0), []);
 });
+
+test('every line a meditation can show or say exists in the words, in both languages and both styles', async () => {
+  const { readFileSync } = await import('node:fs');
+  const { generateMeditation, SITUATIONS } = await import('../../src/logic/generate.js');
+  const all = [];
+  for (const type of TYPES) for (const minutes of CONFIG.meditation.lengths[type]) all.push(builtIn(type, { minutes }));
+  for (const situation of SITUATIONS) for (const lengthMinutes of [1, 9, 12, 20]) all.push(generateMeditation({ lengthMinutes, situation, bodyScan: true }));
+  const voice = new Set();
+  const screen = new Set();
+  all.forEach((m) => m.segments.forEach((s) => { if (s.voiceScriptId) voice.add(s.voiceScriptId); if (s.screenTextId) screen.add(s.screenTextId); }));
+  for (const language of ['en', 'es']) {
+    const text = readFileSync(new URL(`../../src/text/redesign.${language}.html`, import.meta.url), 'utf8');
+    const has = (key, style) => new RegExp(`data-word="${key.replace(/\./g, '\\.')}"${style ? ` data-style="${style}"` : ''}>[^<]{3,}<`).test(text);
+    voice.forEach((id) => ['calm', 'straightforward'].forEach((style) => assert.ok(has('script.' + id, style), `${language}: script.${id} (${style})`)));
+    screen.forEach((id) => assert.ok(has('screen.' + id), `${language}: screen.${id}`));
+    ['guide.in', 'guide.out'].forEach((key) => ['calm', 'straightforward'].forEach((style) => assert.ok(has(key, style), `${language}: ${key}`)));
+  }
+});

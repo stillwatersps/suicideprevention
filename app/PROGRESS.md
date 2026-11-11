@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 16:00 EST
-Current branch: feature/p5-meditation-types
-Current phase: 5 — Meditation types & smart suggestions
-Current step: Phase 5 finished; merging into app/redesign-dev, then Phase 6
+Last updated: 2026-11-11 16:45 EST
+Current branch: feature/p6-meditation-builder
+Current phase: 6 — Custom meditation builder
+Current step: Phase 6 finished; merging into app/redesign-dev, then Phase 7
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)
@@ -11,9 +11,9 @@ Current step: Phase 5 finished; merging into app/redesign-dev, then Phase 6
 - [x] Phase 3 — Streaks (merged to app/redesign-dev)
 - [x] Phase 4 — Interactive meditation engine (merged to app/redesign-dev)
 - [x] Phase 5 — Meditation types & smart suggestions (merged to app/redesign-dev)
+- [x] Phase 6 — Custom meditation builder (merged to app/redesign-dev)
 
 ## Remaining
-- [ ] Phase 6 — Custom meditation builder
 - [ ] Phase 7 — Haptics & interaction polish
 - [ ] Phase 8 — Final QA & handoff
 
@@ -73,6 +73,9 @@ Current step: Phase 5 finished; merging into app/redesign-dev, then Phase 6
 
 ## Phase 5 record
 - **Plan:** `src/logic/suggest.js` (one pure function, rules in order, unit tested rule by rule) and `src/ui/meditate.js` (the tab: suggestion, four type cards, presets, Build your own, History). The four types are data from `builtIn()` in `src/logic/meditations.js`. Developer tools can pretend the time, headphones, and "at home" to see each rule. `src/logic/generate.js` and its tests (Phase 6's generator) were written alongside and are already in.
+
+## Phase 6 record
+- **Plan:** `src/logic/generate.js` is the spec's algorithm as a pure function, tested over every length from 1 to 30, every situation, with and without a body scan (300 combinations): exact total, whole breaths, no empty segment, and the Stressed, Energize, and Sleep rules. `src/ui/builder.js` is the screen and presets (`tidelight.presets`, choices only).
 
 ## Decisions made
 - Kept Capacitor, HTML, CSS, and JavaScript — the brief from the founder's session says not to port, and the reviewed words stay in one place.
@@ -135,6 +138,15 @@ Current step: Phase 5 finished; merging into app/redesign-dev, then Phase 6
 - When the suggested type was already done today, the next rule that fits is used, then any type not done yet. Sleep is never suggested outside its hours.
 - Voice and haptic breathing in Settings act as master switches: off there means off for every session, whatever the type's default.
 
+- Sessions of 1 and 2 minutes use an intro and outro of 10% and 8% of the time (at least 5 seconds each) instead of the 20- and 15-second floors, so breathing still fits. From 3 minutes the spec's clamps apply.
+- Breathing time is split by time (60/40, or 40/30/30) and each part is filled with whole breaths; seconds no whole breath can use go to the last silence, or to the outro when there is no silence, so the total is exact.
+- Stressed alternates 4 breaths of 4-7-8 with 4 breaths of 4-0-6-0 for the whole session. Energize uses 4-0-2-0 for at most 120 seconds in all. Sleep's exhale is 8, then 9, then 10, a third of the breathing time each.
+- The builder's voice guide starts off, whatever the setting, so a new custom session is silent unless the person turns sound on ("works silently").
+- The two starter presets ("Bus ride", "Before bed") show as suggestions only while there are no presets; keeping one saves it.
+- "Save as favorite" on the completion screen saves a preset: the type and length for a built-in, the choices for a custom one.
+- Preset options (rename, edit, duplicate, delete) open in place under "More", and Delete asks first, in place.
+- The builder's fifth situation is labeled "Sleepy" on its card, so the Spanish word for the Sleep type and for the feeling can differ.
+
 ## Known bugs / TODOs
 - Text-to-speech voice quality, the audio session while the phone is locked, and whether sound continues in the background are unknown until a real phone — `src/ui/audio.js` — medium.
 - The Swift additions in `ios/App/App/TidelightPlugin.swift` are not compiled yet — to build in the Simulator in Phase 8 — high until done.
@@ -144,7 +156,7 @@ Current step: Phase 5 finished; merging into app/redesign-dev, then Phase 6
 All optional: the app works without them (text-to-speech and made-in-code sound stand in). Each must be royalty-free or licensed, and each voice line is unreviewed draft wording until the reviewer has read `src/text/redesign.en.html`.
 - `app/assets/ambient/rain.mp3` — a rain loop, 20 to 60 seconds, that can repeat — put it in `app/assets/ambient/`
 - `app/assets/ambient/ocean.mp3` — an ocean loop, 20 to 60 seconds — put it in `app/assets/ambient/`
-- `app/assets/voice/en/<scriptId>_<style>.mp3` and `app/assets/voice/es/...` — voice recordings, one per script and style. Scripts: `intro.quick`, `outro.quick`, `intro.deep`, `bodyScan`, `outro.deep`, `intro.sleep`, `bodyScan.sleep`, `intro.custom`, `affirmation`, `outro.custom`. Styles: `calm`, `straightforward`. Example: `app/assets/voice/en/intro.deep_calm.mp3`. The words to record are the `script.*` lines in `app/src/text/redesign.en.html` (Spanish in `redesign.es.json`).
+- `app/assets/voice/en/<scriptId>_<style>.mp3` and `app/assets/voice/es/...` — voice recordings, one per script and style. Scripts: `intro.quick`, `outro.quick`, `intro.deep`, `bodyScan`, `outro.deep`, `intro.sleep`, `bodyScan.sleep`, `intro.custom`, `outro.custom`. Styles: `calm`, `straightforward`. Example: `app/assets/voice/en/intro.deep_calm.mp3`. The words to record are the `script.*` lines in `app/src/text/redesign.en.html` (Spanish in `redesign.es.json`).
 
 ## Resume instructions
-On branch `app/redesign-dev`, create `feature/p6-meditation-builder` and start Phase 6. The generator (`src/logic/generate.js`) and its tests exist. Build the screen `#tl-builder` (live preview, length slider, situation cards, sound chips with a 3-second preview, world cards, toggles, style, Start, Save preset), `src/ui/builder.js`, and presets in `tidelight.presets` (choices only; rename, edit, duplicate, delete; at most 20; two starter suggestions). Run `npm test` in `app/` before merging.
+On branch `app/redesign-dev`, create `feature/p7-haptics-polish` and start Phase 7. The helper (`src/ui/haptics.js`, `src/logic/haptic-patterns.js`) exists and several screens already call it. Wire the rest by delegation (every button and card: `tap`; tabs: `select`), add unit tests for the pattern table and the 50 ms throttle, a browser test that the Haptics setting silences everything but breathing, and write the checklist of every changed interaction here. Run `npm test` in `app/` before merging.
