@@ -73,7 +73,7 @@ export function createAudio({ manifest, assetBase, language }) {
 
   const api = {
     opened: () => Boolean(context),
-    setVolume(v) { volume = Math.max(0, Math.min(1, v)); if (ambientGain && source) ambientGain.gain.setTargetAtTime(volume, context.currentTime, 0.1); },
+    setVolume(v) { volume = Math.max(0, Math.min(1, v)); if (context && ambientGain && source) ambientGain.gain.setTargetAtTime(volume, context.currentTime, 0.1); },
     // Starts the ambient loop and fades it in.
     async startAmbient(kind, fadeSeconds = CONFIG.meditation.ambientFadeInSeconds) {
       api.stopAmbient(0);
@@ -123,6 +123,7 @@ export function createAudio({ manifest, assetBase, language }) {
       api.fadeOutSource(old, fadeSeconds);
     },
     fadeOutSource(old, fadeSeconds) {
+      if (!context) { try { old.stop(); } catch (e) { /* already stopped */ } return; }
       try {
         const now = context.currentTime;
         ambientGain.gain.cancelScheduledValues(now);
@@ -134,7 +135,7 @@ export function createAudio({ manifest, assetBase, language }) {
     resume() { if (context && context.state === 'suspended') context.resume(); if (clip) clip.play().catch(() => {}); if (window.speechSynthesis) window.speechSynthesis.resume(); },
     // The ambient sound dips while the voice speaks, and comes back after.
     duck(on) {
-      if (!duckGain) return;
+      if (!duckGain || !context) return;
       duckGain.gain.setTargetAtTime(on ? CONFIG.meditation.duckTo : 1, context.currentTime, 0.25);
     },
     // Says one line: a recording if there is one, else text-to-speech. Returns which was used.
@@ -179,6 +180,8 @@ export function createAudio({ manifest, assetBase, language }) {
       api.stopAmbient(0.2);
       const old = context;
       context = null;
+      ambientGain = null;
+      duckGain = null;
       if (old) setTimeout(() => old.close().catch(() => {}), 400);
     },
   };

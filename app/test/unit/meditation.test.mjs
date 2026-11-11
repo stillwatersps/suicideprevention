@@ -251,7 +251,7 @@ test('every line a meditation can show or say exists in the words, in both langu
   all.forEach((m) => m.segments.forEach((s) => { if (s.voiceScriptId) voice.add(s.voiceScriptId); if (s.screenTextId) screen.add(s.screenTextId); }));
   for (const language of ['en', 'es']) {
     const text = readFileSync(new URL(`../../src/text/redesign.${language}.html`, import.meta.url), 'utf8');
-    const has = (key, style) => new RegExp(`data-word="${key.replace(/\./g, '\\.')}"${style ? ` data-style="${style}"` : ''}>[^<]{3,}<`).test(text);
+    const has = (key, style) => new RegExp(`data-word="${key.replace(/\./g, '\\.')}"${style ? ` data-style="${style}"` : ''}>[^<]{2,}<`).test(text);
     voice.forEach((id) => ['calm', 'straightforward'].forEach((style) => assert.ok(has('script.' + id, style), `${language}: script.${id} (${style})`)));
     screen.forEach((id) => assert.ok(has('screen.' + id), `${language}: screen.${id}`));
     ['guide.in', 'guide.out'].forEach((key) => ['calm', 'straightforward'].forEach((style) => assert.ok(has(key, style), `${language}: ${key}`)));

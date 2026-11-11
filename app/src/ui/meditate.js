@@ -73,10 +73,13 @@ export function startType(type, over) {
 }
 
 export async function renderSuggestion() {
+  const waiting = $$('#tl-suggest-card, #tl-home-suggest');
+  if (!$('[data-suggest-title]').textContent) waiting.forEach((card) => card.classList.add('tl-shimmer'));
   try { suggestion = suggestMeditation(await suggestionContext()); } catch (e) { devLog('suggestion', e); }
   $$('[data-suggest-title]').forEach((node) => { node.textContent = typeName(suggestion.type); });
   $$('[data-suggest-reason]').forEach((node) => { node.textContent = t('suggest.' + suggestion.reason); });
   $$('#tl-suggest-card, #tl-home-suggest').forEach((card) => card.setAttribute('aria-label', t('med.startLabel', { minutes: CONFIG.meditation.lengths[suggestion.type][0], name: typeName(suggestion.type) }) + '. ' + t('suggest.' + suggestion.reason)));
+  waiting.forEach((card) => card.classList.remove('tl-shimmer'));
   const line = $('#tl-dev-suggest');
   if (line) line.textContent = typeName(suggestion.type) + ': ' + t('suggest.' + suggestion.reason);
   return suggestion;
