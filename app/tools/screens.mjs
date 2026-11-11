@@ -53,8 +53,6 @@ async function pass(lang, scheme, size, large) {
     await page.click('#tl-flow-done'); await shot('08-checkin-done');
     await page.click('[data-flow="done"] [data-tl-go="home"]'); await page.waitForSelector('#tl-home:not([hidden])', { timeout: 6000 });
     await shot('09-home-after-check-in');
-    await page.click('[data-tl-quick="checkin"], #tl-home-next'); if (await page.isVisible('#tl-flow-skip')) await page.click('#tl-flow-skip');
-    await page.click('#tl-flow-faces [data-value="1"]'); await page.click('#tl-flow-done'); await shot('10-checkin-support-after-very-low');
   });
   await step('streak', async () => { await root('home'); await page.click('#tl-streak-card, [data-tl-push="streak"]'); await shot('11-month'); });
   await step('settings', async () => { await root('home'); await page.click('#tl-home [data-tl-push="settings"]'); await shot('12-settings'); await shot('12-settings-full', true); });
@@ -79,6 +77,11 @@ async function pass(lang, scheme, size, large) {
   await step('history', async () => { await root('meditate'); await page.click('#tl-history-card'); await shot('25-history'); });
   await step('location', async () => { await root('location'); await shot('26-location'); });
   await step('friends', async () => { await root('friends'); await shot('27-friends'); });
+  // Last, because a very low check-in makes the rest of the day quiet (no dawn at completion).
+  await step('very low check-in', async () => {
+    await root('home'); await page.click('#tl-home [data-tl-quick="checkin"]'); if (await page.isVisible('#tl-flow-skip')) await page.click('#tl-flow-skip');
+    await page.click('#tl-flow-faces [data-value="1"]'); await page.click('#tl-flow-done'); await shot('10-checkin-support-after-very-low');
+  });
   await step('support', async () => { await root('home'); await page.click('.header-cta'); await page.waitForTimeout(700); await shot('28-get-support-now'); });
   await context.close();
 }

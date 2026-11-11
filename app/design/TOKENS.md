@@ -29,7 +29,7 @@ Made by `node tools/token-report.mjs` from `src/tokens.css`. The unit test
 | `--coral-deep` | #9A3B28 | #F0A08A |
 | `--coral-soft` | #F3D2C4 | #4A2B23 |
 | `--dawn` | #F2C7A2 | #8A5A43 |
-| `--water` | #DDD9CE | #0A161B |
+| `--water` | #D3DDD6 | #0A161B |
 | `--seafoam` | #2E6E68 | #7FC2B7 |
 | `--seafoam-deep` | #235650 | #9AD3C9 |
 | `--seafoam-soft` | #D3E6E0 | #1F3F3C |
@@ -48,12 +48,15 @@ Made by `node tools/token-report.mjs` from `src/tokens.css`. The unit test
 | Pair | Light | Ratio | Dark | Ratio | Minimum |
 | --- | --- | --- | --- | --- | --- |
 | `--crisis-text` on `--crisis-bg` | #FBF8F2 on #10272F | 14.64 | #F1EBE1 on #081318 | 15.86 | 7 |
+| `--crisis-btn-text` on `--crisis-btn-bg` | #FBF8F2 on #10272F | 14.64 | #081318 on #F1EBE1 | 15.86 | 7 |
+| `--crisis-btn-bg` on `--sand` | #10272F on #F5EFE5 | 13.57 | #F1EBE1 on #0E1C22 | 14.66 | 7 |
+| `--crisis-btn-bg` on `--paper` | #10272F on #FBF8F2 | 14.64 | #F1EBE1 on #152830 | 12.85 | 7 |
 | `--ink` on `--sand` | #10272F on #F5EFE5 | 13.57 | #F1EBE1 on #0E1C22 | 14.66 | 7 |
 | `--ink` on `--paper` | #10272F on #FBF8F2 | 14.64 | #F1EBE1 on #152830 | 12.85 | 7 |
 | `--ink` on `--shell` | #10272F on #ECE3D4 | 12.20 | #F1EBE1 on #21363F | 10.64 | 4.5 |
 | `--ink` on `--coral-soft` | #10272F on #F3D2C4 | 10.96 | #F1EBE1 on #4A2B23 | 10.66 | 4.5 |
 | `--ink` on `--seafoam-soft` | #10272F on #D3E6E0 | 11.94 | #F1EBE1 on #1F3F3C | 9.65 | 4.5 |
-| `--ink` on `--water` | #10272F on #DDD9CE | 11.00 | #F1EBE1 on #0A161B | 15.49 | 4.5 |
+| `--ink` on `--water` | #10272F on #D3DDD6 | 11.15 | #F1EBE1 on #0A161B | 15.49 | 4.5 |
 | `--ink-soft` on `--sand` | #3E5560 on #F5EFE5 | 6.87 | #C3BDB3 on #0E1C22 | 9.31 | 4.5 |
 | `--ink-soft` on `--paper` | #3E5560 on #FBF8F2 | 7.41 | #C3BDB3 on #152830 | 8.16 | 4.5 |
 | `--ink-soft` on `--shell` | #3E5560 on #ECE3D4 | 6.17 | #C3BDB3 on #21363F | 6.76 | 4.5 |

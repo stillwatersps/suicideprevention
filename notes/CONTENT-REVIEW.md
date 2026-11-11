@@ -896,6 +896,41 @@ these first:
   notice, Support, and the 988 panel are on every screen in full. During a meditation the strip stays on screen and
   the rest is below the stage. Is that enough during a session?
 
+## Questions about the app's visual redesign
+
+Built November 11, 2026, from the same founder's design brief (`app/DESIGN-BRIEF.md`), on branch
+`app/visual-identity` (a draft pull request into `app/redesign-dev`). A new look only: no feature was added or
+removed, and no crisis, consent, privacy, or clinical wording was changed. The other founder hasn't seen the brief.
+Three things on screen did change, and they touch the questions above:
+
+- **Streaks are no longer shown as streaks.** The brief asks for "Days you checked in this month": a row of dots
+  on Home and a calendar behind it. There is no count of days in a row, no milestone card, no "new start" card, no
+  freeze, and no zero for a new person. Days without a check-in are plain outlines, never called missed. So the
+  first three questions above (streaks, when a streak ends, milestones) describe screens this branch no longer
+  shows. The streak numbers are still worked out and stored on the phone, unseen, until you answer. Is a calendar
+  of check-in days safe for someone in a low period? Can an empty month feel like a record of failure? Should the
+  stored streak numbers be removed too?
+- **Mood is a tone and a word, not a face.** The five choices keep their words (Very low, Low, Okay, Good, Great).
+  Each has a colored square: a slate blue for Very low, a muted violet for Low, a sand yellow for Okay, a soft
+  green for Good, a light blue for Great. No red and no green-for-good. Is color beside a mood word helpful, or
+  could the darker tones read as a judgment?
+- **How a check-in ends.** An ordinary check-in now stays on its last screen: a horizon at full dawn, the same
+  thanks line as before, and two buttons, "Breathe for a minute" and "Back to home". It no longer returns to Home
+  by itself, and the burst of drops is gone everywhere. After a very low mood none of that shows: the support
+  screen has no horizon and no decoration, and a meditation finished later that day ends without the dawn. Is a
+  dawn right after an ordinary check-in, or is it still a kind of reward?
+- **New short lines** (all marked "Draft for review" with the rest): "Days you checked in this month", "Your first
+  check-in will appear here", "Your month", "Checked in", "Quick tools", "Get help" (a tile that goes to Support),
+  "Breathe for a minute", "Back to home", "{time} left" in the player, and the Settings switch "Check-in days on
+  Home". One phrase of the page's own heading is highlighted on Home ("everything figured out"). Crisis words are
+  never highlighted.
+- **The crisis strip changed color, not content.** It, Exit, Get Support Now, and Call 988 in the support panel are
+  now dark ink on paper or paper on ink, with no texture and no animation, at a contrast of at least 7 to 1. Same
+  words, same places, same size or larger. Please confirm nothing about them reads as quieter than before.
+- **Spanish.** The new lines are an AI translation like the rest: "Días que registraste este mes", "Tu primer
+  registro aparecerá aquí", "Tu mes", "Con registro", "Herramientas rápidas", "Obtener ayuda", "Respirar un
+  minuto", "Volver al inicio", "Quedan {time}", "Días con registro en Inicio".
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

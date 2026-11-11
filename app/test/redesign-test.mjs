@@ -945,6 +945,13 @@ async function hapticsTests(browser) {
   const count = () => page.evaluate(() => window.__tidelight.haptics.length);
   const last = () => page.evaluate(() => window.__tidelight.haptics.slice(-1)[0]);
   const fires = async (what, act) => { const before = await count(); await act(); await page.waitForTimeout(80); const after = await count(); check(after > before, what + ' gives a haptic'); };
+  const quiet = async (what, act) => { const before = await count(); await act(); await page.waitForTimeout(80); check((await count()) === before, what + ' gives no haptic'); };
+  // Crisis controls never buzz. (Get Support Now only moves down the page; nothing is called.)
+  await quiet('the "Get help" tile', () => page.click('#tl-home .tl-tile[href="#support"]'));
+  await openSettings(page);
+  await quiet('Get Support Now in Settings', () => page.click('#tl-settings .tl-crisis-btn'));
+  await page.click('#tl-settings [data-tl-back]');
+  await fires('a quick-tool tile', () => page.click('#tl-home .tl-tile[data-tl-go="meditate"]'));
   await fires('a tab', () => tab(page, 'checkin'));
   check((await last()).style === 'selection', 'tabs use the selection pattern');
   await fires('a card', () => page.click('#tl-checkin-quick'));
@@ -1063,7 +1070,7 @@ async function accessibilityTests(browser) {
     await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 30000 });
     await audit(page, `${label}, the completion screen`, '#tl-player');
     await page.click('#tl-complete [data-player-done]');
-    for (const panel of ['ci-today', 'ci-journal', 'ci-journey']) { await openPanel(page, panel); check(await noSideways(page), `${label}, ${panel}: no sideways scrolling`); }
+    for (const panel of ['ci-today', 'ci-journal', 'ci-rediscover', 'app-hope', 'ci-journey']) { await openPanel(page, panel); check(await noSideways(page), `${label}, ${panel}: no sideways scrolling`); }
     check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
     await context.close();
   }

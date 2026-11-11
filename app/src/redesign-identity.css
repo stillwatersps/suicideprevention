@@ -17,15 +17,15 @@ html.tl .crisis-bar a:focus-visible { outline: var(--focus-ring) solid var(--cri
 
 /* ---------- Crisis buttons: Get Support Now, Call 988, Text 988 ---------- */
 html.tl .header-cta, html.tl .tl-crisis-btn, html.tl .tl-support-actions .tl-btn-primary, html.tl .crisis-panel .action-primary {
-  background: var(--crisis-bg); color: var(--crisis-text); border: var(--border-strong) solid var(--crisis-bg);
+  background: var(--crisis-btn-bg); color: var(--crisis-btn-text); border: var(--border-strong) solid var(--crisis-btn-bg);
   border-radius: var(--radius-pill); min-height: var(--button); font-family: var(--font-body); font-weight: var(--wt-strong); text-decoration: none;
 }
 html.tl .tl-support-actions .tl-btn-secondary { background: var(--paper); color: var(--ink); border: var(--border-strong) solid var(--ink); }
 html.tl .crisis-panel { background: var(--paper); border: 0; border-radius: var(--radius-lg); }
 html.tl .crisis-panel .action { border-radius: var(--radius-md); }
 html.tl .crisis-panel .action:not(.action-primary) { border-radius: var(--radius-md); border-color: var(--ink); color: var(--ink); background: var(--paper); }
-html.tl .crisis-panel .action-primary .action-title, html.tl .crisis-panel .action-primary .action-sub { color: var(--crisis-text); }
-html.tl .crisis-panel .action-primary svg { stroke: var(--crisis-text); }
+html.tl .crisis-panel .action-primary .action-title, html.tl .crisis-panel .action-primary .action-sub { color: var(--crisis-btn-text); }
+html.tl .crisis-panel .action-primary svg { stroke: var(--crisis-btn-text); }
 
 /* ---------- The website's frame, in the app's voice ---------- */
 html.tl .site-header { background: var(--sand); border-bottom: 0; }
@@ -253,6 +253,13 @@ html.tl .ci-entry { background: transparent; border: 0; border-bottom: var(--hai
 html.tl .ci-entry-date { font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; font-weight: var(--wt-strong); color: var(--ink-soft); }
 html.tl .ci-entry-text::first-line { font-family: var(--font-display); font-size: var(--text-heading); }
 html.tl #ci-entry { background: var(--paper); border: 0; border-radius: var(--radius-md); padding: var(--space-20); line-height: var(--lh-body-lg); font-size: var(--text-body-lg); }
+/* At the largest text sizes nothing in the older sections may push the page sideways. */
+html.tl .ci-panel, html.tl .ci-panel > *, html.tl .ci-panel section, html.tl .ci-panel form { min-width: 0; max-width: 100%; }
+html.tl .ci-panel fieldset { min-width: 0; max-width: 100%; }
+html.tl .ci-panel input, html.tl .ci-panel textarea, html.tl .ci-panel select, html.tl .ci-panel label { max-width: 100%; }
+html.tl .ci-panel label { overflow-wrap: anywhere; }
+html.tl .ci-panel section > * { min-width: 0; }
+html.tl .ci-panel input[type="file"] { width: 100%; min-width: 0; }
 /* Hope box: a gentle grid of kept things. */
 html.tl .app-hope-photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--col), 1fr)); gap: var(--space-12); }
 html.tl .app-hope-photo { margin: 0; background: var(--paper); border-radius: var(--radius-md); padding: var(--space-8); }
@@ -286,6 +293,8 @@ html.tl-reduce .tl-horizon::before, html.tl-reduce .tl-progress > span { transit
 html.tl-reduce .app-hope-photo { transform: none; }
 
 /* ---------- At the largest text sizes, tiles become rows ---------- */
+/* On a short screen the session's name gives way to the breathing words; the time left stays. */
+@media (max-height: 44rem) { .tl-stage-title { display: none; } }
 @media (max-width: 22rem) {
   .tl-tiles { grid-template-columns: 1fr; }
   html.tl .tl-tile { grid-template-columns: auto 1fr; align-items: center; min-height: var(--row); }

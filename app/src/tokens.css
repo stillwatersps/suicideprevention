@@ -46,6 +46,9 @@
   /* The crisis strip and crisis buttons: plain, fixed, AAA. */
   --crisis-bg: #10272F;
   --crisis-text: #FBF8F2;
+  /* Crisis buttons (Get Support Now, Call 988): the strongest shape on the page in both modes. */
+  --crisis-btn-bg: #10272F;
+  --crisis-btn-text: #FBF8F2;
   /* Mood tones. None of them reads as "bad". Used as swatches and tints, never behind text. */
   --mood-1: #8DB7C6;         /* calm water */
   --mood-2: #A6C8B4;         /* steady */
@@ -275,6 +278,8 @@
     --error: #F0A39E;
     --crisis-bg: #081318;
     --crisis-text: #F1EBE1;
+    --crisis-btn-bg: #F1EBE1;   /* at night the buttons turn light, so they never sink into the page */
+    --crisis-btn-text: #081318;
     --scrim: rgba(0, 0, 0, 0.5);
     --horizon-line: rgba(241, 235, 225, 0.22);
     --grain-opacity: 0.06;

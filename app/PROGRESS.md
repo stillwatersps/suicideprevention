@@ -1,22 +1,22 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 (checkpoint: usage limit reached mid-phase)
+Last updated: 2026-11-11 (visual identity finished)
 Current branch: app/visual-identity
-Current phase: Visual identity, phases 2 to 6 of 10 — built, NOT yet verified
-Current step: Checkpoint commit. The full test suite has not passed on this commit. See "Resume instructions (visual identity)"
+Current phase: Visual identity, all 10 phases done
+Current step: Draft pull request into `app/redesign-dev`. Waiting for both founders and a reviewer
 
 ## Visual identity ("Dawn at the Shoreline") — in progress
 A second brief from the same founder (`app/DESIGN-BRIEF.md`): a new look, visual layer only. Branch `app/visual-identity`, cut from `app/redesign-dev`; a draft pull request into `app/redesign-dev` at the end. Working in checkpoints: one commit per phase, this file updated each time, the full test suite only at the end of a phase.
 
 - [x] V1 — Audit: 400 "before" pictures (not committed), `design/AUDIT.md`, `tools/screens.mjs`
 - [x] V2 — Design tokens, Fraunces and Figtree bundled, raw-hex lint
-- [~] V3 — The horizon component (built; tests not yet green)
-- [~] V4 — Grain, illustration, icons (emoji out of the interface) (built; tests not yet green)
-- [~] V5 — (built; tests not yet green) Components: buttons, surfaces, month dots in place of the streak card, chips, inputs, tab bar, review banner, crisis bar
-- [~] V6 — Screen by screen, the player, the launch screen (built; launch screen not yet compiled or seen in the Simulator)
-- [ ] V7 — Motion and haptics
-- [ ] V8 — Accessibility
-- [ ] V9 — Microcopy (decorative only)
-- [ ] V10 — "After" pictures, comparison, checks, notes, draft pull request
+- [x] V3 — The horizon component
+- [x] V4 — Grain, illustration, icons (emoji out of the interface)
+- [x] V5 — Components: buttons, surfaces, month dots in place of the streak card, chips, inputs, tab bar, review banner, crisis bar
+- [x] V6 — Screen by screen, the player, the launch screen (sand, seen in the iPhone 17 Simulator)
+- [x] V7 — Motion and haptics (one easing curve, fade and drift, Reduce Motion; no haptic on crisis controls)
+- [x] V8 — Accessibility (crisis buttons turn light in dark mode; 44-point targets; Hope box overflow at largest text fixed)
+- [x] V9 — Microcopy (decorative only; the table is in the pull request)
+- [x] V10 — "After" pictures, comparison, checks, notes, draft pull request
 
 ### Automated runs make no sound (a founder's instruction, November 11, 2026)
 
@@ -50,13 +50,30 @@ automated run is now muted, without changing the app's own audio code:
 - Coral and the faint ink were darkened from the brief's values to pass contrast. Not added because they would be new features: seek buttons in the player, filter chips on Meditate, initials avatars for friends.
 - The old Splash image set is still in the iOS project, unused; it was not deleted.
 
+### Results (visual identity)
+- `npm test` in `app/`: lint clean; 92 unit tests, then 5, 180, 56, and 837 browser checks, 0 failed.
+  Desktop Chromium with stand-ins for the phone, muted. Not a phone.
+- New tests cover: crisis controls at 7 to 1 in light and dark, with no texture or animation; both
+  fonts loading from the app's own files with no outside request; Reduce Motion; no dawn and no
+  horizon after a very low check-in; no haptic on crisis controls; the month view never showing a
+  zero, a streak, or a missed day; no sideways scrolling at the largest text, Hope box included.
+- iOS Simulator (iPhone 17, launched muted): the app compiles; the launch screen is sand with no
+  white flash; Home and Meditate look as in the pictures, with both fonts. Nothing else was
+  walked through there. Nobody listened to confirm the Simulator is silent.
+- Pictures: 400 "before" and 400 "after" from desktop Chromium at two phone sizes, light and dark,
+  English and Spanish, and the largest text. Looked at as contact sheets, not one by one.
+- Root checks (`check_site.py`, `test_browser.py`, `test_webkit.py`, `make_review_packet.py`):
+  all four pass. `check_site.py`: 21 pages, all checks passed. `test_browser.py`: all passed (desktop Chrome and its phone-size emulation). `test_webkit.py`: 207 checks in WebKit on a Mac, 0 problems (not iOS Safari). The review packet was rebuilt.
+- **Not checked:** a real phone; VoiceOver by ear; haptics; an iPhone SE simulator (this Mac has none).
+
+### Copy changes (visual identity)
+Shown no longer (their screens were replaced; the words left the text source): "Your streak", "day streak", "Now", "Best", "Frozen", "Rest day", "A day counts when you finish your check-ins, or do one check-in and one meditation.", "Miss a day and a freeze covers it. No freeze? You simply start again.", "Turn streaks off in Settings", the weekly summary line, the milestone line, the "New wave, new start" line, the two freeze lines, and the milestone card's "Got it".
+Changed: "Streaks" (Settings switch) to "Check-in days on Home"; its note to "Shows the days you checked in this month. Turn it off any time. Nothing is lost."; "Setup {done}/{total}" to "{done} of {total} set up"; "Quick actions" (a spoken label) to "Quick tools".
+New: "Days you checked in this month", "Your first check-in will appear here", "{count} days so far this month", "1 day so far this month", "Days you checked in this month: {count}. Open your month." (spoken), "Your month", "Checked in", "Turn this off in Settings", "Hope box" and "Get help" (Home tiles), "Breathe for a minute", "Back to home", "{time} left", "Tidelight" (above the welcome heading), "Get Support Now" (first in Settings; the same words as the header button).
+Emoji used alone as pictures became line icons. No crisis, consent, privacy, or review-notice wording changed.
+
 ### Resume instructions (visual identity)
-On `app/visual-identity`. The last commit is a checkpoint: lint and unit tests pass, the browser tests were mid-run and are NOT confirmed green, and the Swift changes for the launch screen (`LaunchScreen.storyboard`, `LaunchSand.colorset`, `MainViewController.swift`) have not been compiled.
-0. Last browser run (before the two fixes in the commit after the checkpoint): 643 checks passed; the only failures were the onboarding Skip button at 38 points wide (now given a minimum width) and the accessibility sweep clicking the hidden month card (now guarded). Everything after that point in `test/redesign-test.mjs`, including `identityTests`, has still never run.
-1. `cd app && npm test`. Fix what fails in `test/redesign-test.mjs` (the month tests and `identityTests` are new and have never run; the accessibility sweep clicks `#tl-streak-card`, which is hidden until a first check-in). Also expect `test/app-test.mjs` and `test/extras-test.mjs` to need small fixes for restyled buttons.
-2. Build for the Simulator (`LANG=en_US.UTF-8 npm run sync`, then `xcodebuild` as in the Phase 8 record), install, and start it only with `npm run sim:launch` (muted). Check the launch screen is sand with no white flash.
-3. `node tools/screens.mjs after`, look at dark mode, Spanish, the small phone, and largest text; fix overflow. Then V7 to V9 (motion is mostly in `src/redesign-identity.css`; check 44-point targets and labels; list copy changes).
-4. V10: `design/COMPARISON.md`, add reviewer questions to `notes/CONTENT-REVIEW.md` (the tide mood tones, the month dots replacing streaks, the new short lines), `npm run words`, a worklog in `notes/worklogs/`, `python3 tools/check_site.py` (and the three other root checks, since notes change), push, and open a draft pull request into `app/redesign-dev` with the copy-change table.
+Nothing is in progress. If picking this up again: read the pull request's comments first. Likely next steps are a real-phone pass with `TESTING_CHECKLIST.md`, the reviewer's answers to "Questions about the app's visual redesign" in `notes/CONTENT-REVIEW.md`, and then either removing the stored streak numbers or bringing a reviewed streak display back. Start the Simulator only with `npm run sim:launch`.
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)

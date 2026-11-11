@@ -28,7 +28,10 @@ export function contrast(a, b) {
 
 // [text, background, the least it must reach]
 export const PAIRS = [
-  ['crisis-text', 'crisis-bg', 7], // the crisis strip, Call 988, Text 988, Get Support Now
+  ['crisis-text', 'crisis-bg', 7], // the crisis strip and Exit
+  ['crisis-btn-text', 'crisis-btn-bg', 7], // Get Support Now, Call 988
+  ['crisis-btn-bg', 'sand', 7], // a crisis button stands out from the page itself, light or dark
+  ['crisis-btn-bg', 'paper', 7],
   ['ink', 'sand', 7], ['ink', 'paper', 7], ['ink', 'shell', 4.5], ['ink', 'coral-soft', 4.5], ['ink', 'seafoam-soft', 4.5], ['ink', 'water', 4.5],
   ['ink-soft', 'sand', 4.5], ['ink-soft', 'paper', 4.5], ['ink-soft', 'shell', 4.5], ['ink-soft', 'seafoam-soft', 4.5],
   ['ink-faint', 'sand', 4.5], ['ink-faint', 'paper', 4.5],

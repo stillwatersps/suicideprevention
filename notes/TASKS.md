@@ -96,6 +96,11 @@ Nothing else has been claimed. Add an owner above when you start.
   into `app/first-build`. Both founders read `app/BUILD-SPEC.md`, the six safety rules in `app/CLAUDE.md`,
   and the questions in [[CONTENT-REVIEW]], then try it on a real phone with `app/TESTING_CHECKLIST.md`.
   Handoff: [[worklogs/2026-11-11-claude-app-redesign]].
+- [ ] Phone app visual identity from one founder's design brief (`app/DESIGN-BRIEF.md`): look only, no
+  feature changes. Owner: Claude. Branch: `app/visual-identity`, draft pull request into
+  `app/redesign-dev`. Both founders compare the screens (`app/design/COMPARISON.md`), read the copy changes
+  in the pull request and the new questions in [[CONTENT-REVIEW]], then try it on a real phone.
+  Handoff: [[worklogs/2026-11-11-claude-app-visual-identity]].
 - [ ] My circle (E2, no accounts) and Hope box (F9) in the phone app, at one founder's request. Owner:
   Claude. Branch: `app/my-circle-and-hope-box`, draft pull request into `app/hard-places-and-reminders`.
   Not merged, never run on a phone. Handoff: [[worklogs/2026-11-10-claude-circle-and-hope-box]].

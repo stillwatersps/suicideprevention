@@ -384,7 +384,7 @@ html.tl-reduce .tl-shimmer [data-suggest-title], html.tl-reduce .tl-shimmer [dat
 
 /* ---- Phase 8: fits at the largest text size ---- */
 html.tl .tl-ob-top { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--tl-space-xs); }
-html.tl .tl-ob-top .tl-btn { min-width: 0; padding-left: var(--tl-space-xs); padding-right: var(--tl-space-xs); overflow-wrap: anywhere; }
+html.tl .tl-ob-top .tl-btn { min-width: var(--tl-tap); padding-left: var(--tl-space-xs); padding-right: var(--tl-space-xs); overflow-wrap: anywhere; }
 .tl-dots { gap: var(--tl-space-xs); }
 .tl-week { grid-template-columns: repeat(7, minmax(0, var(--tl-dot))); max-width: 100%; }
 .tl-week .tl-day { width: 100%; height: auto; aspect-ratio: 1; }
