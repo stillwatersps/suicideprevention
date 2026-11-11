@@ -353,3 +353,16 @@ html.tl .tl-player-pause { min-height: calc(var(--tl-tap-lg) * 1.5); padding: va
 .tl-stage.is-dark .tl-guide, .tl-stage.is-dark .tl-guide-words, .tl-stage.is-dark .tl-screen-text { opacity: 0; }
 .tl-complete { display: grid; gap: var(--tl-space-md); padding: var(--tl-space-md) var(--tl-space-sm); }
 .tl-complete[hidden] { display: none; }
+
+/* ---- Phase 5: the Meditate tab ---- */
+.tl-types { display: grid; grid-template-columns: 1fr 1fr; gap: var(--tl-space-sm); }
+.tl-type { justify-items: center; text-align: center; align-content: start; padding: var(--tl-space-md) var(--tl-space-sm); min-width: 0; }
+.tl-type .tl-row { justify-content: center; gap: var(--tl-space-xs); }
+html.tl .tl-type .tl-chip { padding: var(--tl-space-xs) var(--tl-space-sm); }
+html.tl .tl-type [data-type-start] { width: 100%; }
+.tl-type-more { justify-items: center; }
+.tl-type-name { overflow-wrap: anywhere; }
+html.tl .tl-card-hero { grid-template-columns: 1fr auto; }
+html.tl .tl-card-hero .tl-caption { text-transform: uppercase; letter-spacing: 0.04em; font-weight: var(--tl-weight-strong); }
+#tl-history-list .tl-card-icon { display: none; }
+#tl-history-list .tl-card { grid-template-columns: 1fr; }

@@ -71,11 +71,14 @@
             <span class="tl-card-text"><span class="tl-card-title">Próximo registro</span><span class="tl-card-sub" id="tl-home-next-when">Cuando quieras</span></span>
             <span class="tl-card-go">Empezar</span>
           </button>
-          <div id="tl-home-suggest" hidden></div>
+          <button type="button" class="tl-card tl-card-action tl-card-hero" id="tl-home-suggest">
+            <span class="tl-card-text"><span class="tl-caption">Sugerida para ti</span><span class="tl-card-title" data-suggest-title></span><span class="tl-card-sub" data-suggest-reason></span></span>
+            <span class="tl-btn tl-btn-primary">Empezar</span>
+          </button>
           <div class="tl-quick" role="group" aria-label="Acciones rápidas">
             <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="flow" data-tl-quick="checkin">Registrarme</button>
             <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="meditate">Meditar</button>
-            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="reset">Pausa de 1 min</button>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-home-reset" data-tl-quick="reset">Pausa de 1 min</button>
           </div>
         </section>
 
@@ -292,13 +295,87 @@
         <section class="tl-screen" id="tl-meditate" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-meditate-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <h2 class="tl-title" id="tl-meditate-title">Meditar</h2>
-          <div id="tl-meditate-body">
-            <button type="button" class="tl-card tl-card-action" id="tl-sample-play">
-              <span class="tl-card-icon" data-tl-icon="bolt"></span>
-              <span class="tl-card-text"><span class="tl-card-title">Pausa de 1 minuto</span><span class="tl-card-sub">Respiración en caja</span></span>
-              <span class="tl-card-go">Empezar</span>
+          <div id="tl-meditate-body" class="tl-stack">
+            <button type="button" class="tl-card tl-card-action tl-card-hero" id="tl-suggest-card">
+              <span class="tl-card-text"><span class="tl-caption">Sugerida para ti</span><span class="tl-card-title" data-suggest-title></span><span class="tl-card-sub" data-suggest-reason></span></span>
+              <span class="tl-btn tl-btn-primary">Empezar</span>
+            </button>
+            <div class="tl-types" id="tl-types">
+              <div class="tl-panel tl-type" data-type="silent">
+                <span class="tl-choice-art" aria-hidden="true">🤫</span>
+                <h3 class="tl-headline tl-type-name">En silencio · donde sea</h3>
+                <span class="tl-row" data-type-length role="group" aria-label="Duración"><button type="button" class="tl-chip" data-value="3" aria-pressed="true">3 min</button><button type="button" class="tl-chip" data-value="5" aria-pressed="false">5 min</button></span>
+                <button type="button" class="tl-btn tl-btn-primary" data-type-start>Empezar</button>
+                <button type="button" class="tl-btn tl-btn-quiet" data-type-options aria-expanded="false">Opciones</button>
+                <div class="tl-stack tl-type-more" hidden>
+                  <span class="tl-label">Mundo</span>
+                  <span class="tl-row" data-type-world role="group" aria-label="Mundo"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Mar</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Bosque</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Cielo nocturno</button></span>
+                </div>
+              </div>
+              <div class="tl-panel tl-type" data-type="quick">
+                <span class="tl-choice-art" aria-hidden="true">⚡</span>
+                <h3 class="tl-headline tl-type-name">Pausa de 1 minuto</h3>
+                <span class="tl-row" data-type-length role="group" aria-label="Duración"><button type="button" class="tl-chip" data-value="1" aria-pressed="true">1 min</button></span>
+                <button type="button" class="tl-btn tl-btn-primary" data-type-start>Empezar</button>
+                <button type="button" class="tl-btn tl-btn-quiet" data-type-options aria-expanded="false">Opciones</button>
+                <div class="tl-stack tl-type-more" hidden>
+                  <span class="tl-label">Mundo</span>
+                  <span class="tl-row" data-type-world role="group" aria-label="Mundo"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Mar</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Bosque</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Cielo nocturno</button></span>
+                  <span class="tl-label">Sonido</span>
+                  <span class="tl-row" data-type-sound role="group" aria-label="Sonido"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">Ninguno</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Lluvia</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Mar</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">Ruido blanco</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Ruido marrón</button></span>
+                </div>
+              </div>
+              <div class="tl-panel tl-type" data-type="deep">
+                <span class="tl-choice-art" aria-hidden="true">🌊</span>
+                <h3 class="tl-headline tl-type-name">Sesión profunda</h3>
+                <span class="tl-row" data-type-length role="group" aria-label="Duración"><button type="button" class="tl-chip" data-value="10" aria-pressed="true">10 min</button><button type="button" class="tl-chip" data-value="15" aria-pressed="false">15 min</button><button type="button" class="tl-chip" data-value="20" aria-pressed="false">20 min</button></span>
+                <button type="button" class="tl-btn tl-btn-primary" data-type-start>Empezar</button>
+                <button type="button" class="tl-btn tl-btn-quiet" data-type-options aria-expanded="false">Opciones</button>
+                <div class="tl-stack tl-type-more" hidden>
+                  <span class="tl-label">Mundo</span>
+                  <span class="tl-row" data-type-world role="group" aria-label="Mundo"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Mar</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Bosque</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Cielo nocturno</button></span>
+                  <span class="tl-label">Sonido</span>
+                  <span class="tl-row" data-type-sound role="group" aria-label="Sonido"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">Ninguno</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Lluvia</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Mar</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">Ruido blanco</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Ruido marrón</button></span>
+                </div>
+              </div>
+              <div class="tl-panel tl-type" data-type="sleep">
+                <span class="tl-choice-art" aria-hidden="true">🌙</span>
+                <h3 class="tl-headline tl-type-name">Dormir</h3>
+                <span class="tl-row" data-type-length role="group" aria-label="Duración"><button type="button" class="tl-chip" data-value="10" aria-pressed="true">10 min</button><button type="button" class="tl-chip" data-value="20" aria-pressed="false">20 min</button></span>
+                <button type="button" class="tl-btn tl-btn-primary" data-type-start>Empezar</button>
+                <button type="button" class="tl-btn tl-btn-quiet" data-type-options aria-expanded="false">Opciones</button>
+                <div class="tl-stack tl-type-more" hidden>
+                  <span class="tl-label">Mundo</span>
+                  <span class="tl-row" data-type-world role="group" aria-label="Mundo"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Mar</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Bosque</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Cielo nocturno</button></span>
+                  <span class="tl-label">Sonido</span>
+                  <span class="tl-row" data-type-sound role="group" aria-label="Sonido"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">Ninguno</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Lluvia</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Mar</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">Ruido blanco</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Ruido marrón</button></span>
+                </div>
+              </div>
+            </div>
+            <h3 class="tl-section-title">Tus preajustes</h3>
+            <div id="tl-presets">
+              <p class="tl-sub" id="tl-presets-empty">Ninguno todavía. Crea uno abajo.</p>
+            </div>
+            <button type="button" class="tl-card tl-card-action" id="tl-build-card" data-tl-push="builder">
+              <span class="tl-card-icon" data-tl-icon="sliders"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Crea la tuya</span><span class="tl-card-sub">Duración, respiración, sonido, mundo</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
+            <button type="button" class="tl-card tl-card-action" id="tl-history-card" data-tl-push="history">
+              <span class="tl-card-icon" data-tl-icon="clock"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Historial</span><span class="tl-card-sub" data-history-total></span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
             </button>
           </div>
+        </section>
+
+        <section class="tl-screen" id="tl-history" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-history-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-history-title">Historial</h2>
+          <p class="tl-display" data-history-total></p>
+          <p class="tl-sub" id="tl-history-empty">Todavía no hay sesiones.</p>
+          <ul class="tl-list" id="tl-history-list" aria-labelledby="tl-history-title"></ul>
         </section>
 
         <section class="tl-screen tl-player" id="tl-player" data-tl-tab="meditate" tabindex="-1" aria-label="Meditación" hidden>
@@ -490,7 +567,13 @@
             </div>
             <span class="tl-label">Recordatorios puestos en este teléfono</span>
             <ul class="tl-list" id="tl-dev-pending"></ul>
-            <div id="tl-dev-more"></div>
+            <div id="tl-dev-more" class="tl-stack">
+              <span class="tl-label">Simular, para la sugerencia</span>
+              <p class="tl-field"><label for="tl-dev-time">Hora del día</label><input class="tl-input" id="tl-dev-time" type="time"></p>
+              <p class="tl-field"><label for="tl-dev-headphones">Auriculares</label><select class="tl-input" id="tl-dev-headphones"><option value="">Lo que diga el teléfono</option><option value="yes">Sí</option><option value="no">No</option></select></p>
+              <p class="tl-field"><label for="tl-dev-home">En casa</label><select class="tl-input" id="tl-dev-home"><option value="">Lo que diga el teléfono</option><option value="yes">Sí</option><option value="no">No</option></select></p>
+              <p class="tl-status" id="tl-dev-suggest" role="status"></p>
+            </div>
             <span class="tl-label">Notas de desarrollo</span>
             <ul class="tl-list" id="tl-dev-log"></ul>
           </div>
@@ -599,6 +682,21 @@
         <span data-word="script.intro.sleep" data-style="straightforward">Hora de descansar. Deja que tu cuerpo pese. Exhala despacio.</span>
         <span data-word="script.bodyScan.sleep" data-style="calm">Deja descansar los pies. Deja descansar las piernas. Afloja el vientre. Deja que los hombros se hundan en la cama. Deja el rostro quieto. Hoy ya no queda nada por hacer.</span>
         <span data-word="script.bodyScan.sleep" data-style="straightforward">Descansa los pies. Las piernas. El vientre. Los hombros. El rostro. Hoy ya no queda nada por hacer.</span>
+        <span data-word="med.silent">En silencio</span>
+        <span data-word="med.quick">Pausa de 1 minuto</span>
+        <span data-word="med.deep">Sesión profunda</span>
+        <span data-word="med.sleep">Dormir</span>
+        <span data-word="med.custom">La tuya</span>
+        <span data-word="med.startLabel">Empezar {name} de {minutes} minutos</span>
+        <span data-word="med.withLength">{name}, {minutes} min</span>
+        <span data-word="suggest.sleep">Bajando el ritmo</span>
+        <span data-word="suggest.home">Estás en casa, tómate tu tiempo</span>
+        <span data-word="suggest.onTheGo">Pausa rápida sobre la marcha</span>
+        <span data-word="suggest.anywhere">En silencio y lista donde sea</span>
+        <span data-word="suggest.another">Algo distinto hoy</span>
+        <span data-word="history.total">{minutes} minutos en total</span>
+        <span data-word="history.item">{name} · {minutes} min</span>
+        <span data-word="history.partial">{name} · {minutes} min, terminó antes</span>
         <span data-word="dev.phase">Fase de construcción: {phase}</span>
         <span data-word="dev.none">Ninguno.</span>
       </div>

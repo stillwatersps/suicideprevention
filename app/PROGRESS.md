@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 15:10 EST
-Current branch: feature/p4-meditation-engine
-Current phase: 4 — Interactive meditation engine
-Current step: Phase 4 finished; merging into app/redesign-dev, then Phase 5
+Last updated: 2026-11-11 16:00 EST
+Current branch: feature/p5-meditation-types
+Current phase: 5 — Meditation types & smart suggestions
+Current step: Phase 5 finished; merging into app/redesign-dev, then Phase 6
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)
@@ -10,9 +10,9 @@ Current step: Phase 4 finished; merging into app/redesign-dev, then Phase 5
 - [x] Phase 2 — Onboarding, setup checklist & check-in settings (merged to app/redesign-dev)
 - [x] Phase 3 — Streaks (merged to app/redesign-dev)
 - [x] Phase 4 — Interactive meditation engine (merged to app/redesign-dev)
+- [x] Phase 5 — Meditation types & smart suggestions (merged to app/redesign-dev)
 
 ## Remaining
-- [ ] Phase 5 — Meditation types & smart suggestions
 - [ ] Phase 6 — Custom meditation builder
 - [ ] Phase 7 — Haptics & interaction polish
 - [ ] Phase 8 — Final QA & handoff
@@ -71,6 +71,9 @@ Current step: Phase 4 finished; merging into app/redesign-dev, then Phase 5
 - **Words:** voice lines are `script.<id>` and on-screen lines `screen.<id>` in `src/text/redesign.en.html`, each in a Calm and a Straightforward voice where they differ.
 - **Recordings:** a voice clip is `app/assets/voice/<language>/<scriptId>_<style>.mp3` (for example `app/assets/voice/en/intro.deep_calm.mp3`). The build lists what exists; anything missing is spoken by the phone's text-to-speech. Ambient loops are `app/assets/ambient/rain.mp3` and `ocean.mp3`.
 
+## Phase 5 record
+- **Plan:** `src/logic/suggest.js` (one pure function, rules in order, unit tested rule by rule) and `src/ui/meditate.js` (the tab: suggestion, four type cards, presets, Build your own, History). The four types are data from `builtIn()` in `src/logic/meditations.js`. Developer tools can pretend the time, headphones, and "at home" to see each rule. `src/logic/generate.js` and its tests (Phase 6's generator) were written alongside and are already in.
+
 ## Decisions made
 - Kept Capacitor, HTML, CSS, and JavaScript — the brief from the founder's session says not to port, and the reviewed words stay in one place.
 - Integration branch is `app/redesign-dev`, cut from pull request 19's branch with pull requests 20 and 21 merged in; phases are `feature/p*` branches merged back with merge commits — `main` publishes the website, so the spec's `dev` from `main` can't be used.
@@ -126,6 +129,12 @@ Current step: Phase 4 finished; merging into app/redesign-dev, then Phase 5
 - The worlds' colors are scene art in `src/ui/worlds.js`, not interface tokens.
 - The breathing guide's countdown is one setting ("Count each breath"), off to start in both styles.
 
+- iPhone never tells an app whether its silent switch is on, so "silent" is unknown there. At home, unknown counts as "sound is fine" (rule 2 can match), because the phone's own switch still silences the app.
+- "Near home" reads the phone's location once, only while Home or Meditate is open, at most every ten minutes, and only if a home spot is saved and location is allowed. Otherwise the location rule is skipped without a word.
+- A type's options (world, sound) open in place under its card, from an "Options" button or a long press — a sheet would cover the safety frame, and a long press alone can't be reached with a screen reader.
+- When the suggested type was already done today, the next rule that fits is used, then any type not done yet. Sleep is never suggested outside its hours.
+- Voice and haptic breathing in Settings act as master switches: off there means off for every session, whatever the type's default.
+
 ## Known bugs / TODOs
 - Text-to-speech voice quality, the audio session while the phone is locked, and whether sound continues in the background are unknown until a real phone — `src/ui/audio.js` — medium.
 - The Swift additions in `ios/App/App/TidelightPlugin.swift` are not compiled yet — to build in the Simulator in Phase 8 — high until done.
@@ -138,4 +147,4 @@ All optional: the app works without them (text-to-speech and made-in-code sound 
 - `app/assets/voice/en/<scriptId>_<style>.mp3` and `app/assets/voice/es/...` — voice recordings, one per script and style. Scripts: `intro.quick`, `outro.quick`, `intro.deep`, `bodyScan`, `outro.deep`, `intro.sleep`, `bodyScan.sleep`, `intro.custom`, `affirmation`, `outro.custom`. Styles: `calm`, `straightforward`. Example: `app/assets/voice/en/intro.deep_calm.mp3`. The words to record are the `script.*` lines in `app/src/text/redesign.en.html` (Spanish in `redesign.es.json`).
 
 ## Resume instructions
-On branch `app/redesign-dev`, create `feature/p5-meditation-types` and start Phase 5: the Meditate tab (suggested card, four type cards with length chips and an options sheet shown in place, presets row, build-your-own card, history), `src/logic/suggest.js` with unit tests, and a Developer override for the suggestion's context. Replace the single sample card in `#tl-meditate-body`. Run `npm test` in `app/` before merging.
+On branch `app/redesign-dev`, create `feature/p6-meditation-builder` and start Phase 6. The generator (`src/logic/generate.js`) and its tests exist. Build the screen `#tl-builder` (live preview, length slider, situation cards, sound chips with a 3-second preview, world cards, toggles, style, Start, Save preset), `src/ui/builder.js`, and presets in `tidelight.presets` (choices only; rename, edit, duplicate, delete; at most 20; two starter suggestions). Run `npm test` in `app/` before merging.

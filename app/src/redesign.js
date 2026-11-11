@@ -8,9 +8,9 @@ import { initSetup, renderSetup } from './ui/setup.js';
 import { initSettings, renderSettings } from './ui/settings.js';
 import { syncReminders } from './ui/reminders.js';
 import { initStreaks, refreshStreak, addCheckInToStreak, addMeditationToStreak } from './ui/streaks-ui.js';
-import { initPlayer, playMeditation } from './ui/player.js';
-import { builtIn } from './logic/meditations.js';
-import { replace, style } from './ui/state.js';
+import { initPlayer } from './ui/player.js';
+import { initMeditate, renderSuggestion, renderHistory } from './ui/meditate.js';
+import { replace } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
 import { CONFIG } from './core/config.js';
 import { devLog } from './core/dev.js';
@@ -32,6 +32,8 @@ export async function initRedesign(context) {
     renderToday(context.todayLines());
     renderSettings();
     renderSetup().catch((e) => devLog('setup list', e));
+    renderHistory();
+    renderSuggestion();
   };
   ctx.onSettings = () => { refreshStreak().then(refresh); };
   ctx.onPermission = refresh;
@@ -52,8 +54,7 @@ export async function initRedesign(context) {
     await replace('presets', state.presets.concat([{ id: 'fav-' + Date.now().toString(36), name, favoriteOf: source.key, builtIn: source.builtIn || null, choices: source.choices || null }]).slice(-CONFIG.builder.presetMax));
   };
   initPlayer(shell, ctx);
-  const sample = document.getElementById('tl-sample-play');
-  if (sample) sample.addEventListener('click', () => playMeditation(builtIn('quick', { style: style(), voice: state.settings.meditation.voice, haptics: state.settings.meditation.hapticBreathing }), { key: 'quick-1', builtIn: { type: 'quick', minutes: 1 }, name: sample.querySelector('.tl-card-title').textContent }));
+  initMeditate(shell, ctx);
   initOnboarding(shell, ctx);
 
   window.addEventListener('tidelight-checkin', async (event) => {
