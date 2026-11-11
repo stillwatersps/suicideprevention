@@ -293,10 +293,77 @@
         <section class="tl-screen" id="tl-meditate" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-meditate-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <h2 class="tl-title" id="tl-meditate-title">Meditate</h2>
-          <div class="tl-empty" id="tl-meditate-empty">
-            <span data-tl-icon="lotus" data-tl-large></span>
-            <p class="tl-sub">Meditations are coming soon 🌊</p>
-            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="home">Back to Home</button>
+          <div id="tl-meditate-body">
+            <button type="button" class="tl-card tl-card-action" id="tl-sample-play">
+              <span class="tl-card-icon" data-tl-icon="bolt"></span>
+              <span class="tl-card-text"><span class="tl-card-title">1-minute reset</span><span class="tl-card-sub">Box breathing</span></span>
+              <span class="tl-card-go">Start</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="tl-screen tl-player" id="tl-player" data-tl-tab="meditate" tabindex="-1" aria-label="Meditation" hidden>
+          <div class="tl-stage" id="tl-stage" data-world="ocean">
+            <canvas class="tl-world" id="tl-world" aria-hidden="true"></canvas>
+            <p class="tl-player-top">
+              <a class="tl-scene-chip" href="#tl-review">Draft for review</a>
+              <a class="tl-scene-chip tl-player-support" href="#support">Get Support Now</a>
+            </p>
+            <div class="tl-guide" id="tl-guide" aria-hidden="true"><span class="tl-guide-circle"></span></div>
+            <p class="tl-guide-words"><span class="tl-guide-word" id="tl-guide-word" aria-live="polite"></span> <span class="tl-guide-count" id="tl-guide-count" aria-hidden="true" hidden></span></p>
+            <p class="tl-screen-text" id="tl-screen-text" role="status"></p>
+            <p class="tl-stage-hint">Tap for controls</p>
+            <div class="tl-controls" id="tl-controls" hidden>
+              <div class="tl-controls-top">
+                <button type="button" class="tl-btn tl-scene-btn" id="tl-player-end"><span data-tl-icon="close"></span>End</button>
+                <span class="tl-row" role="group" aria-label="Sound, voice, and haptics">
+                  <button type="button" class="tl-icon-btn tl-scene-btn" id="tl-toggle-sound" aria-pressed="true" aria-label="Sound"><span data-tl-icon="sound"></span></button>
+                  <button type="button" class="tl-icon-btn tl-scene-btn" id="tl-toggle-voice" aria-pressed="true" aria-label="Voice guide"><span data-tl-icon="voice"></span></button>
+                  <button type="button" class="tl-icon-btn tl-scene-btn" id="tl-toggle-haptics" aria-pressed="true" aria-label="Haptic breathing"><span data-tl-icon="vibrate"></span></button>
+                </span>
+              </div>
+              <button type="button" class="tl-btn tl-scene-btn tl-player-pause" id="tl-player-pause" data-state="playing"><span data-tl-icon="pause" class="tl-when-playing"></span><span data-tl-icon="play" class="tl-when-paused"></span><span id="tl-player-pause-label">Pause</span></button>
+              <div class="tl-end-confirm" id="tl-end-confirm" role="alertdialog" aria-labelledby="tl-end-title" hidden>
+                <p class="tl-headline" id="tl-end-title">End session?</p>
+                <div class="tl-row tl-row-center">
+                  <button type="button" class="tl-btn tl-btn-primary" id="tl-end-yes">End</button>
+                  <button type="button" class="tl-btn tl-btn-secondary" id="tl-end-no">Keep going</button>
+                </div>
+              </div>
+            </div>
+            <div class="tl-progress" aria-hidden="true"><span id="tl-player-bar"></span></div>
+          </div>
+          <div class="tl-complete tl-center" id="tl-complete" hidden>
+            <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+            <div class="tl-stack tl-center" id="tl-complete-body">
+              <span class="tl-done-mark" data-tl-icon="check" data-tl-large></span>
+              <h2 class="tl-title" id="tl-complete-title" tabindex="-1">Well done</h2>
+              <p class="tl-display" id="tl-complete-minutes"></p>
+              <p class="tl-sub" id="tl-complete-total"></p>
+            </div>
+            <div class="tl-flow-step tl-support-now" id="tl-complete-support" tabindex="-1" hidden>
+              <h2 class="tl-title">That sounds really hard.</h2>
+              <p>You don't have to carry it alone. You can talk to someone right now.</p>
+              <ul class="tl-support-actions">
+                <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+                <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+                <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+              </ul>
+              <p class="tl-sub">The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.</p>
+              <div class="tl-row tl-row-center">
+                <a class="tl-btn tl-btn-secondary" href="#support">More ways to get support</a>
+              </div>
+            </div>
+            <h3 class="tl-headline" id="tl-complete-ask">How do you feel now?</h3>
+            <div class="tl-faces" id="tl-complete-faces" role="group" aria-labelledby="tl-complete-ask">
+              <button type="button" class="tl-face" data-value="1" aria-pressed="false"><span data-tl-face="1"></span><span class="tl-face-label">Very low</span></button>
+              <button type="button" class="tl-face" data-value="2" aria-pressed="false"><span data-tl-face="2"></span><span class="tl-face-label">Low</span></button>
+              <button type="button" class="tl-face" data-value="3" aria-pressed="false"><span data-tl-face="3"></span><span class="tl-face-label">Okay</span></button>
+              <button type="button" class="tl-face" data-value="4" aria-pressed="false"><span data-tl-face="4"></span><span class="tl-face-label">Good</span></button>
+              <button type="button" class="tl-face" data-value="5" aria-pressed="false"><span data-tl-face="5"></span><span class="tl-face-label">Great</span></button>
+            </div>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-player-done>Done</button>
+            <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" id="tl-complete-favorite">Save as favorite</button>
           </div>
         </section>
 
@@ -498,6 +565,41 @@
         <span data-word="streak.milestone">{days} days. One wave at a time 🌊</span>
         <span data-word="streak.freezeNext">❄️ {count} held. The next one arrives on {day}.</span>
         <span data-word="streak.freezeFull">❄️ {count} held. That's the most you can hold.</span>
+        <span data-word="player.pause">Pause</span>
+        <span data-word="player.resume">Resume</span>
+        <span data-word="player.minute">{minutes} minute</span>
+        <span data-word="player.minutes">{minutes} minutes</span>
+        <span data-word="player.total">{minutes} minutes in all</span>
+        <span data-word="guide.in" data-style="calm">Breathe in</span>
+        <span data-word="guide.in" data-style="straightforward">In</span>
+        <span data-word="guide.hold">Hold</span>
+        <span data-word="guide.out" data-style="calm">Breathe out</span>
+        <span data-word="guide.out" data-style="straightforward">Out</span>
+        <span data-word="screen.intro.silent">Settle in</span>
+        <span data-word="screen.outro.silent">Gently come back</span>
+        <span data-word="screen.intro.quick">One minute</span>
+        <span data-word="screen.outro.quick">Nicely done</span>
+        <span data-word="screen.intro.deep">Get comfortable</span>
+        <span data-word="screen.bodyScan">Soften your body</span>
+        <span data-word="screen.silence">Just rest</span>
+        <span data-word="screen.outro.deep">Come back gently</span>
+        <span data-word="screen.intro.sleep">Time to rest</span>
+        <span data-word="screen.bodyScan.sleep">Let go</span>
+        <span data-word="screen.silence.sleep">Rest</span>
+        <span data-word="script.intro.quick" data-style="calm">Let's take one minute. Breathe with the circle.</span>
+        <span data-word="script.intro.quick" data-style="straightforward">One minute. Follow the circle.</span>
+        <span data-word="script.outro.quick" data-style="calm">Nicely done. Carry this calm with you.</span>
+        <span data-word="script.outro.quick" data-style="straightforward">Done. Back to your day.</span>
+        <span data-word="script.intro.deep" data-style="calm">Welcome. Settle into a comfortable position. There is nothing you need to do right now but breathe. If anything feels like too much, you can stop at any time.</span>
+        <span data-word="script.intro.deep" data-style="straightforward">Get comfortable. Just breathe. Stop any time you need to.</span>
+        <span data-word="script.bodyScan" data-style="calm">Bring your attention to your feet. Let them soften. Slowly move up: your legs, your belly, your chest. Let your shoulders drop. Soften your jaw and your forehead. If your mind wanders, that's okay. Gently come back.</span>
+        <span data-word="script.bodyScan" data-style="straightforward">Notice your feet. Your legs. Your belly. Your chest. Drop your shoulders. Relax your jaw. If your mind wanders, come back.</span>
+        <span data-word="script.outro.deep" data-style="calm">Slowly bring your attention back to the room. Notice how you feel. Thank you for taking this time for yourself.</span>
+        <span data-word="script.outro.deep" data-style="straightforward">Come back to the room. Notice how you feel. Well done.</span>
+        <span data-word="script.intro.sleep" data-style="calm">It's time to rest. Let your body grow heavy. Let each breath out be a little longer than the last.</span>
+        <span data-word="script.intro.sleep" data-style="straightforward">Time to rest. Let your body get heavy. Breathe out slowly.</span>
+        <span data-word="script.bodyScan.sleep" data-style="calm">Let your feet rest. Let your legs rest. Let your belly soften. Let your shoulders sink into the bed. Let your face be still. There is nothing left to do today.</span>
+        <span data-word="script.bodyScan.sleep" data-style="straightforward">Rest your feet. Your legs. Your belly. Your shoulders. Your face. Nothing left to do today.</span>
         <span data-word="dev.phase">Build phase: {phase}</span>
         <span data-word="dev.none">None.</span>
       </div>

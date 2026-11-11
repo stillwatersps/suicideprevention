@@ -1,17 +1,17 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 14:00 EST
-Current branch: feature/p3-streaks
-Current phase: 3 — Streaks
-Current step: Phase 3 finished; merging into app/redesign-dev, then Phase 4
+Last updated: 2026-11-11 15:10 EST
+Current branch: feature/p4-meditation-engine
+Current phase: 4 — Interactive meditation engine
+Current step: Phase 4 finished; merging into app/redesign-dev, then Phase 5
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)
 - [x] Phase 1 — Design system & bottom tab navigation (merged to app/redesign-dev)
 - [x] Phase 2 — Onboarding, setup checklist & check-in settings (merged to app/redesign-dev)
 - [x] Phase 3 — Streaks (merged to app/redesign-dev)
+- [x] Phase 4 — Interactive meditation engine (merged to app/redesign-dev)
 
 ## Remaining
-- [ ] Phase 4 — Interactive meditation engine
 - [ ] Phase 5 — Meditation types & smart suggestions
 - [ ] Phase 6 — Custom meditation builder
 - [ ] Phase 7 — Haptics & interaction polish
@@ -66,6 +66,11 @@ Current step: Phase 3 finished; merging into app/redesign-dev, then Phase 4
 - **Plan:** pure logic in `src/logic/streaks.js`, on local "YYYY-MM-DD" keys, with every case in the spec's 3D as a unit test (`test/unit/streaks.test.mjs`, 21 tests); screens in `src/ui/streaks-ui.js`; one shared celebration in `src/ui/celebrate.js`. Saved under `tidelight.days` and `tidelight.streak`. Risk: streaks for people at risk; see the reviewer's questions in `notes/CONTENT-REVIEW.md`.
 - **How it settles days:** each ended day is settled once as complete, frozen, or missed, in order, when the app opens, returns to the front, or records activity. The streak is read from those records, so working it out twice changes nothing.
 
+## Phase 4 record
+- **Plan:** `src/logic/timeline.js` owns the clock (monotonic, handed in) and reports segment, breath phase, and progress; `src/logic/meditations.js` holds meditations as data, the audio rules, the voice fallback, the session record, and the 60% rule; `src/ui/player.js` runs five layers that only listen to the timeline: `worlds.js` (canvas scenes), the breathing guide, the voice, `audio.js` (ambient), and haptic breathing. Risks: sound, speech, haptics, and screen wake can't be judged in Chromium; they are stand-ins there.
+- **Words:** voice lines are `script.<id>` and on-screen lines `screen.<id>` in `src/text/redesign.en.html`, each in a Calm and a Straightforward voice where they differ.
+- **Recordings:** a voice clip is `app/assets/voice/<language>/<scriptId>_<style>.mp3` (for example `app/assets/voice/en/intro.deep_calm.mp3`). The build lists what exists; anything missing is spoken by the phone's text-to-speech. Ambient loops are `app/assets/ambient/rain.mp3` and `ocean.mp3`.
+
 ## Decisions made
 - Kept Capacitor, HTML, CSS, and JavaScript — the brief from the founder's session says not to port, and the reviewed words stay in one place.
 - Integration branch is `app/redesign-dev`, cut from pull request 19's branch with pull requests 20 and 21 merged in; phases are `feature/p*` branches merged back with merge commits — `main` publishes the website, so the spec's `dev` from `main` can't be used.
@@ -111,12 +116,26 @@ Current step: Phase 3 finished; merging into app/redesign-dev, then Phase 4
 - Streaks can be turned off in Settings (rule 3). Days are still recorded quietly, so turning them back on loses nothing.
 - The streak card sits on Home only. Home's own page still ends with the Support section and the 988 panel, as every page does; the card is at the top and they are at the bottom, more than a screen apart. Whether that is far enough is a question for the reviewer.
 
+- The player is a screen in the page that fills the space under the crisis strip, not a layer over everything — Call 988, Text 988, Call 911, and Exit stay on screen during a session, the stage carries its own "Get Support Now" and "Draft for review", and the rest of the safety frame is in the page below (founder's rule 1). "Get Support Now" pauses the session first.
+- Sleep has no completion screen, as the spec says: the stage dims over the last minute and stays dark; a tap brings the controls to leave. The crisis strip stays lit above it. A question for the reviewer.
+- A very low mood on the completion screen shows Call 988, Text 988, and Call 911 at once, in place of "Well done" (rule 2 applied to the mood pick after a session).
+- Haptics can't run with the screen locked from a web view, so the screen is kept awake during a session (the plugin's `setKeepAwake`, with the Wake Lock API as a fallback) and Sleep dims it instead.
+- When the app is in the background the page's clock can stop; on return, the time missed is added back, and a once-a-second heartbeat keeps time when frames stop.
+- Rain and ocean are made-in-code stand-ins (filtered noise, and noise with a slow swell) until real loops are added. White and brown noise are made in code for good. Every loop is blended across its join.
+- The phone's silent switch is left to the phone: nothing overrides it. iPhone doesn't tell an app whether it is on.
+- The worlds' colors are scene art in `src/ui/worlds.js`, not interface tokens.
+- The breathing guide's countdown is one setting ("Count each breath"), off to start in both styles.
+
 ## Known bugs / TODOs
+- Text-to-speech voice quality, the audio session while the phone is locked, and whether sound continues in the background are unknown until a real phone — `src/ui/audio.js` — medium.
 - The Swift additions in `ios/App/App/TidelightPlugin.swift` are not compiled yet — to build in the Simulator in Phase 8 — high until done.
 - Android hardware Back inside tabs — `src/ui/shell.js` — low (untested; no Android toolchain on this Mac).
 
 ## Assets needed from the human
-- None yet (voice recordings and rain/ocean loops will be listed in Phase 4).
+All optional: the app works without them (text-to-speech and made-in-code sound stand in). Each must be royalty-free or licensed, and each voice line is unreviewed draft wording until the reviewer has read `src/text/redesign.en.html`.
+- `app/assets/ambient/rain.mp3` — a rain loop, 20 to 60 seconds, that can repeat — put it in `app/assets/ambient/`
+- `app/assets/ambient/ocean.mp3` — an ocean loop, 20 to 60 seconds — put it in `app/assets/ambient/`
+- `app/assets/voice/en/<scriptId>_<style>.mp3` and `app/assets/voice/es/...` — voice recordings, one per script and style. Scripts: `intro.quick`, `outro.quick`, `intro.deep`, `bodyScan`, `outro.deep`, `intro.sleep`, `bodyScan.sleep`, `intro.custom`, `affirmation`, `outro.custom`. Styles: `calm`, `straightforward`. Example: `app/assets/voice/en/intro.deep_calm.mp3`. The words to record are the `script.*` lines in `app/src/text/redesign.en.html` (Spanish in `redesign.es.json`).
 
 ## Resume instructions
-On branch `app/redesign-dev`, create `feature/p4-meditation-engine` and start Phase 4: `src/logic/timeline.js` (clock, segments, breath phases) and `src/logic/meditations.js` with unit tests, then the player screen and its five layers (`src/ui/player.js`, `worlds.js`, `audio.js`), the scripts in `src/text/redesign.en.html`, and the session record with the 60% rule. Run `npm test` in `app/` before merging.
+On branch `app/redesign-dev`, create `feature/p5-meditation-types` and start Phase 5: the Meditate tab (suggested card, four type cards with length chips and an options sheet shown in place, presets row, build-your-own card, history), `src/logic/suggest.js` with unit tests, and a Developer override for the suggestion's context. Replace the single sample card in `#tl-meditate-body`. Run `npm test` in `app/` before merging.
