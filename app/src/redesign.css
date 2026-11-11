@@ -399,3 +399,26 @@ html.tl .tl-chip .tl-icon { width: var(--tl-space-md); height: var(--tl-space-md
 html.tl .tl-btn, html.tl .tl-icon-btn, html.tl .tl-card-action, html.tl .tl-choice, html.tl .tl-chip, html.tl .tl-tab, html.tl .tl-face { transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
 @media (prefers-reduced-motion: reduce) { .tl-shimmer [data-suggest-title], .tl-shimmer [data-suggest-reason] { animation: none; } }
 html.tl-reduce .tl-shimmer [data-suggest-title], html.tl-reduce .tl-shimmer [data-suggest-reason] { animation: none; }
+
+/* ---- Phase 8: fits at the largest text size ---- */
+html.tl .tl-ob-top { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: var(--tl-space-xs); }
+html.tl .tl-ob-top .tl-btn { min-width: 0; padding-left: var(--tl-space-xs); padding-right: var(--tl-space-xs); overflow-wrap: anywhere; }
+.tl-dots { gap: var(--tl-space-xs); }
+.tl-week { grid-template-columns: repeat(7, minmax(0, var(--tl-dot))); max-width: 100%; }
+.tl-week .tl-day { width: 100%; height: auto; aspect-ratio: 1; }
+.tl-month .tl-day { height: auto; aspect-ratio: 1; }
+.tl-grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--tl-col)), 1fr)); }
+.tl-grid-2 > *, .tl-grid-3 > *, .tl-panel, .tl-panel > *, .tl-field { min-width: 0; }
+.tl-input { min-width: 0; max-width: 100%; box-sizing: border-box; }
+.tl-times-edit { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--tl-col)), 1fr)); }
+.tl-streak-line { flex-wrap: wrap; }
+html.tl .tl-card { min-width: 0; }
+.tl-types { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--tl-col-wide)), 1fr)); }
+.tl-month { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.tl-month .tl-day { width: 100%; max-width: var(--tl-tap); }
+.tl-stat { overflow-wrap: anywhere; }
+/* On the first and last onboarding pages, Back and Skip keep their places, unseen, so the dots stay centered. */
+html.tl .tl-app .tl-ob-top > .tl-btn[hidden] { display: inline-flex !important; visibility: hidden; }
+/* Two quick taps on a button must not zoom the page (found in the iOS Simulator: a zoomed page
+   can slide the crisis strip out of view). Pinch-to-zoom still works. */
+html.tl body { touch-action: manipulation; }

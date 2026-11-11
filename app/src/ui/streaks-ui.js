@@ -5,7 +5,7 @@
 import { CONFIG } from '../core/config.js';
 import { dateKey, evaluate, recordCheckIn, recordMeditation, weekRow, monthGrid, nextFreezeDay, daysFromLog, addDays, emptyStreak } from '../logic/streaks.js';
 import { t, lang } from './words.js';
-import { state, replace, reducedMotion } from './state.js';
+import { state, replace, reducedMotion, isQuiet as quiet } from './state.js';
 import { el, animateNumber } from './components.js';
 import { haptic } from './haptics.js';
 import { celebrate } from './celebrate.js';
@@ -15,7 +15,6 @@ const $ = (sel, scope) => (scope || document).querySelector(sel);
 let ctx = null;
 const todayKey = () => dateKey(new Date());
 const goal = () => state.settings.checkInsPerDay;
-const quiet = () => state.quietToday === todayKey();
 const MARK = { complete: '✓', frozen: '❄️', missed: '', today: '', ahead: '', none: '' };
 
 function dayName(key, style) {

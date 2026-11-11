@@ -80,7 +80,6 @@ export const shell = {
   },
   // A full-screen moment (onboarding, a meditation): the tab bar steps aside. The safety frame stays.
   setFull(on) { root.classList.toggle('tl-full', Boolean(on)); },
-  refresh() { render(false); },
   // The older sections (Today, Rediscover, Journal, Hope box, Your journey) open inside Check-in.
   openLegacy(panelId, start) {
     shell.push('legacy');

@@ -104,6 +104,21 @@ async function shellTests(browser, lang) {
   const inView = await page.evaluate(() => { const r = document.querySelector('#support').getBoundingClientRect(); return r.top < window.innerHeight && r.bottom > 0; });
   check(inView, 'Get Support Now brings the 988 panel into view');
 
+  // The language link is remembered: the app opens in the language last chosen.
+  if (lang === 'en') {
+    await page.click('.lang-switch a');
+    await page.waitForSelector('html[lang="es"].app-ready');
+    check(await page.isVisible('#tl-home') && (await safetyFrame(page)).length === 0, '"Leer en español" opens the same app in Spanish, with the safety frame');
+    await page.goto(base + pagePath('en'));
+    await page.waitForSelector('html[lang="es"].app-ready');
+    check(true, 'and the app opens in Spanish the next time');
+    await page.click('.lang-switch a');
+    await page.waitForSelector('html[lang="en"].app-ready');
+    await page.goto(base + pagePath('en'));
+    await page.waitForSelector('html[lang="en"].app-ready');
+    check(await page.isVisible('#tl-home'), '"Read in English" switches back, and that is remembered too');
+  }
+
   // Words that fill in from the page: none is missing.
   const blank = await page.$$eval('.tl-words [data-word]', (els) => els.filter((e) => !e.textContent.trim()).map((e) => e.getAttribute('data-word')));
   check(blank.length === 0, 'no word is blank');
@@ -485,6 +500,10 @@ async function streakTests(browser, lang) {
   check(await page.isVisible('#tl-flow-support') && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('.tl-burst')), 'a very low check-in shows support, with no celebration anywhere');
   await page.click('#tl-flow-support [data-tl-go="home"]');
   check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')), 'back on Home the day still counts, quietly: no milestone card');
+  check((await stored(page, 'tidelight.onboarding')).quietDay === keyOf(0), 'the quiet day is remembered on the phone');
+  await page.reload();
+  await page.waitForSelector('html.app-ready');
+  check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('.tl-burst')), 'and still quiet after closing and reopening the app');
   await context.close();
 
   // A streak that ended while away: a gentle card, no guilt.
@@ -890,6 +909,83 @@ async function hapticsTests(browser) {
   await second.context.close();
 }
 
+
+// Every screen, in turn: each control has a name a screen reader can say, each new control is at
+// least 44 points, the safety frame is there, and nothing scrolls sideways. Light and dark, at the
+// largest text size too.
+async function accessibilityTests(browser) {
+  console.log('\nAccessibility, every screen');
+  const audit = async (page, name, scope) => {
+    const result = await page.evaluate((sel) => {
+      const root = document.querySelector(sel);
+      const shown = (e) => e.offsetParent !== null && !e.closest('[hidden]');
+      const controls = Array.from(root.querySelectorAll('button, a[href], input, select, textarea')).filter(shown);
+      const named = (e) => Boolean(e.getAttribute('aria-label') || e.getAttribute('aria-labelledby') || e.textContent.trim() || (e.labels && e.labels.length) || e.getAttribute('title'));
+      const unnamed = controls.filter((e) => !named(e)).map((e) => e.id || e.className || e.tagName);
+      const small = controls.filter((e) => /\btl-/.test(e.className) && e.tagName !== 'INPUT').filter((e) => { const r = e.getBoundingClientRect(); return r.height < 43.5 || r.width < 43.5; }).map((e) => (e.id || e.className) + ' ' + Math.round(e.getBoundingClientRect().width) + 'x' + Math.round(e.getBoundingClientRect().height));
+      return { count: controls.length, unnamed, small, sideways: document.documentElement.scrollWidth > window.innerWidth + 1 };
+    }, scope);
+    check(result.unnamed.length === 0, `${name}: all ${result.count} controls have a spoken name` + (result.unnamed.length ? ': ' + result.unnamed.slice(0, 3).join(', ') : ''));
+    check(result.small.length === 0, `${name}: every new control is at least 44 points` + (result.small.length ? ': ' + result.small.slice(0, 3).join('; ') : ''));
+    check(!result.sideways, `${name}: no sideways scrolling`);
+  };
+  for (const [label, options] of [['light', { colorScheme: 'light' }], ['dark, largest text', { colorScheme: 'dark', viewport: { width: 375, height: 667 } }]]) {
+    const hooks = { clockRate: 4, locationAuthorization: 'whenInUse', notificationAuthorization: 'authorized', position: { latitude: 1, longitude: 1 } };
+    const { context, page, errors } = await newPage(browser, 'en', { seed: false, hooks, ...options });
+    if (label !== 'light') await page.evaluate(() => { document.documentElement.style.fontSize = '135%'; });
+    for (let i = 0; i < 12 && await page.isVisible('#tl-onboarding'); i += 1) {
+      const name = await page.getAttribute('.tl-ob-page:not([hidden])', 'data-ob');
+      await audit(page, `${label}, onboarding ${name}`, '#tl-onboarding');
+      if (name === 'age') { await page.fill('#app-birth-date', birthDateYearsAgo(30)); await page.click('.app-age-save'); await page.click('.app-age-yes'); }
+      else if (name === 'done') await page.click('#tl-ob-start');
+      else await page.click('.tl-ob-page:not([hidden]) [data-ob-next]');
+    }
+    await audit(page, `${label}, Home`, '#tl-home');
+    await page.click('#tl-setup-open');
+    await audit(page, `${label}, the setup list`, '#tl-home');
+    await page.click('#tl-streak-card');
+    await audit(page, `${label}, the streak screen`, '#tl-streak');
+    await openSettings(page);
+    for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
+    await audit(page, `${label}, Settings with Developer open`, '#tl-settings');
+    await page.click('#tl-settings [data-tl-back]');
+    await page.click('#tl-home [data-tl-quick="checkin"]');
+    if (await page.isVisible('#tl-flow-skip')) { await audit(page, `${label}, the check-in's breath`, '#tl-flow'); await page.click('#tl-flow-skip'); }
+    await page.click('#tl-flow-faces [data-value="2"]');
+    await audit(page, `${label}, the check-in`, '#tl-flow');
+    await page.click('#tl-flow-done');
+    await audit(page, `${label}, support after a low mood`, '#tl-flow');
+    check((await safetyFrame(page)).length === 0, `${label}, support after a low mood: the safety frame is on screen`);
+    for (const id of ['checkin', 'meditate', 'location', 'friends']) { await tab(page, id); if (!(await page.isVisible('#tl-' + id))) await tab(page, id); await audit(page, `${label}, ${id}`, '#tl-' + id); }
+    await tab(page, 'meditate');
+    await page.click('.tl-type[data-type="deep"] [data-type-options]');
+    await page.click('#tl-presets-list [data-preset="keep"] >> nth=0');
+    await page.click('#tl-presets-list [data-preset="more"] >> nth=0');
+    await audit(page, `${label}, Meditate with options and a preset open`, '#tl-meditate');
+    await page.click('#tl-history-card');
+    await audit(page, `${label}, History`, '#tl-history');
+    await page.click('#tl-history [data-tl-back]');
+    await page.click('#tl-build-card');
+    await page.fill('#tl-builder-length', '12');
+    await page.click('#tl-builder-save');
+    await audit(page, `${label}, the builder`, '#tl-builder');
+    await page.click('#tl-builder-start');
+    await page.waitForSelector('#tl-stage:not([hidden])');
+    await page.click('#tl-stage', { position: { x: 150, y: 420 } });
+    await page.click('#tl-player-end');
+    await audit(page, `${label}, the player with controls and "End session?"`, '#tl-player');
+    await page.click('#tl-end-yes');
+    await page.waitForSelector('#tl-meditate:not([hidden])');
+    await page.click('.tl-type[data-type="quick"] [data-type-start]');
+    await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 30000 });
+    await audit(page, `${label}, the completion screen`, '#tl-player');
+    await page.click('#tl-complete [data-player-done]');
+    for (const panel of ['ci-today', 'ci-journal', 'ci-journey']) { await openPanel(page, panel); check(await noSideways(page), `${label}, ${panel}: no sideways scrolling`); }
+    check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+    await context.close();
+  }
+}
+
 const browser = await chromium.launch();
 try {
   await shellTests(browser, 'en');
@@ -908,6 +1004,7 @@ try {
   await builderTests(browser, 'en');
   await builderTests(browser, 'es');
   await hapticsTests(browser);
+  await accessibilityTests(browser);
 } finally {
   await browser.close();
   close();

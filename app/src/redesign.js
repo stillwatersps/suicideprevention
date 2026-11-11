@@ -12,16 +12,29 @@ import { initPlayer } from './ui/player.js';
 import { initMeditate, renderSuggestion, renderHistory } from './ui/meditate.js';
 import { initBuilder, renderPresets } from './ui/builder.js';
 import { initFeel } from './ui/feel.js';
-import { replace } from './ui/state.js';
+import { replace, isQuiet, goQuiet } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
 import { CONFIG } from './core/config.js';
+import { store } from './core/device-storage.js';
+import { KEYS } from './core/storage.js';
 import { devLog } from './core/dev.js';
-
-const todayKey = () => { const d = new Date(); return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-'); };
 
 // Called by app.js once what's saved has been loaded, before the page is shown.
 export async function initRedesign(context) {
   if (!document.getElementById('tl-app')) return;
+  // The language the person chose with "Leer en español" or "Read in English" is remembered on
+  // the phone, so the app opens in it next time. The link itself stays on every screen.
+  const other = document.querySelector('.lang-switch a');
+  const here = document.documentElement.lang || 'en';
+  const wanted = await store.getRaw(KEYS.language);
+  if (other && wanted && wanted !== here && wanted === other.getAttribute('hreflang')) { location.replace(other.getAttribute('href')); return; }
+  if (other) {
+    other.addEventListener('click', async (event) => {
+      event.preventDefault();
+      try { await store.setRaw(KEYS.language, other.getAttribute('hreflang')); } catch (e) { devLog('language', e); }
+      location.href = other.getAttribute('href');
+    });
+  }
   await loadState();
   initShell();
   initFeel();
@@ -48,8 +61,8 @@ export async function initRedesign(context) {
   initSettings(shell, ctx);
   initStreaks(shell, ctx);
   // The meditation player: a finished session (60% or more) counts toward today and the setup list.
-  ctx.isQuiet = () => state.quietToday === todayKey();
-  ctx.goQuiet = () => { state.quietToday = todayKey(); };
+  ctx.isQuiet = isQuiet;
+  ctx.goQuiet = goQuiet;
   ctx.onMeditationDone = async () => { await addMeditationToStreak(); refresh(); };
   ctx.onPlayerClosed = refresh;
   ctx.saveFavorite = async (source) => {
@@ -65,7 +78,7 @@ export async function initRedesign(context) {
   window.addEventListener('tidelight-checkin', async (event) => {
     const detail = event.detail || {};
     // A very low check-in: nothing celebrates for the rest of today.
-    if ((detail.kind === 'quick' && isLowMood(detail.mood)) || CONFIG.checkIn.distressFeelings.indexOf(detail.feeling) !== -1) state.quietToday = todayKey();
+    if ((detail.kind === 'quick' && isLowMood(detail.mood)) || CONFIG.checkIn.distressFeelings.indexOf(detail.feeling) !== -1) await goQuiet();
     await addCheckInToStreak();
     await syncReminders(ctx.checkInsToday());
     refresh();

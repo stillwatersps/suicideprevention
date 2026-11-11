@@ -341,4 +341,3 @@ export function initPlayer(shell, context) {
   shell.onHide('player', () => { if (session) { const s = session; if (!s.over) endSession(false); else { session = null; shell.setFull(false); } } });
 }
 
-export const isPlaying = () => Boolean(session && !session.over);

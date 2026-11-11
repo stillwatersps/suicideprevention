@@ -91,6 +91,11 @@ Nothing else has been claimed. Add an owner above when you start.
 
 ## Ready for review
 
+- [ ] Phone app redesign from one founder's build spec (`app/BUILD-SPEC.md`): tabs, onboarding, quick
+  check-in, streaks, meditation, haptics. Owner: Claude. Branch: `app/redesign-dev`, draft pull request 25
+  into `app/first-build`. Both founders read `app/BUILD-SPEC.md`, the six safety rules in `app/CLAUDE.md`,
+  and the questions in [[CONTENT-REVIEW]], then try it on a real phone with `app/TESTING_CHECKLIST.md`.
+  Handoff: [[worklogs/2026-11-11-claude-app-redesign]].
 - [ ] My circle (E2, no accounts) and Hope box (F9) in the phone app, at one founder's request. Owner:
   Claude. Branch: `app/my-circle-and-hope-box`, draft pull request into `app/hard-places-and-reminders`.
   Not merged, never run on a phone. Handoff: [[worklogs/2026-11-10-claude-circle-and-hope-box]].

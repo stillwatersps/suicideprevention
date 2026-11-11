@@ -72,7 +72,23 @@ for (const page of PAGES) {
   about = once(about, /( {12}<li><a href="\.\.\/(check-in|registro-diario)\/">[^\n]*<\/li>\n)/, (all) => all + b['about-app'], 'about review list');
   writeFileSync(aboutPath, about);
 }
+
+// iPhone: the app's pages run edge to edge, under the status bar. Every page in the app (the
+// website's pages too) keeps its crisis strip clear of the status bar and the Dynamic Island.
+function everyPage(dir, depth, out = []) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) { if (entry.name !== 'assets') everyPage(join(dir, entry.name), depth + 1, out); } else if (entry.name.endsWith('.html')) out.push({ path: join(dir, entry.name), up: '../'.repeat(depth) });
+  }
+  return out;
+}
+for (const page of everyPage(www, 0)) {
+  let html = readFileSync(page.path, 'utf8');
+  html = once(html, 'content="width=device-width, initial-scale=1">', 'content="width=device-width, initial-scale=1, viewport-fit=cover">', 'viewport in ' + page.path);
+  html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/app-safe-area.css">\n</head>`, 'safe-area stylesheet in ' + page.path);
+  writeFileSync(page.path, html);
+}
 mkdirSync(join(www, 'assets'), { recursive: true });
 cpSync(join(appDir, 'src', 'tokens.css'), join(www, 'assets', 'tokens.css'));
 cpSync(join(appDir, 'src', 'redesign.css'), join(www, 'assets', 'redesign.css'));
+cpSync(join(appDir, 'src', 'app-safe-area.css'), join(www, 'assets', 'app-safe-area.css'));
 console.log('Added the redesigned app to app/www.');

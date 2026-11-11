@@ -3,7 +3,7 @@
 // Home by itself. Nothing typed here is read, scored, or sent anywhere.
 import { CONFIG } from '../core/config.js';
 import { t } from './words.js';
-import { state, style, profile } from './state.js';
+import { style, profile } from './state.js';
 import { choiceGroup } from './components.js';
 import { haptic } from './haptics.js';
 
@@ -116,5 +116,3 @@ export function renderToday(lines) {
   $('#tl-today-empty').hidden = lines.length > 0;
 }
 
-// Marks today as a day with a very low check-in: no celebrations for the rest of it.
-export function quietForToday(dateKey) { state.quietToday = dateKey; }
