@@ -1,0 +1,145 @@
+<!-- Every word the redesigned phone app adds, in English. DRAFT FOR REVIEW: an AI assistant wrote
+     these from one founder's build spec (app/BUILD-SPEC.md). No licensed reviewer has read them.
+     tools/build-redesign.mjs puts each block into the app's copy of check-in/index.html, and
+     tools/make-words-packet.mjs lists every line for reviewers. The website never shows these.
+     Blocks start with BLOCK:name and end with END. Words that scripts fill in are in the "words"
+     block, keyed by data-word; some come in two voices, keyed by data-style. -->
+
+<!-- BLOCK:review -->
+      <aside class="page-status review-note tl-review" id="tl-review" aria-label="Review status of the app's new words">
+        <p><strong>Draft for review.</strong> The check-in prompts, streak messages, and meditation words in this app are new. A suicide prevention professional has not reviewed them yet. An AI assistant wrote them from a founder's brief. They are ideas for calm and reflection, not treatment, and not a replacement for care. <a href="../about/#review-status">See the review status of each page</a>.</p>
+      </aside>
+<!-- END -->
+
+<!-- BLOCK:about-app -->
+            <li><a href="../check-in/">The app's check-in prompts, streak messages, and meditation words</a><span class="status-line">Clinical review: <span class="status-value">Pending</span></span><span class="status-line">Spanish version, fluent reader: <span class="status-value">Pending</span></span></li>
+<!-- END -->
+
+<!-- BLOCK:app -->
+      <div class="tl-app" id="tl-app">
+
+        <section class="tl-screen" id="tl-home" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-home-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-head">
+            <h2 class="tl-title tl-greeting" id="tl-home-title">Hello</h2>
+            <button type="button" class="tl-icon-btn" data-tl-push="settings" aria-label="Open settings"><span data-tl-icon="gear"></span></button>
+          </div>
+          <div id="tl-home-setup" hidden></div>
+          <div id="tl-home-streak" hidden></div>
+          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-go="checkin" aria-label="Start a check-in">
+            <span class="tl-card-icon" data-tl-icon="heart"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Next check-in</span><span class="tl-card-sub" id="tl-home-next-when">Any time you like</span></span>
+            <span class="tl-card-go">Start</span>
+          </button>
+          <div id="tl-home-suggest" hidden></div>
+          <div class="tl-quick" role="group" aria-label="Quick actions">
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="checkin" data-tl-quick="checkin">Check in</button>
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="meditate">Meditate</button>
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="reset">1-min reset</button>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-checkin" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-checkin-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <h2 class="tl-title" id="tl-checkin-title">Check in</h2>
+          <div id="tl-checkin-quick" hidden></div>
+          <ul class="tl-list">
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-today" data-tl-start>
+              <span class="tl-card-icon" data-tl-icon="heart"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Daily check-in</span><span class="tl-card-sub">Five gentle questions</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journal">
+              <span class="tl-card-icon" data-tl-icon="book"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Journal</span><span class="tl-card-sub">Write it out</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-rediscover">
+              <span class="tl-card-icon" data-tl-icon="spark"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Rediscover</span><span class="tl-card-sub">Find your way back</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="app-hope">
+              <span class="tl-card-icon" data-tl-icon="box"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Hope box</span><span class="tl-card-sub">Reasons, words, photos</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
+              <span class="tl-card-icon" data-tl-icon="path"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Your journey</span><span class="tl-card-sub">What you've kept</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen tl-legacy" id="tl-legacy" data-tl-tab="checkin" tabindex="-1" aria-label="Daily check-in, journal, and your journey" hidden>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+        </section>
+
+        <section class="tl-screen" id="tl-meditate" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-meditate-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <h2 class="tl-title" id="tl-meditate-title">Meditate</h2>
+          <div class="tl-empty" id="tl-meditate-empty">
+            <span data-tl-icon="lotus" data-tl-large></span>
+            <p class="tl-sub">Meditations are coming soon 🌊</p>
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="home">Back to Home</button>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-location" data-tl-tab="location" tabindex="-1" aria-labelledby="tl-location-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <h2 class="tl-title" id="tl-location-title">Places</h2>
+          <div id="tl-location-home" hidden></div>
+          <div id="tl-location-slot"></div>
+        </section>
+
+        <section class="tl-screen" id="tl-friends" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-friends-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <h2 class="tl-title" id="tl-friends-title">Friends</h2>
+          <div id="tl-friends-slot"></div>
+          <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
+            <span class="tl-card-icon" data-tl-icon="path"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Share check-ins</span><span class="tl-card-sub">Today or 7 days, in Your journey</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
+        </section>
+
+        <section class="tl-screen" id="tl-settings" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-settings-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-settings-title">Settings</h2>
+          <div id="tl-settings-sections"></div>
+          <h3 class="tl-section-title">Your age group</h3>
+          <div id="tl-settings-age-slot"></div>
+          <h3 class="tl-section-title">Your data</h3>
+          <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey" id="tl-settings-erase">
+            <span class="tl-card-icon" data-tl-icon="trash"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Delete everything</span><span class="tl-card-sub">In Your journey</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
+          <h3 class="tl-section-title">About</h3>
+          <p class="tl-status" id="tl-version">Tidelight app, draft <span class="tl-version-number">0.2.0</span></p>
+        </section>
+
+      </div>
+<!-- END -->
+
+<!-- BLOCK:tabbar -->
+  <nav class="tl-tabbar" id="tl-tabbar" aria-label="App sections"></nav>
+<!-- END -->
+
+<!-- BLOCK:words -->
+      <div class="tl-words" hidden>
+        <span data-word="tab.home">Home</span>
+        <span data-word="tab.checkin">Check-in</span>
+        <span data-word="tab.meditate">Meditate</span>
+        <span data-word="tab.location">Location</span>
+        <span data-word="tab.friends">Friends</span>
+        <span data-word="greet.morning">Good morning</span>
+        <span data-word="greet.afternoon">Good afternoon</span>
+        <span data-word="greet.evening">Good evening</span>
+        <span data-word="greet.night">Good night</span>
+        <span data-word="greet.withName">{greeting}, {name}</span>
+        <span data-word="more.summary">How this works</span>
+      </div>
+<!-- END -->

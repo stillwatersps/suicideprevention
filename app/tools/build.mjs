@@ -95,3 +95,4 @@ await build({
 });
 console.log('Built app/www from the website, with the app-only parts added.');
 await import('./build-extras.mjs'); // Hope box and My circle
+await import('./build-redesign.mjs'); // tabs, onboarding, streaks, meditation

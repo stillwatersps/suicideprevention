@@ -16,7 +16,9 @@ import { Capacitor } from '@capacitor/core';
 // Places that are hard for me (idea E1): the phone side and the pure logic. A draft.
 import { Tidelight } from './native.js';
 import './extras.js'; // Hope box and My circle, in their own file
+import { initRedesign } from './redesign.js'; // tabs, onboarding, streaks, meditation
 import { store } from './core/device-storage.js';
+import { devLog } from './core/dev.js';
 import { fill, MAX_PLACES, MAX_PEOPLE, DWELL_CHOICES, defaultPlacesConfig, newId, joinNames } from './logic.js';
 
 const STATE_KEY = 'tidelight.checkin.v1';
@@ -613,6 +615,7 @@ function start() {
     applyText();
     applyGroup(group);
     if (group) askAge(false); else askAge(true);
+    try { await initRedesign({ api, store }); } catch (e) { devLog('redesign did not start', e); }
     document.documentElement.classList.add('app-ready');
     // Places that are hard for me (E1): opened from a notification, or with an alert already due.
     const hash = location.hash;

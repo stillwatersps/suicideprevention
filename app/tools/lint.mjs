@@ -65,7 +65,7 @@ for (const en of readdirSync(textDir).filter((f) => /(^|\.)en\.html$/.test(f))) 
     const missing = one.filter((n) => !two.includes(n)).concat(two.filter((n) => !one.includes(n)));
     if (missing.length || one.length !== two.length) note(join(textDir, en), 0, `${label}s differ from ${es}: ${[...new Set(missing)].slice(0, 8).join(', ') || 'a repeated name'}`);
   }
-  if (/redesign/.test(en) && !/unreviewed AI translation|traducción de IA sin revisar/i.test(b)) note(join(textDir, es), 0, 'must say it is an unreviewed AI translation');
+  if (/redesign/.test(en) && !/unreviewed AI translation|traducción de IA sin revisar/i.test(b.replace(/\s+/g, ' '))) note(join(textDir, es), 0, 'must say it is an unreviewed AI translation');
 }
 
 if (problems.length) {

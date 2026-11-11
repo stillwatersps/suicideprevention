@@ -9,6 +9,7 @@ import { createRequire } from 'node:module';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
+import { tab, openPanel, startDaily, openSettings, safetyFrame } from './helpers.mjs';
 const www = fileURLToPath(new URL('../www/', import.meta.url));
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.webmanifest': 'application/manifest+json', '.vcf': 'text/vcard' };
@@ -67,7 +68,7 @@ async function run(browser, lang) {
 
   // Age setup comes first, with crisis help on screen.
   check(await page.isVisible('#app-age'), 'asks for a date of birth on first open');
-  check(!(await page.isVisible('.ci-tabs')), 'hides the check-in until the age is given');
+  check(!(await page.isVisible('#tl-tabbar')) && !(await page.isVisible('#tl-home')) && !(await page.isVisible('.ci-tabs')), 'hides the app until the age is given');
   check(await page.isVisible('.crisis-bar a[href="tel:988"]'), 'crisis strip stays on screen during age setup');
   check(await page.isVisible('#app-age a[href="tel:988"]') && await page.isVisible('#app-age a[href="tel:911"]'), 'age question shows 988 and 911');
   check(await page.isVisible('.app-age-accuracy'), 'says plainly that an accurate date of birth matters');
@@ -97,7 +98,8 @@ async function run(browser, lang) {
     && !(await page.isVisible('.app-age-confirm .app-accommodations [data-age-group="adult"]')), 'lists only that group\'s accommodations');
   await page.click('.app-age-yes');
   check(!(await page.isVisible('#app-age')), 'confirming closes the age question');
-  check(await page.isVisible('.ci-tabs'), 'the check-in appears');
+  check(await page.isVisible('#tl-home') && await page.isVisible('#tl-tabbar'), 'Home and the tab bar appear');
+  await startDaily(page);
 
   // What the app does for this age shows on the page.
   check(await page.isVisible('.app-age-box [data-age-group="teen"]'), 'Today starts with the box for ages 13 to 17');
@@ -111,7 +113,7 @@ async function run(browser, lang) {
   check(!stored.includes(birth) && !stored.includes(birth.slice(0, 4)), 'never keeps the birth date');
 
   // Check in, and see the age group's ideas.
-  await page.click('[data-ci-start]');
+  await startDaily(page);
   await page.click('#ci-step-feeling label:has(input[value="hopeful"])');
   await page.click('#ci-step-feeling .ci-next');
   for (const id of ['mind', 'difficult', 'self']) await page.click(`#ci-step-${id} .ci-skip`);
@@ -131,7 +133,7 @@ async function run(browser, lang) {
   check((await page.evaluate(() => window.__shared.length)) === 0, 'nothing is shared on Cancel');
 
   // Write a journal entry, then share it with the opening line.
-  await page.click('.ci-tabs a[href="#ci-journal"]');
+  await openPanel(page, 'ci-journal');
   await page.fill('#ci-entry', 'A made-up entry for the test.');
   await page.click('.ci-add-entry');
   await page.click('.ci-entry .app-share');
@@ -142,9 +144,9 @@ async function run(browser, lang) {
   check(/^(I wanted|Quería)/.test(shared[0] || ''), 'adds the opening line when chosen');
 
   // Today's check-ins: one line per check-in, filed by the time of day, shared only on purpose.
-  await page.click('.ci-tabs a[href="#ci-today"]');
+  await openPanel(page, 'ci-today');
   const feelingLabel = (await page.textContent('.ci-fill-feeling')).trim();
-  await page.click('.ci-tabs a[href="#ci-journey"]');
+  await openPanel(page, 'ci-journey');
   const logText = await page.textContent('.app-log');
   check(/(Morning|Midday|After school|Before bed|Mañana|Mediodía|Después de la escuela|Antes de dormir), /.test(logText), 'Your journey lists today\'s check-in with its time of day');
   check(feelingLabel.length > 0 && logText.includes(feelingLabel), 'the line shows the feeling that was chosen');
@@ -175,7 +177,8 @@ async function run(browser, lang) {
   check(await page.isVisible('.app-rem-web'), 'in a browser it says reminders need the app on a phone');
 
   // Places that are hard for me: off, no places suggested, and nothing watched until turned on.
-  check(await page.isVisible('.app-places'), 'Your journey has Places that are hard for me');
+  await tab(page, 'location');
+  check(await page.isVisible('.app-places'), 'the Location tab has Places that are hard for me');
   check(!(await page.isChecked('.app-places-on')), 'it starts off');
   check(!(await page.isVisible('.app-places-setup')), 'the setup is hidden while it is off');
   check((await page.$$('.app-places-list li')).length === 0, 'no place is suggested');
@@ -238,16 +241,19 @@ async function run(browser, lang) {
   await page.reload();
   await page.waitForSelector('html.app-ready');
   check(!(await page.isVisible('#app-age')), 'does not ask the age again');
-  await page.click('.ci-tabs a[href="#ci-journal"]');
+  await openPanel(page, 'ci-journal');
   check((await page.textContent('.ci-entries')).includes('A made-up entry for the test.'), 'the journal entry is still there after reopening');
   const entryDate = (await page.textContent('.ci-entry .ci-entry-date')).trim();
   check(entryDate.length > 0 && !/\d{4}-\d{2}-\d{2}T/.test(entryDate), 'the entry\'s date still reads as a date after reopening');
-  await page.click('.ci-tabs a[href="#ci-journey"]');
-  check(await page.isVisible('.app-settings .app-group-name'), 'Your journey shows the age group');
+  await openSettings(page);
+  check(await page.isVisible('.app-settings .app-group-name'), 'Settings shows the age group');
+  await openPanel(page, 'ci-journey');
   check((await page.$$('.ci-cal-day.is-marked')).length === 1, 'the calendar still marks today after reopening');
   check((await page.textContent('.app-log')).includes(feelingLabel), 'today\'s check-in is still listed after reopening');
   check(await page.isChecked('.app-rem-on[data-slot="morning"]') && (await page.inputValue('.app-rem-time[data-slot="morning"]')) === '07:45', 'the reminder is still set after reopening');
+  await tab(page, 'location');
   check(await page.isChecked('.app-places-on') && (await page.textContent('.app-places-list')).includes('The old footbridge'), 'the places are still there after reopening');
+  await openPanel(page, 'ci-journey');
 
   // Delete everything removes it from the phone, and keeps the age group.
   await page.click('.ci-erase-start');
@@ -255,16 +261,17 @@ async function run(browser, lang) {
   await page.waitForTimeout(400);
   await page.reload();
   await page.waitForSelector('html.app-ready');
-  await page.click('.ci-tabs a[href="#ci-journal"]');
+  await openPanel(page, 'ci-journal');
   check(!(await page.textContent('.ci-entries')).includes('A made-up entry'), 'Delete everything removes saved entries');
   stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
   check(stored.includes('"teen"') && !stored.includes('made-up'), 'the age group stays, the writing is gone');
 
   // Changing the birth date changes the group.
-  await page.click('.ci-tabs a[href="#ci-journey"]');
+  await openPanel(page, 'ci-journey');
   check((await page.textContent('.app-log')).trim() === '' && await page.isVisible('.app-log-empty'), 'Delete everything clears today\'s check-ins');
   check(await page.isChecked('.app-rem-on[data-slot="morning"]'), 'the reminders stay after Delete everything');
   check(!stored.includes('footbridge') && !stored.includes('555-0100') && !(await page.isChecked('.app-places-on')), 'Delete everything removes the places and people and turns the feature off');
+  await openSettings(page);
   await page.click('.app-age-change');
   await page.fill('#app-birth-date', birthDateYearsAgo(70));
   await page.click('.app-age-save');
@@ -272,10 +279,10 @@ async function run(browser, lang) {
   stored = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
   check(stored.includes('"older"'), 'a new date of birth changes the group to 65 and over');
   check(await page.evaluate(() => document.documentElement.classList.contains('app-large-text')), 'text is larger for 65 and over');
-  await page.click('.ci-tabs a[href="#ci-today"]');
+  await openPanel(page, 'ci-today');
   check(await page.isVisible('.app-age-box [data-age-group="older"]') && !(await page.isVisible('.app-age-box [data-age-group="teen"]')), 'Today\'s box changes with the group');
-  await page.click('.ci-tabs a[href="#ci-journey"]');
-  check(await page.isVisible('.app-settings .app-accommodations [data-age-group="older"]'), 'Your journey lists what the app does for 65 and over');
+  await openSettings(page);
+  check(await page.isVisible('.app-settings .app-accommodations [data-age-group="older"]'), 'Settings lists what the app does for 65 and over');
   await page.click('.app-text-toggle');
   check(!(await page.evaluate(() => document.documentElement.classList.contains('app-large-text'))), 'larger text can be switched off');
   await page.waitForTimeout(300);
@@ -286,12 +293,12 @@ async function run(browser, lang) {
   check(!sideways, 'the page doesn\'t scroll sideways');
 
   // A child's group shows the box for the grown-up with them.
-  await page.click('.ci-tabs a[href="#ci-journey"]');
+  await openSettings(page);
   await page.click('.app-age-change');
   await page.fill('#app-birth-date', birthDateYearsAgo(9));
   await page.click('.app-age-save');
   await page.click('.app-age-yes');
-  await page.click('.ci-tabs a[href="#ci-today"]');
+  await openPanel(page, 'ci-today');
   check(await page.isVisible('.app-age-box [data-age-group="child"]'), 'under 13: Today starts with a box for the grown-up with them');
   await page.evaluate(() => document.documentElement.classList.add('app-large-text'));
   const sidewaysLarge = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);

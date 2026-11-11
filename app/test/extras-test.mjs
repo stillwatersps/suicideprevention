@@ -10,6 +10,7 @@ import { smsLink, preview, fitInside } from '../src/extras-logic.js';
 
 const require = createRequire(import.meta.url);
 const { chromium } = require('playwright');
+import { tab, openPanel } from './helpers.mjs';
 const www = fileURLToPath(new URL('../www/', import.meta.url));
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.webmanifest': 'application/manifest+json', '.vcf': 'text/vcard' };
@@ -60,7 +61,7 @@ async function run(browser, lang) {
   await page.waitForSelector('html.app-ready.app-extras-ready');
 
   // Hope box.
-  await page.click('.ci-tabs a[href="#app-hope"]');
+  await openPanel(page, 'app-hope');
   check(await page.isVisible('#app-hope'), 'Hope box opens from its own tab');
   check(await page.isVisible('#app-hope a[href="tel:988"]') && await page.isVisible('.crisis-bar a[href="tel:988"]'), 'Hope box shows 988, and the crisis strip stays');
   check(await page.isVisible('.app-hope-empty'), 'starts empty');
@@ -80,14 +81,14 @@ async function run(browser, lang) {
 
   await page.reload();
   await page.waitForSelector('html.app-ready.app-extras-ready');
-  await page.click('.ci-tabs a[href="#app-hope"]');
+  await openPanel(page, 'app-hope');
   check((await page.textContent('.app-hope-words')).includes('A made-up kind sentence') && await page.isVisible('.app-hope-photo img'), 'the hope box is still there after reopening');
   const sideways = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
   check(!sideways, 'the Hope box doesn\'t scroll sideways');
 
   // My circle.
-  await page.click('.ci-tabs a[href="#ci-journey"]');
-  check(await page.isVisible('#app-circle') && await page.isVisible('.app-circle-empty'), 'My circle is in Your journey, and starts empty');
+  await tab(page, 'friends');
+  check(await page.isVisible('#app-circle') && await page.isVisible('.app-circle-empty'), 'My circle is on the Friends tab, and starts empty');
   check(await page.isVisible('#app-circle [data-age-group="teen"]') && !(await page.isVisible('#app-circle [data-age-group="child"]')), 'a teen is told the circle doesn\'t have to include a parent');
   check(await page.isVisible('#app-circle a[href="tel:988"]'), 'My circle shows 988');
   await page.click('.app-circle-add');
@@ -97,7 +98,7 @@ async function run(browser, lang) {
   check(await page.isVisible('.app-circle-no-phone') && (await page.locator('.app-circle-person').count()) === 2, 'a contact with no phone number is not added');
 
   // Private by default: sharing is a choice, one entry at a time.
-  await page.click('.ci-tabs a[href="#ci-journal"]');
+  await openPanel(page, 'ci-journal');
   await page.fill('#ci-entry', 'A made-up entry to share.');
   await page.click('.ci-add-entry');
   await page.fill('#ci-entry', 'A made-up private entry.');
@@ -110,21 +111,22 @@ async function run(browser, lang) {
   check(sms.length === 1 && sms[0].startsWith('sms:') && sms[0].includes('15550100001') && sms[0].includes('5550100002'), 'opens one message addressed to everyone in the circle');
   check(sms.length === 1 && decodeURIComponent(sms[0]).includes('A made-up entry to share.') && !decodeURIComponent(sms[0]).includes('private'), 'the message holds only the entry that was shared');
   check(await page.isVisible('.app-circle-opened'), 'says nothing is sent until the person taps Send');
-  await page.click('.ci-tabs a[href="#ci-journey"]');
+  await tab(page, 'friends');
   check((await page.textContent('.app-circle-log')).includes('A made-up entry to share.'), 'keeps a list of what was shared with the circle');
 
   // The hope box is never part of what's shared.
   check(!decodeURIComponent(sms[0] || '').includes('kind sentence'), 'the hope box is not in the message');
 
   // Delete everything empties the hope box and the circle.
+  await openPanel(page, 'ci-journey');
   await page.click('.ci-erase-start');
   await page.click('.ci-erase-yes');
   await page.waitForTimeout(500);
   await page.reload();
   await page.waitForSelector('html.app-ready.app-extras-ready');
-  await page.click('.ci-tabs a[href="#ci-journey"]');
+  await tab(page, 'friends');
   check((await page.locator('.app-circle-person').count()) === 0 && await page.isVisible('.app-circle-log-empty'), 'Delete everything empties the circle');
-  await page.click('.ci-tabs a[href="#app-hope"]');
+  await openPanel(page, 'app-hope');
   check(await page.isVisible('.app-hope-empty') && (await page.locator('.app-hope-photo').count()) === 0, 'Delete everything empties the hope box, photos included');
   const kept = await page.evaluate(() => JSON.stringify(Object.assign({}, localStorage)));
   check(!kept.includes('made-up') && !kept.includes('Example'), 'no words or names are left on the phone');

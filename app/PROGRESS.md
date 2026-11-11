@@ -1,14 +1,14 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 10:05 EST
-Current branch: feature/p0-audit
-Current phase: 0 — Audit & foundation
-Current step: Phase 0 finished; merging into app/redesign-dev, then Phase 1
+Last updated: 2026-11-11 11:20 EST
+Current branch: feature/p1-design-nav
+Current phase: 1 — Design system & bottom tab navigation
+Current step: Phase 1 finished; merging into app/redesign-dev, then Phase 2
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)
+- [x] Phase 1 — Design system & bottom tab navigation (merged to app/redesign-dev)
 
 ## Remaining
-- [ ] Phase 1 — Design system & bottom tab navigation
 - [ ] Phase 2 — Onboarding, setup checklist & check-in settings
 - [ ] Phase 3 — Streaks
 - [ ] Phase 4 — Interactive meditation engine
@@ -36,6 +36,27 @@ Current step: Phase 0 finished; merging into app/redesign-dev, then Phase 1
 - **Logged, not fixed:** the app starts on the website's Home page, not the app screen (Phase 1 sets the start path); `src/extras.js` keeps its own copies of the load and save helpers (left alone: it is the other founder's file); two separate lists of people (Places and My circle).
 - **Words on screen before the redesign** (desktop Chromium, 390 by 844, all visible text on the page): first open 720; Today 674; first question 701; result 881; Rediscover 726; Journal 681; Hope box 768; Your journey 1,336; Your journey with Places on 1,788.
 
+## Phase 1 record
+- **Plan:** tokens in `src/tokens.css`; components and shell in `src/redesign.css`, `src/ui/components.js`, `src/ui/shell.js`; words in `src/text/redesign.en.html` and `redesign.es.html`; `tools/build-redesign.mjs` adds them to the app's page. Risk: the website's own button and heading styles win over new ones (fixed by scoping the new rules under `html.tl`).
+- **Where the older sections went:** Home (new). Check-in tab: Daily check-in, Journal, Rediscover, Hope box, Your journey, each opened from a card, with the older row of tabs kept inside. Location tab: Places that are hard for me. Friends tab: My circle, and a card to Share check-ins. Settings (gear on Home): the age group and text size, and a card to Delete everything (which stays in Your journey, as the privacy notice says). Meditate: an empty state until Phase 5.
+- **Text diet, words on screen** (`node tools/word-count.mjs`; desktop Chromium, 390 by 844). The safety frame, about 600 words, is on every screen in full and is not part of the diet.
+
+| Screen now | Words on the screen itself | Before, without the safety frame (estimate) | Change |
+| --- | --- | --- | --- |
+| Home | 17 | 128 (Today) | 87% fewer |
+| Check-in | 29 | 128 (Today) | 77% fewer |
+| Meditate | 12 | new | |
+| Location, Places off | 137 | part of Your journey, 790 | 83% fewer than Your journey |
+| Friends, My circle | 204 | part of Your journey, 790 | 74% fewer than Your journey |
+| Settings | 111 | part of Your journey, 790 | 86% fewer than Your journey |
+| Your journey | 348 | 790 | 56% fewer |
+| Daily check-in, first question | 123 | 155 | 21% fewer |
+| Journal | 103 | 135 | 24% fewer |
+| Rediscover | 148 | 180 | 18% fewer |
+| Hope box | 190 | 222 | 14% fewer |
+
+  The four older sections at the bottom did not reach 50%. Their words are the website's own (shared with its review packet) or are consent, privacy, and crisis wording, which the founder's rule 1 protects. Cutting them is a decision for the founders and the reviewer, not for this build.
+
 ## Decisions made
 - Kept Capacitor, HTML, CSS, and JavaScript — the brief from the founder's session says not to port, and the reviewed words stay in one place.
 - Integration branch is `app/redesign-dev`, cut from pull request 19's branch with pull requests 20 and 21 merged in; phases are `feature/p*` branches merged back with merge commits — `main` publishes the website, so the spec's `dev` from `main` can't be used.
@@ -47,11 +68,19 @@ Current step: Phase 0 finished; merging into app/redesign-dev, then Phase 1
 - Developer notes are kept in memory only (`src/core/dev.js`), never printed or stored — the lint forbids console output in app code.
 - Safety frame: the crisis strip, Exit, the header with "Get Support Now", the Spanish link, the full "Draft for review" notice, the privacy notice, the Support section, and the 988 panel stay on every screen, in the page's normal flow, exactly as worded now. New screens are added between the Spanish link and the notice. (Founder's rule 1.)
 
+- Text diet: no consent, privacy, or crisis sentence was collapsed or cut in Places, My circle, sharing, or age setup. The cut comes from giving each section its own screen. Explanations that open on a tap (`.tl-more`) are reserved for new, non-safety words — founder's rule 1 forbids moving safety text behind a tap, and most of that older text is about consent.
+- Pill buttons and rounded cards in the new screens, although the website chose square buttons on November 9 — the build spec, from a founder, asks for pills in the app. The website and the older sections keep square buttons.
+- The page's background uses the new `bg` token; the older sections otherwise keep the website's Shoreline colors and its dark mode — changing more risks the contrast of reviewed pages.
+- The Location tab is labeled "Location" (spec) and its screen is titled "Places". One sentence in the place alert now says "on the Location tab" instead of "in Your journey", because that section moved.
+- The app now starts on the app screen (`server.appStartPath` in `capacitor.config.json`), not the website's Home page. To check in the Simulator.
+- Tabs have no browser-history entries; each pushed screen has a visible Back button. Android's hardware back button is untested.
+- On iPhone the new screens follow the phone's text size (`font: -apple-system-body`), unless the app's own "larger text" is on. Chromium can't show this; to check in the Simulator and on a phone.
+
 ## Known bugs / TODOs
-- None yet.
+- Android hardware Back inside tabs — `src/ui/shell.js` — low (untested; no Android toolchain on this Mac).
 
 ## Assets needed from the human
 - None yet (voice recordings and rain/ocean loops will be listed in Phase 4).
 
 ## Resume instructions
-On branch `app/redesign-dev`, create `feature/p1-design-nav` and start Phase 1: `src/tokens.css`, the redesign stylesheet, the word blocks `src/text/redesign.en.html` and `redesign.es.html`, `tools/build-redesign.mjs`, and `src/ui/shell.js` with the five tabs. Run `npm test` in `app/` before merging.
+On branch `app/redesign-dev`, create `feature/p2-onboarding-settings` and start Phase 2: onboarding pages (the age question becomes one of them and stays required), the setup checklist, the style profile, the quick check-in with support shown at once for low moods, reminders from `settings.checkInsPerDay`, and the Settings screen. Run `npm test` in `app/` before merging.
