@@ -47,6 +47,9 @@ function audioManifest() {
 }
 
 const manifest = audioManifest();
+// The Developer section shows which build phase this is, read from PROGRESS.md.
+const progress = existsSync(join(appDir, 'PROGRESS.md')) ? readFileSync(join(appDir, 'PROGRESS.md'), 'utf8') : '';
+const phase = ((progress.match(/^Current phase: (.*)$/m) || [])[1] || 'unknown').replace(/["<>&]/g, '');
 for (const page of PAGES) {
   const b = blocks(page.lang);
   const path = join(www, page.file);
@@ -54,7 +57,9 @@ for (const page of PAGES) {
   // The new screens go above the page's own review notice; the notice for the new words goes
   // right under it. Both notices stay on every screen.
   html = once(html, /( {6}<aside class="page-status review-note"[\s\S]*?<\/aside>\n)/,
-    (all) => b.app + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
+    (all) => b.app + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
+  // A heavy feeling in the five-question check-in shows support at the top of its results.
+  html = once(html, '          <div class="ci-talk-first">', b['result-support'] + '          <div class="ci-talk-first">', 'result support');
   html = once(html, '  <footer class="site-footer"', b.tabbar + (b.overlays || '') + '  <footer class="site-footer"', 'tab bar');
   html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/tokens.css">\n  <link rel="stylesheet" href="${page.up}assets/redesign.css">\n</head>`, 'stylesheets');
   // Recorded voice and sound loops are files inside the app; the page may play its own files only.

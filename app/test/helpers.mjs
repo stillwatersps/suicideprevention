@@ -73,3 +73,18 @@ export function birthDateYearsAgo(years) {
 }
 export const pagePath = (lang) => (lang === 'es' ? 'es/registro-diario/' : 'check-in/');
 export const noSideways = (page) => page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1);
+
+// Onboarding: leave every page that can be skipped, then start.
+export async function skipOnboarding(page) {
+  for (let i = 0; i < 12 && !(await page.isVisible('#tl-ob-start')); i += 1) {
+    if (await page.isVisible('#tl-ob-skip')) await page.click('#tl-ob-skip');
+    else if (await page.isVisible('.tl-ob-page:not([hidden]) [data-ob-next]')) await page.click('.tl-ob-page:not([hidden]) [data-ob-next]');
+    else break;
+  }
+  await page.click('#tl-ob-start');
+}
+// For tests that aren't about onboarding: a phone that has already been set up.
+export const SEEDED = `try {
+  if (!localStorage.getItem('tidelight.agegroup.v1')) localStorage.setItem('tidelight.agegroup.v1', 'adult');
+  if (!localStorage.getItem('tidelight.onboarding')) localStorage.setItem('tidelight.onboarding', '{"completed":true,"setupCelebrated":false}');
+} catch (e) { /* first load */ }`;

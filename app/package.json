@@ -11,7 +11,8 @@
     "sync": "node tools/build.mjs && npx cap sync",
     "test:ios": "cd ios/TidelightLogic && swift test",
     "lint": "node tools/lint.mjs",
-    "test:unit": "node --test test/unit/"
+    "test:unit": "node --test test/unit/",
+    "words:es": "node tools/make-redesign-es.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.0",

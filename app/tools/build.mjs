@@ -53,7 +53,7 @@ for (const page of PAGES) {
   let html = readFileSync(path, 'utf8');
   html = once(html, /      <aside class="ci-privacy"[\s\S]*?<\/aside>\n/, b.privacy, 'privacy');
   html = once(html, '      <nav class="ci-tabs"', b.age + '      <nav class="ci-tabs"', 'age');
-  html = once(html, '        <ol class="ci-steps">', b['today-box'] + b['reminders-hint'] + '        <ol class="ci-steps">', 'today box');
+  html = once(html, '        <ol class="ci-steps">', b['today-box'] + '        <ol class="ci-steps">', 'today box');
   html = once(html, '        <section aria-labelledby="ci-kept-reflections-title">',
     b['today-log'] + '        <section aria-labelledby="ci-kept-reflections-title">', 'today log');
   html = once(html, '          <p class="ci-set-aside"', b.foryou + '          <p class="ci-set-aside"', 'for your age');
@@ -66,8 +66,9 @@ for (const page of PAGES) {
   if (notes.length !== 2) throw new Error(`notes: expected 2, found ${notes.length}`);
   html = once(html, notes[0], b['journal-note'], 'journal note');
   html = once(html, notes[1], b['journey-note'], 'journey note');
-  // Places that are hard for me (E1) goes between the reminders and the age group.
-  html = once(html, '        <section class="ci-erase"', b.reminders + b.places + b.settings + '        <section class="ci-erase"', 'settings');
+  // Places that are hard for me (E1) goes before the age group. (Check-in reminders moved to the
+  // redesign's Settings screen; see tools/build-redesign.mjs.)
+  html = once(html, '        <section class="ci-erase"', b.places + b.settings + '        <section class="ci-erase"', 'settings');
   html = once(html, /(<h3 id="ci-erase-title">[^<]*<\/h3>\n {10}<p>[^\n]*<\/p>\n)/, `$1${b['erase-note']}`, 'erase note');
   const share = ` <button type="button" class="app-share" data-share="entry">${b['share-label'].trim()}</button>`;
   html = once(html, /(<button type="button" class="ci-delete-entry">[^<]*<\/button>)/, `$1${share}`, 'entry share');

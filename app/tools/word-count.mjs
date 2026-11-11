@@ -33,15 +33,19 @@ const rows = [];
 const add = async (name) => rows.push({ name, ...(await count()) });
 const click = (sel) => page.click(sel);
 
-if (await page.isVisible('#tl-onboarding')) {
-  await add('Onboarding: welcome');
-  await page.evaluate(() => window.__tlTest && window.__tlTest.skipOnboarding && window.__tlTest.skipOnboarding(new Date().getFullYear() - 30));
-  await page.waitForTimeout(300);
-} else if (await page.isVisible('#app-birth-date')) {
-  await add('First open (age question)');
-  await page.fill('#app-birth-date', birthDateYearsAgo(30));
-  await click('.app-age-save');
-  await click('.app-age-yes');
+// First open: the onboarding pages, one by one.
+for (let i = 0; i < 12 && await page.isVisible('#tl-onboarding'); i += 1) {
+  const name = await page.getAttribute('.tl-ob-page:not([hidden])', 'data-ob');
+  await add('Onboarding: ' + name);
+  if (name === 'age') {
+    await page.fill('#app-birth-date', birthDateYearsAgo(30));
+    await click('.app-age-save');
+    await click('.app-age-yes');
+  } else if (name === 'done') {
+    await click('#tl-ob-start');
+  } else {
+    await click('.tl-ob-page:not([hidden]) [data-ob-next]');
+  }
 }
 for (const [name, id] of [['Home', 'home'], ['Check-in', 'checkin'], ['Meditate', 'meditate'], ['Location (Places off)', 'location'], ['Friends (My circle)', 'friends']]) {
   await click(`#tl-tabbar [data-tl-tab-btn="${id}"]`);

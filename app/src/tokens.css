@@ -59,6 +59,9 @@
   --tl-press-scale: 0.96;
   --tl-pulse: 2.4s;
   --tl-shimmer: 1.6s;
+  --tl-tide: 14s;              /* the onboarding wave */
+  --tl-breath-once: 5s;        /* the one breath before a Calm check-in */
+  --tl-breath-demo: 1.6s;      /* the style preview, times the style's speed */
 
   /* Elevation: two soft levels */
   --tl-elev-1: 0 1px 3px rgba(11, 40, 56, 0.10);

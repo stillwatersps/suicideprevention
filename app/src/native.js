@@ -11,13 +11,19 @@ const webStandIn = {
   composed: [],
   async getStatus() {
     return {
-      platform: 'web', locationAuthorization: 'unavailable', notificationAuthorization: 'unavailable',
+      platform: 'web', locationAuthorization: hooks().locationAuthorization || 'unavailable', notificationAuthorization: hooks().notificationAuthorization || 'unavailable',
       monitoringAvailable: false, monitoredCount: 0, maxPlaces: 20, canSendText: false, debugBuild: false,
       enabled: Boolean(this.config && this.config.enabled), monitoringProblems: {},
     };
   },
-  async requestLocationPermission() { return this.getStatus(); },
-  async requestNotificationPermission() { return { granted: false }; },
+  async requestLocationPermission() {
+    if (hooks().grantLocation !== undefined) hooks().locationAuthorization = hooks().grantLocation ? 'whenInUse' : 'denied';
+    return this.getStatus();
+  },
+  async requestNotificationPermission() {
+    if (hooks().grantNotifications !== undefined) hooks().notificationAuthorization = hooks().grantNotifications ? 'authorized' : 'denied';
+    return { granted: hooks().notificationAuthorization === 'authorized' };
+  },
   async pickPlace(options) {
     const pick = hooks().pickPlace;
     return pick ? pick(options) : { cancelled: true };
@@ -40,6 +46,15 @@ const webStandIn = {
   },
   async takeLaunchTarget() { return { target: '' }; },
   async debugEnterPlace() { return { done: false }; },
+  // The redesign: one location on request, haptics, keeping the screen awake, the audio route.
+  // In a browser these are stand-ins; tests set window.__tidelight to pretend.
+  async getCurrentLocation() {
+    const position = hooks().position;
+    return position ? { latitude: position.latitude, longitude: position.longitude, accuracy: 50 } : { unavailable: true };
+  },
+  async haptic(options) { if (hooks().onHaptic) hooks().onHaptic(options); },
+  async setKeepAwake(options) { if (hooks().onKeepAwake) hooks().onKeepAwake(options.on); return { on: options.on }; },
+  async getAudioRoute() { return { headphones: Boolean(hooks().headphones), silentKnown: false }; },
   addListener() { return { remove() {} }; },
 };
 

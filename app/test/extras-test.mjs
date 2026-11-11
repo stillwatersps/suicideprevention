@@ -53,6 +53,7 @@ async function run(browser, lang) {
     window.__sms = [];
     window.__tidelight = { pickContact: async () => people.shift() || { cancelled: true }, onSms: (link) => window.__sms.push(link) };
     try { if (!localStorage.getItem('tidelight.agegroup.v1')) localStorage.setItem('tidelight.agegroup.v1', 'teen'); } catch (e) { /* first load */ }
+    try { if (!localStorage.getItem('tidelight.onboarding')) localStorage.setItem('tidelight.onboarding', '{"completed":true,"setupCelebrated":true}'); } catch (e) { /* first load */ }
   });
   const page = await context.newPage();
   page.on('pageerror', (e) => errors.push(e.message));

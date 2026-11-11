@@ -24,16 +24,37 @@
             <h2 class="tl-title tl-greeting" id="tl-home-title">Hello</h2>
             <button type="button" class="tl-icon-btn" data-tl-push="settings" aria-label="Open settings"><span data-tl-icon="gear"></span></button>
           </div>
-          <div id="tl-home-setup" hidden></div>
+          <div id="tl-home-setup" hidden>
+            <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
+              <span id="tl-setup-ring"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Finish setting up</span><span class="tl-card-sub" id="tl-setup-count"></span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
+            <ul class="tl-list tl-setup-list" id="tl-setup-list" hidden>
+              <li data-setup="name"><label class="tl-label" for="tl-setup-name">Your name</label><span class="tl-row"><input class="tl-input" id="tl-setup-name" type="text" maxlength="30" autocomplete="off"><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="name">Save</button></span></li>
+              <li data-setup="count"><span class="tl-label">Check-ins per day</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="count">Keep {count} a day</button></li>
+              <li data-setup="style"><span class="tl-label">Check-in style</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="style">Choose a style</button></li>
+              <li data-setup="location"><span class="tl-label">Location</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="location">Allow location</button></li>
+              <li data-setup="homeSpot"><span class="tl-label">Home spot</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="homeSpot">Save where I am</button></li>
+              <li data-setup="notifications"><span class="tl-label">Reminders</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="notifications">Turn on reminders</button></li>
+              <li data-setup="firstCheckIn"><span class="tl-label">First check-in</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="firstCheckIn">Check in now</button></li>
+              <li data-setup="firstMeditation"><span class="tl-label">First meditation</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="firstMeditation">Open Meditate</button></li>
+            </ul>
+            <p class="tl-status" id="tl-setup-note" role="status"></p>
+          </div>
+          <div class="tl-card tl-card-warm" id="tl-setup-done" role="status" hidden>
+            <span class="tl-card-icon" data-tl-icon="check"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Setup complete</span><span class="tl-card-sub">Everything is ready</span></span>
+          </div>
           <div id="tl-home-streak" hidden></div>
-          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-go="checkin" aria-label="Start a check-in">
+          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-push="flow" aria-label="Start a check-in">
             <span class="tl-card-icon" data-tl-icon="heart"></span>
             <span class="tl-card-text"><span class="tl-card-title">Next check-in</span><span class="tl-card-sub" id="tl-home-next-when">Any time you like</span></span>
             <span class="tl-card-go">Start</span>
           </button>
           <div id="tl-home-suggest" hidden></div>
           <div class="tl-quick" role="group" aria-label="Quick actions">
-            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="checkin" data-tl-quick="checkin">Check in</button>
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="flow" data-tl-quick="checkin">Check in</button>
             <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="meditate">Meditate</button>
             <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="reset">1-min reset</button>
           </div>
@@ -42,7 +63,15 @@
         <section class="tl-screen" id="tl-checkin" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-checkin-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <h2 class="tl-title" id="tl-checkin-title">Check in</h2>
-          <div id="tl-checkin-quick" hidden></div>
+          <button type="button" class="tl-card tl-card-action tl-card-hero" id="tl-checkin-quick" data-tl-push="flow" aria-label="Start a quick check-in">
+            <span class="tl-card-text"><span class="tl-card-title">Quick check-in</span><span class="tl-card-sub">One tap, how you are</span></span>
+            <span class="tl-btn tl-btn-primary">Check in</span>
+          </button>
+          <div class="tl-panel" id="tl-today-list-box">
+            <h3 class="tl-headline" id="tl-today-list-title">Today</h3>
+            <p class="tl-sub" id="tl-today-empty">No check-ins yet today.</p>
+            <ul class="tl-list" id="tl-today-list" aria-labelledby="tl-today-list-title"></ul>
+          </div>
           <ul class="tl-list">
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-today" data-tl-start>
               <span class="tl-card-icon" data-tl-icon="heart"></span>
@@ -72,6 +101,144 @@
           </ul>
         </section>
 
+        <section class="tl-screen tl-center" id="tl-flow" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-flow-prompt" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <div class="tl-flow-step" data-flow="breath" hidden>
+            <div class="tl-breath" aria-hidden="true"><span class="tl-breath-dot"></span></div>
+            <p class="tl-headline" id="tl-flow-breath-word" role="status"></p>
+            <button type="button" class="tl-btn tl-btn-quiet" id="tl-flow-skip">Skip</button>
+          </div>
+          <div class="tl-flow-step" data-flow="mood" hidden>
+            <h2 class="tl-title" id="tl-flow-prompt"></h2>
+            <div class="tl-faces" id="tl-flow-faces" role="group" aria-labelledby="tl-flow-prompt">
+              <button type="button" class="tl-face" data-value="1" aria-pressed="false"><span data-tl-face="1"></span><span class="tl-face-label">Very low</span></button>
+              <button type="button" class="tl-face" data-value="2" aria-pressed="false"><span data-tl-face="2"></span><span class="tl-face-label">Low</span></button>
+              <button type="button" class="tl-face" data-value="3" aria-pressed="false"><span data-tl-face="3"></span><span class="tl-face-label">Okay</span></button>
+              <button type="button" class="tl-face" data-value="4" aria-pressed="false"><span data-tl-face="4"></span><span class="tl-face-label">Good</span></button>
+              <button type="button" class="tl-face" data-value="5" aria-pressed="false"><span data-tl-face="5"></span><span class="tl-face-label">Great</span></button>
+            </div>
+            <div class="tl-flow-more" id="tl-flow-more" hidden>
+              <div class="tl-row tl-row-center" id="tl-flow-tags" role="group" aria-label="Anything else? Optional">
+                <button type="button" class="tl-chip" data-value="tired" aria-pressed="false">Tired</button>
+                <button type="button" class="tl-chip" data-value="stressed" aria-pressed="false">Stressed</button>
+                <button type="button" class="tl-chip" data-value="happy" aria-pressed="false">Happy</button>
+                <button type="button" class="tl-chip" data-value="focused" aria-pressed="false">Focused</button>
+                <button type="button" class="tl-chip" data-value="anxious" aria-pressed="false">Anxious</button>
+                <button type="button" class="tl-chip" data-value="grateful" aria-pressed="false">Grateful</button>
+              </div>
+              <p class="tl-field"><label for="tl-flow-note">A note, if you like</label><input class="tl-input" id="tl-flow-note" type="text" maxlength="120" autocomplete="off"></p>
+              <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-flow-done">Done</button>
+            </div>
+          </div>
+          <div class="tl-flow-step" data-flow="done" role="status" hidden>
+            <span class="tl-done-mark" data-tl-icon="check" data-tl-large></span>
+            <p class="tl-title" id="tl-flow-thanks"></p>
+          </div>
+          <div class="tl-flow-step tl-support-now" data-flow="support" id="tl-flow-support" tabindex="-1" hidden>
+            <h2 class="tl-title">That sounds really hard.</h2>
+            <p>You don't have to carry it alone. You can talk to someone right now.</p>
+            <ul class="tl-support-actions">
+              <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+            </ul>
+            <p class="tl-sub">The 988 Suicide &amp; Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.</p>
+            <p class="tl-sub">Your check-in is saved on this phone. Nobody at Tidelight sees it, so it isn't a way to ask for help.</p>
+            <div class="tl-row tl-row-center">
+              <a class="tl-btn tl-btn-secondary" href="#support">More ways to get support</a>
+              <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Back to Home</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="tl-screen tl-center" id="tl-onboarding" data-tl-tab="home" tabindex="-1" aria-label="Getting started" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-ob-top">
+            <button type="button" class="tl-btn tl-btn-quiet tl-back" id="tl-ob-back"><span data-tl-icon="back"></span>Back</button>
+            <ol class="tl-dots" id="tl-ob-dots" aria-hidden="true"></ol>
+            <button type="button" class="tl-btn tl-btn-quiet" id="tl-ob-skip">Skip</button>
+          </div>
+          <p class="visually-hidden" id="tl-ob-step" role="status"></p>
+
+          <div class="tl-ob-page" data-ob="welcome">
+            <div class="tl-art tl-art-wave" aria-hidden="true"><span></span><span></span><span></span></div>
+            <h2 class="tl-display">Find your calm, anywhere.</h2>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Let's go</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="age" hidden>
+            <div id="tl-ob-age-slot"></div>
+          </div>
+
+          <div class="tl-ob-page" data-ob="name" hidden>
+            <div class="tl-art" aria-hidden="true"><span data-tl-icon="heart" data-tl-large></span></div>
+            <h2 class="tl-title" id="tl-ob-name-title">What should we call you?</h2>
+            <p class="tl-sub">Optional. It stays on this phone.</p>
+            <input class="tl-input" id="tl-ob-name" type="text" maxlength="30" autocomplete="off" aria-labelledby="tl-ob-name-title">
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Next</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="count" hidden>
+            <h2 class="tl-title" id="tl-ob-count-title">Check-ins per day</h2>
+            <div class="tl-stepper" id="tl-ob-count" role="group" aria-labelledby="tl-ob-count-title">
+              <button type="button" class="tl-icon-btn" data-tl-step="-1" aria-label="One fewer check-in a day"><span data-tl-icon="minus"></span></button>
+              <span class="tl-stepper-value" aria-live="polite">3</span>
+              <button type="button" class="tl-icon-btn" data-tl-step="1" aria-label="One more check-in a day"><span data-tl-icon="plus"></span></button>
+            </div>
+            <ul class="tl-times" data-tl-times aria-label="Your check-in times"></ul>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Next</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="times" hidden>
+            <div class="tl-art" aria-hidden="true"><span data-tl-icon="clock" data-tl-large></span></div>
+            <h2 class="tl-title">Your day</h2>
+            <div class="tl-grid-2">
+              <p class="tl-field"><label for="tl-ob-wake">I wake up</label><input class="tl-input" id="tl-ob-wake" type="time" value="07:00"></p>
+              <p class="tl-field"><label for="tl-ob-sleep">I go to bed</label><input class="tl-input" id="tl-ob-sleep" type="time" value="22:00"></p>
+            </div>
+            <ul class="tl-times" data-tl-times aria-label="Your check-in times"></ul>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Next</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="style" hidden>
+            <h2 class="tl-title" id="tl-ob-style-title">Pick your style</h2>
+            <div class="tl-grid-2" id="tl-ob-style" role="group" aria-labelledby="tl-ob-style-title">
+              <button type="button" class="tl-choice" data-value="calm" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">🌊</span><span class="tl-choice-title">Calm</span><span class="tl-choice-sub">Gentle and slow</span></button>
+              <button type="button" class="tl-choice" data-value="straightforward" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">⚡</span><span class="tl-choice-title">Straightforward</span><span class="tl-choice-sub">Quick and direct</span></button>
+            </div>
+            <div class="tl-style-preview" id="tl-ob-style-preview" aria-live="polite"><span class="tl-breath-dot" aria-hidden="true"></span><p class="tl-headline"></p></div>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Next</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="location" hidden>
+            <div class="tl-art" aria-hidden="true"><span data-tl-icon="pin" data-tl-large></span></div>
+            <h2 class="tl-title">Meditations that fit</h2>
+            <p class="tl-sub">So we can suggest the right meditation for where you are.</p>
+            <p class="tl-sub">Your location is read only when you ask. It stays on this phone and is never sent anywhere.</p>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-ob-location">Allow location</button>
+            <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" id="tl-ob-home" hidden>Set your home spot</button>
+            <p class="tl-status" id="tl-ob-location-note" role="status"></p>
+            <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" data-ob-next>Next</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="notifications" hidden>
+            <div class="tl-art" aria-hidden="true"><span data-tl-icon="bell" data-tl-large></span></div>
+            <h2 class="tl-title">Gentle reminders</h2>
+            <p class="tl-sub">We'll gently remind you to check in.</p>
+            <p class="tl-sub">A reminder never says anything about you.</p>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-ob-notify">Turn on reminders</button>
+            <p class="tl-status" id="tl-ob-notify-note" role="status"></p>
+            <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" data-ob-next>Next</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="done" hidden>
+            <div class="tl-art tl-art-wave tl-art-done" aria-hidden="true"><span></span><span></span><span></span></div>
+            <h2 class="tl-display">You're all set.</h2>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-ob-start">Start</button>
+          </div>
+        </section>
+
         <section class="tl-screen tl-legacy" id="tl-legacy" data-tl-tab="checkin" tabindex="-1" aria-label="Daily check-in, journal, and your journey" hidden>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
         </section>
@@ -89,7 +256,11 @@
         <section class="tl-screen" id="tl-location" data-tl-tab="location" tabindex="-1" aria-labelledby="tl-location-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <h2 class="tl-title" id="tl-location-title">Places</h2>
-          <div id="tl-location-home" hidden></div>
+          <button type="button" class="tl-card tl-card-action" id="tl-location-home" data-tl-push="settings" data-tl-anchor="tl-set-places">
+            <span class="tl-card-icon" data-tl-icon="home"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Home spot</span><span class="tl-card-sub" id="tl-location-home-state"></span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <div id="tl-location-slot"></div>
         </section>
 
@@ -108,7 +279,83 @@
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
           <h2 class="tl-title" id="tl-settings-title">Settings</h2>
-          <div id="tl-settings-sections"></div>
+          <div id="tl-settings-sections" class="tl-stack">
+            <h3 class="tl-section-title">You</h3>
+            <p class="tl-field"><label for="tl-set-name">Your name (optional, stays on this phone)</label><input class="tl-input" id="tl-set-name" type="text" maxlength="30" autocomplete="off"></p>
+
+            <h3 class="tl-section-title" id="tl-set-checkins">Check-ins</h3>
+            <div class="tl-panel">
+              <span class="tl-label" id="tl-set-count-title">Check-ins per day</span>
+              <div class="tl-stepper" id="tl-set-count" role="group" aria-labelledby="tl-set-count-title">
+                <button type="button" class="tl-icon-btn" data-tl-step="-1" aria-label="One fewer check-in a day"><span data-tl-icon="minus"></span></button>
+                <span class="tl-stepper-value" aria-live="polite">3</span>
+                <button type="button" class="tl-icon-btn" data-tl-step="1" aria-label="One more check-in a day"><span data-tl-icon="plus"></span></button>
+              </div>
+              <div class="tl-grid-2">
+                <p class="tl-field"><label for="tl-set-wake">I wake up</label><input class="tl-input" id="tl-set-wake" type="time"></p>
+                <p class="tl-field"><label for="tl-set-sleep">I go to bed</label><input class="tl-input" id="tl-set-sleep" type="time"></p>
+              </div>
+              <span class="tl-label" id="tl-set-times-title">Check-in times (you can change each one)</span>
+              <ul class="tl-times tl-times-edit" id="tl-set-times" aria-labelledby="tl-set-times-title"></ul>
+              <span class="tl-label" id="tl-set-style-title">Style</span>
+              <div class="tl-grid-2" id="tl-set-style" role="group" aria-labelledby="tl-set-style-title">
+                <button type="button" class="tl-choice" data-value="calm" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">🌊</span><span class="tl-choice-title">Calm</span><span class="tl-choice-sub">Gentle and slow</span></button>
+                <button type="button" class="tl-choice" data-value="straightforward" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">⚡</span><span class="tl-choice-title">Straightforward</span><span class="tl-choice-sub">Quick and direct</span></button>
+              </div>
+            </div>
+
+            <h3 class="tl-section-title" id="tl-set-notifications">Notifications</h3>
+            <div class="tl-panel">
+              <label class="tl-switch"><span>Check-in reminders</span><input type="checkbox" id="tl-set-reminders"></label>
+              <p class="tl-sub">The phone shows them itself. A reminder only says "<span class="tl-rem-sample"></span>" Nothing about you is in it, and nothing is sent anywhere.</p>
+              <p class="tl-status" id="tl-set-rem-web" role="status" hidden>Reminders work in the app on a phone. In a web browser, your choices are kept, but no reminder can be shown.</p>
+              <p class="tl-status" id="tl-set-rem-denied" role="status" hidden>This phone isn't letting Tidelight show notifications, so no reminder can be set. You can change that in the phone's settings.</p>
+              <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-test">Send a test notification</button>
+              <p class="tl-status" id="tl-set-test-note" role="status" hidden>A test reminder will show in a few seconds, if the phone allows it.</p>
+            </div>
+
+            <h3 class="tl-section-title" id="tl-set-meditation">Meditation</h3>
+            <div class="tl-panel" id="tl-set-meditation-box">
+              <span class="tl-label" id="tl-set-length-title">Usual length</span>
+              <div class="tl-row" id="tl-set-length" role="group" aria-labelledby="tl-set-length-title">
+                <button type="button" class="tl-chip" data-value="3" aria-pressed="false">3 min</button>
+                <button type="button" class="tl-chip" data-value="5" aria-pressed="false">5 min</button>
+                <button type="button" class="tl-chip" data-value="10" aria-pressed="false">10 min</button>
+                <button type="button" class="tl-chip" data-value="15" aria-pressed="false">15 min</button>
+                <button type="button" class="tl-chip" data-value="20" aria-pressed="false">20 min</button>
+              </div>
+              <span class="tl-label" id="tl-set-sound-title">Usual sound</span>
+              <div class="tl-row" id="tl-set-sound" role="group" aria-labelledby="tl-set-sound-title">
+                <button type="button" class="tl-chip" data-value="none" aria-pressed="false">None</button>
+                <button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Rain</button>
+                <button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button>
+                <button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">White noise</button>
+                <button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Brown noise</button>
+              </div>
+              <label class="tl-switch"><span>Voice guide</span><input type="checkbox" id="tl-set-voice"></label>
+              <label class="tl-switch"><span>Haptic breathing</span><input type="checkbox" id="tl-set-haptic-breath"></label>
+              <label class="tl-switch"><span>Count each breath</span><input type="checkbox" id="tl-set-countdown"></label>
+            </div>
+
+            <h3 class="tl-section-title" id="tl-set-feel">Feel</h3>
+            <div class="tl-panel">
+              <label class="tl-switch"><span>Haptics</span><input type="checkbox" id="tl-set-haptics"></label>
+              <label class="tl-switch"><span>Reduce animations</span><input type="checkbox" id="tl-set-reduce"></label>
+              <label class="tl-switch"><span>Streaks</span><input type="checkbox" id="tl-set-streaks"></label>
+              <p class="tl-sub">Streaks count the days you check in. Turn them off any time. Nothing is lost.</p>
+            </div>
+
+            <h3 class="tl-section-title" id="tl-set-places">Places</h3>
+            <div class="tl-panel">
+              <span class="tl-label">Home spot</span>
+              <p class="tl-status" id="tl-set-home-state" role="status"></p>
+              <p class="tl-sub">One spot, saved on this phone only. The app looks at where you are only when it suggests a meditation, to see if you're near it. Your location is never sent anywhere.</p>
+              <div class="tl-row">
+                <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-home-save">Save where I am</button>
+                <button type="button" class="tl-btn tl-btn-quiet" id="tl-set-home-clear">Clear home spot</button>
+              </div>
+            </div>
+          </div>
           <h3 class="tl-section-title">Your age group</h3>
           <div id="tl-settings-age-slot"></div>
           <h3 class="tl-section-title">Your data</h3>
@@ -118,7 +365,22 @@
             <span class="tl-card-go" data-tl-icon="next"></span>
           </button>
           <h3 class="tl-section-title">About</h3>
-          <p class="tl-status" id="tl-version">Tidelight app, draft <span class="tl-version-number">0.2.0</span></p>
+          <button type="button" class="tl-btn tl-btn-quiet" id="tl-version" aria-label="App version">Tidelight app, draft <span class="tl-version-number">0.2.0</span></button>
+          <div class="tl-panel" id="tl-developer" hidden>
+            <h3 class="tl-headline">Developer</h3>
+            <p class="tl-sub">For testing. Not shown to people using the app.</p>
+            <p class="tl-status" id="tl-dev-phase"></p>
+            <div class="tl-row">
+              <button type="button" class="tl-btn tl-btn-secondary" id="tl-dev-onboarding">Reset onboarding</button>
+              <button type="button" class="tl-btn tl-btn-secondary" id="tl-dev-streak">Reset streak</button>
+              <button type="button" class="tl-btn tl-btn-secondary" id="tl-dev-seed">Seed fake history</button>
+            </div>
+            <span class="tl-label">Reminders set on this phone</span>
+            <ul class="tl-list" id="tl-dev-pending"></ul>
+            <div id="tl-dev-more"></div>
+            <span class="tl-label">Developer notes</span>
+            <ul class="tl-list" id="tl-dev-log"></ul>
+          </div>
         </section>
 
       </div>
@@ -141,5 +403,54 @@
         <span data-word="greet.night">Good night</span>
         <span data-word="greet.withName">{greeting}, {name}</span>
         <span data-word="more.summary">How this works</span>
+        <span data-word="home.nextAt">At {time}</span>
+        <span data-word="home.nextAny">Any time you like</span>
+        <span data-word="home.nextDone">All done for today</span>
+        <span data-word="setup.count">Setup {done}/{total}</span>
+        <span data-word="setup.ring">{done}/{total}</span>
+        <span data-word="setup.denied">The phone said no. You can change that in the phone's Settings.</span>
+        <span data-word="setup.unavailable">That only works in the app on a phone.</span>
+        <span data-word="setup.saved">Saved.</span>
+        <span data-word="checkin.prompt" data-style="calm">Take a moment… how are you feeling right now?</span>
+        <span data-word="checkin.prompt" data-style="straightforward">How are you?</span>
+        <span data-word="checkin.breath" data-style="calm">One slow breath first</span>
+        <span data-word="checkin.breath" data-style="straightforward">One breath</span>
+        <span data-word="checkin.done" data-style="calm">Thank you for checking in with yourself 💙</span>
+        <span data-word="checkin.done" data-style="straightforward">Logged. Nice.</span>
+        <span data-word="mood.1">Very low</span>
+        <span data-word="mood.2">Low</span>
+        <span data-word="mood.3">Okay</span>
+        <span data-word="mood.4">Good</span>
+        <span data-word="mood.5">Great</span>
+        <span data-word="tag.tired">Tired</span>
+        <span data-word="tag.stressed">Stressed</span>
+        <span data-word="tag.happy">Happy</span>
+        <span data-word="tag.focused">Focused</span>
+        <span data-word="tag.anxious">Anxious</span>
+        <span data-word="tag.grateful">Grateful</span>
+        <span data-word="rem.title">Tidelight</span>
+        <span data-word="rem.body" data-style="calm">A moment to check in, if you'd like.</span>
+        <span data-word="rem.body" data-style="straightforward">Time for your check-in.</span>
+        <span data-word="ob.step">Step {step} of {total}</span>
+        <span data-word="ob.locationGranted">Location is on.</span>
+        <span data-word="ob.locationDenied">Location is off. You can turn it on later in the phone's Settings.</span>
+        <span data-word="ob.locationUnavailable">Location only works in the app on a phone.</span>
+        <span data-word="ob.homeSaved">Home spot saved on this phone.</span>
+        <span data-word="ob.homeFailed">The phone couldn't find where you are. You can try again in Settings.</span>
+        <span data-word="ob.notifyGranted">Reminders are on.</span>
+        <span data-word="ob.notifyDenied">Reminders are off. You can turn them on later in the phone's Settings.</span>
+        <span data-word="ob.notifyUnavailable">Reminders only work in the app on a phone.</span>
+        <span data-word="set.homeNone">No home spot saved.</span>
+        <span data-word="set.homeSaved">A home spot is saved on this phone.</span>
+        <span data-word="set.timeLabel">Check-in {number}</span>
+        <span data-word="dev.phase">Build phase: {phase}</span>
+        <span data-word="dev.none">None.</span>
       </div>
+<!-- END -->
+
+<!-- BLOCK:result-support -->
+          <div class="tl-result-support tl-support-now ci-off" id="tl-result-support" tabindex="-1">
+            <p><strong>That sounds heavy. You don't have to carry it alone.</strong> You can <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a> right now, any time. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</p>
+            <p><a href="#support">More ways to get support</a></p>
+          </div>
 <!-- END -->

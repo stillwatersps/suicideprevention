@@ -6,12 +6,12 @@
 // - Shares one entry through the phone's own share sheet, only when the person taps Share.
 // - Keeps a line per check-in (time of day, feeling, needs) on this phone, and shares a day's or
 //   a week's lines the same way, only when the person taps Share.
-// - Sets up to four daily reminders, shown by the phone itself, each off until turned on.
+// - Check-in reminders moved to the redesign (src/ui/reminders.js): one per check-in time, off
+//   until turned on, shown by the phone itself.
 // - "Places that are hard for me" (idea E1): the person's own places, people, dwell time, and
 //   message, kept on this phone and watched by the phone itself. Off until turned on.
 // Every word it shows is already in the page, from app/src/text/*.html.
 import { Share } from '@capacitor/share';
-import { LocalNotifications } from '@capacitor/local-notifications';
 import { Capacitor } from '@capacitor/core';
 // Places that are hard for me (idea E1): the phone side and the pure logic. A draft.
 import { Tidelight } from './native.js';
@@ -25,11 +25,8 @@ const STATE_KEY = 'tidelight.checkin.v1';
 const GROUP_KEY = 'tidelight.agegroup.v1';
 const TEXT_KEY = 'tidelight.textsize.v1';
 const LOG_KEY = 'tidelight.log.v1';
-const REM_KEY = 'tidelight.reminders.v1';
 const PLACES_KEY = 'tidelight.places.v1';
 const GROUPS = ['child', 'teen', 'young', 'adult', 'older'];
-const SLOTS = ['morning', 'midday', 'afternoon', 'evening'];
-const REM_IDS = { morning: 101, midday: 102, afternoon: 103, evening: 104 };
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
 const $$ = (sel, scope) => Array.from((scope || document).querySelectorAll(sel));
@@ -225,6 +222,7 @@ function start() {
     const parts = [];
     if (item.feeling) parts.push(word('.app-log-feeling-text') + ' ' + item.feeling);
     if (item.needs && item.needs.length) parts.push(word('.app-log-needs-text') + ' ' + item.needs.join(', '));
+    if (item.tags && item.tags.length) parts.push(item.tags.join(', '));
     return slotName(item.slot) + ', ' + timeOf(new Date(item.t)) + ': ' + parts.join('. ') + '.';
   }
   function renderLog() {
@@ -254,12 +252,25 @@ function start() {
     log.push({ t: now.toISOString(), slot: slotFor(now), feeling: current.feelingLabel || '', needs });
     renderLog();
     await saveLog();
+    window.dispatchEvent(new CustomEvent('tidelight-checkin', { detail: { t: now.toISOString(), kind: 'daily', feeling: current.feeling || '' } }));
   });
+  // The redesign's quick check-in: a mood, optional tags, and a note, kept the same way.
+  async function addQuickCheckIn(entry) {
+    const now = new Date();
+    log.push({ t: now.toISOString(), slot: slotFor(now), feeling: entry.moodLabel, needs: [], kind: 'quick', mood: entry.mood, tags: entry.tags || [], note: entry.note || '' });
+    if (api.addCheckIn) api.addCheckIn(now);
+    renderLog();
+    await saveLog();
+    await persist();
+    window.dispatchEvent(new CustomEvent('tidelight-checkin', { detail: { t: now.toISOString(), kind: 'quick', mood: entry.mood } }));
+  }
+  const todaysLog = () => { const today = new Date(); return log.filter((item) => sameDay(new Date(item.t), today)); };
   document.addEventListener('click', async (event) => {
     if (!event.target.closest('.ci-erase-yes')) return;
     log = [];
     renderLog();
     await saveLog();
+    window.dispatchEvent(new CustomEvent('tidelight-erased'));
   });
   // A day's or a week's check-ins as plain text, which the person reads and can change first.
   function summary(days) {
@@ -280,69 +291,6 @@ function start() {
   $$('.app-share-days').forEach((button) => {
     button.addEventListener('click', () => openShare(summary(Number(button.getAttribute('data-days')) || 1), button));
   });
-
-  // ---- Check-in reminders: four, each off until turned on, shown by the phone itself. Their
-  // words never mention the person, and nothing is sent anywhere.
-  const remBox = $('#app-reminders');
-  let reminders = {};
-  function remDefaults() {
-    const out = {};
-    SLOTS.forEach((slot) => {
-      const input = $('.app-rem-time[data-slot="' + slot + '"]');
-      out[slot] = { on: false, time: input ? input.value : '08:00' };
-    });
-    return out;
-  }
-  function showReminders() {
-    SLOTS.forEach((slot) => {
-      const r = reminders[slot];
-      $('.app-rem-on[data-slot="' + slot + '"]').checked = Boolean(r && r.on);
-      if (r && r.time) $('.app-rem-time[data-slot="' + slot + '"]').value = r.time;
-    });
-    const anyOn = SLOTS.some((slot) => reminders[slot].on);
-    $('.app-rem-web').classList.toggle('ci-off', native || !anyOn);
-  }
-  async function scheduleReminders() {
-    const wanted = SLOTS.filter((slot) => reminders[slot].on);
-    $('.app-rem-denied').classList.add('ci-off');
-    if (!native) return;
-    if (wanted.length) {
-      let perm = await LocalNotifications.checkPermissions();
-      if (perm.display !== 'granted') perm = await LocalNotifications.requestPermissions();
-      if (perm.display !== 'granted') {
-        SLOTS.forEach((slot) => { reminders[slot].on = false; });
-        showReminders();
-        $('.app-rem-denied').classList.remove('ci-off');
-        await save(REM_KEY, JSON.stringify(reminders));
-        return;
-      }
-    }
-    await LocalNotifications.cancel({ notifications: SLOTS.map((slot) => ({ id: REM_IDS[slot] })) });
-    if (!wanted.length) return;
-    await LocalNotifications.schedule({
-      notifications: wanted.map((slot) => {
-        const at = reminders[slot].time.split(':').map(Number);
-        return {
-          id: REM_IDS[slot],
-          title: word('.app-rem-title'),
-          body: word('.app-rem-body'),
-          schedule: { on: { hour: at[0], minute: at[1] }, allowWhileIdle: true },
-        };
-      }),
-    });
-  }
-  if (remBox) {
-    remBox.addEventListener('change', async (event) => {
-      const input = event.target.closest('.app-rem-on, .app-rem-time');
-      if (!input) return;
-      const slot = input.getAttribute('data-slot');
-      if (input.classList.contains('app-rem-on')) reminders[slot].on = input.checked;
-      else if (/^\d\d:\d\d$/.test(input.value)) reminders[slot].time = input.value;
-      showReminders();
-      await save(REM_KEY, JSON.stringify(reminders));
-      try { await scheduleReminders(); } catch (e) { /* the phone refused: the choices are kept, no reminder is set */ }
-    });
-  }
 
   // ---- Places that are hard for me (idea E1). Off until turned on; the app suggests no places.
   const placesBox = $('.app-places');
@@ -564,7 +512,6 @@ function start() {
     const target = event.detail || '';
     if (target === '#app-place-alert-send') checkForAlert(true);
     else if (target === '#app-place-alert') checkForAlert(false);
-    else if (target === '#ci-today') $('.ci-tabs a[href="#ci-today"]').click();
   });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { refreshPlacesStatus(); if (!alertInfo) checkForAlert(false); } });
 
@@ -581,15 +528,6 @@ function start() {
     try { await store.migrate(); } catch (e) { /* storage blocked: start with defaults */ }
     try { log = JSON.parse((await load(LOG_KEY)) || '[]'); } catch (e) { log = []; }
     if (!Array.isArray(log)) log = [];
-    reminders = remDefaults();
-    try {
-      const kept = JSON.parse((await load(REM_KEY)) || '{}');
-      SLOTS.forEach((slot) => {
-        if (kept[slot]) reminders[slot] = { on: Boolean(kept[slot].on), time: /^\d\d:\d\d$/.test(kept[slot].time) ? kept[slot].time : reminders[slot].time };
-      });
-    } catch (e) { /* unreadable: every reminder off */ }
-    if (remBox) showReminders();
-    $('.app-rem-denied').classList.add('ci-off');
     renderLog();
     const saved = await load(STATE_KEY);
     if (saved) {
@@ -615,7 +553,12 @@ function start() {
     applyText();
     applyGroup(group);
     if (group) askAge(false); else askAge(true);
-    try { await initRedesign({ api, store }); } catch (e) { devLog('redesign did not start', e); }
+    try {
+      await initRedesign({
+        api, addQuickCheckIn, getGroup: () => group,
+        getLog: () => log, todaysLog, todayLines: () => todaysLog().map((item) => lineFor(item) + (item.note ? ' ' + item.note : '')),
+      });
+    } catch (e) { devLog('redesign did not start', e); }
     document.documentElement.classList.add('app-ready');
     // Places that are hard for me (E1): opened from a notification, or with an alert already due.
     const hash = location.hash;

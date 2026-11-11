@@ -403,6 +403,11 @@
   // For the phone app only (app/), which saves on the phone. The website never calls these, and
   // this script still sends and stores nothing.
   window.TidelightCheckIn = {
+    // Marks a check-in done elsewhere in the app (its quick check-in) on the calendar.
+    addCheckIn: function (date) {
+      state.checkins.push(date instanceof Date && !isNaN(date) ? date : new Date());
+      renderJourney();
+    },
     getState: function () {
       var copy = JSON.parse(JSON.stringify(state));
       copy.editing = null;

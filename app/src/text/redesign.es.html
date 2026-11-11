@@ -1,10 +1,8 @@
-<!-- Every word the redesigned phone app adds, in Spanish. DRAFT FOR REVIEW, and an unreviewed AI
-     translation: an AI assistant translated these from redesign.en.html, and no fluent Spanish
-     reader or licensed reviewer has read them.
-     tools/build-redesign.mjs puts each block into the app's copy of es/registro-diario/index.html, and
-     tools/make-words-packet.mjs lists every line for reviewers. The website never shows these.
-     Blocks start with BLOCK:name and end with END. Words that scripts fill in are in the "words"
-     block, keyed by data-word; some come in two voices, keyed by data-style. -->
+<!-- Every word the redesigned phone app adds, in Spanish. DRAFT FOR REVIEW, and an unreviewed AI translation:
+     an AI assistant translated these from redesign.en.html, and no fluent Spanish reader or licensed reviewer
+     has read them. MADE BY tools/make-redesign-es.mjs from redesign.en.html and redesign.es.json: change
+     Spanish words in redesign.es.json, then run `npm run words:es`. tools/build-redesign.mjs puts each block
+     into the app's copy of es/registro-diario/index.html. The website never shows these. -->
 
 <!-- BLOCK:review -->
       <aside class="page-status review-note tl-review" id="tl-review" aria-label="Estado de la revisión de los textos nuevos de la app">
@@ -25,16 +23,37 @@
             <h2 class="tl-title tl-greeting" id="tl-home-title">Hola</h2>
             <button type="button" class="tl-icon-btn" data-tl-push="settings" aria-label="Abrir los ajustes"><span data-tl-icon="gear"></span></button>
           </div>
-          <div id="tl-home-setup" hidden></div>
+          <div id="tl-home-setup" hidden>
+            <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
+              <span id="tl-setup-ring"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Termina de configurar</span><span class="tl-card-sub" id="tl-setup-count"></span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
+            <ul class="tl-list tl-setup-list" id="tl-setup-list" hidden>
+              <li data-setup="name"><label class="tl-label" for="tl-setup-name">Tu nombre</label><span class="tl-row"><input class="tl-input" id="tl-setup-name" type="text" maxlength="30" autocomplete="off"><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="name">Guardar</button></span></li>
+              <li data-setup="count"><span class="tl-label">Registros por día</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="count">Dejar {count} al día</button></li>
+              <li data-setup="style"><span class="tl-label">Estilo del registro</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="style">Elegir un estilo</button></li>
+              <li data-setup="location"><span class="tl-label">Ubicación</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="location">Permitir la ubicación</button></li>
+              <li data-setup="homeSpot"><span class="tl-label">Lugar de casa</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="homeSpot">Guardar donde estoy</button></li>
+              <li data-setup="notifications"><span class="tl-label">Recordatorios</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="notifications">Activar recordatorios</button></li>
+              <li data-setup="firstCheckIn"><span class="tl-label">Primer registro</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="firstCheckIn">Registrarme ahora</button></li>
+              <li data-setup="firstMeditation"><span class="tl-label">Primera meditación</span><button type="button" class="tl-btn tl-btn-secondary" data-setup-do="firstMeditation">Abrir Meditar</button></li>
+            </ul>
+            <p class="tl-status" id="tl-setup-note" role="status"></p>
+          </div>
+          <div class="tl-card tl-card-warm" id="tl-setup-done" role="status" hidden>
+            <span class="tl-card-icon" data-tl-icon="check"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Configuración completa</span><span class="tl-card-sub">Todo está listo</span></span>
+          </div>
           <div id="tl-home-streak" hidden></div>
-          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-go="checkin" aria-label="Empezar un registro">
+          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-push="flow" aria-label="Empezar un registro">
             <span class="tl-card-icon" data-tl-icon="heart"></span>
             <span class="tl-card-text"><span class="tl-card-title">Próximo registro</span><span class="tl-card-sub" id="tl-home-next-when">Cuando quieras</span></span>
             <span class="tl-card-go">Empezar</span>
           </button>
           <div id="tl-home-suggest" hidden></div>
           <div class="tl-quick" role="group" aria-label="Acciones rápidas">
-            <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="checkin" data-tl-quick="checkin">Registrarme</button>
+            <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="flow" data-tl-quick="checkin">Registrarme</button>
             <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="meditate">Meditar</button>
             <button type="button" class="tl-btn tl-btn-secondary" data-tl-go="meditate" data-tl-quick="reset">Pausa de 1 min</button>
           </div>
@@ -42,8 +61,16 @@
 
         <section class="tl-screen" id="tl-checkin" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-checkin-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
-          <h2 class="tl-title" id="tl-checkin-title">Registro</h2>
-          <div id="tl-checkin-quick" hidden></div>
+          <h2 class="tl-title" id="tl-checkin-title">Registrarme</h2>
+          <button type="button" class="tl-card tl-card-action tl-card-hero" id="tl-checkin-quick" data-tl-push="flow" aria-label="Empezar un registro rápido">
+            <span class="tl-card-text"><span class="tl-card-title">Registro rápido</span><span class="tl-card-sub">Un toque: cómo estás</span></span>
+            <span class="tl-btn tl-btn-primary">Registrarme</span>
+          </button>
+          <div class="tl-panel" id="tl-today-list-box">
+            <h3 class="tl-headline" id="tl-today-list-title">Hoy</h3>
+            <p class="tl-sub" id="tl-today-empty">Todavía no hay registros hoy.</p>
+            <ul class="tl-list" id="tl-today-list" aria-labelledby="tl-today-list-title"></ul>
+          </div>
           <ul class="tl-list">
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-today" data-tl-start>
               <span class="tl-card-icon" data-tl-icon="heart"></span>
@@ -73,6 +100,144 @@
           </ul>
         </section>
 
+        <section class="tl-screen tl-center" id="tl-flow" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-flow-prompt" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <div class="tl-flow-step" data-flow="breath" hidden>
+            <div class="tl-breath" aria-hidden="true"><span class="tl-breath-dot"></span></div>
+            <p class="tl-headline" id="tl-flow-breath-word" role="status"></p>
+            <button type="button" class="tl-btn tl-btn-quiet" id="tl-flow-skip">Omitir</button>
+          </div>
+          <div class="tl-flow-step" data-flow="mood" hidden>
+            <h2 class="tl-title" id="tl-flow-prompt"></h2>
+            <div class="tl-faces" id="tl-flow-faces" role="group" aria-labelledby="tl-flow-prompt">
+              <button type="button" class="tl-face" data-value="1" aria-pressed="false"><span data-tl-face="1"></span><span class="tl-face-label">Muy mal</span></button>
+              <button type="button" class="tl-face" data-value="2" aria-pressed="false"><span data-tl-face="2"></span><span class="tl-face-label">Mal</span></button>
+              <button type="button" class="tl-face" data-value="3" aria-pressed="false"><span data-tl-face="3"></span><span class="tl-face-label">Regular</span></button>
+              <button type="button" class="tl-face" data-value="4" aria-pressed="false"><span data-tl-face="4"></span><span class="tl-face-label">Bien</span></button>
+              <button type="button" class="tl-face" data-value="5" aria-pressed="false"><span data-tl-face="5"></span><span class="tl-face-label">Muy bien</span></button>
+            </div>
+            <div class="tl-flow-more" id="tl-flow-more" hidden>
+              <div class="tl-row tl-row-center" id="tl-flow-tags" role="group" aria-label="¿Algo más? Opcional">
+                <button type="button" class="tl-chip" data-value="tired" aria-pressed="false">Cansancio</button>
+                <button type="button" class="tl-chip" data-value="stressed" aria-pressed="false">Estrés</button>
+                <button type="button" class="tl-chip" data-value="happy" aria-pressed="false">Alegría</button>
+                <button type="button" class="tl-chip" data-value="focused" aria-pressed="false">Concentración</button>
+                <button type="button" class="tl-chip" data-value="anxious" aria-pressed="false">Ansiedad</button>
+                <button type="button" class="tl-chip" data-value="grateful" aria-pressed="false">Gratitud</button>
+              </div>
+              <p class="tl-field"><label for="tl-flow-note">Una nota, si quieres</label><input class="tl-input" id="tl-flow-note" type="text" maxlength="120" autocomplete="off"></p>
+              <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-flow-done">Listo</button>
+            </div>
+          </div>
+          <div class="tl-flow-step" data-flow="done" role="status" hidden>
+            <span class="tl-done-mark" data-tl-icon="check" data-tl-large></span>
+            <p class="tl-title" id="tl-flow-thanks"></p>
+          </div>
+          <div class="tl-flow-step tl-support-now" data-flow="support" id="tl-flow-support" tabindex="-1" hidden>
+            <h2 class="tl-title">Eso suena muy difícil.</h2>
+            <p>No tienes que cargarlo a solas. Puedes hablar con alguien ahora mismo.</p>
+            <ul class="tl-support-actions">
+              <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+            </ul>
+            <p class="tl-sub">La Línea 988 de Prevención del Suicidio y Crisis es gratuita, confidencial y está disponible a cualquier hora. Es un servicio aparte de Tidelight.</p>
+            <p class="tl-sub">Tu registro se guarda en este teléfono. Nadie en Tidelight lo ve, así que no es una forma de pedir ayuda.</p>
+            <div class="tl-row tl-row-center">
+              <a class="tl-btn tl-btn-secondary" href="#support">Más formas de recibir apoyo</a>
+              <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Volver a Inicio</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="tl-screen tl-center" id="tl-onboarding" data-tl-tab="home" tabindex="-1" aria-label="Primeros pasos" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-ob-top">
+            <button type="button" class="tl-btn tl-btn-quiet tl-back" id="tl-ob-back"><span data-tl-icon="back"></span>Atrás</button>
+            <ol class="tl-dots" id="tl-ob-dots" aria-hidden="true"></ol>
+            <button type="button" class="tl-btn tl-btn-quiet" id="tl-ob-skip">Omitir</button>
+          </div>
+          <p class="visually-hidden" id="tl-ob-step" role="status"></p>
+
+          <div class="tl-ob-page" data-ob="welcome">
+            <div class="tl-art tl-art-wave" aria-hidden="true"><span></span><span></span><span></span></div>
+            <h2 class="tl-display">Encuentra tu calma, donde estés.</h2>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Vamos</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="age" hidden>
+            <div id="tl-ob-age-slot"></div>
+          </div>
+
+          <div class="tl-ob-page" data-ob="name" hidden>
+            <div class="tl-art" aria-hidden="true"><span data-tl-icon="heart" data-tl-large></span></div>
+            <h2 class="tl-title" id="tl-ob-name-title">¿Cómo te llamamos?</h2>
+            <p class="tl-sub">Opcional. Se queda en este teléfono.</p>
+            <input class="tl-input" id="tl-ob-name" type="text" maxlength="30" autocomplete="off" aria-labelledby="tl-ob-name-title">
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Siguiente</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="count" hidden>
+            <h2 class="tl-title" id="tl-ob-count-title">Registros por día</h2>
+            <div class="tl-stepper" id="tl-ob-count" role="group" aria-labelledby="tl-ob-count-title">
+              <button type="button" class="tl-icon-btn" data-tl-step="-1" aria-label="Un registro menos al día"><span data-tl-icon="minus"></span></button>
+              <span class="tl-stepper-value" aria-live="polite">3</span>
+              <button type="button" class="tl-icon-btn" data-tl-step="1" aria-label="Un registro más al día"><span data-tl-icon="plus"></span></button>
+            </div>
+            <ul class="tl-times" data-tl-times aria-label="Tus horas de registro"></ul>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Siguiente</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="times" hidden>
+            <div class="tl-art" aria-hidden="true"><span data-tl-icon="clock" data-tl-large></span></div>
+            <h2 class="tl-title">Tu día</h2>
+            <div class="tl-grid-2">
+              <p class="tl-field"><label for="tl-ob-wake">Me despierto</label><input class="tl-input" id="tl-ob-wake" type="time" value="07:00"></p>
+              <p class="tl-field"><label for="tl-ob-sleep">Me acuesto</label><input class="tl-input" id="tl-ob-sleep" type="time" value="22:00"></p>
+            </div>
+            <ul class="tl-times" data-tl-times aria-label="Tus horas de registro"></ul>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Siguiente</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="style" hidden>
+            <h2 class="tl-title" id="tl-ob-style-title">Elige tu estilo</h2>
+            <div class="tl-grid-2" id="tl-ob-style" role="group" aria-labelledby="tl-ob-style-title">
+              <button type="button" class="tl-choice" data-value="calm" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">🌊</span><span class="tl-choice-title">Calma</span><span class="tl-choice-sub">Suave y sin prisa</span></button>
+              <button type="button" class="tl-choice" data-value="straightforward" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">⚡</span><span class="tl-choice-title">Directo</span><span class="tl-choice-sub">Rápido y al grano</span></button>
+            </div>
+            <div class="tl-style-preview" id="tl-ob-style-preview" aria-live="polite"><span class="tl-breath-dot" aria-hidden="true"></span><p class="tl-headline"></p></div>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-ob-next>Siguiente</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="location" hidden>
+            <div class="tl-art" aria-hidden="true"><span data-tl-icon="pin" data-tl-large></span></div>
+            <h2 class="tl-title">Meditaciones a tu medida</h2>
+            <p class="tl-sub">Para sugerirte la meditación adecuada según dónde estés.</p>
+            <p class="tl-sub">Tu ubicación se consulta solo cuando tú lo pides. Se queda en este teléfono y nunca se envía a ningún lugar.</p>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-ob-location">Permitir la ubicación</button>
+            <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" id="tl-ob-home" hidden>Guardar tu lugar de casa</button>
+            <p class="tl-status" id="tl-ob-location-note" role="status"></p>
+            <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" data-ob-next>Siguiente</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="notifications" hidden>
+            <div class="tl-art" aria-hidden="true"><span data-tl-icon="bell" data-tl-large></span></div>
+            <h2 class="tl-title">Recordatorios suaves</h2>
+            <p class="tl-sub">Te recordaremos con suavidad que te registres.</p>
+            <p class="tl-sub">Un recordatorio nunca dice nada sobre ti.</p>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-ob-notify">Activar recordatorios</button>
+            <p class="tl-status" id="tl-ob-notify-note" role="status"></p>
+            <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" data-ob-next>Siguiente</button>
+          </div>
+
+          <div class="tl-ob-page" data-ob="done" hidden>
+            <div class="tl-art tl-art-wave tl-art-done" aria-hidden="true"><span></span><span></span><span></span></div>
+            <h2 class="tl-display">Todo listo.</h2>
+            <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" id="tl-ob-start">Empezar</button>
+          </div>
+        </section>
+
         <section class="tl-screen tl-legacy" id="tl-legacy" data-tl-tab="checkin" tabindex="-1" aria-label="Registro diario, diario y tu camino" hidden>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
         </section>
@@ -90,7 +255,11 @@
         <section class="tl-screen" id="tl-location" data-tl-tab="location" tabindex="-1" aria-labelledby="tl-location-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <h2 class="tl-title" id="tl-location-title">Lugares</h2>
-          <div id="tl-location-home" hidden></div>
+          <button type="button" class="tl-card tl-card-action" id="tl-location-home" data-tl-push="settings" data-tl-anchor="tl-set-places">
+            <span class="tl-card-icon" data-tl-icon="home"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Lugar de casa</span><span class="tl-card-sub" id="tl-location-home-state"></span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <div id="tl-location-slot"></div>
         </section>
 
@@ -109,7 +278,83 @@
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
           <h2 class="tl-title" id="tl-settings-title">Ajustes</h2>
-          <div id="tl-settings-sections"></div>
+          <div id="tl-settings-sections" class="tl-stack">
+            <h3 class="tl-section-title">Tú</h3>
+            <p class="tl-field"><label for="tl-set-name">Tu nombre (opcional, se queda en este teléfono)</label><input class="tl-input" id="tl-set-name" type="text" maxlength="30" autocomplete="off"></p>
+
+            <h3 class="tl-section-title" id="tl-set-checkins">Registros</h3>
+            <div class="tl-panel">
+              <span class="tl-label" id="tl-set-count-title">Registros por día</span>
+              <div class="tl-stepper" id="tl-set-count" role="group" aria-labelledby="tl-set-count-title">
+                <button type="button" class="tl-icon-btn" data-tl-step="-1" aria-label="Un registro menos al día"><span data-tl-icon="minus"></span></button>
+                <span class="tl-stepper-value" aria-live="polite">3</span>
+                <button type="button" class="tl-icon-btn" data-tl-step="1" aria-label="Un registro más al día"><span data-tl-icon="plus"></span></button>
+              </div>
+              <div class="tl-grid-2">
+                <p class="tl-field"><label for="tl-set-wake">Me despierto</label><input class="tl-input" id="tl-set-wake" type="time"></p>
+                <p class="tl-field"><label for="tl-set-sleep">Me acuesto</label><input class="tl-input" id="tl-set-sleep" type="time"></p>
+              </div>
+              <span class="tl-label" id="tl-set-times-title">Horas de registro (puedes cambiar cada una)</span>
+              <ul class="tl-times tl-times-edit" id="tl-set-times" aria-labelledby="tl-set-times-title"></ul>
+              <span class="tl-label" id="tl-set-style-title">Estilo</span>
+              <div class="tl-grid-2" id="tl-set-style" role="group" aria-labelledby="tl-set-style-title">
+                <button type="button" class="tl-choice" data-value="calm" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">🌊</span><span class="tl-choice-title">Calma</span><span class="tl-choice-sub">Suave y sin prisa</span></button>
+                <button type="button" class="tl-choice" data-value="straightforward" aria-pressed="false"><span class="tl-choice-art" aria-hidden="true">⚡</span><span class="tl-choice-title">Directo</span><span class="tl-choice-sub">Rápido y al grano</span></button>
+              </div>
+            </div>
+
+            <h3 class="tl-section-title" id="tl-set-notifications">Notificaciones</h3>
+            <div class="tl-panel">
+              <label class="tl-switch"><span>Recordatorios de registro</span><input type="checkbox" id="tl-set-reminders"></label>
+              <p class="tl-sub">El teléfono los muestra por sí mismo. Un recordatorio solo dice "<span class="tl-rem-sample"></span>" No incluye nada sobre ti, y no se envía nada a ningún lugar.</p>
+              <p class="tl-status" id="tl-set-rem-web" role="status" hidden>Los recordatorios funcionan en la app en un teléfono. En un navegador web, tus elecciones se guardan, pero no se puede mostrar ningún recordatorio.</p>
+              <p class="tl-status" id="tl-set-rem-denied" role="status" hidden>Este teléfono no deja que Tidelight muestre notificaciones, así que no se puede poner ningún recordatorio. Puedes cambiarlo en los ajustes del teléfono.</p>
+              <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-test">Enviar una notificación de prueba</button>
+              <p class="tl-status" id="tl-set-test-note" role="status" hidden>Un recordatorio de prueba aparecerá en unos segundos, si el teléfono lo permite.</p>
+            </div>
+
+            <h3 class="tl-section-title" id="tl-set-meditation">Meditación</h3>
+            <div class="tl-panel" id="tl-set-meditation-box">
+              <span class="tl-label" id="tl-set-length-title">Duración habitual</span>
+              <div class="tl-row" id="tl-set-length" role="group" aria-labelledby="tl-set-length-title">
+                <button type="button" class="tl-chip" data-value="3" aria-pressed="false">3 min</button>
+                <button type="button" class="tl-chip" data-value="5" aria-pressed="false">5 min</button>
+                <button type="button" class="tl-chip" data-value="10" aria-pressed="false">10 min</button>
+                <button type="button" class="tl-chip" data-value="15" aria-pressed="false">15 min</button>
+                <button type="button" class="tl-chip" data-value="20" aria-pressed="false">20 min</button>
+              </div>
+              <span class="tl-label" id="tl-set-sound-title">Sonido habitual</span>
+              <div class="tl-row" id="tl-set-sound" role="group" aria-labelledby="tl-set-sound-title">
+                <button type="button" class="tl-chip" data-value="none" aria-pressed="false">Ninguno</button>
+                <button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Lluvia</button>
+                <button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Mar</button>
+                <button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">Ruido blanco</button>
+                <button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Ruido marrón</button>
+              </div>
+              <label class="tl-switch"><span>Guía de voz</span><input type="checkbox" id="tl-set-voice"></label>
+              <label class="tl-switch"><span>Respiración con vibración</span><input type="checkbox" id="tl-set-haptic-breath"></label>
+              <label class="tl-switch"><span>Contar cada respiración</span><input type="checkbox" id="tl-set-countdown"></label>
+            </div>
+
+            <h3 class="tl-section-title" id="tl-set-feel">Sensación</h3>
+            <div class="tl-panel">
+              <label class="tl-switch"><span>Vibraciones</span><input type="checkbox" id="tl-set-haptics"></label>
+              <label class="tl-switch"><span>Reducir animaciones</span><input type="checkbox" id="tl-set-reduce"></label>
+              <label class="tl-switch"><span>Rachas</span><input type="checkbox" id="tl-set-streaks"></label>
+              <p class="tl-sub">Las rachas cuentan los días en que te registras. Desactívalas cuando quieras. No se pierde nada.</p>
+            </div>
+
+            <h3 class="tl-section-title" id="tl-set-places">Lugares</h3>
+            <div class="tl-panel">
+              <span class="tl-label">Lugar de casa</span>
+              <p class="tl-status" id="tl-set-home-state" role="status"></p>
+              <p class="tl-sub">Un solo lugar, guardado solo en este teléfono. La app consulta dónde estás solo cuando sugiere una meditación, para ver si estás cerca. Tu ubicación nunca se envía a ningún lugar.</p>
+              <div class="tl-row">
+                <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-home-save">Guardar donde estoy</button>
+                <button type="button" class="tl-btn tl-btn-quiet" id="tl-set-home-clear">Borrar el lugar de casa</button>
+              </div>
+            </div>
+          </div>
           <h3 class="tl-section-title">Tu grupo de edad</h3>
           <div id="tl-settings-age-slot"></div>
           <h3 class="tl-section-title">Tus datos</h3>
@@ -119,7 +364,22 @@
             <span class="tl-card-go" data-tl-icon="next"></span>
           </button>
           <h3 class="tl-section-title">Acerca de</h3>
-          <p class="tl-status" id="tl-version">App de Tidelight, borrador <span class="tl-version-number">0.2.0</span></p>
+          <button type="button" class="tl-btn tl-btn-quiet" id="tl-version" aria-label="Versión de la app">App de Tidelight, borrador <span class="tl-version-number">0.2.0</span></button>
+          <div class="tl-panel" id="tl-developer" hidden>
+            <h3 class="tl-headline">Desarrollo</h3>
+            <p class="tl-sub">Para pruebas. No se muestra a quienes usan la app.</p>
+            <p class="tl-status" id="tl-dev-phase"></p>
+            <div class="tl-row">
+              <button type="button" class="tl-btn tl-btn-secondary" id="tl-dev-onboarding">Reiniciar la bienvenida</button>
+              <button type="button" class="tl-btn tl-btn-secondary" id="tl-dev-streak">Reiniciar la racha</button>
+              <button type="button" class="tl-btn tl-btn-secondary" id="tl-dev-seed">Crear historial de prueba</button>
+            </div>
+            <span class="tl-label">Recordatorios puestos en este teléfono</span>
+            <ul class="tl-list" id="tl-dev-pending"></ul>
+            <div id="tl-dev-more"></div>
+            <span class="tl-label">Notas de desarrollo</span>
+            <ul class="tl-list" id="tl-dev-log"></ul>
+          </div>
         </section>
 
       </div>
@@ -134,7 +394,7 @@
         <span data-word="tab.home">Inicio</span>
         <span data-word="tab.checkin">Registro</span>
         <span data-word="tab.meditate">Meditar</span>
-        <span data-word="tab.location">Lugares</span>
+        <span data-word="tab.location">Ubicación</span>
         <span data-word="tab.friends">Amistades</span>
         <span data-word="greet.morning">Buenos días</span>
         <span data-word="greet.afternoon">Buenas tardes</span>
@@ -142,5 +402,54 @@
         <span data-word="greet.night">Buenas noches</span>
         <span data-word="greet.withName">{greeting}, {name}</span>
         <span data-word="more.summary">Cómo funciona</span>
+        <span data-word="home.nextAt">A las {time}</span>
+        <span data-word="home.nextAny">Cuando quieras</span>
+        <span data-word="home.nextDone">Listo por hoy</span>
+        <span data-word="setup.count">Configuración {done}/{total}</span>
+        <span data-word="setup.ring">{done}/{total}</span>
+        <span data-word="setup.denied">El teléfono dijo que no. Puedes cambiarlo en los Ajustes del teléfono.</span>
+        <span data-word="setup.unavailable">Eso solo funciona en la app en un teléfono.</span>
+        <span data-word="setup.saved">Guardado.</span>
+        <span data-word="checkin.prompt" data-style="calm">Tómate un momento… ¿cómo te sientes ahora mismo?</span>
+        <span data-word="checkin.prompt" data-style="straightforward">¿Cómo estás?</span>
+        <span data-word="checkin.breath" data-style="calm">Primero, una respiración lenta</span>
+        <span data-word="checkin.breath" data-style="straightforward">Una respiración</span>
+        <span data-word="checkin.done" data-style="calm">Gracias por tomarte este momento contigo 💙</span>
+        <span data-word="checkin.done" data-style="straightforward">Anotado. Bien.</span>
+        <span data-word="mood.1">Muy mal</span>
+        <span data-word="mood.2">Mal</span>
+        <span data-word="mood.3">Regular</span>
+        <span data-word="mood.4">Bien</span>
+        <span data-word="mood.5">Muy bien</span>
+        <span data-word="tag.tired">Cansancio</span>
+        <span data-word="tag.stressed">Estrés</span>
+        <span data-word="tag.happy">Alegría</span>
+        <span data-word="tag.focused">Concentración</span>
+        <span data-word="tag.anxious">Ansiedad</span>
+        <span data-word="tag.grateful">Gratitud</span>
+        <span data-word="rem.title">Tidelight</span>
+        <span data-word="rem.body" data-style="calm">Un momento para registrarte, si quieres.</span>
+        <span data-word="rem.body" data-style="straightforward">Hora de tu registro.</span>
+        <span data-word="ob.step">Paso {step} de {total}</span>
+        <span data-word="ob.locationGranted">La ubicación está activada.</span>
+        <span data-word="ob.locationDenied">La ubicación está desactivada. Puedes activarla después en los Ajustes del teléfono.</span>
+        <span data-word="ob.locationUnavailable">La ubicación solo funciona en la app en un teléfono.</span>
+        <span data-word="ob.homeSaved">Lugar de casa guardado en este teléfono.</span>
+        <span data-word="ob.homeFailed">El teléfono no pudo encontrar dónde estás. Puedes intentarlo de nuevo en Ajustes.</span>
+        <span data-word="ob.notifyGranted">Los recordatorios están activados.</span>
+        <span data-word="ob.notifyDenied">Los recordatorios están desactivados. Puedes activarlos después en los Ajustes del teléfono.</span>
+        <span data-word="ob.notifyUnavailable">Los recordatorios solo funcionan en la app en un teléfono.</span>
+        <span data-word="set.homeNone">No hay un lugar de casa guardado.</span>
+        <span data-word="set.homeSaved">Hay un lugar de casa guardado en este teléfono.</span>
+        <span data-word="set.timeLabel">Registro {number}</span>
+        <span data-word="dev.phase">Fase de construcción: {phase}</span>
+        <span data-word="dev.none">Ninguno.</span>
       </div>
+<!-- END -->
+
+<!-- BLOCK:result-support -->
+          <div class="tl-result-support tl-support-now ci-off" id="tl-result-support" tabindex="-1">
+            <p><strong>Eso suena pesado. No tienes que cargarlo a solas.</strong> Puedes <a class="tel-link" href="tel:988">llamar al 988</a> y marcar 2, o <a class="tel-link" href="sms:988">enviar AYUDA al 988</a> ahora mismo, en cualquier momento. Si hay peligro inmediato, <a class="tel-link" href="tel:911">llama al 911</a>.</p>
+            <p><a href="#support">Más formas de recibir apoyo</a></p>
+          </div>
 <!-- END -->

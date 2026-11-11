@@ -1,9 +1,10 @@
-// The Home tab: a greeting, then cards. Later phases fill the setup ring, the streak card, and
-// the suggested meditation; each has its own slot here.
-import { t } from './words.js';
+// The Home tab: a greeting, then cards. The setup ring, the streak card, and the suggested
+// meditation each have their own slot and their own file.
+import { effectiveTimes, nextCheckInTime } from '../logic/spread.js';
+import { t, clockText } from './words.js';
+import { state } from './state.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
-let personName = '';
 
 // Which greeting fits the hour. Exported for the tests.
 export function greetingKey(hour) {
@@ -13,15 +14,24 @@ export function greetingKey(hour) {
   return 'greet.night';
 }
 
-export function renderGreeting(name) {
-  if (name !== undefined) personName = name || '';
+export function renderHome(ctx) {
   const line = $('.tl-greeting');
   if (!line) return;
   const hello = t(greetingKey(new Date().getHours()));
-  line.textContent = personName ? t('greet.withName', { greeting: hello, name: personName }) : hello;
+  const name = (state.profile.name || '').trim();
+  line.textContent = name ? t('greet.withName', { greeting: hello, name }) : hello;
+
+  const done = ctx.checkInsToday();
+  const when = $('#tl-home-next-when');
+  if (done >= state.settings.checkInsPerDay) {
+    when.textContent = t('home.nextDone');
+  } else {
+    const next = nextCheckInTime({ now: new Date(), times: effectiveTimes(state.settings), checkInsToday: done });
+    when.textContent = next ? t('home.nextAt', { time: clockText(next) }) : t('home.nextAny');
+  }
 }
 
-export function initHome(shell) {
-  renderGreeting();
-  shell.onShow('home', () => renderGreeting());
+export function initHome(shell, ctx) {
+  renderHome(ctx);
+  shell.onShow('home', () => renderHome(ctx));
 }
