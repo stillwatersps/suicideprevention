@@ -10,6 +10,7 @@ import { syncReminders } from './ui/reminders.js';
 import { initStreaks, refreshStreak, addCheckInToStreak, addMeditationToStreak } from './ui/streaks-ui.js';
 import { initPlayer } from './ui/player.js';
 import { initMeditate, renderSuggestion, renderHistory } from './ui/meditate.js';
+import { initBuilder, renderPresets } from './ui/builder.js';
 import { replace } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
 import { CONFIG } from './core/config.js';
@@ -34,6 +35,7 @@ export async function initRedesign(context) {
     renderSetup().catch((e) => devLog('setup list', e));
     renderHistory();
     renderSuggestion();
+    renderPresets();
   };
   ctx.onSettings = () => { refreshStreak().then(refresh); };
   ctx.onPermission = refresh;
@@ -55,6 +57,7 @@ export async function initRedesign(context) {
   };
   initPlayer(shell, ctx);
   initMeditate(shell, ctx);
+  initBuilder(shell, ctx);
   initOnboarding(shell, ctx);
 
   window.addEventListener('tidelight-checkin', async (event) => {

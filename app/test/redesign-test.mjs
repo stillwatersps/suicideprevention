@@ -734,6 +734,109 @@ async function typesTests(browser, lang) {
   await context.close();
 }
 
+
+async function builderTests(browser, lang) {
+  console.log(`\nThe builder and presets, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  let { context, page, errors, outside } = await newPage(browser, lang, { hooks: { clockRate: 300 } });
+  await tab(page, 'meditate');
+  const starters = await page.$$eval('#tl-presets-list .tl-preset', (els) => els.map((e) => ({ suggested: !e.querySelector('.tl-preset-suggested').hidden, name: e.querySelector('.tl-preset-name').textContent })));
+  check(starters.length === 2 && starters.every((p) => p.suggested && p.name.length > 3), 'a first visit suggests two starter presets: ' + starters.map((p) => p.name).join(', '));
+  await page.click('#tl-presets-list .tl-preset >> nth=0 >> [data-preset="start"]');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 10000 });
+  const bus = await page.evaluate(() => ({ audio: window.__audioContexts, spoken: window.__tidelight.spoken.length, total: window.__tidelight.sessions[0].total }));
+  check(bus.audio === 0 && bus.spoken === 0 && bus.total === 300, 'the first one ("Bus ride") is 5 minutes with no sound at all');
+  await page.click('#tl-complete [data-player-done]');
+
+  await page.click('#tl-build-card');
+  check(await page.isVisible('#tl-builder') && (await safetyFrame(page)).length === 0 && await page.isVisible('#tl-builder .tl-draft-tag'), 'Build your own opens the builder, with the safety frame, marked "Draft for review"');
+  await page.waitForTimeout(300);
+  check(await page.evaluate(() => { const c = document.querySelector('#tl-builder-world'); return c.getContext('2d').getImageData(c.width / 2, c.height / 2, 1, 1).data[3] > 0; }), 'the live preview is drawn');
+  const circle = async () => page.evaluate(() => document.querySelector('#tl-builder-circle').style.transform);
+  const c1 = await circle(); await page.waitForTimeout(700);
+  check((await circle()) !== c1, 'and breathes on a loop');
+  check(/5/.test(await page.textContent('#tl-builder-length-out')) && !(await page.isVisible('#tl-builder-scan-row')), 'the length starts at 5 minutes, with no body scan offered under 8');
+  const before = await page.evaluate(() => window.__tidelight.haptics.length);
+  await page.fill('#tl-builder-length', '12');
+  check(/12/.test(await page.textContent('#tl-builder-length-out')) && (await page.getAttribute('#tl-builder-length', 'aria-valuetext')).includes('12'), 'the slider shows a big number: 12 min');
+  check((await page.evaluate(() => window.__tidelight.haptics.length)) > before, 'and ticks as it moves');
+  check(await page.isVisible('#tl-builder-scan-row'), 'at 8 minutes or more, the body scan switch appears');
+  const summary = await page.textContent('#tl-builder-summary');
+  await page.click('#tl-builder-situation [data-value="focus"]');
+  await page.click('#tl-builder-worlds [data-value="forest"]');
+  check((await page.textContent('#tl-builder-summary')) !== summary, 'choosing a situation and a world updates the screen at once');
+  await page.click('#tl-builder-sound [data-value="rain"]');
+  await page.waitForFunction(() => window.__tidelight.ambient.includes('rain'));
+  check(true, 'tapping a sound plays a short listen');
+  await page.check('#tl-builder-scan');
+  await page.check('#tl-builder-voice');
+  await page.click('#tl-builder-style [data-value="straightforward"]');
+
+  // Save preset.
+  await page.click('#tl-builder-save');
+  check(await page.isVisible('#tl-builder-name') && (await page.evaluate(() => document.activeElement.id)) === 'tl-builder-name', 'Save preset asks for a name, with the keyboard ready');
+  const suggested = await page.inputValue('#tl-builder-name');
+  check(suggested.length > 3 && suggested.length <= 24 && (await page.getAttribute('#tl-builder-name', 'maxlength')) === '24', 'a name is already filled in, 24 characters at most: ' + suggested);
+  await page.fill('#tl-builder-name', 'A made-up preset');
+  await page.click('#tl-builder-name-save');
+  let presets = await stored(page, 'tidelight.presets');
+  check(presets.length === 1 && presets[0].name === 'A made-up preset' && presets[0].choices.lengthMinutes === 12 && presets[0].choices.situation === 'focus' && !('segments' in presets[0]), 'the preset keeps the choices, not the finished meditation');
+
+  // Start from the builder.
+  await page.click('#tl-builder-start');
+  await page.waitForSelector('#tl-stage:not([hidden])');
+  check((await page.getAttribute('#tl-stage', 'data-world')) === 'forest', 'Start plays it in the chosen world');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 12000 });
+  const built = await page.evaluate(() => ({ last: window.__tidelight.sessions.slice(-1)[0], spoken: window.__tidelight.spoken.map((l) => l.scriptId), ambient: window.__tidelight.ambient }));
+  check(built.last.total === 720 && built.last.type === 'custom', 'for exactly 12 minutes');
+  const lines = await page.evaluate(() => window.__tidelight.spoken);
+  check(built.spoken.includes('intro.custom') && built.spoken.includes('bodyScan') && built.spoken.includes('outro.custom') && lines.every((l) => l.text.length > 10) && built.ambient.filter((a) => a === 'rain').length >= 2, 'with the voice, the body scan, and the rain that were chosen');
+  await page.click('#tl-complete [data-player-done]');
+
+  // The preset is on the Meditate tab, and survives a restart.
+  await page.reload();
+  await page.waitForSelector('html.app-ready');
+  await tab(page, 'meditate');
+  check((await page.locator('#tl-presets-list .tl-preset').count()) === 1 && (await page.textContent('#tl-presets-list .tl-preset-name')).includes('A made-up preset'), 'the preset is on the Meditate tab after a restart, and the suggestions are gone');
+  await page.click('#tl-presets-list [data-preset="more"]');
+  await page.fill('#tl-presets-list .tl-preset-rename input', 'Renamed');
+  await page.click('#tl-presets-list [data-preset="rename"]');
+  check((await page.textContent('#tl-presets-list .tl-preset-name')).trim() === 'Renamed', 'it can be renamed');
+  await page.click('#tl-presets-list [data-preset="more"]');
+  await page.click('#tl-presets-list [data-preset="duplicate"]');
+  check((await page.locator('#tl-presets-list .tl-preset').count()) === 2, 'duplicated');
+  await page.click('#tl-presets-list .tl-preset >> nth=0 >> [data-preset="more"]');
+  await page.click('#tl-presets-list .tl-preset >> nth=0 >> [data-preset="edit"]');
+  check(await page.isVisible('#tl-builder') && (await page.inputValue('#tl-builder-length')) === '12' && (await page.getAttribute('#tl-builder-situation [data-value="focus"]', 'aria-pressed')) === 'true', 'edited: the builder opens filled in');
+  await page.fill('#tl-builder-length', '20');
+  await page.click('#tl-builder-save');
+  await page.click('#tl-builder-name-save');
+  presets = await stored(page, 'tidelight.presets');
+  check(presets.length === 2 && presets[0].choices.lengthMinutes === 20 && presets[1].choices.lengthMinutes === 12, 'saving an edit changes that preset only');
+  await page.click('#tl-builder [data-tl-back]');
+  await page.click('#tl-presets-list .tl-preset >> nth=1 >> [data-preset="more"]');
+  await page.click('#tl-presets-list .tl-preset >> nth=1 >> [data-preset="delete"]');
+  check(await page.isVisible('#tl-presets-list .tl-preset >> nth=1 >> .tl-preset-confirm'), 'Delete asks first');
+  await page.click('#tl-presets-list .tl-preset >> nth=1 >> [data-preset="delete-yes"]');
+  check((await page.locator('#tl-presets-list .tl-preset').count()) === 1, 'then deletes');
+  await page.click('#tl-presets-list [data-preset="start"]');
+  await page.waitForSelector('#tl-stage:not([hidden])');
+  check((await page.evaluate(() => window.__tidelight.sessions.slice(-1)[0].total)) === 1200, 'starting a preset makes it fresh from its choices: 20 minutes');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  check(outside.length === 0, 'no requests to other sites');
+  await context.close();
+
+  // At most 20 presets.
+  const twenty = JSON.stringify(Array.from({ length: 20 }, (unused, i) => ({ id: 'p' + i, name: 'Preset ' + i, choices: { lengthMinutes: 3 } })));
+  ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.presets': twenty } }));
+  await tab(page, 'meditate');
+  check((await page.locator('#tl-presets-list .tl-preset').count()) === 20, 'twenty presets show');
+  await page.click('#tl-build-card');
+  await page.click('#tl-builder-save');
+  check(!(await page.isVisible('#tl-builder-name')) && (await page.textContent('#tl-builder-note')).trim().length > 10, 'a twenty-first is refused, with a plain note');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+}
+
 const browser = await chromium.launch();
 try {
   await shellTests(browser, 'en');
@@ -749,6 +852,8 @@ try {
   await playerTests(browser, 'es');
   await typesTests(browser, 'en');
   await typesTests(browser, 'es');
+  await builderTests(browser, 'en');
+  await builderTests(browser, 'es');
 } finally {
   await browser.close();
   close();
