@@ -503,7 +503,8 @@ async function streakTests(browser, lang) {
 }
 
 
-const startSample = async (page) => { await tab(page, 'meditate'); if (!(await page.isVisible('#tl-meditate'))) await tab(page, 'meditate'); await page.click('#tl-sample-play'); await page.waitForSelector('#tl-stage:not([hidden])'); };
+const startType = async (page, type) => { await tab(page, 'meditate'); if (!(await page.isVisible('#tl-meditate'))) await tab(page, 'meditate'); await page.click(`.tl-type[data-type="${type}"] [data-type-start]`); await page.waitForSelector('#tl-stage:not([hidden])'); };
+const startSample = (page) => startType(page, 'quick');
 const barAt = (page) => page.evaluate(() => Number((document.querySelector('#tl-player-bar').style.transform.match(/[\d.]+/) || [0])[0]));
 
 async function playerTests(browser, lang) {
@@ -611,6 +612,128 @@ async function playerTests(browser, lang) {
   await context.close();
 }
 
+
+async function typesTests(browser, lang) {
+  console.log(`\nMeditation types and suggestions, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  let { context, page, errors, outside } = await newPage(browser, lang, { hooks: { clockRate: 120 }, storage: { 'tidelight.settings': oneADay } });
+  await tab(page, 'meditate');
+  check(await page.isVisible('#tl-suggest-card') && (await page.textContent('#tl-suggest-card [data-suggest-title]')).trim().length > 2 && (await page.textContent('#tl-suggest-card [data-suggest-reason]')).trim().length > 5, 'Meditate opens with a suggestion and its one-line reason');
+  check((await page.locator('#tl-types .tl-type').count()) === 4, 'then the four types');
+  const labels = await page.$$eval('#tl-types [data-type-start]', (els) => els.map((e) => e.getAttribute('aria-label')));
+  check(labels.every((l) => /\d/.test(l) && l.length > 12), 'each Start says what it starts: ' + labels[0]);
+  check(await page.isVisible('#tl-build-card') && await page.isVisible('#tl-history-card') && await page.isVisible('#tl-presets'), 'then presets, Build your own, and History');
+  check((await safetyFrame(page)).length === 0 && await noSideways(page), 'the Meditate tab keeps the safety frame and fits');
+
+  // Silent: never any sound, whatever the settings say.
+  await page.click('.tl-type[data-type="silent"] [data-type-length] [data-value="5"]');
+  check(/5/.test(await page.getAttribute('.tl-type[data-type="silent"] [data-type-start]', 'aria-label')), 'choosing a length changes what Start says');
+  await startType(page, 'silent');
+  check((await page.getAttribute('#tl-toggle-sound', 'disabled')) !== null && (await page.getAttribute('#tl-toggle-voice', 'disabled')) !== null, 'Silent: the sound and voice switches can\'t be turned on');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 10000 });
+  let heard = await page.evaluate(() => ({ audio: window.__audioContexts, spoken: window.__tidelight.spoken.length, ambient: window.__tidelight.ambient.length, haptics: window.__tidelight.haptics.length }));
+  check(heard.audio === 0 && heard.spoken === 0 && heard.ambient === 0, 'Silent plays no audio at all: the audio system is never opened');
+  check(heard.haptics > 5, 'and still breathes with haptics');
+  check(/5/.test(await page.textContent('#tl-complete-minutes')), 'a 5-minute Silent session completes');
+  await page.click('#tl-complete [data-player-done]');
+
+  // Deep: voice and ambient together, with a world chosen in its options.
+  await page.click('.tl-type[data-type="deep"] [data-type-options]');
+  check(await page.isVisible('.tl-type[data-type="deep"] .tl-type-more') && (await page.getAttribute('.tl-type[data-type="deep"] [data-type-options]', 'aria-expanded')) === 'true', 'Options opens in place on the card');
+  await page.click('.tl-type[data-type="deep"] [data-type-world] [data-value="forest"]');
+  await startType(page, 'deep');
+  check((await page.getAttribute('#tl-stage', 'data-world')) === 'forest', 'the chosen world is used');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 12000 });
+  heard = await page.evaluate(() => ({ audio: window.__audioContexts, spoken: window.__tidelight.spoken.map((l) => l.scriptId), ambient: window.__tidelight.ambient }));
+  check(heard.audio === 1 && heard.ambient.join() === 'ocean', 'Deep session: layer 4, the ambient sound, starts (ocean)');
+  check(heard.spoken.join() === 'intro.deep,bodyScan,outro.deep', 'and the voice speaks the intro, the body scan, and the outro');
+  await page.click('#tl-complete [data-player-done]');
+
+  // Sleep: no completion screen; it just goes dark.
+  await startType(page, 'sleep');
+  await page.waitForSelector('#tl-stage.is-dark', { timeout: 12000 });
+  check(!(await page.isVisible('#tl-complete')), 'Sleep ends with no completion screen: the stage goes dark');
+  check(await page.isVisible('.crisis-bar a[href="tel:988"]') && await page.isVisible('#tl-stage .tl-player-support'), 'with 988 and Get Support Now still on screen');
+  await page.click('#tl-stage', { position: { x: 180, y: 560 } });
+  await page.click('#tl-player-end');
+  await page.waitForSelector('#tl-meditate:not([hidden])');
+  const sessions = await stored(page, 'tidelight.sessions');
+  check(sessions.length === 3 && sessions.every((s) => s.completed) && sessions[0].type === 'sleep', 'all three sessions are recorded');
+
+  // History.
+  await page.click('#tl-history-card');
+  check(await page.isVisible('#tl-history') && (await page.locator('#tl-history-list li').count()) === 3 && /25/.test(await page.textContent('#tl-history [data-history-total]')), 'History lists the sessions and the total: 25 minutes');
+  check((await safetyFrame(page)).length === 0, 'History keeps the safety frame');
+  await page.click('#tl-history [data-tl-back]');
+
+  // Rule 5: what was done today isn't suggested again.
+  const now = await page.textContent('#tl-suggest-card [data-suggest-title]');
+  check(now.trim().length > 0, 'the suggestion still shows after sessions: ' + now.trim());
+
+  // Developer overrides: the suggestion follows the context.
+  await openSettings(page);
+  for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
+  const pretend = async (time, headphones, home) => {
+    await page.fill('#tl-dev-time', time); await page.dispatchEvent('#tl-dev-time', 'change');
+    await page.selectOption('#tl-dev-headphones', headphones);
+    await page.selectOption('#tl-dev-home', home);
+    await page.waitForTimeout(150);
+    return page.evaluate(() => document.querySelector('#tl-dev-suggest').textContent);
+  };
+  const first = await pretend('14:00', 'yes', 'no');
+  const second = await pretend('14:00', 'no', 'no');
+  check(first !== second, 'changing headphones changes the suggestion: "' + first + '" then "' + second + '"');
+  await context.close();
+
+  // A fresh day, to see each rule on its own.
+  ({ context, page, errors, outside } = await newPage(browser, lang, { hooks: { clockRate: 120 } }));
+  await openSettings(page);
+  for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
+  const rule = async (time, headphones, home) => {
+    await page.fill('#tl-dev-time', time); await page.dispatchEvent('#tl-dev-time', 'change');
+    await page.selectOption('#tl-dev-headphones', headphones);
+    await page.selectOption('#tl-dev-home', home);
+    await page.waitForTimeout(150);
+    return page.evaluate(() => document.querySelector('#tl-home-suggest').getAttribute('aria-label'));
+  };
+  const seen = [await rule('22:15', 'yes', 'yes'), await rule('14:00', 'no', 'yes'), await rule('14:00', 'yes', 'no'), await rule('14:00', 'no', 'no')];
+  check(new Set(seen).size === 4, 'night, home, headphones away from home, and none of those each suggest a different type');
+  check(/10/.test(seen[0]) && /1[^0-9]/.test(seen[2]) && /3/.test(seen[3]), 'Sleep at night, a 1-minute reset on the go, Silent otherwise');
+  await page.click('#tl-settings [data-tl-back]');
+  check(await page.isVisible('#tl-home-suggest'), 'Home shows the suggestion too');
+  await page.click('#tl-home-suggest');
+  await page.waitForSelector('#tl-stage:not([hidden])');
+  check(true, 'and starts it in one tap');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 10000 });
+  await page.click('#tl-complete [data-player-done]');
+  await tab(page, 'home');
+  await page.click('#tl-home-reset');
+  await page.waitForSelector('#tl-stage:not([hidden])');
+  check((await page.evaluate(() => window.__tidelight.sessions.slice(-1)[0].type)) === 'quick', 'Home\'s "1-min reset" starts the one-minute reset');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  check(outside.length === 0, 'no requests to other sites');
+  await context.close();
+
+  // Location: near the saved home spot suggests Deep; without permission, the rule is skipped quietly.
+  const near = { locationAuthorization: 'whenInUse', position: { latitude: 40.0005, longitude: -75.0 } };
+  const homeSpot = { 'tidelight.home': JSON.stringify({ latitude: 40.0, longitude: -75.0 }) };
+  ({ context, page, errors } = await newPage(browser, lang, { hooks: near, storage: homeSpot }));
+  await openSettings(page);
+  for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
+  await page.fill('#tl-dev-time', '14:00'); await page.dispatchEvent('#tl-dev-time', 'change');
+  await page.waitForTimeout(200);
+  const atHome = await page.evaluate(() => document.querySelector('#tl-home-suggest').getAttribute('aria-label'));
+  await context.close();
+  ({ context, page, errors } = await newPage(browser, lang, { hooks: { locationAuthorization: 'denied', position: near.position }, storage: homeSpot }));
+  await openSettings(page);
+  for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
+  await page.fill('#tl-dev-time', '14:00'); await page.dispatchEvent('#tl-dev-time', 'change');
+  await page.waitForTimeout(200);
+  const noPermission = await page.evaluate(() => document.querySelector('#tl-home-suggest').getAttribute('aria-label'));
+  check(/10/.test(atHome) && /3/.test(noPermission), 'near the home spot suggests the Deep session; with location refused it quietly falls back to Silent');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+}
+
 const browser = await chromium.launch();
 try {
   await shellTests(browser, 'en');
@@ -624,6 +747,8 @@ try {
   await streakTests(browser, 'es');
   await playerTests(browser, 'en');
   await playerTests(browser, 'es');
+  await typesTests(browser, 'en');
+  await typesTests(browser, 'es');
 } finally {
   await browser.close();
   close();

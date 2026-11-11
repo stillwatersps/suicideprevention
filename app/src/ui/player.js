@@ -135,6 +135,8 @@ export async function playMeditation(meditation, source) {
     getAudio() { if (!session.audio) { session.audio = createAudio({ manifest: manifest(), assetBase: assetBase(), language: lang() }); session.audio.setVolume(prefs.ambientVolume); } return session.audio; },
   };
   session.timeline = createTimeline(meditation, clock());
+  if (hooks().onSession) hooks().onSession({ id: meditation.id, type: meditation.type, total: meditation.totalSeconds });
+  renderToggles();
   $('#tl-complete').hidden = true;
   stage.hidden = false;
   $('#tl-end-confirm').hidden = true;
@@ -180,7 +182,6 @@ export async function playMeditation(meditation, source) {
   session.frame = requestAnimationFrame(loop);
   // When frames stop (the screen locked, another app in front), keep time once a second.
   session.heartbeat = setInterval(() => { if (session && document.visibilityState !== 'visible') session.timeline.tick(); }, 1000);
-  if (hooks().onSession) hooks().onSession({ id: meditation.id, type: meditation.type, total: meditation.totalSeconds });
 }
 
 async function record(completedSeconds, moodAfter) {
