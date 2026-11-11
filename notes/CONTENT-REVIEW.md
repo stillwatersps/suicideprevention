@@ -53,6 +53,8 @@ One founder asked that this come first, November 9, 2026.
 | Spanish About (`es/acerca-de/`) | AI translation | On the page | Not reviewed; no fluent reader yet |
 | Daily check-in (`check-in/`) | Draft, from a founder's spec. Questions, suggestions, and prompts written by Claude | None; general well-being ideas, not health claims | Not reviewed |
 | Spanish Daily check-in (`es/registro-diario/`) | AI translation | None | Not reviewed; no fluent reader yet |
+| The app's redesign: check-in prompts, streak messages, meditation scripts, onboarding, settings (`app/src/text/redesign.en.html`) | Draft, from one founder's build spec (`app/BUILD-SPEC.md`). Written by Claude | None; general well-being wording, not health claims | Not reviewed. Every new screen says "Draft for review" |
+| Spanish app redesign (`app/src/text/redesign.es.json`, which makes `redesign.es.html`) | AI translation | None | Not reviewed; no fluent reader yet |
 
 Every draft page says so on screen. Remove those notes only after review.
 
@@ -810,6 +812,89 @@ Built November 9, 2026, at one founder's request, on branch `app/first-build`. E
   get urgent help?
 - **Saving.** Is the privacy wording about the phone, its backups, and Delete everything accurate and
   plain? A lawyer should read it too.
+- **Reminders and shared check-ins** (added November 9, 2026, branch `app/daily-check-ins`). Four
+  optional reminders, morning, midday, after school or work, and before bed, each off until turned
+  on. The notification says only "A moment to check in, if you'd like." Is that safe on a lock
+  screen? Are four invitations a day too many for someone in distress, or is choosing them enough?
+  Your journey lists today's check-ins ("Morning, 8:05: feeling: tired. Needs: rest.") and offers
+  Share today's check-ins and Share the last 7 days, through the same notice as Share this
+  reflection. Is that the right level of detail to send a parent or a clinician? Should a minor be
+  pointed toward sharing with a guardian, or only allowed to? See [[CHECK-IN-SCHEDULE]].
+- **Location alerts, worked out** (November 9, 2026). [[LOCATION-ALERT]] lays out how an alert to
+  chosen people could work when someone stays near a hard place. Please read its questions at the
+  end before any of it is built.
+- **"Places that are hard for me" (E1), built as a draft** (November 10, 2026, branch
+  `app/hard-places-and-reminders`, never run on a real phone). Every word is in `app/src/text/en.html`
+  and `es.html`, in the blocks named `places` and `place-alert`, plus two iOS permission sentences in
+  `app/ios/App/App/Info.plist`. Please look at:
+  - **The alert's wording.** The lock screen says only "Tidelight. Your plan is here." unless the
+    person chooses to show the place and time. The screen inside says "You've been at [name] for
+    [N] minutes. You set this up for yourself. Would you like to send your message, with where you
+    are, to [names]?" with "Send my message now", "I'm okay", 988 and 911. Is "You set this up for
+    yourself" the right reminder of consent? Is the title too direct?
+  - **The wait times**: 10, 20, or 30 minutes, 20 to start. Too short, too long, or should there be
+    no wait, as E1 first proposed?
+  - **The countdown**: after the person opens the alert, the message opens in Messages after 30
+    seconds unless they tap "I'm okay". Should it always wait for a tap instead?
+  - **The default message** to the chosen people: "I'm having a hard time right now and I'd like you
+    to call me. I set this up in Tidelight to send when I stay at a place that's hard for me. Here's
+    where I am:" followed by a map link. The person can change it.
+  - **Minors**: a parent or guardian is the obvious person to choose, and the obvious problem when home
+    isn't safe. Does a minor's choice of people, or a guardian adding a place, need consent rules?
+    A lawyer should also advise on "always" location permission and location data for minors.
+  - **No built-in list of places**, as [[LOCATION-ALERT]] recommends. One founder had asked for one;
+    the handoff explains why it wasn't built. Do you agree?
+
+## Questions about the app's redesign
+
+Built November 11, 2026, from one founder's build spec, on branch `app/redesign-dev` (a draft pull request into
+`app/first-build`). The other founder hasn't seen the spec. Every new word is in `app/src/text/redesign.en.html`
+and, in Spanish, `app/src/text/redesign.es.json`; `notes/review-packet/tidelight-app-words.html` lists each line with
+a number. The same founder added six safety rules that override the spec; they are in `app/CLAUDE.md`. Please look at
+these first:
+
+- **Streaks, for people at risk.** The app counts days in a row with check-ins, with "freezes" that cover a missed
+  day. Is any streak safe for someone in a low period, or does it add pressure and a sense of failure when it ends?
+  Streaks can be turned off in Settings. Should they start off, or not exist?
+- **When a streak ends.** The next time Home opens, a card says "New wave, new start 🌊 Your best is still {best}
+  days." Missed days are called "rest days". Is that gentle enough, or should nothing be said at all? The card never
+  shows on a day with a very low check-in.
+- **Milestones** at 3, 7, 14, 30, 50, 100, 200, and 365 days show "{days} days. One wave at a time 🌊" with a short
+  burst of drops. Is celebrating a count right in this app?
+- **The five mood faces.** The quick check-in asks for one of five faces: Very low, Low, Okay, Good, Great. Is a
+  five-point mood pick appropriate here, and are those the right words? The mood is stored on the phone as a number
+  from 1 to 5. It is never shown as a score or a chart.
+- **What a very low mood does.** Moods 1 and 2 replace the thanks line with "That sounds really hard. You don't have
+  to carry it alone. You can talk to someone right now." and Call 988, Text 988, and Call 911. Is 1 and 2 the right
+  line, and are those the right words? Could it feel like an alarm to someone who is often at 2?
+- **The Daily check-in's heavy feelings.** Overwhelmed, sad, anxious, disconnected, and exhausted now show "That
+  sounds heavy. You don't have to carry it alone." with 988 and 911 at the top of the results. Which feelings should?
+- **The two styles.** Calm asks "Take a moment… how are you feeling right now?" and ends "Thank you for checking in
+  with yourself 💙". Straightforward asks "How are you?" and ends "Logged. Nice." Is "Logged. Nice." acceptable after
+  an ordinary check-in? (It is never shown after a very low one.)
+- **Tags.** Tired, Stressed, Happy, Focused, Anxious, Grateful. Are these the right six, and is anything missing
+  that a person at risk would look for and not find?
+- **A Sleep meditation with no completion screen.** It dims and stays dark, as sleep apps do. The crisis strip stays
+  lit above it. Is ending in darkness and silence right for someone alone at night?
+- **The meditation scripts** (`script.*` lines): a body scan, long silences, "There is nothing left to do today."
+  Could any line read badly to someone thinking about suicide? Meditation can bring distress up for some people;
+  the scripts say "you can stop at any time". Is that enough?
+- **The "wellness app like Calm" framing.** The spec asks for the feel of Calm, Headspace, and Finch. Does that
+  framing fit a suicide prevention app, and does it risk making the app look like care it isn't? Every new screen
+  says "Draft for review", and the 988 panel is on every screen.
+- **Asking for a name.** Onboarding asks "What should we call you?" (optional, kept on the phone, shown in the
+  greeting). Should an app like this ask at all, and what should a child be told?
+- **The Friends tab.** It holds My circle and a card to share check-ins. Is "Friends" the right word for people who
+  may be a parent, a doctor, or a therapist?
+- **Reminders.** "A moment to check in, if you'd like." (Calm) and "Time for your check-in." (Straightforward), up
+  to five a day, off until turned on. They stop by themselves if the app isn't opened for two weeks. Is fading out
+  right, or should a long silence do something else?
+- **Meditation suggestions from location.** Near the person's own saved home spot, the app suggests a longer
+  session. One spot, kept on the phone, read only while the app is open. A lawyer should read the wording in
+  Settings, in onboarding, and the iPhone permission sentence in `app/ios/App/App/Info.plist`.
+- **The safety frame.** The crisis strip, Exit, Get Support Now, the Spanish link, both review notices, the privacy
+  notice, Support, and the 988 panel are on every screen in full. During a meditation the strip stays on screen and
+  the rest is below the stage. Is that enough during a session?
 
 ## Human-only checklist
 

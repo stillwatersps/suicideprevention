@@ -95,6 +95,123 @@ html.app-large-text .app-text-large-off { display: none; }
 }
 .app-share:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 
+/* Check-in reminders, and today's check-ins. */
+.app-reminders {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px;
+  margin: 24px 0;
+}
+.app-reminders h3 { margin-top: 0; }
+.app-rem-list { list-style: none; padding: 0; margin: 12px 0; }
+.app-rem-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  min-height: 44px;
+  padding: 6px 0;
+  border-top: 1px solid var(--line);
+}
+.app-rem-list input[type="checkbox"] { width: 24px; height: 24px; margin-right: 8px; }
+.app-rem-list input[type="time"] {
+  font: inherit;
+  min-height: 44px;
+  padding: 4px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+.app-rem-web, .app-rem-denied { font-weight: 600; }
+.app-rem-words, .app-log-words, .app-sum-words { display: none; }
+.app-rem-hint { color: var(--muted); }
+.app-log li { padding: 6px 0; border-top: 1px solid var(--line); }
+.app-share-days {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 2px solid var(--green);
+  border-radius: 0;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+}
+.app-share-days:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
 @media print {
-  .app-age, .app-share-panel, .app-share, .app-settings { display: none !important; }
+  .app-age, .app-share-panel, .app-share, .app-settings, .app-reminders, .app-share-days, .app-rem-hint { display: none !important; }
+}
+
+/* Places that are hard for me (E1), in Your journey. */
+.app-places {
+  border: 2px solid var(--line);
+  border-top: 5px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px;
+  margin: 24px 0;
+}
+.app-places h3 { margin-top: 0; }
+.app-places-words, .app-places-message-default { display: none; }
+.app-dwell {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+.app-places-notif, .app-places-perm-state [data-auth="denied"], .app-places-perm-state [data-auth="restricted"] { color: var(--plum); font-weight: 600; }
+.app-places-web, .app-places-unavailable { color: var(--muted); }
+.app-places-test-enter { font: inherit; min-height: 44px; padding: 6px 14px; border: 2px dashed var(--muted); border-radius: 0; background: transparent; color: var(--muted); cursor: pointer; }
+
+.app-places h4 { margin: 20px 0 6px; }
+.app-places-setup { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 4px; }
+.app-places-message { width: 100%; font: inherit; }
+.app-places-status { font-weight: 600; }
+.app-places-on, .app-places-lock { width: 24px; height: 24px; vertical-align: middle; }
+.app-item-buttons { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.app-place-edit, .app-place-remove, .app-person-remove,
+.app-places-allow, .app-place-add, .app-person-add {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.app-place-add:disabled, .app-person-add:disabled { opacity: 0.5; cursor: default; }
+
+/* The alert screen: the person has stayed at one of their places for the dwell time. */
+.app-place-alert {
+  border: 3px solid var(--plum);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px;
+  margin: 24px 0;
+}
+.app-place-alert h2 { margin-top: 0; }
+.app-place-alert:focus { outline: 3px solid var(--plum); outline-offset: 2px; }
+.app-alert-countdown { background: var(--plum-soft); padding: 12px; font-weight: 600; }
+.app-alert-crisis { background: var(--green-soft); padding: 12px; }
+.app-alert-send, .app-alert-okay, .app-alert-close {
+  font: inherit;
+  min-height: 52px;
+  padding: 8px 18px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--bg);
+  cursor: pointer;
+}
+.app-alert-okay, .app-alert-close { background: transparent; color: var(--ink); }
+.app-alert-send:disabled { opacity: 0.5; cursor: default; }
+
+@media print {
+  .app-place-alert, .app-places { display: none !important; }
 }

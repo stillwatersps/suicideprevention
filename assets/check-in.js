@@ -403,6 +403,11 @@
   // For the phone app only (app/), which saves on the phone. The website never calls these, and
   // this script still sends and stores nothing.
   window.TidelightCheckIn = {
+    // Marks a check-in done elsewhere in the app (its quick check-in) on the calendar.
+    addCheckIn: function (date) {
+      state.checkins.push(date instanceof Date && !isNaN(date) ? date : new Date());
+      renderJourney();
+    },
     getState: function () {
       var copy = JSON.parse(JSON.stringify(state));
       copy.editing = null;
@@ -416,6 +421,14 @@
       });
       state.editing = null;
       state.step = 0;
+      // Dates come back from the phone as text, so turn them back into dates.
+      state.checkins = (state.checkins || []).map(function (date) { return new Date(date); })
+        .filter(function (date) { return !isNaN(date); });
+      state.entries = (state.entries || []).filter(function (entry) { return entry && entry.text; });
+      state.entries.forEach(function (entry) {
+        entry.date = new Date(entry.date);
+        if (isNaN(entry.date)) entry.date = new Date();
+      });
       $$('.ci-card', body).forEach(function (card) {
         var kept = state.reflections[card.getAttribute('data-reflection')];
         $('textarea', card).value = kept ? kept.answer : '';

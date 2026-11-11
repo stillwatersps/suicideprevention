@@ -1,0 +1,112 @@
+/* Tidelight app design tokens. Every redesign stylesheet uses these and nothing else: no colors,
+   sizes, or durations of its own (tools/lint.mjs checks). test/unit/tokens.test.mjs checks that
+   every text and background pair below meets WCAG AA (4.5 to 1). */
+
+:root {
+  /* Color, light */
+  --tl-bg: #F3F9F8;             /* very light sea-foam */
+  --tl-surface: #FFFFFF;        /* cards */
+  --tl-primary: #0B4F6C;        /* tide blue: main actions */
+  --tl-on-primary: #FFFFFF;
+  --tl-secondary: #1B6660;      /* soft teal: accents */
+  --tl-secondary-soft: #DCEFEC;
+  --tl-accent-warm: #A84A16;    /* sunrise amber: streaks, celebration */
+  --tl-accent-warm-soft: #FFF0E2;
+  --tl-text-primary: #13222C;
+  --tl-text-secondary: #44525C;
+  --tl-line: #C9D8D6;
+  --tl-success: #2A6646;
+  --tl-warning: #7D5200;
+  --tl-danger: #963732;
+  --tl-scrim: rgba(9, 22, 34, 0.55);
+  --tl-on-scene: #FFFFFF;       /* words over a meditation world */
+  --tl-scene-shade: rgba(6, 16, 28, 0.62);
+
+  /* Typography: the system font, sizes in rem so they follow the phone's text size */
+  --tl-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --tl-font-display: 2.25rem;
+  --tl-font-title: 1.5rem;
+  --tl-font-headline: 1.1875rem;
+  --tl-font-body: 1rem;
+  --tl-font-label: 0.9375rem;
+  --tl-font-caption: 0.8125rem;
+  --tl-font-huge: 3.5rem;       /* the streak number, the slider's minutes */
+  --tl-line-tight: 1.15;
+  --tl-line-normal: 1.45;
+  --tl-weight-regular: 400;
+  --tl-weight-strong: 650;
+
+  /* Spacing: a 4-point scale */
+  --tl-space-xs: 0.25rem;
+  --tl-space-sm: 0.5rem;
+  --tl-space-md: 1rem;
+  --tl-space-lg: 1.5rem;
+  --tl-space-xl: 2rem;
+  --tl-space-xxl: 3rem;
+
+  /* Radius */
+  --tl-radius-sm: 0.5rem;
+  --tl-radius-md: 1rem;
+  --tl-radius-lg: 1.5rem;
+  --tl-radius-full: 999px;
+
+  /* Motion. --tl-speed follows the check-in style: Calm is slower, Straightforward quicker. */
+  --tl-speed: 1;
+  --tl-fast: calc(150ms * var(--tl-speed));
+  --tl-normal: calc(250ms * var(--tl-speed));
+  --tl-slow: calc(400ms * var(--tl-speed));
+  --tl-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --tl-press-scale: 0.96;
+  --tl-pulse: 2.4s;
+  --tl-shimmer: 1.6s;
+  --tl-tide: 14s;              /* the onboarding wave */
+  --tl-breath-once: 5s;        /* the one breath before a Calm check-in */
+  --tl-breath-demo: 1.6s;      /* the style preview, times the style's speed */
+
+  /* Elevation: two soft levels */
+  --tl-elev-1: 0 1px 3px rgba(11, 40, 56, 0.10);
+  --tl-elev-2: 0 6px 20px rgba(11, 40, 56, 0.14);
+
+  /* Sizes */
+  --tl-tap: 2.75rem;            /* 44 points, the smallest touch target */
+  --tl-tap-lg: 3.25rem;
+  --tl-icon: 1.5rem;
+  --tl-icon-lg: 2.5rem;
+  --tl-face: 3rem;
+  --tl-ring: 4.5rem;
+  --tl-ring-stroke: 0.4rem;
+  --tl-tabbar: 4rem;
+  --tl-border: 1px;
+  --tl-border-strong: 2px;
+  --tl-focus: 3px;
+  --tl-dot: 1.5rem;
+  --tl-content: 34rem;          /* widest a screen's content grows */
+  --tl-guide: 11rem;            /* the breathing circle */
+  --tl-preview: 35vh;           /* the builder's live preview */
+  --tl-thumb: 1.75rem;
+  --tl-track: 0.5rem;
+  --tl-col: 8rem;               /* the narrowest a column of fields gets before it wraps */
+  --tl-col-wide: 9rem;          /* the narrowest a meditation type card gets */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tl-bg: #0E1B2A;           /* deep navy */
+    --tl-surface: #172A3D;
+    --tl-primary: #8CCBE0;      /* lighter tide blue */
+    --tl-on-primary: #0E1B2A;
+    --tl-secondary: #7FD1C7;
+    --tl-secondary-soft: #1D3B45;
+    --tl-accent-warm: #F2A56B;
+    --tl-accent-warm-soft: #3A2A1F;
+    --tl-text-primary: #F1F5F7;
+    --tl-text-secondary: #B4C2CE;
+    --tl-line: #2F475C;
+    --tl-success: #8BD3A8;
+    --tl-warning: #E9C46A;
+    --tl-danger: #F0A39E;
+    --tl-scrim: rgba(0, 0, 0, 0.6);
+    --tl-elev-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --tl-elev-2: 0 6px 20px rgba(0, 0, 0, 0.5);
+  }
+}

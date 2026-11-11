@@ -59,6 +59,29 @@ jobs:
           TIDELIGHT_CHROME_NO_SANDBOX: "1"
         run: python3 tools/test_browser.py
 
+  # The phone app in app/ is built from the website and never published by it. Its tests run in
+  # Chromium with browser stand-ins for saving, sharing, and reminders: not a phone test.
+  app:
+    name: Build and test the phone app
+    runs-on: ubuntu-latest
+    # The redesign added a lint, unit tests, and a longer browser test to `npm test`.
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the app's packages, exactly as recorded
+        run: npm ci
+      # The system packages come from Ubuntu's servers. If those can't be reached (it happened on
+      # November 11, 2026), install the browser alone: the runner already has what Chromium needs.
+      - name: Install the browser the tests use
+        run: npx playwright install --with-deps chromium || npx playwright install chromium
+      - name: Lint, unit tests, build the app from the website, and browser tests
+        run: npm test
+
   publish:
     name: Publish the website only
     needs: [check, browser]

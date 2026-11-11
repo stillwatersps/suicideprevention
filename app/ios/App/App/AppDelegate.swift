@@ -7,7 +7,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Watch the person's own places from the first moment, so a launch in the background caused by
+        // entering one (with the app closed) is handled. Nothing is watched until the person turns it on.
+        PlaceWatcher.shared.start()
         return true
     }
 

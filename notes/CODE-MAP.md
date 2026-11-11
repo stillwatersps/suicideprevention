@@ -68,9 +68,16 @@ All in `app/`. See `app/README.md` for how to build and run it.
 | --- | --- |
 | `app/tools/build.mjs` | Copies the website into `app/www/`, then adds the app's blocks to the two check-in pages and the two About pages. Fails loudly if the website changed so a block no longer fits |
 | `app/src/text/en.html`, `es.html` | **Every word the app adds**, as named blocks. Change words here, never in `app.js` |
-| `app/src/app.js` | Saving on the phone, age setup and accommodations, larger text, sharing |
+| `app/src/app.js` | Saving on the phone, age setup and accommodations, larger text, sharing, today's check-ins, and reminders |
 | `app/src/app.css` | Styles for the app's blocks |
-| `app/test/app-test.mjs` | 47 checks per language in desktop Chromium |
+| `app/test/app-test.mjs` | 68 checks per language in desktop Chromium. GitHub runs them on every pull request (the `app` job) |
+| `app/src/extras.js`, `extras-logic.js`, `extras.css`, `app/src/text/extras.*.html`, `app/tools/build-extras.mjs` | The Hope box and My circle, kept in their own files. `app.js` and `build.mjs` each pull them in with one line |
+| `app/src/redesign.js`, `app/src/ui/`, `app/src/logic/`, `app/src/core/`, `app/src/tokens.css`, `app/src/redesign.css` | The redesign (a draft from one founder's build spec): tabs, onboarding, quick check-in, streaks, meditation, haptics. `core/` is storage and tunable numbers, `logic/` is pure and unit tested, `ui/` is screens. `app/CLAUDE.md` explains each; `app/PROGRESS.md` says where it stands |
+| `app/src/text/redesign.en.html`, `redesign.es.json`, `redesign.es.html` | Every word the redesign adds. Change Spanish in the `.json`, then `npm run words:es` makes the `.html` |
+| `app/tools/build-redesign.mjs`, `make-redesign-es.mjs`, `lint.mjs`, `word-count.mjs` | The redesign's build step, the Spanish maker, the lint, and the words-on-screen count |
+| `app/test/unit/`, `app/test/redesign-test.mjs`, `app/test/helpers.mjs` | Unit tests for the pure logic, and the redesign's browser tests |
+| `app/BUILD-SPEC.md`, `app/CLAUDE.md`, `app/PROGRESS.md`, `app/TESTING_CHECKLIST.md`, `app/CHANGELOG.md` | The spec, the app's instructions and safety rules, the build record, the real-phone checklist, and what changed |
+| `app/tools/make-words-packet.mjs` | Writes `notes/review-packet/tidelight-app-words.html`, every word the app adds, numbered for reviewers. Run it after changing `app/src/text/` |
 | `app/test/screens.mjs` | Phone-size screenshots of the age screens |
 | `app/android/`, `app/ios/` | Native projects made by Capacitor. Don't edit by hand except settings |
 | `app/www/`, `app/node_modules/` | Made by the build and `npm install`. Never committed |
@@ -91,7 +98,7 @@ All in `app/`. See `app/README.md` for how to build and run it.
 | `set_checked_date.py` | After a real re-check of crisis numbers |
 | `browser.py` | Shared Chrome helper for the other tools |
 
-GitHub runs `check_site.py` and `test_browser.py` on every pull request (`.github/workflows/site.yml`),
+GitHub runs `check_site.py`, `test_browser.py`, and the app's `npm test` on every pull request (`.github/workflows/site.yml`),
 and the live checks daily and monthly (`monitor.yml`).
 
 ## What to change, and what to run
@@ -125,6 +132,7 @@ The newest work sits at the end of a chain. Each branch contains the one above i
 main  (public)
  └─ claude/jolly-mayer-2m6eno   pull request 5, the whole first version + Shoreline + check-in
      └─ app/first-build          pull request 16, the phone app and age research
+         └─ app/daily-check-ins  reminders, shared check-ins, the app's tests on GitHub
 ```
 
 Also open: 8 and 12 into `main` (they publish), and 11, signage, which conflicts with Shoreline.
@@ -140,4 +148,5 @@ Also open: 8 and 12 into `main` (they publish), and 11, signage, which conflicts
 | What the reviewer must check | [[CONTENT-REVIEW]] |
 | Research | [[RESEARCH-BRIEF]], [[AGE-STRATEGIES]] |
 | Saving and the app plan | [[CHECK-IN-BACKEND]] |
+| Reminders, shared check-ins, location alerts, and the idea list | [[CHECK-IN-SCHEDULE]], [[LOCATION-ALERT]], [[IDEAS-ROUND-3]] |
 | One task's story | `worklogs/`, one file per task |

@@ -17,7 +17,8 @@ Planning tasks below are suggestions; ownership has not been agreed.
 - [ ] **⚠️ Important, first for attention:** the licensed reviewer looks at idea E1, "Places that
   are hard for me", an opt-in safety-plan feature for the phone app, and the question about it at
   the top of [[CONTENT-REVIEW]]. One founder likes it (Nov 9, 2026); the other founder decides too.
-  Nothing is built. Owner: the founder arranging the review. Details at the top of [[IDEAS]].
+  A draft is built on `app/hard-places-and-reminders` (see Ready for review); nothing is agreed.
+  Owner: the founder arranging the review. Details at the top of [[IDEAS]].
 - [ ] **⚠️ Important:** decide which app suggestions at the end of [[AGE-STRATEGIES]] to build, after
   the reviewer has read them. One founder marked them Important on November 9, 2026, and said not to
   build them yet. Owner: both founders, with the reviewer.
@@ -90,12 +91,35 @@ Nothing else has been claimed. Add an owner above when you start.
 
 ## Ready for review
 
+- [ ] Phone app redesign from one founder's build spec (`app/BUILD-SPEC.md`): tabs, onboarding, quick
+  check-in, streaks, meditation, haptics. Owner: Claude. Branch: `app/redesign-dev`, draft pull request 25
+  into `app/first-build`. Both founders read `app/BUILD-SPEC.md`, the six safety rules in `app/CLAUDE.md`,
+  and the questions in [[CONTENT-REVIEW]], then try it on a real phone with `app/TESTING_CHECKLIST.md`.
+  Handoff: [[worklogs/2026-11-11-claude-app-redesign]].
+- [ ] My circle (E2, no accounts) and Hope box (F9) in the phone app, at one founder's request. Owner:
+  Claude. Branch: `app/my-circle-and-hope-box`, draft pull request into `app/hard-places-and-reminders`.
+  Not merged, never run on a phone. Handoff: [[worklogs/2026-11-10-claude-circle-and-hope-box]].
+- [ ] Give `notes/review-packet/tidelight-app-words.html` (every word the app adds, numbered) to the
+  licensed reviewer and the fluent Spanish reader. Owner: unassigned.
+
 - [ ] Phone app first draft: on-phone saving, age setup, and Share this reflection for the Daily check-in,
   at one founder's request. Owner: Claude. Branch: `app/first-build`, draft pull request into
   `claude/jolly-mayer-2m6eno`. Not merged, never run on a phone. Next: the reviewer reads
   `app/src/text/en.html` and [[AGE-STRATEGIES]], a fluent reader checks `app/src/text/es.html`, a lawyer
   advises on under-13s, and someone tries it on a real iPhone and Android phone. Handoff:
   [[worklogs/2026-11-09-claude-phone-app-first-build]].
+- [ ] Check-in reminders and shared check-ins in the app, at one founder's request. Owner: Claude. Branch:
+  `app/daily-check-ins`, draft pull request into `app/first-build`. Not merged, never run on a phone. Next: both
+  founders read [[CHECK-IN-SCHEDULE]] and decide, the reviewer reads the new words in `app/src/text/`, and someone
+  tries the reminders on a real phone. Handoff: [[worklogs/2026-11-09-claude-daily-check-ins]].
+- [ ] Both founders read [[LOCATION-ALERT]] and choose a route with the reviewer. Route A is now a draft on
+  `app/hard-places-and-reminders`, so the choice is whether to keep, change, or drop it. Owner: both.
+- [ ] "Places that are hard for me" (E1) in the app, at one founder's request. Owner: Claude. Branch:
+  `app/hard-places-and-reminders`, draft pull request into `app/first-build`, built on top of `app/daily-check-ins`
+  (pull request 19). Not merged, never run on a real phone. Next: both founders decide, the reviewer reads the new
+  words in `app/src/text/` and the questions in [[CONTENT-REVIEW]], a lawyer advises on minors and location data, and
+  someone tries it on a real iPhone with the app closed. Handoff: [[worklogs/2026-11-10-claude-hard-places]].
+- [ ] Both founders go through [[IDEAS-ROUND-3]] and mark each idea Approved, Not now, or No. Owner: both.
 - [ ] Add the app's words (`app/src/text/`) to the review packets, so the reviewer's packet covers them.
   Owner: unassigned.
 

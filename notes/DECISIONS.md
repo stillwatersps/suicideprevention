@@ -359,7 +359,67 @@ draft (`app/`, branch `app/first-build`):
   results, and larger text by default for 65 and over, which anyone can switch.
 - Your journey lists what the app does for the person's age, and lets them enter the date again.
 
+## November 9, 2026: reminders, shared check-ins, and forty ideas, proposed
+
+Late on November 9, one founder asked Claude to check the whole project, to work out two ideas in full, and to list
+thirty things that would make the app the best of its kind, then ten more. **The other founder hasn't agreed to any
+of it, and no reviewer or lawyer has seen it.**
+
+- **Alerting chosen people when someone stays near a hard place** is worked out in [[LOCATION-ALERT]]. Claude's
+  recommendation: build it on the person's own places (E1), with a wait time and a one-tap send through Messages,
+  and no built-in list of places. Nothing is built.
+- **Four daily check-ins, shared with a guardian or a doctor**, is designed in [[CHECK-IN-SCHEDULE]] and partly built
+  as a draft on `app/daily-check-ins`: four reminders, all off until turned on, with neutral words; today's check-ins
+  listed; Share today or Share the last 7 days through the share sheet. Nothing is sent without a tap, and nothing
+  automatic is built, because that needs accounts and a server.
+- **Forty ideas** are in [[IDEAS-ROUND-3]], none approved.
+- Also done while checking the code: the app's tests now run on GitHub for every pull request, the test browser is
+  listed in `app/package.json`, and a fix so saved check-in and journal dates still read as dates after the app
+  reopens. Node.js was installed on one founder's Mac with Homebrew to run the app's tests there.
+
+Choices Claude made, all easy to reverse: every reminder off by default; the third reminder named "After school
+(or after work)"; the shared summary leaves out journal entries and reflections; reminders survive Delete everything,
+like the age group.
+
+## November 10, 2026: My circle without accounts, and a hope box, proposed
+
+One founder asked to build E2, F9, and F3. **The other founder hasn't agreed to these, and no
+reviewer has seen them.** On `app/my-circle-and-hope-box`, stacked on `app/hard-places-and-reminders`:
+
+- **My circle is built without accounts or a server.** Chosen people get a text message the person
+  sends from their own Messages app. Why: the app may send nothing to Tidelight, and accounts need
+  both founders ([[CHECK-IN-BACKEND]]). A circle whose members see entries inside an app is still
+  an open choice.
+- **Hope box (F9):** words and photos kept in the app on the phone, never shared.
+- **F3 was already being built by the other founder's session,** so nothing of it was rebuilt.
+
 ## Decision format
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
 remaining questions. Keep the newest entries at the end.
+
+## November 11, 2026: phone app redesign from a build spec, proposed
+
+One founder sent a build spec for the phone app (`app/BUILD-SPEC.md`): fewer words, bottom tabs, onboarding, streaks,
+and meditation, "like Calm, Headspace and Finch". **The other founder hasn't seen the spec or agreed to any of it, and
+no reviewer or lawyer has seen it.** Built as a draft on `app/redesign-dev`, in `app/` only. It publishes nothing.
+The same founder added six safety rules that override the spec; they are in `app/CLAUDE.md`. Choices, all easy to
+reverse, with the full list in `app/PROGRESS.md`:
+
+- **The safety frame stays on every screen, in full.** The crisis strip, Exit, Get Support Now, the Spanish link,
+  both "Draft for review" notices, the privacy notice, Support, and the 988 panel. Nothing new is a pop-up or a
+  layer over them. During a meditation the strip stays on screen and the rest is in the page below.
+- **Kept Capacitor and the website's own pages.** The spec expected a different kind of app; nothing was ported.
+- **Five tabs:** Home, Check-in, Meditate, Location, Friends. Everything that existed has a place.
+- **The date of birth stays required** in onboarding, as decided on November 9. Every other page can be skipped.
+- **A very low check-in shows 988 and 911 at once,** and nothing celebrates for the rest of that day.
+- **Streaks are built as the spec asks, with gentle words, and can be turned off.** Whether they belong in this app
+  at all is the first question in [[CONTENT-REVIEW]].
+- **The four older reminders became "N check-ins a day".** Reminder words stay discreet.
+- **Location:** one home spot the person saves, read only while the app is open, kept on the phone. No list of places.
+- **No new packages.** Haptics, keeping the screen awake, one location, and the audio route are small additions to
+  the project's own iPhone plugin.
+- **The website gained one line it never uses** (`addCheckIn` in `assets/check-in.js`), so a quick check-in marks
+  the calendar.
+
+Open: whether to keep any of it; the reviewer's and the lawyer's answers; a real phone.

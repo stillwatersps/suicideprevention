@@ -1,6 +1,6 @@
 # Current status
 
-Checked November 9, 2026, on the task branch named below. A note inside a pull
+Checked November 11, 2026, on the task branch named below. A note inside a pull
 request can't say when it merged, so check GitHub if this looks out of date.
 
 ## What is where
@@ -15,6 +15,9 @@ request can't say when it merged, so check GitHub if this looks out of date.
 | `site/pro-max-redesign` | A second proposed visual design, "Shoreline", built with the ui-ux-pro-max design skill at one founder's request: paper and ink, one tide blue for help, AAA contrast, stylesheet only. An alternative to pull request 11. See [[worklogs/2026-11-08-claude-shoreline-redesign\|the handoff]] | Merged into `site/first-version-finish`, and so into `claude/jolly-mayer-2m6eno`, on November 9, 2026, at a founder's request, so Shoreline is now the look on pull request 5. Closes pull request 14. Pull request 11, signage, stays open. **Not on the public website** |
 | `site/daily-check-in` | A Daily check-in and self-discovery page in English and Spanish, built from one founder's spec on Shoreline. Works in the page; saves nothing. One founder chose a phone app with iCloud or Google backup for saving; not built. See [[worklogs/2026-11-09-claude-daily-check-in\|the handoff]] and [[CHECK-IN-BACKEND]] | Merged into `site/pro-max-redesign`, and so into `claude/jolly-mayer-2m6eno`, on November 9, 2026, at a founder's request. Closes pull request 15. **Not on the public website** |
 | `app/first-build` | The phone app's first draft in `app/`: the website's pages in a Capacitor app, with on-phone saving, age setup by date of birth (idea E3), and Share this reflection (E2a) for the Daily check-in, plus [[AGE-STRATEGIES]]. See [[worklogs/2026-11-09-claude-phone-app-first-build\|the handoff]] | Draft pull request into `claude/jolly-mayer-2m6eno`. Merging it publishes nothing: the app isn't part of the website. **Not merged, never run on a phone** |
+| `app/redesign-dev` | A redesign of the phone app from one founder's build spec (`app/BUILD-SPEC.md`): five bottom tabs, onboarding, a quick check-in in two styles, streaks, a meditation player with four types and a builder, and haptics. It sits on `app/daily-check-ins`, `app/hard-places-and-reminders`, and `app/my-circle-and-hope-box`. The crisis strip, Exit, Get Support Now, the Spanish link, and the review notices stay on every screen. See [[worklogs/2026-11-11-claude-app-redesign\|the handoff]] and `app/PROGRESS.md` | Draft pull request 25 into `app/first-build`. Merging it publishes nothing. **Not merged.** The other founder hasn't seen the spec; no reviewer or lawyer has seen it; never run on a real phone |
+| `app/hard-places-and-reminders` | In the app: "Places that are hard for me" (idea E1), built on top of `app/daily-check-ins`. The person adds their own places on a map, chooses up to 5 people from their contacts, a wait time, and a message; the phone watches the places itself and, after the wait, shows a neutral notification; the alert screen counts down and then opens the phone's Messages composer, which the person still has to tap Send in. No built-in list of places. Also the iOS 27 fixes that let the app run at all (scene life cycle, iOS 15 target, folder routing). See [[worklogs/2026-11-10-claude-hard-places\|the handoff]] | Draft pull request into `app/first-build`. Publishes nothing. **Not merged, run in the iOS Simulator only, never on a real phone; the reviewer hasn't seen it** |
+| `app/daily-check-ins` | In the app: four optional check-in reminders (morning, midday, after school or work, before bed), today's check-ins listed in Your journey, and Share today's check-ins or Share the last 7 days through the share sheet. The app's tests now run on GitHub, and saved dates read as dates again after the app reopens. Three notes: [[LOCATION-ALERT]] (the logistics of alerting chosen people near a hard place), [[CHECK-IN-SCHEDULE]], and [[IDEAS-ROUND-3]] (forty ideas). See [[worklogs/2026-11-09-claude-daily-check-ins\|the handoff]] | Draft pull request into `app/first-build`. Publishes nothing. **Not merged, never run on a phone** |
 | `site/minimal-public-preview` | One crisis page with 988 and 911 in English and Spanish, in place of the four live pages: option B for open decision 1 in [[DECISIONS]]. Its handoff is on that branch | Draft pull request 12 into `main`, **not merged. Merging publishes it within about a minute.** It replaces the same pages as pull requests 5 and 8, so it conflicts with both |
 | `site/first-version-build` | Everything on the branch above, plus the rest of the first version: Not sure what you're feeling?, After a loss, About and privacy, saving 988 to contacts, review status, the full Spanish Research page, review packets, phone test steps, and browser tests. See [[worklogs/2026-11-06-claude-first-version\|the handoff]] | Merged into `claude/jolly-mayer-2m6eno` on November 7, 2026, at a founder's request, which closes pull request 9. **Not on the public website** |
 | `site/phone-accessibility-content` | A second round: fixes from an independent review, stronger site checks, and updated notes | Merged into `claude/jolly-mayer-2m6eno` on November 6, 2026, at a founder's request, so pull request 6 is closed by that merge. Pull request 5 is the one place to review. **Not on the public website** |
@@ -148,6 +151,14 @@ requests 7, 8 and 12 are separate, and merging any one publishes it: 7 corrects 
 8 corrects four problems on its pages, and 12 replaces those pages with one crisis page. Merge
 or close each one. Pull request 11 goes into `site/first-version-finish` and publishes nothing; it
 would now conflict with Shoreline.
+
+Later on November 9, 2026, one founder asked for forty ideas and for two of them worked out in full. Both founders now read
+[[LOCATION-ALERT]] and [[CHECK-IN-SCHEDULE]] and decide, go through [[IDEAS-ROUND-3]], and the reviewer reads the app's new
+words. The reminders and shared check-ins are a draft on `app/daily-check-ins`, never run on a phone.
+
+Overnight into November 10, 2026, one founder asked for idea E1 to be built. It is a draft on
+`app/hard-places-and-reminders`, run in the iOS Simulator and never on a real phone. The reviewer and a lawyer see
+it before anyone uses it; see the questions in [[CONTENT-REVIEW]] under "Questions about the phone app".
 
 ## End-of-session update
 
