@@ -11,6 +11,7 @@ import { initStreaks, refreshStreak, addCheckInToStreak, addMeditationToStreak }
 import { initPlayer } from './ui/player.js';
 import { initMeditate, renderSuggestion, renderHistory } from './ui/meditate.js';
 import { initBuilder, renderPresets } from './ui/builder.js';
+import { initFeel } from './ui/feel.js';
 import { replace } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
 import { CONFIG } from './core/config.js';
@@ -23,6 +24,7 @@ export async function initRedesign(context) {
   if (!document.getElementById('tl-app')) return;
   await loadState();
   initShell();
+  initFeel();
   const ctx = Object.assign({}, context, {
     checkInsToday: () => context.todaysLog().length,
     checkInCount: () => context.getLog().length,

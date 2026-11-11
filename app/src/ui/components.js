@@ -1,6 +1,7 @@
 // Shared building blocks for the redesign: icons, buttons' press and haptic hook, the stepper,
 // the progress ring, chips, and choice cards. Looks come from redesign.css and the tokens.
 import { haptic } from './haptics.js';
+import { CONFIG } from '../core/config.js';
 
 const SVG = 'http://www.w3.org/2000/svg';
 // 24 by 24 line icons, drawn here so nothing loads from anywhere.
@@ -151,7 +152,7 @@ export function animateNumber(node, to, reduced) {
   const from = Number(node.textContent) || 0;
   if (reduced || from === to || !window.requestAnimationFrame) { node.textContent = String(to); return; }
   const start = performance.now();
-  const span = 400;
+  const span = CONFIG.motion.numberMs;
   (function frame(now) {
     const p = Math.min(1, (now - start) / span);
     node.textContent = String(Math.round(from + (to - from) * p));

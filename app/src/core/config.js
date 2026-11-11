@@ -78,7 +78,7 @@ export const CONFIG = deepFreeze({
     throttleMs: 50,
     breathPulseGapMs: 450, // discrete, spaced pulses: never a continuous vibration
   },
-  motion: { pressScale: 0.96, calmMultiplier: 1.4, straightforwardMultiplier: 0.8 },
+  motion: { pressScale: 0.96, calmMultiplier: 1.4, straightforwardMultiplier: 0.8, numberMs: 400 },
   onboarding: { stylePreviewMs: 2000 },
   developer: { tapsToUnlock: 7 },
 });

@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 16:45 EST
-Current branch: feature/p6-meditation-builder
-Current phase: 6 — Custom meditation builder
-Current step: Phase 6 finished; merging into app/redesign-dev, then Phase 7
+Last updated: 2026-11-11 17:20 EST
+Current branch: feature/p7-haptics-polish
+Current phase: 7 — Haptics & interaction polish
+Current step: Phase 7 finished; merging into app/redesign-dev, then Phase 8
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)
@@ -12,9 +12,9 @@ Current step: Phase 6 finished; merging into app/redesign-dev, then Phase 7
 - [x] Phase 4 — Interactive meditation engine (merged to app/redesign-dev)
 - [x] Phase 5 — Meditation types & smart suggestions (merged to app/redesign-dev)
 - [x] Phase 6 — Custom meditation builder (merged to app/redesign-dev)
+- [x] Phase 7 — Haptics & interaction polish (merged to app/redesign-dev)
 
 ## Remaining
-- [ ] Phase 7 — Haptics & interaction polish
 - [ ] Phase 8 — Final QA & handoff
 
 ## A founder's safety rules (November 11, 2026). They override the build spec
@@ -76,6 +76,31 @@ Current step: Phase 6 finished; merging into app/redesign-dev, then Phase 7
 
 ## Phase 6 record
 - **Plan:** `src/logic/generate.js` is the spec's algorithm as a pure function, tested over every length from 1 to 30, every situation, with and without a body scan (300 combinations): exact total, whole breaths, no empty segment, and the Stressed, Energize, and Sleep rules. `src/ui/builder.js` is the screen and presets (`tidelight.presets`, choices only).
+
+## Phase 7 record
+- **Plan:** one helper (`src/ui/haptics.js`) over a pure pattern table and throttle (`src/logic/haptic-patterns.js`, unit tested); `src/ui/feel.js` wires taps and switches for every screen by delegation. Felt on a phone only: Chromium records the calls, nothing more.
+- **Every interaction that changed, and its haptic** (Calm / Straightforward):
+
+| Interaction | Pattern | Where it is wired |
+| --- | --- | --- |
+| Every button and card (`.tl-btn`, `.tl-icon-btn`, `.tl-card-action`, the player's chips) | `tap` (light / light) | `feel.js` |
+| Tab bar | `select` | `shell.js` |
+| Mood faces, tag chips, style and situation cards, length, sound and world chips | `select` | `components.js` (choiceGroup) |
+| Stepper (check-ins per day) | `sliderTick` (very light / light) | `components.js` (stepper) |
+| Builder's length slider: each whole minute | `sliderTick`; at 5, 10, 15, 20, 25, 30 `sliderTickStrong` | `builder.js` |
+| Every switch (Settings, builder, reminders) | `toggle` (light / medium) | `feel.js`, `settings.js`, `builder.js` |
+| Player's sound, voice, and haptics switches | `toggle` | `player.js` |
+| Check-in done (not after a very low mood) | `success` | `checkin.js` |
+| Meditation done (not on a quiet day) | `success` | `player.js` |
+| Setup complete, a saved home spot, a saved or kept preset, onboarding finished, reminders turned on | `success` | `setup.js`, `settings.js`, `builder.js`, `onboarding.js` |
+| Streak milestone | `milestone` (three pulses) | `streaks-ui.js` |
+| Onboarding page changes, forward and back | `select` | `onboarding.js` |
+| "End session?", deleting a preset, clearing the home spot | `warning` | `player.js`, `builder.js`, `settings.js` |
+| Haptic breathing during a session | rising pulses on the inhale, one light tick on a hold, fading pulses and a soft tap on the exhale | `player.js` |
+| Pull-to-refresh | not used anywhere, so nothing to wire | |
+
+- **Motion:** every tappable control scales to 0.96 on press and springs back; screens fade (Calm) or slide (Straightforward) at the style's speed; the streak number counts up; the setup ring and the slider's number move with their values; a shimmer stands in for the suggestion while it is worked out; one shared celebration (`celebrate.js`). Reduce Motion (the phone's setting or the app's) turns all of it into still or fading changes.
+- **Performance and battery:** screens that aren't showing are `display: none`, so their CSS animations don't run; the player's frame loop, the builder's preview, and the celebration stop when their screen is left; haptics never fire while the app is in the background, and haptic breathing only during a session that is playing. In desktop Chromium the player drew about 60 frames a second. Not profiled on a phone.
 
 ## Decisions made
 - Kept Capacitor, HTML, CSS, and JavaScript — the brief from the founder's session says not to port, and the reviewed words stay in one place.
@@ -147,7 +172,11 @@ Current step: Phase 6 finished; merging into app/redesign-dev, then Phase 7
 - Preset options (rename, edit, duplicate, delete) open in place under "More", and Delete asks first, in place.
 - The builder's fifth situation is labeled "Sleepy" on its card, so the Spanish word for the Sleep type and for the feeling can differ.
 
+- The global Haptics setting silences every pattern except haptic breathing, which follows its own switch (Settings, the builder, and the player), as the spec says.
+- Haptics on iPhone come from the project's own plugin; on Android the browser's `navigator.vibrate` stands in, which can't vary strength — a known difference to hear about from an Android phone.
+
 ## Known bugs / TODOs
+- Frame rate and battery during a long session are unmeasured on a phone — `src/ui/player.js`, `src/ui/worlds.js` — medium.
 - Text-to-speech voice quality, the audio session while the phone is locked, and whether sound continues in the background are unknown until a real phone — `src/ui/audio.js` — medium.
 - The Swift additions in `ios/App/App/TidelightPlugin.swift` are not compiled yet — to build in the Simulator in Phase 8 — high until done.
 - Android hardware Back inside tabs — `src/ui/shell.js` — low (untested; no Android toolchain on this Mac).
@@ -159,4 +188,4 @@ All optional: the app works without them (text-to-speech and made-in-code sound 
 - `app/assets/voice/en/<scriptId>_<style>.mp3` and `app/assets/voice/es/...` — voice recordings, one per script and style. Scripts: `intro.quick`, `outro.quick`, `intro.deep`, `bodyScan`, `outro.deep`, `intro.sleep`, `bodyScan.sleep`, `intro.custom`, `outro.custom`. Styles: `calm`, `straightforward`. Example: `app/assets/voice/en/intro.deep_calm.mp3`. The words to record are the `script.*` lines in `app/src/text/redesign.en.html` (Spanish in `redesign.es.json`).
 
 ## Resume instructions
-On branch `app/redesign-dev`, create `feature/p7-haptics-polish` and start Phase 7. The helper (`src/ui/haptics.js`, `src/logic/haptic-patterns.js`) exists and several screens already call it. Wire the rest by delegation (every button and card: `tap`; tabs: `select`), add unit tests for the pattern table and the 50 ms throttle, a browser test that the Haptics setting silences everything but breathing, and write the checklist of every changed interaction here. Run `npm test` in `app/` before merging.
+On branch `app/redesign-dev`, create `feature/p8-final-qa` and do Phase 8: the full regression pass (`npm test`, `python3 tools/check_site.py`, `test_browser.py`, `test_webkit.py`, `make_review_packet.py`), an accessibility pass, the iOS Simulator build (`LANG=en_US.UTF-8 npm run sync`, then Xcode's build for the Simulator), `app/TESTING_CHECKLIST.md`, `app/CHANGELOG.md`, the final `app/CLAUDE.md`, `npm run words`, the reviewer's questions in `notes/CONTENT-REVIEW.md`, and the handoff and core notes.

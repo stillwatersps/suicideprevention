@@ -837,6 +837,59 @@ async function builderTests(browser, lang) {
   await context.close();
 }
 
+
+async function hapticsTests(browser) {
+  console.log('\nHaptics and polish');
+  const { context, page, errors } = await newPage(browser, 'en', { hooks: { clockRate: 20 } });
+  const count = () => page.evaluate(() => window.__tidelight.haptics.length);
+  const last = () => page.evaluate(() => window.__tidelight.haptics.slice(-1)[0]);
+  const fires = async (what, act) => { const before = await count(); await act(); await page.waitForTimeout(80); const after = await count(); check(after > before, what + ' gives a haptic'); };
+  await fires('a tab', () => tab(page, 'checkin'));
+  check((await last()).style === 'selection', 'tabs use the selection pattern');
+  await fires('a card', () => page.click('#tl-checkin-quick'));
+  if (await page.isVisible('#tl-flow-skip')) await fires('a button', () => page.click('#tl-flow-skip'));
+  await fires('a mood face', () => page.click('#tl-flow-faces [data-value="4"]'));
+  await fires('a chip', () => page.click('#tl-flow-tags [data-value="happy"]'));
+  await fires('finishing a check-in', () => page.click('#tl-flow-done'));
+  await page.waitForSelector('#tl-home:not([hidden])', { timeout: 5000 });
+  await openSettings(page);
+  await fires('the stepper', () => page.click('#tl-set-count [data-tl-step="1"]'));
+  await fires('a switch', () => page.click('#tl-set-countdown'));
+  // The Haptics setting: off silences everything but haptic breathing.
+  await page.uncheck('#tl-set-haptics');
+  await page.waitForTimeout(120);
+  const off = await count();
+  await tab(page, 'meditate');
+  await page.click('#tl-build-card');
+  await page.fill('#tl-builder-length', '10');
+  await page.click('#tl-builder-situation [data-value="focus"]');
+  await page.click('#tl-builder [data-tl-back]');
+  await page.waitForTimeout(120);
+  check((await count()) === off, 'with Haptics off, tabs, cards, the slider, and chips are all silent');
+  await page.click('.tl-type[data-type="quick"] [data-type-start]');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 8000 });
+  check((await count()) > off + 5, 'but haptic breathing still pulses, on its own switch');
+  await page.click('#tl-complete [data-player-done]');
+  // Press states and motion.
+  const press = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--tl-press-scale').trim());
+  check(press === '0.96', 'everything tappable scales to 0.96 on press');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+
+  // Nothing animates on a screen that isn't showing, and the player keeps a smooth frame rate here.
+  const second = await newPage(browser, 'en', {});
+  await tab(second.page, 'meditate');
+  await second.page.click('#tl-build-card');
+  await second.page.click('#tl-builder [data-tl-back]');
+  const moving = async () => { const a = await second.page.evaluate(() => document.querySelector('#tl-builder-circle').style.transform); await second.page.waitForTimeout(500); return a !== await second.page.evaluate(() => document.querySelector('#tl-builder-circle').style.transform); };
+  check(!(await moving()), 'the builder\'s preview stops when the builder is left');
+  await second.page.click('.tl-type[data-type="quick"] [data-type-start]');
+  await second.page.waitForSelector('#tl-stage:not([hidden])');
+  const fps = await second.page.evaluate(() => new Promise((done) => { let n = 0; const t0 = performance.now(); (function f() { n += 1; if (performance.now() - t0 < 2000) requestAnimationFrame(f); else done(n / 2); })(); }));
+  check(fps >= 30, `the player draws about ${Math.round(fps)} frames a second in this browser (not a phone)`);
+  await second.context.close();
+}
+
 const browser = await chromium.launch();
 try {
   await shellTests(browser, 'en');
@@ -854,6 +907,7 @@ try {
   await typesTests(browser, 'es');
   await builderTests(browser, 'en');
   await builderTests(browser, 'es');
+  await hapticsTests(browser);
 } finally {
   await browser.close();
   close();
