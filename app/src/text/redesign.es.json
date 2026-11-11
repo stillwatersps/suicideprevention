@@ -333,22 +333,13 @@
   "Let's begin. Follow the circle. Stop any time you need to.": "Empecemos. Sigue el círculo. Para cuando lo necesites.",
   "Gently come back. Notice how you feel. Thank you for taking this time.": "Vuelve con suavidad. Nota cómo te sientes. Gracias por tomarte este tiempo.",
   "Come back. Notice how you feel. Done.": "Vuelve. Nota cómo te sientes. Listo.",
-  "Days you checked in this month": "Días que registraste este mes",
-  "Your first check-in will appear here": "Tu primer registro aparecerá aquí",
   "Quick tools": "Herramientas rápidas",
   "Get help": "Obtener ayuda",
   "Breathe for a minute": "Respirar un minuto",
   "Back to home": "Volver al inicio",
-  "Your month": "Tu mes",
-  "Checked in": "Con registro",
-  "Turn this off in Settings": "Desactivar esto en Ajustes",
-  "Check-in days on Home": "Días con registro en Inicio",
-  "Shows the days you checked in this month. Turn it off any time. Nothing is lost.": "Muestra los días que registraste este mes. Desactívalo cuando quieras. No se pierde nada.",
   "{done} of {total} set up": "{done} de {total} configurados",
-  "{count} days so far this month": "{count} días en lo que va del mes",
-  "1 day so far this month": "1 día en lo que va del mes",
-  "Days you checked in this month: {count}. Open your month.": "Días que registraste este mes: {count}. Abrir tu mes.",
   "everything figured out": "tenerlo todo resuelto",
-  "{time} left": "Quedan {time}"
+  "{time} left": "Quedan {time}",
+  "Learn more": "Más información"
  }
 }

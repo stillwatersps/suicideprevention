@@ -432,8 +432,11 @@ seen it or agreed to any of it, and no reviewer has seen it.** Built as a draft 
 
 - **Safety rules win over the brief.** The crisis strip, Exit, Get Support Now, the Spanish link, and the review
   notices keep their words and places. They were restyled to be plainer and higher in contrast, never quieter.
-- **Streaks are shown as days checked in this month**, as the brief asks: no count in a row, no milestone or "new
-  start" card, never a zero. The streak data is still kept, pending the reviewer's answer on streaks.
+- **Streak wording is unchanged.** A first version replaced the streak screens with a month view; the founder
+  asked for the original wording back, since it was awaiting review. Only the look of the streak screens changed.
+- **Long explanations fold under "Learn more" on Location and Friends**, at the founder's request, with no word
+  changed. Urgent-help lines, consent paragraphs beside a choice, and controls never fold. A lawyer should
+  confirm which privacy paragraphs may be one tap away (see [[CONTENT-REVIEW]]).
 - **A check-in ends on a choice of two** and no longer returns Home by itself; the burst of drops is removed.
 - **Fonts are bundled files** (Fraunces and Figtree, open licenses). Nothing is fetched from another site.
 - **Automated runs are muted**, at the founder's instruction: tests and Simulator checks play no sound, and the

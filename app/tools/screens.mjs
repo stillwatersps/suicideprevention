@@ -54,7 +54,7 @@ async function pass(lang, scheme, size, large) {
     await page.click('[data-flow="done"] [data-tl-go="home"]'); await page.waitForSelector('#tl-home:not([hidden])', { timeout: 6000 });
     await shot('09-home-after-check-in');
   });
-  await step('streak', async () => { await root('home'); await page.click('#tl-streak-card, [data-tl-push="streak"]'); await shot('11-month'); });
+  await step('streak', async () => { await root('home'); await page.click('#tl-streak-card, [data-tl-push="streak"]'); await shot('11-streak'); });
   await step('settings', async () => { await root('home'); await page.click('#tl-home [data-tl-push="settings"]'); await shot('12-settings'); await shot('12-settings-full', true); });
   await step('daily check-in', async () => {
     await root('checkin'); await page.click('#tl-checkin [data-tl-legacy="ci-today"][data-tl-start]'); await shot('13-daily-question-1');

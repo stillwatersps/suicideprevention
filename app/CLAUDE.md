@@ -112,8 +112,14 @@ Before every push, also run `python3 tools/check_site.py` from the repository ro
   - **Surfaces**: one `.tl-feature` card per section, rows with hairlines for lists, `.tl-tile` for
     quick tools, plain type on the page for the rest. One coral button per section.
   - **Fonts** are files in `src/fonts/` (Fraunces, Figtree, with their licenses). Never link a font.
-  - **Streaks are shown as "days you checked in this month"** (`src/ui/streaks-ui.js`): never a
-    count in a row, a zero, or a missed day. The streak data itself is still kept.
+  - **Streak wording is the reviewed-or-awaiting-review wording; restyle it, never rewrite it.**
+    Days are dots whose state is a shape as well as a color (filled, soft with a ring, dashed,
+    double ring). Never red, and a milestone sets off no burst.
+  - **Long explanations fold, they are never cut** (`src/ui/sections.js`): how-it-works detail goes
+    under a "Learn more" row. Anything about urgent help, 988 or 911, consent paragraphs beside a
+    choice, status lines, and controls always stay in view.
+  - **The tab bar** shows icons only when its labels can't fit (`fitTabBar` in `src/ui/shell.js`);
+    the labels stay in the page for screen readers.
 - **Words**: every word is in `src/text/redesign.en.html`. Scripts read them with `t('key')` from
   `src/ui/words.js`; a word with two voices has `data-style="calm"` and `"straightforward"`.
   Spanish is `src/text/redesign.es.json`; `npm run words:es` makes `redesign.es.html` from the two,

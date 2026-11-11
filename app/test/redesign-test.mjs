@@ -444,10 +444,7 @@ const keyOf = (offset) => { const d = new Date(); d.setDate(d.getDate() + offset
 const doneDay = (offset, goal = 1) => ({ dateKey: keyOf(offset), checkInsCompleted: goal, checkInGoal: goal, meditationsCompleted: 0, status: 'complete' });
 const daysOf = (...offsets) => JSON.stringify(Object.fromEntries(offsets.map((o) => [keyOf(o), doneDay(o)])));
 const oneADay = JSON.stringify({ checkInsPerDay: 1, countChosen: true });
-// How many of these day offsets fall in the month on screen (a run on the 1st has fewer).
-const inMonth = (...offsets) => offsets.filter((o) => keyOf(o).slice(0, 7) === keyOf(0).slice(0, 7)).length;
-const monthDots = (page) => page.locator('#tl-streak-week .tl-day.is-complete').count();
-const NO_STREAK_WORDS = /streak|racha|miss|lost|broke|fail|perdi|rompi|fallaste|\b0\b/i;
+const streakIs = (page, n) => page.waitForFunction((want) => document.querySelector('#tl-streak-number').textContent.trim() === want, String(n), { timeout: 5000 }).then(() => true, () => false);
 async function quickCheckIn(page, mood) {
   await tab(page, 'home');
   if (!(await page.isVisible('#tl-home'))) await tab(page, 'home');
@@ -457,80 +454,77 @@ async function quickCheckIn(page, mood) {
   await page.click('#tl-flow-done');
 }
 
-// "Days you checked in this month": how the streak feature is shown. Presentation only; the data
-// underneath is still kept.
-async function monthTests(browser, lang) {
-  console.log(`\nDays you checked in this month, ${lang === 'es' ? 'Spanish' : 'English'}`);
+// Streaks: the words awaiting review, in the new look. (The visual redesign changed no streak wording.)
+async function streakTests(browser, lang) {
+  console.log(`\nStreaks, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  // Two complete days behind, one check-in a day: today's check-in makes three, a milestone.
   let { context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-2, -1) } });
-  const before = inMonth(-2, -1);
-  if (before > 0) {
-    check(await page.isVisible('#tl-streak-card') && (await monthDots(page)) === before, `Home shows the days checked in this month as dots: ${before}`);
-    check(await page.isVisible('#tl-streak-week .tl-day.is-today'), 'today is marked');
-    check((await page.textContent('#tl-streak-week-words')).trim().length > 5, 'and the row is said in words for screen readers');
-  }
-  const daysInMonth = await page.locator('#tl-streak-week .tl-day').count();
-  check(daysInMonth >= 28 && daysInMonth <= 31, 'one dot for each day of the month');
-  check((await page.locator('#tl-streak-number, #tl-milestone, #tl-streak-fresh, .tl-burst').count()) === 0, 'there is no streak number, milestone card, or "new start" card in the page at all');
-  check(!NO_STREAK_WORDS.test(await page.textContent('#tl-streak-card')), 'the card never says streak, missed, lost, or zero');
+  check(await page.isVisible('#tl-streak-card') && await streakIs(page, 2), 'Home shows the streak so far: 2');
+  check((await page.locator('#tl-streak-week .tl-day').count()) === 7, 'with a row of seven days');
+  check(await page.isVisible('#tl-streak-week .tl-day.is-today'), 'today is marked as in progress');
+  check((await page.textContent('#tl-streak-week-words')).trim().length > 10, 'and the row is described in words for screen readers');
   await quickCheckIn(page, 4);
-  check(await page.isVisible('#tl-flow [data-flow="done"]') && !(await page.isVisible('.tl-burst')), 'a third day in a row ends like any other check-in: nothing celebrates');
+  check(await page.isVisible('#tl-flow [data-flow="done"]') && !(await page.isVisible('#tl-milestone')), 'the check-in ends on its own screen first: no milestone over it');
   await page.click('#tl-flow [data-flow="done"] [data-tl-go="home"]');
-  await page.waitForFunction((want) => document.querySelectorAll('#tl-streak-week .tl-day.is-complete').length === want, before + 1);
-  check(true, 'the row gains today right after the check-in');
-  check((await stored(page, 'tidelight.streak')).current === 3, 'the streak data underneath is still kept on the phone (3), unseen');
+  await page.waitForSelector('#tl-home:not([hidden])', { timeout: 5000 });
+  await page.waitForFunction(() => document.querySelector('#tl-streak-number').textContent.trim() === '3');
+  check(true, 'the streak card updates right after the check-in: 3');
+  check(await page.isVisible('#tl-milestone') && (await page.textContent('#tl-milestone-line')).includes('3'), 'a 3-day milestone shows, once');
+  check((await safetyFrame(page)).length === 0, 'the milestone card covers none of the safety frame');
+  check((await page.locator('.tl-burst').count()) === 0, 'and nothing bursts: it is a card in the page');
+  await page.click('#tl-milestone-ok');
+  check(!(await page.isVisible('#tl-milestone')), 'it can be put away');
   await page.click('#tl-streak-card');
+  check(await page.isVisible('#tl-streak') && (await page.textContent('#tl-streak-current')).trim() === '3' && (await page.textContent('#tl-streak-best')).trim() === '3', 'the streak screen shows now and best');
   const monthDays = await page.locator('#tl-streak-month .tl-day:not(.is-blank)').count();
-  check(await page.isVisible('#tl-streak') && monthDays === daysInMonth && (await page.locator('#tl-streak-month .tl-day.is-complete').count()) === before + 1, 'the card opens this month as a calendar');
-  check((await page.locator('#tl-streak .tl-legend li').count()) === 2 && (await page.textContent('#tl-streak-count')).trim().length > 5, 'with a two-word legend and the count in words');
-  check(!NO_STREAK_WORDS.test(await page.textContent('#tl-streak')), 'and no streak, missed, or lost words');
-  check((await safetyFrame(page)).length === 0 && await page.isVisible('#tl-streak .tl-draft-tag'), 'the month screen keeps the safety frame and is marked "Draft for review"');
-  check(await noSideways(page), 'the month screen fits');
-  await page.click('#tl-streak [data-tl-back]');
-  // Developer tools: made-up history with frozen and missed days underneath. None of that shows.
+  check(monthDays >= 28 && monthDays <= 31 && (await page.locator('#tl-streak-month .tl-day.is-complete').count()) >= 1, 'with this month as a calendar of days');
+  check((await page.locator('#tl-streak .tl-legend li').count()) === 4 && (await page.textContent('#tl-streak-freeze-line')).includes('1'), 'a legend in words, and the freezes held');
+  check((await safetyFrame(page)).length === 0 && await page.isVisible('#tl-streak .tl-draft-tag'), 'the streak screen keeps the safety frame and is marked "Draft for review"');
+  check(await noSideways(page), 'the streak screen fits');
+  check((await page.textContent('#tl-streak-title')).trim().length > 0 && (await page.locator('#tl-streak .tl-panel p.tl-sub').count()) === 2, 'with its two lines that explain what counts and what a freeze does');
+  await page.reload();
+  await page.waitForSelector('html.app-ready');
+  check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')), 'the milestone isn\'t shown again; the streak is remembered');
+  // Developer tools: seed a month to look at, and reset.
   await openSettings(page);
   for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
   await page.click('#tl-dev-seed');
   await page.click('#tl-settings [data-tl-back]');
   await page.click('#tl-streak-card');
-  check((await page.locator('#tl-streak-month .tl-day.is-frozen, #tl-streak-month .tl-day.is-missed').count()) === 0, 'days without a check-in are plain outlines: never marked missed or frozen');
-  const tones = await page.$$eval('#tl-streak-month .tl-day:not(.is-blank)', (els) => [...new Set(els.map((e) => getComputedStyle(e).backgroundColor))]);
-  check(tones.length <= 2, 'and the calendar uses one fill for checked-in days, nothing else');
-  // Turned off: nothing of it shows, and nothing is lost.
+  check((await page.locator('#tl-streak-month .tl-day.is-frozen, #tl-streak-month .tl-day.is-missed, #tl-streak-month .tl-day.is-complete').count()) >= 5, 'seeded history fills the calendar');
+  // Streaks off: nothing of them shows.
   await page.click('#tl-streak [data-tl-anchor="tl-set-feel"]');
   await page.uncheck('#tl-set-streaks');
   await page.click('#tl-settings [data-tl-back]');
   await tab(page, 'home');
-  check(!(await page.isVisible('#tl-streak-card')) && !(await page.isVisible('#tl-streak-first')), 'turned off in Settings, Home shows none of it');
-  check(Object.keys(await stored(page, 'tidelight.days')).length > 5, 'and nothing was erased');
+  check(!(await page.isVisible('#tl-streak-card')) && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('#tl-streak-fresh')), 'with streaks turned off, Home shows no streak at all');
   check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
   await context.close();
 
-  // A new person never meets a zero.
-  ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay } }));
-  check(!(await page.isVisible('#tl-streak-card')) && await page.isVisible('#tl-streak-first'), 'before the first check-in there is a quiet line, not a count');
-  check(!/\d/.test(await page.textContent('#tl-streak-first')), 'with no number in it: never a zero');
-  await context.close();
-
-  // A very low check-in: support comes first and nothing celebrates, in any state.
+  // A very low check-in on a milestone day: support comes first and nothing celebrates.
   ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-2, -1) } }));
   await quickCheckIn(page, 1);
-  check(await page.isVisible('#tl-flow-support') && !(await page.isVisible('.tl-burst')) && !(await page.isVisible('#tl-flow [data-flow="done"]')), 'a very low check-in shows support, not the usual ending');
-  check(!(await page.isVisible('#tl-flow .tl-horizon')) && (await page.locator('#tl-flow .tl-horizon-complete').count()) === 0, 'with no dawn, no horizon, and no decoration on that screen');
-  check((await page.locator('#tl-flow-support').evaluate((el) => /streak|racha|🎉/i.test(el.textContent))) === false && !(await page.isVisible('#tl-flow-breathe')), 'and no streak words or other offers beside it');
+  check(await page.isVisible('#tl-flow-support') && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('.tl-burst')), 'a very low check-in shows support, with no celebration anywhere');
+  check(!(await page.isVisible('#tl-flow .tl-horizon')) && (await page.locator('#tl-flow .tl-horizon-complete').count()) === 0 && !(await page.isVisible('#tl-flow-breathe')), 'and no dawn, no horizon, and no other offer on that screen');
   await page.click('#tl-flow-support [data-tl-go="home"]');
-  check((await monthDots(page)) === before + 1, 'back on Home the day still counts, quietly');
+  check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')), 'back on Home the day still counts, quietly: no milestone card');
   check((await stored(page, 'tidelight.onboarding')).quietDay === keyOf(0), 'the quiet day is remembered on the phone');
   await page.reload();
   await page.waitForSelector('html.app-ready');
-  check((await monthDots(page)) === before + 1 && !(await page.isVisible('.tl-burst')), 'and still quiet after closing and reopening the app');
+  check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('.tl-burst')), 'and still quiet after closing and reopening the app');
   await context.close();
 
-  // Days away: nothing on Home says a run ended.
+  // A streak that ended while away: a gentle card, no guilt.
   const ended = JSON.stringify({ current: 3, best: 3, freezesAvailable: 0, lastFreezeGrantWeek: isoWeek(keyOf(-2)), lastEvaluatedDate: keyOf(-3), celebrated: [3], brokenNotice: null });
   ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-5, -4, -3), 'tidelight.streak': ended } }));
-  const home = await page.textContent('#tl-home-streak');
-  check(!/streak|racha|miss|lost|broke|fail|perdi|rompi/i.test(home), 'after two days away, Home says nothing about a streak ending or days missed');
-  check((await page.locator('#tl-streak-fresh, #tl-milestone').count()) === 0, 'and there is no card about it');
+  check(await streakIs(page, 0), 'after two days away with no freeze, the streak starts again at 0');
+  check(await page.isVisible('#tl-streak-fresh') && (await page.textContent('#tl-streak-fresh-line')).includes('3'), 'a gentle card says the best is still 3');
+  check(!/miss|lost|broke|fail|perd|romp|fall/i.test(await page.textContent('#tl-streak-fresh')), 'with no guilt words');
+  check(await page.evaluate(() => getComputedStyle(document.querySelector('#tl-streak-fresh')).position !== 'fixed'), 'as a card in the page, not a pop-up');
+  await page.click('#tl-streak-fresh-ok');
+  await page.reload();
+  await page.waitForSelector('html.app-ready');
+  check(!(await page.isVisible('#tl-streak-fresh')), 'once put away, it stays away');
   check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
   await context.close();
 }
@@ -599,6 +593,80 @@ async function identityTests(browser, lang) {
   await page.click('.tl-type[data-type="quick"] [data-type-start]');
   await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 10000 });
   check(await page.isVisible('#tl-complete .tl-horizon-complete') && (await page.locator('.tl-burst').count()) === 0, 'on an ordinary day it ends on the dawn, with no burst');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+}
+
+// Follow-ups to the visual redesign: no wording changed, only how it is laid out.
+async function layoutTests(browser, lang) {
+  console.log(`\nSections, tiles, and the tab bar, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  const allText = (page, selector) => page.$eval(selector, (el) => el.textContent.replace(/\s+/g, ' ').trim());
+  let { context, page, errors } = await newPage(browser, lang, { viewport: { width: 375, height: 667 } });
+  // Location: the same words, with how-it-works detail under "Learn more".
+  await tab(page, 'location');
+  const places = await page.evaluate(() => {
+    const box = document.querySelector('#app-places');
+    const rows = Array.from(box.querySelectorAll('details.tl-more'));
+    return { rows: rows.length, open: rows.filter((d) => d.open).length, label: rows[0] && rows[0].querySelector('summary').textContent.trim(),
+      controlsInside: box.querySelectorAll('details.tl-more button, details.tl-more input, details.tl-more select, details.tl-more textarea').length,
+      crisisInside: rows.filter((d) => /988|911/.test(d.textContent)).length,
+      permInside: Boolean(box.querySelector('details.tl-more .app-places-perm')) };
+  });
+  check(places.rows >= 3 && places.open === 0 && places.label.length > 3, `Places has ${places.rows} "Learn more" rows, closed to begin with`);
+  check(places.controlsInside === 0 && places.crisisInside === 0 && !places.permInside, 'no control, no 988 or 911 line, and not the location permission paragraph is folded away');
+  await page.check('#app-places .app-places-on');
+  const row = page.locator('#app-places details.tl-more summary').first();
+  const size = await row.boundingBox();
+  check(size.height >= 44, 'a "Learn more" row is at least 44 points tall');
+  const before = await allText(page, '#app-places');
+  await row.click();
+  check(await page.locator('#app-places details.tl-more').first().evaluate((d) => d.open) && await page.locator('#app-places details.tl-more .tl-more-body').first().isVisible(), 'tapping it shows the detail in place');
+  check((await allText(page, '#app-places')) === before, 'and opening it changes no words');
+  check(await noSideways(page) && (await safetyFrame(page)).length === 0, 'Location fits, with the safety frame on screen');
+  // Friends: four points fold away; the one about urgent help stays in view.
+  await tab(page, 'friends');
+  const circle = await page.evaluate(() => {
+    const box = document.querySelector('#app-circle');
+    const more = box.querySelector('details.tl-more');
+    const kept = Array.from(box.querySelectorAll('ul.app-accommodations:not(.tl-more-body) > li'));
+    return { folded: more ? more.querySelectorAll('li').length : 0, kept: kept.length, keptIsCrisis: kept.every((li) => /988/.test(li.textContent) && /911/.test(li.textContent)), moreBeforeKept: Boolean(more && kept[0] && (more.compareDocumentPosition(kept[0]) & Node.DOCUMENT_POSITION_FOLLOWING)) };
+  });
+  check(circle.folded === 4 && circle.kept === 1 && circle.keptIsCrisis && circle.moreBeforeKept, 'My circle folds four points under "Learn more", in their old order, and keeps the urgent-help point in view');
+  check(await page.isVisible('#app-circle ul.app-accommodations:not(.tl-more-body) > li'), 'that point is on screen without a tap');
+  check(await noSideways(page), 'Friends fits');
+
+  // The Daily check-in's first question: nine feelings, same order, two across.
+  await startDaily(page);
+  const tiles = await page.$$eval('#ci-step-feeling .ci-choice', (els) => els.map((el) => { const r = el.getBoundingClientRect(); return { value: el.querySelector('input').value, x: Math.round(r.left), y: Math.round(r.top), w: r.width, h: r.height, inside: el.scrollWidth <= el.clientWidth + 1 }; }));
+  // The same feelings in the same order as the website's page: nine today. Reading order on screen matches it.
+  const inOrder = tiles.map((tile) => tile.value).join(',');
+  const byEye = [...tiles].sort((a, b) => a.y - b.y || a.x - b.x).map((tile) => tile.value).join(',');
+  check(tiles.length === 9 && inOrder.startsWith('hopeful,calm,okay,unsure,overwhelmed,sad,anxious,disconnected') && byEye === inOrder, `the first question still has its ${tiles.length} feelings, in the same order`);
+  check(new Set(tiles.map((tile) => tile.x)).size === 2 && tiles[0].y === tiles[1].y && tiles[2].y > tiles[0].y, 'laid out two across, reading left to right, top to bottom');
+  check(tiles.every((tile) => tile.h >= 44 && tile.w >= 44 && tile.inside), 'every tile is a full tap target and holds its word');
+  await page.click('#ci-step-feeling label:has(input[value="okay"])');
+  check(await page.isChecked('#ci-step-feeling input[value="okay"]'), 'tapping a tile chooses it, as before');
+  check(await noSideways(page), 'the question fits');
+
+  // The tab bar: labels at ordinary text sizes; icons only when the labels can't fit.
+  const barState = () => page.evaluate(() => { const bar = document.querySelector('#tl-tabbar'); return { compact: bar.classList.contains('is-compact'),
+    tabs: Array.from(bar.querySelectorAll('.tl-tab')).map((tabEl) => { const r = tabEl.getBoundingClientRect(); const label = tabEl.querySelector('.tl-tab-label'); const lr = label.getBoundingClientRect(); return { w: r.width, h: r.height, name: tabEl.textContent.trim(), labelShown: lr.width > 2 && lr.height > 2 }; }) }; });
+  let barNow = await barState();
+  check(!barNow.compact && barNow.tabs.every((t) => t.labelShown), 'at the ordinary text size the tab bar shows its five labels');
+  await page.evaluate(() => { document.documentElement.style.fontSize = '135%'; });
+  await page.waitForFunction(() => document.querySelector('#tl-tabbar').classList.contains('is-compact'), null, { timeout: 4000 }).catch(() => {});
+  barNow = await barState();
+  check(barNow.compact && barNow.tabs.every((t) => !t.labelShown), 'at the largest text on a small phone it shows icons only');
+  check(barNow.tabs.every((t) => t.name.length > 2), 'each tab keeps its name for screen readers');
+  check(barNow.tabs.every((t) => t.w >= 44 && t.h >= 44), 'and each tab is still at least 44 points each way');
+  await tab(page, 'meditate');
+  check(await page.isVisible('#tl-meditate') && (await page.getAttribute('#tl-tabbar [data-tl-tab-btn="meditate"]', 'aria-current')) === 'page', 'an icon-only tab still works and is marked as the current one');
+  await startDaily(page);
+  const cols = await page.$$eval('#ci-step-feeling .ci-choice', (els) => new Set(els.map((el) => Math.round(el.getBoundingClientRect().left))).size);
+  check(cols === 1 && await noSideways(page), 'at that text size the nine feelings become one list that scrolls with the page');
+  await page.evaluate(() => { document.documentElement.style.fontSize = ''; });
+  await page.waitForFunction(() => !document.querySelector('#tl-tabbar').classList.contains('is-compact'), null, { timeout: 4000 }).catch(() => {});
+  check(!(await barState()).compact, 'back at the ordinary size the labels return');
   check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
   await context.close();
 }
@@ -1033,8 +1101,8 @@ async function accessibilityTests(browser) {
     await audit(page, `${label}, Home`, '#tl-home');
     await page.click('#tl-setup-open');
     await audit(page, `${label}, the setup list`, '#tl-home');
-    // The month card only shows after a first check-in; the month tests cover the screen itself.
-    if (await page.isVisible('#tl-streak-card')) { await page.click('#tl-streak-card'); await audit(page, `${label}, the month screen`, '#tl-streak'); }
+    await page.click('#tl-streak-card');
+    await audit(page, `${label}, the streak screen`, '#tl-streak');
     await openSettings(page);
     for (let i = 0; i < 7; i += 1) await page.click('#tl-version');
     await audit(page, `${label}, Settings with Developer open`, '#tl-settings');
@@ -1085,10 +1153,12 @@ try {
   await onboardingTests(browser, 'es');
   await deniedTests(browser);
   await migrationTests(browser);
-  await monthTests(browser, 'en');
-  await monthTests(browser, 'es');
+  await streakTests(browser, 'en');
+  await streakTests(browser, 'es');
   await identityTests(browser, 'en');
   await identityTests(browser, 'es');
+  await layoutTests(browser, 'en');
+  await layoutTests(browser, 'es');
   await playerTests(browser, 'en');
   await playerTests(browser, 'es');
   await typesTests(browser, 'en');

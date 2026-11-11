@@ -85,8 +85,12 @@ A visual layer only: no feature was added, removed, or renamed, and no stored da
   and plain text on the page. Coral primary buttons, a tab bar with a dot on the current tab.
 - The crisis strip, Exit, Get Support Now, and the support panel's Call 988 are ink on paper (or
   paper on ink): the plainest, highest-contrast things on screen, with no texture or motion.
-- Streaks are shown as "Days you checked in this month": dots and a calendar, no count of days in
-  a row, no milestone or "new start" card, never a zero. The streak data underneath is unchanged.
+- Streaks keep every word they had. Their days are drawn as dots in the new look (a shape for each
+  state, never red), and a milestone no longer sets off a burst.
+- Location and Friends: short sections with headings and room, and how-it-works detail under
+  "Learn more" rows. No word changed. Urgent-help lines and consent paragraphs stay in view.
+- The Daily check-in's first question shows its nine feelings as tiles, two across.
+- At the largest text on a small phone the tab bar shows icons only; the names stay for screen readers.
 - Mood choices are a tone and a word, not faces. A finished check-in stays on the dawn with two
   choices instead of returning Home by itself. The confetti burst is gone.
 - The launch screen and the web view behind the page are sand (night tide in dark mode).

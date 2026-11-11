@@ -37,16 +37,26 @@
             <span class="tl-card-text"><span class="tl-eyebrow">Sugerida para ti</span><span class="tl-card-title" data-suggest-title></span><span class="tl-card-sub" data-suggest-reason></span></span>
             <span class="tl-card-go">Empezar</span>
           </button>
+          <div class="tl-card tl-card-warm" id="tl-milestone" role="status" hidden>
+            <span class="tl-card-icon" data-tl-icon="star"></span>
+            <span class="tl-card-text"><span class="tl-card-title" id="tl-milestone-line"></span></span>
+            <button type="button" class="tl-btn tl-btn-quiet" id="tl-milestone-ok">Entendido</button>
+          </div>
+          <div class="tl-card" id="tl-streak-fresh" role="status" hidden>
+            <span class="tl-card-icon" data-tl-icon="horizon"></span>
+            <span class="tl-card-text"><span class="tl-card-sub" id="tl-streak-fresh-line"></span></span>
+            <button type="button" class="tl-btn tl-btn-quiet" id="tl-streak-fresh-ok">Entendido</button>
+          </div>
           <div id="tl-home-streak" hidden>
-            <button type="button" class="tl-month-card" id="tl-streak-card" data-tl-push="streak">
-              <span class="tl-eyebrow">Días que registraste este mes</span>
-              <span class="tl-days tl-month-row" id="tl-streak-week" aria-hidden="true"></span>
-              <span class="tl-card-sub" id="tl-streak-week-words"></span>
+            <button type="button" class="tl-card tl-card-action tl-card-warm tl-streak-card" id="tl-streak-card" data-tl-push="streak">
+              <span class="tl-card-icon tl-streak-wave" data-tl-icon="horizon"></span>
+              <span class="tl-card-text">
+                <span class="tl-streak-line"><span class="tl-streak-number" id="tl-streak-number">0</span> <span id="tl-streak-label">días seguidos</span></span>
+                <span class="tl-days tl-week" id="tl-streak-week" aria-hidden="true"></span>
+                <span class="visually-hidden" id="tl-streak-week-words"></span>
+              </span>
+              <span class="tl-badge tl-freeze-badge" aria-hidden="true"><span data-tl-icon="snow"></span><span id="tl-streak-freezes-count">0</span></span>
             </button>
-            <div class="tl-quiet" id="tl-streak-first">
-              <div class="tl-horizon tl-horizon-quiet" aria-hidden="true"></div>
-              <p class="tl-sub">Tu primer registro aparecerá aquí</p>
-            </div>
           </div>
           <div class="tl-tiles" role="group" aria-label="Herramientas rápidas">
             <button type="button" class="tl-tile tl-tile-seafoam" id="tl-home-reset" data-tl-quick="reset"><span class="tl-tile-icon" data-tl-icon="wind"></span><span class="tl-tile-label">Pausa de 1 min</span></button>
@@ -264,16 +274,28 @@
         <section class="tl-screen" id="tl-streak" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-streak-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
-          <h2 class="tl-title" id="tl-streak-title">Tu mes</h2>
-          <p class="tl-eyebrow" id="tl-streak-month-title"></p>
-          <p class="tl-sub" id="tl-streak-count"></p>
-          <ol class="tl-days tl-month tl-month-heads" id="tl-streak-heads" aria-hidden="true"></ol>
-          <ol class="tl-days tl-month" id="tl-streak-month" aria-labelledby="tl-streak-month-title"></ol>
-          <ul class="tl-row tl-legend">
-            <li><span class="tl-day is-complete" aria-hidden="true"></span> Con registro</li>
-            <li><span class="tl-day is-today" aria-hidden="true"></span> Hoy</li>
-          </ul>
-          <button type="button" class="tl-btn tl-btn-quiet" data-tl-push="settings" data-tl-anchor="tl-set-feel">Desactivar esto en Ajustes</button>
+          <h2 class="tl-title" id="tl-streak-title">Tu racha</h2>
+          <dl class="tl-grid-2 tl-stats">
+            <div class="tl-panel tl-center"><dt class="tl-sub">Ahora</dt><dd class="tl-stat" id="tl-streak-current">0</dd></div>
+            <div class="tl-panel tl-center"><dt class="tl-sub">Mejor</dt><dd class="tl-stat" id="tl-streak-best">0</dd></div>
+          </dl>
+          <div class="tl-panel">
+            <h3 class="tl-headline" id="tl-streak-month-title"></h3>
+            <ol class="tl-days tl-month tl-month-heads" id="tl-streak-heads" aria-hidden="true"></ol>
+            <ol class="tl-days tl-month" id="tl-streak-month" aria-labelledby="tl-streak-month-title"></ol>
+            <ul class="tl-row tl-legend">
+              <li><span class="tl-day is-complete" aria-hidden="true"></span> Listo</li>
+              <li><span class="tl-day is-frozen" aria-hidden="true"></span> Congelado</li>
+              <li><span class="tl-day is-missed" aria-hidden="true"></span> Día de descanso</li>
+              <li><span class="tl-day is-today" aria-hidden="true"></span> Hoy</li>
+            </ul>
+          </div>
+          <div class="tl-panel">
+            <p class="tl-sub">Un día cuenta cuando terminas tus registros, o haces un registro y una meditación.</p>
+            <p class="tl-sub">Si falta un día, un congelador ❄️ lo cubre. ¿No hay congelador? Simplemente empiezas de nuevo.</p>
+            <p class="tl-status" id="tl-streak-freeze-line"></p>
+          </div>
+          <button type="button" class="tl-btn tl-btn-quiet" data-tl-push="settings" data-tl-anchor="tl-set-feel">Desactivar las rachas en Ajustes</button>
         </section>
 
         <section class="tl-screen tl-legacy" id="tl-legacy" data-tl-tab="checkin" tabindex="-1" aria-label="Registro diario, diario y tu camino" hidden>
@@ -605,8 +627,8 @@
             <div class="tl-panel">
               <label class="tl-switch"><span>Vibraciones</span><input type="checkbox" id="tl-set-haptics"></label>
               <label class="tl-switch"><span>Reducir animaciones</span><input type="checkbox" id="tl-set-reduce"></label>
-              <label class="tl-switch"><span>Días con registro en Inicio</span><input type="checkbox" id="tl-set-streaks"></label>
-              <p class="tl-sub">Muestra los días que registraste este mes. Desactívalo cuando quieras. No se pierde nada.</p>
+              <label class="tl-switch"><span>Rachas</span><input type="checkbox" id="tl-set-streaks"></label>
+              <p class="tl-sub">Las rachas cuentan los días en que te registras. Desactívalas cuando quieras. No se pierde nada.</p>
             </div>
 
             <h3 class="tl-section-title" id="tl-set-places">Lugares</h3>
@@ -712,10 +734,16 @@
         <span data-word="set.homeNone">No hay un lugar de casa guardado.</span>
         <span data-word="set.homeSaved">Hay un lugar de casa guardado en este teléfono.</span>
         <span data-word="set.timeLabel">Registro {number}</span>
-        <span data-word="month.words">{count} días en lo que va del mes</span>
-        <span data-word="month.one">1 día en lo que va del mes</span>
-        <span data-word="month.cardLabel">Días que registraste este mes: {count}. Abrir tu mes.</span>
+        <span data-word="streak.day">días seguidos</span>
+        <span data-word="streak.days">días seguidos</span>
+        <span data-word="streak.cardLabel">{count} días seguidos. {freezes} congeladores. Abrir tu racha.</span>
+        <span data-word="streak.weekWords">Esta semana: {complete} listos, {frozen} congelados, {missed} días de descanso.</span>
+        <span data-word="streak.fresh">Nueva ola, nuevo comienzo 🌊 Tu mejor racha sigue siendo de {best} días.</span>
+        <span data-word="streak.milestone">{days} días. Una ola a la vez 🌊</span>
+        <span data-word="streak.freezeNext">❄️ {count} guardados. El próximo llega el {day}.</span>
+        <span data-word="streak.freezeFull">❄️ {count} guardados. Es el máximo que puedes guardar.</span>
         <span data-word="home.highlight">tenerlo todo resuelto</span>
+        <span data-word="more.learn">Más información</span>
         <span data-word="player.left">Quedan {time}</span>
         <span data-word="player.pause">Pausa</span>
         <span data-word="player.resume">Continuar</span>

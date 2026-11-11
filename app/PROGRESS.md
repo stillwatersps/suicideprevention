@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 (visual identity finished)
+Last updated: 2026-11-11 (visual identity, follow-ups on pull request 26)
 Current branch: app/visual-identity
-Current phase: Visual identity, all 10 phases done
-Current step: Draft pull request 26 into `app/redesign-dev`, pushed. Waiting for both founders and a reviewer
+Current phase: Visual identity, all 10 phases done, plus four follow-ups from a founder
+Current step: Pushed to draft pull request 26 into `app/redesign-dev`. Waiting for both founders and a reviewer
 
 ## Visual identity ("Dawn at the Shoreline") — in progress
 A second brief from the same founder (`app/DESIGN-BRIEF.md`): a new look, visual layer only. Branch `app/visual-identity`, cut from `app/redesign-dev`; a draft pull request into `app/redesign-dev` at the end. Working in checkpoints: one commit per phase, this file updated each time, the full test suite only at the end of a phase.
@@ -43,7 +43,7 @@ automated run is now muted, without changing the app's own audio code:
 - The brief's `design/` folder is `app/design/`: the repository's `design/` holds the website's original homepage design. The notes in it (`AUDIT.md`, `TOKENS.md`, `COMPARISON.md`, `README.md`) are committed; the pictures are not.
 - "Launch the app in the Simulator (iPhone 17 and iPhone SE)": this Mac has no iPhone SE simulator, and driving every screen and state by hand in a simulator costs more than the usage allows. The pictures come from desktop Chromium at both phone sizes (`tools/screens.mjs`), with a few iPhone 17 Simulator pictures beside them. Said plainly wherever results are reported.
 
-- Streaks (brief section 6.3 against "do not change copy awaiting review"): the streak card, streak screen, milestone card, "new start" card, and freeze lines are no longer shown, so their words left the text source. In their place: "Days you checked in this month" (dots on Home, a calendar behind them), never a zero, no missed or lost wording. The streak data and logic are untouched and still stored. The Settings switch is relabeled "Check-in days on Home".
+- Streaks (brief section 6.3 against "do not change copy awaiting review"): first built as "Days you checked in this month", which dropped the streak screens' wording. **A founder asked for the original wording back (follow-up 1), so the project rule won:** every streak line is as it was on `app/redesign-dev`; only the look changed (dots with a shape per state, never red; a line icon where the snowflake emoji stood alone; no burst at a milestone). The brief's "never a zero for a new user" is therefore not met: a first day reads "0 day streak", as before. It is a reviewer question.
 - A finished quick check-in no longer returns Home by itself: the brief asks for the dawn, one line, and two choices ("Breathe for a minute", "Back to home").
 - The confetti burst (`celebrate.js`) is removed: the brief says no confetti. Completion is the dawn. On a day with a very low check-in there is no dawn either.
 - Mood choices are a tone and a word (no faces). Emoji used alone as pictures became line icons; the one emoji inside a sentence awaiting review was left.
@@ -51,12 +51,11 @@ automated run is now muted, without changing the app's own audio code:
 - The old Splash image set is still in the iOS project, unused; it was not deleted.
 
 ### Results (visual identity)
-- `npm test` in `app/`: lint clean; 92 unit tests, then 5, 180, 56, and 837 browser checks, 0 failed.
+- `npm test` in `app/` (before the follow-ups): lint clean; 92 unit tests, then 5, 180, 56, and 837 browser checks, 0 failed.
   Desktop Chromium with stand-ins for the phone, muted. Not a phone.
 - New tests cover: crisis controls at 7 to 1 in light and dark, with no texture or animation; both
   fonts loading from the app's own files with no outside request; Reduce Motion; no dawn and no
-  horizon after a very low check-in; no haptic on crisis controls; the month view never showing a
-  zero, a streak, or a missed day; no sideways scrolling at the largest text, Hope box included.
+  horizon after a very low check-in; no haptic on crisis controls; no sideways scrolling at the largest text, Hope box included.
 - iOS Simulator (iPhone 17, launched muted): the app compiles; the launch screen is sand with no
   white flash; Home and Meditate look as in the pictures, with both fonts. Nothing else was
   walked through there. Nobody listened to confirm the Simulator is silent.
@@ -66,11 +65,18 @@ automated run is now muted, without changing the app's own audio code:
   all four pass. `check_site.py`: 21 pages, all checks passed. `test_browser.py`: all passed (desktop Chrome and its phone-size emulation). `test_webkit.py`: 207 checks in WebKit on a Mac, 0 problems (not iOS Safari). The review packet was rebuilt.
 - **Not checked:** a real phone; VoiceOver by ear; haptics; an iPhone SE simulator (this Mac has none).
 
+### Follow-ups on pull request 26 (a founder's four requests, November 11, 2026)
+1. **Streak wording restored**; visual change only. Noted in `notes/CONTENT-REVIEW.md`.
+2. **Location and Friends:** short sections under their existing headings, more room, and "Learn more" rows (`src/ui/sections.js`). No word changed or removed from the page. Folded: in Places, the paragraph under "Your places", "People you trust", "What the phone shows", and "Your message"; in My circle, four of the five points. Never folded: anything with 988 or 911, the two opening paragraphs of Places, the location permission paragraph, "Good to know", status lines, controls. Some folded paragraphs are privacy wording; `app/CLAUDE.md` says privacy wording is never shortened or removed, and it is neither, but it is now one tap away. Flagged for a lawyer in `notes/CONTENT-REVIEW.md`.
+3. **Daily check-in, first question:** tiles two across, one list at large text. The page has nine feelings, not ten; all nine are there in the same order with the same values.
+4. **Tab bar:** the shell hides the labels (kept for screen readers) when any label can't fit its tab with a little room, and shows them again when they can. Tabs keep their 44-point targets.
+Checked: `npm test`: lint clean; 92 unit tests; 5, 180, 56, and 889 browser checks; 0 failed (desktop Chromium with stand-ins, muted). New checks cover the restored streak screens, the "Learn more" rows (closed to begin with, no control or 988/911 line inside, opening changes no words), the nine tiles in their order, and the icons-only tab bar with 44-point targets and spoken names. The small-phone pictures were looked at for the four changes. Not rebuilt or looked at in the iOS Simulator after the follow-ups. Not on a real phone.
+
 ### Copy changes (visual identity)
-Shown no longer (their screens were replaced; the words left the text source): "Your streak", "day streak", "Now", "Best", "Frozen", "Rest day", "A day counts when you finish your check-ins, or do one check-in and one meditation.", "Miss a day and a freeze covers it. No freeze? You simply start again.", "Turn streaks off in Settings", the weekly summary line, the milestone line, the "New wave, new start" line, the two freeze lines, and the milestone card's "Got it".
-Changed: "Streaks" (Settings switch) to "Check-in days on Home"; its note to "Shows the days you checked in this month. Turn it off any time. Nothing is lost."; "Setup {done}/{total}" to "{done} of {total} set up"; "Quick actions" (a spoken label) to "Quick tools".
-New: "Days you checked in this month", "Your first check-in will appear here", "{count} days so far this month", "1 day so far this month", "Days you checked in this month: {count}. Open your month." (spoken), "Your month", "Checked in", "Turn this off in Settings", "Hope box" and "Get help" (Home tiles), "Breathe for a minute", "Back to home", "{time} left", "Tidelight" (above the welcome heading), "Get Support Now" (first in Settings; the same words as the header button).
-Emoji used alone as pictures became line icons. No crisis, consent, privacy, or review-notice wording changed.
+Changed: "Setup {done}/{total}" to "{done} of {total} set up"; "Quick actions" (a spoken label) to "Quick tools".
+New: "Hope box" and "Get help" (Home tiles), "Breathe for a minute", "Back to home", "{time} left", "Tidelight" (above the welcome heading), "Get Support Now" (first in Settings; the same words as the header button), "Learn more" (rows on Location and Friends).
+Emoji used alone as pictures became line icons (the choice cards, and the snowflake and tick in the streak row and legend). Emoji inside sentences are untouched.
+No streak, crisis, consent, privacy, or review-notice wording changed.
 
 ### Resume instructions (visual identity)
 Nothing is in progress. If picking this up again: read the pull request's comments first. Likely next steps are a real-phone pass with `TESTING_CHECKLIST.md`, the reviewer's answers to "Questions about the app's visual redesign" in `notes/CONTENT-REVIEW.md`, and then either removing the stored streak numbers or bringing a reviewed streak display back. Start the Simulator only with `npm run sim:launch`.

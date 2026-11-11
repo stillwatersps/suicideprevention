@@ -19,7 +19,7 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
 
 ## 1. The safety frame, on every screen
 
-- [ ] On Home, Check-in, Meditate, Location, Friends, Settings, the month screen, History, the
+- [ ] On Home, Check-in, Meditate, Location, Friends, Settings, the streak screen, History, the
   builder, and each onboarding page: Call 988, Text 988, Call 911, and Exit are at the top, and
   Get Support Now, the Spanish link, and both "Draft for review" notices are on the screen without
   opening anything.
@@ -75,19 +75,30 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
 - [ ] If you used the older four reminders before this version: *Expected:* the ones that were on
   are now your check-in times.
 
-## 5. Days you checked in this month (how streaks are shown)
+## 5. Streaks
 
-- [ ] Before any check-in. *Expected:* Home shows a quiet line, "Your first check-in will appear
-  here". No zero, no count.
-- [ ] Finish a check-in. *Expected:* Home shows a row of small dots for this month, with today
-  filled in at once. Nothing bursts, and no number of days in a row appears anywhere.
-- [ ] Settings, Developer, "Seed fake history", then tap the dots. *Expected:* this month as a
-  calendar. Days with a check-in are filled. Every other day is a plain outline: never red, never
-  crossed out, never called missed.
-- [ ] Settings, "Check-in days on Home" off. *Expected:* the row and the calendar are gone from
-  Home, and turning it back on brings every day back.
+- [ ] Finish today's check-ins. *Expected:* the streak card on Home goes up at once.
+- [ ] Settings, Developer, "Seed fake history", then open the streak screen. *Expected:* a month
+  with done days (a filled dot), frozen days (a soft dot with a ring), and rest days (a dashed ring).
+  Nothing is red.
+- [ ] Settings, Streaks off. *Expected:* no streak card, no milestone, no "new start" card anywhere.
+- [ ] Read every streak line. *Expected:* nothing that blames or pressures. Tell the reviewer what
+  you felt.
+- [ ] Reach a 3-day streak. *Expected:* a quiet card on Home after "Back to home". Nothing bursts.
 - [ ] After a very low check-in. *Expected:* support first, with no horizon, no dawn, and no
   celebration; a meditation finished later that day also ends without the dawn.
+
+## 5b. Layout follow-ups
+
+- [ ] Location, with Places turned on. *Expected:* short sections under headings. Each "Learn
+  more" row opens in place. The paragraph beside "Allow location" and "Good to know" are always
+  open.
+- [ ] Friends. *Expected:* one "Learn more" row, and the point about urgent help, 988, and 911 in
+  view without a tap.
+- [ ] Daily check-in, first question. *Expected:* nine feelings as tiles, two across, in the same
+  order as before.
+- [ ] Set the phone to its largest text. *Expected:* the tab bar shows five icons with no words,
+  each easy to tap, and VoiceOver still reads each name.
 
 ## 6. Meditation (sound, speech, haptics, and screen need a real phone)
 

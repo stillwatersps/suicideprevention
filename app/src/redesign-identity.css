@@ -168,14 +168,64 @@ html.tl .tl-flow-step { gap: var(--space-20); }
 html.tl .tl-support-now { background: var(--paper); border: var(--border-strong) solid var(--ink); border-radius: var(--radius-lg); padding: var(--space-24); }
 html.tl .tl-result-support { background: var(--paper); border: var(--border-strong) solid var(--ink); border-radius: var(--radius-md); padding: var(--space-16); }
 
-/* ---------- Days you checked in this month ---------- */
-html.tl .tl-month-card { display: grid; gap: var(--space-12); width: 100%; padding: var(--space-16) var(--space-4); background: transparent; border: 0; border-bottom: var(--hairline) solid var(--rule); border-radius: 0; text-align: left; font-family: var(--font-body); color: var(--ink); cursor: pointer; }
-.tl-month-row { display: flex; flex-wrap: wrap; gap: var(--space-4); grid-template-columns: none; max-width: none; }
+/* ---------- Streaks: the same words as before, in the new shapes. Never red, nothing bursts. ---------- */
+html.tl .tl-streak-card { align-items: center; }
+.tl-streak-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-8); font-family: var(--font-body); font-size: var(--text-body); font-weight: var(--wt-strong); color: var(--ink); }
+.tl-streak-number { font-family: var(--font-display); font-variation-settings: var(--display-settings); font-size: var(--text-stat); line-height: var(--lh-display); font-weight: var(--wt-display); font-variant-numeric: tabular-nums; color: var(--ink); }
+html.tl .tl-streak-wave .tl-icon { animation: none; }
+html.tl .tl-week { display: grid; grid-template-columns: repeat(7, var(--dot)); gap: var(--space-8); max-width: 100%; margin-top: var(--space-8); }
+html.tl .tl-freeze-badge { display: inline-flex; align-items: center; gap: var(--space-4); background: var(--seafoam-soft); color: var(--seafoam); font-variant-numeric: tabular-nums; }
+html.tl .tl-freeze-badge .tl-icon { width: var(--dot); height: var(--dot); }
+/* A day's state is a shape as well as a color: filled (done), soft with a ring (frozen), dashed (rest day), double ring (today). */
 html.tl .tl-day { width: var(--dot); height: var(--dot); border: var(--hairline) solid var(--rule); background: transparent; color: var(--ink-soft); box-shadow: none; animation: none; opacity: 1; font-size: var(--text-caption); }
 html.tl .tl-day.is-complete { background: var(--seafoam); border-color: var(--seafoam); color: var(--on-seafoam); }
+html.tl .tl-day.is-frozen { background: var(--seafoam-soft); border-color: var(--seafoam); color: var(--ink); }
+html.tl .tl-day.is-missed { border-style: dashed; border-color: var(--ink-faint); }
+html.tl .tl-day.is-ahead, html.tl .tl-day.is-none { border-color: var(--rule); opacity: 1; }
 html.tl .tl-day.is-today { box-shadow: 0 0 0 var(--border-strong) var(--sand), 0 0 0 calc(var(--border-strong) * 2) var(--ink-soft); }
 html.tl .tl-month .tl-day { width: 100%; max-width: var(--tap); height: auto; aspect-ratio: 1; }
-html.tl .tl-month .tl-day.is-complete { font-weight: var(--wt-strong); text-decoration: underline; text-underline-offset: var(--space-4); }
+html.tl .tl-month .tl-day.is-complete { font-weight: var(--wt-strong); }
+html.tl .tl-legend { gap: var(--space-8) var(--space-16); color: var(--ink-soft); font-size: var(--text-caption); }
+html.tl .tl-stats .tl-panel { gap: var(--space-4); }
+html.tl .tl-stat { font-family: var(--font-display); font-variation-settings: var(--display-settings); font-size: var(--text-stat); line-height: var(--lh-display); font-weight: var(--wt-display); color: var(--ink); }
+html.tl #tl-streak-month-title { font-family: var(--font-body); font-variation-settings: normal; font-size: var(--text-eyebrow); line-height: var(--lh-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; font-weight: var(--wt-strong); color: var(--ink-soft); }
+/* The milestone and "new start" cards: a quiet panel each, no burst. */
+html.tl #tl-milestone, html.tl #tl-streak-fresh { background: var(--paper); border: 0; border-radius: var(--radius-md); padding: var(--space-16); }
+html.tl #tl-milestone { background: var(--coral-soft); }
+html.tl #tl-milestone .tl-card-icon { background: var(--paper); color: var(--coral-deep); }
+
+/* ---------- Location and Friends: short sections, room to breathe, detail under "Learn more" ---------- */
+html.tl .tl-sectioned { display: grid; gap: var(--space-16); padding: var(--space-24) var(--space-20); }
+html.tl .tl-sectioned > *, html.tl .tl-sectioned .app-places-setup > * { margin-top: 0; margin-bottom: 0; min-width: 0; }
+html.tl .tl-sectioned p, html.tl .tl-sectioned li { max-width: var(--measure); line-height: var(--lh-body); }
+html.tl .tl-sectioned .app-places-setup { display: grid; gap: var(--space-12); }
+html.tl .tl-sectioned h4 { margin-top: var(--space-16); padding-top: var(--space-20); border-top: var(--hairline) solid var(--rule); font-family: var(--font-display); font-variation-settings: var(--display-settings); font-size: var(--text-heading); line-height: var(--lh-heading); font-weight: var(--wt-heading); color: var(--ink); }
+html.tl .tl-sectioned ul:not(.ci-list) { display: grid; gap: var(--space-12); margin: 0; padding-left: var(--space-20); }
+html.tl .tl-sectioned ul:not(.ci-list)[hidden], html.tl .tl-sectioned .app-places-setup[hidden] { display: none; }
+.tl-more { border-top: var(--hairline) solid var(--rule); border-bottom: var(--hairline) solid var(--rule); }
+.tl-more-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); min-height: var(--row); padding: 0 var(--space-4); list-style: none; cursor: pointer; font-family: var(--font-body); font-size: var(--text-label); line-height: var(--lh-label); font-weight: var(--wt-strong); color: var(--seafoam); }
+.tl-more-row::-webkit-details-marker { display: none; }
+.tl-more-row .tl-icon { flex: none; transition: transform var(--dur-quick) var(--ease-tide); }
+.tl-more[open] .tl-more-row .tl-icon { transform: rotate(90deg); }
+html.tl .tl-more .tl-more-body { margin: 0; padding-bottom: var(--space-16); }
+html.tl .tl-more div.tl-more-body { padding-left: var(--space-4); padding-right: var(--space-4); }
+@media (prefers-reduced-motion: reduce) { .tl-more-row .tl-icon { transition: none; } }
+html.tl-reduce .tl-more-row .tl-icon { transition: none; }
+
+/* ---------- Daily check-in, first question: nine feelings as tiles, two across; one column when the text is large ---------- */
+html.tl #ci-step-feeling .ci-choices { grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--col)), 1fr)); gap: var(--space-8); }
+html.tl #ci-step-feeling .ci-choice { display: grid; grid-template-columns: 1fr; justify-items: start; align-content: space-between; gap: var(--space-12); min-height: calc(var(--row) * 1.5); padding: var(--space-12); border-radius: var(--radius-md); font-size: var(--text-label); line-height: var(--lh-label); font-weight: var(--wt-strong); overflow-wrap: anywhere; }
+html.tl #ci-step-feeling .ci-choice .ci-light { display: none; }
+html.tl #ci-step-feeling .ci-choice input { accent-color: var(--seafoam); }
+html.tl #ci-step-feeling .ci-choice:has(input:checked) { background: var(--seafoam-soft); border-color: var(--seafoam); }
+html.tl #ci-step-feeling .ci-choice:nth-child(4n + 1), html.tl #ci-step-feeling .ci-choice:nth-child(4n) { background: var(--paper); }
+html.tl #ci-step-feeling .ci-choice:nth-child(4n + 2), html.tl #ci-step-feeling .ci-choice:nth-child(4n + 3) { background: var(--shell); }
+html.tl #ci-step-feeling .ci-choice:has(input:checked) { background: var(--seafoam-soft); }
+
+/* ---------- The tab bar with icons only (set by the shell when the labels can't fit) ---------- */
+html.tl .tl-tabbar.is-compact .tl-tab { justify-content: center; }
+html.tl .tl-tabbar.is-compact .tl-tab .tl-icon { width: var(--tile-icon); height: var(--tile-icon); padding: var(--space-4); }
+
 .tl-progress { display: block; width: 100%; height: var(--progress); margin-top: var(--space-8); border-radius: var(--radius-pill); background: var(--shell); overflow: hidden; }
 .tl-progress > span { display: block; height: 100%; background: var(--seafoam); transform-origin: left center; transform: scaleX(0); transition: transform var(--dur-slow) var(--ease-tide); }
 html.tl .tl-setup-list li { background: var(--paper); border: 0; border-radius: var(--radius-md); }

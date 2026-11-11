@@ -903,13 +903,15 @@ Built November 11, 2026, from the same founder's design brief (`app/DESIGN-BRIEF
 removed, and no crisis, consent, privacy, or clinical wording was changed. The other founder hasn't seen the brief.
 Three things on screen did change, and they touch the questions above:
 
-- **Streaks are no longer shown as streaks.** The brief asks for "Days you checked in this month": a row of dots
-  on Home and a calendar behind it. There is no count of days in a row, no milestone card, no "new start" card, no
-  freeze, and no zero for a new person. Days without a check-in are plain outlines, never called missed. So the
-  first three questions above (streaks, when a streak ends, milestones) describe screens this branch no longer
-  shows. The streak numbers are still worked out and stored on the phone, unseen, until you answer. Is a calendar
-  of check-in days safe for someone in a low period? Can an empty month feel like a record of failure? Should the
-  stored streak numbers be removed too?
+- **Streak wording is unchanged (restored November 11, 2026).** A first version of this branch replaced the streak
+  card, the streak screen, the milestone card, and the "new start" card with a "days you checked in this month"
+  view, which dropped wording you had not yet reviewed. A founder asked for that wording back. Every streak line
+  is again exactly as in the questions above ("Your streak", "Now", "Best", "Frozen", "Rest day", the two lines
+  that explain what counts and what a freeze does, "New wave, new start", the milestone line, the Settings switch
+  "Streaks"). Only the look changed: days are drawn as dots (filled for done, a soft dot with a ring for frozen, a
+  dashed ring for a rest day, a double ring for today, never red), a snowflake line icon stands where the emoji
+  stood alone, and a milestone no longer sets off a burst of drops. The first three questions above stand as
+  written. One more: a new person still sees "0 day streak" on Home. Should a zero be shown?
 - **Mood is a tone and a word, not a face.** The five choices keep their words (Very low, Low, Okay, Good, Great).
   Each has a colored square: a slate blue for Very low, a muted violet for Low, a sand yellow for Okay, a soft
   green for Good, a light blue for Great. No red and no green-for-good. Is color beside a mood word helpful, or
@@ -919,17 +921,30 @@ Three things on screen did change, and they touch the questions above:
   by itself, and the burst of drops is gone everywhere. After a very low mood none of that shows: the support
   screen has no horizon and no decoration, and a meditation finished later that day ends without the dawn. Is a
   dawn right after an ordinary check-in, or is it still a kind of reward?
-- **New short lines** (all marked "Draft for review" with the rest): "Days you checked in this month", "Your first
-  check-in will appear here", "Your month", "Checked in", "Quick tools", "Get help" (a tile that goes to Support),
-  "Breathe for a minute", "Back to home", "{time} left" in the player, and the Settings switch "Check-in days on
-  Home". One phrase of the page's own heading is highlighted on Home ("everything figured out"). Crisis words are
-  never highlighted.
+- **New short lines** (all marked "Draft for review" with the rest): "Quick tools", "Get help" (a tile that goes to
+  Support), "Breathe for a minute", "Back to home", "{time} left" in the player, and "Learn more". One phrase of
+  the page's own heading is highlighted on Home ("everything figured out"). Crisis words are never highlighted.
+- **"Learn more" on Location and Friends. A lawyer should look at this one.** No word changed, but some
+  explanation is now one tap away instead of on the page. In "Places that are hard for me", the paragraph under
+  each of these headings is folded under a "Learn more" row: "Your places", "People you trust" (which says their
+  name and number stay on this phone and they aren't told), "What the phone shows" (what the notification says on
+  the lock screen), and "Your message". In "My circle", four of the five points are folded: no accounts, they see
+  only what you send, nothing is sent by itself, and once sent it can't be taken back. Always in view: the two
+  opening paragraphs of Places (including "This is off until you turn it on" and what stays on the phone), the
+  location permission paragraph beside "Allow location", "Good to know", every status line and control, and the
+  My circle point that says it isn't a way to get urgent help, with 988 and 911. Should any folded paragraph stay
+  open, in particular the two about people's contact details and about what can't be taken back? (The share
+  screen itself still says "can't be taken back" at the moment of sharing.)
+- **The Daily check-in's first question** shows its nine feelings as tiles, two across (one list at the largest
+  text). Same nine, same order, same words. Does putting "Hopeful" beside "Calm" and "Overwhelmed" beside "Sad"
+  read differently from one long list?
+- **The tab bar at the largest text on a small phone** shows icons only; the five names stay for screen readers.
+  Are a house, a heart, a lotus, a pin, and two people clear enough without words?
 - **The crisis strip changed color, not content.** It, Exit, Get Support Now, and Call 988 in the support panel are
   now dark ink on paper or paper on ink, with no texture and no animation, at a contrast of at least 7 to 1. Same
   words, same places, same size or larger. Please confirm nothing about them reads as quieter than before.
-- **Spanish.** The new lines are an AI translation like the rest: "Días que registraste este mes", "Tu primer
-  registro aparecerá aquí", "Tu mes", "Con registro", "Herramientas rápidas", "Obtener ayuda", "Respirar un
-  minuto", "Volver al inicio", "Quedan {time}", "Días con registro en Inicio".
+- **Spanish.** The new lines are an AI translation like the rest: "Herramientas rápidas", "Obtener ayuda",
+  "Respirar un minuto", "Volver al inicio", "Quedan {time}", "Más información".
 
 ## Human-only checklist
 
