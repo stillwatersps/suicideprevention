@@ -33,6 +33,18 @@ a real phone.**
   The repository is public: no names, email addresses, `@`-mentions, or local paths in anything
   committed.
 
+## Automated runs make no sound
+
+A founder's instruction. Tests, tools, and Simulator checks never play audio out loud, and the
+app's own audio code is never changed to achieve that.
+
+- Open every test or tool browser with `openBrowser()` from `test/quiet.mjs` (muted Chromium, plus
+  a page script that silences speech, recordings, and generated sound). The lint enforces it.
+- Launch the app in the iOS Simulator with `npm run sim:launch`, which passes `-TidelightQuiet YES`
+  to a debug-only, Simulator-only hook in `TidelightPlugin.swift`. Never with a plain launch.
+- If the quiet script changes, change both copies (`test/quiet.mjs` and the Swift string); a unit
+  test compares them.
+
 ## A founder's safety rules for the redesign (November 11, 2026). They override the build spec
 
 1. **Never remove, shorten, hide, or move behind a tap any safety feature**: the "In immediate
@@ -71,6 +83,7 @@ npm run test:unit # pure logic only, fast
 npm run build     # makes app/www from the website plus the app's blocks
 npm run words     # rebuilds notes/review-packet/tidelight-app-words.html
 npm run words:es  # makes src/text/redesign.es.html from the English blocks and redesign.es.json
+npm run sim:launch  # starts the installed app in the booted Simulator, muted (automated runs)
 LANG=en_US.UTF-8 npm run sync   # build, then copy into the iOS and Android projects (needs CocoaPods)
 ```
 

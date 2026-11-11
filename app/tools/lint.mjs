@@ -51,6 +51,22 @@ for (const file of styleFiles) {
   });
 }
 
+// No raw color anywhere in the app's own code except the token file: not in any stylesheet, not
+// in any script. (Canvas scenes read their colors from the `--scene-*` tokens.)
+for (const file of walk(join(appDir, 'src')).filter((f) => ['.css', '.js'].includes(extname(f)) && f !== TOKEN_FILE)) {
+  stripComments(readFileSync(file, 'utf8')).split('\n').forEach((line, i) => {
+    if (/#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b(?![0-9a-zA-Z_-])/.test(line.replace(/&#\d+;|href="#[^"]*"|'#[a-z][^']*'|"#[a-z][^"]*"|`#[a-z][^`]*`|#tl-[a-z-]+|#app-[a-z-]+|#ci-[a-z-]+|#support|#main/g, '')) || /\b(rgb|rgba|hsl|hsla)\(/.test(line)) note(file, i + 1, 'a raw color outside src/tokens.css');
+  });
+}
+
+// Automated runs make no sound: tests and tools open their browser through test/quiet.mjs
+// (muted Chromium, and a page script that silences speech, recordings, and generated sound).
+for (const file of [...walk(join(appDir, 'test')), ...walk(join(appDir, 'tools'))].filter((f) => extname(f) === '.mjs' && basename(f) !== 'quiet.mjs' && basename(f) !== 'lint.mjs')) {
+  readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
+    if (/\b(chromium|webkit|firefox)\s*\.\s*launch/.test(line)) note(file, i + 1, 'a browser opened without test/quiet.mjs (automated runs must be muted)');
+  });
+}
+
 // Word sources come in pairs. Blocks and word keys must match across the two languages.
 const textDir = join(appDir, 'src', 'text');
 const names = (text, re) => [...text.matchAll(re)].map((m) => m[1]).sort();

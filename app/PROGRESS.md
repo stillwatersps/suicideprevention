@@ -18,6 +18,27 @@ A second brief from the same founder (`app/DESIGN-BRIEF.md`): a new look, visual
 - [ ] V9 — Microcopy (decorative only)
 - [ ] V10 — "After" pictures, comparison, checks, notes, draft pull request
 
+### Automated runs make no sound (a founder's instruction, November 11, 2026)
+
+The meditation voice guide was playing out loud during browser tests and Simulator checks. Every
+automated run is now muted, without changing the app's own audio code:
+
+- **Browser tests and tools** (`npm test`, `tools/screens.mjs`, `tools/word-count.mjs`): every
+  browser is opened with `openBrowser()` from `test/quiet.mjs`. Chromium starts with
+  `--mute-audio`, and every page gets a script that replaces text-to-speech with a silent stand-in
+  (each line still starts, takes a moment, and ends), mutes recordings, and sends generated sound
+  into a gain of zero. The lint fails if a test or tool opens a browser any other way.
+- **iOS Simulator**: launch the app with `npm run sim:launch` (it passes `-TidelightQuiet YES`).
+  A debug-only, Simulator-only hook in `TidelightPlugin.swift` then gives each page the same
+  script. Without that argument, and in every release build, nothing changes. Do not launch the
+  app in the Simulator any other way during an automated run. A unit test
+  (`test/unit/quiet.test.mjs`) keeps the two copies of the script identical.
+- The website's own checks in the repository's `tools/` were left alone: the website plays no sound.
+- Checked: the script in muted desktop Chromium (speech stand-in, zero gain, muted media). In the
+  iOS Simulator (iPhone 17), the debug build installs the script when launched with the argument
+  and not without it (seen in the app's console). Not checked: the script's effect inside the
+  Simulator's own web view, which nobody listened to. Not on a real phone.
+
 ### Design brief vs. project rules
 - The brief's `design/` folder is `app/design/`: the repository's `design/` holds the website's original homepage design. The notes in it (`AUDIT.md`, `TOKENS.md`, `COMPARISON.md`, `README.md`) are committed; the pictures are not.
 - "Launch the app in the Simulator (iPhone 17 and iPhone SE)": this Mac has no iPhone SE simulator, and driving every screen and state by hand in a simulator costs more than the usage allows. The pictures come from desktop Chromium at both phone sizes (`tools/screens.mjs`), with a few iPhone 17 Simulator pictures beside them. Said plainly wherever results are reported.

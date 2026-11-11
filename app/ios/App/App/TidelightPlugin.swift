@@ -7,6 +7,7 @@ import UIKit
 import UserNotifications
 import CoreLocation
 import AVFoundation
+import WebKit
 
 // The bridge between the app's pages and the phone for "Places that are hard for me" (idea E1).
 // Draft, not reviewed, never run on a phone. Every word shown to the person arrives from
@@ -45,6 +46,9 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
     private let notice = UINotificationFeedbackGenerator()
 
     override public func load() {
+        #if DEBUG && targetEnvironment(simulator)
+        quietForAutomatedRuns()
+        #endif
         bridge?.notificationRouter.localNotificationHandler = self
         let watcher = PlaceWatcher.shared
         watcher.start()
@@ -57,6 +61,64 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         // Opened with an alert already due (for example after a tap the page missed): go to it.
         if watcher.pendingAlert() != nil { goToCheckIn(hash: "#app-place-alert") }
     }
+
+    // MARK: - Automated Simulator runs make no sound
+
+    #if DEBUG && targetEnvironment(simulator)
+    // Only in a debug build, only in the Simulator, and only when launched with the argument
+    // "-TidelightQuiet YES": each page gets a script that silences text-to-speech, recordings, and
+    // generated sound, so a test run never plays the voice guide out loud. The app's own audio
+    // code is untouched and still runs in full. The script is the same text as QUIET_SOURCE in
+    // test/quiet.mjs; a unit test keeps the two identical.
+    private func quietForAutomatedRuns() {
+        guard UserDefaults.standard.bool(forKey: "TidelightQuiet") else { return }
+        let script = WKUserScript(source: TidelightPlugin.quietScript, injectionTime: .atDocumentStart, forMainFrameOnly: false)
+        bridge?.webView?.configuration.userContentController.addUserScript(script)
+        print("Tidelight: quiet test run, audio muted")
+    }
+
+    private static let quietScript = #"""
+    (function () {
+      if (window.__tidelightQuiet) return;
+      window.__tidelightQuiet = true;
+      var current = null;
+      var fire = function (line, type) { try { line.dispatchEvent(new Event(type)); } catch (e) { if (typeof line['on' + type] === 'function') line['on' + type]({ type: type }); } };
+      var speech = {
+        speaking: false, pending: false, paused: false, onvoiceschanged: null,
+        getVoices: function () { return []; },
+        speak: function (line) {
+          speech.cancel();
+          current = line; speech.speaking = true; fire(line, 'start');
+          var ms = Math.min(4000, 400 + String((line && line.text) || '').length * 40);
+          line.__quietTimer = setTimeout(function () { if (current !== line) return; current = null; speech.speaking = false; fire(line, 'end'); }, ms);
+        },
+        cancel: function () { if (!current) return; var line = current; current = null; speech.speaking = false; clearTimeout(line.__quietTimer); fire(line, 'error'); },
+        pause: function () { speech.paused = true; },
+        resume: function () { speech.paused = false; },
+        addEventListener: function () {}, removeEventListener: function () {}
+      };
+      try { Object.defineProperty(window, 'speechSynthesis', { configurable: true, get: function () { return speech; } }); } catch (e) { /* stays as it was */ }
+      var Media = window.HTMLMediaElement;
+      if (Media && Media.prototype.play) {
+        var play = Media.prototype.play;
+        Media.prototype.play = function () { this.muted = true; return play.apply(this, arguments); };
+      }
+      var Real = window.AudioContext || window.webkitAudioContext;
+      var Base = window.BaseAudioContext || Real;
+      var out = Real && Base && Object.getOwnPropertyDescriptor(Base.prototype, 'destination');
+      if (Real && out && out.get) {
+        var Quiet = class extends Real {
+          get destination() {
+            if (!this.__quietOut) { this.__quietOut = this.createGain(); this.__quietOut.gain.value = 0; this.__quietOut.connect(out.get.call(this)); }
+            return this.__quietOut;
+          }
+        };
+        if (window.AudioContext) window.AudioContext = Quiet;
+        if (window.webkitAudioContext) window.webkitAudioContext = Quiet;
+      }
+    })();
+    """#
+    #endif
 
     // MARK: - Status and permissions
 

@@ -1,13 +1,11 @@
 // Tests the redesigned app (tabs, onboarding, check-in, streaks, meditation) in desktop Chromium,
 // after `node tools/build.mjs`. Everything a phone does is a stand-in here: this is not a phone
 // test. No test may contact a crisis service; links are only checked for being on screen.
-import { createRequire } from 'node:module';
 import { tab, openPanel, openSettings, startDaily, safetyFrame, serve, counter, birthDateYearsAgo, pagePath, noSideways, skipOnboarding, SEEDED } from './helpers.mjs';
 
 import { isoWeek } from '../src/logic/streaks.js';
+import { openBrowser } from './quiet.mjs';
 
-const require = createRequire(import.meta.url);
-const { chromium } = require('playwright');
 const { base, close } = await serve();
 const { check, tally } = counter();
 const TABS = ['home', 'checkin', 'meditate', 'location', 'friends'];
@@ -986,7 +984,7 @@ async function accessibilityTests(browser) {
   }
 }
 
-const browser = await chromium.launch();
+const browser = await openBrowser();
 try {
   await shellTests(browser, 'en');
   await shellTests(browser, 'es');

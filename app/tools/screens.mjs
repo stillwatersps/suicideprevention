@@ -3,20 +3,18 @@
 // Pictures go to app/design/<name>/ and stay on this computer (the folder is not committed).
 // Desktop Chromium at two phone sizes, light and dark, English and Spanish, plus one pass at
 // the largest text size. Not a phone, and not the iOS Simulator.
-import { createRequire } from 'node:module';
 import { mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serve, birthDateYearsAgo, pagePath } from '../test/helpers.mjs';
+import { openBrowser } from '../test/quiet.mjs';
 
-const require = createRequire(import.meta.url);
-const { chromium } = require('playwright');
 const out = join(dirname(fileURLToPath(import.meta.url)), '..', 'design', process.argv[2] || 'after');
 const SIZES = { se: { width: 375, height: 667 }, 17: { width: 402, height: 874 } };
 const only = process.argv[3]; // optional: one combination, such as en-light-17
 
 const { base, close } = await serve();
-const browser = await chromium.launch();
+const browser = await openBrowser();
 let count = 0;
 
 async function pass(lang, scheme, size, large) {
