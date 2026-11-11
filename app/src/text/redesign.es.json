@@ -197,6 +197,22 @@
   "A home spot is saved on this phone.": "Hay un lugar de casa guardado en este teléfono.",
   "Check-in {number}": "Registro {number}",
   "Build phase: {phase}": "Fase de construcción: {phase}",
-  "None.": "Ninguno."
+  "None.": "Ninguno.",
+  "day streak": "días seguidos",
+  "Your streak": "Tu racha",
+  "Now": "Ahora",
+  "Best": "Mejor",
+  "Frozen": "Congelado",
+  "Rest day": "Día de descanso",
+  "A day counts when you finish your check-ins, or do one check-in and one meditation.": "Un día cuenta cuando terminas tus registros, o haces un registro y una meditación.",
+  "Miss a day and a freeze ❄️ covers it. No freeze? You simply start again.": "Si falta un día, un congelador ❄️ lo cubre. ¿No hay congelador? Simplemente empiezas de nuevo.",
+  "Turn streaks off in Settings": "Desactivar las rachas en Ajustes",
+  "{count} day streak. {freezes} freezes. Open your streak.": "{count} días seguidos. {freezes} congeladores. Abrir tu racha.",
+  "This week: {complete} done, {frozen} frozen, {missed} rest days.": "Esta semana: {complete} listos, {frozen} congelados, {missed} días de descanso.",
+  "New wave, new start 🌊 Your best is still {best} days.": "Nueva ola, nuevo comienzo 🌊 Tu mejor racha sigue siendo de {best} días.",
+  "{days} days. One wave at a time 🌊": "{days} días. Una ola a la vez 🌊",
+  "❄️ {count} held. The next one arrives on {day}.": "❄️ {count} guardados. El próximo llega el {day}.",
+  "❄️ {count} held. That's the most you can hold.": "❄️ {count} guardados. Es el máximo que puedes guardar.",
+  "Got it": "Entendido"
  }
 }

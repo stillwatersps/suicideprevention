@@ -18,9 +18,10 @@ let lengthGroup = null;
 let soundGroup = null;
 let versionTaps = 0;
 const devActions = [];
+let ready = false;
 
 // Other parts of the app add their own developer tools here (the streak, meditation).
-export function addDevAction(fn) { devActions.push(fn); }
+export function addDevAction(fn) { devActions.push(fn); if (ready) fn({ refresh: renderDeveloper }); }
 
 async function change(patch) {
   await save('settings', patch);
@@ -152,6 +153,7 @@ export function initSettings(shell, context) {
   });
   $('#tl-dev-onboarding').addEventListener('click', async () => { await save('onboarding', { completed: false, setupCelebrated: false }); ctx.restartOnboarding(); });
   devActions.forEach((fn) => fn({ refresh: renderDeveloper }));
+  ready = true;
 
   shell.onShow('settings', async () => { renderSettings(await syncReminders(ctx.checkInsToday())); if (!$('#tl-developer').hidden) renderDeveloper(); });
   renderSettings();

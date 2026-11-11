@@ -1,16 +1,16 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 13:10 EST
-Current branch: feature/p2-onboarding-settings
-Current phase: 2 — Onboarding, setup checklist & check-in settings
-Current step: Phase 2 finished; merging into app/redesign-dev, then Phase 3
+Last updated: 2026-11-11 14:00 EST
+Current branch: feature/p3-streaks
+Current phase: 3 — Streaks
+Current step: Phase 3 finished; merging into app/redesign-dev, then Phase 4
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)
 - [x] Phase 1 — Design system & bottom tab navigation (merged to app/redesign-dev)
 - [x] Phase 2 — Onboarding, setup checklist & check-in settings (merged to app/redesign-dev)
+- [x] Phase 3 — Streaks (merged to app/redesign-dev)
 
 ## Remaining
-- [ ] Phase 3 — Streaks
 - [ ] Phase 4 — Interactive meditation engine
 - [ ] Phase 5 — Meditation types & smart suggestions
 - [ ] Phase 6 — Custom meditation builder
@@ -62,6 +62,10 @@ Current step: Phase 2 finished; merging into app/redesign-dev, then Phase 3
 - **Saved under:** `tidelight.settings` (check-ins per day, wake and sleep, style, reminders, custom times, meditation defaults, haptics, reduce motion, streaks on), `tidelight.profile` (name), `tidelight.onboarding`, `tidelight.home` (one spot). Schema version 2.
 - **Spanish:** `src/text/redesign.es.html` is made from the English blocks and `src/text/redesign.es.json` by `npm run words:es`, so the two can't drift apart. Crisis sentences are whole-line entries copied from the existing Spanish pages (press 2; text AYUDA).
 
+## Phase 3 record
+- **Plan:** pure logic in `src/logic/streaks.js`, on local "YYYY-MM-DD" keys, with every case in the spec's 3D as a unit test (`test/unit/streaks.test.mjs`, 21 tests); screens in `src/ui/streaks-ui.js`; one shared celebration in `src/ui/celebrate.js`. Saved under `tidelight.days` and `tidelight.streak`. Risk: streaks for people at risk; see the reviewer's questions in `notes/CONTENT-REVIEW.md`.
+- **How it settles days:** each ended day is settled once as complete, frozen, or missed, in order, when the app opens, returns to the front, or records activity. The streak is read from those records, so working it out twice changes nothing.
+
 ## Decisions made
 - Kept Capacitor, HTML, CSS, and JavaScript — the brief from the founder's session says not to port, and the reviewed words stay in one place.
 - Integration branch is `app/redesign-dev`, cut from pull request 19's branch with pull requests 20 and 21 merged in; phases are `feature/p*` branches merged back with merge commits — `main` publishes the website, so the spec's `dev` from `main` can't be used.
@@ -98,6 +102,15 @@ Current step: Phase 2 finished; merging into app/redesign-dev, then Phase 3
 - "Notifications enabled" on the setup list means the phone allows them and reminders are switched on.
 - Haptics, keep-awake, one-shot location, and the audio route are four small methods added to the project's own Swift plugin, with `navigator.vibrate` and the Wake Lock API as fallbacks — no new packages, so no CocoaPods change. Android has no native part and uses the fallbacks.
 
+- Frozen days count toward the streak number, as the spec's definition says ("consecutive complete (or frozen) days").
+- A freeze is never spent when there is no streak to protect, and a new install starts with one freeze.
+- A calendar day skipped in under 26 hours of real time (a long flight east) is frozen at no cost instead of counted as missed; flying west settles nothing twice.
+- Check-ins from before streaks existed become day records the first time, so history isn't lost.
+- Milestones are a card at the top of Home with a short burst confined to the app's area, not a full-screen takeover — a takeover would cover the safety frame (founder's rule 1). On a day with a very low check-in, or with streaks off, a milestone passes silently and isn't shown later (rule 3).
+- The "new start" card never shows on a day with a very low check-in; it waits for another day. Missed days are called "rest days" on screen.
+- Streaks can be turned off in Settings (rule 3). Days are still recorded quietly, so turning them back on loses nothing.
+- The streak card sits on Home only. Home's own page still ends with the Support section and the 988 panel, as every page does; the card is at the top and they are at the bottom, more than a screen apart. Whether that is far enough is a question for the reviewer.
+
 ## Known bugs / TODOs
 - The Swift additions in `ios/App/App/TidelightPlugin.swift` are not compiled yet — to build in the Simulator in Phase 8 — high until done.
 - Android hardware Back inside tabs — `src/ui/shell.js` — low (untested; no Android toolchain on this Mac).
@@ -106,4 +119,4 @@ Current step: Phase 2 finished; merging into app/redesign-dev, then Phase 3
 - None yet (voice recordings and rain/ocean loops will be listed in Phase 4).
 
 ## Resume instructions
-On branch `app/redesign-dev`, create `feature/p3-streaks` and start Phase 3. `src/logic/streaks.js`, `test/unit/streaks.test.mjs`, `src/ui/streaks-ui.js`, and `src/ui/celebrate.js` may already exist uncommitted or committed: wire them into `src/redesign.js`, add the streak card, detail screen, milestone and "new start" cards to `src/text/redesign.en.html` (then `npm run words:es`), style them, and add browser tests. Run `npm test` in `app/` before merging.
+On branch `app/redesign-dev`, create `feature/p4-meditation-engine` and start Phase 4: `src/logic/timeline.js` (clock, segments, breath phases) and `src/logic/meditations.js` with unit tests, then the player screen and its five layers (`src/ui/player.js`, `worlds.js`, `audio.js`), the scripts in `src/text/redesign.en.html`, and the session record with the 60% rule. Run `npm test` in `app/` before merging.

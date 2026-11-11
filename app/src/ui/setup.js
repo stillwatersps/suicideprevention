@@ -5,6 +5,7 @@ import { t } from './words.js';
 import { state, save } from './state.js';
 import { progressRing } from './components.js';
 import { haptic } from './haptics.js';
+import { celebrate } from './celebrate.js';
 import { locationPermission, notificationPermission, requestLocationPermission, requestNotificationPermission, currentPosition } from './device.js';
 import { syncReminders } from './reminders.js';
 
@@ -48,6 +49,7 @@ export async function renderSetup() {
     await save('onboarding', { setupCelebrated: true });
     $('#tl-setup-done').hidden = false;
     haptic('success');
+    if (state.quietToday === '') celebrate();
   }
 }
 
