@@ -1,8 +1,29 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 11:36 EST
-Current branch: app/redesign-dev
-Current phase: 8 — Final QA & handoff (finished)
-Current step: All nine phases are merged into app/redesign-dev and pushed. Nothing is left to build; what's left is for people (see Resume instructions)
+Last updated: 2026-11-11 12:25 EST
+Current branch: app/visual-identity
+Current phase: Visual identity, phase 1 of 10 — Audit (finished)
+Current step: Phase 1 committed. Next: phase 2, design tokens and fonts
+
+## Visual identity ("Dawn at the Shoreline") — in progress
+A second brief from the same founder (`app/DESIGN-BRIEF.md`): a new look, visual layer only. Branch `app/visual-identity`, cut from `app/redesign-dev`; a draft pull request into `app/redesign-dev` at the end. Working in checkpoints: one commit per phase, this file updated each time, the full test suite only at the end of a phase.
+
+- [x] V1 — Audit: 400 "before" pictures (not committed), `design/AUDIT.md`, `tools/screens.mjs`
+- [ ] V2 — Design tokens, Fraunces and Figtree bundled, raw-hex lint
+- [ ] V3 — The horizon component
+- [ ] V4 — Grain, illustration, icons (emoji out of the interface)
+- [ ] V5 — Components: buttons, surfaces, month dots in place of the streak card, chips, inputs, tab bar, review banner, crisis bar
+- [ ] V6 — Screen by screen, the player, the launch screen
+- [ ] V7 — Motion and haptics
+- [ ] V8 — Accessibility
+- [ ] V9 — Microcopy (decorative only)
+- [ ] V10 — "After" pictures, comparison, checks, notes, draft pull request
+
+### Design brief vs. project rules
+- The brief's `design/` folder is `app/design/`: the repository's `design/` holds the website's original homepage design. The notes in it (`AUDIT.md`, `TOKENS.md`, `COMPARISON.md`, `README.md`) are committed; the pictures are not.
+- "Launch the app in the Simulator (iPhone 17 and iPhone SE)": this Mac has no iPhone SE simulator, and driving every screen and state by hand in a simulator costs more than the usage allows. The pictures come from desktop Chromium at both phone sizes (`tools/screens.mjs`), with a few iPhone 17 Simulator pictures beside them. Said plainly wherever results are reported.
+
+### Resume instructions (visual identity)
+On `app/visual-identity`: start V2. Rewrite `src/tokens.css` with the brief's tokens (keep the `--tl-*` names as aliases so nothing breaks), bundle Fraunces and Figtree in `src/fonts/` with their licenses, add `font-src 'self'` to the app page in `tools/build-redesign.mjs`, move the worlds' colors in `src/ui/worlds.js` into tokens, extend `tools/lint.mjs` to fail on raw hex anywhere in `src/` outside the token file, update `test/unit/tokens.test.mjs` for the new pairs (crisis elements at 7 to 1), write `design/TOKENS.md`. Then `npm test`, commit, and go on to V3.
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)
