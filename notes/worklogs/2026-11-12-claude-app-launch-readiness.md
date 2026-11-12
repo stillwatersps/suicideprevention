@@ -17,7 +17,7 @@ has seen any of it. It has not run on a real phone. It publishes nothing.**
 
 ## Completed
 
-On `app/launch-readiness`, a draft pull request into `app/redesign-dev`. The branch is cut from
+On `app/launch-readiness`, draft pull request 27 into `app/redesign-dev`. The branch is cut from
 `app/visual-identity`, so it carries pull request 26's commits until that merges. In `app/` only,
 plus these notes and one line in `.gitignore`.
 

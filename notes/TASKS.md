@@ -103,7 +103,7 @@ Nothing else has been claimed. Add an owner above when you start.
   Handoff: [[worklogs/2026-11-11-claude-app-visual-identity]].
 - [ ] Phone app launch readiness from one founder's brief (`app/LAUNCH-BRIEF.md`): tests, measurements,
   fixes, and documents; no new wording. Also the tab bar on every page inside the app. Owner: Claude.
-  Branch: `app/launch-readiness`, a draft pull request into `app/redesign-dev`. Both founders read
+  Branch: `app/launch-readiness`, draft pull request 27 into `app/redesign-dev`. Both founders read
   [[FOUNDER-SUMMARY]], decide the items in [[LAUNCH-BACKLOG]], send [[REVIEWER-PACKET]] and
   [[LEGAL-PACKET]], and try the app on a real iPhone with `app/TESTING_CHECKLIST.md`.
   Handoff: [[worklogs/2026-11-12-claude-app-launch-readiness]].

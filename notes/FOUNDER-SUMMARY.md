@@ -7,8 +7,8 @@ status: DRAFT, written by an AI assistant for both founders. One page
 
 [[00 START HERE|Back to Start Here]]
 
-November 12, 2026, after the launch readiness work on the branch `app/launch-readiness` (a draft
-pull request into `app/redesign-dev`; **not merged, not on the public website, not in any app
+November 12, 2026, after the launch readiness work on the branch `app/launch-readiness` (draft
+pull request 27 into `app/redesign-dev`; **not merged, not on the public website, not in any app
 store**). Detail and evidence: [[LAUNCH-READINESS]].
 
 ## What's ready
