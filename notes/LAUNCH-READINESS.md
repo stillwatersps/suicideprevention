@@ -15,6 +15,42 @@ phone. No reviewer or lawyer has seen the app. This note is not a sign-off.**
 Each phase writes its findings, fixes, and remaining risks below. Out-of-scope ideas go to
 [[LAUNCH-BACKLOG]]. The step-by-step state is in `app/PROGRESS.md`.
 
+## Baseline (Phase 1)
+
+Taken November 12, 2026, on `app/launch-readiness`, cut from `app/visual-identity` at the Phase 0
+commit. Pull requests 25 and 26 were both still open, so this branch carries their commits.
+
+| What | Command | Baseline |
+| --- | --- | --- |
+| Lint | `npm run lint` in `app/` | clean (scripts parse, no outside addresses, token-only styles, word sources match, muted browsers) |
+| Unit tests | `npm run test:unit` | 101 pass, 0 fail |
+| Logic checks | part of `npm test` | 5 pass |
+| App layer, browser | part of `npm test` | 180 pass |
+| Hope box and My circle, browser | part of `npm test` | 56 pass |
+| Redesign, browser | part of `npm test` | 928 pass |
+| Website checks | `python3 tools/check_site.py` | pass, 21 pages |
+| Website in Chrome | `python3 tools/test_browser.py` | pass, 6,034 checks |
+| Website in WebKit on a Mac | `python3 tools/test_webkit.py` | 207 checks, 0 problems |
+| Review packet | `python3 tools/make_review_packet.py` | builds |
+| Cold launch, iPhone 17 Simulator | `node tools/launch-time.mjs 5` in `app/` | median 1,684 ms to "page loaded" (1,305 ms to the app's own code); the first launch after installing took 7,285 ms |
+| App folder the phone loads | `du -sh app/www` | 1.8 MB |
+| Largest files | | `app.js` 233 KB, Fraunces 121 KB, `styles.css` 61 KB, `redesign-identity.css` 38 KB, `redesign.css` 34 KB, Figtree 20 KB |
+
+All browser numbers are desktop Chromium with stand-ins for the phone, muted. The launch time is a
+Simulator on a Mac. Neither is a phone.
+
+How launch time is measured: `tools/launch-time.mjs` stops the app, starts it muted in the booted
+Simulator, and times two lines of the app's own console output: the Tidelight plugin loading (the
+app's code is running) and Capacitor's "WebView loaded" (the page and its scripts have loaded). It
+does this five times and reports the median.
+
+Noticed while taking the baseline, for later phases:
+
+- Every launch prints "JS Eval error: A JavaScript exception occurred" once, before the page loads,
+  with or without the muting argument. The app then works. Phase 6 finds the cause.
+- The first launch after an install, or after the Simulator restarts, is several times slower than
+  the rest (7.3 s against 1.7 s). Phase 5 looks at it.
+
 ## PR 26 wording check (Phase 0)
 
 Pull request 26 (`app/visual-identity`) is a look-only change. This section records that it leaves

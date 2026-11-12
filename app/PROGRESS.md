@@ -1,14 +1,14 @@
 # Tidelight Build Progress
 Last updated: 2026-11-12 (launch brief, Phase 0)
-Current branch: app/visual-identity (Phase 0 only), then app/launch-readiness
+Current branch: app/launch-readiness (cut from app/visual-identity at Phase 0's commit)
 Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
-Current step: Launch brief: Phase 0 done. Next: Phase 1.
+Current step: Launch brief: Phase 1 done. Next: Phase 2, step 2.1 (crisis inventory table).
 
 ## Launch readiness brief — in progress
 A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
 
 - [x] L0 — Pull request 26 wording: every reviewed string restored and locked by a snapshot test; privacy and consent wording in view and locked by a test. Pushed to pull request 26
-- [ ] L1 — Branch `app/launch-readiness`, baseline numbers, readiness and backlog notes
+- [x] L1 — Branch `app/launch-readiness`, baseline numbers (in `notes/LAUNCH-READINESS.md`), readiness and backlog notes, `tools/launch-time.mjs`
 - [ ] L2 — Crisis path reliability: inventory, correctness, a dedicated test file
 - [ ] L3 — A test for every safety rule; `npm run test:safety`
 - [ ] L4 — Accessibility audit and fixes
