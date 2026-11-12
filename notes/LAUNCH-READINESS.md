@@ -557,3 +557,70 @@ accessibility features. The steps are in `app/TESTING_CHECKLIST.md`, section 10.
 ### Lesser findings from the audit (not failing)
 
 None. The audit reported no moderate or minor finding either, on any screen.
+
+## Performance (Phase 5)
+
+The spec's target is "usable within 2 seconds of launch".
+
+### Numbers, before and after
+
+| What | Baseline | Now | How measured |
+| --- | --- | --- | --- |
+| Cold launch to "page loaded", iPhone 17 Simulator, median of 5 | 1,684 ms | 1,724 ms (no real change: runs vary by about 50 ms) | `node tools/launch-time.mjs 5` |
+| The app's own script (`assets/app.js`) | 233 KB | 125 KB | file size; it is now minified |
+| Every stylesheet | 153 KB | 153 KB | file sizes |
+| Both fonts | 138 KB | 138 KB | file sizes |
+| The whole app folder | 1,876 KB | 1,665 KB | `du` |
+| Files the app loads at start | 16 | 16 | browser test |
+| Requests to anywhere outside the app at start | 0 | 0 | browser test |
+| First paint, desktop Chromium, median of 5 | not measured | about 30 ms | browser test |
+| Ready to use, desktop Chromium, median of 5 | not measured | about 110 ms | browser test |
+| Crisis strip on screen, with the app's script held back 1.5 s | not measured | about 50 ms | browser test |
+
+The desktop numbers only show that nothing is grossly slow; a phone is several times slower. The
+Simulator number is the closest thing here to a phone, and it is a Mac.
+
+### What was done
+
+- **Launch time did not change** (1,684 ms before, 1,724 ms after, inside the run-to-run spread). In the
+  Simulator, launch is the system starting its web view, about 1.3 s before the page begins; the
+  size of the app's script is not what it waits on. Both numbers are under the 2-second target,
+  on a Mac. A real phone has not been measured.
+- **The app's script is minified** (`tools/build.mjs`): 233 KB to 125 KB, less to read and parse at
+  launch. Behavior is unchanged; every browser test runs against the minified file.
+- **The crisis strip is in the first paint.** It is plain markup at the top of the page, styled by
+  the first stylesheet, and needs no script. A test now holds the app's script back for a second
+  and a half and checks the strip is on screen, full size, and usable in the meantime.
+- **A budget test** (`app/test/budget-test.mjs`, in `npm test`) fails if the script passes 150 KB,
+  the stylesheets 175 KB, the fonts 150 KB, the whole folder 2,100 KB, any single file 300 KB, the
+  start-up file count 24, or if anything outside the app is requested at start.
+
+### What was looked at and left
+
+- **The fonts are already as small as they sensibly get.** Both files are the Latin-only subsets,
+  compressed (woff2), and use `font-display: swap`, so text shows at once in a system font and
+  changes when the font arrives. Subsetting them further to the exact characters the app uses was
+  tried and saved 4% (121 KB to 116 KB for Fraunces). Narrowing their weight range made them
+  larger, not smaller. The real saving, about 80 KB, would be to drop two of Fraunces's four
+  design axes ("soft" and "wonk"), which changes the shape of headings: a design decision, in
+  [[LAUNCH-BACKLOG]].
+- **Loading screens only when needed.** The app is one page with one 125 KB script and loads 16
+  small local files; there is no network. Splitting it would add complexity for a few
+  milliseconds. Left as it is.
+- **The paper grain** is two 400-byte SVG files. Nothing to gain.
+- **Unused styles.** The website's own stylesheet (61 KB) carries rules for pages the app's
+  check-in screen doesn't use; it is the website's file and is shared with the other pages inside
+  the app. Left.
+- **The first launch after installing** (or after the Simulator restarts) took 7.3 s against 1.7 s
+  for every later launch. That is the system starting its web engine for the first time; a real
+  phone keeps that warm. It needs measuring on a real phone: `app/TESTING_CHECKLIST.md`.
+- **"JS Eval error" at every launch.** Capacitor tells the page "the app became active" before the
+  page exists, and logs the failure. It is harmless and comes from Capacitor, not this app.
+
+### Memory and smoothness (tested in Phase 6's resilience test)
+
+With three years of check-ins (3,285), 600 meditations, and long notes, the app opens in under
+200 ms on a desktop; Home, Your journey, History, Friends, and Your streak all open and fit.
+Fifty trips to the background and back and a full session grew memory by less than 1 MB. History
+shows every one of the 600 sessions in one list; paging it is in [[LAUNCH-BACKLOG]]. A real
+30-minute session on a real phone, with the screen kept awake, has not been run.

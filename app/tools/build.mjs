@@ -93,6 +93,8 @@ await build({
   target: ['safari15', 'chrome100'],
   outfile: join(www, 'assets', 'app.js'),
   legalComments: 'none',
+  // Smaller to read and parse at launch. Behavior is unchanged; every browser test runs against this file.
+  minify: true,
 });
 console.log('Built app/www from the website, with the app-only parts added.');
 await import('./build-extras.mjs'); // Hope box and My circle

@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-12 (launch brief, Phase 4)
+Last updated: 2026-11-12 (launch brief, Phase 5)
 Current branch: app/launch-readiness (cut from app/visual-identity at Phase 0's commit)
 Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
-Current step: Launch brief: Phase 4 done. Next: Phase 5, step 1 (measure the minified build in the Simulator).
+Current step: Launch brief: Phase 5 done. Next: Phase 6, step 1.
 
 ## Launch readiness brief — in progress
 A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
@@ -12,7 +12,7 @@ A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): 
 - [x] L2 — Crisis path reliability: 37 screens and 392 controls per language inventoried; four bugs fixed (blank app after Quick exit; 911 unreachable in Spanish at the largest text; a 43-point target; a 6.9 to 1 link); `test/crisis-test.mjs` in `npm test` (334 checks). `npm test`: 101 unit, 5, 180, 56, 928, 334, 0 failed
 - [x] L3 — A test for every safety rule: 25 rules in a table in `notes/LAUNCH-READINESS.md`; `src/logic/safety.js` (one implementation); `test/unit/safety-rules.test.mjs` (14) and `test/safety-test.mjs` (174); one gap fixed (no dawn on a later check-in on a quiet day); `npm run test:safety`. `npm test`: 115 unit, 5, 180, 56, 928, 334, 174, 0 failed
 - [x] L4 — Accessibility audit and fixes: `axe-core` (a test-only dependency) on all 37 screens, both languages, light and dark, with 0 serious or critical findings; spoken names kept honest (`keepNamesHonest`); calendar days say their state; layouts wrap and the tab bar stops growing at the phone's largest text; Get Support Now no longer runs off the side at 331%. `test/a11y-test.mjs` (217 checks) and `test/app-screens.mjs` (the one list of screens) in `npm test`
-- [ ] L5 — Performance and launch time
+- [x] L5 — Performance and launch time: the app's script is minified (233 KB to 125 KB); the crisis strip is on screen before the script loads (tested); `test/budget-test.mjs` (12 checks) in `npm test`. Fonts left as they are (already subsets)
 - [ ] L6 — Data reliability and error handling
 - [ ] L7 — Privacy and permissions audit
 - [ ] L8 — Spanish parity
