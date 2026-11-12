@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-12 (launch brief, Phase 10)
+Last updated: 2026-11-12 (launch brief, Phase 11)
 Current branch: app/launch-readiness (cut from app/visual-identity at Phase 0's commit)
 Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
-Current step: Launch brief: Phase 10 done. Next: Phase 11, step 1 (the four packets are drafted in `notes/`; run `node tools/reviewer-walkthrough.mjs`, fix the packet's screen numbers, check links, commit).
+Current step: Launch brief: Phase 11 done. Next: Phase 12, step 1 (run every suite and the root checks, rebuild in the Simulator, fill in the final table, write the worklog, open the draft pull request into `app/redesign-dev`).
 
 ## Launch readiness brief — in progress
 A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
@@ -19,7 +19,7 @@ A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): 
 - [x] L8 — Spanish parity: `test/unit/spanish-parity.test.mjs` (16 tests: same blocks, keys, controls, crisis targets, and places for numbers; no line left in English; 18 lines rightly identical, in `test/fixtures/same-in-spanish.json`). Nothing missing or untranslated. Six questions for a fluent reader in `notes/CONTENT-REVIEW.md`
 - [x] L9 — Code health: nine unused style rules, the older reminders panel's styles, one unused helper, and two duplicated helpers removed; lint clean; `npm audit` clean; no user content in any log; README gained step-by-step instructions and `npm start`; `app/CLAUDE.md` gained the rules from this brief. Twenty tokens that look unused were kept, with reasons in `notes/LAUNCH-READINESS.md`
 - [x] L10 — Visual polish leftovers: 452 pictures of every screen (both languages, light and dark, two phone sizes, largest text, the website's pages, the fallback); one fault found and fixed (the crisis strip in the fallback layout was 1.7 to 1 in dark mode; now 15.9 to 1, and tested); six App Store draft pictures; `tools/screens.mjs` takes them all
-- [ ] L11 — Packets for the reviewer, the lawyer, the App Store, and the founders
+- [x] L11 — Packets, all drafts, none sent to anyone: `notes/REVIEWER-PACKET.md` (37 screens with their exact wording, filled in by `tools/reviewer-walkthrough.mjs`, and 54 questions by priority), `notes/LEGAL-PACKET.md` (23 questions), `notes/APP-STORE-READINESS.md` (draft listing, review notes, guideline checklist, age rating, build readiness), `notes/FOUNDER-SUMMARY.md` (one page). Linked from the notes' Start Here page
 - [ ] L12 — Final verification and a draft pull request
 
 ### Launch brief vs. project rules

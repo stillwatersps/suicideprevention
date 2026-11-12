@@ -10,7 +10,7 @@ status: a description of what the app does today, written from its code. Not a p
 Written November 12, 2026, during the launch readiness work ([[LAUNCH-READINESS]]), by reading the
 app's code on `app/launch-readiness`. It describes existing behavior only. **It is not a privacy
 policy.** No privacy policy or terms exist yet; that is a launch blocker listed in
-[[LAUNCH-BACKLOG]]. A lawyer should read this beside the legal packet.
+[[LAUNCH-BACKLOG]]. A lawyer should read this beside [[LEGAL-PACKET]].
 
 ## The short version
 
