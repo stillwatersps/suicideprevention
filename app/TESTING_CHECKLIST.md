@@ -73,6 +73,15 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1c. The tab bar on the website's pages (added November 12, 2026)
+
+- [ ] Open the menu and choose Get Help. *Expected:* the page opens with the same five tabs at the
+  bottom, above the phone's home bar, and the crisis strip at the top as before.
+- [ ] Scroll to the end of the page. *Expected:* the last line is not hidden behind the tabs.
+- [ ] Tap Meditate. *Expected:* the app's Meditate screen, at the top, with Meditate marked.
+- [ ] Do the same from Not sure, For teens, and one Spanish page. *Expected:* the tabs are in the
+  page's language and open the app in that language.
+
 ## 2. First launch and onboarding
 
 - [ ] Delete the app, install it again, open it. *Expected:* the welcome page, in under 2 seconds.

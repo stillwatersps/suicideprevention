@@ -762,11 +762,13 @@ icons only and keeps the names for screen readers, as the app's own bar does.
 pages. The bar is at the bottom; the strip is at the top. The public website is unchanged: the
 bar is written only into the app's copy of each page, when the app is built.
 
-**Tested** (`app/test/pages-test.mjs`, 339 checks, in `npm test`): on all 19 pages, light and
+**Tested** (`app/test/pages-test.mjs`, 349 checks, in `npm test`): on all 19 pages, light and
 dark, the bar is there with five tabs of at least 44 points; Call 988, Text 988, Call 911, and
 Quick exit are all present, uncovered, and above it; the last line of each page scrolls clear of
 it; nothing outside the app is requested; and tapping each tab opens the right screen of the app,
-in the same language, with the crisis strip on screen.
+in the same language, at the top, with the crisis strip and Get Support Now on screen. It was
+also tried once in the iPhone 17 Simulator: Get Help shows the bar, and its Meditate tab opens
+the app's Meditate screen.
 
 **Looks slightly different from the app's own bar:** on these pages the bar uses the website's
 colors and font, because those pages keep the website's look. Giving every page the app's look is
@@ -904,4 +906,73 @@ Six draft pictures at the 6.9-inch size (1320 by 2868) are made by
 `node tools/screens.mjs after-launch-pass store`: Home, the quick check-in, Meditate, the Hope
 box, My circle, and Support. They are plain captures of real screens with made-up data, with no
 captions or frames, and each file name ends in `-DRAFT` because the wording in them is unreviewed.
+
+## Final results (Phase 12)
+
+November 12, 2026, on `app/launch-readiness`. Every suite was run at the end, on the final code.
+
+| What | Baseline (Phase 1) | Final |
+| --- | --- | --- |
+| Lint | clean | clean |
+| Unit tests | 101 pass | 131 pass, 0 fail |
+| Browser checks in `npm test` | 1,169 (four suites) | 2,305 (eleven suites), 0 fail |
+| of which: crisis paths | no test | 334 |
+| of which: safety rules | no test | 174, plus 14 unit tests |
+| of which: accessibility | no test | 217 |
+| of which: performance budget | no test | 12 |
+| of which: damaged data and failures | no test | 37 |
+| of which: nothing leaves the phone | no test | 13 |
+| of which: the tab bar on every page | did not exist | 349 |
+| Spanish parity | lint only | 16 unit tests |
+| Swift logic for places (`npm run test:ios`) | not run at baseline | 11 pass |
+| Website checks (`check_site.py`) | pass, 21 pages | pass, 21 pages |
+| Website in Chrome (`test_browser.py`) | pass | pass |
+| Website in WebKit (`test_webkit.py`) | 207 checks, 0 problems | 207 checks, 0 problems |
+| Time for `npm test` | not timed | about 26 minutes |
+| Cold launch, iPhone 17 Simulator, median of 5 | 1,684 ms | 1,771 ms (no real change; see Phase 5) |
+| The app's own script | 233 KB | 126 KB |
+| The whole app folder | 1,876 KB | 1,701 KB |
+| Serious or critical accessibility findings (automated) | not measured; 52 failing screen audits on the first run | 0, on 37 screens, two languages, light and dark |
+| Crisis controls under 7 to 1 contrast | 2 found (a Support link at 6.9; the strip in the dark fallback at 1.7) | 0 |
+| Full-size crisis controls under 44 points | 1 found (43 points) | 0 |
+| Crisis controls unreachable | 2 found (blank app after Quick exit; 911 in Spanish at the largest text) | 0 |
+| Requests to anywhere outside the app | 0 at start-up (not tested elsewhere) | 0 on every screen, tested |
+| Reviewed wording changed without review | 4 strings (in pull request 26) | 0, and locked by a test |
+| Written safety rules with a test | not counted | 25 of 25 |
+
+All browser numbers are desktop Chromium with stand-ins for the phone, muted. The launch time is a
+Simulator on a Mac. **None of it is a phone.**
+
+### Faults found and fixed in this work (12), and one request
+
+1. The app came back blank, with no crisis strip, after Quick exit.
+2. "Llama al 911" could not be reached in Spanish at the phone's largest text.
+3. A crisis strip link was 43 points wide.
+4. A Support link was 6.9 to 1.
+5. A dawn showed on a later check-in on a day that had a very low one.
+6. The older check-in tabs overlapped each other's tap targets.
+7. Cards and the header ran off the side, and the tab bar grew, at the largest text.
+8. Get Support Now ran off the side at 331% text.
+9. Calendar days had no spoken state.
+10. A damaged Hope box entry stopped the Hope box from drawing.
+11. The page could be left with no screen if the newer screens failed to start.
+12. The crisis strip was 1.7 to 1 in the fallback layout in dark mode.
+
+And one feature, at a founder's request: the website's pages inside the app had no tab bar, and
+so no obvious way back. They have one now.
+
+### In the Simulator at the end
+
+Rebuilt and launched muted on iPhone 17. Home, Check-in, Location, Friends, and Get Support were
+looked at in light and in dark, and Get Help with its tab bar in light; all rendered correctly.
+The eleven pictures are in `app/design/after-launch-pass/simulator-iphone17/` on the computer that
+took them.
+
+### What still needs a real iPhone
+
+Everything in `app/TESTING_CHECKLIST.md`. Most of all: the crisis buttons as far as the dial and
+compose screens (section 1b); notifications and their lock-screen wording; "Always" location and
+a place alert with the app closed; the contact picker and Messages; whether the photo chooser
+offers the camera; VoiceOver; the phone's largest text sizes; launch time; a 30-minute session
+with the screen locked partway; backup and restore; and the tab bar on the website's pages.
 

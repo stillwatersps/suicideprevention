@@ -96,8 +96,11 @@ for (const lang of ['en', 'es']) {
     await page.click(`#tl-tabbar [data-tl-tab-btn="${id}"]`);
     await page.waitForSelector('html.app-ready');
     await page.waitForFunction((tab) => { const screen = document.getElementById('tl-' + tab); const button = document.querySelector(`#tl-tabbar [data-tl-tab-btn="${tab}"]`); return screen && !screen.hidden && button && button.getAttribute('aria-current') === 'page'; }, id, { timeout: 5000 }).catch(() => {});
-    const there = await page.evaluate((tab) => { const screen = document.getElementById('tl-' + tab); const button = document.querySelector(`#tl-tabbar [data-tl-tab-btn="${tab}"]`); const strip = document.querySelector('.crisis-bar a[href="tel:988"]'); return { shown: Boolean(screen && !screen.hidden), current: Boolean(button && button.getAttribute('aria-current') === 'page'), others: Array.from(document.querySelectorAll('.tl-screen')).filter((s) => !s.hidden).length, strip: Boolean(strip && strip.getClientRects().length) }; }, id);
+    const there = await page.evaluate((tab) => { const screen = document.getElementById('tl-' + tab); const button = document.querySelector(`#tl-tabbar [data-tl-tab-btn="${tab}"]`); const strip = document.querySelector('.crisis-bar a[href="tel:988"]'); return { shown: Boolean(screen && !screen.hidden), current: Boolean(button && button.getAttribute('aria-current') === 'page'), others: Array.from(document.querySelectorAll('.tl-screen')).filter((s) => !s.hidden).length, top: window.scrollY < 2, cta: Boolean(document.querySelector('.header-cta') && document.querySelector('.header-cta').getBoundingClientRect().top >= 0), strip: Boolean(strip && strip.getClientRects().length) }; }, id);
+    await page.waitForTimeout(400);
+    const settled = await page.evaluate(() => ({ top: window.scrollY < 2, cta: document.querySelector('.header-cta').getBoundingClientRect().top >= 0 }));
     check(there.shown && there.current && there.others === 1 && there.strip, `${lang}: from ${start || 'the home page'}, the ${id} tab opens the app's ${id} screen, marked as the current tab, with the crisis strip on screen`);
+    check(settled.top && settled.cta, `${lang}: and it opens at the top, with Get Support Now in view`);
   }
   await context.close();
 }

@@ -1,10 +1,10 @@
 # Tidelight Build Progress
-Last updated: 2026-11-12 (launch brief, Phase 11)
+Last updated: 2026-11-12 (launch brief, Phase 12: finished)
 Current branch: app/launch-readiness (cut from app/visual-identity at Phase 0's commit)
 Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
-Current step: Launch brief: Phase 11 done. Next: Phase 12, step 1 (run every suite and the root checks, rebuild in the Simulator, fill in the final table, write the worklog, open the draft pull request into `app/redesign-dev`).
+Current step: The launch readiness brief is finished (Phases 0 to 12). Nothing is in progress. Next is for people: the founders read `notes/FOUNDER-SUMMARY.md`, send `notes/REVIEWER-PACKET.md` and `notes/LEGAL-PACKET.md`, and try the app on a real iPhone with `app/TESTING_CHECKLIST.md`.
 
-## Launch readiness brief — in progress
+## Launch readiness brief — finished November 12, 2026
 A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
 
 - [x] L0 — Pull request 26 wording: every reviewed string restored and locked by a snapshot test; privacy and consent wording in view and locked by a test. Pushed to pull request 26
@@ -15,12 +15,12 @@ A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): 
 - [x] L5 — Performance and launch time: the app's script is minified (233 KB to 125 KB); the crisis strip is on screen before the script loads (tested); `test/budget-test.mjs` (12 checks) in `npm test`. Fonts left as they are (already subsets)
 - [x] L6 — Data reliability and error handling: 18 stored things damaged ten ways each, storage full or refusing, three years of data, a start-up failure, runtime errors. Two faults fixed (a damaged Hope box entry; a near-blank page when the newer screens fail to start, which now falls back to the older layout). `test/resilience-test.mjs` (33 checks) in `npm test`
 - [x] L7 — Privacy and permissions audit: every screen walked with the network blocked, 0 attempts (`test/network-test.mjs`, 13 checks, in `npm test`); `notes/PRIVACY-INVENTORY.md`, `notes/APP-STORE-PRIVACY-DRAFT.md`, `notes/THIRD-PARTY-LICENSES.md`; permissions table in `notes/LAUNCH-READINESS.md`. Blockers found: no privacy policy, no acknowledgements screen, a possible missing camera sentence, no privacy manifest
-- [x] A founder's request, between L7 and L8 — the tab bar on every page inside the app (19 website pages, both languages): `src/app-tabbar.css`, `src/app-tabbar.js`, `src/ui/icons.js`, `src/ui/tabbar-fit.js`, written into each page by `tools/build-redesign.mjs`; `test/pages-test.mjs` (339 checks) in `npm test`
+- [x] A founder's request, between L7 and L8 — the tab bar on every page inside the app (19 website pages, both languages): `src/app-tabbar.css`, `src/app-tabbar.js`, `src/ui/icons.js`, `src/ui/tabbar-fit.js`, written into each page by `tools/build-redesign.mjs`; `test/pages-test.mjs` (349 checks) in `npm test`
 - [x] L8 — Spanish parity: `test/unit/spanish-parity.test.mjs` (16 tests: same blocks, keys, controls, crisis targets, and places for numbers; no line left in English; 18 lines rightly identical, in `test/fixtures/same-in-spanish.json`). Nothing missing or untranslated. Six questions for a fluent reader in `notes/CONTENT-REVIEW.md`
 - [x] L9 — Code health: nine unused style rules, the older reminders panel's styles, one unused helper, and two duplicated helpers removed; lint clean; `npm audit` clean; no user content in any log; README gained step-by-step instructions and `npm start`; `app/CLAUDE.md` gained the rules from this brief. Twenty tokens that look unused were kept, with reasons in `notes/LAUNCH-READINESS.md`
 - [x] L10 — Visual polish leftovers: 452 pictures of every screen (both languages, light and dark, two phone sizes, largest text, the website's pages, the fallback); one fault found and fixed (the crisis strip in the fallback layout was 1.7 to 1 in dark mode; now 15.9 to 1, and tested); six App Store draft pictures; `tools/screens.mjs` takes them all
 - [x] L11 — Packets, all drafts, none sent to anyone: `notes/REVIEWER-PACKET.md` (37 screens with their exact wording, filled in by `tools/reviewer-walkthrough.mjs`, and 54 questions by priority), `notes/LEGAL-PACKET.md` (23 questions), `notes/APP-STORE-READINESS.md` (draft listing, review notes, guideline checklist, age rating, build readiness), `notes/FOUNDER-SUMMARY.md` (one page). Linked from the notes' Start Here page
-- [ ] L12 — Final verification and a draft pull request
+- [x] L12 — Final verification: every suite on the final code (131 unit, 2,305 browser checks, 11 Swift, the four root checks; 0 failed); rebuilt and looked at in the Simulator, light and dark; final table in `notes/LAUNCH-READINESS.md`; worklog `notes/worklogs/2026-11-12-claude-app-launch-readiness.md`; a draft pull request into `app/redesign-dev`
 
 ### Launch brief vs. project rules
 - **Branch:** pull requests 25 and 26 are both open, so `app/launch-readiness` is cut from `app/visual-identity` (pull request 26's branch), as the brief's rule 9 says. Its draft pull request will show pull request 26's commits until that merges.

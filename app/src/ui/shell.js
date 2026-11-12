@@ -175,5 +175,18 @@ export function initShell() {
   // The phone opened the app from a check-in reminder.
   window.addEventListener('tidelight-launch', (event) => { if (event.detail === '#ci-today') shell.go('checkin'); });
   const hashTarget = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
-  if (hashTarget && hashTarget.closest('.tl-screen')) shell.reveal(hashTarget); else render(false);
+  // A link to a tab itself (the tab bar on the website's pages inside the app) opens that tab the
+  // way a tap on it does: at the top, with the header and Get Support Now in view.
+  const hashTab = hashTarget && TABS.find((tab) => hashTarget.id === 'tl-' + tab.id);
+  if (hashTab) {
+    // The address loses its "#tl-…" first, or the browser would scroll down to the screen by itself
+    // once it shows, past the header.
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* the address stays; the scroll below still runs */ }
+    shell.go(hashTab.id);
+    const toTop = () => window.scrollTo(0, 0);
+    requestAnimationFrame(toTop);
+    window.addEventListener('load', toTop, { once: true });
+  }
+  else if (hashTarget && hashTarget.closest('.tl-screen')) shell.reveal(hashTarget);
+  else render(false);
 }

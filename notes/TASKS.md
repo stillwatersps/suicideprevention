@@ -101,6 +101,12 @@ Nothing else has been claimed. Add an owner above when you start.
   `app/redesign-dev`. Both founders compare the screens (`app/design/COMPARISON.md`), read the copy changes
   in the pull request and the new questions in [[CONTENT-REVIEW]], then try it on a real phone.
   Handoff: [[worklogs/2026-11-11-claude-app-visual-identity]].
+- [ ] Phone app launch readiness from one founder's brief (`app/LAUNCH-BRIEF.md`): tests, measurements,
+  fixes, and documents; no new wording. Also the tab bar on every page inside the app. Owner: Claude.
+  Branch: `app/launch-readiness`, a draft pull request into `app/redesign-dev`. Both founders read
+  [[FOUNDER-SUMMARY]], decide the items in [[LAUNCH-BACKLOG]], send [[REVIEWER-PACKET]] and
+  [[LEGAL-PACKET]], and try the app on a real iPhone with `app/TESTING_CHECKLIST.md`.
+  Handoff: [[worklogs/2026-11-12-claude-app-launch-readiness]].
 - [ ] My circle (E2, no accounts) and Hope box (F9) in the phone app, at one founder's request. Owner:
   Claude. Branch: `app/my-circle-and-hope-box`, draft pull request into `app/hard-places-and-reminders`.
   Not merged, never run on a phone. Handoff: [[worklogs/2026-11-10-claude-circle-and-hope-box]].

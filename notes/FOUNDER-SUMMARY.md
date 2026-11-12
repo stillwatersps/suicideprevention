@@ -15,8 +15,9 @@ store**). Detail and evidence: [[LAUNCH-READINESS]].
 
 - **Crisis help can't quietly break.** Call 988, Text 988, Call 911, Quick exit, and Get Support
   Now are checked on all 37 screens and states, in both languages, at every text size, on every
-  test run. Eleven real faults were found and fixed along the way, including a blank app after
-  Quick exit and a 911 link that couldn't be reached in Spanish at the largest text.
+  test run. Twelve real faults were found and fixed along the way, including a blank app after
+  Quick exit, a 911 link that couldn't be reached in Spanish at the largest text, and a crisis
+  strip that was nearly unreadable in one dark-mode case.
 - **Every written safety rule has a test** (25 rules), and the wording a reviewer will see is
   locked: a test fails if a reviewed line changes.
 - **Accessibility:** no serious finding from the automated audit, in light and dark. The app
@@ -24,6 +25,8 @@ store**). Detail and evidence: [[LAUNCH-READINESS]].
 - **Nothing leaves the phone.** A test walks every screen with the network blocked: 0 attempts.
 - **It survives bad data:** damaged, huge, or old stored data still opens to a real screen with
   crisis help working.
+- **The tab bar is on every page inside the app**, including Get Help, Not sure, and the
+  website's other pages, so there is always a way back.
 - **Documents for the people you need:** [[REVIEWER-PACKET]], [[LEGAL-PACKET]],
   [[APP-STORE-READINESS]], [[PRIVACY-INVENTORY]].
 
