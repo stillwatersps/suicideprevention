@@ -781,7 +781,8 @@ async function playerTests(browser, lang) {
   check(!(await page.isVisible('#tl-tabbar')), 'the tab bar steps aside during a session');
   check(await page.isVisible('.crisis-bar a[href="tel:988"]') && await page.isVisible('.crisis-bar a[href="sms:988"]') && await page.isVisible('.crisis-bar a[href="tel:911"]') && await page.isVisible('.crisis-bar .quick-exit'), 'Call 988, Text 988, Call 911, and Exit stay on screen over the player');
   check(await page.isVisible('#tl-stage .tl-player-support[href="#support"]') && await page.isVisible('#tl-stage a[href="#tl-review"]'), 'the stage carries Get Support Now and "Draft for review"');
-  check(await page.evaluate(() => { const top = document.querySelector('.crisis-bar').getBoundingClientRect(); const stage = document.querySelector('#tl-stage').getBoundingClientRect(); return stage.top >= top.bottom - 1; }), 'the stage starts under the crisis strip, not over it');
+  // The page glides to the stage; once it has settled, the stage sits below the strip.
+  check(await page.waitForFunction(() => { const top = document.querySelector('.crisis-bar').getBoundingClientRect(); const stage = document.querySelector('#tl-stage').getBoundingClientRect(); return stage.top >= top.bottom - 1; }, null, { timeout: 2500 }).then(() => true, () => false), 'the stage starts under the crisis strip, not over it');
   check(await page.evaluate(() => Boolean(document.querySelector('.review-note:not(.tl-review)') && document.querySelector('.tl-review') && document.querySelector('#support a[href="tel:988"]') && document.querySelector('.lang-switch a'))), 'the rest of the safety frame is still in the page below');
   const words = new Set();
   let painted = false;

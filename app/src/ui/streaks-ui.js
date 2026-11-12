@@ -44,12 +44,23 @@ export async function addMeditationToStreak() {
   return refreshStreak();
 }
 
+// The legend's own words ("Done", "Frozen", "Rest day", "Today"), read from the page.
+function legendWord(state) {
+  const mark = $(`#tl-streak .tl-legend .tl-day.is-${state}`);
+  return mark && mark.parentNode ? mark.parentNode.textContent.replace(/\s+/g, ' ').trim() : '';
+}
+
 function dots(list, cells, withNumbers) {
   list.textContent = '';
   cells.forEach((cell) => {
     const dot = el('li', 'tl-day' + (cell ? ' is-' + cell.state : ' is-blank'));
     // Each state is drawn by the stylesheet (filled, soft, dashed, ringed); the month also shows the date.
-    if (cell && withNumbers) dot.textContent = String(cell.day);
+    if (cell && withNumbers) {
+      dot.textContent = String(cell.day);
+      // A screen reader hears the date and, where the legend has a word for it, the day's state.
+      const word = legendWord(cell.state);
+      if (word) dot.setAttribute('aria-label', `${cell.day}, ${word}`);
+    }
     list.appendChild(dot);
   });
 }

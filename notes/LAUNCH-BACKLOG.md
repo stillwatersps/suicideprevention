@@ -44,3 +44,8 @@ decides.
   longer shows the dawn that day. The small strip of light that grows while a person answers is
   still shown. Should that be off for the day too? Who decides: the reviewer.
 
+## Accessibility (decisions and larger work)
+
+- **Fraunces could be about 80 KB smaller** by dropping two of its four design axes, but headings
+  would change shape slightly. See the performance report. Who decides: the founder who wrote the
+  design brief.

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "node tools/build.mjs",
-    "test": "node tools/lint.mjs && node --test test/unit/*.test.mjs && node tools/build.mjs && node test/logic-test.mjs && node test/app-test.mjs && node test/extras-test.mjs && node test/redesign-test.mjs && node test/crisis-test.mjs && node test/safety-test.mjs",
+    "test": "node tools/lint.mjs && node --test test/unit/*.test.mjs && node tools/build.mjs && node test/logic-test.mjs && node test/app-test.mjs && node test/extras-test.mjs && node test/redesign-test.mjs && node test/crisis-test.mjs && node test/safety-test.mjs && node test/a11y-test.mjs",
     "words": "node tools/make-words-packet.mjs",
     "sync": "node tools/build.mjs && npx cap sync",
     "test:ios": "cd ios/TidelightLogic && swift test",
@@ -14,6 +14,7 @@
     "test:unit": "node --test test/unit/*.test.mjs",
     "words:es": "node tools/make-redesign-es.mjs",
     "test:crisis": "node test/crisis-test.mjs",
+    "test:a11y": "node test/a11y-test.mjs",
     "test:safety": "node tools/lint.mjs && node --test test/unit/safety-rules.test.mjs test/unit/streaks.test.mjs test/unit/reviewed-strings.test.mjs test/unit/tokens.test.mjs test/unit/quiet.test.mjs && node tools/build.mjs && node test/crisis-test.mjs && node test/safety-test.mjs",
     "sim:launch": "xcrun simctl launch --terminate-running-process booted org.tidelight.app -TidelightQuiet YES"
   },
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^7.0.0",
+    "axe-core": "^4.14.0",
     "esbuild": "^0.25.0",
     "playwright": "^1.52.0"
   }

@@ -472,3 +472,88 @@ screen. That puts "988" on a notification, against the founder's rule that notif
 mention crisis; but they are also two of the fastest ways to reach help. The two rules pull against
 each other, so nothing was changed. It is a question in [[CONTENT-REVIEW]] and in [[LAUNCH-BACKLOG]].
 
+## Accessibility report (Phase 4)
+
+### What was checked
+
+An automated audit, `app/test/a11y-test.mjs`, now part of `npm test`. It uses axe-core (a
+test-only tool, never shipped in the app) on all 37 screens and states, in English and Spanish,
+in light and dark mode, against WCAG 2.0, 2.1, and 2.2 at levels A and AA. Any serious or critical
+finding fails the build. It then checks what the tool can't judge for this app:
+
+- every link, button, and field on every screen has a spoken name;
+- nothing forces its own place in the focus order;
+- focus moves to the support options after a very low check-in, into Settings when it opens, back
+  to Home when it closes, into "End session?" when it opens, and back to the player after;
+- the horizon, scenes, icons, covers, tone squares, and the row of day dots are hidden from
+  screen readers on every screen;
+- the five moods are buttons named by their word, announced as pressed when chosen, with a check
+  mark beside the color;
+- the nine feelings are radio buttons in a named group;
+- the four kinds of day in the streak legend differ in fill, outline, or ring, not only color;
+- links inside sentences are underlined;
+- Reduce Motion stops animation; Increase Contrast darkens outlines and soft text and turns the
+  paper grain off;
+- at five text sizes (default, 135%, 175%, 250%, and 331%, the phone's largest), no tab scrolls
+  sideways, the tab bar keeps full-size targets and stays a bar, and Get Support Now stays within
+  the screen.
+
+Contrast is covered three ways: the unit test `tokens` checks each text and background token pair
+(AA for ordinary text, 7 to 1 for crisis colors); the audit measures real text on every screen in
+both modes; and the crisis test measures every crisis control.
+
+### What was found and fixed
+
+| Finding | Where | Fix |
+| --- | --- | --- |
+| Spoken names that did not include the words on screen (serious). A card showing "Next check-in, At 2:30 PM, Start" was named only "Start a check-in", so someone using Voice Control could not say what they saw | Home's next check-in and suggestion cards, the Check-in tab's quick check-in card, Meditate's suggestion card, the version line in Settings | The words on screen now come first in the spoken name, followed by the written name. No word was added or changed: both parts were already in the text |
+| Tap targets overlapping each other (serious) | The older sections' row of links (Today, Journal, Rediscover, Hope box, Your journey, Support) | Each link is its own 44-point target with space between |
+| The streak calendar read only numbers: "1, 2, 3…" with no way to hear which days were done, frozen, or rest days | Your streak | Each day now says its date and its state in the legend's own words ("12, Done") |
+| At the phone's largest text sizes, rows ran off the side of the screen | Cards with a button at the end, the week's dots, Meditate's rows, Home's top row, "Learn more" rows | Rows wrap when their parts no longer fit, at any size |
+| At the largest text size, Get Support Now ran off the side | The header | It wraps onto two lines |
+| The tab bar grew to a quarter of the screen at the largest text sizes | The tab bar | Its height and icons stop growing at a cap; every tab keeps a full target |
+
+The earlier phases' accessibility fixes are counted there: the strip's 43-point link, the 6.9 to 1
+"Support" link, and the strip that could not be scrolled at the largest size.
+
+### Results
+
+`npm run test:a11y`: 217 checks, 0 failed. Serious or critical findings: 0 on all 37 screens in both languages and both modes (there were 52 failing screen audits on the first run, from three kinds of finding). Moderate or minor findings: 0.
+
+### The phone's text sizes
+
+On iPhone the app follows the phone's text size setting, including the five "Larger Accessibility
+Sizes". With the fixes above, no screen scrolls sideways at any size, and the tab bar is 89 points
+tall at most. What remains is the crisis strip, which was deliberately not changed:
+
+| Text size | Strip height (English / Spanish) | Left for the page on an iPhone 17 |
+| --- | --- | --- |
+| Default | 98 / 98 points | 711 / 711 points |
+| 135% | 129 / 219 | 658 / 568 |
+| 175% (first accessibility size) | 281 / 322 | 504 / 463 |
+| 250% | 403 / 513 | 382 / 272 |
+| 331% (the largest) | 752 / 874 (the whole screen) | 33 / none |
+
+At the two largest sizes the page behind the strip is hard or impossible to use, in Spanish
+especially. The strip itself stays whole and reachable. This is the decision in
+[[LAUNCH-BACKLOG]] under "The strip at the largest accessibility text sizes".
+
+### What still needs a person with a real phone
+
+Automated checks find perhaps a third of real barriers. These need someone using the phone's own
+accessibility features. The steps are in `app/TESTING_CHECKLIST.md`, section 10.
+
+1. **VoiceOver, start to finish.** Turn it on (Settings, Accessibility, VoiceOver). Swipe through
+   Home from the top: the strip's four controls come first. Do a quick check-in by swiping and
+   double-tapping only. Choose "Very low": VoiceOver should land on the support options. Start a
+   meditation and end it. Open Your streak and swipe through the calendar: each day should say its
+   date and "Done", "Frozen", or "Rest day".
+2. **Voice Control.** Say "Tap Start", "Tap Call 988" (then cancel), "Tap Check-in".
+3. **Larger Accessibility Sizes**, at the middle and the largest setting, in English and Spanish.
+4. **Reduce Motion, Increase Contrast, Bold Text, and Smart Invert**, one at a time.
+5. **A hardware keyboard or Switch Control**: Tab from the top; nothing should trap focus.
+6. **Does the meditation's voice talk over VoiceOver?** Nobody has listened.
+
+### Lesser findings from the audit (not failing)
+
+None. The audit reported no moderate or minor finding either, on any screen.

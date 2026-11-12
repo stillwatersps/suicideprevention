@@ -14,6 +14,7 @@ import { initMeditate, renderSuggestion, renderHistory, startType } from './ui/m
 import { initBuilder, renderPresets } from './ui/builder.js';
 import { initFeel } from './ui/feel.js';
 import { initSections } from './ui/sections.js';
+import { keepNamesHonest } from './ui/components.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
 import { CONFIG } from './core/config.js';
@@ -23,13 +24,13 @@ import { devLog } from './core/dev.js';
 
 // Called by app.js once what's saved has been loaded, before the page is shown.
 export async function initRedesign(context) {
-  if (!document.getElementById('tl-app')) return;
+  if (!document.getElementById('tl-app')) return false;
   // The language the person chose with "Leer en español" or "Read in English" is remembered on
   // the phone, so the app opens in it next time. The link itself stays on every screen.
   const other = document.querySelector('.lang-switch a');
   const here = document.documentElement.lang || 'en';
   const wanted = await store.getRaw(KEYS.language);
-  if (other && wanted && wanted !== here && wanted === other.getAttribute('hreflang')) { location.replace(other.getAttribute('href')); return; }
+  if (other && wanted && wanted !== here && wanted === other.getAttribute('hreflang')) { location.replace(other.getAttribute('href')); return false; }
   if (other) {
     other.addEventListener('click', async (event) => {
       event.preventDefault();
@@ -78,6 +79,7 @@ export async function initRedesign(context) {
   ctx.startReset = () => startType('quick', { minutes: 1 });
   initBuilder(shell, ctx);
   initOnboarding(shell, ctx);
+  keepNamesHonest(document.getElementById('tl-app'));
 
   window.addEventListener('tidelight-checkin', async (event) => {
     const detail = event.detail || {};
@@ -104,4 +106,5 @@ export async function initRedesign(context) {
   await syncReminders(ctx.checkInsToday());
   refresh();
   if (!state.onboarding.completed) startOnboarding();
+  return true; // the newer screens are up (false above: not on this page, or leaving for the other language)
 }

@@ -205,6 +205,7 @@ html.tl .tl-sectioned ul:not(.ci-list)[hidden], html.tl .tl-sectioned .app-place
 .tl-more { border-top: var(--hairline) solid var(--rule); border-bottom: var(--hairline) solid var(--rule); }
 .tl-more-row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); min-height: var(--row); padding: 0 var(--space-4); list-style: none; cursor: pointer; font-family: var(--font-body); font-size: var(--text-label); line-height: var(--lh-label); font-weight: var(--wt-strong); color: var(--seafoam); }
 .tl-more-row::-webkit-details-marker { display: none; }
+.tl-more-row > span { min-width: 0; overflow-wrap: anywhere; }
 .tl-more-row .tl-icon { flex: none; transition: transform var(--dur-quick) var(--ease-tide); }
 .tl-more[open] .tl-more-row .tl-icon { transform: rotate(90deg); }
 html.tl .tl-more .tl-more-body { margin: 0; padding-bottom: var(--space-16); }
@@ -224,7 +225,7 @@ html.tl #ci-step-feeling .ci-choice:has(input:checked) { background: var(--seafo
 
 /* ---------- The tab bar with icons only (set by the shell when the labels can't fit) ---------- */
 html.tl .tl-tabbar.is-compact .tl-tab { justify-content: center; }
-html.tl .tl-tabbar.is-compact .tl-tab .tl-icon { width: var(--tile-icon); height: var(--tile-icon); padding: var(--space-4); }
+html.tl .tl-tabbar.is-compact .tl-tab .tl-icon { padding: var(--space-4); }
 
 .tl-progress-label { display: block; margin-top: var(--space-4); font-size: var(--text-caption); line-height: var(--lh-caption); font-weight: var(--wt-strong); font-variant-numeric: tabular-nums; color: var(--ink-soft); }
 .tl-progress { display: block; width: 100%; height: var(--progress); margin-top: var(--space-8); border-radius: var(--radius-pill); background: var(--shell); overflow: hidden; }
@@ -344,6 +345,41 @@ html.tl-reduce .tl-fade, html.tl-reduce .tl-ob-page, html.tl-reduce.tl-style-str
 html.tl-reduce .tl-fade .tl-list > li, html.tl-reduce .tl-fade .tl-types > .tl-type, html.tl-reduce .tl-horizon-complete::before { animation: none; }
 html.tl-reduce .tl-horizon::before, html.tl-reduce .tl-progress > span { transition: none; }
 html.tl-reduce .app-hope-photo { transform: none; }
+
+/* ---------- The phone's largest text sizes (the app follows the phone's setting on iPhone) ----------
+   Rows wrap instead of running off the side. These rules don't use a media query, because the
+   screen's width doesn't change when the text grows: they let each row wrap when its parts no
+   longer fit, at any size. */
+html.tl .tl-card { display: flex; flex-wrap: wrap; }
+html.tl .tl-card > .tl-card-text { flex: 1 1 var(--col); min-width: 0; }
+html.tl .tl-card > .tl-card-go, html.tl .tl-card > .tl-btn, html.tl .tl-card > .tl-badge { flex: none; max-width: 100%; margin-inline-start: auto; }
+html.tl .tl-card-text > *, html.tl .tl-tile-label, html.tl .tl-face-label, html.tl .tl-choice-title, html.tl .tl-title, html.tl .tl-display, html.tl .tl-headline { overflow-wrap: anywhere; }
+html.tl .tl-btn, html.tl .tl-chip, html.tl .tl-card-go { max-width: 100%; white-space: normal; }
+html.tl .tl-week { grid-template-columns: repeat(7, minmax(0, var(--dot))); }
+html.tl .tl-week .tl-day { width: 100%; height: auto; aspect-ratio: 1; }
+html.tl .tl-type { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8) var(--space-12); }
+html.tl .tl-type .tl-choice-art { flex: none; }
+html.tl .tl-type-name { flex: 1 1 var(--col); min-width: 0; margin: 0; }
+html.tl .tl-type [data-type-start] { flex: none; order: 2; margin-inline-start: auto; }
+html.tl .tl-type [data-type-length] { order: 3; flex: 1 1 100%; flex-wrap: wrap; }
+html.tl .tl-type [data-type-options] { order: 4; }
+html.tl .tl-type-more { order: 5; flex: 1 1 100%; }
+html.tl .tl-row { flex-wrap: wrap; min-width: 0; }
+.tl-hero { margin: 0; grid-template-columns: minmax(0, 1fr); }
+.tl-hero-top { flex-wrap: wrap; }
+html.tl .tl-draft-tag, html.tl .tl-draft-tag a { overflow-wrap: anywhere; }
+/* Get Support Now may wrap onto two lines rather than run off the side. */
+html.tl .header-cta { max-width: 100%; white-space: normal; text-align: center; }
+html.tl .header-inner { flex-wrap: wrap; }
+/* The tab bar stays a bar: its height and icons stop growing at a cap, and every tab keeps a full target. */
+html.tl .tl-tab { min-height: min(var(--tabbar), var(--cap-tabbar)); }
+html.tl .tl-tab .tl-icon { width: min(var(--icon), var(--cap-tab-icon)); height: min(var(--icon), var(--cap-tab-icon)); }
+html.tl .tl-tabbar.is-compact .tl-tab .tl-icon { width: min(var(--tile-icon), var(--cap-tab-icon)); height: min(var(--tile-icon), var(--cap-tab-icon)); }
+
+/* ---------- The older sections' row of links: each link is its own full target, none overlapping ---------- */
+html.tl .ci-tabs ul { display: flex; flex-wrap: wrap; gap: var(--space-4) var(--space-12); }
+html.tl .ci-tabs li { display: flex; }
+html.tl .ci-tabs a { display: inline-flex; align-items: center; min-height: var(--tap); }
 
 /* ---------- At the largest text sizes, tiles become rows ---------- */
 /* On a short screen the session's name gives way to the breathing words; the time left stays. */

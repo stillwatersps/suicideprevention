@@ -147,6 +147,10 @@
   --tile-icon: 2.5rem;
   --tabbar: 4rem;
   --tab-dot: 0.25rem;
+  /* Caps in points, not rem: on iPhone the app follows the phone's text size, and at the largest
+     accessibility sizes the tab bar must stay a bar. */
+  --cap-tabbar: 88px;
+  --cap-tab-icon: 40px;
   --content: 34rem;
   --guide: 11rem;
   --preview: 35vh;

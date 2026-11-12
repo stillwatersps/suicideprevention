@@ -204,3 +204,19 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] VoiceOver (iPhone) or TalkBack (Android) on. Do a check-in, start and end a meditation, and
   change a setting. *Expected:* every control says what it does ("Start 5-minute Silent"), the
   crisis links are reachable first, and nothing traps you.
+- [ ] VoiceOver on Your streak: swipe through the calendar. *Expected:* each day says its date,
+  and "Done", "Frozen", "Rest day", or "Today" where it applies.
+- [ ] VoiceOver on Home: the next check-in card. *Expected:* it reads the words on the card
+  ("Next check-in, at …, Start") and then "Start a check-in".
+- [ ] Voice Control (Settings, Accessibility, Voice Control): say "Tap Start" on Home, "Tap
+  Check-in", and "Tap Call 988" (then cancel). *Expected:* each works by the words on screen.
+- [ ] Larger Accessibility Sizes at the middle and the largest setting, in English and Spanish.
+  *Expected:* nothing scrolls sideways; the tab bar stays a bar and shows icons only; the crisis
+  strip is whole. Write down how much of the page is left under the strip.
+- [ ] Reduce Motion, Increase Contrast, Bold Text, and Smart Invert, one at a time. *Expected:*
+  nothing unreadable, nothing that moves under Reduce Motion.
+- [ ] A hardware keyboard: press Tab from the top of Home. *Expected:* Quick exit, Call 988, Text
+  988, Call 911 first; focus never gets stuck.
+- [ ] Start a meditation with the voice guide while VoiceOver is on. *Expected:* write down
+  whether the two voices talk over each other.
+

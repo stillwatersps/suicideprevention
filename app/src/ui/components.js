@@ -140,3 +140,31 @@ export function animateNumber(node, to, reduced) {
     if (p < 1) requestAnimationFrame(frame);
   })(start);
 }
+
+// A control whose spoken name was written separately from the words on it (a card that reads
+// "Next check-in, at 2:30 PM, Start" but is named "Start a check-in") is hard to use by voice:
+// people say what they see. This keeps the written name and puts the words on screen in front of
+// it. No word is added or changed: both parts are already in the text.
+const tidyText = (text) => String(text || '').replace(/\s+/g, ' ').trim();
+export function honestName(control) {
+  // `data-tl-name` is the name as written; `data-tl-said` is the name this function last gave.
+  // If the label is no longer what was last said, a screen has written a new name: start from it.
+  const current = control.getAttribute('aria-label') || '';
+  const written = control.getAttribute('data-tl-said') === current ? (control.getAttribute('data-tl-name') || '') : current;
+  if (!written) return;
+  const seen = tidyText(control.innerText || '');
+  const name = !seen || written.toLowerCase().includes(seen.toLowerCase()) ? written : `${seen}. ${written}`;
+  control.setAttribute('data-tl-name', written);
+  control.setAttribute('data-tl-said', name);
+  if (current !== name) control.setAttribute('aria-label', name);
+}
+export function keepNamesHonest(root) {
+  if (!root) return;
+  const all = () => root.querySelectorAll('button[aria-label], a[aria-label]').forEach(honestName);
+  all();
+  if (!window.MutationObserver) return;
+  let waiting = false;
+  new MutationObserver(() => { if (waiting) return; waiting = true; requestAnimationFrame(() => { waiting = false; all(); }); })
+    .observe(root, { childList: true, characterData: true, subtree: true, attributes: true, attributeFilter: ['hidden', 'aria-label'] });
+}
+
