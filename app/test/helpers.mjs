@@ -49,8 +49,9 @@ export async function serve() {
     if (path.endsWith('/')) path += 'index.html';
     try {
       const file = join(www, normalize(path));
+      const body = await readFile(file); // read first: a missing file or a folder must answer 404, not half a 200
       res.writeHead(200, { 'content-type': TYPES[extname(file)] || 'application/octet-stream' });
-      res.end(await readFile(file));
+      res.end(body);
     } catch { res.writeHead(404); res.end('not found'); }
   });
   await new Promise((ok) => server.listen(0, '127.0.0.1', ok));

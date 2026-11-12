@@ -7,6 +7,8 @@ import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { ICONS, TABS } from '../src/ui/icons.js';
+
 const appDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const www = join(appDir, 'www');
 const PAGES = [
@@ -82,8 +84,29 @@ function everyPage(dir, depth, out = []) {
   }
   return out;
 }
+// The app's five tabs, as plain links, for the website's pages inside the app (Get help, Not
+// sure, For teens, and the rest). Without it those pages had no way back to the app's screens.
+// Same order, icons, and names as the app's own bar; the names come from the same word blocks.
+function siteTabBar(lang, up) {
+  const b = blocks(lang);
+  const word = (key) => { const found = b.words.match(new RegExp('data-word="' + key.replace('.', '\\.') + '">([^<]+)<')); if (!found) throw new Error(`redesign, tab bar: no word ${key} in ${lang}`); return found[1]; };
+  const label = (b.tabbar.match(/aria-label="([^"]+)"/) || [])[1];
+  if (!label) throw new Error(`redesign, tab bar: no spoken name in ${lang}`);
+  const home = up + (lang === 'es' ? 'es/registro-diario/' : 'check-in/');
+  const items = TABS.map((tab) => `      <li><a class="tl-tab" data-tl-tab-btn="${tab.id}" href="${home}${tab.id === 'home' ? '' : '#tl-' + tab.id}"><svg class="tl-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${ICONS[tab.icon]}"/></svg><span class="tl-tab-label">${word('tab.' + tab.id)}</span></a></li>`).join('\n');
+  return `  <nav class="tl-tabbar" id="tl-tabbar" aria-label="${label}">\n    <ul>\n${items}\n    </ul>\n  </nav>\n`;
+}
+const appPages = PAGES.map((page) => join(www, page.file));
 for (const page of everyPage(www, 0)) {
   let html = readFileSync(page.path, 'utf8');
+  if (!appPages.includes(page.path)) {
+    const lang = page.path.slice(www.length + 1).startsWith('es/') ? 'es' : 'en';
+    const bar = siteTabBar(lang, page.up);
+    // Before the footer, as on the app's own page; a page with no footer gets it at the end.
+    const footer = '  <footer class="site-footer"';
+    html = html.split(footer).length === 2 ? once(html, footer, bar + footer, 'tab bar in ' + page.path) : once(html, '</body>', bar + '</body>', 'tab bar in ' + page.path);
+    html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/app-tabbar.css">\n  <script src="${page.up}assets/app-tabbar.js" defer></script>\n</head>`, 'tab bar files in ' + page.path);
+  }
   html = once(html, 'content="width=device-width, initial-scale=1">', 'content="width=device-width, initial-scale=1, viewport-fit=cover">', 'viewport in ' + page.path);
   html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/app-safe-area.css">\n</head>`, 'safe-area stylesheet in ' + page.path);
   // After Quick exit, coming back to the app must show the page again (src/app-return.js says why).
@@ -96,6 +119,7 @@ cpSync(join(appDir, 'src', 'redesign.css'), join(www, 'assets', 'redesign.css'))
 for (const name of ['redesign-identity.css', 'grain.svg', 'grain-dark.svg', 'icon-info.svg']) cpSync(join(appDir, 'src', name), join(www, 'assets', name));
 cpSync(join(appDir, 'src', 'app-safe-area.css'), join(www, 'assets', 'app-safe-area.css'));
 cpSync(join(appDir, 'src', 'app-return.js'), join(www, 'assets', 'app-return.js'));
+cpSync(join(appDir, 'src', 'app-tabbar.css'), join(www, 'assets', 'app-tabbar.css'));
 // Fraunces and Figtree, bundled with their licenses: no font is ever fetched from anywhere else.
 cpSync(join(appDir, 'src', 'fonts'), join(www, 'assets', 'fonts'), { recursive: true });
 console.log('Added the redesigned app to app/www.');

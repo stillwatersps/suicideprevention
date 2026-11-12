@@ -99,11 +99,17 @@ Never re-record the crisis inventory or rewrite the wording snapshot to make a f
 
 ## Architecture after the redesign
 
-- **Tabs** (`src/ui/shell.js`): `TABS` is the one list; adding a tab is one line there, plus its
+- **Tabs** (`src/ui/shell.js`): `TABS` in `src/ui/icons.js` is the one list; adding a tab is one line there, plus its
   word (`tab.<id>`) and its screen (`<section class="tl-screen" id="tl-<id>" data-tl-tab="<id>">`)
   in `src/text/redesign.en.html`. Each tab keeps its own stack; `shell.push('name')` shows
   `#tl-name`. The older sections live in `#tl-legacy`, inside Check-in. `shell.setFull(true)` hides
   the tab bar (onboarding, the player) and never hides the safety frame.
+- **The tab bar is on every page inside the app.** The app's own two pages build it in
+  `shell.js` (buttons). Every other page (the website's pages: Get help, Not sure, and the rest)
+  gets the same five tabs as plain links, written in by `tools/build-redesign.mjs` from `TABS` and
+  `ICONS` in `src/ui/icons.js` and the `tab.*` words, styled by `src/app-tabbar.css` in the
+  website's own colors. `test/pages-test.mjs` walks all of them. A new page needs nothing; a new
+  tab is one line in `TABS`. The public website never gets the bar.
 - **Design system** ("Dawn at the Shoreline", `DESIGN-BRIEF.md`, notes in `design/`): every color,
   size, radius, duration, and font is a token in `src/tokens.css` (`--ink`, `--sand`, `--paper`,
   `--coral`, `--seafoam`, `--dawn`, `--mood-1..5`, `--scene-*`, `--space-*`, `--radius-*`,

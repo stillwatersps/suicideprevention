@@ -743,3 +743,32 @@ has no acknowledgements screen yet.
 
 `node test/network-test.mjs`: 13 checks, 0 failed. `npm test` at the end of Phase 7: 115 unit tests, then 5, 180, 56, 928, 334 (crisis), 174 (safety), 217 (accessibility), 12 (budget), 33 (resilience), and 13 (network) checks in the browser; 0 failed.
 
+## The tab bar on every page (a founder's request, November 12)
+
+Not part of the brief. A founder asked for it while the work was under way.
+
+**Before:** the five tabs (Home, Check-in, Meditate, Location, Friends) were only on the app's own
+screens. The website's pages inside the app (Get help, Help someone, Not sure, For teens, After a
+loss, Research, About, the wallet card, the site's home page, and their Spanish twins: 19 pages)
+had none, so a person who opened one from the menu or from "More ways to get support" had no
+obvious way back.
+
+**Now:** each of those pages carries the same bar, in the same order, with the same icons and
+names, in the page's language. Each tab is a plain link to that screen of the app. The names are
+the app's existing words, so nothing new needs review. At the largest text sizes the bar shows
+icons only and keeps the names for screen readers, as the app's own bar does.
+
+**What it doesn't touch:** the crisis strip, Quick exit, Get Support Now, and every word on those
+pages. The bar is at the bottom; the strip is at the top. The public website is unchanged: the
+bar is written only into the app's copy of each page, when the app is built.
+
+**Tested** (`app/test/pages-test.mjs`, 339 checks, in `npm test`): on all 19 pages, light and
+dark, the bar is there with five tabs of at least 44 points; Call 988, Text 988, Call 911, and
+Quick exit are all present, uncovered, and above it; the last line of each page scrolls clear of
+it; nothing outside the app is requested; and tapping each tab opens the right screen of the app,
+in the same language, with the crisis strip on screen.
+
+**Looks slightly different from the app's own bar:** on these pages the bar uses the website's
+colors and font, because those pages keep the website's look. Giving every page the app's look is
+a design decision, in [[LAUNCH-BACKLOG]].
+

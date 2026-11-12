@@ -81,3 +81,14 @@ decides.
   Privacy laws in some states give people rights to their data; since it never leaves the phone
   this may not apply, but a lawyer should say. Would be new features.
 
+## Design
+
+- **The website's pages inside the app keep the website's look** (its colors and fonts), while the
+  app's own screens use "Dawn at the Shoreline". The tab bar is now on both, but the two looks
+  differ. Restyling the website's pages inside the app is a design task of its own, and would
+  need the crisis strip's contrast checked again on every page. Who decides: both founders.
+- **The website's pages at very large text on a small screen.** At 300% text on a 320-point
+  screen, some cards on Get Help run off the side. Inside the app these pages don't follow the
+  phone's text size, so a person would not normally see this; it is the website's own layout and
+  belongs with the website's work. Found while testing the tab bar.
+

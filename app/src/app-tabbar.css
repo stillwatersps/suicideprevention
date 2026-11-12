@@ -1,0 +1,32 @@
+/* The app's five tabs on the website's pages inside the app (Get help, Not sure, For teens, and
+   the rest), so the way back is always in the same place. The app's own screens style their tab
+   bar in redesign.css; this is the same bar in the website's own colors, which every one of these
+   pages already defines for light and dark. It sits at the bottom and never touches the crisis
+   strip at the top. Sizes match the tokens --tabbar, --icon, --text-caption, and --content. */
+html { scroll-padding-bottom: 5.5rem; }
+body { padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px)); }
+.tl-tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--bg); border-top: 1px solid var(--line);
+}
+.tl-tabbar ul { display: flex; margin: 0 auto; padding: 0; list-style: none; max-width: 34rem; }
+.tl-tabbar li { flex: 1 1 0; min-width: 0; margin: 0; }
+.tl-tab {
+  display: grid; justify-items: center; align-content: center; gap: 0;
+  min-height: min(4rem, 88px); padding: 0.25rem 0;
+  color: var(--muted); font-family: var(--sans); font-size: 0.8125rem; line-height: 1.125rem; font-weight: 500;
+  text-decoration: none; -webkit-tap-highlight-color: transparent;
+}
+.tl-tab:focus-visible { outline: 3px solid var(--ink); outline-offset: -3px; }
+.tl-tab .tl-icon {
+  width: min(1.5rem, 40px); height: min(1.5rem, 40px); flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.tl-tab-label { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tl-tabbar.is-compact .tl-tab { justify-content: center; }
+.tl-tabbar.is-compact .tl-tab .tl-icon { width: min(2.5rem, 40px); height: min(2.5rem, 40px); padding: 0.25rem; }
+@media print {
+  .tl-tabbar { display: none; }
+  body { padding-bottom: 0; }
+}
