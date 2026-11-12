@@ -248,10 +248,12 @@ function start() {
     show($('.app-hope-photo-problem', hopeBox), false);
     show($('.app-circle-no-phone', circleBox), false);
     const savedWords = await loadJson(HOPE_KEY, []);
-    words = Array.isArray(savedWords) ? savedWords : [];
+    // Damaged entries (anything that isn't a kept item with its words) are left out, not shown broken.
+    words = (Array.isArray(savedWords) ? savedWords : []).filter((word) => word && typeof word === 'object' && typeof word.text === 'string');
     const savedCircle = await loadJson(CIRCLE_KEY, null);
     if (savedCircle && Array.isArray(savedCircle.people)) {
-      circle = { people: savedCircle.people.slice(0, MAX_CIRCLE), log: Array.isArray(savedCircle.log) ? savedCircle.log : [] };
+      const realPeople = savedCircle.people.filter((person) => person && typeof person === 'object' && typeof person.phone === 'string' && person.phone);
+      circle = { people: realPeople.slice(0, MAX_CIRCLE), log: (Array.isArray(savedCircle.log) ? savedCircle.log : []).filter((line) => line && typeof line === 'object') };
     }
     await renderHope();
     await renderCircle();

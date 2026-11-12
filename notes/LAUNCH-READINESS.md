@@ -624,3 +624,56 @@ With three years of check-ins (3,285), 600 meditations, and long notes, the app 
 Fifty trips to the background and back and a full session grew memory by less than 1 MB. History
 shows every one of the 600 sessions in one list; paging it is in [[LAUNCH-BACKLOG]]. A real
 30-minute session on a real phone, with the screen kept awake, has not been run.
+
+## Reliability, data, and errors (Phase 6)
+
+### What the app stores
+
+Listed in full, with formats and versions, in [[PRIVACY-INVENTORY]]: 18 keys in the phone's
+key-and-value storage and one small photo database.
+
+### What was tested (`app/test/resilience-test.mjs`, in `npm test`)
+
+- **Damaged data.** Each of the 18 stored things, damaged ten ways (cut off mid-save, the word
+  "null", a list where a record belongs, a record where a list belongs, a bare number, a bare
+  sentence with markup in it, the right shape with wrong insides, a list of broken entries, a
+  megabyte of one letter, and nothing at all): 180 launches. Then everything damaged at once, in
+  both languages. The app must reach a real screen, with the crisis strip and the 988 panel whole,
+  nothing technical on screen, and no script error.
+- **Storage full, and storage refusing everything.** The app opens; a very low check-in still
+  shows its support options even though it can't be saved.
+- **Years of data,** with names in Hebrew, Arabic, and emoji, a 10,000-character journal entry
+  with markup in it (kept as plain text), and an over-long check-in note (cut to its limit).
+- **The app's own code failing to start.**
+- **An error while the app is in use.**
+- **Upgrading from the older data format:** in the safety test (Phase 3) and the storage unit tests.
+
+### What was found and fixed
+
+1. **A damaged Hope box entry stopped the Hope box from drawing** (a script error, "cannot read
+   'kind' of null"). The rest of the app still worked. Damaged entries are now left out instead:
+   in the Hope box and in My circle's people and list.
+2. **If the newer screens failed to start, the page could be left with no screen at all**: the
+   safety frame, and nothing else. There is now a fallback. If the newer screens (tabs,
+   onboarding, streaks, meditation) throw an error while starting, or start without any screen
+   showing, the page opens again in its older layout: the Daily check-in page as it was before the
+   tabs, with the same crisis strip, Get Support Now, Support, and review notices. It uses only
+   wording that already exists; nothing was written for it. It lasts until the app is closed, and
+   the next launch tries the newer screens again. If the whole app layer fails, the page falls back
+   to the website's own version of itself.
+3. Everything else passed first time: the storage layer already falls back to defaults for
+   anything unreadable or of the wrong kind.
+
+No error message, stack trace, or technical word reaches the screen in any of these cases. The
+only place errors are recorded is the developer log, which is in memory, off unless the hidden
+Developer section is opened, and never stored or sent.
+
+### What a save looks like if the app is closed mid-way
+
+Each stored thing is written whole, as one value, by the phone's own storage. A write that is cut
+off leaves either the old value or an unreadable one; an unreadable one is treated as "nothing
+stored" for that one thing (the "cut off mid-save" case above), and the rest is untouched.
+
+### Results
+
+`node test/resilience-test.mjs`: 33 checks, 0 failed (desktop Chromium, with stand-ins for the phone).

@@ -49,3 +49,18 @@ decides.
 - **Fraunces could be about 80 KB smaller** by dropping two of its four design axes, but headings
   would change shape slightly. See the performance report. Who decides: the founder who wrote the
   design brief.
+
+## Performance and reliability
+
+- **Meditation history shows every session in one list** (600 in the test). It works, but a long
+  list should be paged or grouped by month. A small feature. Who decides: either founder.
+- **Launch time on a real phone,** first launch after installing and ordinary launches, has not
+  been measured. Who: whoever has the phone; steps in `app/TESTING_CHECKLIST.md`.
+- **A real 30-minute session on a real phone,** screen kept awake, then the phone locked and
+  unlocked. Not run.
+- **When the app can't save** (the phone's storage is full), a check-in still works and shows
+  support, but nothing tells the person it wasn't kept. Telling them needs new wording. Who
+  decides: the reviewer, then a founder.
+- **The older layout is the fallback** if the newer screens fail to start. It is not covered by
+  the newer tests beyond "it opens, with the crisis strip". If the older layout is ever removed,
+  the fallback needs replacing first.
