@@ -91,4 +91,8 @@ decides.
   screen, some cards on Get Help run off the side. Inside the app these pages don't follow the
   phone's text size, so a person would not normally see this; it is the website's own layout and
   belongs with the website's work. Found while testing the tab bar.
+- **The safety frame on a small phone.** On a 375 by 667 screen, the crisis strip, the header, the
+  language link, and the "Draft for review" mark take close to half the screen before a screen's
+  own content starts. Shortening any of them is against a founder's safety rules, so it needs a
+  decision from both founders and the reviewer, together with the strip's large-text question.
 

@@ -1,12 +1,13 @@
 // Takes a phone-size picture of every screen and state of the app, for the design record.
-// Run after a build: node tools/screens.mjs before   (or: after)
+// Run after a build: node tools/screens.mjs before   (or: after, or any folder name)
+//   node tools/screens.mjs after-launch-pass store   makes only the six App Store drafts
 // Pictures go to app/design/<name>/ and stay on this computer (the folder is not committed).
 // Desktop Chromium at two phone sizes, light and dark, English and Spanish, plus one pass at
 // the largest text size. Not a phone, and not the iOS Simulator.
 import { mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { serve, birthDateYearsAgo, pagePath } from '../test/helpers.mjs';
+import { serve, birthDateYearsAgo, pagePath, SEEDED } from '../test/helpers.mjs';
 import { openBrowser } from '../test/quiet.mjs';
 
 const out = join(dirname(fileURLToPath(import.meta.url)), '..', 'design', process.argv[2] || 'after');
@@ -83,12 +84,66 @@ async function pass(lang, scheme, size, large) {
     await page.click('#tl-flow-faces [data-value="1"]'); await page.click('#tl-flow-done'); await shot('10-checkin-support-after-very-low');
   });
   await step('support', async () => { await root('home'); await page.click('.header-cta'); await page.waitForTimeout(700); await shot('28-get-support-now'); });
+  // The website's pages inside the app, which carry the same tab bar.
+  for (const [n, en, es] of [['29-site-get-help', 'get-help/', 'es/obtener-ayuda/'], ['30-site-not-sure', 'not-sure/', 'es/que-siento/'], ['31-site-home', '', 'es/']]) {
+    await step(n, async () => { await page.goto(base + (lang === 'es' ? es : en)); await page.waitForSelector('#tl-tabbar .tl-tab'); await shot(n); });
+  }
   await context.close();
 }
 
-for (const lang of ['en', 'es']) for (const scheme of ['light', 'dark']) for (const size of ['17', 'se']) await pass(lang, scheme, size, false);
-await pass('en', 'light', 'se', true);
-await pass('es', 'dark', '17', true);
+// What a person sees if the newer screens fail to start: the older layout, with the same crisis
+// strip. Forced here by handing the page a copy with two of its parts renamed.
+async function fallback(lang, scheme, size) {
+  const tag = `${lang}-${scheme}-${size}`;
+  if (only && only !== tag) return;
+  mkdirSync(join(out, tag), { recursive: true });
+  const context = await browser.newContext({ viewport: SIZES[size], colorScheme: scheme, deviceScaleFactor: 2 });
+  await context.route(/\/(check-in|registro-diario)\/$/, async (route) => {
+    const response = await route.fetch();
+    await route.fulfill({ response, body: (await response.text()).replace('id="tl-tabbar"', 'id="tl-tabbar-gone"').replace('id="tl-home"', 'id="tl-home-gone"') });
+  });
+  await context.addInitScript(SEEDED);
+  const page = await context.newPage();
+  try {
+    await page.goto(base + pagePath(lang));
+    await page.waitForSelector('html.app-ready');
+    await page.waitForTimeout(900);
+    await page.screenshot({ path: join(out, tag, '32-fallback-older-layout.png') }); count += 1;
+    await page.screenshot({ path: join(out, tag, '32-fallback-older-layout-full.png'), fullPage: true }); count += 1;
+  } catch (e) { console.log(`  ${tag}: could not reach the fallback: ${String(e.message).split('\n')[0]}`); }
+  await context.close();
+}
+
+// Six draft pictures at the App Store's 6.9-inch size (1320 by 2868). DRAFTS: they show wording
+// no reviewer has approved, so each file name ends in -DRAFT. Made-up data only.
+async function store() {
+  const dir = join(out, 'store');
+  mkdirSync(dir, { recursive: true });
+  const context = await browser.newContext({ viewport: { width: 440, height: 956 }, colorScheme: 'light', deviceScaleFactor: 3 });
+  await context.addInitScript(() => { window.__tidelight = { clockRate: 6, locationAuthorization: 'whenInUse', notificationAuthorization: 'authorized', position: { latitude: 1, longitude: 1 } }; });
+  await context.addInitScript(SEEDED);
+  const page = await context.newPage();
+  await page.goto(base + pagePath('en'));
+  await page.waitForSelector('html.app-ready');
+  const tab = (id) => page.click(`#tl-tabbar [data-tl-tab-btn="${id}"]`);
+  const shot = async (name) => { await page.waitForTimeout(700); await page.screenshot({ path: join(dir, name + '-DRAFT.png') }); count += 1; };
+  const step = async (name, fn) => { try { await fn(); } catch (e) { console.log(`  store: could not reach ${name}: ${String(e.message).split('\n')[0]}`); } };
+  await step('home', async () => { await tab('home'); await shot('1-home'); });
+  await step('check-in', async () => { await tab('checkin'); await page.click('#tl-checkin-quick'); if (await page.isVisible('#tl-flow-skip')) await page.click('#tl-flow-skip'); await shot('2-quick-check-in'); await tab('checkin'); });
+  await step('meditate', async () => { await tab('meditate'); await shot('3-meditate'); });
+  await step('hope box', async () => { await tab('checkin'); await tab('checkin'); await page.click('#tl-checkin [data-tl-legacy="app-hope"]'); await shot('4-hope-box'); });
+  await step('friends', async () => { await tab('friends'); await shot('5-my-circle'); });
+  await step('support', async () => { await tab('home'); await page.click('.header-cta'); await shot('6-support'); });
+  await context.close();
+}
+
+if (only === 'store') await store();
+else {
+  for (const lang of ['en', 'es']) for (const scheme of ['light', 'dark']) for (const size of ['17', 'se']) { await pass(lang, scheme, size, false); await fallback(lang, scheme, size); }
+  await pass('en', 'light', 'se', true);
+  await pass('es', 'dark', '17', true);
+  if (!only) await store();
+}
 await browser.close();
 close();
 console.log(`Saved ${count} pictures to app/design/${process.argv[2] || 'after'}/.`);

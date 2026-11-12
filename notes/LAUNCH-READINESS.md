@@ -859,3 +859,49 @@ Behavior did not change in this phase; the full suite passed before and after.
   (`npm start`, new), the Simulator, a real iPhone, every test, and the safety tests.
 - `app/CLAUDE.md` gained "Rules from the launch readiness work" and the new commands.
 
+## Visual polish (Phase 10)
+
+No new design. A pass over what was already there, in pictures: 452 of them, every screen and
+state, English and Spanish, light and dark, a small phone (375 by 667) and a large one (402 by
+874), plus two passes at the largest text size, the website's pages with their new tab bar, and
+the fallback layout. They are made with `node tools/screens.mjs after-launch-pass` in `app/` and
+saved to `app/design/after-launch-pass/` on the computer that runs it; they are not in the
+repository.
+
+### Found and fixed
+
+- **The crisis strip in the fallback layout, in dark mode, was nearly unreadable** (1.7 to 1).
+  The fallback is what a person sees if the newer screens fail to start (Phase 6). In it, the
+  website's own rule for the strip took its background from a token the app uses for something
+  else, which is pale in dark mode, under white words. The strip now uses the same plain crisis
+  colors in the fallback as everywhere else: 14.6 to 1 in light, 15.9 to 1 in dark. The
+  resilience test now measures it in both languages and both modes, and the automated
+  accessibility audit of the fallback finds nothing else.
+
+### Looked at and found sound
+
+About sixty of the pictures were looked at one by one, chosen to cover each kind of screen in each
+mode; the automated audit (Phase 4) measures contrast and overflow on all of them.
+
+- **Dark mode**, every screen and state: sheets, the player, empty states, the support screens,
+  the share notice, the place alert. Nothing unreadable, nothing left in light colors.
+- **The small phone:** nothing clipped and nothing running off the side; the tab bar keeps its
+  five tabs; the crisis strip is whole. The tests already measure this at five text sizes.
+- **Tokens:** the lint allows no color outside the token file and no size outside it in the
+  redesign's styles, so there was nothing to reconcile by hand. The new tab bar stylesheet for the
+  website's pages uses the website's own color variables and sizes that match the tokens.
+
+### Noticed, and left for a decision
+
+- **On the small phone the safety frame takes close to half the screen** before a screen's own
+  content starts: the crisis strip, the header with Get Support Now, the language link, and the
+  "Draft for review" mark. None of it may shrink or move under a founder's rules, so it was left.
+  It is in [[LAUNCH-BACKLOG]] with the strip's large-text question.
+
+### App Store pictures
+
+Six draft pictures at the 6.9-inch size (1320 by 2868) are made by
+`node tools/screens.mjs after-launch-pass store`: Home, the quick check-in, Meditate, the Hope
+box, My circle, and Support. They are plain captures of real screens with made-up data, with no
+captions or frames, and each file name ends in `-DRAFT` because the wording in them is unreviewed.
+

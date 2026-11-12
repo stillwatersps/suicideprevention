@@ -9,11 +9,14 @@ html.tl body { background-color: var(--sand); background-image: url("grain.svg")
 @media (prefers-contrast: more) { html.tl body { background-image: none; } }
 
 /* ---------- The crisis strip: plain on purpose ---------- */
-html.tl .crisis-bar { background: var(--crisis-bg); background-image: none; color: var(--crisis-text); opacity: 1; animation: none; transition: none; }
-html.tl .crisis-bar p, html.tl .crisis-bar p a { color: var(--crisis-text); }
-html.tl .crisis-bar p a { min-width: var(--tap); text-align: center; font-weight: var(--wt-strong); text-decoration: underline; text-underline-offset: var(--space-4); min-height: var(--tap); }
-html.tl .crisis-bar .quick-exit { background: var(--crisis-bg); color: var(--crisis-text); border: var(--border-strong) solid var(--crisis-text); border-radius: var(--radius-sm); min-height: var(--tap); font-weight: var(--wt-strong); }
-html.tl .crisis-bar a:focus-visible { outline: var(--focus-ring) solid var(--crisis-text); outline-offset: var(--focus-offset); }
+/* The strip keeps these plain colors in the older layout too (html without .tl), which is what a
+   person sees if the newer screens fail to start. Without this the website's own strip rule read a
+   token meant for something else, and in dark mode its words were 1.7 to 1. */
+html.tl .crisis-bar, html:not(.tl) .crisis-bar { background: var(--crisis-bg); background-image: none; color: var(--crisis-text); opacity: 1; animation: none; transition: none; }
+html.tl .crisis-bar p, html.tl .crisis-bar p a, html:not(.tl) .crisis-bar p, html:not(.tl) .crisis-bar p a { color: var(--crisis-text); }
+html.tl .crisis-bar p a, html:not(.tl) .crisis-bar p a { min-width: var(--tap); text-align: center; font-weight: var(--wt-strong); text-decoration: underline; text-underline-offset: var(--space-4); min-height: var(--tap); }
+html.tl .crisis-bar .quick-exit, html:not(.tl) .crisis-bar .quick-exit { background: var(--crisis-bg); color: var(--crisis-text); border: var(--border-strong) solid var(--crisis-text); border-radius: var(--radius-sm); min-height: var(--tap); font-weight: var(--wt-strong); }
+html.tl .crisis-bar a:focus-visible, html:not(.tl) .crisis-bar a:focus-visible { outline: var(--focus-ring) solid var(--crisis-text); outline-offset: var(--focus-offset); }
 
 /* ---------- Crisis buttons: Get Support Now, Call 988, Text 988 ---------- */
 html.tl .header-cta, html.tl .tl-crisis-btn, html.tl .tl-support-actions .tl-btn-primary, html.tl .crisis-panel .action-primary {

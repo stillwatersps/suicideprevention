@@ -23,6 +23,19 @@ a phone. Ten pictures were also taken in the iOS Simulator (iPhone 17, launched 
 Location, Friends, and Get Support, each in light and dark mode. They are in
 `app/design/after/simulator-iphone17/` on the computer that took them.
 
+## After the launch readiness pass
+
+A third set, taken after the launch readiness work (`notes/LAUNCH-READINESS.md`), adds the
+website's pages with their tab bar, the fallback layout, and six App Store drafts:
+
+```bash
+npm run build && node tools/screens.mjs after-launch-pass
+```
+
+About 450 pictures go to `app/design/after-launch-pass/<mode>/`, with the same file names as the
+other two sets, and the App Store drafts to `app/design/after-launch-pass/store/` (names ending
+in `-DRAFT`). `node tools/reviewer-walkthrough.mjs` adds the reviewer's pictures in `reviewer/`.
+
 ## What never changed
 
 The crisis strip (Call 988, Text 988, Call 911, Exit), Get Support Now, the language link, both

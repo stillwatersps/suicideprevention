@@ -30,8 +30,8 @@ const DAMAGE = {
 };
 
 const TECHNICAL = /\b(undefined|NaN|null|\[object Object\]|TypeError|ReferenceError|SyntaxError|Uncaught|stack trace|at [\w.$]+ \(|JSON\.parse|Cannot read)\b/;
-async function open(lang, { storage = {}, before = null, seed = true, prepare = null } = {}) {
-  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+async function open(lang, { storage = {}, before = null, seed = true, prepare = null, colorScheme = 'light' } = {}) {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, colorScheme });
   if (prepare) await prepare(context);
   const errors = [];
   await context.route((url) => !url.href.startsWith(base), (route) => route.abort());
@@ -201,6 +201,23 @@ for (const lang of ['en', 'es']) {
   check(ready && seen.strip && seen.support && seen.screen && !seen.hidden && seen.words > 200 && seen.bad.length === 0, `${lang}: the person gets a working page with the crisis strip, not a blank screen or an error` + (seen.screen ? '' : ' (no screen shown)') + (seen.bad.length ? ' (technical words: ' + seen.bad.join(', ') + ')' : ''));
   check((await page.evaluate(() => document.body.innerText)).length > 1500, `${lang}: with the page's own words (the older layout), nothing invented for the occasion`);
   await context.close();
+  // The crisis strip stays as clear in the older layout as in the newer one, in light and in dark.
+  for (const colorScheme of ['light', 'dark']) {
+    const again = await open(lang, { prepare: breakPage, colorScheme });
+    await again.page.waitForTimeout(600);
+    const ratios = await again.page.evaluate(() => {
+      const lum = (c) => { const [r, g, b] = c.match(/[\d.]+/g).slice(0, 3).map((v) => { const x = v / 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+      const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+      const strip = document.querySelector('.crisis-bar');
+      const back = lum(getComputedStyle(strip).backgroundColor);
+      const parts = ['a[href="tel:988"]', 'a[href="sms:988"]', 'a[href="tel:911"]', 'p'].map((selector) => ratio(lum(getComputedStyle(strip.querySelector(selector)).color), back));
+      const exit = strip.querySelector('.quick-exit');
+      parts.push(ratio(lum(getComputedStyle(exit).color), lum(getComputedStyle(exit).backgroundColor)));
+      return parts.map((n) => Math.round(n * 10) / 10);
+    });
+    check(ratios.every((n) => n >= 7), `${lang}, ${colorScheme}: in the older layout the crisis strip's words, links, and Exit are at least 7 to 1 (${ratios.join(', ')})`);
+    await again.context.close();
+  }
 }
 {
   // An error later on, while the app is in use, never puts technical words on screen.
