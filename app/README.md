@@ -103,6 +103,73 @@ The Simulator can't watch places (region monitoring isn't available there) or se
 builds show a "Pretend I just arrived" button and a 1-minute wait, and the share sheet stands in for
 Messages. A real iPhone is needed for the rest.
 
+## Step by step: install, look, test
+
+Added during the launch readiness work. Each block is one command; run them from the `app` folder.
+
+**1. Install** (once; needs Node.js):
+
+```bash
+npm ci
+```
+
+```bash
+npx playwright install chromium
+```
+
+**2. Look at it in a web browser on this computer:**
+
+```bash
+npm start
+```
+
+It prints an address to open. Only this computer can reach it. A browser has no real
+notifications, places, or Messages, so the app uses stand-ins for those.
+
+**3. Run it in the iPhone Simulator** (a Mac with Xcode and CocoaPods):
+
+```bash
+LANG=en_US.UTF-8 npm run sync
+```
+
+```bash
+npx cap open ios
+```
+
+In Xcode, choose an iPhone simulator at the top and press Run. To start the installed app again
+without sound, which every automated run must do:
+
+```bash
+npm run sim:launch
+```
+
+**4. Run it on a real iPhone.** Nobody has done this yet. Plug the phone into the Mac, open the
+project as in step 3, choose the phone at the top of Xcode, and under Signing & Capabilities choose
+your own Apple account as the team. Xcode asks the phone to trust the computer and, on the phone,
+Settings asks you to trust the developer. A free Apple account works for a week at a time. Then
+work through `TESTING_CHECKLIST.md`. **Tap call and text buttons only as far as the dial or
+compose screen, then cancel. Never complete a call or a text to a crisis service.**
+
+**5. Run every test** (about 35 minutes; no sound, no network, nothing leaves the computer):
+
+```bash
+npm test
+```
+
+**6. Run the safety tests alone** (about 8 minutes). Do this before every commit that touches
+`src/`:
+
+```bash
+npm run test:safety
+```
+
+Other parts on their own: `npm run lint`, `npm run test:unit`, `npm run test:crisis`,
+`npm run test:a11y`, and `npm run test:ios` (the Swift logic for places; needs Xcode).
+From the repository's top folder, before every push: `python3 tools/check_site.py`.
+
+What each test covers, and what none of them can (a real phone), is in
+`notes/LAUNCH-READINESS.md`.
+
 ## Still to do before anyone else uses it
 
 - A licensed reviewer reads `src/text/en.html` and `notes/AGE-STRATEGIES.md`. A fluent reader checks

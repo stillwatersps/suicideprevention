@@ -1,18 +1,14 @@
 // The app's shell: five bottom tabs, each with its own stack of screens. Adding a tab is one
-// line in TABS (plus its word and its screen in src/text/redesign.*.html).
+// line in TABS in icons.js (plus its word and its screen in src/text/redesign.*.html).
 // The safety frame (crisis strip, Exit, Get Support Now, the Spanish link, the review notices,
 // privacy, Support, and the 988 panel) is outside the shell and is never hidden by it.
 import { t } from './words.js';
 import { icon, drawIcons, el } from './components.js';
 import { haptic } from './haptics.js';
+import { TABS } from './icons.js';
+import { watchTabBar } from './tabbar-fit.js';
 
-export const TABS = [
-  { id: 'home', icon: 'wave' },
-  { id: 'checkin', icon: 'heart' },
-  { id: 'meditate', icon: 'lotus' },
-  { id: 'location', icon: 'pin' },
-  { id: 'friends', icon: 'people' },
-];
+export { TABS };
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
 const $$ = (sel, scope) => Array.from((scope || document).querySelectorAll(sel));
@@ -118,6 +114,7 @@ function buildTabBar() {
     stacks[tab.id] = [tab.id];
   });
   bar.appendChild(list);
+  watchTabBar(bar); // icons only when the labels can't fit (tabbar-fit.js)
 }
 
 // The older sections keep their own row of tabs. They move, unchanged, into one screen.
@@ -178,5 +175,18 @@ export function initShell() {
   // The phone opened the app from a check-in reminder.
   window.addEventListener('tidelight-launch', (event) => { if (event.detail === '#ci-today') shell.go('checkin'); });
   const hashTarget = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
-  if (hashTarget && hashTarget.closest('.tl-screen')) shell.reveal(hashTarget); else render(false);
+  // A link to a tab itself (the tab bar on the website's pages inside the app) opens that tab the
+  // way a tap on it does: at the top, with the header and Get Support Now in view.
+  const hashTab = hashTarget && TABS.find((tab) => hashTarget.id === 'tl-' + tab.id);
+  if (hashTab) {
+    // The address loses its "#tl-…" first, or the browser would scroll down to the screen by itself
+    // once it shows, past the header.
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* the address stays; the scroll below still runs */ }
+    shell.go(hashTab.id);
+    const toTop = () => window.scrollTo(0, 0);
+    requestAnimationFrame(toTop);
+    window.addEventListener('load', toTop, { once: true });
+  }
+  else if (hashTarget && hashTarget.closest('.tl-screen')) shell.reveal(hashTarget);
+  else render(false);
 }

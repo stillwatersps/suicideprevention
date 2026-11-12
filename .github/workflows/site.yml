@@ -64,8 +64,9 @@ jobs:
   app:
     name: Build and test the phone app
     runs-on: ubuntu-latest
-    # The redesign added a lint, unit tests, and a longer browser test to `npm test`.
-    timeout-minutes: 45
+    # The redesign added a lint, unit tests, and a longer browser test to `npm test`; the launch
+    # readiness work added the crisis path test (about five more minutes).
+    timeout-minutes: 75
     defaults:
       run:
         working-directory: app

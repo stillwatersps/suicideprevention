@@ -2,16 +2,19 @@
 // older app layer in app.js. A draft, not reviewed. Nothing here sends anything anywhere.
 import { initShell, shell } from './ui/shell.js';
 import { initHome, renderHome } from './ui/home.js';
-import { initCheckin, renderToday, isLowMood } from './ui/checkin.js';
+import { initCheckin, renderToday } from './ui/checkin.js';
+import { showsSupport } from './logic/safety.js';
 import { initOnboarding, startOnboarding } from './ui/onboarding.js';
 import { initSetup, renderSetup } from './ui/setup.js';
 import { initSettings, renderSettings } from './ui/settings.js';
 import { syncReminders } from './ui/reminders.js';
 import { initStreaks, refreshStreak, addCheckInToStreak, addMeditationToStreak } from './ui/streaks-ui.js';
 import { initPlayer } from './ui/player.js';
-import { initMeditate, renderSuggestion, renderHistory } from './ui/meditate.js';
+import { initMeditate, renderSuggestion, renderHistory, startType } from './ui/meditate.js';
 import { initBuilder, renderPresets } from './ui/builder.js';
 import { initFeel } from './ui/feel.js';
+import { initSections } from './ui/sections.js';
+import { keepNamesHonest } from './ui/components.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
 import { CONFIG } from './core/config.js';
@@ -21,13 +24,13 @@ import { devLog } from './core/dev.js';
 
 // Called by app.js once what's saved has been loaded, before the page is shown.
 export async function initRedesign(context) {
-  if (!document.getElementById('tl-app')) return;
+  if (!document.getElementById('tl-app')) return false;
   // The language the person chose with "Leer en español" or "Read in English" is remembered on
   // the phone, so the app opens in it next time. The link itself stays on every screen.
   const other = document.querySelector('.lang-switch a');
   const here = document.documentElement.lang || 'en';
   const wanted = await store.getRaw(KEYS.language);
-  if (other && wanted && wanted !== here && wanted === other.getAttribute('hreflang')) { location.replace(other.getAttribute('href')); return; }
+  if (other && wanted && wanted !== here && wanted === other.getAttribute('hreflang')) { location.replace(other.getAttribute('href')); return false; }
   if (other) {
     other.addEventListener('click', async (event) => {
       event.preventDefault();
@@ -38,6 +41,7 @@ export async function initRedesign(context) {
   await loadState();
   initShell();
   initFeel();
+  initSections();
   const ctx = Object.assign({}, context, {
     checkInsToday: () => context.todaysLog().length,
     checkInCount: () => context.getLog().length,
@@ -72,13 +76,15 @@ export async function initRedesign(context) {
   };
   initPlayer(shell, ctx);
   initMeditate(shell, ctx);
+  ctx.startReset = () => startType('quick', { minutes: 1 });
   initBuilder(shell, ctx);
   initOnboarding(shell, ctx);
+  keepNamesHonest(document.getElementById('tl-app'));
 
   window.addEventListener('tidelight-checkin', async (event) => {
     const detail = event.detail || {};
     // A very low check-in: nothing celebrates for the rest of today.
-    if ((detail.kind === 'quick' && isLowMood(detail.mood)) || CONFIG.checkIn.distressFeelings.indexOf(detail.feeling) !== -1) await goQuiet();
+    if (showsSupport(detail)) await goQuiet();
     await addCheckInToStreak();
     await syncReminders(ctx.checkInsToday());
     refresh();
@@ -100,4 +106,5 @@ export async function initRedesign(context) {
   await syncReminders(ctx.checkInsToday());
   refresh();
   if (!state.onboarding.completed) startOnboarding();
+  return true; // the newer screens are up (false above: not on this page, or leaving for the other language)
 }

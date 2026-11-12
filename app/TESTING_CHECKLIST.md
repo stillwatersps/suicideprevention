@@ -6,6 +6,10 @@ Haptics, sound and the silent switch, speech, notifications, location, and keepi
 awake only really work on one. Tick each box on a real iPhone and, if you can, a real Android
 phone. Write down the phone and its system version.
 
+**Sound during automated runs:** the browser tests and Simulator checks are muted on purpose (see
+`PROGRESS.md`), so no automated run has ever confirmed how the voice guide or the sounds actually
+sound. Section 6 on a real phone is the only check of that.
+
 **Safety rule for every step:** never place a call, send a text, start a chat, or submit a form on
 a crisis service. Tap a Call or Text link only as far as the phone's dial or message screen, check
 the number, and cancel.
@@ -29,6 +33,54 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
 - [ ] Turn the phone's text size to its largest (Settings, Display, Text Size) and reopen the app.
   *Expected:* text grows, nothing is cut off, no sideways scrolling, the crisis strip still shows.
 - [ ] Dark mode on, then off. *Expected:* every screen is readable in both.
+
+## 1b. Crisis paths on a real iPhone (added by the launch readiness work)
+
+The automated crisis test (`npm run test:crisis`) reads and measures every crisis control on every
+screen, but it can't place a call, open Messages, or leave the app. Only a real iPhone can check
+these. **Never let a call connect or a message send: cancel at the phone's own screen.**
+
+- [ ] On Home, tap **Call 988** in the strip. *Expected:* the phone's own call sheet appears,
+  showing 988. Tap Cancel. Nothing dials by itself.
+- [ ] Tap **text 988** in the strip. *Expected:* Messages opens on a new message to 988, empty.
+  Don't type or send. Go back to Tidelight.
+- [ ] Tap **call 911** in the strip. *Expected:* the call sheet shows 911. Cancel.
+- [ ] Repeat the three taps once in Spanish (the strip reads "Llama al 988", "envía AYUDA al 988",
+  "llama al 911"). *Expected:* the same three phone screens.
+- [ ] Tap **Get Support Now**, then **Call 988** and **Text 988** in the panel, and the Call 988
+  button on the support screen after a very low check-in. *Expected:* the same phone screens.
+  Cancel each.
+- [ ] Tap **Chat Online** in the panel. *Expected:* Safari opens 988's chat page. Don't start a
+  chat. Go back to Tidelight.
+- [ ] Turn on Airplane Mode and tap Call 988. *Expected:* the phone still shows its call sheet (the
+  phone, not the app, decides what happens next). Cancel, and turn Airplane Mode off.
+- [ ] Tap **Exit**. *Expected:* the screen goes blank at once and Safari opens weather.gov. Now
+  come back to Tidelight from the app switcher. *Expected:* the app is back, with the crisis strip.
+  **It must never stay blank.** Write down which screen it shows.
+- [ ] Tap Exit in the middle of a check-in, and again during a meditation. *Expected:* the same.
+  Note whether the meditation's sound stops when Safari opens.
+- [ ] If the phone has Screen Time or a parent's restrictions that block Safari: tap Exit.
+  *Expected:* the screen goes blank. Press Home, then open Tidelight again: it must come back.
+  Write down what happened.
+- [ ] Lock the phone with Tidelight open, wait a minute, unlock. *Expected:* the strip is there
+  and Call 988 works at the first tap.
+- [ ] Start a meditation with sound, then tap Call 988. *Expected:* the call sheet appears over
+  it. Cancel. Note whether the sound paused.
+- [ ] Set the phone's text to its largest size (Settings, Accessibility, Display & Text Size,
+  Larger Text, with Larger Accessibility Sizes on). *Expected:* the app's text grows with it, and
+  the strip still shows all four controls without covering the whole screen. Write down what you
+  see at the very largest size.
+- [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
+  and Call 911 are the first things read.
+
+## 1c. The tab bar on the website's pages (added November 12, 2026)
+
+- [ ] Open the menu and choose Get Help. *Expected:* the page opens with the same five tabs at the
+  bottom, above the phone's home bar, and the crisis strip at the top as before.
+- [ ] Scroll to the end of the page. *Expected:* the last line is not hidden behind the tabs.
+- [ ] Tap Meditate. *Expected:* the app's Meditate screen, at the top, with Meditate marked.
+- [ ] Do the same from Not sure, For teens, and one Spanish page. *Expected:* the tabs are in the
+  page's language and open the app in that language.
 
 ## 2. First launch and onboarding
 
@@ -75,10 +127,28 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
 
 - [ ] Finish today's check-ins. *Expected:* the streak card on Home goes up at once.
 - [ ] Settings, Developer, "Seed fake history", then open the streak screen. *Expected:* a month
-  with done days (a tick), frozen days (a snowflake), and rest days (a dashed ring).
+  with done days (a filled dot), frozen days (a soft dot with a ring), and rest days (a dashed ring).
+  Nothing is red.
 - [ ] Settings, Streaks off. *Expected:* no streak card, no milestone, no "new start" card anywhere.
 - [ ] Read every streak line. *Expected:* nothing that blames or pressures. Tell the reviewer what
   you felt.
+- [ ] Reach a 3-day streak. *Expected:* a quiet card on Home after "Back to home". Nothing bursts.
+- [ ] After a very low check-in. *Expected:* support first, with no horizon, no dawn, and no
+  celebration; a meditation finished later that day also ends without the dawn.
+
+## 5b. Layout follow-ups
+
+- [ ] Location, with Places turned on. *Expected:* short sections under headings. One "Learn
+  more" row, under "Your places", holding only how to add a place. Everything about what is kept,
+  who is told, and what is sent is on the page without a tap.
+- [ ] Friends. *Expected:* all five My circle points in view, including the one about urgent
+  help with 988 and 911. One "Learn more" row, holding only how to share.
+- [ ] Tap Get Support Now from any tab. *Expected:* the page stops with "Need to talk to someone
+  now?" just below the crisis strip, not hidden under it.
+- [ ] Daily check-in, first question. *Expected:* nine feelings as tiles, two across, in the same
+  order as before.
+- [ ] Set the phone to its largest text. *Expected:* the tab bar shows five icons with no words,
+  each easy to tap, and VoiceOver still reads each name.
 
 ## 6. Meditation (sound, speech, haptics, and screen need a real phone)
 
@@ -143,3 +213,19 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
 - [ ] VoiceOver (iPhone) or TalkBack (Android) on. Do a check-in, start and end a meditation, and
   change a setting. *Expected:* every control says what it does ("Start 5-minute Silent"), the
   crisis links are reachable first, and nothing traps you.
+- [ ] VoiceOver on Your streak: swipe through the calendar. *Expected:* each day says its date,
+  and "Done", "Frozen", "Rest day", or "Today" where it applies.
+- [ ] VoiceOver on Home: the next check-in card. *Expected:* it reads the words on the card
+  ("Next check-in, at …, Start") and then "Start a check-in".
+- [ ] Voice Control (Settings, Accessibility, Voice Control): say "Tap Start" on Home, "Tap
+  Check-in", and "Tap Call 988" (then cancel). *Expected:* each works by the words on screen.
+- [ ] Larger Accessibility Sizes at the middle and the largest setting, in English and Spanish.
+  *Expected:* nothing scrolls sideways; the tab bar stays a bar and shows icons only; the crisis
+  strip is whole. Write down how much of the page is left under the strip.
+- [ ] Reduce Motion, Increase Contrast, Bold Text, and Smart Invert, one at a time. *Expected:*
+  nothing unreadable, nothing that moves under Reduce Motion.
+- [ ] A hardware keyboard: press Tab from the top of Home. *Expected:* Quick exit, Call 988, Text
+  988, Call 911 first; focus never gets stuck.
+- [ ] Start a meditation with the voice guide while VoiceOver is on. *Expected:* write down
+  whether the two voices talk over each other.
+

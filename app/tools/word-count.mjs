@@ -4,18 +4,16 @@
 // Support Now, the language link, both review notices, privacy, Support, the 988 panel, footer).
 // "Screen" is everything else on screen. The numbers before the redesign are in BEFORE, measured
 // the same way on the build before the redesign (whole page, 390 by 844, desktop Chromium).
-import { createRequire } from 'node:module';
 import { serve, birthDateYearsAgo } from '../test/helpers.mjs';
+import { openBrowser } from '../test/quiet.mjs';
 
-const require = createRequire(import.meta.url);
-const { chromium } = require('playwright');
 const BEFORE = {
   'First open (age question)': 720, Today: 674, 'Check-in, first question': 701, 'Check-in, result': 881, Rediscover: 726,
   Journal: 681, 'Hope box': 768, 'Your journey (reminders, places, circle, settings)': 1336, 'Your journey with Places turned on': 1788,
 };
 
 const { base, close } = await serve();
-const browser = await chromium.launch();
+const browser = await openBrowser();
 const page = await (await browser.newContext({ viewport: { width: 390, height: 844 } })).newPage();
 await page.goto(base + 'check-in/');
 await page.waitForSelector('html.app-ready');

@@ -423,3 +423,23 @@ reverse, with the full list in `app/PROGRESS.md`:
   the calendar.
 
 Open: whether to keep any of it; the reviewer's and the lawyer's answers; a real phone.
+
+## November 11, 2026: phone app visual identity from a design brief, proposed
+
+The same founder sent a design brief (`app/DESIGN-BRIEF.md`) for the phone app's look. **The other founder hasn't
+seen it or agreed to any of it, and no reviewer has seen it.** Built as a draft on `app/visual-identity`, on top of
+`app/redesign-dev`, in `app/` only. It publishes nothing. Choices, with the full list in `app/PROGRESS.md`:
+
+- **Safety rules win over the brief.** The crisis strip, Exit, Get Support Now, the Spanish link, and the review
+  notices keep their words and places. They were restyled to be plainer and higher in contrast, never quieter.
+- **Streak wording is unchanged.** A first version replaced the streak screens with a month view; the founder
+  asked for the original wording back, since it was awaiting review. Only the look of the streak screens changed.
+- **Only plain how-to text folds under "Learn more" on Location and Friends.** The founder's rule: all privacy
+  and consent wording stays in view, always (what is stored, where data stays, who gets a message, that a sent
+  message can't be undone), as do urgent-help lines and controls. No word changed.
+- **A check-in ends on a choice of two** and no longer returns Home by itself; the burst of drops is removed.
+- **Fonts are bundled files** (Fraunces and Figtree, open licenses). Nothing is fetched from another site.
+- **Automated runs are muted**, at the founder's instruction: tests and Simulator checks play no sound, and the
+  app's own audio code is unchanged.
+- **Not done because they would be new features:** seek buttons in the player, filter chips on Meditate.
+

@@ -33,6 +33,18 @@ a real phone.**
   The repository is public: no names, email addresses, `@`-mentions, or local paths in anything
   committed.
 
+## Automated runs make no sound
+
+A founder's instruction. Tests, tools, and Simulator checks never play audio out loud, and the
+app's own audio code is never changed to achieve that.
+
+- Open every test or tool browser with `openBrowser()` from `test/quiet.mjs` (muted Chromium, plus
+  a page script that silences speech, recordings, and generated sound). The lint enforces it.
+- Launch the app in the iOS Simulator with `npm run sim:launch`, which passes `-TidelightQuiet YES`
+  to a debug-only, Simulator-only hook in `TidelightPlugin.swift`. Never with a plain launch.
+- If the quiet script changes, change both copies (`test/quiet.mjs` and the Swift string); a unit
+  test compares them.
+
 ## A founder's safety rules for the redesign (November 11, 2026). They override the build spec
 
 1. **Never remove, shorten, hide, or move behind a tap any safety feature**: the "In immediate
@@ -71,23 +83,98 @@ npm run test:unit # pure logic only, fast
 npm run build     # makes app/www from the website plus the app's blocks
 npm run words     # rebuilds notes/review-packet/tidelight-app-words.html
 npm run words:es  # makes src/text/redesign.es.html from the English blocks and redesign.es.json
+npm run test:safety # every crisis path and every safety rule (about 8 minutes). Run before EVERY commit
+npm run test:crisis # the crisis paths alone
+npm run sim:launch  # starts the installed app in the booted Simulator, muted (automated runs)
+npm start           # builds, then serves the app to this computer only, for a look in a browser
+npm run test:a11y   # the accessibility audit alone (about 8 minutes)
+npm run test:ios    # the Swift logic for places (needs Xcode)
+node tools/launch-time.mjs 5        # cold launch time in the booted Simulator, median of 5
+node tools/reviewer-walkthrough.mjs # refills the screen-by-screen part of notes/REVIEWER-PACKET.md
 LANG=en_US.UTF-8 npm run sync   # build, then copy into the iOS and Android projects (needs CocoaPods)
 ```
 
 Before every push, also run `python3 tools/check_site.py` from the repository root.
 
+**Before every commit that touches `app/src/`, run `npm run test:safety`.** It must pass. It
+covers every crisis control on every screen (`test/crisis-test.mjs`, against the inventory in
+`test/fixtures/crisis-inventory.json`) and every written safety rule (`test/safety-test.mjs`,
+`test/unit/safety-rules.test.mjs`); `notes/LAUNCH-READINESS.md` has the table of rules and tests.
+Never re-record the crisis inventory or rewrite the wording snapshot to make a failure go away.
+
+## Rules from the launch readiness work (November 12, 2026)
+
+`npm test` runs all of these; each must pass before a push. `notes/LAUNCH-READINESS.md` says what
+each covers and what only a real phone can show.
+
+- **Crisis tests must pass** (`test/crisis-test.mjs`). No change may move, hide, shrink, delay,
+  lower the contrast of, or put a step in front of Call 988, Text 988, Call 911, Quick exit, or
+  Get Support Now. If a change needs the crisis inventory re-recorded, stop and ask a founder.
+- **Reviewed wording is locked** (`test/unit/reviewed-strings.test.mjs`). A wording change to
+  crisis, consent, privacy, clinical, location, or safety text is a question in
+  `notes/CONTENT-REVIEW.md`, never an edit. New technical strings (a spoken label, a test name) are fine.
+- **Nothing leaves the phone** (`test/network-test.mjs`: every screen walked with the network
+  blocked). No analytics, crash reporting, remote configuration, or package that contacts a
+  server. A new dependency that ships in the app needs its license in
+  `notes/THIRD-PARTY-LICENSES.md` and a line in `notes/PRIVACY-INVENTORY.md`.
+- **Accessibility** (`test/a11y-test.mjs`): no serious or critical finding from the automated
+  audit on any screen, in both languages, light and dark; every control has a name that contains
+  the words on it (`keepNamesHonest` in `src/ui/components.js` keeps that true when a script
+  changes a label); nothing runs off the side at the phone's largest text. On iPhone the app
+  follows the phone's text size, so sizes are `rem` and layouts wrap.
+- **Colors and sizes are tokens** (the lint): no raw color in `src/` outside `src/tokens.css`.
+- **A performance budget** (`test/budget-test.mjs`): sizes of the script, styles, fonts, and the
+  whole folder; no outside request at start; the crisis strip on screen before the app's script
+  has loaded. Raise a ceiling only on purpose, and write why in `notes/LAUNCH-READINESS.md`.
+- **Bad data never blanks the app** (`test/resilience-test.mjs`). Read stored data through
+  `src/core/storage.js`, and treat every stored value as possibly damaged. If the newer screens
+  fail to start, `src/app.js` falls back to the older layout (`leaveNewerScreens`), which keeps the
+  crisis strip. Never show a technical error to a person.
+- **Spanish matches English in structure** (`test/unit/spanish-parity.test.mjs`). A line that is
+  rightly the same in both languages goes in `test/fixtures/same-in-spanish.json`.
+- **A stored thing that is new or changed** goes in `notes/PRIVACY-INVENTORY.md`, and
+  "Delete everything" must cover it or say why not.
+- Ideas that are out of scope go in `notes/LAUNCH-BACKLOG.md`, not into the app.
+
 ## Architecture after the redesign
 
-- **Tabs** (`src/ui/shell.js`): `TABS` is the one list; adding a tab is one line there, plus its
+- **Tabs** (`src/ui/shell.js`): `TABS` in `src/ui/icons.js` is the one list; adding a tab is one line there, plus its
   word (`tab.<id>`) and its screen (`<section class="tl-screen" id="tl-<id>" data-tl-tab="<id>">`)
   in `src/text/redesign.en.html`. Each tab keeps its own stack; `shell.push('name')` shows
   `#tl-name`. The older sections live in `#tl-legacy`, inside Check-in. `shell.setFull(true)` hides
   the tab bar (onboarding, the player) and never hides the safety frame.
-- **Design system**: tokens in `src/tokens.css` (`--tl-*`); components are classes in
-  `src/redesign.css` (`tl-btn`, `tl-card`, `tl-choice`, `tl-chip`, `tl-stepper`, `tl-ring`,
-  `tl-badge`, `tl-empty`) with small helpers in `src/ui/components.js`. The lint fails on a color,
-  size, or duration outside the token file. Button-like rules start with `html.tl` so they win over
-  the website's own button rule.
+- **The tab bar is on every page inside the app.** The app's own two pages build it in
+  `shell.js` (buttons). Every other page (the website's pages: Get help, Not sure, and the rest)
+  gets the same five tabs as plain links, written in by `tools/build-redesign.mjs` from `TABS` and
+  `ICONS` in `src/ui/icons.js` and the `tab.*` words, styled by `src/app-tabbar.css` in the
+  website's own colors. `test/pages-test.mjs` walks all of them. A new page needs nothing; a new
+  tab is one line in `TABS`. The public website never gets the bar.
+- **Design system** ("Dawn at the Shoreline", `DESIGN-BRIEF.md`, notes in `design/`): every color,
+  size, radius, duration, and font is a token in `src/tokens.css` (`--ink`, `--sand`, `--paper`,
+  `--coral`, `--seafoam`, `--dawn`, `--mood-1..5`, `--scene-*`, `--space-*`, `--radius-*`,
+  `--text-*`; the older `--tl-*` names are aliases). The lint fails on a raw color anywhere in
+  `src/` outside that file, and on a size or duration outside it in the redesign's stylesheets.
+  `src/redesign.css` holds layout; `src/redesign-identity.css` loads last and holds the look.
+  Button-like rules start with `html.tl` so they win over the website's own button rule.
+  - **Crisis controls are plain on purpose**: `--crisis-bg`/`--crisis-text` for the strip,
+    `--crisis-btn-bg`/`--crisis-btn-text` for Get Support Now and Call 988. At least 7 to 1 (a unit
+    test checks), no grain, no animation, no highlight, no haptic of the app's own, never coral.
+  - **The horizon** (`.tl-horizon`, with `-hero`, `-progress`, `-complete`) is the one
+    signature shape: a flat line with light at its edge. No waves. It is decoration
+    (`aria-hidden`) and never appears on a support screen or on a "quiet" day.
+  - **Surfaces**: one `.tl-feature` card per section, rows with hairlines for lists, `.tl-tile` for
+    quick tools, plain type on the page for the rest. One coral button per section.
+  - **Fonts** are files in `src/fonts/` (Fraunces, Figtree, with their licenses). Never link a font.
+  - **Streak wording is the reviewed-or-awaiting-review wording; restyle it, never rewrite it.**
+    Days are dots whose state is a shape as well as a color (filled, soft with a ring, dashed,
+    double ring). Never red, and a milestone sets off no burst.
+  - **Only plain how-to text folds under "Learn more"** (`src/ui/sections.js`), and it is never
+    cut. A founder's rule: every word about privacy or consent stays in view, always: what is
+    stored, where data stays, who gets a message, that a sent message can't be undone. So do lines
+    about urgent help (988, 911), status lines, and controls. Two paragraphs fold today (how to add
+    a place, how to share). When unsure whether a paragraph is only how-to, leave it in view.
+  - **The tab bar** shows icons only when its labels can't fit (`fitTabBar` in `src/ui/shell.js`);
+    the labels stay in the page for screen readers.
 - **Words**: every word is in `src/text/redesign.en.html`. Scripts read them with `t('key')` from
   `src/ui/words.js`; a word with two voices has `data-style="calm"` and `"straightforward"`.
   Spanish is `src/text/redesign.es.json`; `npm run words:es` makes `redesign.es.html` from the two,
@@ -103,7 +190,9 @@ Before every push, also run `python3 tools/check_site.py` from the repository ro
   timings, builder limits, haptic timings. Change behavior there.
 - **Check-ins**: `src/ui/checkin.js` is the quick check-in; `app.js` keeps the log and fires
   `tidelight-checkin` for both kinds. Moods 1 and 2, and the feelings in
-  `CONFIG.checkIn.distressFeelings`, show support at once and make the day "quiet".
+  `CONFIG.checkIn.distressFeelings`, show support at once and make the day "quiet". Those rules
+  have one implementation, `src/logic/safety.js` (`isLowMood`, `isHeavyFeeling`, `showsSupport`,
+  `isQuietDay`): screens ask it and never decide on their own.
 - **Streaks**: `src/logic/streaks.js` (pure, local `YYYY-MM-DD` keys); `src/ui/streaks-ui.js`.
 - **Meditation engine**: a meditation is data (`src/logic/meditations.js`: `builtIn(type, options)`).
   `src/logic/timeline.js` owns the clock; `src/ui/player.js` subscribes five layers to it
@@ -131,6 +220,14 @@ Before every push, also run `python3 tools/check_site.py` from the repository ro
 | `src/ui/` | Screens and components. They read words from the page, numbers from `config.js`, and data through the store |
 | `src/text/*.html`, `redesign.es.json` | Every word, as named blocks, one file per language |
 | `src/tokens.css` | Design tokens. Every other redesign stylesheet uses only these |
+| `src/redesign-identity.css`, `src/fonts/`, `src/grain*.svg` | The look: loads after `redesign.css`. Fonts and paper grain are local files |
+| `design/` | Design notes: `AUDIT.md`, `TOKENS.md` (generated by `tools/token-report.mjs`), `COMPARISON.md`. Pictures from `tools/screens.mjs` stay on your computer |
+| `test/quiet.mjs` | The muted browser every test and tool opens |
+| `test/crisis-test.mjs`, `test/safety-test.mjs`, `test/fixtures/` | Crisis paths and safety rules on screen; the crisis inventory, the wording snapshot, and the "Learn more" allow-list |
+| `test/app-screens.mjs` | The one list of every screen and state, and how to reach each. The crisis, accessibility, resilience, and network tests and the reviewer walkthrough all walk it. A new screen goes here |
+| `test/a11y-test.mjs`, `test/budget-test.mjs`, `test/resilience-test.mjs`, `test/network-test.mjs` | Accessibility, the performance budget, damaged and oversized data, and "nothing leaves the phone" |
+| `src/logic/safety.js` | The one implementation of "low mood", "heavy feeling", "show support", and "quiet day" |
+| `src/app-return.js` | Loaded on every page, apart from the bundle: shows the page again when the app comes back after Quick exit |
 | `src/app.js`, `src/extras.js` | The older app layer and the Hope box / My circle layer |
 | `tools/` | Build steps, the lint, the words packet |
 | `test/unit/` | `*.test.mjs` for `src/core/` and `src/logic/` |

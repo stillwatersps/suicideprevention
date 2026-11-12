@@ -896,6 +896,113 @@ these first:
   notice, Support, and the 988 panel are on every screen in full. During a meditation the strip stays on screen and
   the rest is below the stage. Is that enough during a session?
 
+## Questions about the app's visual redesign
+
+Built November 11, 2026, from the same founder's design brief (`app/DESIGN-BRIEF.md`), on branch
+`app/visual-identity` (a draft pull request into `app/redesign-dev`). A new look only: no feature was added or
+removed, and no crisis, consent, privacy, or clinical wording was changed. The other founder hasn't seen the brief.
+Three things on screen did change, and they touch the questions above:
+
+- **Streak wording is unchanged (restored November 11, 2026).** A first version of this branch replaced the streak
+  card, the streak screen, the milestone card, and the "new start" card with a "days you checked in this month"
+  view, which dropped wording you had not yet reviewed. A founder asked for that wording back. Every streak line
+  is again exactly as in the questions above ("Your streak", "Now", "Best", "Frozen", "Rest day", the two lines
+  that explain what counts and what a freeze does, "New wave, new start", the milestone line, the Settings switch
+  "Streaks"). Only the look changed: days are drawn as dots (filled for done, a soft dot with a ring for frozen, a
+  dashed ring for a rest day, a double ring for today, never red), a snowflake line icon stands where the emoji
+  stood alone, and a milestone no longer sets off a burst of drops. The first three questions above stand as
+  written. One more: a new person still sees "0 day streak" on Home. Should a zero be shown?
+- **Mood is a tone and a word, not a face.** The five choices keep their words (Very low, Low, Okay, Good, Great).
+  Each has a colored square: a slate blue for Very low, a muted violet for Low, a sand yellow for Okay, a soft
+  green for Good, a light blue for Great. No red and no green-for-good. Is color beside a mood word helpful, or
+  could the darker tones read as a judgment?
+- **How a check-in ends.** An ordinary check-in now stays on its last screen: a horizon at full dawn, the same
+  thanks line as before, and two buttons, "Breathe for a minute" and "Back to home". It no longer returns to Home
+  by itself, and the burst of drops is gone everywhere. After a very low mood none of that shows: the support
+  screen has no horizon and no decoration, and a meditation finished later that day ends without the dawn. Is a
+  dawn right after an ordinary check-in, or is it still a kind of reward?
+- **New short lines** (all marked "Draft for review" with the rest): "Get help" (a Home tile that goes to
+  Support), "Breathe for a minute", "Back to home", "{time} left" in the player, and "Learn more". One phrase of
+  the page's own heading is highlighted on Home ("everything figured out"). Crisis words are never highlighted.
+  A check on November 12 compared every string with the version before this branch: no reviewed or
+  pending-review wording is changed, moved, or gone ([[LAUNCH-READINESS]], "PR 26 wording check"). A test now fails
+  if any of it changes.
+- **Sixteen emoji that stood alone as pictures are now line icons or dots.** 🌊, ⚡, 🤫, 🌙, 😮‍💨, 🎯, and 😴 on the
+  style, meditation type, and "how do you feel" cards, and ❄️ and ✓ in the streak row and legend. They were hidden
+  from screen readers and no word beside them changed. Every emoji inside a sentence is as it was. Did any of
+  those pictures carry meaning a person would miss, for example the wave beside "Calm" or the snowflake beside
+  the freeze count?
+- **"1 minutes in all."** After a one-minute meditation, the completion and History screens read "1 minutes in
+  all". It is your wording to change, so it was left. Should it read "1 minute in all"?
+- **"Learn more" on Location and Friends. For the reviewer and the lawyer to confirm.** A founder's rule: every
+  word about privacy or consent stays in view, always. No word changed.
+  - **Always in view, with no tap, in English and Spanish, at every text size:** in "Places that are hard for
+    me", the two opening paragraphs (what it does; "This is off until you turn it on…", what stays on the phone,
+    nobody is told), the location permission paragraph, and the paragraphs under "People you trust" (their name
+    and number stay on this phone; they aren't told), "How long before the phone checks in with you", "What the
+    phone shows" (what the notification and lock screen say), and "Your message" (who it goes to and how), and
+    all of "Good to know". In "My circle", the opening paragraph, all five points (no accounts; they see only
+    what you send; nothing is sent by itself; once sent it can't be taken back; it isn't a way to get urgent
+    help, with 988 and 911), and the note about the list kept on this phone.
+  - **Folded under "Learn more", because they only say how to do something:** in Places, under "Your places":
+    "Add a place by choosing it on a map, or by searching an address. Give it a name only you need to
+    understand, and choose how close counts." In My circle: "To share something, tap Share on a check-in, a
+    journal entry, or something you kept, then choose 'Send to my circle'."
+  - A test fails if anything else is ever folded, or if any paragraph above stops being in view.
+  - Is either folded paragraph something a person needs to see before deciding? "Give it a name only you need to
+    understand" is partly advice about privacy; should it stay open?
+- **The Daily check-in's first question** shows its nine feelings as tiles, two across (one list at the largest
+  text). Same nine, same order, same words. Does putting "Hopeful" beside "Calm" and "Overwhelmed" beside "Sad"
+  read differently from one long list?
+- **The tab bar at the largest text on a small phone** shows icons only; the five names stay for screen readers.
+  Are a house, a heart, a lotus, a pin, and two people clear enough without words?
+- **The crisis strip changed color, not content.** It, Exit, Get Support Now, and Call 988 in the support panel are
+  now dark ink on paper or paper on ink, with no texture and no animation, at a contrast of at least 7 to 1. Same
+  words, same places, same size or larger. Please confirm nothing about them reads as quieter than before.
+- **Spanish.** The new lines are an AI translation like the rest: "Obtener ayuda",
+  "Respirar un minuto", "Volver al inicio", "Quedan {time}", "Más información".
+
+## Questions from the launch readiness work
+
+Found November 12, 2026, while testing every crisis path and safety rule ([[LAUNCH-READINESS]]). No wording was
+changed for any of them.
+
+- **"Call 988" and "Call 911" on a notification.** The place alert's notification ("Your plan is here.") has four
+  buttons that appear when it is long-pressed, including on the lock screen: "I'm okay", "Send my message",
+  "Call 988", "Call 911". A founder's rule says notifications never mention crisis. These two buttons do, and they
+  are also quick ways to reach help. Keep them, show them only once the phone is unlocked, or remove them?
+- **After Quick exit, the app comes back on the screen the person left.** Before this work it came back blank,
+  with no crisis strip, which was a bug. Should it instead come back on Home, so a journal entry or a check-in is
+  not the first thing on screen if someone else picks up the phone?
+- **The crisis strip at the phone's largest text sizes.** The app follows the phone's text size. At the three
+  largest accessibility sizes the strip takes half the screen or more, and at the very largest (in Spanish) it
+  fills the screen and has to be scrolled to reach "llama al 911". The strip was not changed. Should it use its
+  short form ("Call 988 · Text 988 · Call 911", already used when a phone is held sideways) at those sizes?
+- **Crisis links inside sentences** ("call 988 or text 988 … call 911" in the Hope box, My circle, Places, the
+  share notice, the place alert, the age question, and two Daily check-in screens) are the size of the text, about
+  19 points tall, and close together. Each of those screens also has the full-size strip. Should those sentences
+  become buttons or separate lines?
+- **The Spanish 988 panel** ends with a second link to 988's Spanish chat, where the English panel links to
+  988lifeline.org. Is that intended?
+- **A later check-in on a day that had a very low one** now ends with its thanks line and two choices but no
+  dawn. The thin strip of light that grows during the check-in still shows. Is that the right line to draw?
+
+For a fluent Spanish reader (found by comparing the two languages line by line; nothing was changed):
+
+- **Mood words** (quick check-in, keys `mood.1` to `mood.5`): "Very low, Low, Okay, Good, Great" are "Muy mal, Mal,
+  Regular, Bien, Muy bien". "Mal" is "bad", which is a judgment that "low" isn't. Is there a better pair, such as
+  "Muy bajo de ánimo / Bajo de ánimo"?
+- **A streak "freeze"** (Home and Your streak, for example the line "Si falta un día, un congelador ❄️ lo cubre." and the keys `streak.freezeNext`, `streak.freezeFull`) is "congelador", which is
+  the kitchen appliance. Would "pausa" or "día protegido" read better? The English question about streaks comes first.
+- **"1 días seguidos"** (Home, keys `streak.day` and `streak.days`, which share one Spanish line): with a count of 1, the Spanish reads "1 días seguidos". English
+  avoids this ("1 day streak"). It needs a singular form, which is a wording change.
+- **"Good evening" and "Good night"** (Home greeting, keys `greet.evening`, `greet.night`) are both "Buenas noches".
+  Fine in Spanish, noted so nobody thinks one is missing.
+- **The meditation builder's "Right now I'm"** (the first label on "Build your own") is "Ahora mismo siento", followed by the choices
+  "Estrés, Ansiedad, Concentración, Energía, Sueño, Solo respirar". The last one doesn't follow from "siento".
+- **Feelings as nouns.** Tags and feelings are nouns ("Cansancio", "Estrés", "Alegría") to avoid gendered endings.
+  This follows the website's Spanish pages. Does it read naturally on a button?
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

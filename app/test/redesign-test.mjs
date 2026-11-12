@@ -1,13 +1,12 @@
 // Tests the redesigned app (tabs, onboarding, check-in, streaks, meditation) in desktop Chromium,
 // after `node tools/build.mjs`. Everything a phone does is a stand-in here: this is not a phone
 // test. No test may contact a crisis service; links are only checked for being on screen.
-import { createRequire } from 'node:module';
 import { tab, openPanel, openSettings, startDaily, safetyFrame, serve, counter, birthDateYearsAgo, pagePath, noSideways, skipOnboarding, SEEDED } from './helpers.mjs';
 
 import { isoWeek } from '../src/logic/streaks.js';
+import { openBrowser } from './quiet.mjs';
+import { readFileSync } from 'node:fs';
 
-const require = createRequire(import.meta.url);
-const { chromium } = require('playwright');
 const { base, close } = await serve();
 const { check, tally } = counter();
 const TABS = ['home', 'checkin', 'meditate', 'location', 'friends'];
@@ -233,7 +232,7 @@ async function onboardingTests(browser, lang) {
 
   // Setup ring: worked out from real state.
   await page.waitForSelector('#tl-home-setup:not([hidden])');
-  check(/6\/8/.test(await page.textContent('#tl-setup-count')), 'the setup ring says 6 of 8: a first check-in and a first meditation are left');
+  check(new RegExp('\\b6\\D+8\\b').test(await page.textContent('#tl-setup-count')), 'the setup line says 6 of 8: a first check-in and a first meditation are left');
   await page.click('#tl-setup-open');
   const left = await page.$$eval('#tl-setup-list li', (els) => els.filter((e) => !e.hidden).map((e) => e.getAttribute('data-setup')));
   check(JSON.stringify(left) === JSON.stringify(['firstCheckIn', 'firstMeditation']), 'tapping it lists what\'s left');
@@ -252,9 +251,14 @@ async function onboardingTests(browser, lang) {
   await page.click('#tl-flow-done');
   check(await page.isVisible('#tl-flow [data-flow="done"]'), 'Done shows the short thanks');
   check(Date.now() - t0 < 10000, 'a Straightforward check-in takes under 10 seconds here');
+  check(await page.isVisible('#tl-flow-horizon.tl-horizon-complete') && !(await page.isVisible('.tl-burst')), 'on the full dawn, with nothing bursting');
+  check(await page.isVisible('#tl-flow-breathe') && await page.isVisible('#tl-flow [data-flow="done"] [data-tl-go="home"]'), 'and offers two things: breathe for a minute, or back to Home');
+  await page.waitForTimeout(2500);
+  check(await page.isVisible('#tl-flow [data-flow="done"]'), 'it stays until the person chooses');
+  await page.click('#tl-flow [data-flow="done"] [data-tl-go="home"]');
   await page.waitForSelector('#tl-home:not([hidden])', { timeout: 4000 });
-  check(true, 'and returns to Home by itself');
-  check(/7\/8/.test(await page.textContent('#tl-setup-count')), 'the setup ring moves to 7 of 8');
+  check(true, 'Back to home goes Home');
+  check(new RegExp('\\b7\\D+8\\b').test(await page.textContent('#tl-setup-count')), 'the setup line moves to 7 of 8');
   const log = await stored(page, 'tidelight.log.v1');
   check(log.length === 1 && log[0].mood === 4 && log[0].tags.length === 1 && log[0].note === 'A made-up note.' && log[0].kind === 'quick', 'the check-in is kept on this phone, in the same list as before');
   await tab(page, 'checkin');
@@ -344,18 +348,18 @@ async function deniedTests(browser) {
   await page.click('#tl-ob-start');
   check(await page.isVisible('#tl-home'), 'refusing everything still reaches Home');
   await page.waitForSelector('#tl-home-setup:not([hidden])');
-  check(/0\/8/.test(await page.textContent('#tl-setup-count')), 'the setup ring says 0 of 8');
+  check(new RegExp('\\b0\\D+8\\b').test(await page.textContent('#tl-setup-count')), 'the setup line says 0 of 8');
   await page.click('#tl-setup-open');
   await page.fill('#tl-setup-name', 'Lee');
   await page.click('[data-setup-do="name"]');
-  await page.waitForFunction(() => /1\/8/.test(document.querySelector('#tl-setup-count').textContent));
+  await page.waitForFunction(() => new RegExp('\\b1\\D+8\\b').test(document.querySelector('#tl-setup-count').textContent));
   check(true, 'saving a name from the list moves it to 1 of 8');
   await page.click('[data-setup-do="count"]');
-  await page.waitForFunction(() => /2\/8/.test(document.querySelector('#tl-setup-count').textContent));
+  await page.waitForFunction(() => new RegExp('\\b2\\D+8\\b').test(document.querySelector('#tl-setup-count').textContent));
   check(true, 'one tap keeps the check-in count');
   await page.click('[data-setup-do="notifications"]');
   await page.waitForFunction(() => document.querySelector('#tl-setup-note').textContent.trim().length > 0);
-  check(/2\/8/.test(await page.textContent('#tl-setup-count')), 'a refused permission stays on the list, with a note');
+  check(new RegExp('\\b2\\D+8\\b').test(await page.textContent('#tl-setup-count')), 'a refused permission stays on the list, with a note');
 
   // Settings.
   await openSettings(page);
@@ -451,6 +455,7 @@ async function quickCheckIn(page, mood) {
   await page.click('#tl-flow-done');
 }
 
+// Streaks: the words awaiting review, in the new look. (The visual redesign changed no streak wording.)
 async function streakTests(browser, lang) {
   console.log(`\nStreaks, ${lang === 'es' ? 'Spanish' : 'English'}`);
   // Two complete days behind, one check-in a day: today's check-in makes three, a milestone.
@@ -460,12 +465,14 @@ async function streakTests(browser, lang) {
   check(await page.isVisible('#tl-streak-week .tl-day.is-today'), 'today is marked as in progress');
   check((await page.textContent('#tl-streak-week-words')).trim().length > 10, 'and the row is described in words for screen readers');
   await quickCheckIn(page, 4);
+  check(await page.isVisible('#tl-flow [data-flow="done"]') && !(await page.isVisible('#tl-milestone')), 'the check-in ends on its own screen first: no milestone over it');
+  await page.click('#tl-flow [data-flow="done"] [data-tl-go="home"]');
   await page.waitForSelector('#tl-home:not([hidden])', { timeout: 5000 });
   await page.waitForFunction(() => document.querySelector('#tl-streak-number').textContent.trim() === '3');
   check(true, 'the streak card updates right after the check-in: 3');
   check(await page.isVisible('#tl-milestone') && (await page.textContent('#tl-milestone-line')).includes('3'), 'a 3-day milestone shows, once');
-  check((await safetyFrame(page)).length === 0, 'the celebration covers none of the safety frame');
-  check(await page.evaluate(() => { const c = document.querySelector('.tl-burst'); return !c || getComputedStyle(c).pointerEvents === 'none'; }), 'and takes no taps');
+  check((await safetyFrame(page)).length === 0, 'the milestone card covers none of the safety frame');
+  check((await page.locator('.tl-burst').count()) === 0, 'and nothing bursts: it is a card in the page');
   await page.click('#tl-milestone-ok');
   check(!(await page.isVisible('#tl-milestone')), 'it can be put away');
   await page.click('#tl-streak-card');
@@ -475,6 +482,7 @@ async function streakTests(browser, lang) {
   check((await page.locator('#tl-streak .tl-legend li').count()) === 4 && (await page.textContent('#tl-streak-freeze-line')).includes('1'), 'a legend in words, and the freezes held');
   check((await safetyFrame(page)).length === 0 && await page.isVisible('#tl-streak .tl-draft-tag'), 'the streak screen keeps the safety frame and is marked "Draft for review"');
   check(await noSideways(page), 'the streak screen fits');
+  check((await page.textContent('#tl-streak-title')).trim().length > 0 && (await page.locator('#tl-streak .tl-panel p.tl-sub').count()) === 2, 'with its two lines that explain what counts and what a freeze does');
   await page.reload();
   await page.waitForSelector('html.app-ready');
   check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')), 'the milestone isn\'t shown again; the streak is remembered');
@@ -498,6 +506,7 @@ async function streakTests(browser, lang) {
   ({ context, page, errors } = await newPage(browser, lang, { storage: { 'tidelight.settings': oneADay, 'tidelight.days': daysOf(-2, -1) } }));
   await quickCheckIn(page, 1);
   check(await page.isVisible('#tl-flow-support') && !(await page.isVisible('#tl-milestone')) && !(await page.isVisible('.tl-burst')), 'a very low check-in shows support, with no celebration anywhere');
+  check(!(await page.isVisible('#tl-flow .tl-horizon')) && (await page.locator('#tl-flow .tl-horizon-complete').count()) === 0 && !(await page.isVisible('#tl-flow-breathe')), 'and no dawn, no horizon, and no other offer on that screen');
   await page.click('#tl-flow-support [data-tl-go="home"]');
   check(await streakIs(page, 3) && !(await page.isVisible('#tl-milestone')), 'back on Home the day still counts, quietly: no milestone card');
   check((await stored(page, 'tidelight.onboarding')).quietDay === keyOf(0), 'the quiet day is remembered on the phone');
@@ -521,6 +530,244 @@ async function streakTests(browser, lang) {
   await context.close();
 }
 
+// The visual identity: crisis access stays the plainest, strongest thing on screen; fonts are the
+// app's own files; motion stops under Reduce Motion; a quiet day stays quiet; tests make no sound.
+const contrastOf = (page, selector) => page.$eval(selector, (el) => {
+  const lum = (c) => { const [r, g, b] = c.match(/[\d.]+/g).slice(0, 3).map((v) => { const x = v / 255; return x <= 0.03928 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+  const cs = getComputedStyle(el);
+  const a = lum(cs.color);
+  const b = lum(cs.backgroundColor);
+  return (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+});
+async function identityTests(browser, lang) {
+  console.log(`\nVisual identity, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  for (const colorScheme of ['light', 'dark']) {
+    const { context, page, errors, outside } = await newPage(browser, lang, { colorScheme, storage: { 'tidelight.settings': oneADay } });
+    for (const [selector, name] of [['.crisis-bar', 'the crisis strip'], ['.crisis-bar .quick-exit', 'Exit'], ['.header-cta', 'Get Support Now'], ['#support .action-primary', 'Call 988 in the support panel']]) {
+      const ratio = await contrastOf(page, selector);
+      check(ratio >= 7, `${colorScheme}: ${name} has at least 7:1 contrast (${ratio.toFixed(1)}:1)`);
+    }
+    const strip = await page.$eval('.crisis-bar', (el) => { const cs = getComputedStyle(el); return { image: cs.backgroundImage, opacity: cs.opacity, animation: cs.animationName, position: cs.position }; });
+    check(strip.image === 'none' && strip.opacity === '1' && strip.animation === 'none', `${colorScheme}: the crisis strip has no texture, no fade, and no animation`);
+    check(strip.position === 'sticky' || strip.position === 'fixed', `${colorScheme}: and it stays at the top`);
+    const cta = await page.$eval('.header-cta', (el) => el.getBoundingClientRect());
+    check(cta.height >= 44 && cta.width >= 44, `${colorScheme}: Get Support Now is at least 44 points tall`);
+    check((await safetyFrame(page)).length === 0, `${colorScheme}: the whole safety frame is on screen on Home`);
+    if (colorScheme === 'light') {
+      await page.evaluate(() => document.fonts.ready);
+      const faces = await page.evaluate(() => ({ title: getComputedStyle(document.querySelector('#tl-home-title')).fontFamily, body: getComputedStyle(document.body).fontFamily, loaded: [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replace(/"/g, '')) }));
+      check(/Fraunces/.test(faces.title) && /Figtree/.test(faces.body), 'headings are set in Fraunces and everything else in Figtree');
+      check(faces.loaded.includes('Fraunces') && faces.loaded.includes('Figtree') && outside.length === 0, 'both fonts load from the app\'s own files: no request leaves the phone');
+      check(await page.$eval('#tl-home .tl-horizon', (el) => el.getAttribute('aria-hidden') === 'true'), 'the horizon is decoration: hidden from screen readers');
+      check((await page.locator('#tl-home .tl-highlight').count()) === 1 && (await page.locator('.crisis-bar .tl-highlight, #support .tl-highlight, .tl-support-now .tl-highlight').count()) === 0, 'one highlighted phrase on Home, and never on crisis words');
+      check(await page.evaluate(() => window.__tidelightQuiet === true && window.speechSynthesis.getVoices().length === 0), 'this test page is muted: speech is a silent stand-in');
+    }
+    check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+    await context.close();
+  }
+
+  // Reduce Motion: nothing moves. The dawn is simply there.
+  let { context, page, errors } = await newPage(browser, lang, { reducedMotion: 'reduce', storage: { 'tidelight.settings': oneADay } });
+  await quickCheckIn(page, 4);
+  const still = await page.evaluate(() => ({
+    dawn: getComputedStyle(document.querySelector('#tl-flow-horizon'), '::before').animationName,
+    glide: getComputedStyle(document.querySelector('#tl-flow-horizon'), '::before').transitionDuration,
+    screen: getComputedStyle(document.querySelector('#tl-flow')).animationName,
+  }));
+  check(await page.isVisible('#tl-flow-horizon.tl-horizon-complete') && still.dawn === 'none' && /^0s/.test(still.glide), 'with Reduce Motion, the finished check-in shows the full dawn without animating it');
+  check(still.screen === 'none' || still.screen === 'tl-appear', 'and screens fade in place instead of drifting');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+
+  // A quiet day stays quiet everywhere: after a very low check-in, a finished meditation has no dawn.
+  ({ context, page, errors } = await newPage(browser, lang, { hooks: { clockRate: 120 }, storage: { 'tidelight.settings': oneADay } }));
+  await quickCheckIn(page, 1);
+  await page.click('#tl-flow-support [data-tl-go="home"]');
+  await tab(page, 'meditate');
+  await page.click('.tl-type[data-type="quick"] [data-type-start]');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 10000 });
+  check(await page.isVisible('#tl-complete-title') && !(await page.isVisible('#tl-complete .tl-horizon')) && (await page.locator('.tl-burst').count()) === 0, 'on a day with a very low check-in, a finished meditation ends without the dawn or any celebration');
+  check((await safetyFrame(page)).length === 0, 'and the safety frame is on screen there');
+  await context.close();
+  ({ context, page, errors } = await newPage(browser, lang, { hooks: { clockRate: 120 }, storage: { 'tidelight.settings': oneADay } }));
+  await tab(page, 'meditate');
+  await page.click('.tl-type[data-type="quick"] [data-type-start]');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 10000 });
+  check(await page.isVisible('#tl-complete .tl-horizon-complete') && (await page.locator('.tl-burst').count()) === 0, 'on an ordinary day it ends on the dawn, with no burst');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+}
+
+// Follow-ups to the visual redesign: no wording changed, only how it is laid out.
+async function layoutTests(browser, lang) {
+  console.log(`\nSections, tiles, and the tab bar, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  const allText = (page, selector) => page.$eval(selector, (el) => el.textContent.replace(/\s+/g, ' ').trim());
+  let { context, page, errors } = await newPage(browser, lang, { viewport: { width: 375, height: 667 } });
+  // Location and Friends: only plain how-to text folds under "Learn more". Every word about
+  // privacy or consent (what is stored, where it stays, who gets a message, that a sent message
+  // can't be undone), every 988 or 911 line, and every control stays in view.
+  const folded = (selector) => page.evaluate((sel) => {
+    const box = document.querySelector(sel);
+    const rows = Array.from(box.querySelectorAll('details.tl-more'));
+    const tidy = (el) => el.textContent.replace(/\s+/g, ' ').trim();
+    return { rows: rows.length, open: rows.filter((d) => d.open).length, label: rows[0] ? tidy(rows[0].querySelector('summary')) : '',
+      text: rows.map((d) => tidy(d.querySelector('.tl-more-body'))),
+      controlsInside: box.querySelectorAll('details.tl-more button, details.tl-more input, details.tl-more select, details.tl-more textarea, details.tl-more a').length,
+      listItemsInside: box.querySelectorAll('details.tl-more li').length,
+      classedInside: box.querySelectorAll('details.tl-more .tl-more-body [class]').length,
+      paragraphs: box.querySelectorAll('p').length, paragraphsInside: box.querySelectorAll('details.tl-more p').length };
+  }, selector);
+  const PRIVATE = /988|911|this phone|stays? |kept|keeps|never|sent|send it|told|taken back|location|lock screen|contacts?\b|private|receive/i;
+  await tab(page, 'location');
+  const places = await folded('#app-places');
+  check(places.rows === 1 && places.open === 0 && places.label.length > 3 && places.paragraphsInside === 1, 'Places folds exactly one paragraph under "Learn more", closed to begin with');
+  check(places.controlsInside === 0 && places.listItemsInside === 0 && places.classedInside === 0, 'no control, link, list, or status line is folded away');
+  if (lang === 'en') {
+    check(places.text[0] === 'Add a place by choosing it on a map, or by searching an address. Give it a name only you need to understand, and choose how close counts.', 'it is the how-to for adding a place, word for word');
+    check(!PRIVATE.test(places.text.join(' ')), 'nothing folded in Places is about what is stored, who is told, or what is sent');
+  }
+  await page.check('#app-places .app-places-on');
+  const seen = await page.evaluate(() => {
+    const box = document.querySelector('#app-places');
+    const open = (el) => !el.closest('details.tl-more') && el.offsetParent !== null;
+    const heads = Array.from(box.querySelectorAll('.app-places-setup h4'));
+    return { intro: Array.from(box.querySelectorAll(':scope > p:not([class])')).slice(0, 2).every(open), perm: open(box.querySelector('.app-places-perm')),
+      underHeadings: heads.map((h) => !(h.nextElementSibling && h.nextElementSibling.matches('details.tl-more'))), goodToKnow: Array.from(box.querySelectorAll('.app-places-setup > ul:not(.ci-list) li')).every(open) };
+  });
+  check(seen.intro && seen.perm && seen.goodToKnow, 'the opening paragraphs, the location permission paragraph, and "Good to know" are all in view with Places on');
+  check(seen.underHeadings.filter((inView) => !inView).length === 1, 'under every other heading (people you trust, what the phone shows, your message) the paragraph is in view');
+  const row = page.locator('#app-places details.tl-more summary').first();
+  const size = await row.boundingBox();
+  check(size.height >= 44, 'a "Learn more" row is at least 44 points tall');
+  const before = await allText(page, '#app-places');
+  await row.click();
+  check(await page.locator('#app-places details.tl-more').first().evaluate((d) => d.open) && await page.locator('#app-places details.tl-more .tl-more-body').first().isVisible(), 'tapping it shows the how-to in place');
+  check((await allText(page, '#app-places')) === before, 'and opening it changes no words');
+  check(await noSideways(page) && (await safetyFrame(page)).length === 0, 'Location fits, with the safety frame on screen');
+  await tab(page, 'friends');
+  const circle = await folded('#app-circle');
+  check(circle.rows === 1 && circle.open === 0 && circle.paragraphsInside === 1 && circle.controlsInside === 0 && circle.listItemsInside === 0 && circle.classedInside === 0, 'My circle folds exactly one paragraph, and no control, list, or note');
+  if (lang === 'en') {
+    check(circle.text[0] === 'To share something, tap Share on a check-in, a journal entry, or something you kept, then choose "Send to my circle".', 'it is the how-to for sharing, word for word');
+  }
+  const points = await page.$$eval('#app-circle ul.app-accommodations > li', (els) => els.map((li) => ({ inView: !li.closest('details') && li.offsetParent !== null, text: li.textContent })));
+  check(points.length === 5 && points.every((point) => point.inView), 'all five My circle points are in view without a tap: no accounts, what they see, nothing sent by itself, can\'t be taken back');
+  check(/988/.test(points[4].text) && /911/.test(points[4].text), 'including the point about urgent help, with 988 and 911');
+  check(await page.$eval('#app-circle .ci-note', (el) => !el.closest('details')), 'and the note about what is kept on this phone');
+  check(await noSideways(page), 'Friends fits');
+
+  // The Daily check-in's first question: nine feelings, same order, two across.
+  await startDaily(page);
+  const tiles = await page.$$eval('#ci-step-feeling .ci-choice', (els) => els.map((el) => { const r = el.getBoundingClientRect(); return { value: el.querySelector('input').value, x: Math.round(r.left), y: Math.round(r.top), w: r.width, h: r.height, inside: el.scrollWidth <= el.clientWidth + 1 }; }));
+  // The same feelings in the same order as the website's page: nine today. Reading order on screen matches it.
+  const inOrder = tiles.map((tile) => tile.value).join(',');
+  const byEye = [...tiles].sort((a, b) => a.y - b.y || a.x - b.x).map((tile) => tile.value).join(',');
+  check(tiles.length === 9 && inOrder.startsWith('hopeful,calm,okay,unsure,overwhelmed,sad,anxious,disconnected') && byEye === inOrder, `the first question still has its ${tiles.length} feelings, in the same order`);
+  check(new Set(tiles.map((tile) => tile.x)).size === 2 && tiles[0].y === tiles[1].y && tiles[2].y > tiles[0].y, 'laid out two across, reading left to right, top to bottom');
+  check(tiles.every((tile) => tile.h >= 44 && tile.w >= 44 && tile.inside), 'every tile is a full tap target and holds its word');
+  await page.click('#ci-step-feeling label:has(input[value="okay"])');
+  check(await page.isChecked('#ci-step-feeling input[value="okay"]'), 'tapping a tile chooses it, as before');
+  check(await noSideways(page), 'the question fits');
+
+  // The tab bar: labels at ordinary text sizes; icons only when the labels can't fit.
+  const barState = () => page.evaluate(() => { const bar = document.querySelector('#tl-tabbar'); return { compact: bar.classList.contains('is-compact'),
+    tabs: Array.from(bar.querySelectorAll('.tl-tab')).map((tabEl) => { const r = tabEl.getBoundingClientRect(); const label = tabEl.querySelector('.tl-tab-label'); const lr = label.getBoundingClientRect(); return { w: r.width, h: r.height, name: tabEl.textContent.trim(), labelShown: lr.width > 2 && lr.height > 2 }; }) }; });
+  let barNow = await barState();
+  check(!barNow.compact && barNow.tabs.every((t) => t.labelShown), 'at the ordinary text size the tab bar shows its five labels');
+  await page.evaluate(() => { document.documentElement.style.fontSize = '135%'; });
+  await page.waitForFunction(() => document.querySelector('#tl-tabbar').classList.contains('is-compact'), null, { timeout: 4000 }).catch(() => {});
+  barNow = await barState();
+  check(barNow.compact && barNow.tabs.every((t) => !t.labelShown), 'at the largest text on a small phone it shows icons only');
+  check(barNow.tabs.every((t) => t.name.length > 2), 'each tab keeps its name for screen readers');
+  check(barNow.tabs.every((t) => t.w >= 44 && t.h >= 44), 'and each tab is still at least 44 points each way');
+  await tab(page, 'meditate');
+  check(await page.isVisible('#tl-meditate') && (await page.getAttribute('#tl-tabbar [data-tl-tab-btn="meditate"]', 'aria-current')) === 'page', 'an icon-only tab still works and is marked as the current one');
+  await startDaily(page);
+  const cols = await page.$$eval('#ci-step-feeling .ci-choice', (els) => new Set(els.map((el) => Math.round(el.getBoundingClientRect().left))).size);
+  check(cols === 1 && await noSideways(page), 'at that text size the nine feelings become one list that scrolls with the page');
+  await page.evaluate(() => { document.documentElement.style.fontSize = ''; });
+  await page.waitForFunction(() => !document.querySelector('#tl-tabbar').classList.contains('is-compact'), null, { timeout: 4000 }).catch(() => {});
+  check(!(await barState()).compact, 'back at the ordinary size the labels return');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+  await context.close();
+}
+
+// Privacy and consent wording is always in view on Location and Friends, in both languages and at
+// the largest text. "In view" means rendered, not folded, not hidden, and with some height.
+// Only the how-to paragraphs in test/fixtures/learn-more-allow.json may sit under "Learn more".
+const LEARN_MORE_ALLOWED = JSON.parse(readFileSync(new URL('./fixtures/learn-more-allow.json', import.meta.url), 'utf8'));
+async function privacyInViewTests(browser, lang) {
+  console.log(`\nPrivacy and consent wording in view, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  const report = (page, turnedOn) => page.evaluate((on) => {
+    const inView = (el) => {
+      if (!el) return false;
+      for (let node = el; node && node.nodeType === 1; node = node.parentElement) {
+        if (node.tagName === 'DETAILS' && !node.open && !(el.closest('summary') && el.closest('summary').parentElement === node)) return false;
+        const cs = getComputedStyle(node);
+        if (node.hidden || cs.display === 'none' || cs.visibility === 'hidden') return false;
+      }
+      const box = el.getBoundingClientRect();
+      return box.height > 4 && box.width > 4 && el.textContent.trim().length > 0;
+    };
+    const places = document.querySelector('#app-places');
+    const circle = document.querySelector('#app-circle');
+    const tidy = (el) => el.textContent.replace(/\s+/g, ' ').trim();
+    const items = [];
+    const need = (name, el) => items.push({ name, ok: inView(el) });
+    // Location, before anything is turned on: what the feature does, and the paragraph beside the switch.
+    Array.from(places.querySelectorAll(':scope > p:not([class])')).slice(0, 2).forEach((p, i) => need('Places opening paragraph ' + (i + 1), p));
+    if (on) {
+      need('the location permission paragraph', places.querySelector('.app-places-perm'));
+      // Under each heading, every plain paragraph and list point (stored where, who is told, what is sent, what shows).
+      const heads = Array.from(places.querySelectorAll('.app-places-setup h4'));
+      heads.forEach((head, at) => {
+        for (let node = head.nextElementSibling; node && node.tagName !== 'H4'; node = node.nextElementSibling) {
+          if (node.tagName === 'DETAILS') continue; // counted separately against the allow-list
+          if (node.tagName === 'P' && !node.className) need(`paragraph under heading ${at + 1}`, node);
+          if (node.tagName === 'UL' && !node.classList.contains('ci-list')) Array.from(node.children).forEach((li, n) => need(`point ${n + 1} under heading ${at + 1}`, li));
+          if (node.matches('p.ci-field') && node.querySelector('input[type="checkbox"]')) need(`the choice under heading ${at + 1}`, node.querySelector('label'));
+        }
+      });
+    }
+    // Friends: the opening paragraph, all five points, and the note about what is kept.
+    need('My circle opening paragraph', circle.querySelector(':scope > p:not([class])'));
+    Array.from(circle.querySelectorAll('ul.app-accommodations > li')).forEach((li, n) => need('My circle point ' + (n + 1), li));
+    need('the note about what is kept on this phone', circle.querySelector('.ci-note'));
+    const everyLine988 = Array.from(document.querySelectorAll('#app-places p, #app-places li, #app-circle p, #app-circle li')).filter((el) => /988|911/.test(el.textContent) && !el.closest('[hidden]'));
+    return { items, folded: Array.from(document.querySelectorAll('#app-places details.tl-more .tl-more-body, #app-circle details.tl-more .tl-more-body')).map(tidy),
+      crisisLines: everyLine988.length, crisisFolded: everyLine988.filter((el) => el.closest('details')).length, points: circle.querySelectorAll('ul.app-accommodations > li').length };
+  }, turnedOn);
+  for (const size of ['', '135%']) {
+    const label = size ? 'at the largest text' : 'at the ordinary text size';
+    const { context, page, errors } = await newPage(browser, lang, { viewport: { width: 375, height: 667 } });
+    if (size) await page.evaluate((s) => { document.documentElement.style.fontSize = s; }, size);
+    // "On page load": each tab is opened and nothing else is tapped. (The circle is checked on its own tab.)
+    await tab(page, 'location');
+    let seen = await report(page, false);
+    const placesFirst = seen.items.filter((item) => item.name.startsWith('Places'));
+    check(placesFirst.length === 2 && placesFirst.every((item) => item.ok), `${label}, Location as it opens: what the feature does and "This is off until you turn it on" are in view`);
+    await tab(page, 'friends');
+    seen = await report(page, false);
+    const circleItems = seen.items.filter((item) => !item.name.startsWith('Places'));
+    const hiddenCircle = circleItems.filter((item) => !item.ok).map((item) => item.name);
+    check(seen.points === 5 && circleItems.length === 7 && hiddenCircle.length === 0, `${label}, Friends as it opens: the opening paragraph, all five points, and the note are in view` + (hiddenCircle.length ? ': not ' + hiddenCircle.join(', ') : ''));
+    // With Places turned on, everything under its headings.
+    await tab(page, 'location');
+    await page.check('#app-places .app-places-on');
+    seen = await report(page, true);
+    // (My circle is on the Friends tab, checked above; here only what belongs to Places.)
+    const placesItems = seen.items.filter((item) => !/My circle|note about/.test(item.name));
+    const hidden = placesItems.filter((item) => !item.ok).map((item) => item.name);
+    check(placesItems.length >= 12 && hidden.length === 0, `${label}, Places turned on: all ${placesItems.length} privacy and consent paragraphs, points, and choices are in view` + (hidden.length ? ': not ' + hidden.join(', ') : ''));
+    check(seen.crisisLines >= 2 && seen.crisisFolded === 0, `${label}: every line with 988 or 911 is in view (${seen.crisisLines} of them)`);
+    const allowed = LEARN_MORE_ALLOWED[lang];
+    check(seen.folded.length === 2 && seen.folded.every((text) => allowed.includes(text)), `${label}: the "Learn more" rows hold only allow-listed how-to text` + (seen.folded.every((text) => allowed.includes(text)) ? '' : ': ' + seen.folded.filter((text) => !allowed.includes(text)).join(' | ')));
+    check(await noSideways(page), `${label}: Location fits`);
+    check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+    await context.close();
+  }
+}
+
 
 const startType = async (page, type) => { await tab(page, 'meditate'); if (!(await page.isVisible('#tl-meditate'))) await tab(page, 'meditate'); await page.click(`.tl-type[data-type="${type}"] [data-type-start]`); await page.waitForSelector('#tl-stage:not([hidden])'); };
 const startSample = (page) => startType(page, 'quick');
@@ -534,7 +781,8 @@ async function playerTests(browser, lang) {
   check(!(await page.isVisible('#tl-tabbar')), 'the tab bar steps aside during a session');
   check(await page.isVisible('.crisis-bar a[href="tel:988"]') && await page.isVisible('.crisis-bar a[href="sms:988"]') && await page.isVisible('.crisis-bar a[href="tel:911"]') && await page.isVisible('.crisis-bar .quick-exit'), 'Call 988, Text 988, Call 911, and Exit stay on screen over the player');
   check(await page.isVisible('#tl-stage .tl-player-support[href="#support"]') && await page.isVisible('#tl-stage a[href="#tl-review"]'), 'the stage carries Get Support Now and "Draft for review"');
-  check(await page.evaluate(() => { const top = document.querySelector('.crisis-bar').getBoundingClientRect(); const stage = document.querySelector('#tl-stage').getBoundingClientRect(); return stage.top >= top.bottom - 1; }), 'the stage starts under the crisis strip, not over it');
+  // The page glides to the stage; once it has settled, the stage sits below the strip.
+  check(await page.waitForFunction(() => { const top = document.querySelector('.crisis-bar').getBoundingClientRect(); const stage = document.querySelector('#tl-stage').getBoundingClientRect(); return stage.top >= top.bottom - 1; }, null, { timeout: 2500 }).then(() => true, () => false), 'the stage starts under the crisis strip, not over it');
   check(await page.evaluate(() => Boolean(document.querySelector('.review-note:not(.tl-review)') && document.querySelector('.tl-review') && document.querySelector('#support a[href="tel:988"]') && document.querySelector('.lang-switch a'))), 'the rest of the safety frame is still in the page below');
   const words = new Set();
   let painted = false;
@@ -863,6 +1111,13 @@ async function hapticsTests(browser) {
   const count = () => page.evaluate(() => window.__tidelight.haptics.length);
   const last = () => page.evaluate(() => window.__tidelight.haptics.slice(-1)[0]);
   const fires = async (what, act) => { const before = await count(); await act(); await page.waitForTimeout(80); const after = await count(); check(after > before, what + ' gives a haptic'); };
+  const quiet = async (what, act) => { const before = await count(); await act(); await page.waitForTimeout(80); check((await count()) === before, what + ' gives no haptic'); };
+  // Crisis controls never buzz. (Get Support Now only moves down the page; nothing is called.)
+  await quiet('the "Get help" tile', () => page.click('#tl-home .tl-tile[href="#support"]'));
+  await openSettings(page);
+  await quiet('Get Support Now in Settings', () => page.click('#tl-settings .tl-crisis-btn'));
+  await page.click('#tl-settings [data-tl-back]');
+  await fires('a quick-tool tile', () => page.click('#tl-home .tl-tile[data-tl-go="meditate"]'));
   await fires('a tab', () => tab(page, 'checkin'));
   check((await last()).style === 'selection', 'tabs use the selection pattern');
   await fires('a card', () => page.click('#tl-checkin-quick'));
@@ -870,6 +1125,7 @@ async function hapticsTests(browser) {
   await fires('a mood face', () => page.click('#tl-flow-faces [data-value="4"]'));
   await fires('a chip', () => page.click('#tl-flow-tags [data-value="happy"]'));
   await fires('finishing a check-in', () => page.click('#tl-flow-done'));
+  await page.click('#tl-flow [data-flow="done"] [data-tl-go="home"]');
   await page.waitForSelector('#tl-home:not([hidden])', { timeout: 5000 });
   await openSettings(page);
   await fires('the stepper', () => page.click('#tl-set-count [data-tl-step="1"]'));
@@ -891,7 +1147,7 @@ async function hapticsTests(browser) {
   await page.click('#tl-complete [data-player-done]');
   // Press states and motion.
   const press = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--tl-press-scale').trim());
-  check(press === '0.96', 'everything tappable scales to 0.96 on press');
+  check(press === '0.98', 'everything tappable scales to 0.98 on press');
   check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
   await context.close();
 
@@ -980,13 +1236,13 @@ async function accessibilityTests(browser) {
     await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 30000 });
     await audit(page, `${label}, the completion screen`, '#tl-player');
     await page.click('#tl-complete [data-player-done]');
-    for (const panel of ['ci-today', 'ci-journal', 'ci-journey']) { await openPanel(page, panel); check(await noSideways(page), `${label}, ${panel}: no sideways scrolling`); }
+    for (const panel of ['ci-today', 'ci-journal', 'ci-rediscover', 'app-hope', 'ci-journey']) { await openPanel(page, panel); check(await noSideways(page), `${label}, ${panel}: no sideways scrolling`); }
     check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
     await context.close();
   }
 }
 
-const browser = await chromium.launch();
+const browser = await openBrowser();
 try {
   await shellTests(browser, 'en');
   await shellTests(browser, 'es');
@@ -997,6 +1253,12 @@ try {
   await migrationTests(browser);
   await streakTests(browser, 'en');
   await streakTests(browser, 'es');
+  await identityTests(browser, 'en');
+  await identityTests(browser, 'es');
+  await layoutTests(browser, 'en');
+  await layoutTests(browser, 'es');
+  await privacyInViewTests(browser, 'en');
+  await privacyInViewTests(browser, 'es');
   await playerTests(browser, 'en');
   await playerTests(browser, 'es');
   await typesTests(browser, 'en');

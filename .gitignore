@@ -26,3 +26,9 @@ coverage/
 *.log
 __pycache__/
 .venv/
+
+# Design screenshots stay on this computer; the notes beside them are shared
+app/design/before/
+app/design/after/
+app/design/appstore/
+app/design/after-launch-pass/

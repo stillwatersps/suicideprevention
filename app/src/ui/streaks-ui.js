@@ -1,21 +1,20 @@
 // Streaks on screen: the Home card, the detail screen with its month, milestones, and the gentle
-// "new start" card. A founder's rules: streak language stays gentle; nothing here ever shows in
+// "new start" card. The words are the ones awaiting review; the visual redesign changed only how
+// they look (dots drawn in the new tokens, no burst at a milestone).
+// A founder's rules: streak language stays gentle; nothing here ever shows in
 // or near a crisis or support screen (and nothing celebrates on a day with a very low check-in);
 // streaks can be turned off in Settings, and turning them off loses nothing.
 import { CONFIG } from '../core/config.js';
-import { dateKey, evaluate, recordCheckIn, recordMeditation, weekRow, monthGrid, nextFreezeDay, daysFromLog, addDays, emptyStreak } from '../logic/streaks.js';
+import { evaluate, recordCheckIn, recordMeditation, weekRow, monthGrid, nextFreezeDay, daysFromLog, addDays, emptyStreak } from '../logic/streaks.js';
 import { t, lang } from './words.js';
-import { state, replace, reducedMotion, isQuiet as quiet } from './state.js';
+import { state, replace, reducedMotion, isQuiet as quiet, todayKey } from './state.js';
 import { el, animateNumber } from './components.js';
 import { haptic } from './haptics.js';
-import { celebrate } from './celebrate.js';
 import { addDevAction } from './settings.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
 let ctx = null;
-const todayKey = () => dateKey(new Date());
 const goal = () => state.settings.checkInsPerDay;
-const MARK = { complete: '✓', frozen: '❄️', missed: '', today: '', ahead: '', none: '' };
 
 function dayName(key, style) {
   const [y, m, d] = key.split('-').map(Number);
@@ -44,11 +43,23 @@ export async function addMeditationToStreak() {
   return refreshStreak();
 }
 
+// The legend's own words ("Done", "Frozen", "Rest day", "Today"), read from the page.
+function legendWord(state) {
+  const mark = $(`#tl-streak .tl-legend .tl-day.is-${state}`);
+  return mark && mark.parentNode ? mark.parentNode.textContent.replace(/\s+/g, ' ').trim() : '';
+}
+
 function dots(list, cells, withNumbers) {
   list.textContent = '';
   cells.forEach((cell) => {
     const dot = el('li', 'tl-day' + (cell ? ' is-' + cell.state : ' is-blank'));
-    if (cell) dot.textContent = MARK[cell.state] || (withNumbers ? String(cell.day) : '');
+    // Each state is drawn by the stylesheet (filled, soft, dashed, ringed); the month also shows the date.
+    if (cell && withNumbers) {
+      dot.textContent = String(cell.day);
+      // A screen reader hears the date and, where the legend has a word for it, the day's state.
+      const word = legendWord(cell.state);
+      if (word) dot.setAttribute('aria-label', `${cell.day}, ${word}`);
+    }
     list.appendChild(dot);
   });
 }
@@ -90,7 +101,6 @@ function showMilestone(days) {
   $('#tl-milestone-line').textContent = t('streak.milestone', { days });
   box.hidden = false;
   haptic('milestone');
-  celebrate();
 }
 
 export function initStreaks(shell, context) {

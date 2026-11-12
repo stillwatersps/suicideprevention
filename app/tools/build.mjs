@@ -93,6 +93,18 @@ await build({
   target: ['safari15', 'chrome100'],
   outfile: join(www, 'assets', 'app.js'),
   legalComments: 'none',
+  // Smaller to read and parse at launch. Behavior is unchanged; every browser test runs against this file.
+  minify: true,
+});
+// The website's pages inside the app carry the app's tab bar; this keeps its labels fitting.
+await build({
+  entryPoints: [join(appDir, 'src', 'app-tabbar.js')],
+  bundle: true,
+  format: 'iife',
+  target: ['safari15', 'chrome100'],
+  outfile: join(www, 'assets', 'app-tabbar.js'),
+  legalComments: 'none',
+  minify: true,
 });
 console.log('Built app/www from the website, with the app-only parts added.');
 await import('./build-extras.mjs'); // Hope box and My circle

@@ -1,0 +1,5 @@
+{
+  "about": "Lines that are rightly the same in English and Spanish: the app's name, numbers, 'min', 'No', and lines that are only places for other words. test/unit/spanish-parity.test.mjs fails on any other line that is identical in both languages. 'englishOnPurpose' is for Spanish lines that quote English on purpose; there are none today.",
+  "same": ["Tidelight", "0", "3", "0.2.0", "No", "1 min", "3 min", "5 min", "10 min", "15 min", "20 min", "{minutes} min", "{greeting}, {name}", "{done}/{total}", "{name}, {minutes} min", "{name} · {minutes} min", "{title}. {breaths}", "{name} 2"],
+  "englishOnPurpose": []
+}

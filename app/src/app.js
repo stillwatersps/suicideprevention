@@ -59,6 +59,23 @@ export function slotFor(date) {
   return 'evening';
 }
 
+// See the comment where the newer screens are started. Kept for this run of the app only.
+const OLDER_LAYOUT_KEY = 'tidelight.older-layout';
+// Takes the newer screens' marks off the page, so their half-built parts are hidden and the page's
+// own layout shows. Used only when the page can't be reloaded.
+function leaveNewerScreens() {
+  const root = document.documentElement;
+  ['tl', 'tl-full', 'tl-reduce', 'tl-style-calm', 'tl-style-straightforward'].forEach((name) => root.classList.remove(name));
+  root.hidden = false;
+}
+
+// True when one of the newer screens (or onboarding) is on the page and the tab bar has its tabs.
+function newerScreensAreShowing() {
+  const showing = (el) => !el.hidden && el.getClientRects().length > 0;
+  const screen = Array.from(document.querySelectorAll('#tl-app .tl-screen, #tl-onboarding')).some(showing);
+  return screen && document.querySelectorAll('#tl-tabbar .tl-tab').length >= 2;
+}
+
 function start() {
   const api = window.TidelightCheckIn;
   const body = $('.ci-body');
@@ -553,19 +570,42 @@ function start() {
     applyText();
     applyGroup(group);
     if (group) askAge(false); else askAge(true);
-    try {
-      await initRedesign({
-        api, addQuickCheckIn, getGroup: () => group,
-        getLog: () => log, todaysLog, todayLines: () => todaysLog().map((item) => lineFor(item) + (item.note ? ' ' + item.note : '')),
-      });
-    } catch (e) { devLog('redesign did not start', e); }
+    // If the newer screens (tabs, onboarding, streaks, meditation) can't start, the person must
+    // not be left with a half-built or blank page. The page is opened once more in its older
+    // layout, which needs none of that code and has the same crisis strip, Support, and check-in.
+    // "Older layout" lasts until the app is next closed; the next launch tries the newer screens again.
+    let olderLayout = false;
+    try { olderLayout = window.sessionStorage.getItem(OLDER_LAYOUT_KEY) === '1'; } catch (e) { /* no session storage: try the newer screens */ }
+    if (!olderLayout) {
+      try {
+        const started = await initRedesign({
+          api, addQuickCheckIn, getGroup: () => group,
+          getLog: () => log, todaysLog, todayLines: () => todaysLog().map((item) => lineFor(item) + (item.note ? ' ' + item.note : '')),
+        });
+        // Starting without an error is not enough: there must be a screen to look at.
+        if (started === true && !newerScreensAreShowing()) throw new Error('the newer screens started but none is showing');
+      } catch (e) {
+        devLog('redesign did not start', e);
+        let reloading = false;
+        try { window.sessionStorage.setItem(OLDER_LAYOUT_KEY, '1'); reloading = window.sessionStorage.getItem(OLDER_LAYOUT_KEY) === '1'; } catch (e2) { /* can't remember it: fall through */ }
+        if (reloading) { window.location.reload(); return; }
+        leaveNewerScreens();
+      }
+    }
     document.documentElement.classList.add('app-ready');
     // Places that are hard for me (E1): opened from a notification, or with an alert already due.
     const hash = location.hash;
     if (hash === '#app-place-alert' || hash === '#app-place-alert-send') checkForAlert(hash === '#app-place-alert-send');
     else checkForAlert(false);
     try { const launch = await Tidelight.takeLaunchTarget(); if (launch && launch.target) window.dispatchEvent(new CustomEvent('tidelight-launch', { detail: launch.target })); } catch (e) { /* web */ }
-  })();
+  })().catch((e) => {
+    // The app's own start-up failed part-way. Show the page as the website has it (the crisis
+    // strip, Support, and the Daily check-in all work there) rather than a page stuck half-ready.
+    devLog('the app did not start', e);
+    leaveNewerScreens();
+    ['app', 'app-asking-age'].forEach((name) => document.documentElement.classList.remove(name));
+    document.documentElement.classList.add('app-ready');
+  });
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);

@@ -46,6 +46,15 @@ Our shared notebook for building a suicide prevention website.
 | [[SHORTER-SENTENCES\|Shorter sentences]] | Proposed plain-language rewrites, for the reviewer |
 | [[UPKEEP\|Upkeep]] | Monthly checks, and what to do if a crisis number changes |
 | [[PHONE-TEST\|Phone test]] | How to open the draft site on your own phone |
+| [[FOUNDER-SUMMARY\|Phone app: founder summary]] | One page: what's ready, what's blocked and on whom, the top risks, and what to do next. A draft |
+| [[LAUNCH-READINESS\|Phone app: launch readiness]] | What was tested, measured, and fixed in the phone app, with the evidence |
+| [[LAUNCH-BACKLOG\|Phone app: backlog]] | Ideas and decisions that were out of scope for the launch readiness work |
+| [[REVIEWER-PACKET\|Phone app: reviewer packet]] | For the clinical reviewer: every screen's wording and every open question, by priority. A draft |
+| [[LEGAL-PACKET\|Phone app: legal packet]] | For a lawyer: the privacy, location, and messaging wording, and the questions. Not legal advice |
+| [[APP-STORE-READINESS\|Phone app: App Store readiness]] | A draft listing, review notes, a checklist against Apple's rules, and what's missing |
+| [[PRIVACY-INVENTORY\|Phone app: privacy inventory]] | Everything the app stores, and when anything leaves the phone |
+| [[APP-STORE-PRIVACY-DRAFT\|Phone app: App Privacy answers]] | Draft answers to Apple's privacy questions |
+| [[THIRD-PARTY-LICENSES\|Phone app: licenses]] | The open-source code and fonts that ship with the app |
 | `review-packet/` folder | Printable packets for the therapist and a fluent Spanish reader |
 | [[WORKFLOW\|Working together]] | How to work independently and share changes |
 | [[SHARED-MEMORY\|Our shared second brain]] | How both Claude sessions and Obsidian stay current |
