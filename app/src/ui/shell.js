@@ -7,7 +7,7 @@ import { icon, drawIcons, el } from './components.js';
 import { haptic } from './haptics.js';
 
 export const TABS = [
-  { id: 'home', icon: 'wave' },
+  { id: 'home', icon: 'home' },
   { id: 'checkin', icon: 'heart' },
   { id: 'meditate', icon: 'lotus' },
   { id: 'location', icon: 'pin' },
@@ -118,6 +118,32 @@ function buildTabBar() {
     stacks[tab.id] = [tab.id];
   });
   bar.appendChild(list);
+  watchTabBar();
+}
+
+// At the largest text sizes on a small phone, five labels don't fit side by side. Then the bar
+// shows icons only. The labels stay in the page for screen readers (visually hidden, not removed),
+// and every tab keeps its full tap target.
+const TAB_AIR = 8; // points of room a label needs inside its tab
+function fitTabBar() {
+  if (!bar) return;
+  const labels = $$('.tl-tab-label', bar);
+  labels.forEach((label) => label.classList.remove('visually-hidden'));
+  bar.classList.remove('is-compact');
+  const tight = labels.some((label) => label.parentNode.clientWidth > 0 && label.scrollWidth + TAB_AIR > label.parentNode.clientWidth);
+  if (!tight) return;
+  labels.forEach((label) => label.classList.add('visually-hidden'));
+  bar.classList.add('is-compact');
+}
+function watchTabBar() {
+  let waiting = false;
+  const soon = () => { if (waiting) return; waiting = true; requestAnimationFrame(() => { waiting = false; fitTabBar(); }); };
+  window.addEventListener('resize', soon);
+  if (window.ResizeObserver) new ResizeObserver(soon).observe(bar);
+  // The text size setting and the page's own font size live on the root element.
+  if (window.MutationObserver) new MutationObserver(soon).observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style', 'data-text-size'] });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(soon);
+  soon();
 }
 
 // The older sections keep their own row of tabs. They move, unchanged, into one screen.

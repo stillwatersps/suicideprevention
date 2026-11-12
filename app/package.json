@@ -12,7 +12,8 @@
     "test:ios": "cd ios/TidelightLogic && swift test",
     "lint": "node tools/lint.mjs",
     "test:unit": "node --test test/unit/*.test.mjs",
-    "words:es": "node tools/make-redesign-es.mjs"
+    "words:es": "node tools/make-redesign-es.mjs",
+    "sim:launch": "xcrun simctl launch --terminate-running-process booted org.tidelight.app -TidelightQuiet YES"
   },
   "dependencies": {
     "@capacitor/android": "^7.0.0",

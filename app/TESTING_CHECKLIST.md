@@ -6,6 +6,10 @@ Haptics, sound and the silent switch, speech, notifications, location, and keepi
 awake only really work on one. Tick each box on a real iPhone and, if you can, a real Android
 phone. Write down the phone and its system version.
 
+**Sound during automated runs:** the browser tests and Simulator checks are muted on purpose (see
+`PROGRESS.md`), so no automated run has ever confirmed how the voice guide or the sounds actually
+sound. Section 6 on a real phone is the only check of that.
+
 **Safety rule for every step:** never place a call, send a text, start a chat, or submit a form on
 a crisis service. Tap a Call or Text link only as far as the phone's dial or message screen, check
 the number, and cancel.
@@ -75,10 +79,28 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
 
 - [ ] Finish today's check-ins. *Expected:* the streak card on Home goes up at once.
 - [ ] Settings, Developer, "Seed fake history", then open the streak screen. *Expected:* a month
-  with done days (a tick), frozen days (a snowflake), and rest days (a dashed ring).
+  with done days (a filled dot), frozen days (a soft dot with a ring), and rest days (a dashed ring).
+  Nothing is red.
 - [ ] Settings, Streaks off. *Expected:* no streak card, no milestone, no "new start" card anywhere.
 - [ ] Read every streak line. *Expected:* nothing that blames or pressures. Tell the reviewer what
   you felt.
+- [ ] Reach a 3-day streak. *Expected:* a quiet card on Home after "Back to home". Nothing bursts.
+- [ ] After a very low check-in. *Expected:* support first, with no horizon, no dawn, and no
+  celebration; a meditation finished later that day also ends without the dawn.
+
+## 5b. Layout follow-ups
+
+- [ ] Location, with Places turned on. *Expected:* short sections under headings. One "Learn
+  more" row, under "Your places", holding only how to add a place. Everything about what is kept,
+  who is told, and what is sent is on the page without a tap.
+- [ ] Friends. *Expected:* all five My circle points in view, including the one about urgent
+  help with 988 and 911. One "Learn more" row, holding only how to share.
+- [ ] Tap Get Support Now from any tab. *Expected:* the page stops with "Need to talk to someone
+  now?" just below the crisis strip, not hidden under it.
+- [ ] Daily check-in, first question. *Expected:* nine feelings as tiles, two across, in the same
+  order as before.
+- [ ] Set the phone to its largest text. *Expected:* the tab bar shows five icons with no words,
+  each easy to tap, and VoiceOver still reads each name.
 
 ## 6. Meditation (sound, speech, haptics, and screen need a real phone)
 

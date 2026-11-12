@@ -6,7 +6,11 @@ import { CONFIG } from '../core/config.js';
 const SVG = 'http://www.w3.org/2000/svg';
 // 24 by 24 line icons, drawn here so nothing loads from anywhere.
 const ICONS = {
-  wave: 'M2 9c3-3 5-3 8 0s5 3 8 0 3-2 4-2M2 15c3-3 5-3 8 0s5 3 8 0 3-2 4-2',
+  horizon: 'M3 15h18M7.500 15a4.500 4.500 0 0 1 9 0M12 6v1.500M5.600 8.600l1.100 1.100M18.400 8.600l-1.100 1.100M6 19h12',
+  wind: 'M3 9h10a2.500 2.500 0 1 0-2.500-2.500M3 13h15a2.500 2.500 0 1 1-2.500 2.500M3 17h7',
+  target: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 12v.010',
+  lifebuoy: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 15.500a3.500 3.500 0 1 0 0-7 3.500 3.500 0 0 0 0 7zM5.700 5.700l3.800 3.800M14.500 14.500l3.800 3.800M18.300 5.700l-3.800 3.800M9.500 14.500l-3.800 3.800',
+  stone: 'M4 16c0-3 3-6 8-6s8 3 8 6-3 3-8 3-8 0-8-3zM3 21h18',
   heart: 'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.4A4 4 0 0 1 19 10c0 5.6-7 10-7 10z',
   lotus: 'M12 5c2 2.5 2 6.5 0 11-2-4.5-2-8.500 0-11zM4 11c3 0 6 2 8 5-4 1-7-1-8-5zM20 11c-3 0-6 2-8 5 4 1 7-1 8-5zM5 19h14',
   pin: 'M12 21s6-5.6 6-10.500a6 6 0 0 0-12 0C6 15.400 12 21 12 21zM12 8.500a2 2 0 1 0 0 4 2 2 0 0 0 0-4z',
@@ -52,7 +56,7 @@ export function icon(name, large) {
   svg.setAttribute('focusable', 'false');
   svg.setAttribute('class', 'tl-icon' + (large ? ' tl-icon-lg' : ''));
   const path = document.createElementNS(SVG, 'path');
-  path.setAttribute('d', ICONS[name] || ICONS.wave);
+  path.setAttribute('d', ICONS[name] || ICONS.horizon);
   svg.appendChild(path);
   return svg;
 }
@@ -96,33 +100,10 @@ export function stepper(root, { min, max, value, onChange }) {
   return { set(v) { current = Math.max(min, Math.min(max, v)); show(); }, get: () => current };
 }
 
-// ProgressRing: an animated circle with a label in the middle.
-export function progressRing(root) {
-  const R = 44;
-  const C = 2 * Math.PI * R;
-  const svg = document.createElementNS(SVG, 'svg');
-  svg.setAttribute('viewBox', '0 0 100 100');
-  svg.setAttribute('aria-hidden', 'true');
-  const circle = (cls) => {
-    const c = document.createElementNS(SVG, 'circle');
-    c.setAttribute('cx', '50'); c.setAttribute('cy', '50'); c.setAttribute('r', String(R));
-    c.setAttribute('class', cls);
-    svg.appendChild(c);
-    return c;
-  };
-  circle('tl-ring-track');
-  const bar = circle('tl-ring-bar');
-  bar.style.strokeDasharray = String(C);
-  const label = el('span', 'tl-ring-label');
-  root.classList.add('tl-ring');
-  root.textContent = '';
-  root.append(svg, label);
-  return {
-    set(fraction, text) {
-      bar.style.strokeDashoffset = String(C * (1 - Math.max(0, Math.min(1, fraction))));
-      label.textContent = text;
-    },
-  };
+// A slim progress line. The markup is <span class="tl-progress"><span></span></span>.
+export function progressLine(root) {
+  const bar = root.querySelector('span');
+  return { set(fraction) { bar.style.transform = 'scaleX(' + Math.max(0, Math.min(1, fraction)).toFixed(3) + ')'; } };
 }
 
 // A group of choice cards or chips where one (or several) can be picked.

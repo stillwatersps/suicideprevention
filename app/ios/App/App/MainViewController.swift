@@ -5,6 +5,13 @@ import Capacitor
 class MainViewController: CAPBridgeViewController {
     override open func capacitorDidLoad() {
         bridge?.registerPluginInstance(TidelightPlugin())
+        // The same sand (night tide in dark mode) as the launch screen and the page, so nothing
+        // flashes white between them. The value matches --sand in src/tokens.css.
+        let sand = UIColor(named: "LaunchSand")
+        view.backgroundColor = sand
+        webView?.isOpaque = false
+        webView?.backgroundColor = sand
+        webView?.scrollView.backgroundColor = sand
     }
 
     // The website is many pages in folders (check-in/, es/, about/), not a single-page app.

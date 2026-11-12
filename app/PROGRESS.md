@@ -1,8 +1,111 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 11:36 EST
-Current branch: app/redesign-dev
-Current phase: 8 — Final QA & handoff (finished)
-Current step: All nine phases are merged into app/redesign-dev and pushed. Nothing is left to build; what's left is for people (see Resume instructions)
+Last updated: 2026-11-12 (launch brief, Phase 0)
+Current branch: app/visual-identity (Phase 0 only), then app/launch-readiness
+Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
+Current step: Launch brief: Phase 0 done. Next: Phase 1.
+
+## Launch readiness brief — in progress
+A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
+
+- [x] L0 — Pull request 26 wording: every reviewed string restored and locked by a snapshot test; privacy and consent wording in view and locked by a test. Pushed to pull request 26
+- [ ] L1 — Branch `app/launch-readiness`, baseline numbers, readiness and backlog notes
+- [ ] L2 — Crisis path reliability: inventory, correctness, a dedicated test file
+- [ ] L3 — A test for every safety rule; `npm run test:safety`
+- [ ] L4 — Accessibility audit and fixes
+- [ ] L5 — Performance and launch time
+- [ ] L6 — Data reliability and error handling
+- [ ] L7 — Privacy and permissions audit
+- [ ] L8 — Spanish parity
+- [ ] L9 — Code health
+- [ ] L10 — Visual polish leftovers
+- [ ] L11 — Packets for the reviewer, the lawyer, the App Store, and the founders
+- [ ] L12 — Final verification and a draft pull request
+
+### Launch brief vs. project rules
+- **Branch:** pull requests 25 and 26 are both open, so `app/launch-readiness` is cut from `app/visual-identity` (pull request 26's branch), as the brief's rule 9 says. Its draft pull request will show pull request 26's commits until that merges.
+- **"Restore every changed string" against the design brief's "emoji out of the interface":** sixteen lone emoji that were pictures (hidden from screen readers) stay as line icons. They are not wording. Every word, and every emoji inside a sentence, is as it was. Recorded in `notes/LAUNCH-READINESS.md` and asked in `notes/CONTENT-REVIEW.md`.
+- **Phase 0 restored four strings** the visual redesign had changed: "Check in" on Home's quick row (and removed the added "Hope box" tile), "Setup {done}/{total}", "{done}/{total}", and the spoken label "Quick actions".
+- The brief's `design/after/` is `app/design/after/` (see "Design brief vs. project rules" below). `notes/DESIGN-BRIEF.md` does not exist; the design brief is `app/DESIGN-BRIEF.md`.
+
+### Resume instructions (launch brief)
+Read `app/LAUNCH-BRIEF.md` section 0 first. Then start the first unchecked phase above, on `app/launch-readiness` (create it from `app/visual-identity` if it does not exist: `git switch -c app/launch-readiness`). Run `npm test` in `app/` and the four root checks at each phase end, commit, tick the box, and rewrite "Current step". Simulator runs: `npm run sim:launch` only (muted).
+
+## Visual identity ("Dawn at the Shoreline") — in progress
+A second brief from the same founder (`app/DESIGN-BRIEF.md`): a new look, visual layer only. Branch `app/visual-identity`, cut from `app/redesign-dev`; a draft pull request into `app/redesign-dev` at the end. Working in checkpoints: one commit per phase, this file updated each time, the full test suite only at the end of a phase.
+
+- [x] V1 — Audit: 400 "before" pictures (not committed), `design/AUDIT.md`, `tools/screens.mjs`
+- [x] V2 — Design tokens, Fraunces and Figtree bundled, raw-hex lint
+- [x] V3 — The horizon component
+- [x] V4 — Grain, illustration, icons (emoji out of the interface)
+- [x] V5 — Components: buttons, surfaces, month dots in place of the streak card, chips, inputs, tab bar, review banner, crisis bar
+- [x] V6 — Screen by screen, the player, the launch screen (sand, seen in the iPhone 17 Simulator)
+- [x] V7 — Motion and haptics (one easing curve, fade and drift, Reduce Motion; no haptic on crisis controls)
+- [x] V8 — Accessibility (crisis buttons turn light in dark mode; 44-point targets; Hope box overflow at largest text fixed)
+- [x] V9 — Microcopy (decorative only; the table is in the pull request)
+- [x] V10 — "After" pictures, comparison, checks, notes, draft pull request
+
+### Automated runs make no sound (a founder's instruction, November 11, 2026)
+
+The meditation voice guide was playing out loud during browser tests and Simulator checks. Every
+automated run is now muted, without changing the app's own audio code:
+
+- **Browser tests and tools** (`npm test`, `tools/screens.mjs`, `tools/word-count.mjs`): every
+  browser is opened with `openBrowser()` from `test/quiet.mjs`. Chromium starts with
+  `--mute-audio`, and every page gets a script that replaces text-to-speech with a silent stand-in
+  (each line still starts, takes a moment, and ends), mutes recordings, and sends generated sound
+  into a gain of zero. The lint fails if a test or tool opens a browser any other way.
+- **iOS Simulator**: launch the app with `npm run sim:launch` (it passes `-TidelightQuiet YES`).
+  A debug-only, Simulator-only hook in `TidelightPlugin.swift` then gives each page the same
+  script. Without that argument, and in every release build, nothing changes. Do not launch the
+  app in the Simulator any other way during an automated run. A unit test
+  (`test/unit/quiet.test.mjs`) keeps the two copies of the script identical.
+- The website's own checks in the repository's `tools/` were left alone: the website plays no sound.
+- Checked: the script in muted desktop Chromium (speech stand-in, zero gain, muted media). In the
+  iOS Simulator (iPhone 17), the debug build installs the script when launched with the argument
+  and not without it (seen in the app's console). Not checked: the script's effect inside the
+  Simulator's own web view, which nobody listened to. Not on a real phone.
+
+### Design brief vs. project rules
+- The brief's `design/` folder is `app/design/`: the repository's `design/` holds the website's original homepage design. The notes in it (`AUDIT.md`, `TOKENS.md`, `COMPARISON.md`, `README.md`) are committed; the pictures are not.
+- "Launch the app in the Simulator (iPhone 17 and iPhone SE)": this Mac has no iPhone SE simulator, and driving every screen and state by hand in a simulator costs more than the usage allows. The pictures come from desktop Chromium at both phone sizes (`tools/screens.mjs`), with a few iPhone 17 Simulator pictures beside them. Said plainly wherever results are reported.
+
+- Streaks (brief section 6.3 against "do not change copy awaiting review"): first built as "Days you checked in this month", which dropped the streak screens' wording. **A founder asked for the original wording back (follow-up 1), so the project rule won:** every streak line is as it was on `app/redesign-dev`; only the look changed (dots with a shape per state, never red; a line icon where the snowflake emoji stood alone; no burst at a milestone). The brief's "never a zero for a new user" is therefore not met: a first day reads "0 day streak", as before. It is a reviewer question.
+- A finished quick check-in no longer returns Home by itself: the brief asks for the dawn, one line, and two choices ("Breathe for a minute", "Back to home").
+- The confetti burst (`celebrate.js`) is removed: the brief says no confetti. Completion is the dawn. On a day with a very low check-in there is no dawn either.
+- Mood choices are a tone and a word (no faces). Emoji used alone as pictures became line icons; the one emoji inside a sentence awaiting review was left.
+- Coral and the faint ink were darkened from the brief's values to pass contrast. Not added because they would be new features: seek buttons in the player, filter chips on Meditate, initials avatars for friends.
+- The old Splash image set is still in the iOS project, unused; it was not deleted.
+
+### Results (visual identity)
+- `npm test` in `app/` (before the follow-ups): lint clean; 92 unit tests, then 5, 180, 56, and 837 browser checks, 0 failed.
+  Desktop Chromium with stand-ins for the phone, muted. Not a phone.
+- New tests cover: crisis controls at 7 to 1 in light and dark, with no texture or animation; both
+  fonts loading from the app's own files with no outside request; Reduce Motion; no dawn and no
+  horizon after a very low check-in; no haptic on crisis controls; no sideways scrolling at the largest text, Hope box included.
+- iOS Simulator (iPhone 17, launched muted): the app compiles; the launch screen is sand with no
+  white flash; Home and Meditate look as in the pictures, with both fonts. Nothing else was
+  walked through there. Nobody listened to confirm the Simulator is silent.
+- Pictures: 400 "before" and 400 "after" from desktop Chromium at two phone sizes, light and dark,
+  English and Spanish, and the largest text. Looked at as contact sheets, not one by one.
+- Root checks (`check_site.py`, `test_browser.py`, `test_webkit.py`, `make_review_packet.py`):
+  all four pass. `check_site.py`: 21 pages, all checks passed. `test_browser.py`: all passed (desktop Chrome and its phone-size emulation). `test_webkit.py`: 207 checks in WebKit on a Mac, 0 problems (not iOS Safari). The review packet was rebuilt.
+- **Not checked:** a real phone; VoiceOver by ear; haptics; an iPhone SE simulator (this Mac has none).
+
+### Follow-ups on pull request 26 (a founder's four requests, November 11, 2026)
+1. **Streak wording restored**; visual change only. Noted in `notes/CONTENT-REVIEW.md`.
+2. **Location and Friends:** short sections under their existing headings, with more room, and "Learn more" rows (`src/ui/sections.js`). No word changed or left the page. **A second instruction from the founder narrowed this:** all privacy and consent wording stays in view, always (what is stored, where data stays, who gets a message, that a sent message can't be undone); only plain how-to text folds. Folded, and nothing else: in Places, the how-to under "Your places" ("Add a place by choosing it on a map, or by searching an address. Give it a name only you need to understand, and choose how close counts."); in My circle, the how-to before "What I've shared with my circle" ("To share something, tap Share on a check-in, a journal entry, or something you kept, then choose \"Send to my circle\"."). The first version also folded three privacy paragraphs in Places and four My circle points; those are back in view.
+3. **Daily check-in, first question:** tiles two across, one list at large text. The page has nine feelings, not ten; all nine are there in the same order with the same values.
+4. **Tab bar:** the shell hides the labels (kept for screen readers) when any label can't fit its tab with a little room, and shows them again when they can. Tabs keep their 44-point targets.
+Checked: `npm test`: lint clean; 92 unit tests; 5, 180, 56, and 889 browser checks; 0 failed (desktop Chromium with stand-ins, muted). New checks cover the restored streak screens, the "Learn more" rows (closed to begin with, no control or 988/911 line inside, opening changes no words), the nine tiles in their order, and the icons-only tab bar with 44-point targets and spoken names. The small-phone pictures were looked at for the four changes. Not on a real phone. After the second instruction (privacy and consent wording always in view): 92 unit tests and 5, 180, 56, and 900 browser checks, 0 failed. Rebuilt in the iPhone 17 Simulator and launched muted; Home, Check-in, Location, Friends, and Get Support were pictured in light and dark mode.
+
+### Copy changes (visual identity)
+Changed: nothing (the two changed lines were restored in the launch brief's Phase 0).
+New: "Get help" (a Home tile), "Breathe for a minute", "Back to home", "{time} left", "Tidelight" (above the welcome heading), "Get Support Now" (first in Settings; the same words as the header button), "Learn more" (rows on Location and Friends).
+Emoji used alone as pictures became line icons (the choice cards, and the snowflake and tick in the streak row and legend). Emoji inside sentences are untouched.
+No streak, crisis, consent, privacy, or review-notice wording changed.
+
+### Resume instructions (visual identity)
+Nothing is in progress. If picking this up again: read the pull request's comments first. Likely next steps are a real-phone pass with `TESTING_CHECKLIST.md`, the reviewer's answers to "Questions about the app's visual redesign" in `notes/CONTENT-REVIEW.md`, and then either removing the stored streak numbers or bringing a reviewed streak display back. Start the Simulator only with `npm run sim:launch`.
 
 ## Completed phases
 - [x] Phase 0 — Audit & foundation (merged to app/redesign-dev)

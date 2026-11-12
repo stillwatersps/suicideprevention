@@ -5,12 +5,10 @@ import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { extname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createRequire } from 'node:module';
 import { smsLink, preview, fitInside } from '../src/extras-logic.js';
 
-const require = createRequire(import.meta.url);
-const { chromium } = require('playwright');
 import { tab, openPanel } from './helpers.mjs';
+import { openBrowser } from './quiet.mjs';
 const www = fileURLToPath(new URL('../www/', import.meta.url));
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml',
   '.png': 'image/png', '.jpg': 'image/jpeg', '.webmanifest': 'application/manifest+json', '.vcf': 'text/vcard' };
@@ -137,7 +135,7 @@ async function run(browser, lang) {
   await context.close();
 }
 
-const browser = await chromium.launch();
+const browser = await openBrowser();
 try {
   await run(browser, 'en');
   await run(browser, 'es');

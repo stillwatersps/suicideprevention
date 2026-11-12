@@ -33,6 +33,18 @@ a real phone.**
   The repository is public: no names, email addresses, `@`-mentions, or local paths in anything
   committed.
 
+## Automated runs make no sound
+
+A founder's instruction. Tests, tools, and Simulator checks never play audio out loud, and the
+app's own audio code is never changed to achieve that.
+
+- Open every test or tool browser with `openBrowser()` from `test/quiet.mjs` (muted Chromium, plus
+  a page script that silences speech, recordings, and generated sound). The lint enforces it.
+- Launch the app in the iOS Simulator with `npm run sim:launch`, which passes `-TidelightQuiet YES`
+  to a debug-only, Simulator-only hook in `TidelightPlugin.swift`. Never with a plain launch.
+- If the quiet script changes, change both copies (`test/quiet.mjs` and the Swift string); a unit
+  test compares them.
+
 ## A founder's safety rules for the redesign (November 11, 2026). They override the build spec
 
 1. **Never remove, shorten, hide, or move behind a tap any safety feature**: the "In immediate
@@ -71,6 +83,7 @@ npm run test:unit # pure logic only, fast
 npm run build     # makes app/www from the website plus the app's blocks
 npm run words     # rebuilds notes/review-packet/tidelight-app-words.html
 npm run words:es  # makes src/text/redesign.es.html from the English blocks and redesign.es.json
+npm run sim:launch  # starts the installed app in the booted Simulator, muted (automated runs)
 LANG=en_US.UTF-8 npm run sync   # build, then copy into the iOS and Android projects (needs CocoaPods)
 ```
 
@@ -83,11 +96,32 @@ Before every push, also run `python3 tools/check_site.py` from the repository ro
   in `src/text/redesign.en.html`. Each tab keeps its own stack; `shell.push('name')` shows
   `#tl-name`. The older sections live in `#tl-legacy`, inside Check-in. `shell.setFull(true)` hides
   the tab bar (onboarding, the player) and never hides the safety frame.
-- **Design system**: tokens in `src/tokens.css` (`--tl-*`); components are classes in
-  `src/redesign.css` (`tl-btn`, `tl-card`, `tl-choice`, `tl-chip`, `tl-stepper`, `tl-ring`,
-  `tl-badge`, `tl-empty`) with small helpers in `src/ui/components.js`. The lint fails on a color,
-  size, or duration outside the token file. Button-like rules start with `html.tl` so they win over
-  the website's own button rule.
+- **Design system** ("Dawn at the Shoreline", `DESIGN-BRIEF.md`, notes in `design/`): every color,
+  size, radius, duration, and font is a token in `src/tokens.css` (`--ink`, `--sand`, `--paper`,
+  `--coral`, `--seafoam`, `--dawn`, `--mood-1..5`, `--scene-*`, `--space-*`, `--radius-*`,
+  `--text-*`; the older `--tl-*` names are aliases). The lint fails on a raw color anywhere in
+  `src/` outside that file, and on a size or duration outside it in the redesign's stylesheets.
+  `src/redesign.css` holds layout; `src/redesign-identity.css` loads last and holds the look.
+  Button-like rules start with `html.tl` so they win over the website's own button rule.
+  - **Crisis controls are plain on purpose**: `--crisis-bg`/`--crisis-text` for the strip,
+    `--crisis-btn-bg`/`--crisis-btn-text` for Get Support Now and Call 988. At least 7 to 1 (a unit
+    test checks), no grain, no animation, no highlight, no haptic of the app's own, never coral.
+  - **The horizon** (`.tl-horizon`, with `-hero`, `-progress`, `-complete`, `-quiet`) is the one
+    signature shape: a flat line with light at its edge. No waves. It is decoration
+    (`aria-hidden`) and never appears on a support screen or on a "quiet" day.
+  - **Surfaces**: one `.tl-feature` card per section, rows with hairlines for lists, `.tl-tile` for
+    quick tools, plain type on the page for the rest. One coral button per section.
+  - **Fonts** are files in `src/fonts/` (Fraunces, Figtree, with their licenses). Never link a font.
+  - **Streak wording is the reviewed-or-awaiting-review wording; restyle it, never rewrite it.**
+    Days are dots whose state is a shape as well as a color (filled, soft with a ring, dashed,
+    double ring). Never red, and a milestone sets off no burst.
+  - **Only plain how-to text folds under "Learn more"** (`src/ui/sections.js`), and it is never
+    cut. A founder's rule: every word about privacy or consent stays in view, always: what is
+    stored, where data stays, who gets a message, that a sent message can't be undone. So do lines
+    about urgent help (988, 911), status lines, and controls. Two paragraphs fold today (how to add
+    a place, how to share). When unsure whether a paragraph is only how-to, leave it in view.
+  - **The tab bar** shows icons only when its labels can't fit (`fitTabBar` in `src/ui/shell.js`);
+    the labels stay in the page for screen readers.
 - **Words**: every word is in `src/text/redesign.en.html`. Scripts read them with `t('key')` from
   `src/ui/words.js`; a word with two voices has `data-style="calm"` and `"straightforward"`.
   Spanish is `src/text/redesign.es.json`; `npm run words:es` makes `redesign.es.html` from the two,
@@ -131,6 +165,9 @@ Before every push, also run `python3 tools/check_site.py` from the repository ro
 | `src/ui/` | Screens and components. They read words from the page, numbers from `config.js`, and data through the store |
 | `src/text/*.html`, `redesign.es.json` | Every word, as named blocks, one file per language |
 | `src/tokens.css` | Design tokens. Every other redesign stylesheet uses only these |
+| `src/redesign-identity.css`, `src/fonts/`, `src/grain*.svg` | The look: loads after `redesign.css`. Fonts and paper grain are local files |
+| `design/` | Design notes: `AUDIT.md`, `TOKENS.md` (generated by `tools/token-report.mjs`), `COMPARISON.md`. Pictures from `tools/screens.mjs` stay on your computer |
+| `test/quiet.mjs` | The muted browser every test and tool opens |
 | `src/app.js`, `src/extras.js` | The older app layer and the Hope box / My circle layer |
 | `tools/` | Build steps, the lint, the words packet |
 | `test/unit/` | `*.test.mjs` for `src/core/` and `src/logic/` |

@@ -1,6 +1,5 @@
 // The quick check-in: (Calm only) one breath, a mood, optional tags and a note, done. A very low
-// mood shows crisis support options right away instead of the usual thanks, and never returns to
-// Home by itself. Nothing typed here is read, scored, or sent anywhere.
+// mood shows crisis support options right away instead of the usual ending. Nothing typed here is read, scored, or sent anywhere.
 import { CONFIG } from '../core/config.js';
 import { t } from './words.js';
 import { style, profile } from './state.js';
@@ -9,37 +8,36 @@ import { haptic } from './haptics.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
 const $$ = (sel, scope) => Array.from((scope || document).querySelectorAll(sel));
-const SVG = 'http://www.w3.org/2000/svg';
-// Mouth curves for the five faces, from very low to great. Shape carries the meaning, not color.
-const MOUTHS = { 1: 'M9 17.500c2-2.500 4-2.500 6 0', 2: 'M9 16.500c2-1.200 4-1.200 6 0', 3: 'M9 16h6', 4: 'M9 15c2 1.800 4 1.800 6 0', 5: 'M8 14c2.500 3.500 5.500 3.500 8 0' };
 let timers = [];
 let faces = null;
 let tags = null;
 let shellRef = null;
 let ctx = null;
 
-export function drawFaces(scope) {
-  $$('[data-tl-face]', scope).forEach((slot) => {
-    if (slot.firstChild) return;
-    const svg = document.createElementNS(SVG, 'svg');
-    svg.setAttribute('viewBox', '0 0 24 24');
-    svg.setAttribute('aria-hidden', 'true');
-    svg.setAttribute('class', 'tl-icon tl-face-art');
-    const path = document.createElementNS(SVG, 'path');
-    path.setAttribute('d', 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM9 10v.010M15 10v.010' + MOUTHS[slot.getAttribute('data-tl-face')]);
-    svg.appendChild(path);
-    slot.appendChild(svg);
-  });
+// The horizon above the check-in: light arrives as the person goes. It only ever grows; skipping
+// a step never dims it. It is not a score.
+let light = 0;
+function arrive(level) {
+  const bar = $('#tl-flow-horizon');
+  if (!bar) return;
+  light = Math.max(light, level);
+  bar.style.setProperty('--h-light', String(0.2 + 0.7 * light));
+  bar.style.setProperty('--h-width', (18 + 52 * light).toFixed(0) + '%');
 }
 
 function step(name) {
   $$('.tl-flow-step', $('#tl-flow')).forEach((part) => { part.hidden = part.getAttribute('data-flow') !== name; });
+  // The horizon is for ordinary check-ins. On the support step there is no light and no decoration.
+  $('#tl-flow-horizon').hidden = name === 'support';
 }
 function clearTimers() { timers.forEach(clearTimeout); timers = []; }
 function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
 
 function start() {
   clearTimers();
+  light = 0;
+  $('#tl-flow-horizon').classList.remove('tl-horizon-complete');
+  arrive(0.1);
   faces.set([]);
   tags.set([]);
   $('#tl-flow-note').value = '';
@@ -48,9 +46,10 @@ function start() {
   if (profile().breathBeforeCheckIn) {
     $('#tl-flow-breath-word').textContent = t('checkin.breath', null, style());
     step('breath');
-    later(() => step('mood'), CONFIG.checkIn.breathSeconds * 1000);
+    later(() => { step('mood'); arrive(0.3); }, CONFIG.checkIn.breathSeconds * 1000);
   } else {
     step('mood');
+    arrive(0.3);
   }
 }
 
@@ -69,10 +68,14 @@ async function finish() {
     box.focus({ preventScroll: true });
     return;
   }
+  // An ordinary check-in ends on the full dawn, one warm line, and a choice of two. Nothing is
+  // scored and nothing bursts. (After a very low mood this is never reached: support came first.)
   haptic('success');
   $('#tl-flow-thanks').textContent = t('checkin.done', null, style());
+  arrive(1);
+  $('#tl-flow-horizon').classList.add('tl-horizon-complete');
   step('done');
-  later(() => { if (!$('#tl-flow').hidden) shellRef.go('home'); }, CONFIG.checkIn.doneReturnMs);
+  window.scrollTo(0, 0);
 }
 
 export function initCheckin(shell, context) {
@@ -80,10 +83,10 @@ export function initCheckin(shell, context) {
   ctx = context;
   const flow = $('#tl-flow');
   if (!flow) return;
-  drawFaces(flow);
-  faces = choiceGroup($('#tl-flow-faces'), { onChange: () => { $('#tl-flow-more').hidden = false; } });
-  tags = choiceGroup($('#tl-flow-tags'), { multiple: true });
-  $('#tl-flow-skip').addEventListener('click', () => { clearTimers(); step('mood'); });
+  faces = choiceGroup($('#tl-flow-faces'), { onChange: () => { $('#tl-flow-more').hidden = false; arrive(0.6); } });
+  tags = choiceGroup($('#tl-flow-tags'), { multiple: true, onChange: () => arrive(0.75) });
+  $('#tl-flow-skip').addEventListener('click', () => { clearTimers(); step('mood'); arrive(0.3); });
+  $('#tl-flow-breathe').addEventListener('click', () => ctx.startReset());
   $('#tl-flow-done').addEventListener('click', finish);
   shell.onShow('flow', start);
   shell.onHide('flow', clearTimers);

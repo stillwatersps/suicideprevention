@@ -76,6 +76,8 @@ All in `app/`. See `app/README.md` for how to build and run it.
 | `app/src/text/redesign.en.html`, `redesign.es.json`, `redesign.es.html` | Every word the redesign adds. Change Spanish in the `.json`, then `npm run words:es` makes the `.html` |
 | `app/tools/build-redesign.mjs`, `make-redesign-es.mjs`, `lint.mjs`, `word-count.mjs` | The redesign's build step, the Spanish maker, the lint, and the words-on-screen count |
 | `app/test/unit/`, `app/test/redesign-test.mjs`, `app/test/helpers.mjs` | Unit tests for the pure logic, and the redesign's browser tests |
+| `app/src/redesign-identity.css`, `app/src/fonts/`, `app/src/grain.svg`, `app/design/` | The app's visual identity (a draft from one founder's design brief): the look on top of the redesign, the two bundled fonts, the paper grain, and the design notes (`TOKENS.md`, `AUDIT.md`, `COMPARISON.md`) |
+| `app/test/quiet.mjs`, `app/tools/screens.mjs` | The muted browser every test and tool must use, and the tool that pictures every screen |
 | `app/BUILD-SPEC.md`, `app/CLAUDE.md`, `app/PROGRESS.md`, `app/TESTING_CHECKLIST.md`, `app/CHANGELOG.md` | The spec, the app's instructions and safety rules, the build record, the real-phone checklist, and what changed |
 | `app/tools/make-words-packet.mjs` | Writes `notes/review-packet/tidelight-app-words.html`, every word the app adds, numbered for reviewers. Run it after changing `app/src/text/` |
 | `app/test/screens.mjs` | Phone-size screenshots of the age screens |
