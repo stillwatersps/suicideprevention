@@ -64,3 +64,20 @@ decides.
 - **The older layout is the fallback** if the newer screens fail to start. It is not covered by
   the newer tests beyond "it opens, with the crisis strip". If the older layout is ever removed,
   the fallback needs replacing first.
+
+## Privacy, permissions, and the App Store (blockers)
+
+- **No privacy policy and no terms.** Required by Apple for every app, and by good practice for
+  this one. Not written here on purpose: it is a lawyer's document. Who: the founders, with a lawyer.
+- **No acknowledgements screen.** The MIT license of Capacitor and its plugins asks for its notice
+  to travel with the app. Usually a "Licenses" row in Settings. Needs a new screen and wording.
+- **Camera.** Adding a Hope box photo uses a web file chooser. On a real iPhone it may offer
+  "Take Photo". The app declares no reason for using the camera, and iOS closes an app that opens
+  the camera without one. Either add the sentence (wording needed from a founder) or limit the
+  chooser to the photo library. Check on a real phone first.
+- **A privacy manifest** (`PrivacyInfo.xcprivacy`) for the app's own use of the phone's
+  key-and-value storage. Capacitor's packages carry their own; the app has none.
+- **A single check-in can't be deleted, and nothing can be exported.** Only "Delete everything".
+  Privacy laws in some states give people rights to their data; since it never leaves the phone
+  this may not apply, but a lawyer should say. Would be new features.
+

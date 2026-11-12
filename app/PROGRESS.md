@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-12 (launch brief, Phase 6)
+Last updated: 2026-11-12 (launch brief, Phase 7)
 Current branch: app/launch-readiness (cut from app/visual-identity at Phase 0's commit)
 Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
-Current step: Launch brief: Phase 6 done. Next: Phase 7, step 1.
+Current step: Launch brief: Phase 7 done. Next: the tab bar on every page inside the app (a founder's request, November 12), then Phase 8, step 1.
 
 ## Launch readiness brief — in progress
 A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
@@ -14,7 +14,7 @@ A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): 
 - [x] L4 — Accessibility audit and fixes: `axe-core` (a test-only dependency) on all 37 screens, both languages, light and dark, with 0 serious or critical findings; spoken names kept honest (`keepNamesHonest`); calendar days say their state; layouts wrap and the tab bar stops growing at the phone's largest text; Get Support Now no longer runs off the side at 331%. `test/a11y-test.mjs` (217 checks) and `test/app-screens.mjs` (the one list of screens) in `npm test`
 - [x] L5 — Performance and launch time: the app's script is minified (233 KB to 125 KB); the crisis strip is on screen before the script loads (tested); `test/budget-test.mjs` (12 checks) in `npm test`. Fonts left as they are (already subsets)
 - [x] L6 — Data reliability and error handling: 18 stored things damaged ten ways each, storage full or refusing, three years of data, a start-up failure, runtime errors. Two faults fixed (a damaged Hope box entry; a near-blank page when the newer screens fail to start, which now falls back to the older layout). `test/resilience-test.mjs` (33 checks) in `npm test`
-- [ ] L7 — Privacy and permissions audit
+- [x] L7 — Privacy and permissions audit: every screen walked with the network blocked, 0 attempts (`test/network-test.mjs`, 13 checks, in `npm test`); `notes/PRIVACY-INVENTORY.md`, `notes/APP-STORE-PRIVACY-DRAFT.md`, `notes/THIRD-PARTY-LICENSES.md`; permissions table in `notes/LAUNCH-READINESS.md`. Blockers found: no privacy policy, no acknowledgements screen, a possible missing camera sentence, no privacy manifest
 - [ ] L8 — Spanish parity
 - [ ] L9 — Code health
 - [ ] L10 — Visual polish leftovers

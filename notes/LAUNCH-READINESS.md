@@ -677,3 +677,69 @@ stored" for that one thing (the "cut off mid-save" case above), and the rest is 
 ### Results
 
 `node test/resilience-test.mjs`: 33 checks, 0 failed (desktop Chromium, with stand-ins for the phone).
+
+## Privacy and permissions (Phase 7)
+
+### Network
+
+`app/test/network-test.mjs` (in `npm test`) walks all 37 screens and states in both languages,
+with every request to anywhere outside the app blocked and counted, and with sockets, beacons, and
+peer connections trapped. Result: **0 attempts.** It also reads the built app's scripts and styles
+for any outside address (one found: weather.gov, Quick exit's destination, which only a person's
+tap opens), checks the page's own security policy allows connections to the app itself and
+nowhere else, and that the app sets no cookies.
+
+What ships with the app that could reach a network, and doesn't:
+
+| Part | Could it contact a server? | Does it, here? |
+| --- | --- | --- |
+| Capacitor core | It includes an HTTP plugin and a cookies plugin, both off unless turned on in `capacitor.config.json` | No: neither is turned on |
+| Capacitor Preferences | No | No |
+| Capacitor Share | No (it opens the phone's Share sheet) | No |
+| Capacitor Local Notifications | No (notifications are scheduled on the phone) | No |
+| The project's own `Tidelight` plugin | No network code. It opens the phone's Messages screen and contact picker, and uses location on the phone | No |
+| The website's offline helper (`sw.js`) | It fetches the site's own pages for offline use, in a web browser | Not on iPhone: the system doesn't offer that feature to pages inside an app, and every page is already a local file |
+
+No analytics, crash reporting, advertising, remote configuration, or fonts or images from the
+internet were found or added.
+
+### Data
+
+[[PRIVACY-INVENTORY]]: every stored item, why, where, whether it leaves the phone, how long it is
+kept, and how it is deleted. Draft answers for Apple's App Privacy questions are in
+`notes/APP-STORE-PRIVACY-DRAFT.md`, marked as a draft for founder and lawyer review.
+
+### Permissions the app can ask for
+
+| Permission | When it is asked | Explained first? | The phone's own sentence (`Info.plist`) |
+| --- | --- | --- | --- |
+| Location, while using the app | When the person taps "Allow location" (onboarding, the setup list, Settings, or Places), or "Save where I am" | Yes: each of those buttons sits under a sentence saying what location is for and that it stays on the phone | "To save a home spot you choose, and to check whether you're near it when the app suggests a meditation. And only if you turn on "Places that are hard for me": to notice when this phone enters a place you chose, and to put your location in a message you choose to send. Your location stays on this phone. Nothing is tracked or sent otherwise." |
+| Location, always | Only inside "Places that are hard for me", after it is turned on, when the person taps to allow it | Yes: the Permission paragraph in Places, which is always in view | "Only if you turn on "Places that are hard for me": "Always" lets the phone notice a place you chose even when Tidelight is closed. Your location stays on this phone and is never sent unless you choose to send it." |
+| Notifications | When the person taps "Turn on reminders" (onboarding, the setup list, or Settings), or turns on Places | Yes: "A reminder never says anything about you." and the Places wording | None: iOS shows its own question for notifications |
+| Contacts | Never asked. Choosing a person opens the phone's own contact picker, which hands the app only the one contact the person taps | Yes, in My circle and Places | None needed for the picker |
+| Photos | Never asked. Adding a Hope box photo opens the phone's own photo picker | Yes, in the Hope box | None needed for the picker |
+| Camera | Not asked for by the app. **Needs a check on a real phone:** the photo chooser is a web file picker, and iOS may offer "Take Photo" in it. The app has no camera sentence in `Info.plist`; if that option appears and is tapped without one, iOS closes the app | n/a | Missing. See [[LAUNCH-BACKLOG]] |
+| Microphone, motion, Bluetooth, tracking, health | Never | n/a | None |
+
+Every request happens only when the person reaches the feature and taps; none at launch. The
+safety test checks that opening every tab and Settings reads the location zero times.
+
+### Licenses
+
+[[THIRD-PARTY-LICENSES]]: 7 packages ship with the app (Capacitor and its plugins, MIT; one helper,
+0BSD) and two fonts (Open Font License, with their license files). Nothing is incompatible with App
+Store distribution. One gap: the MIT license asks that its notice travel with the app, and the app
+has no acknowledgements screen yet.
+
+### Blockers found in this phase (all in [[LAUNCH-BACKLOG]])
+
+- No privacy policy and no terms exist. Apple requires a privacy policy address for every app.
+- No acknowledgements screen for the MIT notices.
+- The camera question above.
+- The app has no privacy manifest file of its own (Apple asks apps to declare why they use certain
+  system features; this app uses the phone's key-and-value storage).
+
+### Results
+
+`node test/network-test.mjs`: 13 checks, 0 failed. `npm test` at the end of Phase 7: 115 unit tests, then 5, 180, 56, 928, 334 (crisis), 174 (safety), 217 (accessibility), 12 (budget), 33 (resilience), and 13 (network) checks in the browser; 0 failed.
+
