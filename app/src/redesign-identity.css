@@ -11,7 +11,7 @@ html.tl body { background-color: var(--sand); background-image: url("grain.svg")
 /* ---------- The crisis strip: plain on purpose ---------- */
 html.tl .crisis-bar { background: var(--crisis-bg); background-image: none; color: var(--crisis-text); opacity: 1; animation: none; transition: none; }
 html.tl .crisis-bar p, html.tl .crisis-bar p a { color: var(--crisis-text); }
-html.tl .crisis-bar p a { font-weight: var(--wt-strong); text-decoration: underline; text-underline-offset: var(--space-4); min-height: var(--tap); }
+html.tl .crisis-bar p a { min-width: var(--tap); text-align: center; font-weight: var(--wt-strong); text-decoration: underline; text-underline-offset: var(--space-4); min-height: var(--tap); }
 html.tl .crisis-bar .quick-exit { background: var(--crisis-bg); color: var(--crisis-text); border: var(--border-strong) solid var(--crisis-text); border-radius: var(--radius-sm); min-height: var(--tap); font-weight: var(--wt-strong); }
 html.tl .crisis-bar a:focus-visible { outline: var(--focus-ring) solid var(--crisis-text); outline-offset: var(--focus-offset); }
 
@@ -287,6 +287,8 @@ html.tl .ci-body .ci-skip, html.tl .ci-body .ci-back, html.tl .ci-body .ci-resta
 html.tl .ci-tabs ul { border-bottom: var(--hairline) solid var(--rule); gap: 0 var(--space-4); }
 html.tl .ci-tabs a { font-family: var(--font-body); font-size: var(--text-label); font-weight: var(--wt-strong); color: var(--ink-soft); min-height: var(--tap); }
 html.tl .ci-tabs a[aria-current="true"] { color: var(--seafoam); border-bottom-color: var(--seafoam); }
+/* The "Support" link in that row is a way to crisis help: full ink, never the softer tab color. */
+html.tl .ci-tabs a[href="#support"] { color: var(--ink); }
 html.tl .ci-step, html.tl .ci-card, html.tl .ci-suggestion, html.tl .ci-result, html.tl .app-foryou, html.tl .app-age-box, html.tl .app-places, html.tl .app-circle, html.tl .app-settings, html.tl .app-share-panel, html.tl .app-place-alert, html.tl .ci-erase {
   background: var(--paper); border: 0; border-radius: var(--radius-md); box-shadow: none;
 }

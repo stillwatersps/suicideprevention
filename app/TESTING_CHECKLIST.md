@@ -34,6 +34,45 @@ To put the app on an iPhone: on a Mac with Xcode, in `app/` run `npm ci`, then
   *Expected:* text grows, nothing is cut off, no sideways scrolling, the crisis strip still shows.
 - [ ] Dark mode on, then off. *Expected:* every screen is readable in both.
 
+## 1b. Crisis paths on a real iPhone (added by the launch readiness work)
+
+The automated crisis test (`npm run test:crisis`) reads and measures every crisis control on every
+screen, but it can't place a call, open Messages, or leave the app. Only a real iPhone can check
+these. **Never let a call connect or a message send: cancel at the phone's own screen.**
+
+- [ ] On Home, tap **Call 988** in the strip. *Expected:* the phone's own call sheet appears,
+  showing 988. Tap Cancel. Nothing dials by itself.
+- [ ] Tap **text 988** in the strip. *Expected:* Messages opens on a new message to 988, empty.
+  Don't type or send. Go back to Tidelight.
+- [ ] Tap **call 911** in the strip. *Expected:* the call sheet shows 911. Cancel.
+- [ ] Repeat the three taps once in Spanish (the strip reads "Llama al 988", "envía AYUDA al 988",
+  "llama al 911"). *Expected:* the same three phone screens.
+- [ ] Tap **Get Support Now**, then **Call 988** and **Text 988** in the panel, and the Call 988
+  button on the support screen after a very low check-in. *Expected:* the same phone screens.
+  Cancel each.
+- [ ] Tap **Chat Online** in the panel. *Expected:* Safari opens 988's chat page. Don't start a
+  chat. Go back to Tidelight.
+- [ ] Turn on Airplane Mode and tap Call 988. *Expected:* the phone still shows its call sheet (the
+  phone, not the app, decides what happens next). Cancel, and turn Airplane Mode off.
+- [ ] Tap **Exit**. *Expected:* the screen goes blank at once and Safari opens weather.gov. Now
+  come back to Tidelight from the app switcher. *Expected:* the app is back, with the crisis strip.
+  **It must never stay blank.** Write down which screen it shows.
+- [ ] Tap Exit in the middle of a check-in, and again during a meditation. *Expected:* the same.
+  Note whether the meditation's sound stops when Safari opens.
+- [ ] If the phone has Screen Time or a parent's restrictions that block Safari: tap Exit.
+  *Expected:* the screen goes blank. Press Home, then open Tidelight again: it must come back.
+  Write down what happened.
+- [ ] Lock the phone with Tidelight open, wait a minute, unlock. *Expected:* the strip is there
+  and Call 988 works at the first tap.
+- [ ] Start a meditation with sound, then tap Call 988. *Expected:* the call sheet appears over
+  it. Cancel. Note whether the sound paused.
+- [ ] Set the phone's text to its largest size (Settings, Accessibility, Display & Text Size,
+  Larger Text, with Larger Accessibility Sizes on). *Expected:* the app's text grows with it, and
+  the strip still shows all four controls without covering the whole screen. Write down what you
+  see at the very largest size.
+- [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
+  and Call 911 are the first things read.
+
 ## 2. First launch and onboarding
 
 - [ ] Delete the app, install it again, open it. *Expected:* the welcome page, in under 2 seconds.

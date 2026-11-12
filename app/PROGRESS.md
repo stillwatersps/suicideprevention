@@ -2,14 +2,14 @@
 Last updated: 2026-11-12 (launch brief, Phase 0)
 Current branch: app/launch-readiness (cut from app/visual-identity at Phase 0's commit)
 Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
-Current step: Launch brief: Phase 1 done. Next: Phase 2, step 2.1 (crisis inventory table).
+Current step: Launch brief: Phase 2 done. Next: Phase 3, step 1 (the table of safety rules; `src/logic/safety.js` and two new test files are already started in the working tree).
 
 ## Launch readiness brief — in progress
 A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
 
 - [x] L0 — Pull request 26 wording: every reviewed string restored and locked by a snapshot test; privacy and consent wording in view and locked by a test. Pushed to pull request 26
 - [x] L1 — Branch `app/launch-readiness`, baseline numbers (in `notes/LAUNCH-READINESS.md`), readiness and backlog notes, `tools/launch-time.mjs`
-- [ ] L2 — Crisis path reliability: inventory, correctness, a dedicated test file
+- [x] L2 — Crisis path reliability: 37 screens and 392 controls per language inventoried; four bugs fixed (blank app after Quick exit; 911 unreachable in Spanish at the largest text; a 43-point target; a 6.9 to 1 link); `test/crisis-test.mjs` in `npm test` (334 checks). `npm test`: 101 unit, 5, 180, 56, 928, 334, 0 failed
 - [ ] L3 — A test for every safety rule; `npm run test:safety`
 - [ ] L4 — Accessibility audit and fixes
 - [ ] L5 — Performance and launch time
@@ -26,6 +26,9 @@ A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): 
 - **"Restore every changed string" against the design brief's "emoji out of the interface":** sixteen lone emoji that were pictures (hidden from screen readers) stay as line icons. They are not wording. Every word, and every emoji inside a sentence, is as it was. Recorded in `notes/LAUNCH-READINESS.md` and asked in `notes/CONTENT-REVIEW.md`.
 - **Phase 0 restored four strings** the visual redesign had changed: "Check in" on Home's quick row (and removed the added "Hope box" tile), "Setup {done}/{total}", "{done}/{total}", and the spoken label "Quick actions".
 - The brief's `design/after/` is `app/design/after/` (see "Design brief vs. project rules" below). `notes/DESIGN-BRIEF.md` does not exist; the design brief is `app/DESIGN-BRIEF.md`.
+
+- **Crisis strip and the brief's rule 4 ("never restyle, shrink, or hide"):** two changes touched the strip, both to make it more reachable and neither changing how it looks at ordinary sizes: "call 911" got a 44-point minimum width, and the strip may no longer grow taller than the screen (it scrolls within itself at the phone's very largest text). Switching to the strip's short form at those sizes would hide words, so it was not done; it is in `notes/LAUNCH-BACKLOG.md`.
+- **Inline crisis links against "every crisis element at least 44 by 44":** links inside a sentence ("call 988 … call 911") are text-height. Enlarging them would overlap neighboring links. They are recorded as such in the inventory and held to their current size; the strip's full-size controls are on the same screens.
 
 ### Resume instructions (launch brief)
 Read `app/LAUNCH-BRIEF.md` section 0 first. Then start the first unchecked phase above, on `app/launch-readiness` (create it from `app/visual-identity` if it does not exist: `git switch -c app/launch-readiness`). Run `npm test` in `app/` and the four root checks at each phase end, commit, tick the box, and rewrite "Current step". Simulator runs: `npm run sim:launch` only (muted).

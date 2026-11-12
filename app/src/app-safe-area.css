@@ -6,3 +6,8 @@ body { padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-are
 /* A section reached by a link (Get Support Now goes to #support) stops below the taller strip,
    so its heading isn't hidden under it. Added to the website's own scroll padding. */
 [id] { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 0.75rem); }
+/* On iPhone the app follows the phone's text size. At the very largest sizes the strip can grow
+   taller than the screen, and its last line (call 911) would sit below the bottom edge where a
+   sticky bar can never be scrolled to. So the strip never grows past the screen, and scrolls
+   within itself: every control in it can always be reached. Nothing in it is hidden or shortened. */
+.crisis-bar { max-height: 100vh; max-height: 100dvh; overflow-y: auto; overscroll-behavior: contain; }

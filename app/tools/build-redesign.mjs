@@ -86,6 +86,8 @@ for (const page of everyPage(www, 0)) {
   let html = readFileSync(page.path, 'utf8');
   html = once(html, 'content="width=device-width, initial-scale=1">', 'content="width=device-width, initial-scale=1, viewport-fit=cover">', 'viewport in ' + page.path);
   html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/app-safe-area.css">\n</head>`, 'safe-area stylesheet in ' + page.path);
+  // After Quick exit, coming back to the app must show the page again (src/app-return.js says why).
+  html = once(html, '</head>', `  <script src="${page.up}assets/app-return.js"></script>\n</head>`, 'return-from-exit script in ' + page.path);
   writeFileSync(page.path, html);
 }
 mkdirSync(join(www, 'assets'), { recursive: true });
@@ -93,6 +95,7 @@ cpSync(join(appDir, 'src', 'tokens.css'), join(www, 'assets', 'tokens.css'));
 cpSync(join(appDir, 'src', 'redesign.css'), join(www, 'assets', 'redesign.css'));
 for (const name of ['redesign-identity.css', 'grain.svg', 'grain-dark.svg', 'icon-info.svg']) cpSync(join(appDir, 'src', name), join(www, 'assets', name));
 cpSync(join(appDir, 'src', 'app-safe-area.css'), join(www, 'assets', 'app-safe-area.css'));
+cpSync(join(appDir, 'src', 'app-return.js'), join(www, 'assets', 'app-return.js'));
 // Fraunces and Figtree, bundled with their licenses: no font is ever fetched from anywhere else.
 cpSync(join(appDir, 'src', 'fonts'), join(www, 'assets', 'fonts'), { recursive: true });
 console.log('Added the redesigned app to app/www.');

@@ -149,3 +149,250 @@ No other screen has "Learn more" rows.
 - iOS Simulator (iPhone 17, rebuilt, launched muted): Location and Friends pictured in light and dark, English and Spanish (eight pictures, in `app/design/after/simulator-iphone17/` on the computer that took them, not committed). The opening paragraphs and all visible points read as described above. Places was not turned on in the Simulator, because that asks the phone for location; the paragraphs under its headings were checked in the browser tests only.
 - Seen on the way: after a restart of the Simulator, the first launch showed only the background color for about twenty seconds before the page appeared; a second launch was immediate. Not explained yet. Phase 5 measures launch time and Phase 6 covers a blank screen.
 - Not checked: a real phone.
+
+## Crisis path report (Phase 2)
+
+Every way to reach 988, 911, Quick exit, and Support must be there and must work, on every screen,
+every time. This phase listed them all, checked each in every state a browser test can reach, fixed
+what was wrong, and added a test that fails if one ever breaks.
+
+### What was wrong, and is fixed
+
+1. **After Quick exit, the app came back blank. (Serious.)** In the app, Quick exit hides the page
+   and the phone opens weather.gov in Safari, as designed. But the app's own page stayed hidden. A
+   person who came back to Tidelight saw an empty screen: no strip, no 988, no 911, and no way out
+   but closing the app from the app switcher. Seen in the iPhone 17 Simulator. The website already
+   handles this for its Home Screen app; the phone app was missing the same handling. Fixed by
+   `app/src/app-return.js`, a ten-line script loaded on every page of the app, before and apart
+   from the app's own bundle, so it works even if every other script fails: whenever the app comes
+   back into view, the page is shown again.
+2. **"call 911" in the strip was 43 points wide**, one under the 44-point target. It is 44 now.
+3. **The "Support" link in the older sections' row of links was at 6.9 to 1 contrast**, just under
+   the 7 to 1 this project holds crisis controls to. It is full ink now (14 to 1 or better).
+4. **In Spanish, at the phone's very largest text size, "llama al 911" could not be reached.** On
+   iPhone the app follows the phone's text size. At the largest accessibility size the Spanish
+   strip grew taller than the screen, and because the strip stays fixed at the top, its last line
+   sat below the bottom edge where no scrolling could bring it up. Now the strip never grows past
+   the screen and scrolls within itself, so every control in it can be reached. Nothing in the
+   strip is hidden, shortened, or made smaller.
+
+### What was checked and found sound
+
+- **Link formats.** Every call link is `tel:988` or `tel:911` and every text link is `sms:988`:
+  the plain forms iOS expects. No link carries a body, a country code, or spaces.
+- **The phone's side.** A tap on a `tel:` or `sms:` link is not an in-app page, so Capacitor hands
+  it to iOS (`UIApplication.open`), which shows the phone's own call sheet or Messages. Nothing in
+  `Info.plist` or the app's config blocks or needs to allow these: there is no navigation
+  allow-list in `capacitor.config.json`, and the app never asks iOS "can you open this?" (which is
+  what would need a declared scheme). The chat link and Quick exit's destination are outside web
+  addresses and open in Safari the same way.
+- **Nothing a crisis control depends on can fail.** The strip, Get Support Now, and the 988 panel
+  are plain links in the page itself. They are there and full size with every script turned off,
+  and with the app's own script missing. They need no network, no permission, no stored data, and
+  no animation to finish.
+- **Order.** The strip comes before the page's content, and its four controls are the first things
+  a keyboard or screen reader reaches.
+- **One tap from Home to calling 988:** the strip's link is on screen as Home opens.
+
+### The inventory
+
+Recorded from the app itself by `node test/crisis-test.mjs --record`, and kept in
+`app/test/fixtures/crisis-inventory.json`: 37 screens in each language, 392 crisis controls in each.
+The screens are the nine first-launch pages (the age question and each onboarding page) and 28
+more: Home, Home with the site menu open, Your streak, Settings, the Check-in tab, a quick check-in
+(choosing a mood, finished, and support after a very low mood), the Daily check-in (first question,
+"what do you need", result, result after a heavy feeling), the share notice, Journal, Rediscover,
+Hope box, Your journey, Meditate, the builder, history, the player (running, and with "End
+session?" open), a finished meditation (and with a very low mood after), Location (Places off and
+on), the place alert, and Friends.
+
+The four strip controls, Get Support Now, and the 988 panel's Call, Text, and Chat are on all 37.
+One row below per distinct control; "a link inside a sentence" marks the small ones (see "Known
+limits").
+
+**English** (37 screens, 392 controls in all)
+
+| ID | Screen | Element | Action | Language | Visible without scrolling? | Taps from Home |
+| --- | --- | --- | --- | --- | --- | --- |
+| EN-01 | Crisis strip (top of every screen) | Quick exit | `https://www.weather.gov/` | English | yes, always | 1 |
+| EN-02 | Crisis strip (top of every screen) | Call 988 | `tel:988` | English | yes, always | 1 |
+| EN-03 | Crisis strip (top of every screen) | text 988 | `sms:988` | English | yes, always | 1 |
+| EN-04 | Crisis strip (top of every screen) | call 911 | `tel:911` | English | yes, always | 1 |
+| EN-05 | Header | Get Support Now | `#support` | English | on most screens; not when the page is scrolled | 1 (then the panel is on screen) |
+| EN-06 | 988 panel (in the page, every screen) | Call 988Talk to a counselor | `tel:988` | English | no: scroll or tap Get Support Now | 2 (Get Support Now, then this) |
+| EN-07 | 988 panel (in the page, every screen) | Text 988Send any message | `sms:988` | English | no: scroll or tap Get Support Now | 2 (Get Support Now, then this) |
+| EN-08 | 988 panel (in the page, every screen) | Chat OnlineWeb chat with 988 | `https://chat.988lifeline.org/` | English | no: scroll or tap Get Support Now | 2 (Get Support Now, then this) |
+| EN-09 | 988 panel (in the page, every screen) | 988lifeline.org (a link inside a sentence) | `https://988lifeline.org/` | English | no: scroll or tap Get Support Now | 2 (Get Support Now, then this) |
+| EN-10 | Age question (first launch) | call 988 (a link inside a sentence) | `tel:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-11 | Age question (first launch) | text 988 (a link inside a sentence) | `sms:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-12 | Age question (first launch) | call 911 (a link inside a sentence) | `tel:911` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-13 | Home, quick row | Get help | `#support` | English | a short scroll on that screen | 1 |
+| EN-14 | Settings, first item | Get Support Now | `#support` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-15 | Older sections, their row of links | Support | `#support` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-16 | Daily check-in, "what do you need" | call 988 (a link inside a sentence) | `tel:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-17 | Daily check-in, "what do you need" | text 988 (a link inside a sentence) | `sms:988` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-18 | Daily check-in, "what do you need" | call 911 (a link inside a sentence) | `tel:911` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-19 | Share notice | call 988 (a link inside a sentence) | `tel:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-20 | Share notice | text 988 (a link inside a sentence) | `sms:988` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-21 | Share notice | call 911 (a link inside a sentence) | `tel:911` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-22 | Hope box | call 988 (a link inside a sentence) | `tel:988` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-23 | Hope box | text 988 (a link inside a sentence) | `sms:988` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-24 | Hope box | call 911 (a link inside a sentence) | `tel:911` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-25 | Meditation player | Get Support Now | `#support` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-26 | After a meditation, very low mood | Call 988 | `tel:988` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-27 | After a meditation, very low mood | Text 988 | `sms:988` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-28 | After a meditation, very low mood | In immediate danger, call 911 | `tel:911` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-29 | After a meditation, very low mood | More ways to get support | `#support` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-30 | Places that are hard for me | call 988 (a link inside a sentence) | `tel:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-31 | Places that are hard for me | text 988 (a link inside a sentence) | `sms:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-32 | Places that are hard for me | call 911 (a link inside a sentence) | `tel:911` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-33 | Place alert | call 988 (a link inside a sentence) | `tel:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-34 | Place alert | text 988 (a link inside a sentence) | `sms:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-35 | Place alert | call 911 (a link inside a sentence) | `tel:911` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-36 | My circle | call 988 (a link inside a sentence) | `tel:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-37 | My circle | text 988 (a link inside a sentence) | `sms:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-38 | My circle | call 911 (a link inside a sentence) | `tel:911` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-39 | After a quick check-in, very low mood | Call 988 | `tel:988` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-40 | After a quick check-in, very low mood | Text 988 | `sms:988` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-41 | After a quick check-in, very low mood | In immediate danger, call 911 | `tel:911` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-42 | After a quick check-in, very low mood | More ways to get support | `#support` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-43 | Daily check-in result, heavy feeling | call 988 (a link inside a sentence) | `tel:988` | English | a short scroll on that screen | on that screen: 1 once there |
+| EN-44 | Daily check-in result, heavy feeling | text 988 (a link inside a sentence) | `sms:988` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-45 | Daily check-in result, heavy feeling | call 911 (a link inside a sentence) | `tel:911` | English | yes when that screen opens | on that screen: 1 once there |
+| EN-46 | Daily check-in result, heavy feeling | More ways to get support (a link inside a sentence) | `#support` | English | yes when that screen opens | on that screen: 1 once there |
+
+**Spanish** (37 screens, 392 controls in all)
+
+| ID | Screen | Element | Action | Language | Visible without scrolling? | Taps from Home |
+| --- | --- | --- | --- | --- | --- | --- |
+| ES-01 | Crisis strip (top of every screen) | Salida rápida | `https://www.weather.gov/` | Spanish | yes, always | 1 |
+| ES-02 | Crisis strip (top of every screen) | Llama al 988 | `tel:988` | Spanish | yes, always | 1 |
+| ES-03 | Crisis strip (top of every screen) | envía AYUDA al 988 | `sms:988` | Spanish | yes, always | 1 |
+| ES-04 | Crisis strip (top of every screen) | llama al 911 | `tel:911` | Spanish | yes, always | 1 |
+| ES-05 | Header | Obtén apoyo ahora | `#support` | Spanish | on most screens; not when the page is scrolled | 1 (then the panel is on screen) |
+| ES-06 | 988 panel (in the page, every screen) | Llamar al 988Marca 2 para español | `tel:988` | Spanish | no: scroll or tap Get Support Now | 2 (Get Support Now, then this) |
+| ES-07 | 988 panel (in the page, every screen) | Texto al 988Escribe AYUDA | `sms:988` | Spanish | no: scroll or tap Get Support Now | 2 (Get Support Now, then this) |
+| ES-08 | 988 panel (in the page, every screen) | Chatear en líneaChat en español con la 988 | `https://chat.988lifeline.org/?lang=es` | Spanish | no: scroll or tap Get Support Now | 2 (Get Support Now, then this) |
+| ES-09 | Age question (first launch) | llamar al 988 (a link inside a sentence) | `tel:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-10 | Age question (first launch) | enviar AYUDA al 988 (a link inside a sentence) | `sms:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-11 | Age question (first launch) | llama al 911 (a link inside a sentence) | `tel:911` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-12 | Home, quick row | Obtener ayuda | `#support` | Spanish | a short scroll on that screen | 1 |
+| ES-13 | Settings, first item | Obtén apoyo ahora | `#support` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-14 | Older sections, their row of links | Apoyo | `#support` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-15 | Daily check-in, "what do you need" | llamar al 988 (a link inside a sentence) | `tel:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-16 | Daily check-in, "what do you need" | enviar AYUDA al 988 (a link inside a sentence) | `sms:988` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-17 | Daily check-in, "what do you need" | llama al 911 (a link inside a sentence) | `tel:911` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-18 | Share notice | llama al 988 (a link inside a sentence) | `tel:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-19 | Share notice | envía AYUDA al 988 (a link inside a sentence) | `sms:988` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-20 | Share notice | llama al 911 (a link inside a sentence) | `tel:911` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-21 | Hope box | llama al 988 (a link inside a sentence) | `tel:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-22 | Hope box | envía AYUDA al 988 (a link inside a sentence) | `sms:988` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-23 | Hope box | llama al 911 (a link inside a sentence) | `tel:911` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-24 | Meditation player | Obtén apoyo ahora | `#support` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-25 | After a meditation, very low mood | Llamar al 988 y marcar 2 | `tel:988` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-26 | After a meditation, very low mood | Enviar AYUDA al 988 | `sms:988` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-27 | After a meditation, very low mood | Si hay peligro inmediato, llama al 911 | `tel:911` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-28 | After a meditation, very low mood | Más formas de recibir apoyo | `#support` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-29 | Places that are hard for me | llama al 988 (a link inside a sentence) | `tel:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-30 | Places that are hard for me | envía AYUDA al 988 (a link inside a sentence) | `sms:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-31 | Places that are hard for me | llama al 911 (a link inside a sentence) | `tel:911` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-32 | Place alert | llamar al 988 (a link inside a sentence) | `tel:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-33 | Place alert | enviar AYUDA al 988 (a link inside a sentence) | `sms:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-34 | Place alert | llama al 911 (a link inside a sentence) | `tel:911` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-35 | My circle | llama al 988 (a link inside a sentence) | `tel:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-36 | My circle | envía AYUDA al 988 (a link inside a sentence) | `sms:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-37 | My circle | llama al 911 (a link inside a sentence) | `tel:911` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-38 | After a quick check-in, very low mood | Llamar al 988 y marcar 2 | `tel:988` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-39 | After a quick check-in, very low mood | Enviar AYUDA al 988 | `sms:988` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-40 | After a quick check-in, very low mood | Si hay peligro inmediato, llama al 911 | `tel:911` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-41 | After a quick check-in, very low mood | Más formas de recibir apoyo | `#support` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-42 | Daily check-in result, heavy feeling | llamar al 988 (a link inside a sentence) | `tel:988` | Spanish | a short scroll on that screen | on that screen: 1 once there |
+| ES-43 | Daily check-in result, heavy feeling | enviar AYUDA al 988 (a link inside a sentence) | `sms:988` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-44 | Daily check-in result, heavy feeling | llama al 911 (a link inside a sentence) | `tel:911` | Spanish | yes when that screen opens | on that screen: 1 once there |
+| ES-45 | Daily check-in result, heavy feeling | Más formas de recibir apoyo (a link inside a sentence) | `#support` | Spanish | yes when that screen opens | on that screen: 1 once there |
+
+One known difference between the languages, from the website's own pages: where the English 988
+panel ends with a link to 988lifeline.org, the Spanish panel links to 988's Spanish chat a second
+time. Every other control matches, screen for screen.
+
+### How the test works (`app/test/crisis-test.mjs`, in `npm test`; alone: `npm run test:crisis`)
+
+It walks every screen in the inventory, in English and Spanish, in light mode, dark mode, and at
+135% text, and once more in English with the network off. On each screen, for each control the
+inventory lists, it fails if the control:
+
+- is missing or hidden;
+- leads anywhere other than the recorded address (and the whole inventory may only use eight
+  addresses: `tel:988`, `sms:988`, `tel:911`, `#support`, weather.gov, 988lifeline.org, and 988's
+  chat in English and Spanish);
+- has words under 7 to 1 contrast against what is behind them;
+- is under 44 by 44 points, if it is a button, a tile, or in the strip;
+- has anything on top of the middle of it (it is hit-tested);
+- runs off the side of the screen;
+- or, for the strip, is not in view with no scrolling.
+
+It also fails if a screen can't be reached, if any script error happens on the way, or if anything
+is requested from outside the app. Then it checks: the inventory itself (the strip in view and
+full size on every screen; a way to Support on every screen; Spanish matching English); the page
+with scripts off and with the app's script missing; reading order; one tap from Home; coming back
+from the background; the strip at 175%, 250%, and 331% text (the phone's largest); and Quick exit
+from Home, mid check-in, with the menu open, and during a meditation, each followed by coming back
+to the app. The number of taps from Home to calling 988 can't rise without failing "the strip is
+in view as Home opens".
+
+No call, text, or chat is ever started. Links are read and measured, never followed, and Quick
+exit's destination is answered with an empty reply so nothing outside the app loads.
+
+To add a crisis control on purpose, re-record the inventory. Never re-record to make a failure go
+away.
+
+### Scenarios and results
+
+| Scenario | How it was tested | Result |
+| --- | --- | --- |
+| Every screen, English and Spanish, light | Browser test | pass |
+| Dark mode | Browser test | pass |
+| Largest ordinary text (135%) | Browser test | pass |
+| The phone's largest accessibility text (175%, 250%, 331%) | Browser test, strip only | failed in Spanish at 331% before the fix (911 unreachable); passes now. Call 988 is in view at every size; in Spanish at 331%, 911 is reached by scrolling the strip. See "Known limits" for the rest of the page |
+| Network off | Browser test, English | pass |
+| First launch, before setup, and each onboarding page | Browser test | pass |
+| A sheet or menu open (site menu, "End session?", the share notice, the place alert) | Browser test | pass |
+| During a meditation (sound muted in tests) | Browser test | pass |
+| Scripts off; the app's script missing | Browser test | pass |
+| Reading and focus order | Browser test | pass |
+| Back from the background | Browser test (the page's own events), and by hand in the Simulator | pass |
+| Quick exit, then back to the app | Browser test, and by hand in the iPhone 17 Simulator | failed before the fix (blank app); passes now: Safari opens weather.gov, and coming back shows the app with its strip |
+| Text 988 opens Messages | Not run: see below | needs a real iPhone |
+| Call 988 and Call 911 show the call sheet | Can't be run: the Simulator has no Phone app | needs a real iPhone |
+| VoiceOver reading the strip first | DOM order only | needs a person with VoiceOver |
+
+`npm run test:crisis`: 334 checks, 0 failed (about five minutes). The full `npm test` result for this phase is in `app/PROGRESS.md`.
+
+### What could not be tested here
+
+- **An actual call sheet or Messages screen.** The Simulator has no Phone app, and this project's
+  rule is never to place a call or send a text to a crisis service on any device or simulator. The
+  links and the way Capacitor hands them to iOS were read, not exercised. The exact steps for a
+  real iPhone are in `app/TESTING_CHECKLIST.md`, section 1b: fourteen checks, each stopping at the
+  phone's own screen.
+- **VoiceOver**, by ear.
+- **Screen Time or parental restrictions that block Safari.** If the phone can't open a browser,
+  Quick exit still hides the page, and going to the Home Screen and back shows it again. That is
+  reasoned from the code and not seen on a phone.
+
+### Known limits (not changed; see [[LAUNCH-BACKLOG]])
+
+- **Crisis links inside sentences are text-sized.** In the Hope box, My circle, Places, the share
+  notice, the place alert, the age question, and two Daily check-in screens, "call 988", "text 988",
+  and "call 911" sit inside a sentence and are about 19 points tall. Making their tap area taller
+  would make neighboring links on the next line overlap, so a tap meant for 988 could land on 911.
+  They are left as they are; each of those screens also has the strip's full-size controls at the
+  top. The test holds them to at least their current height and to nothing covering them.
+- **At the phone's three largest accessibility text sizes, the strip and the tab bar take most of
+  the screen.** On iPhone the app follows the phone's text size. At a 40-point body the strip is
+  403 points tall and 310 points are left for everything else; at the largest, a 53-point body,
+  the strip (752) and the tab bar (213) together are taller than the screen, and in Spanish the
+  strip alone fills it. The strip itself stays whole and usable, which is what this phase guarantees. The page behind it is not usable at that
+  size. Changing the strip is a decision for the founders and the reviewer; Phase 4 takes up the
+  tab bar and the page.
+
