@@ -962,6 +962,31 @@ Three things on screen did change, and they touch the questions above:
 - **Spanish.** The new lines are an AI translation like the rest: "Obtener ayuda",
   "Respirar un minuto", "Volver al inicio", "Quedan {time}", "Más información".
 
+## Questions from the launch readiness work
+
+Found November 12, 2026, while testing every crisis path and safety rule ([[LAUNCH-READINESS]]). No wording was
+changed for any of them.
+
+- **"Call 988" and "Call 911" on a notification.** The place alert's notification ("Your plan is here.") has four
+  buttons that appear when it is long-pressed, including on the lock screen: "I'm okay", "Send my message",
+  "Call 988", "Call 911". A founder's rule says notifications never mention crisis. These two buttons do, and they
+  are also quick ways to reach help. Keep them, show them only once the phone is unlocked, or remove them?
+- **After Quick exit, the app comes back on the screen the person left.** Before this work it came back blank,
+  with no crisis strip, which was a bug. Should it instead come back on Home, so a journal entry or a check-in is
+  not the first thing on screen if someone else picks up the phone?
+- **The crisis strip at the phone's largest text sizes.** The app follows the phone's text size. At the three
+  largest accessibility sizes the strip takes half the screen or more, and at the very largest (in Spanish) it
+  fills the screen and has to be scrolled to reach "llama al 911". The strip was not changed. Should it use its
+  short form ("Call 988 · Text 988 · Call 911", already used when a phone is held sideways) at those sizes?
+- **Crisis links inside sentences** ("call 988 or text 988 … call 911" in the Hope box, My circle, Places, the
+  share notice, the place alert, the age question, and two Daily check-in screens) are the size of the text, about
+  19 points tall, and close together. Each of those screens also has the full-size strip. Should those sentences
+  become buttons or separate lines?
+- **The Spanish 988 panel** ends with a second link to 988's Spanish chat, where the English panel links to
+  988lifeline.org. Is that intended?
+- **A later check-in on a day that had a very low one** now ends with its thanks line and two choices but no
+  dawn. The thin strip of light that grows during the check-in still shows. Is that the right line to draw?
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

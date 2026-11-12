@@ -6,6 +6,7 @@ import { KEYS } from '../core/storage.js';
 import { defaultSettings } from '../core/migrations.js';
 import { profileFor } from '../logic/style-profile.js';
 import { dateKey } from '../logic/streaks.js';
+import { isQuietDay } from '../logic/safety.js';
 
 export const state = {
   settings: defaultSettings(),
@@ -67,7 +68,7 @@ export async function clear(name) {
 // A day with a very low check-in is "quiet": nothing celebrates for the rest of it. The day is
 // kept on the phone with the onboarding record, so closing and reopening the app doesn't forget.
 export const todayKey = () => dateKey(new Date());
-export const isQuiet = () => state.onboarding.quietDay === todayKey();
+export const isQuiet = () => isQuietDay(state.onboarding.quietDay, todayKey());
 export async function goQuiet() { if (!isQuiet()) await save('onboarding', { quietDay: todayKey() }); }
 
 export const style = () => state.settings.checkInStyle;

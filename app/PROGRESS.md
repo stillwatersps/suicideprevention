@@ -2,7 +2,7 @@
 Last updated: 2026-11-12 (launch brief, Phase 0)
 Current branch: app/launch-readiness (cut from app/visual-identity at Phase 0's commit)
 Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
-Current step: Launch brief: Phase 2 done. Next: Phase 3, step 1 (the table of safety rules; `src/logic/safety.js` and two new test files are already started in the working tree).
+Current step: Launch brief: Phase 3 done. Next: Phase 4, step 1 (install `axe-core` as a dev dependency; `test/a11y-test.mjs` and `test/app-screens.mjs` are drafted in the working tree and have never run).
 
 ## Launch readiness brief — in progress
 A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
@@ -10,7 +10,7 @@ A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): 
 - [x] L0 — Pull request 26 wording: every reviewed string restored and locked by a snapshot test; privacy and consent wording in view and locked by a test. Pushed to pull request 26
 - [x] L1 — Branch `app/launch-readiness`, baseline numbers (in `notes/LAUNCH-READINESS.md`), readiness and backlog notes, `tools/launch-time.mjs`
 - [x] L2 — Crisis path reliability: 37 screens and 392 controls per language inventoried; four bugs fixed (blank app after Quick exit; 911 unreachable in Spanish at the largest text; a 43-point target; a 6.9 to 1 link); `test/crisis-test.mjs` in `npm test` (334 checks). `npm test`: 101 unit, 5, 180, 56, 928, 334, 0 failed
-- [ ] L3 — A test for every safety rule; `npm run test:safety`
+- [x] L3 — A test for every safety rule: 25 rules in a table in `notes/LAUNCH-READINESS.md`; `src/logic/safety.js` (one implementation); `test/unit/safety-rules.test.mjs` (14) and `test/safety-test.mjs` (174); one gap fixed (no dawn on a later check-in on a quiet day); `npm run test:safety`. `npm test`: 115 unit, 5, 180, 56, 928, 334, 174, 0 failed
 - [ ] L4 — Accessibility audit and fixes
 - [ ] L5 — Performance and launch time
 - [ ] L6 — Data reliability and error handling

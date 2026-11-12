@@ -2,9 +2,10 @@
 // mood shows crisis support options right away instead of the usual ending. Nothing typed here is read, scored, or sent anywhere.
 import { CONFIG } from '../core/config.js';
 import { t } from './words.js';
-import { style, profile } from './state.js';
+import { style, profile, isQuiet } from './state.js';
 import { choiceGroup } from './components.js';
 import { haptic } from './haptics.js';
+import { isLowMood, isHeavyFeeling } from '../logic/safety.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
 const $$ = (sel, scope) => Array.from((scope || document).querySelectorAll(sel));
@@ -53,7 +54,8 @@ function start() {
   }
 }
 
-export const isLowMood = (mood) => Number(mood) <= CONFIG.checkIn.lowMoodMax;
+// The rule itself lives in logic/safety.js; this keeps the older import path working.
+export { isLowMood };
 
 async function finish() {
   const mood = Number(faces.get());
@@ -70,11 +72,14 @@ async function finish() {
   }
   // An ordinary check-in ends on the full dawn, one warm line, and a choice of two. Nothing is
   // scored and nothing bursts. (After a very low mood this is never reached: support came first.)
-  haptic('success');
+  // On a day that already had a very low check-in (a "quiet" day) there is no dawn and no buzz
+  // either: the same thanks line and the same two choices, and nothing else.
+  const quiet = isQuiet();
+  if (!quiet) haptic('success');
   $('#tl-flow-thanks').textContent = t('checkin.done', null, style());
-  arrive(1);
-  $('#tl-flow-horizon').classList.add('tl-horizon-complete');
+  if (!quiet) { arrive(1); $('#tl-flow-horizon').classList.add('tl-horizon-complete'); }
   step('done');
+  $('#tl-flow-horizon').hidden = quiet;
   window.scrollTo(0, 0);
 }
 
@@ -96,7 +101,7 @@ export function initCheckin(shell, context) {
   window.addEventListener('tidelight-checkin', (event) => {
     const detail = event.detail || {};
     if (detail.kind !== 'daily' || !support) return;
-    const heavy = CONFIG.checkIn.distressFeelings.indexOf(detail.feeling) !== -1;
+    const heavy = isHeavyFeeling(detail.feeling);
     support.classList.toggle('ci-off', !heavy);
     if (heavy) { support.scrollIntoView({ block: 'start' }); support.focus({ preventScroll: true }); }
   });

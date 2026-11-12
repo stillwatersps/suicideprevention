@@ -396,3 +396,79 @@ away.
   size. Changing the strip is a decision for the founders and the reviewer; Phase 4 takes up the
   tab bar and the page.
 
+## Safety rules and their tests (Phase 3)
+
+Every safety rule written down in `CLAUDE.md`, `app/CLAUDE.md`, `app/PROGRESS.md`,
+`app/BUILD-SPEC.md`, [[SAFETY]], and [[CONTENT-REVIEW]], where the app enforces it, and the test
+that fails if it stops being true. Run them all with `npm run test:safety` in `app/` (about seven
+minutes); they are also part of `npm test`.
+
+"Unit" tests are in `app/test/unit/`; "crisis" is `app/test/crisis-test.mjs`; "safety" is
+`app/test/safety-test.mjs`; "redesign" is `app/test/redesign-test.mjs`.
+
+| # | Rule | Where it is enforced | Test that proves it | Status |
+| --- | --- | --- | --- | --- |
+| 1 | Crisis help is one tap away on every screen: Call 988, Text 988, Call 911, Quick exit | Plain links in every page's own markup; `app-safe-area.css` keeps the strip clear of the status bar and inside the screen | crisis: every screen, both languages, light, dark, large text, offline, scripts off | tested |
+| 2 | No dead crisis controls: each leads where it says | The page's markup | crisis: every link's address is checked against the inventory, and only eight addresses are allowed | tested |
+| 3 | Quick exit hides the page at once, leaves for a neutral site, and never leaves a blank app | The page's first script; `src/app-return.js` | crisis: "Quick exit", from four states, in both languages | tested (was broken; fixed in Phase 2) |
+| 4 | Never remove, shorten, hide, or move behind a tap: the 911 line, Exit, Get Support Now, any crisis line, the "Draft for review" notices, the language link | Markup in the page flow; nothing new is an overlay | crisis (controls); safety: "Draft notices and the language link on every screen"; unit `reviewed-strings` (wording) | tested |
+| 5 | A very low mood (1 or 2) on a quick check-in shows support at once, instead of the usual ending | `src/logic/safety.js` `isLowMood`; `src/ui/checkin.js` `finish` | unit `safety-rules`; safety: moods 1 to 5, both languages | tested |
+| 6 | A heavy feeling on the Daily check-in shows 988 and 911 at the top of its results | `src/logic/safety.js` `isHeavyFeeling`; `src/ui/checkin.js` | unit `safety-rules`; safety: all nine feelings, both languages | tested |
+| 7 | A very low mood after a meditation shows support, with no dawn | `src/ui/player.js` | safety: moods 1, 2, 3, 5 after a session | tested |
+| 8 | After a very low check-in nothing celebrates, and no dawn is shown, for the rest of that calendar day | `src/logic/safety.js` `isQuietDay`; `src/ui/state.js`; `checkin.js`, `player.js`, `streaks-ui.js`, `setup.js` | unit `safety-rules`; safety: "A quiet day stays quiet, and ends at midnight"; redesign: `identityTests`, `streakTests` | tested (one gap fixed, below) |
+| 9 | Streaks: no streak, milestone, or "new start" message in or near a support screen | `src/ui/streaks-ui.js` (cards live on Home only; skipped on a quiet day) | safety: "Streaks keep away from support"; redesign: `streakTests` | tested |
+| 10 | Streak language stays gentle; a missed day is a "rest day" | `src/text/redesign.en.html`, `.es.json` | unit `safety-rules`: no streak line blames or shames, in either language; unit `reviewed-strings` locks the lines | tested |
+| 11 | Streaks can be turned off, and turning them off loses nothing | Settings; `src/ui/streaks-ui.js` | safety; redesign: `streakTests` | tested |
+| 12 | Notifications and the lock screen are discreet: never suicide, crisis, or mood | `src/text/` (`rem.*`, `notifBody`); `src/ui/reminders.js` | unit `safety-rules` (the lines themselves, both languages); safety: what the app actually schedules, both styles, both languages | tested, with one open question (below) |
+| 13 | All new copy is marked "Draft for review" | A draft mark on every screen, linking to the notice | unit `safety-rules` (every screen in both text sources); safety (the mark is on screen) | tested |
+| 14 | Location stays on the phone and is read only when the person asks | `src/ui/device.js`; no network at all | safety: no read on any tab or in Settings; exactly one read on "Save where I am"; nothing requested outside the app | tested |
+| 15 | Nothing typed or recorded leaves the phone; no analytics, outside fonts, scripts, or embeds | The page's Content Security Policy; the lint | lint (no outside address in `src/`); every browser test fails on any outside request; Phase 7 adds a full walkthrough | tested |
+| 16 | Every word is in `src/text/`, English and Spanish together | The lint; `tools/make-redesign-es.mjs` | lint (word sources match); unit `reviewed-strings` | tested |
+| 17 | Reviewed wording is never changed, shortened, or removed | The snapshot | unit `reviewed-strings`; redesign: `privacyInViewTests` | tested |
+| 18 | Every question is optional; a skipped answer is never treated as distress | The Daily check-in's Skip on each step; `isLowMood` ignores a missing mood | unit `safety-rules`; safety: "Questions can be skipped" | tested |
+| 19 | Stored data stays readable across versions | `src/core/migrations.js` | unit `storage`; safety: "upgrading from an older version" | tested |
+| 20 | Dates never break the record: midnight, month ends, the 1st to the 9th, time zones, daylight saving, a clock set back | `src/logic/streaks.js` (local `YYYY-MM-DD` keys, always two digits) | unit `streaks` (midnight, time zones, daylight saving), unit `safety-rules` (month and year ends, leap day, the 1st to the 9th, clock set back); safety: across midnight and a month end, then the clock set back | tested |
+| 21 | Closing the app part-way never leaves a half check-in or a blank screen | Check-ins are kept only on Done | safety: "Closed in the middle of a check-in" | tested |
+| 22 | Automated runs make no sound, and never contact a crisis service | `test/quiet.mjs`; outside requests are stopped in every test | lint (every browser is the muted one); unit `quiet`; crisis and safety fail on any outside request | tested |
+| 23 | Crisis controls are plain: 7 to 1 contrast, no texture, no animation, never coral | `src/tokens.css`, `src/redesign-identity.css` | unit `tokens`; redesign: `identityTests`; crisis (contrast of every control) | tested |
+| 24 | Write for minors too; follow safe messaging guidance | The wording itself | none possible: this is the reviewer's judgment | needs the reviewer |
+| 25 | Never merge into `main`, never push to `app/first-build`, no names or addresses in anything committed | People and assistants | none (a rule for those who commit) | by practice |
+
+### What Phase 3 changed
+
+- **One implementation of the support rules.** "Is this mood very low?" and "is this feeling
+  heavy?" were written out in three files. They are now in `src/logic/safety.js`, used by the quick
+  check-in, the Daily check-in, the player, and the quiet-day logic, with one set of unit tests.
+- **A gap in the quiet-day rule, fixed.** After a very low check-in, a later ordinary check-in the
+  same day still ended on the full dawn (a finished meditation already did not). Now it ends with
+  its thanks line and its two choices and no dawn. No wording changed.
+- **A missing mood is not a low mood.** The old test was "is the number 2 or less", which a missing
+  answer (zero) would have passed. Nothing in the app could reach that case, but the rule now says
+  what it means: only a mood of 1 or 2 that was actually chosen.
+
+### Edge cases tested
+
+- Very low answers in every combination that triggers support: quick check-in moods 1 to 5, all
+  nine Daily check-in feelings, and moods after a meditation, in English and Spanish.
+- Skipped questions: each Daily check-in question, and all of them at once.
+- The app closed part-way through a quick check-in and through the Daily check-in.
+- A check-in at 11:50 at night on November 30, then the app opened at ten past midnight on
+  December 1: yesterday's check-ins leave "Today", the quiet day ends, the calendar shows
+  December from the 1st, both days are on record under two-digit dates, and the streak carries
+  over the month end.
+- The phone's clock set back ten days: the app opens, nothing is lost.
+- Time zones and daylight saving: already covered by the streak unit tests, which run the same
+  moment through New York and Los Angeles and across both clock changes.
+- A first launch, a returning person, and a person upgrading from the build before the redesign
+  (older check-ins and the four old reminders).
+
+Result: `npm test` in `app/`: 115 unit tests (14 new), then 5, 180, 56, 928, 334 (crisis), and 174 (safety) browser checks; 0 failed. `npm run test:safety` runs the crisis and safety tests and the unit tests for rules, dates, wording, tokens, and muting.
+
+### Open question found in this phase
+
+The place alert's notification has four buttons: "I'm okay", "Send my message", **"Call 988"**, and
+**"Call 911"**. They show when a person long-presses the notification, which can be on the lock
+screen. That puts "988" on a notification, against the founder's rule that notifications never
+mention crisis; but they are also two of the fastest ways to reach help. The two rules pull against
+each other, so nothing was changed. It is a question in [[CONTENT-REVIEW]] and in [[LAUNCH-BACKLOG]].
+

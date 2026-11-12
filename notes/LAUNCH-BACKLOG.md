@@ -32,3 +32,15 @@ decides.
 - **The Spanish 988 panel has no link to 988lifeline.org**, where the English one does (it links to
   the Spanish chat twice). This comes from the website's pages. Who decides: the reviewer.
 
+## Safety rules (decisions)
+
+- **"Call 988" and "Call 911" as buttons on the place alert's notification.** A founder's rule says
+  notifications never mention crisis; these buttons name 988 on a notification that can sit on the
+  lock screen. They are also crisis controls, which may never be removed. Options: keep them (the
+  person set this alert up for themselves); show them only when the phone is unlocked (iOS can
+  require that for a notification's buttons); or remove them and rely on the alert screen. Who
+  decides: both founders, with the reviewer.
+- **The check-in's light on a quiet day.** After a very low check-in the finished check-in no
+  longer shows the dawn that day. The small strip of light that grows while a person answers is
+  still shown. Should that be off for the day too? Who decides: the reviewer.
+

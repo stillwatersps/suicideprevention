@@ -2,7 +2,8 @@
 // older app layer in app.js. A draft, not reviewed. Nothing here sends anything anywhere.
 import { initShell, shell } from './ui/shell.js';
 import { initHome, renderHome } from './ui/home.js';
-import { initCheckin, renderToday, isLowMood } from './ui/checkin.js';
+import { initCheckin, renderToday } from './ui/checkin.js';
+import { showsSupport } from './logic/safety.js';
 import { initOnboarding, startOnboarding } from './ui/onboarding.js';
 import { initSetup, renderSetup } from './ui/setup.js';
 import { initSettings, renderSettings } from './ui/settings.js';
@@ -81,7 +82,7 @@ export async function initRedesign(context) {
   window.addEventListener('tidelight-checkin', async (event) => {
     const detail = event.detail || {};
     // A very low check-in: nothing celebrates for the rest of today.
-    if ((detail.kind === 'quick' && isLowMood(detail.mood)) || CONFIG.checkIn.distressFeelings.indexOf(detail.feeling) !== -1) await goQuiet();
+    if (showsSupport(detail)) await goQuiet();
     await addCheckInToStreak();
     await syncReminders(ctx.checkInsToday());
     refresh();
