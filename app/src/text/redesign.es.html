@@ -27,7 +27,7 @@
             <h2 class="tl-display tl-greeting" id="tl-home-title">Hola</h2>
             <p class="tl-hero-line" id="tl-home-line"></p>
           </div>
-          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-push="flow" data-tl-quick="checkin" aria-label="Empezar un registro">
+          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-push="flow" aria-label="Empezar un registro">
             <span class="tl-card-icon" data-tl-icon="heart"></span>
             <span class="tl-card-text"><span class="tl-card-title">Próximo registro</span><span class="tl-card-sub" id="tl-home-next-when">Cuando quieras</span></span>
             <span class="tl-card-go">Empezar</span>
@@ -58,15 +58,15 @@
               <span class="tl-badge tl-freeze-badge" aria-hidden="true"><span data-tl-icon="snow"></span><span id="tl-streak-freezes-count">0</span></span>
             </button>
           </div>
-          <div class="tl-tiles" role="group" aria-label="Herramientas rápidas">
-            <button type="button" class="tl-tile tl-tile-seafoam" id="tl-home-reset" data-tl-quick="reset"><span class="tl-tile-icon" data-tl-icon="wind"></span><span class="tl-tile-label">Pausa de 1 min</span></button>
+          <div class="tl-tiles" role="group" aria-label="Acciones rápidas">
+            <button type="button" class="tl-tile tl-tile-sun" data-tl-push="flow" data-tl-quick="checkin"><span class="tl-tile-icon" data-tl-icon="heart"></span><span class="tl-tile-label">Registrarme</span></button>
             <button type="button" class="tl-tile tl-tile-sky" data-tl-go="meditate" data-tl-quick="meditate"><span class="tl-tile-icon" data-tl-icon="horizon"></span><span class="tl-tile-label">Meditar</span></button>
-            <button type="button" class="tl-tile tl-tile-sun" data-tl-legacy="app-hope"><span class="tl-tile-icon" data-tl-icon="box"></span><span class="tl-tile-label">Caja de esperanza</span></button>
+            <button type="button" class="tl-tile tl-tile-seafoam" id="tl-home-reset" data-tl-quick="reset"><span class="tl-tile-icon" data-tl-icon="wind"></span><span class="tl-tile-label">Pausa de 1 min</span></button>
             <a class="tl-tile tl-tile-shell" href="#support"><span class="tl-tile-icon" data-tl-icon="lifebuoy"></span><span class="tl-tile-label">Obtener ayuda</span></a>
           </div>
           <div id="tl-home-setup" hidden>
             <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
-              <span class="tl-card-text"><span class="tl-card-title">Termina de configurar</span><span class="tl-card-sub" id="tl-setup-count"></span><span class="tl-progress" id="tl-setup-ring" aria-hidden="true"><span></span></span></span>
+              <span class="tl-card-text"><span class="tl-card-title">Termina de configurar</span><span class="tl-card-sub" id="tl-setup-count"></span><span class="tl-progress-label" id="tl-setup-ring-label" aria-hidden="true"></span><span class="tl-progress" id="tl-setup-ring" aria-hidden="true"><span></span></span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button>
             <ul class="tl-list tl-setup-list" id="tl-setup-list" hidden>
@@ -698,7 +698,8 @@
         <span data-word="home.nextAt">A las {time}</span>
         <span data-word="home.nextAny">Cuando quieras</span>
         <span data-word="home.nextDone">Listo por hoy</span>
-        <span data-word="setup.count">{done} de {total} configurados</span>
+        <span data-word="setup.count">Configuración {done}/{total}</span>
+        <span data-word="setup.ring">{done}/{total}</span>
         <span data-word="setup.denied">El teléfono dijo que no. Puedes cambiarlo en los Ajustes del teléfono.</span>
         <span data-word="setup.unavailable">Eso solo funciona en la app en un teléfono.</span>
         <span data-word="setup.saved">Guardado.</span>

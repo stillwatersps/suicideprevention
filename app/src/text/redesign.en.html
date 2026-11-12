@@ -28,7 +28,7 @@
             <h2 class="tl-display tl-greeting" id="tl-home-title">Hello</h2>
             <p class="tl-hero-line" id="tl-home-line"></p>
           </div>
-          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-push="flow" data-tl-quick="checkin" aria-label="Start a check-in">
+          <button type="button" class="tl-card tl-card-action" id="tl-home-next" data-tl-push="flow" aria-label="Start a check-in">
             <span class="tl-card-icon" data-tl-icon="heart"></span>
             <span class="tl-card-text"><span class="tl-card-title">Next check-in</span><span class="tl-card-sub" id="tl-home-next-when">Any time you like</span></span>
             <span class="tl-card-go">Start</span>
@@ -59,15 +59,15 @@
               <span class="tl-badge tl-freeze-badge" aria-hidden="true"><span data-tl-icon="snow"></span><span id="tl-streak-freezes-count">0</span></span>
             </button>
           </div>
-          <div class="tl-tiles" role="group" aria-label="Quick tools">
-            <button type="button" class="tl-tile tl-tile-seafoam" id="tl-home-reset" data-tl-quick="reset"><span class="tl-tile-icon" data-tl-icon="wind"></span><span class="tl-tile-label">1-min reset</span></button>
+          <div class="tl-tiles" role="group" aria-label="Quick actions">
+            <button type="button" class="tl-tile tl-tile-sun" data-tl-push="flow" data-tl-quick="checkin"><span class="tl-tile-icon" data-tl-icon="heart"></span><span class="tl-tile-label">Check in</span></button>
             <button type="button" class="tl-tile tl-tile-sky" data-tl-go="meditate" data-tl-quick="meditate"><span class="tl-tile-icon" data-tl-icon="horizon"></span><span class="tl-tile-label">Meditate</span></button>
-            <button type="button" class="tl-tile tl-tile-sun" data-tl-legacy="app-hope"><span class="tl-tile-icon" data-tl-icon="box"></span><span class="tl-tile-label">Hope box</span></button>
+            <button type="button" class="tl-tile tl-tile-seafoam" id="tl-home-reset" data-tl-quick="reset"><span class="tl-tile-icon" data-tl-icon="wind"></span><span class="tl-tile-label">1-min reset</span></button>
             <a class="tl-tile tl-tile-shell" href="#support"><span class="tl-tile-icon" data-tl-icon="lifebuoy"></span><span class="tl-tile-label">Get help</span></a>
           </div>
           <div id="tl-home-setup" hidden>
             <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
-              <span class="tl-card-text"><span class="tl-card-title">Finish setting up</span><span class="tl-card-sub" id="tl-setup-count"></span><span class="tl-progress" id="tl-setup-ring" aria-hidden="true"><span></span></span></span>
+              <span class="tl-card-text"><span class="tl-card-title">Finish setting up</span><span class="tl-card-sub" id="tl-setup-count"></span><span class="tl-progress-label" id="tl-setup-ring-label" aria-hidden="true"></span><span class="tl-progress" id="tl-setup-ring" aria-hidden="true"><span></span></span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button>
             <ul class="tl-list tl-setup-list" id="tl-setup-list" hidden>
@@ -699,7 +699,8 @@
         <span data-word="home.nextAt">At {time}</span>
         <span data-word="home.nextAny">Any time you like</span>
         <span data-word="home.nextDone">All done for today</span>
-        <span data-word="setup.count">{done} of {total} set up</span>
+        <span data-word="setup.count">Setup {done}/{total}</span>
+        <span data-word="setup.ring">{done}/{total}</span>
         <span data-word="setup.denied">The phone said no. You can change that in the phone's Settings.</span>
         <span data-word="setup.unavailable">That only works in the app on a phone.</span>
         <span data-word="setup.saved">Saved.</span>

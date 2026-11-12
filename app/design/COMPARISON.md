@@ -39,7 +39,7 @@ turn light so they never sink into the page.
 | `01-onboarding-02` to `08` | White cards, green buttons, progress as round dots | Type on paper, one coral button per page, progress as thin bars, line icons |
 | `01-onboarding-09-done` | A tick in a circle | The horizon at full dawn |
 | `02-home-first-day` | A greeting, a streak card reading 0, three equal buttons, cards for everything | A hero with the greeting above the horizon and one phrase lit from behind; one feature card for the next check-in; the streak as a row (same words); four tinted tiles |
-| `03-home-setup-open` | A ring with "3/8" | A thin progress line and "3 of 8 set up" |
+| `03-home-setup-open` | A ring with "3/8" | A thin progress line with "3/8" beside it; the same "Setup 3/8" line |
 | `04-checkin-tab` | A stack of identical cards | One row with the action, then a list with hairlines |
 | `05-checkin-breath`, `06`, `07` | Five drawn faces in a row | A horizon strip whose light grows as you go; five rows, each a tone and a word, with a check when chosen |
 | `08-checkin-done` | A thanks line, then back to Home after two seconds | The full dawn, the same thanks line in large type, and two choices |

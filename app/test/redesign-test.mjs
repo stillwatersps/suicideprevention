@@ -5,6 +5,7 @@ import { tab, openPanel, openSettings, startDaily, safetyFrame, serve, counter, 
 
 import { isoWeek } from '../src/logic/streaks.js';
 import { openBrowser } from './quiet.mjs';
+import { readFileSync } from 'node:fs';
 
 const { base, close } = await serve();
 const { check, tally } = counter();
@@ -691,6 +692,82 @@ async function layoutTests(browser, lang) {
   await context.close();
 }
 
+// Privacy and consent wording is always in view on Location and Friends, in both languages and at
+// the largest text. "In view" means rendered, not folded, not hidden, and with some height.
+// Only the how-to paragraphs in test/fixtures/learn-more-allow.json may sit under "Learn more".
+const LEARN_MORE_ALLOWED = JSON.parse(readFileSync(new URL('./fixtures/learn-more-allow.json', import.meta.url), 'utf8'));
+async function privacyInViewTests(browser, lang) {
+  console.log(`\nPrivacy and consent wording in view, ${lang === 'es' ? 'Spanish' : 'English'}`);
+  const report = (page, turnedOn) => page.evaluate((on) => {
+    const inView = (el) => {
+      if (!el) return false;
+      for (let node = el; node && node.nodeType === 1; node = node.parentElement) {
+        if (node.tagName === 'DETAILS' && !node.open && !(el.closest('summary') && el.closest('summary').parentElement === node)) return false;
+        const cs = getComputedStyle(node);
+        if (node.hidden || cs.display === 'none' || cs.visibility === 'hidden') return false;
+      }
+      const box = el.getBoundingClientRect();
+      return box.height > 4 && box.width > 4 && el.textContent.trim().length > 0;
+    };
+    const places = document.querySelector('#app-places');
+    const circle = document.querySelector('#app-circle');
+    const tidy = (el) => el.textContent.replace(/\s+/g, ' ').trim();
+    const items = [];
+    const need = (name, el) => items.push({ name, ok: inView(el) });
+    // Location, before anything is turned on: what the feature does, and the paragraph beside the switch.
+    Array.from(places.querySelectorAll(':scope > p:not([class])')).slice(0, 2).forEach((p, i) => need('Places opening paragraph ' + (i + 1), p));
+    if (on) {
+      need('the location permission paragraph', places.querySelector('.app-places-perm'));
+      // Under each heading, every plain paragraph and list point (stored where, who is told, what is sent, what shows).
+      const heads = Array.from(places.querySelectorAll('.app-places-setup h4'));
+      heads.forEach((head, at) => {
+        for (let node = head.nextElementSibling; node && node.tagName !== 'H4'; node = node.nextElementSibling) {
+          if (node.tagName === 'DETAILS') continue; // counted separately against the allow-list
+          if (node.tagName === 'P' && !node.className) need(`paragraph under heading ${at + 1}`, node);
+          if (node.tagName === 'UL' && !node.classList.contains('ci-list')) Array.from(node.children).forEach((li, n) => need(`point ${n + 1} under heading ${at + 1}`, li));
+          if (node.matches('p.ci-field') && node.querySelector('input[type="checkbox"]')) need(`the choice under heading ${at + 1}`, node.querySelector('label'));
+        }
+      });
+    }
+    // Friends: the opening paragraph, all five points, and the note about what is kept.
+    need('My circle opening paragraph', circle.querySelector(':scope > p:not([class])'));
+    Array.from(circle.querySelectorAll('ul.app-accommodations > li')).forEach((li, n) => need('My circle point ' + (n + 1), li));
+    need('the note about what is kept on this phone', circle.querySelector('.ci-note'));
+    const everyLine988 = Array.from(document.querySelectorAll('#app-places p, #app-places li, #app-circle p, #app-circle li')).filter((el) => /988|911/.test(el.textContent) && !el.closest('[hidden]'));
+    return { items, folded: Array.from(document.querySelectorAll('#app-places details.tl-more .tl-more-body, #app-circle details.tl-more .tl-more-body')).map(tidy),
+      crisisLines: everyLine988.length, crisisFolded: everyLine988.filter((el) => el.closest('details')).length, points: circle.querySelectorAll('ul.app-accommodations > li').length };
+  }, turnedOn);
+  for (const size of ['', '135%']) {
+    const label = size ? 'at the largest text' : 'at the ordinary text size';
+    const { context, page, errors } = await newPage(browser, lang, { viewport: { width: 375, height: 667 } });
+    if (size) await page.evaluate((s) => { document.documentElement.style.fontSize = s; }, size);
+    // "On page load": each tab is opened and nothing else is tapped. (The circle is checked on its own tab.)
+    await tab(page, 'location');
+    let seen = await report(page, false);
+    const placesFirst = seen.items.filter((item) => item.name.startsWith('Places'));
+    check(placesFirst.length === 2 && placesFirst.every((item) => item.ok), `${label}, Location as it opens: what the feature does and "This is off until you turn it on" are in view`);
+    await tab(page, 'friends');
+    seen = await report(page, false);
+    const circleItems = seen.items.filter((item) => !item.name.startsWith('Places'));
+    const hiddenCircle = circleItems.filter((item) => !item.ok).map((item) => item.name);
+    check(seen.points === 5 && circleItems.length === 7 && hiddenCircle.length === 0, `${label}, Friends as it opens: the opening paragraph, all five points, and the note are in view` + (hiddenCircle.length ? ': not ' + hiddenCircle.join(', ') : ''));
+    // With Places turned on, everything under its headings.
+    await tab(page, 'location');
+    await page.check('#app-places .app-places-on');
+    seen = await report(page, true);
+    // (My circle is on the Friends tab, checked above; here only what belongs to Places.)
+    const placesItems = seen.items.filter((item) => !/My circle|note about/.test(item.name));
+    const hidden = placesItems.filter((item) => !item.ok).map((item) => item.name);
+    check(placesItems.length >= 12 && hidden.length === 0, `${label}, Places turned on: all ${placesItems.length} privacy and consent paragraphs, points, and choices are in view` + (hidden.length ? ': not ' + hidden.join(', ') : ''));
+    check(seen.crisisLines >= 2 && seen.crisisFolded === 0, `${label}: every line with 988 or 911 is in view (${seen.crisisLines} of them)`);
+    const allowed = LEARN_MORE_ALLOWED[lang];
+    check(seen.folded.length === 2 && seen.folded.every((text) => allowed.includes(text)), `${label}: the "Learn more" rows hold only allow-listed how-to text` + (seen.folded.every((text) => allowed.includes(text)) ? '' : ': ' + seen.folded.filter((text) => !allowed.includes(text)).join(' | ')));
+    check(await noSideways(page), `${label}: Location fits`);
+    check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));
+    await context.close();
+  }
+}
+
 
 const startType = async (page, type) => { await tab(page, 'meditate'); if (!(await page.isVisible('#tl-meditate'))) await tab(page, 'meditate'); await page.click(`.tl-type[data-type="${type}"] [data-type-start]`); await page.waitForSelector('#tl-stage:not([hidden])'); };
 const startSample = (page) => startType(page, 'quick');
@@ -1179,6 +1256,8 @@ try {
   await identityTests(browser, 'es');
   await layoutTests(browser, 'en');
   await layoutTests(browser, 'es');
+  await privacyInViewTests(browser, 'en');
+  await privacyInViewTests(browser, 'es');
   await playerTests(browser, 'en');
   await playerTests(browser, 'es');
   await typesTests(browser, 'en');

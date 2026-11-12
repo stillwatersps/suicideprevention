@@ -226,6 +226,7 @@ html.tl #ci-step-feeling .ci-choice:has(input:checked) { background: var(--seafo
 html.tl .tl-tabbar.is-compact .tl-tab { justify-content: center; }
 html.tl .tl-tabbar.is-compact .tl-tab .tl-icon { width: var(--tile-icon); height: var(--tile-icon); padding: var(--space-4); }
 
+.tl-progress-label { display: block; margin-top: var(--space-4); font-size: var(--text-caption); line-height: var(--lh-caption); font-weight: var(--wt-strong); font-variant-numeric: tabular-nums; color: var(--ink-soft); }
 .tl-progress { display: block; width: 100%; height: var(--progress); margin-top: var(--space-8); border-radius: var(--radius-pill); background: var(--shell); overflow: hidden; }
 .tl-progress > span { display: block; height: 100%; background: var(--seafoam); transform-origin: left center; transform: scaleX(0); transition: transform var(--dur-slow) var(--ease-tide); }
 html.tl .tl-setup-list li { background: var(--paper); border: 0; border-radius: var(--radius-md); }

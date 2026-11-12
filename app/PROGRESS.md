@@ -1,8 +1,34 @@
 # Tidelight Build Progress
-Last updated: 2026-11-11 (visual identity, follow-ups on pull request 26)
-Current branch: app/visual-identity
-Current phase: Visual identity, all 10 phases done, plus four follow-ups from a founder
-Current step: Pushed to draft pull request 26 into `app/redesign-dev`. Waiting for both founders and a reviewer
+Last updated: 2026-11-12 (launch brief, Phase 0)
+Current branch: app/visual-identity (Phase 0 only), then app/launch-readiness
+Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
+Current step: Launch brief: Phase 0 done. Next: Phase 1.
+
+## Launch readiness brief — in progress
+A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
+
+- [x] L0 — Pull request 26 wording: every reviewed string restored and locked by a snapshot test; privacy and consent wording in view and locked by a test. Pushed to pull request 26
+- [ ] L1 — Branch `app/launch-readiness`, baseline numbers, readiness and backlog notes
+- [ ] L2 — Crisis path reliability: inventory, correctness, a dedicated test file
+- [ ] L3 — A test for every safety rule; `npm run test:safety`
+- [ ] L4 — Accessibility audit and fixes
+- [ ] L5 — Performance and launch time
+- [ ] L6 — Data reliability and error handling
+- [ ] L7 — Privacy and permissions audit
+- [ ] L8 — Spanish parity
+- [ ] L9 — Code health
+- [ ] L10 — Visual polish leftovers
+- [ ] L11 — Packets for the reviewer, the lawyer, the App Store, and the founders
+- [ ] L12 — Final verification and a draft pull request
+
+### Launch brief vs. project rules
+- **Branch:** pull requests 25 and 26 are both open, so `app/launch-readiness` is cut from `app/visual-identity` (pull request 26's branch), as the brief's rule 9 says. Its draft pull request will show pull request 26's commits until that merges.
+- **"Restore every changed string" against the design brief's "emoji out of the interface":** sixteen lone emoji that were pictures (hidden from screen readers) stay as line icons. They are not wording. Every word, and every emoji inside a sentence, is as it was. Recorded in `notes/LAUNCH-READINESS.md` and asked in `notes/CONTENT-REVIEW.md`.
+- **Phase 0 restored four strings** the visual redesign had changed: "Check in" on Home's quick row (and removed the added "Hope box" tile), "Setup {done}/{total}", "{done}/{total}", and the spoken label "Quick actions".
+- The brief's `design/after/` is `app/design/after/` (see "Design brief vs. project rules" below). `notes/DESIGN-BRIEF.md` does not exist; the design brief is `app/DESIGN-BRIEF.md`.
+
+### Resume instructions (launch brief)
+Read `app/LAUNCH-BRIEF.md` section 0 first. Then start the first unchecked phase above, on `app/launch-readiness` (create it from `app/visual-identity` if it does not exist: `git switch -c app/launch-readiness`). Run `npm test` in `app/` and the four root checks at each phase end, commit, tick the box, and rewrite "Current step". Simulator runs: `npm run sim:launch` only (muted).
 
 ## Visual identity ("Dawn at the Shoreline") — in progress
 A second brief from the same founder (`app/DESIGN-BRIEF.md`): a new look, visual layer only. Branch `app/visual-identity`, cut from `app/redesign-dev`; a draft pull request into `app/redesign-dev` at the end. Working in checkpoints: one commit per phase, this file updated each time, the full test suite only at the end of a phase.
@@ -73,8 +99,8 @@ automated run is now muted, without changing the app's own audio code:
 Checked: `npm test`: lint clean; 92 unit tests; 5, 180, 56, and 889 browser checks; 0 failed (desktop Chromium with stand-ins, muted). New checks cover the restored streak screens, the "Learn more" rows (closed to begin with, no control or 988/911 line inside, opening changes no words), the nine tiles in their order, and the icons-only tab bar with 44-point targets and spoken names. The small-phone pictures were looked at for the four changes. Not on a real phone. After the second instruction (privacy and consent wording always in view): 92 unit tests and 5, 180, 56, and 900 browser checks, 0 failed. Rebuilt in the iPhone 17 Simulator and launched muted; Home, Check-in, Location, Friends, and Get Support were pictured in light and dark mode.
 
 ### Copy changes (visual identity)
-Changed: "Setup {done}/{total}" to "{done} of {total} set up"; "Quick actions" (a spoken label) to "Quick tools".
-New: "Hope box" and "Get help" (Home tiles), "Breathe for a minute", "Back to home", "{time} left", "Tidelight" (above the welcome heading), "Get Support Now" (first in Settings; the same words as the header button), "Learn more" (rows on Location and Friends).
+Changed: nothing (the two changed lines were restored in the launch brief's Phase 0).
+New: "Get help" (a Home tile), "Breathe for a minute", "Back to home", "{time} left", "Tidelight" (above the welcome heading), "Get Support Now" (first in Settings; the same words as the header button), "Learn more" (rows on Location and Friends).
 Emoji used alone as pictures became line icons (the choice cards, and the snowflake and tick in the streak row and legend). Emoji inside sentences are untouched.
 No streak, crisis, consent, privacy, or review-notice wording changed.
 

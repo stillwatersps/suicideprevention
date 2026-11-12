@@ -921,18 +921,36 @@ Three things on screen did change, and they touch the questions above:
   by itself, and the burst of drops is gone everywhere. After a very low mood none of that shows: the support
   screen has no horizon and no decoration, and a meditation finished later that day ends without the dawn. Is a
   dawn right after an ordinary check-in, or is it still a kind of reward?
-- **New short lines** (all marked "Draft for review" with the rest): "Quick tools", "Get help" (a tile that goes to
+- **New short lines** (all marked "Draft for review" with the rest): "Get help" (a Home tile that goes to
   Support), "Breathe for a minute", "Back to home", "{time} left" in the player, and "Learn more". One phrase of
   the page's own heading is highlighted on Home ("everything figured out"). Crisis words are never highlighted.
-- **"Learn more" on Location and Friends.** A founder's rule, set after a first version folded too much: every
-  word about privacy or consent stays in view, always. That is anything about what is stored, where data stays,
-  who gets a message, and that a sent message can't be undone. Only plain how-to text folds, and no word changed.
-  Two paragraphs are folded and nothing else: in "Places that are hard for me", the one under "Your places" ("Add
-  a place by choosing it on a map, or by searching an address. Give it a name only you need to understand, and
-  choose how close counts."); in "My circle", the one that says how to share ("To share something, tap Share on a
-  check-in, a journal entry, or something you kept, then choose 'Send to my circle'."). Everything else on both
-  screens is on the page without a tap, including all five My circle points. Is either folded paragraph something
-  a person needs to see before deciding?
+  A check on November 12 compared every string with the version before this branch: no reviewed or
+  pending-review wording is changed, moved, or gone ([[LAUNCH-READINESS]], "PR 26 wording check"). A test now fails
+  if any of it changes.
+- **Sixteen emoji that stood alone as pictures are now line icons or dots.** 🌊, ⚡, 🤫, 🌙, 😮‍💨, 🎯, and 😴 on the
+  style, meditation type, and "how do you feel" cards, and ❄️ and ✓ in the streak row and legend. They were hidden
+  from screen readers and no word beside them changed. Every emoji inside a sentence is as it was. Did any of
+  those pictures carry meaning a person would miss, for example the wave beside "Calm" or the snowflake beside
+  the freeze count?
+- **"1 minutes in all."** After a one-minute meditation, the completion and History screens read "1 minutes in
+  all". It is your wording to change, so it was left. Should it read "1 minute in all"?
+- **"Learn more" on Location and Friends. For the reviewer and the lawyer to confirm.** A founder's rule: every
+  word about privacy or consent stays in view, always. No word changed.
+  - **Always in view, with no tap, in English and Spanish, at every text size:** in "Places that are hard for
+    me", the two opening paragraphs (what it does; "This is off until you turn it on…", what stays on the phone,
+    nobody is told), the location permission paragraph, and the paragraphs under "People you trust" (their name
+    and number stay on this phone; they aren't told), "How long before the phone checks in with you", "What the
+    phone shows" (what the notification and lock screen say), and "Your message" (who it goes to and how), and
+    all of "Good to know". In "My circle", the opening paragraph, all five points (no accounts; they see only
+    what you send; nothing is sent by itself; once sent it can't be taken back; it isn't a way to get urgent
+    help, with 988 and 911), and the note about the list kept on this phone.
+  - **Folded under "Learn more", because they only say how to do something:** in Places, under "Your places":
+    "Add a place by choosing it on a map, or by searching an address. Give it a name only you need to
+    understand, and choose how close counts." In My circle: "To share something, tap Share on a check-in, a
+    journal entry, or something you kept, then choose 'Send to my circle'."
+  - A test fails if anything else is ever folded, or if any paragraph above stops being in view.
+  - Is either folded paragraph something a person needs to see before deciding? "Give it a name only you need to
+    understand" is partly advice about privacy; should it stay open?
 - **The Daily check-in's first question** shows its nine feelings as tiles, two across (one list at the largest
   text). Same nine, same order, same words. Does putting "Hopeful" beside "Calm" and "Overwhelmed" beside "Sad"
   read differently from one long list?
@@ -941,7 +959,7 @@ Three things on screen did change, and they touch the questions above:
 - **The crisis strip changed color, not content.** It, Exit, Get Support Now, and Call 988 in the support panel are
   now dark ink on paper or paper on ink, with no texture and no animation, at a contrast of at least 7 to 1. Same
   words, same places, same size or larger. Please confirm nothing about them reads as quieter than before.
-- **Spanish.** The new lines are an AI translation like the rest: "Herramientas rápidas", "Obtener ayuda",
+- **Spanish.** The new lines are an AI translation like the rest: "Obtener ayuda",
   "Respirar un minuto", "Volver al inicio", "Quedan {time}", "Más información".
 
 ## Human-only checklist

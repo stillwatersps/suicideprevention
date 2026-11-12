@@ -37,6 +37,7 @@ export async function renderSetup() {
   box.hidden = !state.onboarding.completed || finished || progress.complete;
   ring.set(progress.done / progress.total);
   $('#tl-setup-count').textContent = t('setup.count', progress);
+  $('#tl-setup-ring-label').textContent = t('setup.ring', progress);
   items.forEach((item) => {
     const row = $('[data-setup="' + item.id + '"]', box);
     if (row) row.hidden = item.done;
