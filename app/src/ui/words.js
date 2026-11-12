@@ -18,7 +18,6 @@ export function t(key, values, style) {
   if (!values) return text;
   return text.replace(/\{([a-zA-Z]+)\}/g, (all, name) => (values[name] === undefined || values[name] === null ? '' : String(values[name])));
 }
-export function hasWord(key) { return find(key) !== ''; }
 export function lang() { return document.documentElement.lang || 'en'; }
 
 // A time of day such as "07:30", shown the way the phone's language writes it.

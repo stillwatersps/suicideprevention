@@ -71,7 +71,6 @@ html.tl .tl-caption { color: var(--ink-faint); font-size: var(--text-caption); l
   background: radial-gradient(ellipse 14% 55% at 50% 0%, var(--dawn) 0%, transparent 100%);
   opacity: calc(0.25 + var(--h-light) * 0.4);
 }
-.tl-horizon-quiet { --h-light: 0.55; --h-width: 9%; height: var(--strip); }
 .tl-horizon-progress { --h-light: 0.25; --h-width: 20%; height: var(--strip); }
 .tl-horizon-complete { --h-light: 1; --h-width: 80%; }
 .tl-horizon-complete::before { animation: tl-dawn var(--dur-dawn) var(--ease-tide) both; }
@@ -85,8 +84,6 @@ html.tl .tl-caption { color: var(--ink-faint); font-size: var(--text-caption); l
 .tl-hero > :not(.tl-horizon) { position: relative; }
 .tl-hero-top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); }
 .tl-hero-line { margin: 0; font-size: var(--text-body-lg); line-height: var(--lh-body-lg); color: var(--ink); max-width: var(--measure); }
-.tl-quiet { display: grid; gap: var(--space-8); justify-items: center; text-align: center; }
-html.tl .tl-empty { color: var(--ink-soft); }
 
 /* ---------- Buttons ---------- */
 html.tl .tl-btn { min-height: var(--button); border-radius: var(--radius-pill); font-family: var(--font-body); font-size: var(--text-label); line-height: var(--lh-label); font-weight: var(--wt-strong); border: var(--hairline) solid transparent; transition: transform var(--dur-quick) var(--ease-tide), background-color var(--dur-quick) var(--ease-tide); }
@@ -278,7 +275,6 @@ html.tl .tl-player-pause { min-width: calc(var(--button) * 2.4); }
 html.tl .tl-complete .tl-horizon { height: var(--hero); }
 html.tl .tl-complete > .tl-stack { justify-self: stretch; width: 100%; }
 .tl-horizon[hidden] { display: none; }
-html.tl .tl-done-mark { background: var(--seafoam-soft); color: var(--seafoam); }
 
 /* ---------- The older sections (Daily check-in, Journal, Rediscover, Hope box, Your journey,
    Places, My circle): the same words and controls, in the app's shapes ---------- */

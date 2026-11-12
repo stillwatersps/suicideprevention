@@ -5,16 +5,15 @@
 // or near a crisis or support screen (and nothing celebrates on a day with a very low check-in);
 // streaks can be turned off in Settings, and turning them off loses nothing.
 import { CONFIG } from '../core/config.js';
-import { dateKey, evaluate, recordCheckIn, recordMeditation, weekRow, monthGrid, nextFreezeDay, daysFromLog, addDays, emptyStreak } from '../logic/streaks.js';
+import { evaluate, recordCheckIn, recordMeditation, weekRow, monthGrid, nextFreezeDay, daysFromLog, addDays, emptyStreak } from '../logic/streaks.js';
 import { t, lang } from './words.js';
-import { state, replace, reducedMotion, isQuiet as quiet } from './state.js';
+import { state, replace, reducedMotion, isQuiet as quiet, todayKey } from './state.js';
 import { el, animateNumber } from './components.js';
 import { haptic } from './haptics.js';
 import { addDevAction } from './settings.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
 let ctx = null;
-const todayKey = () => dateKey(new Date());
 const goal = () => state.settings.checkInsPerDay;
 
 function dayName(key, style) {

@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-12 (launch brief, Phase 8)
+Last updated: 2026-11-12 (launch brief, Phase 9)
 Current branch: app/launch-readiness (cut from app/visual-identity at Phase 0's commit)
 Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
-Current step: Launch brief: Phase 8 done. Next: Phase 9, step 1 (dead code is removed in the working tree; add the README steps, `npm start`, the CLAUDE.md rules, and the report, then commit).
+Current step: Launch brief: Phase 9 done. Next: Phase 10, step 1 (`npm run build`, then `node tools/screens.mjs after-launch-pass`; look at dark mode, the small phone, and the fallback layout).
 
 ## Launch readiness brief — in progress
 A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.
@@ -17,7 +17,7 @@ A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): 
 - [x] L7 — Privacy and permissions audit: every screen walked with the network blocked, 0 attempts (`test/network-test.mjs`, 13 checks, in `npm test`); `notes/PRIVACY-INVENTORY.md`, `notes/APP-STORE-PRIVACY-DRAFT.md`, `notes/THIRD-PARTY-LICENSES.md`; permissions table in `notes/LAUNCH-READINESS.md`. Blockers found: no privacy policy, no acknowledgements screen, a possible missing camera sentence, no privacy manifest
 - [x] A founder's request, between L7 and L8 — the tab bar on every page inside the app (19 website pages, both languages): `src/app-tabbar.css`, `src/app-tabbar.js`, `src/ui/icons.js`, `src/ui/tabbar-fit.js`, written into each page by `tools/build-redesign.mjs`; `test/pages-test.mjs` (339 checks) in `npm test`
 - [x] L8 — Spanish parity: `test/unit/spanish-parity.test.mjs` (16 tests: same blocks, keys, controls, crisis targets, and places for numbers; no line left in English; 18 lines rightly identical, in `test/fixtures/same-in-spanish.json`). Nothing missing or untranslated. Six questions for a fluent reader in `notes/CONTENT-REVIEW.md`
-- [ ] L9 — Code health
+- [x] L9 — Code health: nine unused style rules, the older reminders panel's styles, one unused helper, and two duplicated helpers removed; lint clean; `npm audit` clean; no user content in any log; README gained step-by-step instructions and `npm start`; `app/CLAUDE.md` gained the rules from this brief. Twenty tokens that look unused were kept, with reasons in `notes/LAUNCH-READINESS.md`
 - [ ] L10 — Visual polish leftovers
 - [ ] L11 — Packets for the reviewer, the lawyer, the App Store, and the founders
 - [ ] L12 — Final verification and a draft pull request

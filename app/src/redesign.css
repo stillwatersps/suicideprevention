@@ -141,8 +141,6 @@ html.tl .tl-stepper .tl-icon-btn { width: var(--tl-tap-lg); height: var(--tl-tap
 /* Progress ring */
 
 /* Empty state */
-.tl-empty { display: grid; justify-items: center; gap: var(--tl-space-md); padding: var(--tl-space-xl) var(--tl-space-md); text-align: center; color: var(--tl-text-secondary); }
-.tl-empty .tl-icon { color: var(--tl-secondary); }
 
 /* Fields */
 .tl-field { display: grid; gap: var(--tl-space-xs); }
@@ -214,7 +212,6 @@ html.tl-style-straightforward .tl-ob-page { animation-name: tl-slide; }
 .tl-ob-page[data-ob="age"] { text-align: left; justify-items: stretch; }
 html.tl .tl-ob-page .app-age { margin: 0; border-radius: var(--tl-radius-lg); }
 .tl-art { display: grid; place-items: center; width: 100%; min-height: var(--tl-ring); color: var(--tl-secondary); }
-.tl-art-done span { background: var(--tl-accent-warm); }
 .tl-times { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--tl-space-sm); margin: 0; padding: 0; list-style: none; min-height: var(--tl-icon); }
 .tl-times-edit { display: grid; grid-template-columns: 1fr 1fr; justify-content: stretch; }
 .tl-style-preview { display: grid; justify-items: center; gap: var(--tl-space-sm); min-height: calc(var(--tl-ring) + var(--tl-space-xl)); }
@@ -232,12 +229,10 @@ html.tl .tl-face {
   transition: transform var(--tl-fast) var(--tl-ease), border-color var(--tl-fast) var(--tl-ease);
 }
 html.tl .tl-face[aria-pressed="true"] { border-color: var(--tl-primary); background: var(--tl-secondary-soft); }
-.tl-face-art { width: var(--tl-face); height: var(--tl-face); }
 .tl-face-label { font-size: var(--tl-font-caption); color: var(--tl-text-secondary); overflow-wrap: anywhere; text-align: center; }
 .tl-flow-step { display: grid; gap: var(--tl-space-md); justify-items: center; width: 100%; }
 .tl-flow-more { display: grid; gap: var(--tl-space-md); width: 100%; animation: tl-fade var(--tl-normal) var(--tl-ease); }
 .tl-flow-more .tl-field { text-align: left; margin: 0; }
-.tl-done-mark { display: grid; place-items: center; width: var(--tl-ring); height: var(--tl-ring); border-radius: var(--tl-radius-full); background: var(--tl-secondary-soft); color: var(--tl-success); }
 
 /* Support, shown at once after a very low check-in. Plain and calm: no celebration colors. */
 .tl-support-now { padding: var(--tl-space-md); border: var(--tl-border-strong) solid var(--tl-primary); border-radius: var(--tl-radius-lg); background: var(--tl-surface); color: var(--tl-text-primary); text-align: left; justify-items: stretch; }

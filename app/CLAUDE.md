@@ -86,6 +86,11 @@ npm run words:es  # makes src/text/redesign.es.html from the English blocks and 
 npm run test:safety # every crisis path and every safety rule (about 8 minutes). Run before EVERY commit
 npm run test:crisis # the crisis paths alone
 npm run sim:launch  # starts the installed app in the booted Simulator, muted (automated runs)
+npm start           # builds, then serves the app to this computer only, for a look in a browser
+npm run test:a11y   # the accessibility audit alone (about 8 minutes)
+npm run test:ios    # the Swift logic for places (needs Xcode)
+node tools/launch-time.mjs 5        # cold launch time in the booted Simulator, median of 5
+node tools/reviewer-walkthrough.mjs # refills the screen-by-screen part of notes/REVIEWER-PACKET.md
 LANG=en_US.UTF-8 npm run sync   # build, then copy into the iOS and Android projects (needs CocoaPods)
 ```
 
@@ -96,6 +101,40 @@ covers every crisis control on every screen (`test/crisis-test.mjs`, against the
 `test/fixtures/crisis-inventory.json`) and every written safety rule (`test/safety-test.mjs`,
 `test/unit/safety-rules.test.mjs`); `notes/LAUNCH-READINESS.md` has the table of rules and tests.
 Never re-record the crisis inventory or rewrite the wording snapshot to make a failure go away.
+
+## Rules from the launch readiness work (November 12, 2026)
+
+`npm test` runs all of these; each must pass before a push. `notes/LAUNCH-READINESS.md` says what
+each covers and what only a real phone can show.
+
+- **Crisis tests must pass** (`test/crisis-test.mjs`). No change may move, hide, shrink, delay,
+  lower the contrast of, or put a step in front of Call 988, Text 988, Call 911, Quick exit, or
+  Get Support Now. If a change needs the crisis inventory re-recorded, stop and ask a founder.
+- **Reviewed wording is locked** (`test/unit/reviewed-strings.test.mjs`). A wording change to
+  crisis, consent, privacy, clinical, location, or safety text is a question in
+  `notes/CONTENT-REVIEW.md`, never an edit. New technical strings (a spoken label, a test name) are fine.
+- **Nothing leaves the phone** (`test/network-test.mjs`: every screen walked with the network
+  blocked). No analytics, crash reporting, remote configuration, or package that contacts a
+  server. A new dependency that ships in the app needs its license in
+  `notes/THIRD-PARTY-LICENSES.md` and a line in `notes/PRIVACY-INVENTORY.md`.
+- **Accessibility** (`test/a11y-test.mjs`): no serious or critical finding from the automated
+  audit on any screen, in both languages, light and dark; every control has a name that contains
+  the words on it (`keepNamesHonest` in `src/ui/components.js` keeps that true when a script
+  changes a label); nothing runs off the side at the phone's largest text. On iPhone the app
+  follows the phone's text size, so sizes are `rem` and layouts wrap.
+- **Colors and sizes are tokens** (the lint): no raw color in `src/` outside `src/tokens.css`.
+- **A performance budget** (`test/budget-test.mjs`): sizes of the script, styles, fonts, and the
+  whole folder; no outside request at start; the crisis strip on screen before the app's script
+  has loaded. Raise a ceiling only on purpose, and write why in `notes/LAUNCH-READINESS.md`.
+- **Bad data never blanks the app** (`test/resilience-test.mjs`). Read stored data through
+  `src/core/storage.js`, and treat every stored value as possibly damaged. If the newer screens
+  fail to start, `src/app.js` falls back to the older layout (`leaveNewerScreens`), which keeps the
+  crisis strip. Never show a technical error to a person.
+- **Spanish matches English in structure** (`test/unit/spanish-parity.test.mjs`). A line that is
+  rightly the same in both languages goes in `test/fixtures/same-in-spanish.json`.
+- **A stored thing that is new or changed** goes in `notes/PRIVACY-INVENTORY.md`, and
+  "Delete everything" must cover it or say why not.
+- Ideas that are out of scope go in `notes/LAUNCH-BACKLOG.md`, not into the app.
 
 ## Architecture after the redesign
 
@@ -120,7 +159,7 @@ Never re-record the crisis inventory or rewrite the wording snapshot to make a f
   - **Crisis controls are plain on purpose**: `--crisis-bg`/`--crisis-text` for the strip,
     `--crisis-btn-bg`/`--crisis-btn-text` for Get Support Now and Call 988. At least 7 to 1 (a unit
     test checks), no grain, no animation, no highlight, no haptic of the app's own, never coral.
-  - **The horizon** (`.tl-horizon`, with `-hero`, `-progress`, `-complete`, `-quiet`) is the one
+  - **The horizon** (`.tl-horizon`, with `-hero`, `-progress`, `-complete`) is the one
     signature shape: a flat line with light at its edge. No waves. It is decoration
     (`aria-hidden`) and never appears on a support screen or on a "quiet" day.
   - **Surfaces**: one `.tl-feature` card per section, rows with hairlines for lists, `.tl-tile` for
@@ -185,6 +224,9 @@ Never re-record the crisis inventory or rewrite the wording snapshot to make a f
 | `design/` | Design notes: `AUDIT.md`, `TOKENS.md` (generated by `tools/token-report.mjs`), `COMPARISON.md`. Pictures from `tools/screens.mjs` stay on your computer |
 | `test/quiet.mjs` | The muted browser every test and tool opens |
 | `test/crisis-test.mjs`, `test/safety-test.mjs`, `test/fixtures/` | Crisis paths and safety rules on screen; the crisis inventory, the wording snapshot, and the "Learn more" allow-list |
+| `test/app-screens.mjs` | The one list of every screen and state, and how to reach each. The crisis, accessibility, resilience, and network tests and the reviewer walkthrough all walk it. A new screen goes here |
+| `test/a11y-test.mjs`, `test/budget-test.mjs`, `test/resilience-test.mjs`, `test/network-test.mjs` | Accessibility, the performance budget, damaged and oversized data, and "nothing leaves the phone" |
+| `src/logic/safety.js` | The one implementation of "low mood", "heavy feeling", "show support", and "quiet day" |
 | `src/app-return.js` | Loaded on every page, apart from the bundle: shows the page again when the app comes back after Quick exit |
 | `src/app.js`, `src/extras.js` | The older app layer and the Hope box / My circle layer |
 | `tools/` | Build steps, the lint, the words packet |

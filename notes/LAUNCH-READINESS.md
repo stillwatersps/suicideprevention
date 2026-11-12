@@ -815,3 +815,47 @@ word's key for each: the mood words ("Mal" for "Low"), "congelador" for a streak
 seguidos", "Buenas noches" used for both evening and night, and the builder's "Ahora mismo
 siento" before its choices.
 
+## Code health (Phase 9)
+
+Behavior did not change in this phase; the full suite passed before and after.
+
+### Removed
+
+- **Nine style rules nothing used** (`src/redesign.css`, `src/redesign-identity.css`): an empty-state
+  block, a "done" mark, an old face drawing, and two "quiet" variants that the code never applied.
+- **The styles of the older reminders panel** (`src/app.css`, about 30 lines). The panel itself was
+  replaced by Settings in the redesign; only its styles were left.
+- **One unused helper** (`hasWord` in `src/ui/words.js`).
+- **A second copy of "what day is today"** in the streak screen; it now uses the one in `src/ui/state.js`.
+- **A second copy of the tab bar's label-fitting**: one implementation (`src/ui/tabbar-fit.js`) now
+  serves the app's own bar and the bar on the website's pages.
+
+### Looked at and kept
+
+- **Twenty design tokens that look unused.** Seven are the website's own variables, which the app
+  overrides so its pages take the app's colors. Seven are read by name by the meditation scenes.
+  Six are part of the design brief's scales, which a unit test defines. None was removed.
+- **Four exports only tests use** (`memoryBackend`, `STYLES`, `TYPES`, `PATTERN_NAMES`): kept for the tests.
+- **Every test and tool file** is referenced by a script, a test, or a note. No file was unused.
+- **Dependencies:** six ship with the app, all Capacitor; four are build and test tools. All are used.
+
+### Checks
+
+- **Lint:** 0 problems, 0 warnings (`npm run lint`: scripts parse, nothing can leave the phone,
+  token-only styles, word files match, muted browsers). The project has no type checker.
+- **Debug logging:** the app never writes to the console. Its developer log (`src/core/dev.js`)
+  keeps the last 40 lines in memory only, each a fixed label and an error's message: for example
+  "location permission: denied". No check-in, note, journal entry, name, or location is ever put
+  in it. It is shown only in the hidden Developer section, and is never stored or sent.
+- **Safety and date logic have one implementation each:** `src/logic/safety.js` (Phase 3) and
+  `dateKey` in `src/logic/streaks.js`, with `todayKey` in `src/ui/state.js`.
+- **`npm audit`:** 0 known vulnerabilities, so nothing was updated. No major upgrade was made.
+- **A fault in the test server** was found and fixed (`test/helpers.mjs`): a request for a missing
+  file crashed the server instead of answering "not found". It affected tests only.
+
+### Documents
+
+- `app/README.md` gained "Step by step: install, look, test": install, look in a browser
+  (`npm start`, new), the Simulator, a real iPhone, every test, and the safety tests.
+- `app/CLAUDE.md` gained "Rules from the launch readiness work" and the new commands.
+
