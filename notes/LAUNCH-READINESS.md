@@ -772,3 +772,46 @@ in the same language, with the crisis strip on screen.
 colors and font, because those pages keep the website's look. Giving every page the app's look is
 a design decision, in [[LAUNCH-BACKLOG]].
 
+## Spanish parity (Phase 8)
+
+The Spanish is an unreviewed AI translation, and the app says so. This phase checked structure,
+not meaning: only a fluent reader can say whether the Spanish is right.
+
+### What is tested
+
+- **`app/test/unit/spanish-parity.test.mjs`** (16 tests, in `npm test`). For each of the three
+  pairs of word files: Spanish has every block and word key English has, and no others; every
+  block has the same number of buttons, links, fields, and menus; every block has the same call
+  and text targets (988, 911); every word keeps its places for numbers and names (`{count}`,
+  `{name}`); no Spanish line is identical to its English, apart from 18 that should be (the app's
+  name, numbers, "min", "No", and lines that are only places for other words, listed in
+  `app/test/fixtures/same-in-spanish.json`); and no Spanish line contains common English words.
+- **The lint** already failed on a missing Spanish block or key, and **`npm run words:es`** fails
+  if any English line has no Spanish.
+- **On screen, in Spanish** (already in Phases 2 and 4, `crisis-test.mjs` and `a11y-test.mjs`): all
+  37 screens and states are walked in Spanish as well as English. Every crisis control is present,
+  44 points or more, and goes to the same target as its English twin, apart from the one
+  difference noted below; the automated accessibility audit passes in light and dark; nothing runs
+  off the side of the screen at five text sizes up to the phone's largest; and the crisis strip
+  can be reached at each.
+
+### What was found
+
+- No missing or untranslated line.
+- No layout break in Spanish that English doesn't also have. Spanish lines are longer, and the two
+  places where that mattered were fixed in Phases 2 and 4 (the 911 link at the largest text size;
+  the tab bar's labels).
+- **Crisis targets are the same in both languages**, with one difference that was already there:
+  the Spanish 988 panel's last link goes to 988's Spanish chat, where the English one goes to
+  988lifeline.org. It is a question for the reviewer, not a fault.
+- Spanish crisis wording is not a word-for-word translation, on purpose: "Llamar al 988 y marcar
+  2" and "Enviar AYUDA al 988" follow 988's own instructions for Spanish. That wording is copied
+  from the website's Spanish pages and was not touched.
+
+### Questions for a fluent reader
+
+Added to [[CONTENT-REVIEW]], "Questions from the launch readiness work", with the screen and the
+word's key for each: the mood words ("Mal" for "Low"), "congelador" for a streak freeze, "1 días
+seguidos", "Buenas noches" used for both evening and night, and the builder's "Ahora mismo
+siento" before its choices.
+

@@ -987,6 +987,22 @@ changed for any of them.
 - **A later check-in on a day that had a very low one** now ends with its thanks line and two choices but no
   dawn. The thin strip of light that grows during the check-in still shows. Is that the right line to draw?
 
+For a fluent Spanish reader (found by comparing the two languages line by line; nothing was changed):
+
+- **Mood words** (quick check-in, keys `mood.1` to `mood.5`): "Very low, Low, Okay, Good, Great" are "Muy mal, Mal,
+  Regular, Bien, Muy bien". "Mal" is "bad", which is a judgment that "low" isn't. Is there a better pair, such as
+  "Muy bajo de ánimo / Bajo de ánimo"?
+- **A streak "freeze"** (Home and Your streak, for example the line "Si falta un día, un congelador ❄️ lo cubre." and the keys `streak.freezeNext`, `streak.freezeFull`) is "congelador", which is
+  the kitchen appliance. Would "pausa" or "día protegido" read better? The English question about streaks comes first.
+- **"1 días seguidos"** (Home, keys `streak.day` and `streak.days`, which share one Spanish line): with a count of 1, the Spanish reads "1 días seguidos". English
+  avoids this ("1 day streak"). It needs a singular form, which is a wording change.
+- **"Good evening" and "Good night"** (Home greeting, keys `greet.evening`, `greet.night`) are both "Buenas noches".
+  Fine in Spanish, noted so nobody thinks one is missing.
+- **The meditation builder's "Right now I'm"** (the first label on "Build your own") is "Ahora mismo siento", followed by the choices
+  "Estrés, Ansiedad, Concentración, Energía, Sueño, Solo respirar". The last one doesn't follow from "siento".
+- **Feelings as nouns.** Tags and feelings are nouns ("Cansancio", "Estrés", "Alegría") to avoid gendered endings.
+  This follows the website's Spanish pages. Does it read naturally on a button?
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].
