@@ -89,6 +89,9 @@ export async function renderSuggestion() {
 function when(iso) {
   try { return new Date(iso).toLocaleString(lang(), { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); } catch (e) { return iso; }
 }
+function monthName(iso) {
+  try { return new Date(iso).toLocaleDateString(lang(), { month: 'long', year: 'numeric' }); } catch (e) { return ''; }
+}
 export function renderHistory() {
   const minutes = minutesMeditated(state.sessions);
   const total = t(minutes === 1 ? 'history.totalOne' : 'history.total', { minutes });
@@ -96,13 +99,26 @@ export function renderHistory() {
   const list = $('#tl-history-list');
   if (!list) return;
   list.textContent = '';
+  // One short list for each month, under the month's name as the phone's language writes it,
+  // so a long history reads as months and not as one endless list.
+  let month = null;
+  let rows = null;
   state.sessions.forEach((s) => {
+    const name = monthName(s.startedAt);
+    if (name !== month || !rows) {
+      month = name;
+      const heading = el('h3', 'tl-headline tl-history-month', name);
+      heading.id = 'tl-history-month-' + list.children.length;
+      rows = el('ul', 'tl-list');
+      rows.setAttribute('aria-labelledby', heading.id);
+      list.append(heading, rows);
+    }
     const item = el('li', 'tl-card');
     const text = el('span', 'tl-card-text');
     const minutes = Math.max(1, Math.round(s.completedSeconds / 60));
     text.append(el('span', 'tl-card-title', t(s.completed ? 'history.item' : 'history.partial', { name: typeName(s.type), minutes })), el('span', 'tl-card-sub', when(s.startedAt)));
     item.append(el('span', 'tl-card-icon'), text);
-    list.appendChild(item);
+    rows.appendChild(item);
   });
   $('#tl-history-empty').hidden = state.sessions.length > 0;
 }

@@ -940,6 +940,18 @@ async function typesTests(browser, lang) {
     check(total === (lang === 'es' ? '1 minuto en total' : '1 minute in all'), 'one minute in all is written in the singular: ' + total);
     await one.context.close();
   }
+  {
+    // History is grouped by month, newest first, under each month's name in the phone's language.
+    const spread = [{ ...sessions[0], startedAt: '2026-11-12T15:00:00.000Z' }, { ...sessions[1], startedAt: '2026-10-20T15:00:00.000Z' }, { ...sessions[2], startedAt: '2026-10-05T15:00:00.000Z' }];
+    const months = await newPage(browser, lang, { storage: { 'tidelight.sessions': JSON.stringify(spread) } });
+    await tab(months.page, 'meditate');
+    await months.page.click('#tl-history-card');
+    const groups = await months.page.evaluate(() => Array.from(document.querySelectorAll('#tl-history-list h3')).map((h) => ({ name: h.textContent.trim(), rows: h.nextElementSibling.querySelectorAll('li').length, labelled: h.nextElementSibling.getAttribute('aria-labelledby') === h.id })));
+    const wanted = lang === 'es' ? ['noviembre de 2026', 'octubre de 2026'] : ['November 2026', 'October 2026'];
+    check(groups.length === 2 && groups.map((g) => g.name).join('|') === wanted.join('|') && groups[0].rows === 1 && groups[1].rows === 2 && groups.every((g) => g.labelled), 'History is grouped by month, each list named by its month: ' + groups.map((g) => `${g.name} (${g.rows})`).join(', '));
+    check((await safetyFrame(months.page)).length === 0, 'and keeps the safety frame');
+    await months.context.close();
+  }
 
   // Rule 5: what was done today isn't suggested again.
   const now = await page.textContent('#tl-suggest-card [data-suggest-title]');

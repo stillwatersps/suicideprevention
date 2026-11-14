@@ -342,6 +342,9 @@ html.tl .tl-type [data-type-start] { width: 100%; }
 .tl-type-more { justify-items: center; }
 .tl-type-name { overflow-wrap: anywhere; }
 #tl-history-list .tl-card-icon { display: none; }
+/* A month's name starts with a capital in every language ("Noviembre de 2026"). */
+.tl-history-month { margin: var(--tl-space-lg) 0 var(--tl-space-xs); }
+.tl-history-month::first-letter { text-transform: uppercase; }
 #tl-history-list .tl-card { grid-template-columns: 1fr; }
 
 /* ---- Phase 6: the builder and presets ---- */
