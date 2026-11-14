@@ -556,8 +556,8 @@ async function identityTests(browser, lang) {
     if (colorScheme === 'light') {
       await page.evaluate(() => document.fonts.ready);
       const faces = await page.evaluate(() => ({ title: getComputedStyle(document.querySelector('#tl-home-title')).fontFamily, body: getComputedStyle(document.body).fontFamily, loaded: [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replace(/"/g, '')) }));
-      check(/Fraunces/.test(faces.title) && /Figtree/.test(faces.body), 'headings are set in Fraunces and everything else in Figtree');
-      check(faces.loaded.includes('Fraunces') && faces.loaded.includes('Figtree') && outside.length === 0, 'both fonts load from the app\'s own files: no request leaves the phone');
+      check(/Literata/.test(faces.title) && /-apple-system/.test(faces.body) && !/Literata|Fraunces|Figtree/.test(faces.body), 'headings are set in Literata and everything else in the phone\'s own font');
+      check(faces.loaded.includes('Literata') && outside.length === 0, 'the heading font loads from the app\'s own files: no request leaves the phone');
       check(await page.$eval('#tl-home .tl-horizon', (el) => el.getAttribute('aria-hidden') === 'true'), 'the horizon is decoration: hidden from screen readers');
       check((await page.locator('#tl-home .tl-highlight').count()) === 1 && (await page.locator('.crisis-bar .tl-highlight, #support .tl-highlight, .tl-support-now .tl-highlight').count()) === 0, 'one highlighted phrase on Home, and never on crisis words');
       check(await page.evaluate(() => window.__tidelightQuiet === true && window.speechSynthesis.getVoices().length === 0), 'this test page is muted: speech is a silent stand-in');

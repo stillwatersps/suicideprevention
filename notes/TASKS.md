@@ -107,6 +107,10 @@ Nothing else has been claimed. Add an owner above when you start.
   [[FOUNDER-SUMMARY]], decide the items in [[LAUNCH-BACKLOG]], send [[REVIEWER-PACKET]] and
   [[LEGAL-PACKET]], and try the app on a real iPhone with `app/TESTING_CHECKLIST.md`.
   Handoff: [[worklogs/2026-11-12-claude-app-launch-readiness]].
+- [ ] Phone app fonts: Literata for headlines and the phone's own font for body text, chosen by one founder
+  from a side-by-side preview. Look only. Owner: Claude. Branch: `app/literata-font`, a draft pull request
+  into `app/launch-readiness`. The other founder looks at it, and both try it on a real phone, where the
+  body font is the phone's own. Handoff: [[worklogs/2026-11-14-claude-app-literata-font]].
 - [ ] My circle (E2, no accounts) and Hope box (F9) in the phone app, at one founder's request. Owner:
   Claude. Branch: `app/my-circle-and-hope-box`, draft pull request into `app/hard-places-and-reminders`.
   Not merged, never run on a phone. Handoff: [[worklogs/2026-11-10-claude-circle-and-hope-box]].

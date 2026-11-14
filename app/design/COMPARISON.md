@@ -75,7 +75,8 @@ turn light so they never sink into the page.
 - [x] Horizon on Home, check-in, completion, and onboarding. No waves anywhere.
 - [x] One coral button per screen section; crisis controls are never coral.
 - [x] No pure black or white; every color comes from `src/tokens.css` (the lint enforces it).
-- [x] Fraunces for headings, Figtree for everything else, both bundled.
+- [x] Fraunces for headings, Figtree for everything else, both bundled. (Changed November 14, 2026, on
+  `app/literata-font`: Literata for headings, bundled, and the phone's own font for everything else.)
 - [x] No emoji used as pictures. One emoji remains inside a thanks line that is awaiting review.
 - [x] Dark mode ("night tide") for every screen.
 - [x] Reduce Motion: fades only, no drift, no stagger, the dawn simply there.

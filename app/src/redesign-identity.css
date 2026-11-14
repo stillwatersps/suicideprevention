@@ -32,7 +32,8 @@ html.tl .crisis-panel .action-primary svg { stroke: var(--crisis-btn-text); }
 
 /* ---------- The website's frame, in the app's voice ---------- */
 html.tl .site-header { background: var(--sand); border-bottom: 0; }
-html.tl .brand-name { font-family: var(--font-display); font-variation-settings: var(--display-settings); font-weight: var(--wt-title); color: var(--ink); }
+/* Literata is wider than the website's serif, so the name is set a step smaller here: Get Support Now keeps its place beside it. */
+html.tl .brand-name { font-family: var(--font-display); font-variation-settings: var(--display-settings); font-size: var(--text-body-lg); font-weight: var(--wt-title); color: var(--ink); }
 html.tl .menu-button { border-radius: var(--radius-sm); border: var(--hairline) solid var(--rule); background: var(--paper); color: var(--ink); }
 html.tl .page-hero { background: transparent; border: 0; box-shadow: none; }
 html.tl .lang-switch a { color: var(--seafoam); font-family: var(--font-body); font-weight: var(--wt-strong); min-height: var(--tap); display: inline-flex; align-items: center; }

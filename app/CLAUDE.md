@@ -164,7 +164,8 @@ each covers and what only a real phone can show.
     (`aria-hidden`) and never appears on a support screen or on a "quiet" day.
   - **Surfaces**: one `.tl-feature` card per section, rows with hairlines for lists, `.tl-tile` for
     quick tools, plain type on the page for the rest. One coral button per section.
-  - **Fonts** are files in `src/fonts/` (Fraunces, Figtree, with their licenses). Never link a font.
+  - **Fonts**: headlines use Literata, a file in `src/fonts/` with its license. Everything else uses
+    the phone's own font, so there is nothing to load. Never link a font.
   - **Streak wording is the reviewed-or-awaiting-review wording; restyle it, never rewrite it.**
     Days are dots whose state is a shape as well as a color (filled, soft with a ring, dashed,
     double ring). Never red, and a milestone sets off no burst.

@@ -106,6 +106,11 @@ Map these to the existing check-in answer scale in whatever order matches the ap
 
 ### 3.4 Typography
 
+> **Changed November 14, 2026, on `app/literata-font`:** the same founder chose Literata for headlines and
+> the phone's own font for body text, after comparing options side by side. Where this section says
+> Fraunces, the app now uses Literata; where it says Figtree, the phone's own font. Sizes and weights are
+> unchanged. See `notes/DECISIONS.md`.
+
 Bundle these locally (both are SIL Open Font License; include the license files):
 - **Display / headlines:** **Fraunces** (variable). Use optical size and a soft weight around 500–600, with a slight "SOFT" axis setting if the build supports it. Headlines only, never body text.
 - **Body / UI:** **Figtree** (variable), weights 400, 500, 600.

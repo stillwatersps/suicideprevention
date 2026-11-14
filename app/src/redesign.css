@@ -401,7 +401,7 @@ html.tl .tl-app .tl-ob-top > .tl-btn[hidden] { display: inline-flex !important; 
 html.tl body { touch-action: manipulation; }
 
 /* ==== Visual identity ("Dawn at the Shoreline"), phase 2: type ==== */
-/* Figtree for everything read or tapped; Fraunces for headlines only. Both are bundled. */
+/* The phone's own font for everything read or tapped; Literata, bundled, for headlines only. */
 html.tl body { font-family: var(--font-body); color: var(--ink); background: var(--sand); }
 html.tl h1, html.tl h2, html.tl h3 { font-family: var(--font-display); font-variation-settings: var(--display-settings); font-weight: var(--wt-heading); letter-spacing: 0; }
 html.tl .tl-stat, html.tl .tl-stepper-value, html.tl .tl-slider-value { font-variant-numeric: tabular-nums; }

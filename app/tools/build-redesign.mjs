@@ -120,6 +120,6 @@ for (const name of ['redesign-identity.css', 'grain.svg', 'grain-dark.svg', 'ico
 cpSync(join(appDir, 'src', 'app-safe-area.css'), join(www, 'assets', 'app-safe-area.css'));
 cpSync(join(appDir, 'src', 'app-return.js'), join(www, 'assets', 'app-return.js'));
 cpSync(join(appDir, 'src', 'app-tabbar.css'), join(www, 'assets', 'app-tabbar.css'));
-// Fraunces and Figtree, bundled with their licenses: no font is ever fetched from anywhere else.
+// Literata, bundled with its license: no font is ever fetched from anywhere else.
 cpSync(join(appDir, 'src', 'fonts'), join(www, 'assets', 'fonts'), { recursive: true });
 console.log('Added the redesigned app to app/www.');

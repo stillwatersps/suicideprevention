@@ -48,7 +48,9 @@ decides.
 
 - **Fraunces could be about 80 KB smaller** by dropping two of its four design axes, but headings
   would change shape slightly. See the performance report. Who decides: the founder who wrote the
-  design brief.
+  design brief. **Answered on `app/literata-font`, November 14, 2026, if that branch is merged:**
+  that founder chose Literata for headlines and the phone's own font for body text. The fonts
+  the app carries go from 141 KB to 52 KB.
 
 ## Performance and reliability
 

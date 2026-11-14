@@ -62,7 +62,7 @@ test('there is one accent, no pure black or white surfaces, and red is for error
   assert.equal(Object.keys(light).filter((k) => /^mood-\d$/.test(k)).length, 5);
 });
 
-test('the scales are the brief\'s: 4-point spacing, four radii, tide easing, both fonts bundled', () => {
+test('the scales are the brief\'s: 4-point spacing, four radii, tide easing, the heading font bundled', () => {
   const rem = (name) => Number((css.match(new RegExp(`--${name}:\\s*([0-9.]+)rem`)) || [])[1]) * 16;
   assert.deepEqual([4, 8, 12, 16, 20, 24, 32, 40, 56, 72].map((n) => rem('space-' + n)), [4, 8, 12, 16, 20, 24, 32, 40, 56, 72]);
   assert.deepEqual(['sm', 'md', 'lg'].map((n) => rem('radius-' + n)), [10, 18, 28]);
@@ -70,8 +70,8 @@ test('the scales are the brief\'s: 4-point spacing, four radii, tide easing, bot
   assert.equal(rem('tap'), 44);
   assert.equal(rem('button'), 52);
   assert.match(css, /--ease-tide: cubic-bezier\(0\.32, 0\.72, 0, 1\)/);
-  assert.match(css, /url\("fonts\/Fraunces-latin\.woff2"\)/);
-  assert.match(css, /url\("fonts\/Figtree-latin\.woff2"\)/);
+  assert.match(css, /url\("fonts\/Literata-latin\.woff2"\)/);
+  assert.equal((css.match(/@font-face/g) || []).length, 1, 'one bundled font; body text uses the phone\'s own');
   assert.ok(!/https?:\/\//.test(css), 'no font or anything else comes from another site');
-  for (const file of ['Fraunces-latin.woff2', 'Figtree-latin.woff2', 'Fraunces-OFL.txt', 'Figtree-OFL.txt']) assert.ok(readFileSync(new URL('../../src/fonts/' + file, import.meta.url)).length > 1000, file);
+  for (const file of ['Literata-latin.woff2', 'Literata-OFL.txt']) assert.ok(readFileSync(new URL('../../src/fonts/' + file, import.meta.url)).length > 1000, file);
 });

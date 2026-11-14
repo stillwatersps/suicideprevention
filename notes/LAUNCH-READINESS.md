@@ -597,6 +597,8 @@ Simulator number is the closest thing here to a phone, and it is a Mac.
 
 ### What was looked at and left
 
+- *(On `app/literata-font`, November 14, 2026, the two fonts below were replaced by Literata, 52 KB, and
+  the phone's own font. The numbers in this report were measured before that.)*
 - **The fonts are already as small as they sensibly get.** Both files are the Latin-only subsets,
   compressed (woff2), and use `font-display: swap`, so text shows at once in a system font and
   changes when the font arrives. Subsetting them further to the exact characters the app uses was

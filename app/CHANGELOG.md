@@ -103,3 +103,9 @@ A visual layer only: no feature was added, removed, or renamed, and no stored da
 - Crisis numbers, crisis wording, the review notices, and the privacy notice, except two sentences
   that had to stay true: Delete everything's note now lists the new data it removes, and Your
   journey's note no longer says there are no streaks.
+
+## November 14, 2026: fonts (on `app/literata-font`)
+- Headlines are set in Literata, bundled as one file with its license. Body text uses the phone's own font.
+  Fraunces and Figtree are no longer in the app. One founder's choice from a side-by-side preview.
+- The app's name in the header is one size smaller, so Get Support Now keeps its place beside it.
+- No wording, color, or behavior changed.

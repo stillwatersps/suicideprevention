@@ -36,12 +36,15 @@ what they do in this app and by a test that fails on any network request.
 
 | Font | File | License | Notes |
 | --- | --- | --- | --- |
-| Fraunces | `app/src/fonts/Fraunces-latin.woff2` | SIL Open Font License 1.1 | Copyright 2020 The Fraunces Project Authors. No reserved font name is declared |
-| Figtree | `app/src/fonts/Figtree-latin.woff2` | SIL Open Font License 1.1 | Copyright 2022 The Figtree Project Authors. No reserved font name is declared |
+| Literata | `app/src/fonts/Literata-latin.woff2` | SIL Open Font License 1.1 | Copyright 2017 The Literata Project Authors. No reserved font name is declared. The Latin part, upright, weights 200 to 900, taken unchanged from the `@fontsource-variable/literata` package, version 5.3.0 |
 
 The Open Font License allows bundling the fonts in an app, free or paid. Its condition: the
-copyright notice and the license text travel with the font files. They do: `Fraunces-OFL.txt`
-and `Figtree-OFL.txt` sit beside the fonts and are copied into the app with them.
+copyright notice and the license text travel with the font file. They do: `Literata-OFL.txt`
+sits beside the font and is copied into the app with it.
+
+Body text uses the phone's own font (San Francisco on iPhone, Roboto on Android), which the app
+neither bundles nor loads. Until November 14, 2026, the app bundled Fraunces and Figtree instead
+(both SIL Open Font License 1.1); `app/literata-font` removed them.
 
 ## Attribution: what is required
 

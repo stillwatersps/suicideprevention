@@ -26,7 +26,7 @@ const BUDGET = [
   ['the app\'s own script (assets/app.js)', [join(www, 'assets', 'app.js')], 150],
   ['every script the Daily check-in page loads', ['app.js', 'check-in.js', 'menu.js', 'app-return.js'].map((n) => join(www, 'assets', n)), 185],
   ['every stylesheet', assets.filter((f) => extname(f) === '.css'), 175],
-  ['both fonts', assets.filter((f) => extname(f) === '.woff2'), 150],
+  ['the bundled font', assets.filter((f) => extname(f) === '.woff2'), 60],
   ['the whole app folder', files, 2100],
 ];
 for (const [name, list, ceiling] of BUDGET) check(total(list) <= ceiling * KB, `${name}: ${kb(total(list))} KB, within its ${ceiling} KB budget`);
@@ -54,7 +54,7 @@ const browser = await openBrowser();
   check(outside.length === 0, 'opening the app asks for nothing from outside itself (0 network requests)' + (outside.length ? ': ' + outside.join(', ') : ''));
   check(requested.length <= 24, `opening the app loads ${requested.length} of its own files (budget: 24)`);
   const fonts = requested.filter((r) => r.endsWith('.woff2'));
-  check(fonts.length <= 2, `only the two bundled fonts are loaded (${fonts.join(', ') || 'none yet'})`);
+  check(fonts.length <= 1, `only the one bundled font is loaded (${fonts.join(', ') || 'none yet'})`);
   await context.close();
 }
 {

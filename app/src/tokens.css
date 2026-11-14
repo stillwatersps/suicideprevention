@@ -6,16 +6,9 @@
    The older `--tl-*` names at the end are aliases, so earlier screens keep working. */
 
 @font-face {
-  font-family: "Fraunces";
-  src: url("fonts/Fraunces-latin.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Figtree";
-  src: url("fonts/Figtree-latin.woff2") format("woff2");
-  font-weight: 300 900;
+  font-family: "Literata";
+  src: url("fonts/Literata-latin.woff2") format("woff2");
+  font-weight: 200 900;
   font-style: normal;
   font-display: swap;
 }
@@ -86,9 +79,9 @@
   --scene-shade: rgba(6, 16, 28, 0.62);
 
   /* ---- Type ---- */
-  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;   /* headlines only */
-  --font-body: "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --display-settings: "opsz" 72, "SOFT" 50, "WONK" 0;
+  --font-display: "Literata", "Iowan Old Style", Georgia, serif;   /* headlines only; the one bundled font */
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;   /* the phone's own font: nothing to load */
+  --display-settings: normal;
   --text-display: 2.125rem;   --lh-display: 2.5rem;     --wt-display: 560;   /* one per screen at most */
   --text-title: 1.625rem;     --lh-title: 2rem;         --wt-title: 540;
   --text-heading: 1.25rem;    --lh-heading: 1.625rem;   --wt-heading: 520;

@@ -443,3 +443,22 @@ seen it or agreed to any of it, and no reviewer has seen it.** Built as a draft 
   app's own audio code is unchanged.
 - **Not done because they would be new features:** seek buttons in the player, filter chips on Meditate.
 
+## November 14, 2026: the phone app's fonts, proposed
+
+The founder who wrote the app's design brief found its fonts too much like other AI-made apps, compared five
+alternatives side by side on the Home, Check-in, and Meditate screens, and chose one. **The other founder hasn't
+seen it, and it has not run on a real phone.** Built as a draft on `app/literata-font`, on top of
+`app/launch-readiness`, in `app/` only. It publishes nothing.
+
+- **Headlines are Literata**, one bundled file with its open license. It replaces Fraunces.
+- **Body text is the phone's own font**: San Francisco on iPhone, Roboto on Android. It replaces Figtree, so the
+  app carries one font file where it carried two (52 KB, down from 141 KB). The two phones will look
+  slightly different from each other, as most apps do.
+- **The app's name in the header is one size smaller** (18 px, from 20 to 26 px depending on the screen). Literata is
+  wider than Fraunces, and without this Get Support Now dropped to a second row on common phone widths, which
+  pushed everything below it down. With it, the button wraps at the same widths as before and no others.
+- **Nothing else changed:** no wording, colors, sizes of other text, crisis controls, or behavior. The website's
+  fonts are untouched.
+
+Not chosen: the phone's own fonts for everything, Atkinson Hyperlegible Next, the phone's rounded font, and
+Newsreader. Open: whether the other founder agrees, and how it looks on a real iPhone and Android phone.
