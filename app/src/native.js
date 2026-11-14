@@ -32,6 +32,11 @@ const webStandIn = {
     const pick = hooks().pickContact;
     return pick ? pick() : { cancelled: true };
   },
+  // One photo from the phone's library, as a data URL. Never the camera.
+  async pickPhoto() {
+    const pick = hooks().pickPhoto;
+    return pick ? pick() : { cancelled: true };
+  },
   async setPlaces({ config }) {
     this.config = config;
     if (hooks().onSetPlaces) hooks().onSetPlaces(config);

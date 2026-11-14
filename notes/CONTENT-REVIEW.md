@@ -934,6 +934,8 @@ Three things on screen did change, and they touch the questions above:
   the freeze count?
 - **"1 minutes in all."** After a one-minute meditation, the completion and History screens read "1 minutes in
   all". It is your wording to change, so it was left. Should it read "1 minute in all"?
+  **On `app/pre-review-fixes` (November 14, 2026), at one founder's request, it does:** "1 minute in all", and in
+  Spanish "1 minuto en total". The line for every other number is unchanged. Is that right?
 - **"Learn more" on Location and Friends. For the reviewer and the lawyer to confirm.** A founder's rule: every
   word about privacy or consent stays in view, always. No word changed.
   - **Always in view, with no tap, in English and Spanish, at every text size:** in "Places that are hard for
@@ -974,6 +976,8 @@ changed for any of them.
 - **After Quick exit, the app comes back on the screen the person left.** Before this work it came back blank,
   with no crisis strip, which was a bug. Should it instead come back on Home, so a journal entry or a check-in is
   not the first thing on screen if someone else picks up the phone?
+  **On `app/pre-review-fixes` (November 14, 2026), at one founder's request, it now comes back on Home.** A
+  check-in or meditation that was under way is not kept. Is Home right, or should the person return to where they were?
 - **The crisis strip at the phone's largest text sizes.** The app follows the phone's text size. At the three
   largest accessibility sizes the strip takes half the screen or more, and at the very largest (in Spanish) it
   fills the screen and has to be scrolled to reach "llama al 911". The strip was not changed. Should it use its

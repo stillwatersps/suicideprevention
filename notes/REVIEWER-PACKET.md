@@ -777,8 +777,8 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> After school, 2:20 PM: feeling: Good.  
-> After school, 2:21 PM: feeling: Okay.  
+> Midday, 12:36 PM: feeling: Good.  
+> Midday, 12:36 PM: feeling: Okay.  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
 > Share the last 7 days  
@@ -932,7 +932,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 > Draft for review  
 > Well done  
 > 1 minute  
-> 1 minutes in all  
+> 1 minute in all  
 > How do you feel now?  
 > Very low  
 > Low  
@@ -1187,7 +1187,7 @@ the app does now. Nothing was changed while waiting for you.
 | A7 | Could any meditation line read badly to someone thinking about suicide? | Meditation scripts, for example "There is nothing left to do today." and "Let go" | Shown and spoken as written; "you can stop at any time" is said at the start | Keep; change named lines; add a line about what to do if distress rises |
 | A8 | During a meditation the crisis strip and a "Get Support Now" button are on screen; the rest of the safety frame is below. Enough? | Screen 28 | Strip, Quick exit, and Get Support Now on screen; Support below the stage | Keep; add Call 988 to the player itself |
 | A9 | The place alert's notification has "Call 988" and "Call 911" buttons when long-pressed, including on a lock screen. A founder's rule says notifications never mention crisis | Place alert notification | Four buttons: "I'm okay", "Send my message", "Call 988", "Call 911" | Keep; show only when unlocked; remove |
-| A10 | After Quick exit, what should the app show when it is opened again? | Every screen | The screen the person left | Keep; always return to Home, so a journal entry isn't the first thing a bystander sees |
+| A10 | After Quick exit, what should the app show when it is opened again? | Every screen | Home (changed November 14, 2026, at one founder's request; before that, the screen the person left) | Keep Home, so a journal entry isn't the first thing a bystander sees; return to the screen the person left, so a check-in isn't lost |
 | A11 | At the phone's three largest text sizes the crisis strip takes half the screen or more | Every screen | Strip unchanged; at the very largest, in Spanish, it must be scrolled to reach 911 | Keep; use the strip's short form ("Call 988 · Text 988 · Call 911") at those sizes |
 | A12 | Crisis links inside sentences are text-sized and close together | Hope box, My circle, Places, share notice, place alert, age question | About 19 points tall; the full-size strip is also on each screen | Keep; make them buttons or separate lines |
 | A13 | The place alert: is "You set this up for yourself" right, and should the message open by itself after 30 seconds? | Screen 34 | Countdown, then Messages opens with the message filled in; the person taps Send. "I'm okay" cancels | Keep; always wait for a tap; change the wait times (10, 20, 30 minutes) |
@@ -1237,7 +1237,7 @@ the app does now. Nothing was changed while waiting for you.
 | D15 | Should the app suggest no places, as now? | Places | "The app suggests no places: only you decide what counts as a hard place for you." | Keep; a founder first asked for a built-in list |
 | D16 | Your journey has no scores. Could an empty month still feel like failure? | Your journey | A calendar of marks | Keep; hide empty months |
 | D17 | Sixteen emoji that stood alone became small line icons. Was any meaning lost? | Style, meditation, and streak cards | Words unchanged | Keep; restore named ones |
-| D18 | "1 minutes in all" | After a one-minute meditation | Shown as written | Change to "1 minute in all"? |
+| D18 | "1 minute in all" | After a one-minute meditation | Changed November 14, 2026, at one founder's request, from "1 minutes in all". Every other number still reads "minutes in all" | Keep; other wording |
 | D19 | The tab bar shows icons without words at the largest text on a small phone | Tab bar | House, heart, lotus, pin, two people; names kept for screen readers | Keep; always show words |
 | D20 | The crisis strip changed color, not content. Does it read as quieter than before? | Every screen | Dark ink on paper, or the reverse; contrast at least 7 to 1 | Keep; stronger |
 | D21 | The English 988 panel ends with a link to 988lifeline.org; the Spanish one with a link to 988's Spanish chat | Support | Different on purpose or by accident | Make them match? |

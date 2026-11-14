@@ -109,3 +109,9 @@ A visual layer only: no feature was added, removed, or renamed, and no stored da
   Fraunces and Figtree are no longer in the app. One founder's choice from a side-by-side preview.
 - The app's name in the header is one size smaller, so Get Support Now keeps its place beside it.
 - No wording, color, or behavior changed.
+
+## November 14, 2026: four fixes before review (on `app/pre-review-fixes`)
+- After Quick exit the app opens on Home, not on the screen the person had been on.
+- Exactly one minute of meditation in all reads "1 minute in all" ("1 minuto en total").
+- On iPhone the Hope box uses the phone's photo picker: the library only, never the camera.
+- A privacy manifest (`ios/App/App/PrivacyInfo.xcprivacy`), a draft for a lawyer to confirm.

@@ -15,6 +15,8 @@ decides.
 
 - "1 minutes in all" on the meditation completion and History screens reads wrong for one minute.
   The line is awaiting review, so it was left. It is a question in [[CONTENT-REVIEW]].
+  **Changed on `app/pre-review-fixes`, November 14, 2026, at one founder's request:** exactly one minute now reads "1 minute in
+  all" ("1 minuto en total"), a new line beside the old one, which is unchanged. The reviewer still confirms it.
 
 ## Crisis paths (decisions for the founders and the reviewer)
 
@@ -24,11 +26,20 @@ decides.
   which the website already uses on a phone held sideways) at those sizes; cap how far the strip's
   text grows; or let the strip scroll away at those sizes. Each changes how the strip looks, so
   none was done. Who decides: both founders, with the reviewer.
+  **Looked at again on November 14, 2026, and still not done.** One founder asked for the short form.
+  The short form leaves out "Need help now?" and "In immediate danger,", and the app's first safety
+  rule (`app/CLAUDE.md`) says never to shorten crisis wording or the 911 banner. So it stays a
+  decision for both founders and the reviewer; a picture of the short form can be made for them.
 - **What the app shows after Quick exit.** Coming back to the app after Quick exit now shows the
   screen the person was on (before, it showed nothing). Should it instead open on Home, so a
   journal entry or check-in isn't the first thing on screen? Who decides: the reviewer.
+  **Changed on `app/pre-review-fixes`, November 14, 2026, at one founder's request:** it now opens on Home, with every tab back at
+  its first screen, and a meditation that was playing ends. A proposal; the reviewer's question stays open.
 - **Crisis links inside sentences are small** (about 19 points tall) in eight places. Making each
   its own line or button would change how reviewed wording is laid out. Who decides: the reviewer.
+  **Looked at again on November 14, 2026, and still not done.** Making only the tap area taller makes
+  neighboring links overlap, so a tap meant for 988 could land on 911 ([[LAUNCH-READINESS]]). The
+  safe fix is a new layout for those sentences, which is the reviewer's call.
 - **The Spanish 988 panel has no link to 988lifeline.org**, where the English one does (it links to
   the Spanish chat twice). This comes from the website's pages. Who decides: the reviewer.
 
@@ -77,8 +88,13 @@ decides.
   "Take Photo". The app declares no reason for using the camera, and iOS closes an app that opens
   the camera without one. Either add the sentence (wording needed from a founder) or limit the
   chooser to the photo library. Check on a real phone first.
+  **Done on `app/pre-review-fixes`, November 14, 2026:** on iPhone the Hope box now opens the phone's own photo picker, which shows
+  the library only, needs no permission, and never offers the camera. Seen working in the iOS
+  Simulator. Android still uses the page's file chooser; nobody has looked at it there.
 - **A privacy manifest** (`PrivacyInfo.xcprivacy`) for the app's own use of the phone's
   key-and-value storage. Capacitor's packages carry their own; the app has none.
+  **Added on `app/pre-review-fixes`, November 14, 2026** as a draft for a lawyer to confirm: no tracking, nothing collected, and one
+  reason for the storage (reading back what the app itself saved).
 - **A single check-in can't be deleted, and nothing can be exported.** Only "Delete everything".
   Privacy laws in some states give people rights to their data; since it never leaves the phone
   this may not apply, but a lawyer should say. Would be new features.

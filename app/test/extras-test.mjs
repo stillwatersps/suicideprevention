@@ -78,6 +78,25 @@ async function run(browser, lang) {
   await page.waitForSelector('.app-hope-photo-problem:not(.ci-off)');
   check(await page.isVisible('.app-hope-photo-problem'), 'a file that isn\'t a photo is refused, with a message');
 
+  // On an iPhone the phone's own photo picker is used, never the page's file chooser, which can
+  // offer the camera. The test pretends to be that phone by supplying the picker.
+  const photosBefore = await page.locator('.app-hope-photo img').count();
+  await page.evaluate((b64) => { window.__picks = 0; window.__tidelight.pickPhoto = async () => { window.__picks += 1; return { dataUrl: 'data:image/png;base64,' + b64 }; }; }, PNG.toString('base64'));
+  let chooserOpened = false;
+  page.on('filechooser', () => { chooserOpened = true; });
+  await page.click('#app-hope-photo');
+  await page.waitForFunction((n) => document.querySelectorAll('.app-hope-photo img').length === n + 1, photosBefore);
+  check((await page.evaluate(() => window.__picks)) === 1 && !chooserOpened && !(await page.isVisible('.app-hope-photo-problem')), 'with the phone\'s photo picker, a tap opens the picker and not the file chooser, and the chosen photo is added');
+  await page.evaluate(() => { window.__tidelight.pickPhoto = async () => ({ cancelled: true }); });
+  await page.click('#app-hope-photo');
+  await page.waitForTimeout(250);
+  check((await page.locator('.app-hope-photo img').count()) === photosBefore + 1 && !(await page.isVisible('.app-hope-photo-problem')) && !chooserOpened, 'closing the picker adds nothing and shows no error');
+  await page.evaluate(() => { window.__tidelight.pickPhoto = async () => ({ problem: true }); });
+  await page.click('#app-hope-photo');
+  await page.waitForSelector('.app-hope-photo-problem:not(.ci-off)');
+  check((await page.locator('.app-hope-photo img').count()) === photosBefore + 1 && !chooserOpened, 'a photo the phone can\'t read shows the same message, and adds nothing');
+  await page.evaluate(() => { delete window.__tidelight.pickPhoto; });
+
   await page.reload();
   await page.waitForSelector('html.app-ready.app-extras-ready');
   await openPanel(page, 'app-hope');

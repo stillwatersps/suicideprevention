@@ -462,3 +462,32 @@ seen it, and it has not run on a real phone.** Built as a draft on `app/literata
 
 Not chosen: the phone's own fonts for everything, Atkinson Hyperlegible Next, the phone's rounded font, and
 Newsreader. Open: whether the other founder agrees, and how it looks on a real iPhone and Android phone.
+
+## November 14, 2026: fixes before review, proposed
+
+One founder asked for a list of what would improve the phone app before it goes to a lawyer and a licensed
+reviewer, then asked Claude to build six small items from it. **The other founder hasn't seen any of it, and no
+reviewer or lawyer has.** Built as a draft on `app/pre-review-fixes`, on top of `app/literata-font`, in `app/`
+and notes only. It publishes nothing.
+
+Built, each easy to reverse:
+
+- **After Quick exit the app opens on Home.** Before, it came back on the screen the person had left, which
+  could be a journal entry. A check-in or meditation that was under way is not kept. The reviewer's question
+  about this stays open in [[CONTENT-REVIEW]].
+- **"1 minute in all."** A new line for exactly one minute; the line for every other number is unchanged. It is
+  recorded as wording added since the reviewer's snapshot, not as reviewed.
+- **The Hope box uses the phone's photo picker on iPhone.** The page's own file chooser can offer "Take Photo",
+  and the app states no reason for using the camera, so iOS would close it. The picker shows the library only.
+  Like the phone's contact picker, it covers the crisis strip while it is open.
+- **A draft privacy manifest:** no tracking, nothing collected, one stated reason for on-phone storage. For a
+  lawyer to confirm.
+
+Asked for and not built, because the app's own safety rules say no:
+
+- **A short crisis strip at the largest text sizes.** It would leave out "Need help now?" and "In immediate
+  danger,". The app's first safety rule is never to shorten crisis wording or the 911 banner.
+- **Taller tap areas for crisis links inside sentences.** An earlier check found the taller areas overlap, so a
+  tap meant for 988 could land on 911. The safe fix is a new layout for reviewed sentences.
+
+Both stay decisions for both founders and the reviewer, as [[LAUNCH-BACKLOG]] already says.

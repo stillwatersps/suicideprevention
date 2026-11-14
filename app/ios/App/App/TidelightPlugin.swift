@@ -3,6 +3,7 @@ import Capacitor
 import Contacts
 import ContactsUI
 import MessageUI
+import PhotosUI
 import UIKit
 import UserNotifications
 import CoreLocation
@@ -23,6 +24,7 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         CAPPluginMethod(name: "requestNotificationPermission", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "pickPlace", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "pickContact", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "pickPhoto", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "setPlaces", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "getPendingAlert", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "acknowledgeAlert", returnType: CAPPluginReturnPromise),
@@ -38,6 +40,7 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
     private var launchTarget: String?
     private var composeDelegate: ComposeDelegate?
     private var contactDelegate: ContactPickDelegate?
+    private var photoDelegate: PhotoPickDelegate?
     private var oneLocation: OneLocationRequest?
     private let lightImpact = UIImpactFeedbackGenerator(style: .light)
     private let mediumImpact = UIImpactFeedbackGenerator(style: .medium)
@@ -194,6 +197,32 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
             }
             self?.contactDelegate = delegate
             picker.delegate = delegate
+            self?.bridge?.viewController?.present(picker, animated: true)
+        }
+    }
+
+    // MARK: - One photo for the Hope box
+
+    // The system's photo picker runs outside the app and hands back only the photo the person
+    // chooses. It shows the photo library, never the camera, and needs no permission. The web
+    // page's own file chooser can offer "Take Photo", which this app states no reason to use.
+    @objc func pickPhoto(_ call: CAPPluginCall) {
+        DispatchQueue.main.async { [weak self] in
+            var config = PHPickerConfiguration()
+            config.filter = .images
+            config.selectionLimit = 1
+            let picker = PHPickerViewController(configuration: config)
+            let delegate = PhotoPickDelegate { result in
+                self?.photoDelegate = nil
+                switch result {
+                case .cancelled: call.resolve(["cancelled": true])
+                case .problem: call.resolve(["problem": true])
+                case .photo(let dataUrl): call.resolve(["dataUrl": dataUrl])
+                }
+            }
+            self?.photoDelegate = delegate
+            picker.delegate = delegate
+            picker.presentationController?.delegate = delegate
             self?.bridge?.viewController?.present(picker, animated: true)
         }
     }
@@ -425,6 +454,46 @@ private final class ComposeDelegate: NSObject, MFMessageComposeViewControllerDel
         case .failed: done("failed")
         default: done("cancelled")
         }
+    }
+}
+
+// One photo from the library, made smaller and handed to the page as a JPEG data URL. The page
+// makes its own smaller copy and keeps that; nothing is written anywhere by this class.
+private final class PhotoPickDelegate: NSObject, PHPickerViewControllerDelegate, UIAdaptivePresentationControllerDelegate {
+    enum Result { case cancelled, problem, photo(String) }
+    private static let longestEdge: CGFloat = 2048
+    private let done: (Result) -> Void
+    private var answered = false
+    init(done: @escaping (Result) -> Void) { self.done = done }
+
+    private func answer(_ result: Result) {
+        if answered { return }
+        answered = true
+        done(result)
+    }
+    // Swiping the picker away is a cancel too.
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) { answer(.cancelled) }
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        guard let provider = results.first?.itemProvider else { answer(.cancelled); return }
+        guard provider.canLoadObject(ofClass: UIImage.self) else { answer(.problem); return }
+        provider.loadObject(ofClass: UIImage.self) { [weak self] object, _ in
+            let data = (object as? UIImage).flatMap { PhotoPickDelegate.jpeg($0) }
+            DispatchQueue.main.async {
+                if let data = data { self?.answer(.photo("data:image/jpeg;base64," + data.base64EncodedString())) } else { self?.answer(.problem) }
+            }
+        }
+    }
+    private static func jpeg(_ image: UIImage) -> Data? {
+        let longest = max(image.size.width, image.size.height)
+        guard longest > 0 else { return nil }
+        let scale = min(1, longestEdge / longest)
+        let size = CGSize(width: max(1, (image.size.width * scale).rounded()), height: max(1, (image.size.height * scale).rounded()))
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1
+        format.opaque = true
+        let small = UIGraphicsImageRenderer(size: size, format: format).image { _ in image.draw(in: CGRect(origin: .zero, size: size)) }
+        return small.jpegData(compressionQuality: 0.9)
     }
 }
 

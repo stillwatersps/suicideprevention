@@ -52,6 +52,18 @@ async function photoStore(mode, work) {
     tx.onerror = () => { db.close(); reject(tx.error); };
   });
 }
+// The phone's photo picker is used on iPhone, and in a test that pretends to be one.
+const usesPhotoPicker = () => Capacitor.getPlatform() === 'ios' || Boolean(window.__tidelight && window.__tidelight.pickPhoto);
+// The picker hands the photo over as text. This turns it back into a picture file, with no request.
+function blobOfDataUrl(dataUrl) {
+  const found = /^data:(image\/[a-z0-9.+-]+);base64,(.+)$/i.exec(String(dataUrl || ''));
+  if (!found) return null;
+  const raw = atob(found[2]);
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i += 1) bytes[i] = raw.charCodeAt(i);
+  return new Blob([bytes], { type: found[1] });
+}
+
 async function smallCopy(file) {
   const bitmap = await createImageBitmap(file);
   const size = fitInside(bitmap.width, bitmap.height, PHOTO_EDGE);
@@ -121,19 +133,35 @@ function start() {
     await renderHope();
     box.focus();
   });
-  $('#app-hope-photo').addEventListener('change', async (event) => {
-    const file = event.target.files && event.target.files[0];
-    const problem = $('.app-hope-photo-problem', hopeBox);
-    show(problem, false);
+  const photoProblem = $('.app-hope-photo-problem', hopeBox);
+  async function addPhoto(file) {
+    show(photoProblem, false);
     if (!file) return;
     try {
       const blob = await smallCopy(file);
       await photoStore('readwrite', (store) => store.put({ id: newId(), blob, when: Date.now() }));
       await renderHope();
     } catch (e) {
-      show(problem, true);
+      show(photoProblem, true);
     }
+  }
+  $('#app-hope-photo').addEventListener('change', async (event) => {
+    await addPhoto(event.target.files && event.target.files[0]);
     event.target.value = '';
+  });
+  // On an iPhone the page's own file chooser also offers "Take Photo", and the app states no reason
+  // for using the camera, so iOS would close it. There the phone's photo picker opens instead: it
+  // shows the photo library only, needs no permission, and hands back just the photo chosen.
+  $('#app-hope-photo').addEventListener('click', async (event) => {
+    if (!usesPhotoPicker()) return;
+    event.preventDefault();
+    let picked;
+    try { picked = await Tidelight.pickPhoto(); } catch (e) { picked = { problem: true }; }
+    if (!picked || picked.cancelled) return;
+    let blob = null;
+    try { blob = blobOfDataUrl(picked.dataUrl); } catch (e) { blob = null; }
+    if (!blob) { show(photoProblem, true); return; }
+    await addPhoto(blob);
   });
 
   // ---- My circle.

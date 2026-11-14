@@ -200,6 +200,11 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 - [ ] Journal, Rediscover, Hope box (add words and a photo), Your journey, and Delete everything
   still work from the Check-in tab.
+- [ ] Hope box, "Choose a photo from this phone". *Expected on iPhone:* the phone's photo picker
+  opens, with a note that Tidelight can only access what you select. No "Take Photo" and no
+  permission question. Choosing a photo adds it; closing the picker adds nothing and shows no error.
+- [ ] Open the Journal, tap Exit, then open Tidelight again. *Expected:* Home, not the Journal.
+  Do the same during a meditation. *Expected:* Home, and the meditation has ended.
 - [ ] Location tab: "Places that are hard for me" works as in `notes/LOCATION-ALERT.md`.
 - [ ] Friends tab: My circle, and "Send to my circle" from Share (stop at the message screen).
 - [ ] Settings: your age group, larger text, and "Enter my date of birth again".

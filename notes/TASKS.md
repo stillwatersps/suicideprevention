@@ -111,6 +111,11 @@ Nothing else has been claimed. Add an owner above when you start.
   from a side-by-side preview. Look only. Owner: Claude. Branch: `app/literata-font`, a draft pull request
   into `app/launch-readiness`. The other founder looks at it, and both try it on a real phone, where the
   body font is the phone's own. Handoff: [[worklogs/2026-11-14-claude-app-literata-font]].
+- [ ] Four fixes to the phone app before review: Home after Quick exit, "1 minute in all", the phone's photo
+  picker for the Hope box, and a draft privacy manifest. Owner: Claude, at one founder's request. Branch:
+  `app/pre-review-fixes`, a draft pull request into `app/literata-font`. Both founders decide the two items
+  that were not built (the short crisis strip at the largest text sizes, and crisis links inside sentences),
+  with the reviewer. Handoff: [[worklogs/2026-11-14-claude-app-pre-review-fixes]].
 - [ ] My circle (E2, no accounts) and Hope box (F9) in the phone app, at one founder's request. Owner:
   Claude. Branch: `app/my-circle-and-hope-box`, draft pull request into `app/hard-places-and-reminders`.
   Not merged, never run on a phone. Handoff: [[worklogs/2026-11-10-claude-circle-and-hope-box]].
