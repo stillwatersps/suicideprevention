@@ -90,7 +90,8 @@ function when(iso) {
   try { return new Date(iso).toLocaleString(lang(), { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }); } catch (e) { return iso; }
 }
 export function renderHistory() {
-  const total = t('history.total', { minutes: minutesMeditated(state.sessions) });
+  const minutes = minutesMeditated(state.sessions);
+  const total = t(minutes === 1 ? 'history.totalOne' : 'history.total', { minutes });
   $$('[data-history-total]').forEach((node) => { node.textContent = total; });
   const list = $('#tl-history-list');
   if (!list) return;

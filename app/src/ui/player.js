@@ -228,7 +228,8 @@ function showCompletion(entry) {
   faces.set([]);
   const minutes = Math.max(1, Math.round(entry.completedSeconds / 60));
   $('#tl-complete-minutes').textContent = t(minutes === 1 ? 'player.minute' : 'player.minutes', { minutes });
-  $('#tl-complete-total').textContent = t('player.total', { minutes: minutesMeditated(state.sessions) });
+  const allMinutes = minutesMeditated(state.sessions);
+  $('#tl-complete-total').textContent = t(allMinutes === 1 ? 'player.totalOne' : 'player.total', { minutes: allMinutes });
   $('#tl-complete-favorite').hidden = !session.source || Boolean(session.source.presetId);
   $('#tl-complete-favorite').disabled = false;
   window.scrollTo(0, 0);
@@ -257,8 +258,10 @@ function close() {
   $('#tl-stage').classList.remove('is-dark');
   session = null;
   shellRef.setFull(false);
-  shellRef.go('meditate');
-  shellRef.go('meditate');
+  // Back to Meditate's first screen, unless the person is already somewhere else (after Quick exit
+  // the app opens on Home): then they stay there, and the player is simply put away.
+  const shown = shellRef.current();
+  if (shown.screen === 'player' || shown.tab === 'meditate') { shellRef.go('meditate'); shellRef.go('meditate'); } else shellRef.forget('player');
   if (ctx.onPlayerClosed) ctx.onPlayerClosed();
 }
 

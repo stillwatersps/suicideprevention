@@ -14,7 +14,7 @@
 // links are read and measured, and Quick exit's destination is stopped before it loads.
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { serve, counter, pagePath, SEEDED } from './helpers.mjs';
+import { serve, counter, pagePath, openPanel, SEEDED } from './helpers.mjs';
 import { walk as walkScreens, walkFirstLaunch as walkFirstPages, home, root, startFlow } from './app-screens.mjs';
 import { openBrowser } from './quiet.mjs';
 
@@ -347,9 +347,14 @@ for (const lang of ['en', 'es']) {
     const shownAgain = await page.evaluate(() => document.documentElement.hidden === false);
     const strip = shownAgain ? (await scan(page)).filter((c) => c.region === 'strip') : [];
     check(shownAgain && strip.length === 4 && strip.every((c) => !c.covered), `${lang}, ${name}: coming back to the app shows the page again, with the strip working (never a blank app)`);
+    // And it opens on Home, so a journal entry, a check-in, or a meditation isn't the first thing on screen.
+    await page.waitForTimeout(300);
+    const onHome = await page.evaluate(() => { const open = Array.from(document.querySelectorAll('.tl-screen')).filter((s) => !s.hidden).map((s) => s.id); return open.join() === 'tl-home' && !document.documentElement.classList.contains('tl-full') && document.querySelector('#tl-tabbar [aria-current="page"]').getAttribute('data-tl-tab-btn') === 'home'; });
+    check(onHome, `${lang}, ${name}: and the app opens on Home, with the tab bar back, not on what had been open`);
   };
   await exitState('from Home', () => home(page));
   await exitState('in the middle of a check-in', () => startFlow(page));
+  await exitState('with the journal open', () => openPanel(page, 'ci-journal'));
   await exitState('with the site menu open', async () => { await home(page); await page.click('.menu-button'); });
   await exitState('during a meditation', async () => { if ((await page.getAttribute('.menu-button', 'aria-expanded')) === 'true') await page.click('.menu-button'); await root(page, 'meditate'); await page.click('.tl-type[data-type="quick"] [data-type-start]'); await page.waitForSelector('#tl-stage:not([hidden])'); });
   await context.close();

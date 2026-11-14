@@ -95,6 +95,9 @@ export async function initRedesign(context) {
     await refreshStreak();
     refresh();
   });
+  // After Quick exit the app opens on Home, never on the entry or check-in that had been open
+  // (app-return.js says when). Setting up for the first time stays where it was.
+  document.addEventListener('tidelight-back-from-exit', () => { if (state.onboarding.completed) shell.home(); });
   document.addEventListener('visibilitychange', async () => {
     if (document.visibilityState !== 'visible') return;
     await refreshStreak(); // days that ended while the app was away

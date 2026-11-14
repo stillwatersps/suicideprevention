@@ -2061,6 +2061,8 @@
    "Learn more",
    "Tidelight",
    "everything figured out",
+   "{minutes} minute in all",
+   "{minutes} minute in all",
    "{time} left"
   ],
   "redesign.es.html": [
@@ -2071,7 +2073,9 @@
    "Respirar un minuto",
    "Tidelight",
    "Volver al inicio",
-   "tenerlo todo resuelto"
+   "tenerlo todo resuelto",
+   "{minutes} minuto en total",
+   "{minutes} minuto en total"
   ],
   "redesign.es.json": [
    "[words] Back to home => Volver al inicio",
@@ -2079,6 +2083,7 @@
    "[words] Get help => Obtener ayuda",
    "[words] Learn more => Más información",
    "[words] everything figured out => tenerlo todo resuelto",
+   "[words] {minutes} minute in all => {minutes} minuto en total",
    "[words] {time} left => Quedan {time}"
   ]
  }

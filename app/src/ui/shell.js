@@ -74,6 +74,17 @@ export const shell = {
     if (stacks[active].length > 1) stacks[active].length -= 1;
     render(true);
   },
+  // Home's first screen, with every tab back at its own first screen. Used after Quick exit, so
+  // nothing the person had open is the first thing on screen when the app is opened again.
+  home() {
+    Object.keys(stacks).forEach((tab) => { stacks[tab].length = 1; });
+    active = 'home';
+    render(true);
+  },
+  // Take a screen out of every tab's stack without changing what is on screen now.
+  forget(name) {
+    Object.keys(stacks).forEach((tab) => { const at = stacks[tab].indexOf(name); if (at > 0) stacks[tab].splice(at, 1); });
+  },
   // A full-screen moment (onboarding, a meditation): the tab bar steps aside. The safety frame stays.
   setFull(on) { root.classList.toggle('tl-full', Boolean(on)); },
   // The older sections (Today, Rediscover, Journal, Hope box, Your journey) open inside Check-in.

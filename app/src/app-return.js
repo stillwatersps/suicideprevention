@@ -5,8 +5,15 @@
 // closing it. So whenever the app comes back into view, the page is shown again. The website does
 // the same for its Home Screen app (assets/menu.js). This file must not depend on the app's bundle:
 // it has to work even if every other script fails.
+// A page that was hidden by Quick exit also says so as it comes back, so the app can open on Home
+// rather than on the journal entry or check-in the person had been in (redesign.js listens).
 (function () {
-  function show() { document.documentElement.hidden = false; }
+  function show() {
+    var afterExit = document.documentElement.hidden === true;
+    document.documentElement.hidden = false;
+    if (!afterExit) return;
+    try { document.dispatchEvent(new Event('tidelight-back-from-exit')); } catch (e) { /* the page is shown; that is what matters */ }
+  }
   window.addEventListener('pageshow', show);
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') show(); });
 }());

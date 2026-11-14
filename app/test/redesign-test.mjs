@@ -931,6 +931,15 @@ async function typesTests(browser, lang) {
   check(await page.isVisible('#tl-history') && (await page.locator('#tl-history-list li').count()) === 3 && /25/.test(await page.textContent('#tl-history [data-history-total]')), 'History lists the sessions and the total: 25 minutes');
   check((await safetyFrame(page)).length === 0, 'History keeps the safety frame');
   await page.click('#tl-history [data-tl-back]');
+  {
+    // One minute in all is written in the singular.
+    const one = await newPage(browser, lang, { storage: { 'tidelight.sessions': JSON.stringify([{ ...sessions[0], completedSeconds: 60 }]) } });
+    await tab(one.page, 'meditate');
+    await one.page.click('#tl-history-card');
+    const total = (await one.page.textContent('#tl-history [data-history-total]')).trim();
+    check(total === (lang === 'es' ? '1 minuto en total' : '1 minute in all'), 'one minute in all is written in the singular: ' + total);
+    await one.context.close();
+  }
 
   // Rule 5: what was done today isn't suggested again.
   const now = await page.textContent('#tl-suggest-card [data-suggest-title]');
