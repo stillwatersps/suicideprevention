@@ -63,7 +63,7 @@ that are on every screen, is marked.
 
 ## On every screen
 
-These never move, shrink, or hide. A test checks each on all 37 screens and states, in both
+These never move, shrink, or hide. A test checks each on all 39 screens and states (37 before `app/privacy-package` added the licenses screen and the lock screen), in both
 languages, at every text size ([[LAUNCH-READINESS]], "Crisis path reliability").
 
 - **The crisis strip**, fixed at the top: "Need help now? Call 988 · Text 988 · In immediate
@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 6 screens, about 159 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 7 screens, about 164 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -314,6 +314,18 @@ Picture: `app/design/after-launch-pass/reviewer/23-hope.png`
 > In your hope box  
 > Nothing yet. One small thing is enough to start.
 
+#### 39. App lock, locked
+
+
+
+Picture: `app/design/after-launch-pass/reviewer/39-locked.png`
+
+> Draft for review  
+> Tidelight is locked  
+> Unlock to see what you've saved. Crisis help at the top of the screen and Get Support Now work without unlocking.  
+> Unlock  
+> That didn't unlock. Try again when you're ready.
+
 ### Part 2. Check-in questions
 
 What the app asks, and what an ordinary answer leads to. 5 screens, about 93 lines of the app's words.
@@ -460,7 +472,7 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 2:30 PM  
+> At 7:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -558,7 +570,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 23 screens, about 494 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 24 screens, about 553 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -714,7 +726,7 @@ Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 > Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 2:30 PM  
+> At 7:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -799,9 +811,19 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > If this group isn't right, enter your date of birth again. The right age group matters for the best help.  
 > Enter my date of birth again  
 > Your data  
+> If this phone's iCloud or Google backup is on, the backup can include what Tidelight saves on this phone: check-ins, journal, Hope box, people, places, and settings. Tidelight itself receives nothing.  
+> Lock the app  
+> When this is on, opening Tidelight asks for Face ID, Touch ID, or this phone's passcode before it shows anything you've saved. Crisis help at the top of the screen and Get Support Now always work without unlocking.  
+> The lock uses this phone's own passcode. Someone who knows that passcode can still open the app.  
+> A copy of your data  
+> Makes one text file with what Tidelight has saved on this phone: your check-ins, journal, reflections, Hope box words, people, places, and meditation history. Photos are not in the file.  
+> The file isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
+> Make a copy of my data  
 > Delete everything  
 > In Your journey  
 > About  
+> Open-source licenses  
+> Code and fonts inside the app  
 > Tidelight app, draft  
 > 0.2.0
 
@@ -988,8 +1010,10 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> After school, 2:03 PM: feeling: Good.  
-> After school, 2:03 PM: feeling: Okay.  
+> After school, 5:33 PM: feeling: Good.  
+> Remove  
+> After school, 5:34 PM: feeling: Okay.  
+> Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
 > Share the last 7 days  
@@ -1225,6 +1249,60 @@ Picture: `app/design/after-launch-pass/reviewer/35-friends.png`
 > Share check-ins  
 > Today or 7 days, in Your journey
 
+#### 38. Open-source licenses
+
+
+
+Picture: `app/design/after-launch-pass/reviewer/38-licenses.png`
+
+> Draft for review  
+> Back  
+> Open-source licenses  
+> Tidelight is built with open-source code and one open-source font. Their makers ask that these notices travel with the app, in their original English.  
+> @capacitor/core 7.6.10, @capacitor/ios 7.6.10, @capacitor/android 7.6.10  
+> MIT License  
+> Copyright (c) 2017-present Drifty Co.  
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+> @capacitor/preferences 7.0.4, @capacitor/share 7.0.4, @capacitor/local-notifications 7.0.7  
+> Copyright 2020-present Ionic  
+> https://ionic.io  
+> MIT License  
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  
+> The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.  
+> tslib 2.9.1  
+> Copyright (c) Microsoft Corporation.  
+> Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.  
+> THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.  
+> Literata (font)  
+> Copyright 2017 The Literata Project Authors (https://github.com/googlefonts/literata) Literata-Italic\[opsz,wght\].ttf: Copyright 2017 The Literata Project Authors (https://github.com/googlefonts/literata)  
+> This Font Software is licensed under the SIL Open Font License, Version 1.1. This license is copied below, and is also available with a FAQ at: http://scripts.sil.org/OFL  
+> -----------------------------------------------------------  
+> SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007  
+> -----------------------------------------------------------  
+> PREAMBLE  
+> The goals of the Open Font License (OFL) are to stimulate worldwide development of collaborative font projects, to support the font creation efforts of academic and linguistic communities, and to provide a free and open framework in which fonts may be shared and improved in partnership with others.  
+> The OFL allows the licensed fonts to be used, studied, modified and redistributed freely as long as they are not sold by themselves. The fonts, including any derivative works, can be bundled, embedded, redistributed and/or sold with any software provided that any reserved names are not used by derivative works. The fonts and derivatives, however, cannot be released under any other type of license. The requirement for fonts to remain under this license does not apply to any document created using the fonts or their derivatives.  
+> DEFINITIONS  
+> "Font Software" refers to the set of files released by the Copyright Holder(s) under this license and clearly marked as such. This may include source files, build scripts and documentation.  
+> "Reserved Font Name" refers to any names specified as such after the copyright statement(s).  
+> "Original Version" refers to the collection of Font Software components as distributed by the Copyright Holder(s).  
+> "Modified Version" refers to any derivative made by adding to, deleting, or substituting -- in part or in whole -- any of the components of the Original Version, by changing formats or by porting the Font Software to a new environment.  
+> "Author" refers to any designer, engineer, programmer, technical writer or other person who contributed to the Font Software.  
+> PERMISSION & CONDITIONS  
+> Permission is hereby granted, free of charge, to any person obtaining a copy of the Font Software, to use, study, copy, merge, embed, modify, redistribute, and sell modified and unmodified copies of the Font Software, subject to the following conditions:  
+> 1) Neither the Font Software nor any of its individual components, in Original or Modified Versions, may be sold by itself.  
+> 2) Original or Modified Versions of the Font Software may be bundled, redistributed and/or sold with any software, provided that each copy contains the above copyright notice and this license. These can be included either as stand-alone text files, human-readable headers or in the appropriate machine-readable metadata fields within text or binary files as long as those fields can be easily viewed by the user.  
+> 3) No Modified Version of the Font Software may use the Reserved Font Name(s) unless explicit written permission is granted by the corresponding Copyright Holder. This restriction only applies to the primary font name as presented to the users.  
+> 4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font Software shall not be used to promote, endorse or advertise any Modified Version, except to acknowledge the contribution(s) of the Copyright Holder(s) and the Author(s) or with their explicit written permission.  
+> 5) The Font Software, modified or unmodified, in part or in whole, must be distributed entirely under this license, and must not be distributed under any other license. The requirement for fonts to remain under this license does not apply to any document created using the Font Software.  
+> TERMINATION  
+> This license becomes null and void if any of the above conditions are not met.  
+> DISCLAIMER  
+> THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
+
 <!-- WALKTHROUGH:END -->
 
 ## Open questions, by priority
@@ -1250,6 +1328,8 @@ the app does now. Nothing was changed while waiting for you.
 | A12 | Crisis links inside sentences are text-sized and close together | Hope box, My circle, Places, share notice, place alert, age question | About 19 points tall; the full-size strip is also on each screen | Keep; make them buttons or separate lines |
 | A13 | The place alert: is "You set this up for yourself" right, and should the message open by itself after 30 seconds? | Screen 34 | Countdown, then Messages opens with the message filled in; the person taps Send. "I'm okay" cancels | Keep; always wait for a tap; change the wait times (10, 20, 30 minutes) |
 | A14 | The default message to chosen people | Places, "Your message" | "I'm having a hard time right now and I'd like you to call me. I set this up in Tidelight to send when I stay at a place that's hard for me. Here's where I am:" | Keep; reword; add what the receiver should do |
+| A15 | An optional app lock (new on `app/privacy-package`, November 14, 2026). Should this app have one, and is the line right: the lock covers what the person saved, never crisis help? | The lock screen, in Part 1; Settings, Your data | "Tidelight is locked. Unlock to see what you've saved. Crisis help at the top of the screen and Get Support Now work without unlocking." Call 988, Text 988, Call 911, Quick exit, Get Support Now, Support, and a place alert all work while locked. The Hope box and the person's own people are behind the lock | Keep; no lock; leave the Hope box outside the lock |
+| A16 | The lock uses the phone's own Face ID, Touch ID, or passcode | Settings, Your data | "The lock uses this phone's own passcode. Someone who knows that passcode can still open the app." A parent or partner who knows the passcode can open it. A code of the app's own could be forgotten, and the only way back would be deleting everything | Keep; a separate code; both |
 
 ### B. Streaks and rewards
 
@@ -1273,6 +1353,9 @@ the app does now. Nothing was changed while waiting for you.
 | C4 | What should the app say about shared or school devices, for minors who journal? | Journal | "Anyone who can unlock this phone can open the app. Quick exit leaves fast." | Keep; add a line |
 | C5 | Asking for a first name | Onboarding | "What should we call you?" Optional; kept on the phone | Keep; remove; change for children |
 | C6 | Is the lock-screen wording safe? | Reminders; place alert | "A moment to check in, if you'd like." / "Time for your check-in." / "Tidelight. Your plan is here." | Keep; reword |
+| C7 | A sentence about phone backups, in Settings (new on `app/privacy-package`) | Settings, Your data | "If this phone's iCloud or Google backup is on, the backup can include what Tidelight saves on this phone: check-ins, journal, Hope box, people, places, and settings. Tidelight itself receives nothing." Older lines elsewhere still say "on this phone only" with no mention of a backup; they are listed in [[CONTENT-REVIEW]] | Keep; add it to each of those lines; reword |
+| C8 | "Make a copy of my data" and its warning | Settings, Your data | "The file isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes." One plain text file through the phone's share sheet. Could someone be pressed into making one? | Keep; stronger warning; remove |
+| C9 | Removing one check-in | Check-in tab; Your journey | "Removed. The day stays marked on your calendar." The words go; the day still counts toward the streak, and a "quiet" day stays quiet | Keep; unmark the day too |
 
 ### D. Everything else
 

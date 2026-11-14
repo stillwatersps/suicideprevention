@@ -8,6 +8,7 @@ import UIKit
 import UserNotifications
 import CoreLocation
 import AVFoundation
+import LocalAuthentication
 import WebKit
 
 // The bridge between the app's pages and the phone for "Places that are hard for me" (idea E1).
@@ -35,12 +36,26 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         CAPPluginMethod(name: "haptic", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "setKeepAwake", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "getAudioRoute", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "lockStatus", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "unlock", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "setLock", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "lockDrawn", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "shareFile", returnType: CAPPluginReturnPromise),
     ]
 
     private var launchTarget: String?
     private var composeDelegate: ComposeDelegate?
     private var contactDelegate: ContactPickDelegate?
     private var photoDelegate: PhotoPickDelegate?
+    // The app lock: whether the person turned it on, whether the phone has confirmed them since
+    // the app was last in the background, and the plain cover shown in the app switcher.
+    private var lockEnabled = false
+    private var unlocked = false
+    private var privacyCover: UIView?
+    private var coverTop: CGFloat = 0
+    private var coverRound = 0
+    private var activeAgain = true
+    private var drawnCall: CAPPluginCall?
     private var oneLocation: OneLocationRequest?
     private let lightImpact = UIImpactFeedbackGenerator(style: .light)
     private let mediumImpact = UIImpactFeedbackGenerator(style: .medium)
@@ -53,6 +68,14 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         quietForAutomatedRuns()
         #endif
         bridge?.notificationRouter.localNotificationHandler = self
+        let center = NotificationCenter.default
+        for name in [UIApplication.didEnterBackgroundNotification, UIScene.didEnterBackgroundNotification] {
+            center.addObserver(self, selector: #selector(appWentToBackground), name: name, object: nil)
+        }
+        for name in [UIApplication.willEnterForegroundNotification, UIScene.willEnterForegroundNotification] {
+            center.addObserver(self, selector: #selector(appComingBack), name: name, object: nil)
+        }
+        center.addObserver(self, selector: #selector(appActiveAgain), name: UIApplication.didBecomeActiveNotification, object: nil)
         let watcher = PlaceWatcher.shared
         watcher.start()
         watcher.onAlertDue = { [weak self] info in
@@ -224,6 +247,135 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
             picker.delegate = delegate
             picker.presentationController?.delegate = delegate
             self?.bridge?.viewController?.present(picker, animated: true)
+        }
+    }
+
+    // MARK: - The app lock, and a copy of the person's data
+
+    // The lock uses the phone's own check (Face ID, Touch ID, or the phone's passcode). The app
+    // keeps no code of its own, and nothing about the check leaves the phone.
+    @objc func lockStatus(_ call: CAPPluginCall) {
+        var problem: NSError?
+        let available = LAContext().canEvaluatePolicy(.deviceOwnerAuthentication, error: &problem)
+        call.resolve(["available": available, "reason": available ? "" : "noPasscode", "unlocked": unlocked])
+    }
+
+    // The page says it has drawn its lock screen (or, if the lock no longer applies, its own
+    // screen). The cover goes a moment after that, and not before the app is fully in front
+    // again: until then the phone still shows the page as it was when the app left the screen.
+    // The call is answered once the cover is off, and the page asks for Face ID only then.
+    @objc func lockDrawn(_ call: CAPPluginCall) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, self.privacyCover != nil else { call.resolve(); return }
+            self.drawnCall?.resolve()
+            self.drawnCall = call
+            if self.activeAgain { self.finishDrawn() }
+        }
+    }
+
+    @objc private func appActiveAgain() {
+        activeAgain = true
+        if drawnCall != nil { finishDrawn() }
+    }
+
+    private func finishDrawn() {
+        let call = drawnCall
+        drawnCall = nil
+        liftPrivacyCover(after: 0.35) { call?.resolve() }
+    }
+
+    @objc func unlock(_ call: CAPPluginCall) {
+        let context = LAContext()
+        var problem: NSError?
+        guard context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &problem) else {
+            call.resolve(["ok": false, "available": false])
+            return
+        }
+        let reason = call.getString("reason") ?? "Tidelight"
+        context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { [weak self] ok, _ in
+            DispatchQueue.main.async {
+                if ok { self?.unlocked = true }
+                call.resolve(["ok": ok, "available": true])
+            }
+        }
+    }
+
+    @objc func setLock(_ call: CAPPluginCall) {
+        lockEnabled = call.getBool("enabled") ?? false
+        if let top = call.getDouble("top") { coverTop = CGFloat(max(0, top)) }
+        if !lockEnabled { DispatchQueue.main.async { [weak self] in self?.removePrivacyCover() } }
+        call.resolve()
+    }
+
+    // Leaving the app ends the unlocked time. While the lock is on, a plain cover goes over the
+    // app first, so the picture the phone keeps for the app switcher shows nothing saved. The
+    // cover starts below the crisis strip (the page says where that ends), so the strip, with
+    // Call 988, Text 988, Call 911, and Quick exit, is never under it.
+    @objc private func appWentToBackground() {
+        unlocked = false
+        coverRound += 1
+        activeAgain = false
+        drawnCall?.resolve()
+        drawnCall = nil
+        guard lockEnabled, privacyCover == nil, let window = bridge?.viewController?.view.window else { return }
+        let top = min(coverTop, window.bounds.height)
+        let cover = UIView(frame: CGRect(x: 0, y: top, width: window.bounds.width, height: window.bounds.height - top))
+        cover.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        cover.backgroundColor = .systemBackground
+        window.addSubview(cover)
+        privacyCover = cover
+    }
+
+    // Coming back, the cover stays until the page says it has drawn its lock screen (lockDrawn),
+    // so the screen the person left never shows for a moment. If the page never says so, the
+    // cover goes anyway after a few seconds: the app must never stay covered.
+    @objc private func appComingBack() { liftPrivacyCover(after: 3) }
+
+    private func liftPrivacyCover(after seconds: TimeInterval, then done: (() -> Void)? = nil) {
+        let round = coverRound
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { [weak self] in
+            defer { done?() }
+            guard let self = self, self.coverRound == round, UIApplication.shared.applicationState != .background else { return }
+            self.removePrivacyCover()
+        }
+    }
+
+    private func removePrivacyCover() {
+        privacyCover?.removeFromSuperview()
+        privacyCover = nil
+    }
+
+    // One text file, written to the app's temporary folder, handed to the phone's share sheet, and
+    // deleted when the sheet closes. The person chooses where it goes; the app sends it nowhere.
+    @objc func shareFile(_ call: CAPPluginCall) {
+        guard let text = call.getString("text") else { call.reject("no text"); return }
+        let wanted = (call.getString("name") ?? "tidelight.txt").replacingOccurrences(of: "/", with: "-")
+        let folder = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+        let file = folder.appendingPathComponent(wanted.isEmpty ? "tidelight.txt" : wanted)
+        do {
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+            try text.write(to: file, atomically: true, encoding: .utf8)
+        } catch {
+            call.reject("could not write the file")
+            return
+        }
+        DispatchQueue.main.async { [weak self] in
+            guard let host = self?.bridge?.viewController else {
+                try? FileManager.default.removeItem(at: folder)
+                call.reject("no screen to show the share sheet on")
+                return
+            }
+            let sheet = UIActivityViewController(activityItems: [file], applicationActivities: nil)
+            sheet.completionWithItemsHandler = { _, completed, _, _ in
+                try? FileManager.default.removeItem(at: folder)
+                call.resolve(["completed": completed])
+            }
+            if let popover = sheet.popoverPresentationController {
+                popover.sourceView = host.view
+                popover.sourceRect = CGRect(x: host.view.bounds.midX, y: host.view.bounds.midY, width: 0, height: 0)
+                popover.permittedArrowDirections = []
+            }
+            host.present(sheet, animated: true)
         }
     }
 

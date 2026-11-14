@@ -127,7 +127,7 @@ if (!before.includes(START) || !before.includes(END)) { console.log('notes/REVIE
 // them, but they are printed in four parts with what matters most for safety first.
 const PARTS = [
   ['Part 1. Support and crisis screens', 'What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first.',
-    ['flow-support', 'daily-result-heavy', 'complete-support', 'place-alert', 'daily-needs', 'hope']],
+    ['flow-support', 'daily-result-heavy', 'complete-support', 'place-alert', 'daily-needs', 'hope', 'locked']],
   ['Part 2. Check-in questions', 'What the app asks, and what an ordinary answer leads to.',
     ['checkin', 'flow-mood', 'flow-done', 'daily-question', 'daily-result']],
   ['Part 3. Streaks and rewards', 'Where the app counts days or marks something as done.',

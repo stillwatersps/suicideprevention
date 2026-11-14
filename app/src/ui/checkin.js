@@ -111,14 +111,29 @@ export function initCheckin(shell, context) {
 }
 
 // Today's check-ins, on the Check-in tab.
-export function renderToday(lines) {
+// Each line can be removed by itself; `remove(t)` takes that one check-in's words off the phone.
+export function renderToday(lines, remove) {
   const list = $('#tl-today-list');
   if (!list) return;
   list.textContent = '';
-  lines.forEach((line) => {
+  lines.forEach((entry) => {
     const item = document.createElement('li');
-    item.className = 'tl-sub';
-    item.textContent = line;
+    item.className = 'tl-sub tl-today-item';
+    const text = document.createElement('span');
+    text.textContent = entry.line;
+    item.appendChild(text);
+    if (remove) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'tl-btn tl-btn-quiet tl-today-remove';
+      button.textContent = t('today.remove');
+      button.addEventListener('click', async () => {
+        await remove(entry.t);
+        $('#tl-today-removed').hidden = false;
+        $('#tl-today-list-title').focus({ preventScroll: true });
+      });
+      item.appendChild(button);
+    }
     list.appendChild(item);
   });
   $('#tl-today-empty').hidden = lines.length > 0;

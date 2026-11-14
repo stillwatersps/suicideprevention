@@ -52,6 +52,9 @@ neither bundles nor loads. Until November 14, 2026, the app bundled Fraunces and
   or substantial portions". The usual way in an app is an "Acknowledgements" or "Licenses" screen
   or page. **The app has none yet.** It is in [[LAUNCH-BACKLOG]] as something to add before a
   public release; the notices are in each package's `LICENSE` file.
+  **On `app/privacy-package` (November 14, 2026) the app has one:** Settings, About, "Open-source
+  licenses". The build reads each shipped package's license file and the font's license file and
+  writes them into the screen, so the list can't drift from what ships.
 - **Open Font License:** met by the two license files that ship with the fonts. Listing the fonts
   on the same acknowledgements screen would be courteous and is commonly done.
 - **0BSD (`tslib`):** nothing required.

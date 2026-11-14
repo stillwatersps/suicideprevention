@@ -29,6 +29,36 @@ function once(html, find, replace, what) {
   return html.replace(find, replace);
 }
 
+// The Licenses screen: the notice each open-source package and the font asks to travel with the
+// app, read from the installed packages and the font's license file, never retyped. Packages that
+// share one notice are listed together above it. The texts stay in English in both languages.
+const SHIPPED = ['@capacitor/core', '@capacitor/ios', '@capacitor/android', '@capacitor/preferences', '@capacitor/share', '@capacitor/local-notifications', 'tslib'];
+const escapeHtml = (text) => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// License files are wrapped by hand at about 80 letters, which reads as ragged lines on a phone.
+// A long line is joined to the line after it; every word and every paragraph break is kept.
+const unwrap = (text) => text.replace(/\r/g, '').trim().split('\n').reduce((out, line) => {
+  const last = out[out.length - 1];
+  if (last !== undefined && last.length >= 60 && line.trim() && !/^\s/.test(line)) out[out.length - 1] = last.trimEnd() + ' ' + line.trim();
+  else out.push(line);
+  return out;
+}, []).join('\n');
+function licensesHtml() {
+  const groups = new Map();
+  for (const name of SHIPPED) {
+    const dir = join(appDir, 'node_modules', name);
+    const file = ['LICENSE', 'LICENSE.txt', 'LICENSE.md'].map((f) => join(dir, f)).find(existsSync);
+    if (!file) throw new Error(`redesign, licenses: no license file for ${name}. Run npm ci first.`);
+    const text = unwrap(readFileSync(file, 'utf8'));
+    const version = JSON.parse(readFileSync(join(dir, 'package.json'), 'utf8')).version;
+    if (!groups.has(text)) groups.set(text, []);
+    groups.get(text).push(`${name} ${version}`);
+  }
+  const parts = [...groups].map(([text, names]) => ({ names: names.join(', '), text }));
+  parts.push({ names: 'Literata (font)', text: unwrap(readFileSync(join(appDir, 'src', 'fonts', 'Literata-OFL.txt'), 'utf8')) });
+  return parts.map((part) => `          <h3 class="tl-headline tl-license-name" lang="en">${escapeHtml(part.names)}</h3>\n          <p class="tl-license" lang="en">${escapeHtml(part.text)}</p>\n`).join('');
+}
+const licenses = licensesHtml();
+
 // Voice and sound files a founder may add later. The app reads this list instead of guessing,
 // so a missing file is never requested.
 function audioManifest() {
@@ -59,7 +89,7 @@ for (const page of PAGES) {
   // The new screens go above the page's own review notice; the notice for the new words goes
   // right under it. Both notices stay on every screen.
   html = once(html, /( {6}<aside class="page-status review-note"[\s\S]*?<\/aside>\n)/,
-    (all) => b.app + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
+    (all) => once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
   // A heavy feeling in the five-question check-in shows support at the top of its results.
   html = once(html, '          <div class="ci-talk-first">', b['result-support'] + '          <div class="ci-talk-first">', 'result support');
   html = once(html, '  <footer class="site-footer"', b.tabbar + (b.overlays || '') + '  <footer class="site-footer"', 'tab bar');

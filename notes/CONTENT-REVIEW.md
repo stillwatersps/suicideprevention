@@ -1010,6 +1010,50 @@ For a fluent Spanish reader (found by comparing the two languages line by line; 
 - **Feelings as nouns.** Tags and feelings are nouns ("Cansancio", "Estrés", "Alegría") to avoid gendered endings.
   This follows the website's Spanish pages. Does it read naturally on a button?
 
+## Questions about the app's privacy features
+
+Added November 14, 2026, on `app/privacy-package`, at one founder's request: an app lock, removing one
+check-in, a copy of your data, a sentence about backups, and a licenses screen. Every new line is
+in `app/src/text/` in both languages and is listed as added since the reviewer's snapshot, not as
+reviewed. For the licensed reviewer and a lawyer.
+
+- **Should a suicide prevention app have a lock at all?** It keeps a journal and a Hope box private
+  on a shared phone. It also puts one step between a person and their own Hope box, people, and
+  plan. Crisis help is never behind it: Call 988, Text 988, Call 911, Quick exit, Get Support Now,
+  the Support panel, and a place alert all work while the app is locked. Is that the right line?
+- **The phone's passcode, or a code of the app's own?** The lock uses the phone's own check, so a
+  parent or partner who knows the phone's passcode can open the app, and the screen says so
+  ("Someone who knows that passcode can still open the app."). A separate code would be more
+  private for a teenager and could be forgotten. Which is safer for this audience?
+- **The lock screen's words:** "Tidelight is locked", "Unlock to see what you've saved. Crisis help
+  at the top of the screen and Get Support Now work without unlocking.", "Unlock", and "That didn't
+  unlock. Try again when you're ready." Are they clear, and is anything missing for someone in a
+  hard moment who can't get past the lock?
+- **Removing one check-in** says "Removed. The day stays marked on your calendar." The words are
+  gone, and the day still counts toward the streak. Is that right, or should removing a very low
+  check-in also end that day's "quiet" state? It doesn't today.
+- **A copy of your data** makes a plain text file with everything written in the app. The screen
+  warns "The file isn't locked. Anyone who gets it can read it, and Tidelight can't take it back."
+  Is the warning strong enough for a minor, who may be asked by someone else to make one?
+- **Backups.** Settings now says "If this phone's iCloud or Google backup is on, the backup can
+  include what Tidelight saves on this phone: check-ins, journal, Hope box, people, places, and
+  settings. Tidelight itself receives nothing." The Daily check-in's own notice already said this
+  about check-ins. These older lines say "on this phone only" or "never sent anywhere" without
+  mentioning a backup, and were left unchanged because reviewed wording is locked: the Hope box
+  ("Everything here stays in this app, on this phone. It is never sent anywhere"), Places ("Your
+  places and your people stay on this phone"; "on this phone only"), the home spot ("One spot,
+  saved on this phone only"), the name ("stays on this phone"), and the quick check-in ("Your
+  check-in is saved on this phone"). Should each gain the backup sentence, or is one place enough?
+  A lawyer should also confirm what a phone's backup really includes; this was not checked on a phone.
+- **The Face ID sentence the phone shows** the first time the lock is used: "Only if you turn on
+  "Lock the app": to check it's you before Tidelight shows anything you've saved. The check
+  happens on this phone and nothing about it is sent anywhere." It is in English only, like the
+  phone's location sentences.
+
+For a fluent Spanish reader: "Bloquear la app", "Tidelight está bloqueada", "Desbloquear", "Quitar",
+"Crear una copia de mis datos", "Lugar de casa", and the sentences around them are an unreviewed AI
+translation. The license notices are left in English on purpose.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

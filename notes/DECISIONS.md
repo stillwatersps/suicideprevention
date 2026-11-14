@@ -537,3 +537,35 @@ and no reviewer or lawyer has.** On `app/review-version`, in `app/` and notes on
   assistant wrote the rest.
 
 Open: whether the other founder agrees to the plainer look, and all the earlier questions.
+
+## November 14, 2026: privacy features in the phone app, proposed
+
+The same founder asked for the privacy features Claude had listed: an app lock, removing one entry, a copy
+of your data, plainer words about backups, and a licenses screen. **The other founder hasn't seen any of it,
+and no reviewer or lawyer has.** Built as a draft on `app/privacy-package`, on top of `app/review-version`, in
+`app/` and notes only. It publishes nothing. It adds wording, so it adds questions for the reviewer and the
+lawyer; they are in [[CONTENT-REVIEW]] under "Questions about the app's privacy features". Choices, each easy
+to reverse:
+
+- **The lock uses the phone's own check** (Face ID, Touch ID, or the phone's passcode), not a code of the
+  app's own. Why: nothing to forget, so nobody is locked out of their own Hope box and plan, and the app
+  stores no code. The cost: someone who knows the phone's passcode can open the app, and the screen says so.
+  A separate code is an open question for both founders and the reviewer.
+- **The lock never covers crisis help.** Call 988, Text 988, Call 911, Quick exit, Get Support Now, the
+  Support panel, the Spanish link, the review notices, and a place alert all stay on screen and work while
+  the app is locked. It is off until turned on, and first launch is never behind it.
+- **If the phone can no longer check who is holding it** (the passcode was turned off), the app opens.
+- **Removing one check-in removes its words and leaves the day marked** on the calendar and in the streak.
+  The screen says so. Only today's check-ins are listed, so only those can be removed one at a time.
+- **A copy of your data is one plain text file,** handed to the phone's share sheet only when the person taps
+  the button, with a warning that the file isn't locked. No photos. The app keeps no record of it.
+- **The backup sentence is new and sits in Settings, in view.** The older lines that say "on this phone
+  only" were not changed, because reviewed wording is locked; whether they should change is a question for
+  the reviewer and a lawyer.
+- **License notices are read from the installed packages when the app is built,** and shown in English in
+  both languages.
+- **Two screens were added to the crisis inventory** (the licenses screen and the lock screen). Every
+  screen already in it is unchanged, which was checked entry by entry.
+
+Open: all of it, for the other founder, the reviewer, and a lawyer; and a real phone, where the lock has
+never run.

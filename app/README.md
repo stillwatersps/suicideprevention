@@ -47,7 +47,7 @@ is in `src/text/en.html` and `src/text/es.html`.
 | `src/app.js` | Saving, age setup, sharing, today's check-ins, and reminders. Bundled into `www/assets/app.js` |
 | `src/app.css` | Styles for the app's blocks, using the website's Shoreline colors |
 | `src/text/*.html` | Every word the app adds, in English and Spanish |
-| `test/app-test.mjs`, `test/extras-test.mjs`, `test/redesign-test.mjs`, `test/unit/` | Browser checks in desktop Chromium with stand-ins for the phone, and unit tests for the pure logic. `npm test` runs the lint and all of them, and GitHub runs it on every pull request (`.github/workflows/site.yml`, the `app` job) |
+| `test/app-test.mjs`, `test/extras-test.mjs`, `test/redesign-test.mjs`, `test/privacy-test.mjs`, `test/unit/` | Browser checks in desktop Chromium with stand-ins for the phone, and unit tests for the pure logic. `npm test` runs the lint and all of them, and GitHub runs it on every pull request (`.github/workflows/site.yml`, the `app` job) |
 | `android/`, `ios/` | Native projects made by `npx cap add`. Open them in Android Studio or Xcode |
 
 The website is unchanged, except that `assets/check-in.js` now offers `window.TidelightCheckIn`, so

@@ -37,6 +37,29 @@ const webStandIn = {
     const pick = hooks().pickPhoto;
     return pick ? pick() : { cancelled: true };
   },
+  // The app lock. A test sets window.__tidelight.lock = { unlocked, allow, noPasscode } to pretend
+  // to be a phone with a passcode; without it, the lock is not available here.
+  async lockStatus() {
+    const lock = hooks().lock;
+    if (!lock) return { available: false, reason: 'unsupported', unlocked: true };
+    if (lock.noPasscode) return { available: false, reason: 'noPasscode', unlocked: true };
+    return { available: true, reason: '', unlocked: Boolean(lock.unlocked) };
+  },
+  async unlock(options) {
+    const lock = hooks().lock;
+    if (!lock || lock.noPasscode) return { ok: false, available: false };
+    lock.asked = (lock.asked || 0) + 1;
+    lock.reason = options && options.reason;
+    if (lock.allow !== false) lock.unlocked = true;
+    return { ok: lock.allow !== false, available: true };
+  },
+  async lockDrawn() { if (hooks().lock) hooks().lock.drawn = (hooks().lock.drawn || 0) + 1; },
+  async setLock(options) { if (hooks().lock) Object.assign(hooks().lock, { enabled: Boolean(options && options.enabled), top: options && options.top }); },
+  // One text file handed to the phone's share sheet. Here a test reads it; nothing is sent.
+  async shareFile(options) {
+    if (hooks().onShareFile) return hooks().onShareFile(options) || { completed: true };
+    return { unavailable: true };
+  },
   async setPlaces({ config }) {
     this.config = config;
     if (hooks().onSetPlaces) hooks().onSetPlaces(config);

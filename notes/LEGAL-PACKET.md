@@ -104,6 +104,12 @@ Questions:
    for something named "Delete everything"?
 9. A single check-in can't be deleted on its own, and nothing can be exported. Does any law that
    applies require either?
+   **On `app/privacy-package` (November 14, 2026), a draft:** each of today's check-ins and each
+   meditation in the history can be removed on its own, and "Make a copy of my data" makes one text
+   file through the phone's share sheet. A check-in from an earlier day still can't be removed on
+   its own. Is that enough? The same branch adds an optional app lock that uses the phone's Face
+   ID, Touch ID, or passcode; the app stores only whether it is on. Does a lock on a minor's app
+   raise anything for a parent's access, and is the Face ID sentence in [[CONTENT-REVIEW]] right?
 
 ## Location wording
 
@@ -231,6 +237,8 @@ Questions:
 22. The app ships open-source code (Capacitor, MIT license) and two fonts (Open Font License):
     [[THIRD-PARTY-LICENSES]]. The MIT license asks for its notice to travel with the app; the app
     has no acknowledgements screen yet.
+    **On `app/privacy-package` (November 14, 2026)** it has one: Settings, About, "Open-source
+    licenses", with each package's own notice and the font's license. Is that enough?
 23. The website's photograph and its license are recorded in the website's notes, not here.
 
 ## Documents to read beside this one

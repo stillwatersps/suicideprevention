@@ -122,3 +122,17 @@ A visual layer only: no feature was added, removed, or renamed, and no stored da
 - A plainer look, as a proposal: sentence-case labels, rounded-rectangle buttons and chips with the
   pill kept for the crisis buttons, and flat color in place of the glow and grain.
 - The reviewer packet's walkthrough is in four parts, with support and crisis screens first.
+
+## Privacy features (November 14, 2026, on `app/privacy-package`, a draft)
+- **Lock the app** (Settings, Your data), off until turned on. The phone's own Face ID, Touch ID, or
+  passcode opens it. The crisis strip, Quick exit, Get Support Now, Support, and a place alert are
+  never behind it. The app switcher shows a plain cover while the lock is on.
+- **Remove** on each of today's check-ins (the Check-in tab and Your journey) and on each meditation
+  in History.
+- **Make a copy of my data** (Settings): one text file through the phone's share sheet. No photos.
+- **A sentence about backups** in Settings, in view: the phone's iCloud or Google backup can include
+  what the app saves.
+- **Open-source licenses** (Settings, About), read from the installed packages when the app is built.
+- New: `src/ui/lock.js`, `src/ui/export.js`, `src/logic/export.js`, `test/privacy-test.mjs`,
+  `test/unit/export.test.mjs`; four methods in the iPhone plugin; a Face ID sentence in `Info.plist`.
+

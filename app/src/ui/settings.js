@@ -9,6 +9,8 @@ import { stepper, choiceGroup, el } from './components.js';
 import { haptic } from './haptics.js';
 import { isNative, notificationPermission, requestNotificationPermission, requestLocationPermission, currentPosition, pendingNotifications } from './device.js';
 import { syncReminders, sendTestReminder, reminderWords } from './reminders.js';
+import { turnLockOn, turnLockOff } from './lock.js';
+import { initExport } from './export.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
 let ctx = null;
@@ -75,6 +77,7 @@ export function renderSettings(reminderResult) {
   $('#tl-set-haptics').checked = Boolean(s.haptics);
   $('#tl-set-reduce').checked = Boolean(s.reduceMotion);
   $('#tl-set-streaks').checked = Boolean(s.streaksOn);
+  $('#tl-set-lock').checked = Boolean(s.appLock);
   const home = state.home ? t('set.homeSaved') : t('set.homeNone');
   $('#tl-set-home-state').textContent = home;
   $('#tl-set-home-clear').hidden = !state.home;
@@ -145,6 +148,22 @@ export function initSettings(shell, context) {
     if (ctx.onSettings) ctx.onSettings();
   });
   $('#tl-set-home-clear').addEventListener('click', async () => { haptic('warning'); await clear('home'); renderSettings(); if (ctx.onSettings) ctx.onSettings(); });
+
+  // The app lock is off until turned on, and turning it on asks the phone first. A "no", or a
+  // phone that can't lock, turns the switch back off and says why.
+  $('#tl-set-lock').addEventListener('change', async (e) => {
+    haptic('toggle');
+    const note = $('#tl-set-lock-note');
+    note.hidden = true;
+    if (e.target.checked) {
+      const result = await turnLockOn();
+      if (result !== 'on') { note.textContent = t('lock.' + result); note.hidden = false; }
+    } else {
+      await turnLockOff();
+    }
+    renderSettings();
+  });
+  initExport(ctx);
 
   // Seven taps on the version open the Developer section.
   $('#tl-version').addEventListener('click', () => {

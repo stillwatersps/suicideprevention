@@ -101,6 +101,9 @@ decides.
   this one. Not written here on purpose: it is a lawyer's document. Who: the founders, with a lawyer.
 - **No acknowledgements screen.** The MIT license of Capacitor and its plugins asks for its notice
   to travel with the app. Usually a "Licenses" row in Settings. Needs a new screen and wording.
+  **Added on `app/privacy-package`, November 14, 2026:** Settings, About, "Open-source licenses". The
+  notices are read from the installed packages and the font's license file when the app is built,
+  never retyped, and are shown in English in both languages. A lawyer should confirm it is enough.
 - **Camera.** Adding a Hope box photo uses a web file chooser. On a real iPhone it may offer
   "Take Photo". The app declares no reason for using the camera, and iOS closes an app that opens
   the camera without one. Either add the sentence (wording needed from a founder) or limit the
@@ -115,6 +118,20 @@ decides.
 - **A single check-in can't be deleted, and nothing can be exported.** Only "Delete everything".
   Privacy laws in some states give people rights to their data; since it never leaves the phone
   this may not apply, but a lawyer should say. Would be new features.
+  **Built on `app/privacy-package`, November 14, 2026, as a draft:** Remove on each of today's
+  check-ins and each meditation in the history, and "Make a copy of my data" in Settings. Left
+  over: a check-in from an earlier day can't be removed on its own, because earlier days aren't
+  listed anywhere in the app.
+- **The app lock, new on `app/privacy-package`, has limits to decide on.** It uses the phone's own
+  check (Face ID, Touch ID, or the phone's passcode), so someone who knows the phone's passcode,
+  such as a parent, can still open the app. A code of the app's own would close that gap, but a
+  forgotten code would mean deleting everything, which is a risk for a person who keeps a Hope box
+  and a plan here. For both founders and the reviewer. Also: the lock does not encrypt what is
+  saved; if the newer screens fail to start and the app falls back to its older layout, the lock
+  is not applied; and Android has no lock yet, because the app's own plugin is iPhone only (the
+  switch says it isn't available there). The picture the phone keeps for the app switcher is
+  covered by code that has not been seen on a real phone.
+- **"Make a copy of my data" on Android** falls back to sharing the words as text, not as a file.
 
 ## Design
 

@@ -213,6 +213,31 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] If you had data from the version before: your journal, kept lists, calendar, places, circle,
   and hope box are all still there.
 
+## 9b. Privacy features (added November 14, 2026; the lock needs a real iPhone)
+
+- [ ] Settings, Your data: turn on "Lock the app". *Expected:* the phone asks for Face ID, Touch
+  ID, or the passcode once, and the switch stays on. Say no the first time: the switch goes back
+  off and a line says why.
+- [ ] With the lock on, go to the Home Screen and open the app switcher. *Expected:* Tidelight's
+  picture shows nothing you saved. Write down what it does show.
+- [ ] Come back to the app. *Expected:* "Tidelight is locked", the phone asks by itself, and the
+  crisis strip, Quick exit, and Get Support Now are on screen the whole time. Cancel the phone's
+  question, tap Get Support Now, then Call 988 (cancel at the dial screen). *Expected:* each works
+  without unlocking.
+- [ ] Close the app fully and open it again. *Expected:* locked from the first moment; nothing
+  saved flashes on screen first.
+- [ ] With the lock on, share something, add a Hope box photo, and pick a contact. *Expected:*
+  none of these locks the app while you are still in it.
+- [ ] Turn the phone's passcode off in the phone's Settings, then open Tidelight. *Expected:* the
+  app opens. Turn the passcode back on afterward.
+- [ ] Settings, "Make a copy of my data", then "Save to Files". Open the file. *Expected:* a text
+  file with your check-ins, journal, and the rest, readable, with no photos. Then do it again and
+  close the share sheet. *Expected:* nothing is said and nothing is saved.
+- [ ] Check-in tab, Today: tap Remove on one check-in. *Expected:* that line goes, the others
+  stay, and the streak does not change.
+- [ ] Settings, About, "Open-source licenses". *Expected:* the notices are readable and nothing
+  scrolls sideways at the largest text size.
+
 ## 10. With a screen reader
 
 - [ ] VoiceOver (iPhone) or TalkBack (Android) on. Do a check-in, start and end a meditation, and

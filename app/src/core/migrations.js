@@ -18,6 +18,7 @@ export function defaultSettings() {
     streaksOn: CONFIG.streak.enabledDefault,
     haptics: true,
     reduceMotion: false,
+    appLock: false, // ask the phone to confirm who it is before showing anything saved
     meditation: {
       defaultMinutes: CONFIG.meditation.defaultMinutes,
       defaultSound: CONFIG.meditation.defaultSound,

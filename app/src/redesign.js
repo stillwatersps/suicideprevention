@@ -14,6 +14,7 @@ import { initMeditate, renderSuggestion, renderHistory, startType } from './ui/m
 import { initBuilder, renderPresets } from './ui/builder.js';
 import { initFeel } from './ui/feel.js';
 import { initSections } from './ui/sections.js';
+import { initLock } from './ui/lock.js';
 import { keepNamesHonest } from './ui/components.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
@@ -39,6 +40,8 @@ export async function initRedesign(context) {
     });
   }
   await loadState();
+  // The app lock, if the person turned it on, covers the screens before any of them is filled in.
+  await initLock();
   initShell();
   initFeel();
   initSections();
@@ -49,7 +52,7 @@ export async function initRedesign(context) {
   });
   const refresh = () => {
     renderHome(ctx);
-    renderToday(context.todayLines());
+    renderToday(context.todayLines(), context.removeCheckIn);
     renderSettings();
     renderSetup().catch((e) => devLog('setup list', e));
     renderHistory();
@@ -86,6 +89,11 @@ export async function initRedesign(context) {
     // A very low check-in: nothing celebrates for the rest of today.
     if (showsSupport(detail)) await goQuiet();
     await addCheckInToStreak();
+    await syncReminders(ctx.checkInsToday());
+    refresh();
+  });
+  // One check-in was removed: today's count, the reminders, and the lists follow.
+  window.addEventListener('tidelight-checkin-removed', async () => {
     await syncReminders(ctx.checkInsToday());
     refresh();
   });

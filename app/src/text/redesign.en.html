@@ -96,9 +96,10 @@
             <span class="tl-btn tl-btn-primary">Check in</span>
           </button>
           <div class="tl-panel" id="tl-today-list-box">
-            <h3 class="tl-headline" id="tl-today-list-title">Today</h3>
+            <h3 class="tl-headline" id="tl-today-list-title" tabindex="-1">Today</h3>
             <p class="tl-sub" id="tl-today-empty">No check-ins yet today.</p>
             <ul class="tl-list" id="tl-today-list" aria-labelledby="tl-today-list-title"></ul>
+            <p class="tl-status" id="tl-today-removed" role="status" hidden>Removed. The day stays marked on your calendar.</p>
           </div>
           <ul class="tl-list">
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-today" data-tl-start>
@@ -645,13 +646,32 @@
           </div>
           <h3 class="tl-section-title">Your age group</h3>
           <div id="tl-settings-age-slot"></div>
-          <h3 class="tl-section-title">Your data</h3>
+          <h3 class="tl-section-title" id="tl-set-data">Your data</h3>
+          <p class="tl-sub" id="tl-set-backup">If this phone's iCloud or Google backup is on, the backup can include what Tidelight saves on this phone: check-ins, journal, Hope box, people, places, and settings. Tidelight itself receives nothing.</p>
+          <div class="tl-panel" id="tl-set-lock-box">
+            <label class="tl-switch"><span>Lock the app</span><input type="checkbox" id="tl-set-lock"></label>
+            <p class="tl-sub">When this is on, opening Tidelight asks for Face ID, Touch ID, or this phone's passcode before it shows anything you've saved. Crisis help at the top of the screen and Get Support Now always work without unlocking.</p>
+            <p class="tl-sub">The lock uses this phone's own passcode. Someone who knows that passcode can still open the app.</p>
+            <p class="tl-status" id="tl-set-lock-note" role="status" hidden></p>
+          </div>
+          <div class="tl-panel" id="tl-set-export-box">
+            <span class="tl-label">A copy of your data</span>
+            <p class="tl-sub">Makes one text file with what Tidelight has saved on this phone: your check-ins, journal, reflections, Hope box words, people, places, and meditation history. Photos are not in the file.</p>
+            <p class="tl-sub">The file isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-export">Make a copy of my data</button>
+            <p class="tl-status" id="tl-set-export-note" role="status" hidden></p>
+          </div>
           <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey" id="tl-settings-erase">
             <span class="tl-card-icon" data-tl-icon="trash"></span>
             <span class="tl-card-text"><span class="tl-card-title">Delete everything</span> <span class="tl-card-sub">In Your journey</span></span>
             <span class="tl-card-go" data-tl-icon="next"></span>
           </button>
           <h3 class="tl-section-title">About</h3>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="licenses" id="tl-settings-licenses">
+            <span class="tl-card-icon" data-tl-icon="info"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Open-source licenses</span> <span class="tl-card-sub">Code and fonts inside the app</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <button type="button" class="tl-btn tl-btn-quiet" id="tl-version" aria-label="App version">Tidelight app, draft <span class="tl-version-number">0.2.0</span></button>
           <div class="tl-panel" id="tl-developer" hidden>
             <h3 class="tl-headline">Developer</h3>
@@ -674,6 +694,22 @@
             <span class="tl-label">Developer notes</span>
             <ul class="tl-list" id="tl-dev-log"></ul>
           </div>
+        </section>
+
+        <section class="tl-screen" id="tl-licenses" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-licenses-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-licenses-title">Open-source licenses</h2>
+          <p class="tl-sub">Tidelight is built with open-source code and one open-source font. Their makers ask that these notices travel with the app, in their original English.</p>
+          <!-- LICENSES -->
+        </section>
+
+        <section class="tl-lock" id="tl-lock" tabindex="-1" aria-labelledby="tl-lock-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <h2 class="tl-title" id="tl-lock-title">Tidelight is locked</h2>
+          <p class="tl-sub">Unlock to see what you've saved. Crisis help at the top of the screen and Get Support Now work without unlocking.</p>
+          <button type="button" class="tl-btn tl-btn-primary" id="tl-lock-open">Unlock</button>
+          <p class="tl-status" id="tl-lock-note" role="status" hidden>That didn't unlock. Try again when you're ready.</p>
         </section>
 
       </div>
@@ -805,6 +841,28 @@
         <span data-word="history.totalOne">{minutes} minute in all</span>
         <span data-word="history.item">{name} · {minutes} min</span>
         <span data-word="history.partial">{name} · {minutes} min, ended early</span>
+        <span data-word="history.remove">Remove</span>
+        <span data-word="today.remove">Remove</span>
+        <span data-word="lock.reason">Unlock Tidelight</span>
+        <span data-word="lock.noPasscode">To lock the app, first set a passcode on this phone, in the phone's Settings.</span>
+        <span data-word="lock.unsupported">The app lock isn't available on this phone yet.</span>
+        <span data-word="lock.failed">The phone didn't confirm it was you, so the lock stays off.</span>
+        <span data-word="export.done">The copy was made. Tidelight keeps no record of where it went.</span>
+        <span data-word="export.failed">The copy couldn't be made. Nothing left the app.</span>
+        <span data-word="export.fileName">tidelight-my-data.txt</span>
+        <span data-word="export.title">Tidelight: a copy of my data</span>
+        <span data-word="export.made">Made on {date}.</span>
+        <span data-word="export.note">This file is not locked. Anyone who has it can read it.</span>
+        <span data-word="export.checkins">Check-ins</span>
+        <span data-word="export.photos">Photos: {count} (not in this file)</span>
+        <span data-word="export.people">People for my places</span>
+        <span data-word="export.message">My message: {message}</span>
+        <span data-word="export.meditations">Meditation history</span>
+        <span data-word="export.settings">About me</span>
+        <span data-word="export.name">Name: {name}</span>
+        <span data-word="export.age">Age group: {group}</span>
+        <span data-word="export.home">Home spot: {latitude}, {longitude}</span>
+        <span data-word="export.none">Nothing saved.</span>
         <span data-word="builder.minutes">{minutes} min</span>
         <span data-word="builder.title">{minutes}-min {situation} · {world}</span>
         <span data-word="builder.summary">{title}. {breaths}</span>

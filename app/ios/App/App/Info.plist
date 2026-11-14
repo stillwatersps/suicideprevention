@@ -60,6 +60,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Only if you turn on "Lock the app": to check it's you before Tidelight shows anything you've saved. The check happens on this phone and nothing about it is sent anywhere.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>To save a home spot you choose, and to check whether you're near it when the app suggests a meditation. And only if you turn on "Places that are hard for me": to notice when this phone enters a place you chose, and to put your location in a message you choose to send. Your location stays on this phone. Nothing is tracked or sent otherwise.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
