@@ -55,6 +55,28 @@ export const SCREENS = [
     for (const id of ['mind', 'difficult', 'self']) await page.click(`#ci-step-${id} .ci-skip`);
     await page.click('.ci-finish');
   } },
+  // Added November 14, 2026, at the end, so the screens above keep their numbers in the reviewer packet.
+  { id: 'licenses', name: 'Open-source licenses', go: async (page) => { await openSettings(page); await page.click('#tl-settings-licenses'); } },
+  { id: 'locked', name: 'App lock, locked', go: async (page) => {
+    // A pretend phone that confirms the person once (to turn the lock on), then no more.
+    await page.evaluate(() => { window.__tidelight.lock = { unlocked: true, allow: true }; });
+    await openSettings(page);
+    if (!(await page.isChecked('#tl-set-lock'))) await page.click('#tl-set-lock');
+    await page.waitForFunction(() => JSON.parse(localStorage.getItem('tidelight.settings') || '{}').appLock === true);
+    await page.evaluate(() => {
+      Object.assign(window.__tidelight.lock, { unlocked: false, allow: false });
+      Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'hidden' });
+      document.dispatchEvent(new Event('visibilitychange'));
+      delete document.visibilityState;
+      document.dispatchEvent(new Event('visibilitychange'));
+    });
+    await page.waitForSelector('#tl-lock-note:not([hidden])', { timeout: 4000 });
+  }, leave: async (page) => {
+    await page.evaluate(() => { window.__tidelight.lock.allow = true; });
+    await page.click('#tl-lock-open');
+    await openSettings(page);
+    if (await page.isChecked('#tl-set-lock')) await page.click('#tl-set-lock');
+  } },
 ];
 
 // Visits every screen in order. `each(screen, page, problem)` is called once per screen, with

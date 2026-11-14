@@ -95,9 +95,10 @@
             <span class="tl-btn tl-btn-primary">Registrarme</span>
           </button>
           <div class="tl-panel" id="tl-today-list-box">
-            <h3 class="tl-headline" id="tl-today-list-title">Hoy</h3>
+            <h3 class="tl-headline" id="tl-today-list-title" tabindex="-1">Hoy</h3>
             <p class="tl-sub" id="tl-today-empty">Todavía no hay registros hoy.</p>
             <ul class="tl-list" id="tl-today-list" aria-labelledby="tl-today-list-title"></ul>
+            <p class="tl-status" id="tl-today-removed" role="status" hidden>Quitado. El día sigue marcado en tu calendario.</p>
           </div>
           <ul class="tl-list">
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-today" data-tl-start>
@@ -644,13 +645,32 @@
           </div>
           <h3 class="tl-section-title">Tu grupo de edad</h3>
           <div id="tl-settings-age-slot"></div>
-          <h3 class="tl-section-title">Tus datos</h3>
+          <h3 class="tl-section-title" id="tl-set-data">Tus datos</h3>
+          <p class="tl-sub" id="tl-set-backup">Si la copia de seguridad de iCloud o de Google de este teléfono está activada, la copia puede incluir lo que Tidelight guarda en este teléfono: registros, diario, Caja de esperanza, personas, lugares y ajustes. Tidelight no recibe nada.</p>
+          <div class="tl-panel" id="tl-set-lock-box">
+            <label class="tl-switch"><span>Bloquear la app</span><input type="checkbox" id="tl-set-lock"></label>
+            <p class="tl-sub">Cuando está activado, al abrir Tidelight se pide Face ID, Touch ID o el código de este teléfono antes de mostrar lo que has guardado. La ayuda en crisis de la parte superior de la pantalla y Obtén apoyo ahora funcionan siempre sin desbloquear.</p>
+            <p class="tl-sub">El bloqueo usa el código de este teléfono. Quien conozca ese código puede abrir la app.</p>
+            <p class="tl-status" id="tl-set-lock-note" role="status" hidden></p>
+          </div>
+          <div class="tl-panel" id="tl-set-export-box">
+            <span class="tl-label">Una copia de tus datos</span>
+            <p class="tl-sub">Crea un archivo de texto con lo que Tidelight ha guardado en este teléfono: tus registros, diario, reflexiones, palabras de la Caja de esperanza, personas, lugares e historial de meditación. Las fotos no están en el archivo.</p>
+            <p class="tl-sub">El archivo no está bloqueado. Quien lo reciba puede leerlo, y Tidelight no puede recuperarlo. Tú eliges adónde va.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-export">Crear una copia de mis datos</button>
+            <p class="tl-status" id="tl-set-export-note" role="status" hidden></p>
+          </div>
           <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey" id="tl-settings-erase">
             <span class="tl-card-icon" data-tl-icon="trash"></span>
             <span class="tl-card-text"><span class="tl-card-title">Borrar todo</span> <span class="tl-card-sub">En Tu camino</span></span>
             <span class="tl-card-go" data-tl-icon="next"></span>
           </button>
           <h3 class="tl-section-title">Acerca de</h3>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="licenses" id="tl-settings-licenses">
+            <span class="tl-card-icon" data-tl-icon="info"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Licencias de código abierto</span> <span class="tl-card-sub">Código y fuentes dentro de la app</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <button type="button" class="tl-btn tl-btn-quiet" id="tl-version" aria-label="Versión de la app">App de Tidelight, borrador <span class="tl-version-number">0.2.0</span></button>
           <div class="tl-panel" id="tl-developer" hidden>
             <h3 class="tl-headline">Desarrollo</h3>
@@ -673,6 +693,22 @@
             <span class="tl-label">Notas de desarrollo</span>
             <ul class="tl-list" id="tl-dev-log"></ul>
           </div>
+        </section>
+
+        <section class="tl-screen" id="tl-licenses" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-licenses-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-licenses-title">Licencias de código abierto</h2>
+          <p class="tl-sub">Tidelight está hecha con código abierto y una fuente abierta. Sus autores piden que estos avisos acompañen a la app, en su inglés original.</p>
+          <!-- LICENSES -->
+        </section>
+
+        <section class="tl-lock" id="tl-lock" tabindex="-1" aria-labelledby="tl-lock-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <h2 class="tl-title" id="tl-lock-title">Tidelight está bloqueada</h2>
+          <p class="tl-sub">Desbloquea para ver lo que has guardado. La ayuda en crisis de la parte superior de la pantalla y Obtén apoyo ahora funcionan sin desbloquear.</p>
+          <button type="button" class="tl-btn tl-btn-primary" id="tl-lock-open">Desbloquear</button>
+          <p class="tl-status" id="tl-lock-note" role="status" hidden>No se desbloqueó. Inténtalo de nuevo cuando quieras.</p>
         </section>
 
       </div>
@@ -804,6 +840,28 @@
         <span data-word="history.totalOne">{minutes} minuto en total</span>
         <span data-word="history.item">{name} · {minutes} min</span>
         <span data-word="history.partial">{name} · {minutes} min, terminó antes</span>
+        <span data-word="history.remove">Quitar</span>
+        <span data-word="today.remove">Quitar</span>
+        <span data-word="lock.reason">Desbloquear Tidelight</span>
+        <span data-word="lock.noPasscode">Para bloquear la app, primero pon un código en este teléfono, en los Ajustes del teléfono.</span>
+        <span data-word="lock.unsupported">El bloqueo de la app todavía no está disponible en este teléfono.</span>
+        <span data-word="lock.failed">El teléfono no confirmó que eras tú, así que el bloqueo sigue desactivado.</span>
+        <span data-word="export.done">La copia se creó. Tidelight no guarda registro de adónde fue.</span>
+        <span data-word="export.failed">No se pudo crear la copia. Nada salió de la app.</span>
+        <span data-word="export.fileName">tidelight-mis-datos.txt</span>
+        <span data-word="export.title">Tidelight: una copia de mis datos</span>
+        <span data-word="export.made">Creada el {date}.</span>
+        <span data-word="export.note">Este archivo no está bloqueado. Quien lo tenga puede leerlo.</span>
+        <span data-word="export.checkins">Registros</span>
+        <span data-word="export.photos">Fotos: {count} (no están en este archivo)</span>
+        <span data-word="export.people">Personas para mis lugares</span>
+        <span data-word="export.message">Mi mensaje: {message}</span>
+        <span data-word="export.meditations">Historial de meditación</span>
+        <span data-word="export.settings">Sobre mí</span>
+        <span data-word="export.name">Nombre: {name}</span>
+        <span data-word="export.age">Grupo de edad: {group}</span>
+        <span data-word="export.home">Lugar de casa: {latitude}, {longitude}</span>
+        <span data-word="export.none">Nada guardado.</span>
         <span data-word="builder.minutes">{minutes} min</span>
         <span data-word="builder.title">{situation} de {minutes} min · {world}</span>
         <span data-word="builder.summary">{title}. {breaths}</span>

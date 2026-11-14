@@ -136,6 +136,27 @@ each covers and what only a real phone can show.
   "Delete everything" must cover it or say why not.
 - Ideas that are out of scope go in `notes/LAUNCH-BACKLOG.md`, not into the app.
 
+## The app lock (November 14, 2026, a draft)
+
+- **The lock covers the app's own screens and nothing else** (`src/ui/lock.js`, the `tl-locked`
+  rules at the end of `src/redesign.css`). The crisis strip, Quick exit, Get Support Now, the
+  Support panel, the Spanish link, both review notices, and the place alert are outside it and are
+  never covered. `test/privacy-test.mjs` checks each while locked. A new part of the page that
+  holds something a person saved goes inside a `.tl-screen`, or is added to those rules.
+- **The app keeps no code of its own.** The phone confirms the person (Face ID, Touch ID, or the
+  phone's passcode) through the `Tidelight` plugin. If the phone can no longer do that, the app
+  opens: nobody is ever locked out of their own plan. Nothing is counted and nothing is erased
+  after a failed try.
+- The lock is off until turned on, turning it on asks the phone first, and first launch is never
+  behind it.
+- **Leaving and coming back** (`TidelightPlugin.swift`): while the lock is on, the phone puts a
+  plain cover over the app as it leaves the screen, starting below the crisis strip (the page says
+  where the strip ends), so the strip is never under it. Coming back, the cover stays until the
+  app is fully in front and the page says its lock screen is drawn (`lockDrawn`); only then does
+  the page ask for Face ID. A page can't redraw while the app is in the background, so without
+  this order the screen the person left shows for a moment. A timer lifts the cover anyway after
+  a few seconds: the app must never stay covered.
+
 ## Architecture after the redesign
 
 - **Tabs** (`src/ui/shell.js`): `TABS` in `src/ui/icons.js` is the one list; adding a tab is one line there, plus its

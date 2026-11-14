@@ -408,3 +408,19 @@ html.tl body { touch-action: manipulation; }
 html.tl body { font-family: var(--font-body); color: var(--ink); background: var(--sand); }
 html.tl h1, html.tl h2, html.tl h3 { font-family: var(--font-display); font-variation-settings: var(--display-settings); font-weight: var(--wt-heading); letter-spacing: 0; }
 html.tl .tl-stat, html.tl .tl-stepper-value, html.tl .tl-slider-value { font-variant-numeric: tabular-nums; }
+
+/* ==== Privacy (November 14, 2026): remove one item, a copy of your data, licenses, the app lock ==== */
+.tl-today-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tl-space-xs) var(--tl-space-sm); }
+.tl-today-item > span { flex: 1 1 60%; min-width: 0; overflow-wrap: anywhere; }
+#tl-history-list .tl-card { grid-template-columns: 1fr auto; }
+.tl-license-name, html.tl .tl-app .tl-license-name { margin: var(--tl-space-lg) 0 0; overflow-wrap: anywhere; font-family: var(--tl-font); font-size: var(--tl-font-body); font-weight: var(--wt-strong); }
+.tl-license { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--tl-text-secondary); font-size: var(--tl-font-caption); }
+/* The lock covers the app's own screens and nothing else: the crisis strip, Quick exit, Get Support
+   Now, Support, the Spanish link, and the review notices are outside .tl-app and stay as they are. */
+.tl-lock { display: grid; gap: var(--tl-space-md); align-content: start; justify-items: start; }
+/* Focus goes to the lock screen so a screen reader says it; the whole screen gets no ring (its button does). */
+.tl-lock:focus, html.tl .tl-app .tl-lock:focus-visible { outline: none; }
+html.tl-locked .tl-screen,
+html.tl-locked .tl-tabbar,
+html.tl-locked #app-share-panel,
+html.tl-locked #app-age { display: none !important; }

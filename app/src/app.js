@@ -72,7 +72,7 @@ function leaveNewerScreens() {
 // True when one of the newer screens (or onboarding) is on the page and the tab bar has its tabs.
 function newerScreensAreShowing() {
   const showing = (el) => !el.hidden && el.getClientRects().length > 0;
-  const screen = Array.from(document.querySelectorAll('#tl-app .tl-screen, #tl-onboarding')).some(showing);
+  const screen = Array.from(document.querySelectorAll('#tl-app .tl-screen, #tl-onboarding, #tl-lock')).some(showing);
   return screen && document.querySelectorAll('#tl-tabbar .tl-tab').length >= 2;
 }
 
@@ -250,12 +250,34 @@ function start() {
     const todays = log.filter((item) => sameDay(new Date(item.t), today));
     todays.forEach((item) => {
       const li = document.createElement('li');
-      li.textContent = lineFor(item);
+      li.className = 'ci-item';
+      const text = document.createElement('span');
+      text.className = 'ci-item-text';
+      text.textContent = lineFor(item);
+      // One check-in can be taken out by itself, without "Delete everything".
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'app-log-remove';
+      remove.textContent = word('.app-log-remove-text');
+      remove.addEventListener('click', async () => { await removeCheckIn(item.t); const title = $('#app-log-title'); if (title) { title.setAttribute('tabindex', '-1'); title.focus(); } });
+      li.append(text, ' ', remove);
       list.appendChild(li);
     });
     $('.app-log-empty').classList.toggle('ci-off', todays.length > 0);
   }
   async function saveLog() { await save(LOG_KEY, JSON.stringify(log)); }
+  // Takes one check-in's words off the phone. The day stays marked on the calendar and in the
+  // streak, which hold no words; the page says so.
+  async function removeCheckIn(t) {
+    const before = log.length;
+    log = log.filter((item) => item.t !== t);
+    if (log.length === before) return;
+    renderLog();
+    await saveLog();
+    const note = $('.app-log-removed');
+    if (note) note.classList.remove('ci-off');
+    window.dispatchEvent(new CustomEvent('tidelight-checkin-removed'));
+  }
   // The page's own script records the check-in on this same click. This runs after it.
   document.addEventListener('click', async (event) => {
     if (!event.target.closest('.ci-finish')) return;
@@ -580,7 +602,10 @@ function start() {
       try {
         const started = await initRedesign({
           api, addQuickCheckIn, getGroup: () => group,
-          getLog: () => log, todaysLog, todayLines: () => todaysLog().map((item) => lineFor(item) + (item.note ? ' ' + item.note : '')),
+          getLog: () => log, todaysLog, removeCheckIn,
+          // Every check-in kept, oldest first, as the words a person reads (for a copy of their data).
+          logLines: () => log.map((item) => ({ day: dayOf(new Date(item.t)), line: lineFor(item) + (item.note ? ' ' + item.note : '') })),
+          todayLines: () => todaysLog().map((item) => ({ t: item.t, line: lineFor(item) + (item.note ? ' ' + item.note : '') })),
         });
         // Starting without an error is not enough: there must be a screen to look at.
         if (started === true && !newerScreensAreShowing()) throw new Error('the newer screens started but none is showing');

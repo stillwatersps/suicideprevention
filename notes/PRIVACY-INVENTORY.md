@@ -36,7 +36,7 @@ key-value storage. Formats are JSON unless marked plain text. The stored format'
 | --- | --- | --- | --- | --- |
 | `tidelight.agegroup.v1` (plain text) | An age group, such as "adult". The date of birth itself is used once to work out the group and is not kept | To show ideas suited to the person's age | The person, once | No |
 | `tidelight.profile` | An optional first name | The greeting on Home | The person | No |
-| `tidelight.settings` | Check-ins per day, wake and bed times, check-in times, check-in style, reminders on or off, haptics, sound, reduce motion, streaks on or off | To run the app the way the person set it | The person | No |
+| `tidelight.settings` | Check-ins per day, wake and bed times, check-in times, check-in style, reminders on or off, haptics, sound, reduce motion, streaks on or off, and (on `app/privacy-package`) the app lock on or off | To run the app the way the person set it | The person | No |
 | `tidelight.textsize.v1` (plain text) | "large" or "regular" | Text size | The person | No |
 | `tidelight.language` (plain text) | "en" or "es" | To open in the chosen language | The person | No |
 | `tidelight.onboarding` | Whether setup is finished; the date of a day with a very low check-in (the "quiet day") | To skip onboarding next time; to keep that day free of celebration | The app | No |
@@ -64,6 +64,7 @@ the phone.
 | --- | --- | --- | --- |
 | A text message from "Places that are hard for me" | The person's own message and, if they choose, where they are | The people they chose, through the phone's Messages screen; the person still taps Send | The person |
 | "Send to my circle" and Share | The text of a check-in, a journal entry, or a Hope box item, as shown in a preview they can edit | Whoever they pick in Messages or the phone's Share sheet | The person |
+| "Make a copy of my data" (Settings, on `app/privacy-package`) | One text file with the check-ins, journal, reflections, lists, Hope box words, people, places, meditation history, name, age group, and home spot. No photos | Wherever the person sends or saves it from the phone's share sheet | The person, by tapping the button. The file is written to the app's temporary folder and deleted when the sheet closes; the app keeps no record of it |
 | The phone's backup | Everything in the table above | Apple (iCloud) or Google, under the person's own account, if backups are on | The phone, on its own schedule |
 | Quick exit | Nothing from the app. The phone's browser opens weather.gov, which sees a visit like any other | weather.gov | The person |
 | Call 988, Text 988, Call 911, Chat Online | Nothing from the app. The phone's own dialer, Messages, or browser opens | 988 or 911 | The person |
@@ -81,6 +82,16 @@ the phone.
 - Single items can be removed one at a time: a journal entry, a kept idea, a Hope box item, a
   place, a person, a saved meditation. A single check-in, or a single meditation in the history,
   can't be removed on its own, and there is no way to export a copy. See [[LAUNCH-BACKLOG]].
+- **On `app/privacy-package` (November 14, 2026):** each of today's check-ins and each meditation
+  in the history has its own Remove. Removing a check-in takes its words off the phone (the
+  feeling, needs, tags, and note); the day stays marked on the calendar and in the streak, which
+  hold no words, and the screen says so. A check-in from an earlier day still can't be removed on
+  its own, because earlier days aren't listed anywhere. "Make a copy of my data" exports a copy.
+- **The app lock** (same branch) stores one thing: on or off, in `tidelight.settings`. The check
+  itself (Face ID, Touch ID, or the phone's passcode) is the phone's own; the app never sees a
+  face, a fingerprint, or a code, and keeps none. The lock keeps the app's screens closed; it does
+  not encrypt what is saved. "Delete everything" leaves the lock setting as it is, like the other
+  settings.
 
 ## Third parties
 

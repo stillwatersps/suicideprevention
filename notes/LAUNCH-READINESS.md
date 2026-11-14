@@ -198,6 +198,7 @@ what was wrong, and added a test that fails if one ever breaks.
 
 Recorded from the app itself by `node test/crisis-test.mjs --record`, and kept in
 `app/test/fixtures/crisis-inventory.json`: 37 screens in each language, 392 crisis controls in each.
+**On `app/privacy-package` (November 14, 2026):** 39 screens and 416 controls in each language. Two screens were added, the open-source licenses and the app's lock screen, each with the same twelve controls the walk finds on Friends after the place alert has opened; every earlier entry is unchanged, which was checked entry by entry. `app/test/privacy-test.mjs` (172 checks, in `npm test`) checks the lock itself: while the app is locked, 988, 911, Quick exit, Get Support Now, the Support panel, the language link, both review notices, and a place alert stay on screen and work, and nothing the person saved can be read.
 The screens are the nine first-launch pages (the age question and each onboarding page) and 28
 more: Home, Home with the site menu open, Your streak, Settings, the Check-in tab, a quick check-in
 (choosing a mood, finished, and support after a very low mood), the Daily check-in (first question,

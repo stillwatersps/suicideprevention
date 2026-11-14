@@ -7,7 +7,7 @@ import { suggestMeditation, typesDoneOn } from '../logic/suggest.js';
 import { dateKey } from '../logic/streaks.js';
 import { toMinutes } from '../logic/spread.js';
 import { t, lang } from './words.js';
-import { state, style } from './state.js';
+import { state, style, replace } from './state.js';
 import { choiceGroup, el } from './components.js';
 import { audioRoute, locationPermission, currentPosition, distanceMeters } from './device.js';
 import { playMeditation } from './player.js';
@@ -117,7 +117,16 @@ export function renderHistory() {
     const text = el('span', 'tl-card-text');
     const minutes = Math.max(1, Math.round(s.completedSeconds / 60));
     text.append(el('span', 'tl-card-title', t(s.completed ? 'history.item' : 'history.partial', { name: typeName(s.type), minutes })), el('span', 'tl-card-sub', when(s.startedAt)));
-    item.append(el('span', 'tl-card-icon'), text);
+    // One session can be taken out of the history by itself.
+    const remove = el('button', 'tl-btn tl-btn-quiet tl-history-remove', t('history.remove'));
+    remove.type = 'button';
+    remove.addEventListener('click', async () => {
+      await replace('sessions', state.sessions.filter((other) => other.id !== s.id));
+      renderHistory();
+      const title = $('#tl-history-title');
+      if (title) { title.setAttribute('tabindex', '-1'); title.focus({ preventScroll: true }); }
+    });
+    item.append(el('span', 'tl-card-icon'), text, remove);
     rows.appendChild(item);
   });
   $('#tl-history-empty').hidden = state.sessions.length > 0;

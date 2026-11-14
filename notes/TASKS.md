@@ -111,6 +111,13 @@ Nothing else has been claimed. Add an owner above when you start.
   closed on November 14, 2026, by the founder who opened them; 16 and 21 are for the other founder to close. The reviewer gets [[REVIEWER-PACKET]] from this branch. Handoff:
   [[worklogs/2026-11-14-claude-app-review-version]].
 
+- [ ] Privacy features for the phone app: an optional app lock, Remove on one check-in or one meditation, a
+  copy of your data, a backup sentence, and a licenses screen. Owner: Claude, at one founder's request. Branch:
+  `app/privacy-package`, draft pull request 31 into `app/review-version`. Both founders decide whether to keep
+  each, and whether the lock should use the phone's passcode or a code of its own; the reviewer and a lawyer
+  read the questions in [[CONTENT-REVIEW]]; someone tries the lock on a real iPhone with section 9b of
+  `app/TESTING_CHECKLIST.md`. Handoff: [[worklogs/2026-11-14-claude-app-privacy-package]].
+
 - [ ] Phone app redesign from one founder's build spec (`app/BUILD-SPEC.md`): tabs, onboarding, quick
   check-in, streaks, meditation, haptics. Owner: Claude. Branch: `app/redesign-dev`, draft pull request 25
   into `app/first-build`. Both founders read `app/BUILD-SPEC.md`, the six safety rules in `app/CLAUDE.md`,
