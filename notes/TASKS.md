@@ -113,7 +113,7 @@ Nothing else has been claimed. Add an owner above when you start.
 
 - [ ] Privacy features for the phone app: an optional app lock, Remove on one check-in or one meditation, a
   copy of your data, a backup sentence, and a licenses screen. Owner: Claude, at one founder's request. Branch:
-  `app/privacy-package`, a draft pull request into `app/review-version`. Both founders decide whether to keep
+  `app/privacy-package`, draft pull request 31 into `app/review-version`. Both founders decide whether to keep
   each, and whether the lock should use the phone's passcode or a code of its own; the reviewer and a lawyer
   read the questions in [[CONTENT-REVIEW]]; someone tries the lock on a real iPhone with section 9b of
   `app/TESTING_CHECKLIST.md`. Handoff: [[worklogs/2026-11-14-claude-app-privacy-package]].

@@ -9,7 +9,7 @@ branch: app/privacy-package
 [[00 START HERE|Back to Start Here]]
 
 One founder asked for the privacy features Claude had listed earlier that day. This is a draft on
-`app/privacy-package`, built on top of `app/review-version` (pull request 30), as a draft pull request
+`app/privacy-package`, built on top of `app/review-version` (pull request 30), as draft pull request 31
 into that branch. **It publishes nothing.** The other founder hasn't seen it, no reviewer or lawyer
 has, and the lock has never run on a real phone.
 
