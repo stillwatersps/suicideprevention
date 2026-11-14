@@ -390,3 +390,23 @@ html.tl .ci-tabs a { display: inline-flex; align-items: center; min-height: var(
   html.tl .tl-type { grid-template-columns: auto 1fr; }
   html.tl .tl-type [data-type-start] { grid-column: 1 / -1; grid-row: auto; width: 100%; }
 }
+
+/* ---------- A plainer look (November 14, 2026, one founder's request; a proposal) ----------
+   Three things that made the app read as a template, changed in this one block so it can be
+   dropped whole: small labels in capitals, pill-shaped buttons everywhere, and soft glows.
+   No word, color, size of a tap target, or crisis control changes. Get Support Now, Call 988,
+   and the other crisis buttons keep their pill shape, so they are the only pills left. */
+/* 1. Small labels are written as they are typed, at the smallest reading size, with no extra spacing. */
+.tl-eyebrow, html.tl .tl-section-title, html.tl #tl-streak-month-title, html.tl .ci-entry-date {
+  text-transform: none; letter-spacing: 0; font-size: var(--text-caption); line-height: var(--lh-caption);
+}
+/* 2. Buttons and chips are rounded rectangles. The crisis buttons' own rule is more specific and still wins. */
+html.tl .tl-btn, html.tl .tl-feature .tl-card-go, html.tl .tl-chip, html.tl .ci-body button:not([class*="tl-"]) { border-radius: var(--radius-sm); }
+/* 3. Flat color: no paper grain, and the horizon is two flat bands and its line, with no glow. */
+html.tl body { background-image: none; }
+.tl-horizon { background: linear-gradient(to bottom, var(--sand) 0%, var(--sand) var(--h-line), var(--water) var(--h-line), var(--water) 100%); }
+.tl-horizon::before, .tl-horizon::after { background: none; }
+@media (prefers-color-scheme: dark) {
+  html.tl body { background-image: none; }
+  .tl-horizon { background: linear-gradient(to bottom, var(--sand) 0%, var(--sand) var(--h-line), var(--water) var(--h-line), var(--water) 100%); }
+}
