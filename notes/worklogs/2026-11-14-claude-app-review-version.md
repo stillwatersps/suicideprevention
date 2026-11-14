@@ -61,9 +61,10 @@ All on November 14, 2026. **Not on a real phone, and not on Android.**
 ## Decisions and open questions
 
 - All of it is one founder's choice, recorded in [[DECISIONS]] as a proposal.
-- **The older app pull requests are still open:** 16 and 21 were opened by one founder, and 19, 20,
-  25, 26, 27, 28 and 29 by the other. This branch contains all of them. Closing them is for the
-  people who opened them.
+- **The older app pull requests:** this branch contains all nine. The founder who asked for this
+  had opened 19, 20, 25, 26, 27, 28 and 29, and had Claude close those seven the same day, each with
+  a comment pointing here; their branches are kept. Pull requests 16 and 21 were opened by the other
+  founder and are still open, for that founder to close.
 - The plainer look contradicts the design brief in three places. The brief has a dated note.
 - The packet is reordered, not shorter: every screen's words are still in it. Parts 1 to 3 are the
   must-read and are a small share of it.

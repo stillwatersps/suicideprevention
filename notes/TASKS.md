@@ -106,9 +106,9 @@ Nothing else has been claimed. Add an owner above when you start.
 
 - [ ] **The phone app, as one version.** Everything in the app pull requests below, on one branch and up to
   date with pull request 5's branch. Owner: Claude, at one founder's request. Branch: `app/review-version`, one
-  draft pull request into `claude/jolly-mayer-2m6eno`. Both founders review this one in place of pull requests
-  16, 19, 20, 21, 25, 26, 27, 28 and 29, decide on the plainer look, and close the older pull requests they
-  opened. The reviewer gets [[REVIEWER-PACKET]] from this branch. Handoff:
+  draft pull request, number 30, into `claude/jolly-mayer-2m6eno`. Both founders review this one in place of pull
+  requests 16, 19, 20, 21, 25, 26, 27, 28 and 29, and decide on the plainer look. Seven of the older ones were
+  closed on November 14, 2026, by the founder who opened them; 16 and 21 are for the other founder to close. The reviewer gets [[REVIEWER-PACKET]] from this branch. Handoff:
   [[worklogs/2026-11-14-claude-app-review-version]].
 
 - [ ] Phone app redesign from one founder's build spec (`app/BUILD-SPEC.md`): tabs, onboarding, quick

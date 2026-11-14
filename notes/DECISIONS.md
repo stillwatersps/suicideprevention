@@ -520,8 +520,9 @@ The same founder asked for the app to be made ready to hand to reviewers. **The 
 and no reviewer or lawyer has.** On `app/review-version`, in `app/` and notes only. It publishes nothing.
 
 - **One branch and one pull request for the whole app.** The app had spread over nine stacked pull requests, and
-  the first of them conflicted with pull request 5's branch. Nothing was left out; the older pull requests stay
-  open until their owners close them.
+  the first of them conflicted with pull request 5's branch. Nothing was left out. The founder who asked for
+  this closed the seven older pull requests they had opened (19, 20, 25 to 29), keeping the branches; 16 and 21
+  were opened by the other founder and are theirs to close.
 - **The notes conflict was settled by keeping both sides:** the app's entries here, then both founders'
   fourteen answers; in [[TASKS]] and [[STATUS]], the wording both founders agreed, with the app's rows and its
   own Important item kept.
