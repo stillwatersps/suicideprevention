@@ -110,6 +110,11 @@ Map these to the existing check-in answer scale in whatever order matches the ap
 > the phone's own font for body text, after comparing options side by side. Where this section says
 > Fraunces, the app now uses Literata; where it says Figtree, the phone's own font. Sizes and weights are
 > unchanged. See `notes/DECISIONS.md`.
+>
+> **Also changed November 14, 2026, on `app/review-version`, as a proposal:** the same founder asked for a
+> plainer look. Small labels are no longer uppercase with tracking; buttons and chips are rounded rectangles,
+> with the pill kept for the crisis buttons; and the dawn glow and paper grain are replaced by flat color.
+> It is one block at the end of `app/src/redesign-identity.css`. Where this brief says otherwise, that block wins.
 
 Bundle these locally (both are SIL Open Font License; include the license files):
 - **Display / headlines:** **Fraunces** (variable). Use optical size and a soft weight around 500–600, with a slight "SOFT" axis setting if the build supports it. Headlines only, never body text.

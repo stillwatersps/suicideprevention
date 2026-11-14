@@ -92,7 +92,9 @@ async function record(screen, page, problem) {
     if (screen.id === 'place-alert' && await page.isVisible('#app-place-alert .app-alert-okay')) await page.click('#app-place-alert .app-alert-okay');
   }
   const about = ABOUT[screen.id] || '';
-  sections.push([`### ${number}. ${screen.name}`, '', about, '', `Picture: \`app/design/after-launch-pass/reviewer/${file}\``, '', problem ? '(This screen could not be reached when the packet was made.)' : lines.map((line) => '> ' + line.replace(/([<>*_`[\]])/g, '\\$1')).join('  \n'), ''].join('\n'));
+  // A screen that names 988 or 911 in its own words, beyond the strip and Support on every screen.
+  const crisis = lines.some((line) => /\b(988|911)\b/.test(line)) ? ['**This screen names 988 or 911 in its own words.**', ''] : [];
+  sections.push({ id: screen.id, number, crisis: crisis.length > 0, text: [`#### ${number}. ${screen.name}`, '', about, '', ...crisis, `Picture: \`app/design/after-launch-pass/reviewer/${file}\``, '', problem ? '(This screen could not be reached when the packet was made.)' : lines.map((line) => '> ' + line.replace(/([<>*_`[\]])/g, '\\$1')).join('  \n'), ''].join('\n') });
 }
 
 const init = () => { window.__tidelight = { clockRate: 1, locationAuthorization: 'whenInUse', notificationAuthorization: 'authorized', position: { latitude: 1, longitude: 1 }, pickContact: async () => ({ name: 'A made-up friend', phone: '555-0100' }) }; };
@@ -121,6 +123,27 @@ close();
 
 const before = readFileSync(packet, 'utf8');
 if (!before.includes(START) || !before.includes(END)) { console.log('notes/REVIEWER-PACKET.md has lost its WALKTHROUGH marks.'); process.exit(1); }
-const body = sections.join('\n');
+// The screens keep the numbers of the order a person meets them in, so the questions can point at
+// them, but they are printed in four parts with what matters most for safety first.
+const PARTS = [
+  ['Part 1. Support and crisis screens', 'What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first.',
+    ['flow-support', 'daily-result-heavy', 'complete-support', 'place-alert', 'daily-needs', 'hope']],
+  ['Part 2. Check-in questions', 'What the app asks, and what an ordinary answer leads to.',
+    ['checkin', 'flow-mood', 'flow-done', 'daily-question', 'daily-result']],
+  ['Part 3. Streaks and rewards', 'Where the app counts days or marks something as done.',
+    ['home', 'streak', 'complete']],
+];
+const placed = new Set(PARTS.flatMap((part) => part[2]));
+PARTS.push(['Part 4. Everything else', 'In the order a person meets it. Skim this part; it is the longest.', sections.map((s) => s.id).filter((id) => !placed.has(id))]);
+const missing = PARTS.flatMap((part) => part[2]).filter((id) => !sections.some((s) => s.id === id));
+if (missing.length) { console.log('The packet names screens the app no longer has: ' + missing.join(', ')); process.exit(1); }
+const body = PARTS.map(([title, about, ids]) => {
+  const texts = ids.map((id) => sections.find((s) => s.id === id).text);
+  const lines = texts.join('\n').split('\n').filter((line) => line.startsWith('> ')).length;
+  // Screens elsewhere that also name 988 or 911 in a sentence, so the reader knows where the rest are.
+  const others = title.startsWith('Part 1') ? sections.filter((s) => s.crisis && !ids.includes(s.id)).map((s) => s.number).sort((a, b) => a - b) : [];
+  const more = others.length ? ` ${others.length} more screens name 988 or 911 in a sentence (numbers ${others.join(', ')}); they are further down, each marked.` : '';
+  return [`### ${title}`, '', `${about} ${ids.length} screens, about ${lines} lines of the app's words.${more}`, '', ...texts].join('\n');
+}).join('\n');
 writeFileSync(packet, before.slice(0, before.indexOf(START) + START.length) + '\n\n' + body + '\n' + before.slice(before.indexOf(END)));
 console.log(`Wrote ${number} screens into notes/REVIEWER-PACKET.md, and their pictures into app/design/after-launch-pass/reviewer/.`);

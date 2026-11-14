@@ -513,3 +513,26 @@ Asked for and not built, because the app's own safety rules say no:
   tap meant for 988 could land on 911. The safe fix is a new layout for reviewed sentences.
 
 Both stay decisions for both founders and the reviewer, as [[LAUNCH-BACKLOG]] already says.
+
+## November 14, 2026: one version of the app for review, proposed
+
+The same founder asked for the app to be made ready to hand to reviewers. **The other founder hasn't seen it,
+and no reviewer or lawyer has.** On `app/review-version`, in `app/` and notes only. It publishes nothing.
+
+- **One branch and one pull request for the whole app.** The app had spread over nine stacked pull requests, and
+  the first of them conflicted with pull request 5's branch. Nothing was left out; the older pull requests stay
+  open until their owners close them.
+- **The notes conflict was settled by keeping both sides:** the app's entries here, then both founders'
+  fourteen answers; in [[TASKS]] and [[STATUS]], the wording both founders agreed, with the app's rows and its
+  own Important item kept.
+- **Meditation history is grouped by month,** under month names the phone writes itself. No new wording.
+- **A plainer look.** The founder found the app's look too much like a template. Small labels are no longer in
+  spaced capitals; buttons and chips are rounded rectangles, with the pill kept for the crisis buttons only; the
+  dawn glow and paper grain give way to flat color. This goes against parts of the same founder's design
+  brief, which now says so. It is one block of styles and easy to drop.
+- **The reviewer packet is reordered,** not shortened: support and crisis screens first, then check-in
+  questions, then streaks, then everything else. It also says plainly where each kind of wording came from:
+  nothing is quoted from 988; numbers and keywords come from providers' pages listed in [[SAFETY]]; an AI
+  assistant wrote the rest.
+
+Open: whether the other founder agrees to the plainer look, and all the earlier questions.

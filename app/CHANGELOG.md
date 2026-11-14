@@ -115,3 +115,10 @@ A visual layer only: no feature was added, removed, or renamed, and no stored da
 - Exactly one minute of meditation in all reads "1 minute in all" ("1 minuto en total").
 - On iPhone the Hope box uses the phone's photo picker: the library only, never the camera.
 - A privacy manifest (`ios/App/App/PrivacyInfo.xcprivacy`), a draft for a lawyer to confirm.
+
+## November 14, 2026: one version for review (on `app/review-version`)
+- Every part of the app is on one branch, brought up to date with pull request 5's branch.
+- Meditation history is grouped by month.
+- A plainer look, as a proposal: sentence-case labels, rounded-rectangle buttons and chips with the
+  pill kept for the crisis buttons, and flat color in place of the glow and grain.
+- The reviewer packet's walkthrough is in four parts, with support and crisis screens first.

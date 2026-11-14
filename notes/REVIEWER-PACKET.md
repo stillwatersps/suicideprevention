@@ -7,8 +7,9 @@ status: DRAFT, written by an AI assistant. No reviewer has been found or contact
 
 [[00 START HERE|Back to Start Here]]
 
-**DRAFT.** Written November 12, 2026, during the launch readiness work ([[LAUNCH-READINESS]]), from
-the app on the branch `app/launch-readiness`. It is for a licensed suicide prevention professional
+**DRAFT.** Written November 12, 2026, during the launch readiness work ([[LAUNCH-READINESS]]), and
+reordered on November 14, 2026, from the app on the branch `app/review-version`, which holds every
+part of the app in one place. It is for a licensed suicide prevention professional
 the founders have yet to find. It covers the phone app only. The website's pages have their own
 packets in `notes/review-packet/` and their own questions in [[CONTENT-REVIEW]].
 
@@ -31,10 +32,10 @@ About two hours, in this order. Stop whenever you like; the order puts what matt
 
 | Step | What | Where | Time |
 | --- | --- | --- | --- |
-| 1 | Read "On every screen" and the three support screens (31, 36, and 37 in the walkthrough) | Below | 15 min |
+| 1 | Read "Where the words came from", "On every screen", and Part 1 of the walkthrough (the support and crisis screens) | Below | 20 min |
 | 2 | Answer the **crisis and safety** questions, A1 to A14 | Below | 30 min |
 | 3 | Answer the **streaks and rewards** questions, B1 to B7 | Below | 15 min |
-| 4 | Skim the walkthrough for anything that reads wrongly to you, marking the screen number | Below | 30 min |
+| 4 | Read Parts 2 and 3 of the walkthrough (check-in questions, streaks), then skim Part 4, marking the number of any screen that reads wrongly | Below | 30 min |
 | 5 | Answer the **privacy wording** questions, C1 to C6 (a lawyer is asked too) | Below | 10 min |
 | 6 | Answer what you can of **everything else**, D1 to D21 | Below | 20 min |
 
@@ -43,6 +44,22 @@ whole feature should not exist, say so; that is a welcome answer.
 
 What happens next: the founders change the wording you ask for, a test locks the approved wording
 so it can't change without you, and the "Draft for review" notice comes off only what you approved.
+
+## Where the words came from
+
+Nothing in the app is quoted from 988 or from any other service. This is where each kind of
+wording came from, and who has checked it.
+
+| Kind of wording | Where it came from | Checked by |
+| --- | --- | --- |
+| Crisis numbers and keywords: 988 by call and text, 911, "AYUDA" and "press 2" in Spanish | Each provider's own web page, listed with the date it was read in [[SAFETY]] | An AI assistant read the pages. **No person has confirmed them** |
+| The steps of texting 988 ("Reply NEXT to accept its terms, answer a brief survey, and wait for a counselor") | A summary, in the app's words, of 988's own pages, read November 7, 2026 ([[SAFETY]]) | The same: read by an AI assistant, not confirmed by a person |
+| The sentences around those numbers: the crisis strip, the Support section, and each line that names 988 or 911 | Written by an AI assistant for the website's draft pages, and reused in the app | Nobody |
+| Everything else: check-in questions and ideas, streak and milestone messages, meditation words, reminders, settings, privacy wording | Written by an AI assistant from the founders' briefs. One founder then asked for some lines to be changed or put back | Nobody |
+| The Spanish | An AI translation of the English | Nobody. A fluent reader is still to be found |
+
+In the walkthrough, a screen that names 988 or 911 in its own words, beyond the strip and Support
+that are on every screen, is marked.
 
 ## On every screen
 
@@ -66,8 +83,12 @@ languages, at every text size ([[LAUNCH-READINESS]], "Crisis path reliability").
 
 ## Screen by screen
 
+The screens are in four parts, with what matters most for safety first. Each keeps the number of
+the order a person meets it in (1 is the first screen of a new install), so the numbers jump
+about; the questions further down use the same numbers.
+
 The wording under each screen is copied by a script from what the app shows, in English, with
-made-up data, on November 12, 2026. It leaves out the parts listed under "On every screen", and
+made-up data, on November 14, 2026. It leaves out the parts listed under "On every screen", and
 it shows each screen in one state (an empty list, a first day). Pictures are made on a
 founder's computer with `node tools/reviewer-walkthrough.mjs` in `app/` and saved to
 `app/design/after-launch-pass/reviewer/`; they are not in the public repository, so a founder
@@ -76,149 +97,360 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 <!-- WALKTHROUGH:START -->
 
-### 1. First launch, onboarding: welcome
+### Part 1. Support and crisis screens
 
-The first thing a new person sees.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 6 screens, about 159 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
 
-Picture: `app/design/after-launch-pass/reviewer/01-onboarding-welcome.png`
+#### 36. Quick check-in, support after a very low mood
 
-> Draft for review  
-> Step 1 of 9  
-> TIDELIGHT  
-> Find your calm, anywhere.  
-> Let's go
+What a quick check-in shows at once after "Very low" or "Low", instead of the thanks line.
 
-### 2. First launch, onboarding: age
+**This screen names 988 or 911 in its own words.**
 
-Asks a date of birth once, to choose an age group. Only the group is kept.
-
-Picture: `app/design/after-launch-pass/reviewer/02-onboarding-age.png`
+Picture: `app/design/after-launch-pass/reviewer/36-flow-support.png`
 
 > Draft for review  
 > Back  
-> Step 2 of 9  
-> Before you start: your date of birth  
-> Tidelight shows different ideas for different ages, because research finds that different things help at different ages. Your date of birth is asked once.  
-> Please enter your real date of birth. It matters.  
-> The app uses it to choose the kinds of help that research supports for your age. A wrong date means ideas meant for a different age, and some may not fit you or be safe for you.  
-> The app works out your age group, keeps only the group on this phone, and forgets the date. It never leaves the phone.  
-> You don't need to answer this to get help. You can call 988 or text 988 at any time. In immediate danger, call 911.  
-> Date of birth  
-> Continue  
-> If you're under 13, please use Tidelight with a parent, carer, or another adult you trust.
+> That sounds really hard.  
+> You don't have to carry it alone. You can talk to someone right now.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911  
+> The 988 Suicide & Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.  
+> Your check-in is saved on this phone. Nobody at Tidelight sees it, so it isn't a way to ask for help.  
+> More ways to get support  
+> Back to Home
 
-### 3. First launch, onboarding: name
+#### 37. Daily check-in, result after a heavy feeling
 
-Asks for an optional first name, used in the greeting.
+The Daily check-in's result after choosing a heavy feeling (here, Sad).
 
-Picture: `app/design/after-launch-pass/reviewer/03-onboarding-name.png`
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/37-daily-result-heavy.png`
+
+> Back  
+> Today  
+> Rediscover  
+> Journal  
+> Hope box  
+> Your journey  
+> Support  
+> Today  
+> Welcome. However today is going, you're welcome here. You can skip any question, go back, or stop at any time.  
+> A plan for hard moments  
+> A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.  
+> Planning for a hard moment  
+> Thank you for checking in.  
+> You said you're feeling Sad today.  
+> Here are a few small things you could try. They're ideas, not instructions, and none of them is a treatment. Skip any that don't fit.  
+> That sounds heavy. You don't have to carry it alone. You can call 988 or text 988 right now, any time. In immediate danger, call 911.  
+> More ways to get support  
+> FOR YOUR MIND  
+> Write down one thing that's on your mind. You don't have to solve it.  
+> Try something else  
+> Not today  
+> I'd like to try this  
+> FOR YOUR CONNECTION  
+> Send a short message to someone you feel comfortable with. It can be as simple as "thinking of you."  
+> Try something else  
+> Not today  
+> I'd like to try this  
+> FOR YOURSELF  
+> Listen to a song that has meant something to you.  
+> Try something else  
+> Not today  
+> I'd like to try this  
+> For your age  
+> A safety plan is a short list for hard moments: signs that one is coming, things that help you cope, people and places to go to, professionals to call, and your reasons for living. It helps most when you make or review it with a doctor or counselor.  
+> Talking to a doctor about how you've been feeling is a good place to start.  
+> Ideas for your age group, from research summarized in the app's notes. Not a treatment, and not reviewed by a professional yet.  
+> Share how I'm feeling  
+> Change my answers  
+> See every suggestion this page can show
+
+#### 31. Meditation finished, very low mood after
+
+The end of a session after the person answers "Very low" or "Low".
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/31-complete-support.png`
+
+> Draft for review  
+> That sounds really hard.  
+> You don't have to carry it alone. You can talk to someone right now.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911  
+> The 988 Suicide & Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.  
+> More ways to get support  
+> How do you feel now?  
+> Very low  
+> Low  
+> Okay  
+> Good  
+> Great  
+> Done  
+> Save as favorite
+
+#### 34. Place alert ("You've been at…")
+
+What opens from the notification after the person has stayed at one of their places.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/34-place-alert.png`
+
+> Draft for review  
+> Places  
+> Home spot  
+> No home spot saved.  
+> Places that are hard for me  
+> Some people have a place that's hard to be near. If you'd like, you can tell this phone about yours, so that when you've stayed there for a while, the phone can check in with you and, if you choose, let people you trust know where you are.  
+> This is off until you turn it on. The app suggests no places: only you decide what counts as a hard place for you. Your places and your people stay on this phone, and Tidelight never receives them. You can turn this off or remove anything at any time, and nobody is told.  
+> Turn this on  
+> This works in the app on a phone. In a web browser you can look at it, but no place can be watched.  
+> Permission  
+> For this to work with the app closed, the phone needs to allow Tidelight to use your location "always". The phone asks in two steps, first "while using the app", then "always", sometimes a few days later. Your location is only used to notice your own places, and it's never sent unless you choose to send it.  
+> The phone allows location only while the app is open, so a closed app can't notice a place. To allow "always", open the phone's Settings, Tidelight, Location.  
+> Your places  
+> Learn more  
+> No places yet. You don't have to add any.  
+> Add a place  
+> People you trust  
+> Choose up to 5 people from your contacts. The app keeps their name and phone number on this phone only. They aren't told that you chose them, and nothing is sent to them unless you send it.  
+> No one chosen yet. Without someone chosen, the phone can still check in with you, but there's nobody to send a message to.  
+> Choose someone from my contacts  
+> How long before the phone checks in with you  
+> After staying at a place for  
+> 10 minutes  
+> 20 minutes  
+> 30 minutes  
+> 1 minute (test builds only)  
+> Passing through a place does nothing. Only staying counts.  
+> What the phone shows  
+> When the time is up, the phone shows a notification from Tidelight. By default it says only "Your plan is here," so nothing private shows on the lock screen. Opening it shows how long you've been there, your people, 988 and 911, and the choices below.  
+> Show the place's name and the time on the lock screen  
+> Your message  
+> If you choose to send it, this message goes to your people through the phone's own Messages app, with a map link to where you are. You see it first and tap Send yourself; the app can't send a text on its own. You can change the words now.  
+> Your message  
+> Good to know  
+> Before you rely on this, try it once with someone you chose, so you both know what arrives.  
+> It can't work when the phone is off, in airplane mode, out of battery, has location turned off, or is somewhere the phone can't tell where it is, like underground. It may take the phone a few minutes to notice a place, and places smaller than about 100 meters are unreliable.  
+> The phone only notices your chosen places. It doesn't track where you go, and the app keeps no record of visits.  
+> A message to your people isn't a way to get urgent help. They may not see it for a while. If you need help now, call 988 or text 988. In immediate danger, call 911.  
+> On, but no place is added yet.  
+> You've been at A made-up place for 10 minutes  
+> You haven't chosen anyone to send a message to, so nothing can be sent. You can choose people on the Location tab.  
+> Send my message now  
+> I'm okay  
+> You can also call 988 or text 988 right now, any time. In immediate danger, call 911.
+
+#### 18. Daily check-in, "what do you need" (with its 988 line)
+
+The Daily check-in's last question, with a 988 and 911 line.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/18-daily-needs.png`
+
+> Back  
+> Today  
+> Rediscover  
+> Journal  
+> Hope box  
+> Your journey  
+> Support  
+> Today  
+> Welcome. However today is going, you're welcome here. You can skip any question, go back, or stop at any time.  
+> A plan for hard moments  
+> A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.  
+> Planning for a hard moment  
+> What do you feel like you need right now?  
+> Choose any that fit, or none.  
+> Rest  
+> A break  
+> Someone to talk to  
+> To feel less alone  
+> To get outside  
+> To do something I enjoy  
+> I'm not sure  
+> If you're thinking about suicide, you can call 988 or text 988 at any time. In immediate danger, call 911.  
+> See today's suggestions  
+> Back  
+> See every suggestion this page can show
+
+#### 23. Hope box
+
+The Hope box: the person's own reasons, words, and photos.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/23-hope.png`
+
+> Back  
+> Today  
+> Rediscover  
+> Journal  
+> Hope box  
+> Your journey  
+> Support  
+> Hope box  
+> A place to keep what reminds you why you keep going: a photo, a few words from someone, a song, a reason. Add to it on better days, and open it on hard ones.  
+> Everything here stays in this app, on this phone. It is never sent anywhere, and Share never includes it. Delete everything, in Your journey, empties it. Photos may not come back if you change phones, so keep the originals.  
+> A hope box is not a way to get help. If you're thinking about suicide, call 988 or text 988 at any time. In immediate danger, call 911.  
+> Add some words  
+> What is it?  
+> A reason I keep going  
+> Something kind someone said to me  
+> A song, a book, or a place that calms me  
+> Something else  
+> Write it here  
+> Add to my hope box  
+> Add a photo  
+> Choose a photo of someone, somewhere, or something that matters to you. The app keeps its own smaller copy.  
+> Choose a photo from this phone  
+> In your hope box  
+> Nothing yet. One small thing is enough to start.
+
+### Part 2. Check-in questions
+
+What the app asks, and what an ordinary answer leads to. 5 screens, about 93 lines of the app's words.
+
+#### 14. Check-in tab
+
+The second tab: every kind of check-in, the journal, and the person's history.
+
+Picture: `app/design/after-launch-pass/reviewer/14-checkin.png`
+
+> Draft for review  
+> Check in  
+> Quick check-in  
+> One tap, how you are  
+> Check in  
+> Today  
+> No check-ins yet today.  
+> Daily check-in  
+> Five gentle questions  
+> Journal  
+> Write it out  
+> Rediscover  
+> Find your way back  
+> Hope box  
+> Reasons, words, photos  
+> Your journey  
+> What you've kept
+
+#### 15. Quick check-in, choosing a mood
+
+The quick check-in: one tap on a mood, and optional tags and a note.
+
+Picture: `app/design/after-launch-pass/reviewer/15-flow-mood.png`
 
 > Draft for review  
 > Back  
-> Skip  
-> Step 3 of 9  
-> What should we call you?  
-> Optional. It stays on this phone.  
-> Next
+> Take a moment… how are you feeling right now?  
+> Very low  
+> Low  
+> Okay  
+> Good  
+> Great
 
-### 4. First launch, onboarding: count
+#### 16. Quick check-in, finished
 
-How many check-ins a day the person would like, from 1 to 5.
+The end of an ordinary quick check-in (mood Okay, Good, or Great).
 
-Picture: `app/design/after-launch-pass/reviewer/04-onboarding-count.png`
-
-> Draft for review  
-> Back  
-> Skip  
-> Step 4 of 9  
-> Check-ins per day  
-> 3  
-> 9:30 AM  
-> 2:30 PM  
-> 7:30 PM  
-> Next
-
-### 5. First launch, onboarding: times
-
-When the person wakes and goes to bed, to space the check-ins.
-
-Picture: `app/design/after-launch-pass/reviewer/05-onboarding-times.png`
+Picture: `app/design/after-launch-pass/reviewer/16-flow-done.png`
 
 > Draft for review  
 > Back  
-> Skip  
-> Step 5 of 9  
-> Your day  
-> I wake up  
-> I go to bed  
-> 9:30 AM  
-> 2:30 PM  
-> 7:30 PM  
-> Next
+> Thank you for checking in with yourself 💙  
+> Breathe for a minute  
+> Back to home
 
-### 6. First launch, onboarding: style
+#### 17. Daily check-in, first question
 
-Chooses between two voices for the app's prompts.
+The longer Daily check-in, first of five questions.
 
-Picture: `app/design/after-launch-pass/reviewer/06-onboarding-style.png`
+Picture: `app/design/after-launch-pass/reviewer/17-daily-question.png`
 
-> Draft for review  
 > Back  
-> Skip  
-> Step 6 of 9  
-> Pick your style  
+> Today  
+> Rediscover  
+> Journal  
+> Hope box  
+> Your journey  
+> Support  
+> Today  
+> Welcome. However today is going, you're welcome here. You can skip any question, go back, or stop at any time.  
+> A plan for hard moments  
+> A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.  
+> Planning for a hard moment  
+> How are you feeling today?  
+> Choose the one that fits best, or skip it.  
+> Hopeful  
 > Calm  
-> Gentle and slow  
-> Straightforward  
-> Quick and direct  
-> Next
+> Okay  
+> Unsure  
+> Overwhelmed  
+> Sad  
+> Anxious  
+> Disconnected  
+> Exhausted  
+> Next  
+> Skip this question  
+> See every suggestion this page can show
 
-### 7. First launch, onboarding: location
+#### 19. Daily check-in, result
 
-Offers to save one "home spot". Optional.
+What the Daily check-in shows at the end: ideas chosen from the answers.
 
-Picture: `app/design/after-launch-pass/reviewer/07-onboarding-location.png`
+Picture: `app/design/after-launch-pass/reviewer/19-daily-result.png`
 
-> Draft for review  
 > Back  
-> Skip  
-> Step 7 of 9  
-> Meditations that fit  
-> So we can suggest the right meditation for where you are.  
-> Your location is read only when you ask. It stays on this phone and is never sent anywhere.  
-> Set your home spot  
-> Location is on.  
-> Next
+> Today  
+> Rediscover  
+> Journal  
+> Hope box  
+> Your journey  
+> Support  
+> Today  
+> Welcome. However today is going, you're welcome here. You can skip any question, go back, or stop at any time.  
+> A plan for hard moments  
+> A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.  
+> Planning for a hard moment  
+> Thank you for checking in.  
+> You said you're feeling Okay today.  
+> Here are a few small things you could try. They're ideas, not instructions, and none of them is a treatment. Skip any that don't fit.  
+> FOR YOUR MIND  
+> Notice one thing that went okay today, however small.  
+> Try something else  
+> Not today  
+> I'd like to try this  
+> FOR YOUR CONNECTION  
+> Send a short message to someone you feel comfortable with. It can be as simple as "thinking of you."  
+> Try something else  
+> Not today  
+> I'd like to try this  
+> FOR YOURSELF  
+> Revisit something you used to enjoy, even for ten minutes.  
+> Try something else  
+> Not today  
+> I'd like to try this  
+> For your age  
+> A safety plan is a short list for hard moments: signs that one is coming, things that help you cope, people and places to go to, professionals to call, and your reasons for living. It helps most when you make or review it with a doctor or counselor.  
+> Talking to a doctor about how you've been feeling is a good place to start.  
+> Ideas for your age group, from research summarized in the app's notes. Not a treatment, and not reviewed by a professional yet.  
+> Share how I'm feeling  
+> Change my answers  
+> See every suggestion this page can show
 
-### 8. First launch, onboarding: notifications
+### Part 3. Streaks and rewards
 
-Offers check-in reminders. Optional.
+Where the app counts days or marks something as done. 3 screens, about 85 lines of the app's words.
 
-Picture: `app/design/after-launch-pass/reviewer/08-onboarding-notifications.png`
-
-> Draft for review  
-> Back  
-> Skip  
-> Step 8 of 9  
-> Gentle reminders  
-> We'll gently remind you to check in.  
-> A reminder never says anything about you.  
-> Turn on reminders  
-> Next
-
-### 9. First launch, onboarding: done
-
-The end of setup.
-
-Picture: `app/design/after-launch-pass/reviewer/09-onboarding-done.png`
-
-> Draft for review  
-> Back  
-> Step 9 of 9  
-> You're all set.  
-> Start
-
-### 10. Home
+#### 10. Home
 
 The first tab: a greeting, the next check-in, the streak, and four quick tools.
 
@@ -230,7 +462,7 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > Next check-in  
 > At 2:30 PM  
 > Start  
-> SUGGESTED FOR YOU  
+> Suggested for you  
 > Silent  
 > Silent and ready anywhere  
 > Start  
@@ -246,35 +478,7 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > Setup 1/8  
 > 1/8
 
-### 11. Home, with the site menu open
-
-Home with the website's menu open (links to the site's other pages).
-
-Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
-
-> Draft for review  
-> Good afternoon  
-> You don't have to have everything figured out.  
-> Next check-in  
-> At 2:30 PM  
-> Start  
-> SUGGESTED FOR YOU  
-> Silent  
-> Silent and ready anywhere  
-> Start  
-> 0  
-> day streak  
-> This week: 0 done, 0 frozen, 0 rest days.  
-> 1  
-> Check in  
-> Meditate  
-> 1-min reset  
-> Get help  
-> Finish setting up  
-> Setup 1/8  
-> 1/8
-
-### 12. Your streak
+#### 12. Your streak
 
 Opened from the streak card on Home.
 
@@ -287,7 +491,7 @@ Picture: `app/design/after-launch-pass/reviewer/12-streak.png`
 > 0  
 > Best  
 > 0  
-> NOVEMBER 2026  
+> November 2026  
 > M  
 > T  
 > W  
@@ -333,9 +537,206 @@ Picture: `app/design/after-launch-pass/reviewer/12-streak.png`
 > ❄️ 1 held. The next one arrives on Monday.  
 > Turn streaks off in Settings
 
-### 13. Settings
+#### 30. Meditation finished
+
+The end of a session, with an optional "how do you feel now".
+
+Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
+
+> Draft for review  
+> Well done  
+> 1 minute  
+> 1 minute in all  
+> How do you feel now?  
+> Very low  
+> Low  
+> Okay  
+> Good  
+> Great  
+> Done  
+> Save as favorite
+
+### Part 4. Everything else
+
+In the order a person meets it. Skim this part; it is the longest. 23 screens, about 494 lines of the app's words.
+
+#### 1. First launch, onboarding: welcome
+
+The first thing a new person sees.
+
+Picture: `app/design/after-launch-pass/reviewer/01-onboarding-welcome.png`
+
+> Draft for review  
+> Step 1 of 9  
+> Tidelight  
+> Find your calm, anywhere.  
+> Let's go
+
+#### 2. First launch, onboarding: age
+
+Asks a date of birth once, to choose an age group. Only the group is kept.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/02-onboarding-age.png`
+
+> Draft for review  
+> Back  
+> Step 2 of 9  
+> Before you start: your date of birth  
+> Tidelight shows different ideas for different ages, because research finds that different things help at different ages. Your date of birth is asked once.  
+> Please enter your real date of birth. It matters.  
+> The app uses it to choose the kinds of help that research supports for your age. A wrong date means ideas meant for a different age, and some may not fit you or be safe for you.  
+> The app works out your age group, keeps only the group on this phone, and forgets the date. It never leaves the phone.  
+> You don't need to answer this to get help. You can call 988 or text 988 at any time. In immediate danger, call 911.  
+> Date of birth  
+> Continue  
+> If you're under 13, please use Tidelight with a parent, carer, or another adult you trust.
+
+#### 3. First launch, onboarding: name
+
+Asks for an optional first name, used in the greeting.
+
+Picture: `app/design/after-launch-pass/reviewer/03-onboarding-name.png`
+
+> Draft for review  
+> Back  
+> Skip  
+> Step 3 of 9  
+> What should we call you?  
+> Optional. It stays on this phone.  
+> Next
+
+#### 4. First launch, onboarding: count
+
+How many check-ins a day the person would like, from 1 to 5.
+
+Picture: `app/design/after-launch-pass/reviewer/04-onboarding-count.png`
+
+> Draft for review  
+> Back  
+> Skip  
+> Step 4 of 9  
+> Check-ins per day  
+> 3  
+> 9:30 AM  
+> 2:30 PM  
+> 7:30 PM  
+> Next
+
+#### 5. First launch, onboarding: times
+
+When the person wakes and goes to bed, to space the check-ins.
+
+Picture: `app/design/after-launch-pass/reviewer/05-onboarding-times.png`
+
+> Draft for review  
+> Back  
+> Skip  
+> Step 5 of 9  
+> Your day  
+> I wake up  
+> I go to bed  
+> 9:30 AM  
+> 2:30 PM  
+> 7:30 PM  
+> Next
+
+#### 6. First launch, onboarding: style
+
+Chooses between two voices for the app's prompts.
+
+Picture: `app/design/after-launch-pass/reviewer/06-onboarding-style.png`
+
+> Draft for review  
+> Back  
+> Skip  
+> Step 6 of 9  
+> Pick your style  
+> Calm  
+> Gentle and slow  
+> Straightforward  
+> Quick and direct  
+> Next
+
+#### 7. First launch, onboarding: location
+
+Offers to save one "home spot". Optional.
+
+Picture: `app/design/after-launch-pass/reviewer/07-onboarding-location.png`
+
+> Draft for review  
+> Back  
+> Skip  
+> Step 7 of 9  
+> Meditations that fit  
+> So we can suggest the right meditation for where you are.  
+> Your location is read only when you ask. It stays on this phone and is never sent anywhere.  
+> Set your home spot  
+> Location is on.  
+> Next
+
+#### 8. First launch, onboarding: notifications
+
+Offers check-in reminders. Optional.
+
+Picture: `app/design/after-launch-pass/reviewer/08-onboarding-notifications.png`
+
+> Draft for review  
+> Back  
+> Skip  
+> Step 8 of 9  
+> Gentle reminders  
+> We'll gently remind you to check in.  
+> A reminder never says anything about you.  
+> Turn on reminders  
+> Next
+
+#### 9. First launch, onboarding: done
+
+The end of setup.
+
+Picture: `app/design/after-launch-pass/reviewer/09-onboarding-done.png`
+
+> Draft for review  
+> Back  
+> Step 9 of 9  
+> You're all set.  
+> Start
+
+#### 11. Home, with the site menu open
+
+Home with the website's menu open (links to the site's other pages).
+
+Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
+
+> Draft for review  
+> Good afternoon  
+> You don't have to have everything figured out.  
+> Next check-in  
+> At 2:30 PM  
+> Start  
+> Suggested for you  
+> Silent  
+> Silent and ready anywhere  
+> Start  
+> 0  
+> day streak  
+> This week: 0 done, 0 frozen, 0 rest days.  
+> 1  
+> Check in  
+> Meditate  
+> 1-min reset  
+> Get help  
+> Finish setting up  
+> Setup 1/8  
+> 1/8
+
+#### 13. Settings
 
 Opened from the gear on Home.
+
+**This screen names 988 or 911 in its own words.**
 
 Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 
@@ -343,9 +744,9 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Back  
 > Settings  
 > Get Support Now  
-> YOU  
+> You  
 > Your name (optional, stays on this phone)  
-> CHECK-INS  
+> Check-ins  
 > Check-ins per day  
 > 3  
 > I wake up  
@@ -359,11 +760,11 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Gentle and slow  
 > Straightforward  
 > Quick and direct  
-> NOTIFICATIONS  
+> Notifications  
 > Check-in reminders  
 > The phone shows them itself. A reminder only says "A moment to check in, if you'd like." Nothing about you is in it, and nothing is sent anywhere.  
 > Send a test notification  
-> MEDITATION  
+> Meditation  
 > Usual length  
 > 3 min  
 > 5 min  
@@ -379,17 +780,16 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Voice guide  
 > Haptic breathing  
 > Count each breath  
-> FEEL  
+> Feel  
 > Haptics  
 > Reduce animations  
 > Streaks  
 > Streaks count the days you check in. Turn them off any time. Nothing is lost.  
-> PLACES  
+> Places  
 > Home spot  
 > No home spot saved.  
 > One spot, saved on this phone only. The app looks at where you are only when it suggests a meditation, to see if you're near it. Your location is never sent anywhere.  
 > Save where I am  
-> YOUR AGE GROUP  
 > Your age group  
 > The app shows ideas for ages 25 to 64. What it does for your age:  
 > 988, 911, and Quick exit stay on every screen, at every age.  
@@ -398,176 +798,18 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Text is the regular size. Use larger text  
 > If this group isn't right, enter your date of birth again. The right age group matters for the best help.  
 > Enter my date of birth again  
-> YOUR DATA  
+> Your data  
 > Delete everything  
 > In Your journey  
-> ABOUT  
+> About  
 > Tidelight app, draft  
 > 0.2.0
 
-### 14. Check-in tab
-
-The second tab: every kind of check-in, the journal, and the person's history.
-
-Picture: `app/design/after-launch-pass/reviewer/14-checkin.png`
-
-> Draft for review  
-> Check in  
-> Quick check-in  
-> One tap, how you are  
-> Check in  
-> Today  
-> No check-ins yet today.  
-> Daily check-in  
-> Five gentle questions  
-> Journal  
-> Write it out  
-> Rediscover  
-> Find your way back  
-> Hope box  
-> Reasons, words, photos  
-> Your journey  
-> What you've kept
-
-### 15. Quick check-in, choosing a mood
-
-The quick check-in: one tap on a mood, and optional tags and a note.
-
-Picture: `app/design/after-launch-pass/reviewer/15-flow-mood.png`
-
-> Draft for review  
-> Back  
-> Take a moment… how are you feeling right now?  
-> Very low  
-> Low  
-> Okay  
-> Good  
-> Great
-
-### 16. Quick check-in, finished
-
-The end of an ordinary quick check-in (mood Okay, Good, or Great).
-
-Picture: `app/design/after-launch-pass/reviewer/16-flow-done.png`
-
-> Draft for review  
-> Back  
-> Thank you for checking in with yourself 💙  
-> Breathe for a minute  
-> Back to home
-
-### 17. Daily check-in, first question
-
-The longer Daily check-in, first of five questions.
-
-Picture: `app/design/after-launch-pass/reviewer/17-daily-question.png`
-
-> Back  
-> Today  
-> Rediscover  
-> Journal  
-> Hope box  
-> Your journey  
-> Support  
-> Today  
-> Welcome. However today is going, you're welcome here. You can skip any question, go back, or stop at any time.  
-> A plan for hard moments  
-> A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.  
-> Planning for a hard moment  
-> How are you feeling today?  
-> Choose the one that fits best, or skip it.  
-> Hopeful  
-> Calm  
-> Okay  
-> Unsure  
-> Overwhelmed  
-> Sad  
-> Anxious  
-> Disconnected  
-> Exhausted  
-> Next  
-> Skip this question  
-> See every suggestion this page can show
-
-### 18. Daily check-in, "what do you need" (with its 988 line)
-
-The Daily check-in's last question, with a 988 and 911 line.
-
-Picture: `app/design/after-launch-pass/reviewer/18-daily-needs.png`
-
-> Back  
-> Today  
-> Rediscover  
-> Journal  
-> Hope box  
-> Your journey  
-> Support  
-> Today  
-> Welcome. However today is going, you're welcome here. You can skip any question, go back, or stop at any time.  
-> A plan for hard moments  
-> A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.  
-> Planning for a hard moment  
-> What do you feel like you need right now?  
-> Choose any that fit, or none.  
-> Rest  
-> A break  
-> Someone to talk to  
-> To feel less alone  
-> To get outside  
-> To do something I enjoy  
-> I'm not sure  
-> If you're thinking about suicide, you can call 988 or text 988 at any time. In immediate danger, call 911.  
-> See today's suggestions  
-> Back  
-> See every suggestion this page can show
-
-### 19. Daily check-in, result
-
-What the Daily check-in shows at the end: ideas chosen from the answers.
-
-Picture: `app/design/after-launch-pass/reviewer/19-daily-result.png`
-
-> Back  
-> Today  
-> Rediscover  
-> Journal  
-> Hope box  
-> Your journey  
-> Support  
-> Today  
-> Welcome. However today is going, you're welcome here. You can skip any question, go back, or stop at any time.  
-> A plan for hard moments  
-> A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.  
-> Planning for a hard moment  
-> Thank you for checking in.  
-> You said you're feeling Okay today.  
-> Here are a few small things you could try. They're ideas, not instructions, and none of them is a treatment. Skip any that don't fit.  
-> FOR YOUR MIND  
-> Notice one thing that went okay today, however small.  
-> Try something else  
-> Not today  
-> I'd like to try this  
-> FOR YOUR CONNECTION  
-> Send a short message to someone you feel comfortable with. It can be as simple as "thinking of you."  
-> Try something else  
-> Not today  
-> I'd like to try this  
-> FOR YOURSELF  
-> Revisit something you used to enjoy, even for ten minutes.  
-> Try something else  
-> Not today  
-> I'd like to try this  
-> For your age  
-> A safety plan is a short list for hard moments: signs that one is coming, things that help you cope, people and places to go to, professionals to call, and your reasons for living. It helps most when you make or review it with a doctor or counselor.  
-> Talking to a doctor about how you've been feeling is a good place to start.  
-> Ideas for your age group, from research summarized in the app's notes. Not a treatment, and not reviewed by a professional yet.  
-> Share how I'm feeling  
-> Change my answers  
-> See every suggestion this page can show
-
-### 20. Share with someone you choose
+#### 20. Share with someone you choose
 
 The notice shown before anything is shared.
+
+**This screen names 988 or 911 in its own words.**
 
 Picture: `app/design/after-launch-pass/reviewer/20-share.png`
 
@@ -616,7 +858,7 @@ Picture: `app/design/after-launch-pass/reviewer/20-share.png`
 > Choose who to share with  
 > Cancel
 
-### 21. Journal
+#### 21. Journal
 
 A private journal.
 
@@ -652,7 +894,7 @@ Picture: `app/design/after-launch-pass/reviewer/21-journal.png`
 > Entries from this visit  
 > No entries yet.
 
-### 22. Rediscover
+#### 22. Rediscover
 
 Prompts about things the person used to enjoy.
 
@@ -691,38 +933,7 @@ Picture: `app/design/after-launch-pass/reviewer/22-rediscover.png`
 > Show me an idea  
 > See every idea
 
-### 23. Hope box
-
-The Hope box: the person's own reasons, words, and photos.
-
-Picture: `app/design/after-launch-pass/reviewer/23-hope.png`
-
-> Back  
-> Today  
-> Rediscover  
-> Journal  
-> Hope box  
-> Your journey  
-> Support  
-> Hope box  
-> A place to keep what reminds you why you keep going: a photo, a few words from someone, a song, a reason. Add to it on better days, and open it on hard ones.  
-> Everything here stays in this app, on this phone. It is never sent anywhere, and Share never includes it. Delete everything, in Your journey, empties it. Photos may not come back if you change phones, so keep the originals.  
-> A hope box is not a way to get help. If you're thinking about suicide, call 988 or text 988 at any time. In immediate danger, call 911.  
-> Add some words  
-> What is it?  
-> A reason I keep going  
-> Something kind someone said to me  
-> A song, a book, or a place that calms me  
-> Something else  
-> Write it here  
-> Add to my hope box  
-> Add a photo  
-> Choose a photo of someone, somewhere, or something that matters to you. The app keeps its own smaller copy.  
-> Choose a photo from this phone  
-> In your hope box  
-> Nothing yet. One small thing is enough to start.
-
-### 24. Your journey
+#### 24. Your journey
 
 The person's history, sharing, and "Delete everything".
 
@@ -777,8 +988,8 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Midday, 12:36 PM: feeling: Good.  
-> Midday, 12:36 PM: feeling: Okay.  
+> After school, 2:03 PM: feeling: Good.  
+> After school, 2:03 PM: feeling: Okay.  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
 > Share the last 7 days  
@@ -797,7 +1008,7 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > In the app, this also deletes what's saved on this phone. A copy in an earlier iCloud or Google backup can last until the phone's next backup. Your places and your people from Places that are hard for me go too. Your name, your home spot, your streak, and your meditation history go too. Your age group, your settings, and your saved meditations stay, so you aren't asked again.  
 > Delete everything on this page
 
-### 25. Meditate
+#### 25. Meditate
 
 The third tab: a suggested session and four types.
 
@@ -805,7 +1016,7 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 
 > Draft for review  
 > Meditate  
-> SUGGESTED FOR YOU  
+> Suggested for you  
 > Silent  
 > Silent and ready anywhere  
 > Start  
@@ -829,7 +1040,7 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > 20 min  
 > Start  
 > Options  
-> YOUR PRESETS  
+> Your presets  
 > Suggested  
 > Bus ride  
 > 5-min Just breathe · Ocean  
@@ -845,7 +1056,7 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > History  
 > 0 minutes in all
 
-### 26. Build your own
+#### 26. Build your own
 
 Builds a custom session from length, feeling, and sound.
 
@@ -880,7 +1091,7 @@ Picture: `app/design/after-launch-pass/reviewer/26-builder.png`
 > Start  
 > Save preset
 
-### 27. Meditation history
+#### 27. Meditation history
 
 Past sessions.
 
@@ -892,7 +1103,7 @@ Picture: `app/design/after-launch-pass/reviewer/27-history.png`
 > 0 minutes in all  
 > No sessions yet.
 
-### 28. Meditation player, session running
+#### 28. Meditation player, session running
 
 A session in progress. The crisis strip stays on screen above it.
 
@@ -905,7 +1116,7 @@ Picture: `app/design/after-launch-pass/reviewer/28-player.png`
 > 0:59 left  
 > Tap for controls
 
-### 29. Meditation player, "End session?" open
+#### 29. Meditation player, "End session?" open
 
 The question shown when a session is ended early.
 
@@ -923,49 +1134,7 @@ Picture: `app/design/after-launch-pass/reviewer/29-player-end.png`
 > End  
 > Keep going
 
-### 30. Meditation finished
-
-The end of a session, with an optional "how do you feel now".
-
-Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
-
-> Draft for review  
-> Well done  
-> 1 minute  
-> 1 minute in all  
-> How do you feel now?  
-> Very low  
-> Low  
-> Okay  
-> Good  
-> Great  
-> Done  
-> Save as favorite
-
-### 31. Meditation finished, very low mood after
-
-The end of a session after the person answers "Very low" or "Low".
-
-Picture: `app/design/after-launch-pass/reviewer/31-complete-support.png`
-
-> Draft for review  
-> That sounds really hard.  
-> You don't have to carry it alone. You can talk to someone right now.  
-> Call 988  
-> Text 988  
-> In immediate danger, call 911  
-> The 988 Suicide & Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.  
-> More ways to get support  
-> How do you feel now?  
-> Very low  
-> Low  
-> Okay  
-> Good  
-> Great  
-> Done  
-> Save as favorite
-
-### 32. Location, Places off
+#### 32. Location, Places off
 
 The fourth tab, before "Places that are hard for me" is turned on.
 
@@ -981,9 +1150,11 @@ Picture: `app/design/after-launch-pass/reviewer/32-location.png`
 > Turn this on  
 > This works in the app on a phone. In a web browser you can look at it, but no place can be watched.
 
-### 33. Location, Places turned on
+#### 33. Location, Places turned on
 
 The fourth tab with the feature turned on.
+
+**This screen names 988 or 911 in its own words.**
 
 Picture: `app/design/after-launch-pass/reviewer/33-location-on.png`
 
@@ -1027,60 +1198,11 @@ Picture: `app/design/after-launch-pass/reviewer/33-location-on.png`
 > A message to your people isn't a way to get urgent help. They may not see it for a while. If you need help now, call 988 or text 988. In immediate danger, call 911.  
 > On, but no place is added yet.
 
-### 34. Place alert ("You've been at…")
-
-What opens from the notification after the person has stayed at one of their places.
-
-Picture: `app/design/after-launch-pass/reviewer/34-place-alert.png`
-
-> Draft for review  
-> Places  
-> Home spot  
-> No home spot saved.  
-> Places that are hard for me  
-> Some people have a place that's hard to be near. If you'd like, you can tell this phone about yours, so that when you've stayed there for a while, the phone can check in with you and, if you choose, let people you trust know where you are.  
-> This is off until you turn it on. The app suggests no places: only you decide what counts as a hard place for you. Your places and your people stay on this phone, and Tidelight never receives them. You can turn this off or remove anything at any time, and nobody is told.  
-> Turn this on  
-> This works in the app on a phone. In a web browser you can look at it, but no place can be watched.  
-> Permission  
-> For this to work with the app closed, the phone needs to allow Tidelight to use your location "always". The phone asks in two steps, first "while using the app", then "always", sometimes a few days later. Your location is only used to notice your own places, and it's never sent unless you choose to send it.  
-> The phone allows location only while the app is open, so a closed app can't notice a place. To allow "always", open the phone's Settings, Tidelight, Location.  
-> Your places  
-> Learn more  
-> No places yet. You don't have to add any.  
-> Add a place  
-> People you trust  
-> Choose up to 5 people from your contacts. The app keeps their name and phone number on this phone only. They aren't told that you chose them, and nothing is sent to them unless you send it.  
-> No one chosen yet. Without someone chosen, the phone can still check in with you, but there's nobody to send a message to.  
-> Choose someone from my contacts  
-> How long before the phone checks in with you  
-> After staying at a place for  
-> 10 minutes  
-> 20 minutes  
-> 30 minutes  
-> 1 minute (test builds only)  
-> Passing through a place does nothing. Only staying counts.  
-> What the phone shows  
-> When the time is up, the phone shows a notification from Tidelight. By default it says only "Your plan is here," so nothing private shows on the lock screen. Opening it shows how long you've been there, your people, 988 and 911, and the choices below.  
-> Show the place's name and the time on the lock screen  
-> Your message  
-> If you choose to send it, this message goes to your people through the phone's own Messages app, with a map link to where you are. You see it first and tap Send yourself; the app can't send a text on its own. You can change the words now.  
-> Your message  
-> Good to know  
-> Before you rely on this, try it once with someone you chose, so you both know what arrives.  
-> It can't work when the phone is off, in airplane mode, out of battery, has location turned off, or is somewhere the phone can't tell where it is, like underground. It may take the phone a few minutes to notice a place, and places smaller than about 100 meters are unreliable.  
-> The phone only notices your chosen places. It doesn't track where you go, and the app keeps no record of visits.  
-> A message to your people isn't a way to get urgent help. They may not see it for a while. If you need help now, call 988 or text 988. In immediate danger, call 911.  
-> On, but no place is added yet.  
-> You've been at A made-up place for 10 minutes  
-> You haven't chosen anyone to send a message to, so nothing can be sent. You can choose people on the Location tab.  
-> Send my message now  
-> I'm okay  
-> You can also call 988 or text 988 right now, any time. In immediate danger, call 911.
-
-### 35. Friends
+#### 35. Friends
 
 The fifth tab: My circle, and sharing check-ins.
+
+**This screen names 988 or 911 in its own words.**
 
 Picture: `app/design/after-launch-pass/reviewer/35-friends.png`
 
@@ -1102,70 +1224,6 @@ Picture: `app/design/after-launch-pass/reviewer/35-friends.png`
 > Nothing shared yet.  
 > Share check-ins  
 > Today or 7 days, in Your journey
-
-### 36. Quick check-in, support after a very low mood
-
-What a quick check-in shows at once after "Very low" or "Low", instead of the thanks line.
-
-Picture: `app/design/after-launch-pass/reviewer/36-flow-support.png`
-
-> Draft for review  
-> Back  
-> That sounds really hard.  
-> You don't have to carry it alone. You can talk to someone right now.  
-> Call 988  
-> Text 988  
-> In immediate danger, call 911  
-> The 988 Suicide & Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.  
-> Your check-in is saved on this phone. Nobody at Tidelight sees it, so it isn't a way to ask for help.  
-> More ways to get support  
-> Back to Home
-
-### 37. Daily check-in, result after a heavy feeling
-
-The Daily check-in's result after choosing a heavy feeling (here, Sad).
-
-Picture: `app/design/after-launch-pass/reviewer/37-daily-result-heavy.png`
-
-> Back  
-> Today  
-> Rediscover  
-> Journal  
-> Hope box  
-> Your journey  
-> Support  
-> Today  
-> Welcome. However today is going, you're welcome here. You can skip any question, go back, or stop at any time.  
-> A plan for hard moments  
-> A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.  
-> Planning for a hard moment  
-> Thank you for checking in.  
-> You said you're feeling Sad today.  
-> Here are a few small things you could try. They're ideas, not instructions, and none of them is a treatment. Skip any that don't fit.  
-> That sounds heavy. You don't have to carry it alone. You can call 988 or text 988 right now, any time. In immediate danger, call 911.  
-> More ways to get support  
-> FOR YOUR MIND  
-> Write down one thing that's on your mind. You don't have to solve it.  
-> Try something else  
-> Not today  
-> I'd like to try this  
-> FOR YOUR CONNECTION  
-> Send a short message to someone you feel comfortable with. It can be as simple as "thinking of you."  
-> Try something else  
-> Not today  
-> I'd like to try this  
-> FOR YOURSELF  
-> Listen to a song that has meant something to you.  
-> Try something else  
-> Not today  
-> I'd like to try this  
-> For your age  
-> A safety plan is a short list for hard moments: signs that one is coming, things that help you cope, people and places to go to, professionals to call, and your reasons for living. It helps most when you make or review it with a doctor or counselor.  
-> Talking to a doctor about how you've been feeling is a good place to start.  
-> Ideas for your age group, from research summarized in the app's notes. Not a treatment, and not reviewed by a professional yet.  
-> Share how I'm feeling  
-> Change my answers  
-> See every suggestion this page can show
 
 <!-- WALKTHROUGH:END -->
 
