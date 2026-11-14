@@ -29,7 +29,24 @@ decides.
   **Looked at again on November 14, 2026, and still not done.** One founder asked for the short form.
   The short form leaves out "Need help now?" and "In immediate danger,", and the app's first safety
   rule (`app/CLAUDE.md`) says never to shorten crisis wording or the 911 banner. So it stays a
-  decision for both founders and the reviewer; a picture of the short form can be made for them.
+  decision for both founders and the reviewer.
+  **Pictures for that decision**, drawn the same day in desktop Chromium at phone size, with nothing in
+  the app changed: ![[attachments/crisis-strip-options-2026-11-14/english.png|420]]
+  ![[attachments/crisis-strip-options-2026-11-14/spanish.png|420]]
+  They show the strip now, the short form, and a third option: every word kept, with the strip's
+  text and spacing no longer growing past 28 points. Share of a 402 by 874 point screen the strip takes:
+
+  | | Now | Short form | Full words, capped |
+  | --- | --- | --- | --- |
+  | English, 40-point body | 39% | 26% | 28% |
+  | English, largest (53-point) | 86% | 60% | 28% |
+  | Spanish, 40-point body | 52% | 46% | 33% |
+  | Spanish, largest (53-point) | 100%, and "llama al 911" needs scrolling | 71% | 33% |
+
+  The capped option changes no wording, but it shows crisis controls smaller than the text size the
+  person chose, and the app's rules also say no change may shrink them. Its column is a rough sketch
+  made by overriding styles, not a finished design. Claude suggests the capped option be the one
+  put to the reviewer. Still for both founders and the reviewer.
 - **What the app shows after Quick exit.** Coming back to the app after Quick exit now shows the
   screen the person was on (before, it showed nothing). Should it instead open on Home, so a
   journal entry or check-in isn't the first thing on screen? Who decides: the reviewer.

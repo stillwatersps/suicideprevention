@@ -46,6 +46,12 @@ On `app/pre-review-fixes`, a draft pull request into `app/literata-font`. In `ap
 
 Both are in [[LAUNCH-BACKLOG]] for both founders and the reviewer.
 
+Added later the same day, at the founder's request: two pictures of the strip at the two largest
+text sizes, in `notes/attachments/crisis-strip-options-2026-11-14/`, comparing the strip now, the
+short form, and a third option that keeps every word and stops growing at 28 points. The numbers
+are in [[LAUNCH-BACKLOG]]. They are pictures only: the app was not changed. Drawn in desktop
+Chromium at phone size; the third option is a rough sketch.
+
 ## Checked
 
 All on November 14, 2026. **Not on a real phone, and not on Android.**

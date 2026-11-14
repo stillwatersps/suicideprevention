@@ -982,6 +982,9 @@ changed for any of them.
   largest accessibility sizes the strip takes half the screen or more, and at the very largest (in Spanish) it
   fills the screen and has to be scrolled to reach "llama al 911". The strip was not changed. Should it use its
   short form ("Call 988 · Text 988 · Call 911", already used when a phone is held sideways) at those sizes?
+  **Added November 14, 2026:** or should it keep every word and simply stop growing past a 28-point text size,
+  which keeps it to about a third of the screen but shows it smaller than the size the person chose? Pictures
+  of all three are in [[LAUNCH-BACKLOG]].
 - **Crisis links inside sentences** ("call 988 or text 988 … call 911" in the Hope box, My circle, Places, the
   share notice, the place alert, the age question, and two Daily check-in screens) are the size of the text, about
   19 points tall, and close together. Each of those screens also has the full-size strip. Should those sentences
