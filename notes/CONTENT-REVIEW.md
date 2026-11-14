@@ -53,6 +53,8 @@ One founder asked that this come first, November 9, 2026.
 | Spanish About (`es/acerca-de/`) | AI translation | On the page | Not reviewed; no fluent reader yet |
 | Daily check-in (`check-in/`) | Draft, from a founder's spec. Questions, suggestions, and prompts written by Claude | None; general well-being ideas, not health claims | Not reviewed |
 | Spanish Daily check-in (`es/registro-diario/`) | AI translation | None | Not reviewed; no fluent reader yet |
+| The app's redesign: check-in prompts, streak messages, meditation scripts, onboarding, settings (`app/src/text/redesign.en.html`) | Draft, from one founder's build spec (`app/BUILD-SPEC.md`). Written by Claude | None; general well-being wording, not health claims | Not reviewed. Every new screen says "Draft for review" |
+| Spanish app redesign (`app/src/text/redesign.es.json`, which makes `redesign.es.html`) | AI translation | None | Not reviewed; no fluent reader yet |
 
 Every draft page says so on screen. Remove those notes only after review.
 
@@ -791,6 +793,222 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   reflection to a person the user picks, through the phone's share sheet. What should the app say
   next to it, so people know who will see it and that it isn't a way to get urgent help?
   See [[IDEAS]].
+
+## Questions about the phone app
+
+Built November 9, 2026, at one founder's request, on branch `app/first-build`. Every word it adds is in
+`app/src/text/en.html` and `app/src/text/es.html`. Not in the review packets yet.
+
+- **Age setup.** Is asking a date of birth before the check-in right, given that 988 and 911 stay on
+  screen and the question says help doesn't need it? What should a child under 13 see?
+- **For your age.** Five short cards, one per age group, drawn from [[AGE-STRATEGIES]]. Are they safe
+  and accurate? The teen card says to make a plan with a trusted adult, because a 2025 review found
+  no benefit from safety plans alone for teens.
+- **Accuracy and accommodations.** The age question now says an accurate date matters, and a
+  check step shows the age group and its accommodations before anything is kept. Is the accuracy
+  wording right, and could it pressure a child to lie, or to give up? Are the five "top of Today"
+  boxes in `app/src/text/` safe and accurate, especially the one for the grown-up with a child?
+- **Sharing.** Is the notice before sharing clear enough about who sees it and that it isn't a way to
+  get urgent help?
+- **Saving.** Is the privacy wording about the phone, its backups, and Delete everything accurate and
+  plain? A lawyer should read it too.
+- **Reminders and shared check-ins** (added November 9, 2026, branch `app/daily-check-ins`). Four
+  optional reminders, morning, midday, after school or work, and before bed, each off until turned
+  on. The notification says only "A moment to check in, if you'd like." Is that safe on a lock
+  screen? Are four invitations a day too many for someone in distress, or is choosing them enough?
+  Your journey lists today's check-ins ("Morning, 8:05: feeling: tired. Needs: rest.") and offers
+  Share today's check-ins and Share the last 7 days, through the same notice as Share this
+  reflection. Is that the right level of detail to send a parent or a clinician? Should a minor be
+  pointed toward sharing with a guardian, or only allowed to? See [[CHECK-IN-SCHEDULE]].
+- **Location alerts, worked out** (November 9, 2026). [[LOCATION-ALERT]] lays out how an alert to
+  chosen people could work when someone stays near a hard place. Please read its questions at the
+  end before any of it is built.
+- **"Places that are hard for me" (E1), built as a draft** (November 10, 2026, branch
+  `app/hard-places-and-reminders`, never run on a real phone). Every word is in `app/src/text/en.html`
+  and `es.html`, in the blocks named `places` and `place-alert`, plus two iOS permission sentences in
+  `app/ios/App/App/Info.plist`. Please look at:
+  - **The alert's wording.** The lock screen says only "Tidelight. Your plan is here." unless the
+    person chooses to show the place and time. The screen inside says "You've been at [name] for
+    [N] minutes. You set this up for yourself. Would you like to send your message, with where you
+    are, to [names]?" with "Send my message now", "I'm okay", 988 and 911. Is "You set this up for
+    yourself" the right reminder of consent? Is the title too direct?
+  - **The wait times**: 10, 20, or 30 minutes, 20 to start. Too short, too long, or should there be
+    no wait, as E1 first proposed?
+  - **The countdown**: after the person opens the alert, the message opens in Messages after 30
+    seconds unless they tap "I'm okay". Should it always wait for a tap instead?
+  - **The default message** to the chosen people: "I'm having a hard time right now and I'd like you
+    to call me. I set this up in Tidelight to send when I stay at a place that's hard for me. Here's
+    where I am:" followed by a map link. The person can change it.
+  - **Minors**: a parent or guardian is the obvious person to choose, and the obvious problem when home
+    isn't safe. Does a minor's choice of people, or a guardian adding a place, need consent rules?
+    A lawyer should also advise on "always" location permission and location data for minors.
+  - **No built-in list of places**, as [[LOCATION-ALERT]] recommends. One founder had asked for one;
+    the handoff explains why it wasn't built. Do you agree?
+
+## Questions about the app's redesign
+
+Built November 11, 2026, from one founder's build spec, on branch `app/redesign-dev` (a draft pull request into
+`app/first-build`). The other founder hasn't seen the spec. Every new word is in `app/src/text/redesign.en.html`
+and, in Spanish, `app/src/text/redesign.es.json`; `notes/review-packet/tidelight-app-words.html` lists each line with
+a number. The same founder added six safety rules that override the spec; they are in `app/CLAUDE.md`. Please look at
+these first:
+
+- **Streaks, for people at risk.** The app counts days in a row with check-ins, with "freezes" that cover a missed
+  day. Is any streak safe for someone in a low period, or does it add pressure and a sense of failure when it ends?
+  Streaks can be turned off in Settings. Should they start off, or not exist?
+- **When a streak ends.** The next time Home opens, a card says "New wave, new start 🌊 Your best is still {best}
+  days." Missed days are called "rest days". Is that gentle enough, or should nothing be said at all? The card never
+  shows on a day with a very low check-in.
+- **Milestones** at 3, 7, 14, 30, 50, 100, 200, and 365 days show "{days} days. One wave at a time 🌊" with a short
+  burst of drops. Is celebrating a count right in this app?
+- **The five mood faces.** The quick check-in asks for one of five faces: Very low, Low, Okay, Good, Great. Is a
+  five-point mood pick appropriate here, and are those the right words? The mood is stored on the phone as a number
+  from 1 to 5. It is never shown as a score or a chart.
+- **What a very low mood does.** Moods 1 and 2 replace the thanks line with "That sounds really hard. You don't have
+  to carry it alone. You can talk to someone right now." and Call 988, Text 988, and Call 911. Is 1 and 2 the right
+  line, and are those the right words? Could it feel like an alarm to someone who is often at 2?
+- **The Daily check-in's heavy feelings.** Overwhelmed, sad, anxious, disconnected, and exhausted now show "That
+  sounds heavy. You don't have to carry it alone." with 988 and 911 at the top of the results. Which feelings should?
+- **The two styles.** Calm asks "Take a moment… how are you feeling right now?" and ends "Thank you for checking in
+  with yourself 💙". Straightforward asks "How are you?" and ends "Logged. Nice." Is "Logged. Nice." acceptable after
+  an ordinary check-in? (It is never shown after a very low one.)
+- **Tags.** Tired, Stressed, Happy, Focused, Anxious, Grateful. Are these the right six, and is anything missing
+  that a person at risk would look for and not find?
+- **A Sleep meditation with no completion screen.** It dims and stays dark, as sleep apps do. The crisis strip stays
+  lit above it. Is ending in darkness and silence right for someone alone at night?
+- **The meditation scripts** (`script.*` lines): a body scan, long silences, "There is nothing left to do today."
+  Could any line read badly to someone thinking about suicide? Meditation can bring distress up for some people;
+  the scripts say "you can stop at any time". Is that enough?
+- **The "wellness app like Calm" framing.** The spec asks for the feel of Calm, Headspace, and Finch. Does that
+  framing fit a suicide prevention app, and does it risk making the app look like care it isn't? Every new screen
+  says "Draft for review", and the 988 panel is on every screen.
+- **Asking for a name.** Onboarding asks "What should we call you?" (optional, kept on the phone, shown in the
+  greeting). Should an app like this ask at all, and what should a child be told?
+- **The Friends tab.** It holds My circle and a card to share check-ins. Is "Friends" the right word for people who
+  may be a parent, a doctor, or a therapist?
+- **Reminders.** "A moment to check in, if you'd like." (Calm) and "Time for your check-in." (Straightforward), up
+  to five a day, off until turned on. They stop by themselves if the app isn't opened for two weeks. Is fading out
+  right, or should a long silence do something else?
+- **Meditation suggestions from location.** Near the person's own saved home spot, the app suggests a longer
+  session. One spot, kept on the phone, read only while the app is open. A lawyer should read the wording in
+  Settings, in onboarding, and the iPhone permission sentence in `app/ios/App/App/Info.plist`.
+- **The safety frame.** The crisis strip, Exit, Get Support Now, the Spanish link, both review notices, the privacy
+  notice, Support, and the 988 panel are on every screen in full. During a meditation the strip stays on screen and
+  the rest is below the stage. Is that enough during a session?
+
+## Questions about the app's visual redesign
+
+Built November 11, 2026, from the same founder's design brief (`app/DESIGN-BRIEF.md`), on branch
+`app/visual-identity` (a draft pull request into `app/redesign-dev`). A new look only: no feature was added or
+removed, and no crisis, consent, privacy, or clinical wording was changed. The other founder hasn't seen the brief.
+Three things on screen did change, and they touch the questions above:
+
+- **Streak wording is unchanged (restored November 11, 2026).** A first version of this branch replaced the streak
+  card, the streak screen, the milestone card, and the "new start" card with a "days you checked in this month"
+  view, which dropped wording you had not yet reviewed. A founder asked for that wording back. Every streak line
+  is again exactly as in the questions above ("Your streak", "Now", "Best", "Frozen", "Rest day", the two lines
+  that explain what counts and what a freeze does, "New wave, new start", the milestone line, the Settings switch
+  "Streaks"). Only the look changed: days are drawn as dots (filled for done, a soft dot with a ring for frozen, a
+  dashed ring for a rest day, a double ring for today, never red), a snowflake line icon stands where the emoji
+  stood alone, and a milestone no longer sets off a burst of drops. The first three questions above stand as
+  written. One more: a new person still sees "0 day streak" on Home. Should a zero be shown?
+- **Mood is a tone and a word, not a face.** The five choices keep their words (Very low, Low, Okay, Good, Great).
+  Each has a colored square: a slate blue for Very low, a muted violet for Low, a sand yellow for Okay, a soft
+  green for Good, a light blue for Great. No red and no green-for-good. Is color beside a mood word helpful, or
+  could the darker tones read as a judgment?
+- **How a check-in ends.** An ordinary check-in now stays on its last screen: a horizon at full dawn, the same
+  thanks line as before, and two buttons, "Breathe for a minute" and "Back to home". It no longer returns to Home
+  by itself, and the burst of drops is gone everywhere. After a very low mood none of that shows: the support
+  screen has no horizon and no decoration, and a meditation finished later that day ends without the dawn. Is a
+  dawn right after an ordinary check-in, or is it still a kind of reward?
+- **New short lines** (all marked "Draft for review" with the rest): "Get help" (a Home tile that goes to
+  Support), "Breathe for a minute", "Back to home", "{time} left" in the player, and "Learn more". One phrase of
+  the page's own heading is highlighted on Home ("everything figured out"). Crisis words are never highlighted.
+  A check on November 12 compared every string with the version before this branch: no reviewed or
+  pending-review wording is changed, moved, or gone ([[LAUNCH-READINESS]], "PR 26 wording check"). A test now fails
+  if any of it changes.
+- **Sixteen emoji that stood alone as pictures are now line icons or dots.** 🌊, ⚡, 🤫, 🌙, 😮‍💨, 🎯, and 😴 on the
+  style, meditation type, and "how do you feel" cards, and ❄️ and ✓ in the streak row and legend. They were hidden
+  from screen readers and no word beside them changed. Every emoji inside a sentence is as it was. Did any of
+  those pictures carry meaning a person would miss, for example the wave beside "Calm" or the snowflake beside
+  the freeze count?
+- **"1 minutes in all."** After a one-minute meditation, the completion and History screens read "1 minutes in
+  all". It is your wording to change, so it was left. Should it read "1 minute in all"?
+  **On `app/pre-review-fixes` (November 14, 2026), at one founder's request, it does:** "1 minute in all", and in
+  Spanish "1 minuto en total". The line for every other number is unchanged. Is that right?
+- **"Learn more" on Location and Friends. For the reviewer and the lawyer to confirm.** A founder's rule: every
+  word about privacy or consent stays in view, always. No word changed.
+  - **Always in view, with no tap, in English and Spanish, at every text size:** in "Places that are hard for
+    me", the two opening paragraphs (what it does; "This is off until you turn it on…", what stays on the phone,
+    nobody is told), the location permission paragraph, and the paragraphs under "People you trust" (their name
+    and number stay on this phone; they aren't told), "How long before the phone checks in with you", "What the
+    phone shows" (what the notification and lock screen say), and "Your message" (who it goes to and how), and
+    all of "Good to know". In "My circle", the opening paragraph, all five points (no accounts; they see only
+    what you send; nothing is sent by itself; once sent it can't be taken back; it isn't a way to get urgent
+    help, with 988 and 911), and the note about the list kept on this phone.
+  - **Folded under "Learn more", because they only say how to do something:** in Places, under "Your places":
+    "Add a place by choosing it on a map, or by searching an address. Give it a name only you need to
+    understand, and choose how close counts." In My circle: "To share something, tap Share on a check-in, a
+    journal entry, or something you kept, then choose 'Send to my circle'."
+  - A test fails if anything else is ever folded, or if any paragraph above stops being in view.
+  - Is either folded paragraph something a person needs to see before deciding? "Give it a name only you need to
+    understand" is partly advice about privacy; should it stay open?
+- **The Daily check-in's first question** shows its nine feelings as tiles, two across (one list at the largest
+  text). Same nine, same order, same words. Does putting "Hopeful" beside "Calm" and "Overwhelmed" beside "Sad"
+  read differently from one long list?
+- **The tab bar at the largest text on a small phone** shows icons only; the five names stay for screen readers.
+  Are a house, a heart, a lotus, a pin, and two people clear enough without words?
+- **The crisis strip changed color, not content.** It, Exit, Get Support Now, and Call 988 in the support panel are
+  now dark ink on paper or paper on ink, with no texture and no animation, at a contrast of at least 7 to 1. Same
+  words, same places, same size or larger. Please confirm nothing about them reads as quieter than before.
+- **Spanish.** The new lines are an AI translation like the rest: "Obtener ayuda",
+  "Respirar un minuto", "Volver al inicio", "Quedan {time}", "Más información".
+
+## Questions from the launch readiness work
+
+Found November 12, 2026, while testing every crisis path and safety rule ([[LAUNCH-READINESS]]). No wording was
+changed for any of them.
+
+- **"Call 988" and "Call 911" on a notification.** The place alert's notification ("Your plan is here.") has four
+  buttons that appear when it is long-pressed, including on the lock screen: "I'm okay", "Send my message",
+  "Call 988", "Call 911". A founder's rule says notifications never mention crisis. These two buttons do, and they
+  are also quick ways to reach help. Keep them, show them only once the phone is unlocked, or remove them?
+- **After Quick exit, the app comes back on the screen the person left.** Before this work it came back blank,
+  with no crisis strip, which was a bug. Should it instead come back on Home, so a journal entry or a check-in is
+  not the first thing on screen if someone else picks up the phone?
+  **On `app/pre-review-fixes` (November 14, 2026), at one founder's request, it now comes back on Home.** A
+  check-in or meditation that was under way is not kept. Is Home right, or should the person return to where they were?
+- **The crisis strip at the phone's largest text sizes.** The app follows the phone's text size. At the three
+  largest accessibility sizes the strip takes half the screen or more, and at the very largest (in Spanish) it
+  fills the screen and has to be scrolled to reach "llama al 911". The strip was not changed. Should it use its
+  short form ("Call 988 · Text 988 · Call 911", already used when a phone is held sideways) at those sizes?
+  **Added November 14, 2026:** or should it keep every word and simply stop growing past a 28-point text size,
+  which keeps it to about a third of the screen but shows it smaller than the size the person chose? Pictures
+  of all three are in [[LAUNCH-BACKLOG]].
+- **Crisis links inside sentences** ("call 988 or text 988 … call 911" in the Hope box, My circle, Places, the
+  share notice, the place alert, the age question, and two Daily check-in screens) are the size of the text, about
+  19 points tall, and close together. Each of those screens also has the full-size strip. Should those sentences
+  become buttons or separate lines?
+- **The Spanish 988 panel** ends with a second link to 988's Spanish chat, where the English panel links to
+  988lifeline.org. Is that intended?
+- **A later check-in on a day that had a very low one** now ends with its thanks line and two choices but no
+  dawn. The thin strip of light that grows during the check-in still shows. Is that the right line to draw?
+
+For a fluent Spanish reader (found by comparing the two languages line by line; nothing was changed):
+
+- **Mood words** (quick check-in, keys `mood.1` to `mood.5`): "Very low, Low, Okay, Good, Great" are "Muy mal, Mal,
+  Regular, Bien, Muy bien". "Mal" is "bad", which is a judgment that "low" isn't. Is there a better pair, such as
+  "Muy bajo de ánimo / Bajo de ánimo"?
+- **A streak "freeze"** (Home and Your streak, for example the line "Si falta un día, un congelador ❄️ lo cubre." and the keys `streak.freezeNext`, `streak.freezeFull`) is "congelador", which is
+  the kitchen appliance. Would "pausa" or "día protegido" read better? The English question about streaks comes first.
+- **"1 días seguidos"** (Home, keys `streak.day` and `streak.days`, which share one Spanish line): with a count of 1, the Spanish reads "1 días seguidos". English
+  avoids this ("1 day streak"). It needs a singular form, which is a wording change.
+- **"Good evening" and "Good night"** (Home greeting, keys `greet.evening`, `greet.night`) are both "Buenas noches".
+  Fine in Spanish, noted so nobody thinks one is missing.
+- **The meditation builder's "Right now I'm"** (the first label on "Build your own") is "Ahora mismo siento", followed by the choices
+  "Estrés, Ansiedad, Concentración, Energía, Sueño, Solo respirar". The last one doesn't follow from "siento".
+- **Feelings as nouns.** Tags and feelings are nouns ("Cansancio", "Estrés", "Alegría") to avoid gendered endings.
+  This follows the website's Spanish pages. Does it read naturally on a button?
 
 ## Human-only checklist
 

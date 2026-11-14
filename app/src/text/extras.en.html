@@ -1,0 +1,91 @@
+<!-- Words for the app's Hope box (idea F9) and My circle (idea E2, the version with no accounts).
+     Draft for review: no licensed reviewer has read it. tools/build-extras.mjs puts each block into
+     the app's copy of check-in/index.html. The website never shows these. -->
+
+<!-- BLOCK:hope-tab -->
+          <li><a href="#app-hope">Hope box</a></li>
+<!-- END -->
+
+<!-- BLOCK:hope -->
+      <section class="ci-panel" id="app-hope" tabindex="-1" aria-labelledby="app-hope-title">
+        <h2 id="app-hope-title">Hope box</h2>
+        <p class="ci-lead">A place to keep what reminds you why you keep going: a photo, a few words from someone, a song, a reason. Add to it on better days, and open it on hard ones.</p>
+        <p class="ci-note">Everything here stays in this app, on this phone. It is never sent anywhere, and Share never includes it. Delete everything, in Your journey, empties it. Photos may not come back if you change phones, so keep the originals.</p>
+        <p class="app-hope-crisis">A hope box is not a way to get help. If you're thinking about suicide, <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a> at any time. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</p>
+
+        <section aria-labelledby="app-hope-words-title">
+          <h3 id="app-hope-words-title">Add some words</h3>
+          <fieldset class="app-hope-kinds">
+            <legend>What is it?</legend>
+            <label><input type="radio" name="app-hope-kind" value="reason" checked> A reason I keep going</label>
+            <label><input type="radio" name="app-hope-kind" value="message"> Something kind someone said to me</label>
+            <label><input type="radio" name="app-hope-kind" value="song"> A song, a book, or a place that calms me</label>
+            <label><input type="radio" name="app-hope-kind" value="other"> Something else</label>
+          </fieldset>
+          <p class="ci-field"><label for="app-hope-text">Write it here</label></p>
+          <textarea id="app-hope-text" rows="3" autocomplete="off"></textarea>
+          <p class="ci-step-buttons"><button type="button" class="app-hope-add">Add to my hope box</button></p>
+        </section>
+
+        <section aria-labelledby="app-hope-photo-title">
+          <h3 id="app-hope-photo-title">Add a photo</h3>
+          <p>Choose a photo of someone, somewhere, or something that matters to you. The app keeps its own smaller copy.</p>
+          <p class="ci-field"><label for="app-hope-photo">Choose a photo from this phone</label></p>
+          <input type="file" id="app-hope-photo" accept="image/*">
+          <p class="app-hope-photo-problem" role="status">That photo couldn't be added. Try a different one.</p>
+        </section>
+
+        <section aria-labelledby="app-hope-contents-title">
+          <h3 id="app-hope-contents-title">In your hope box</h3>
+          <p class="ci-empty app-hope-empty">Nothing yet. One small thing is enough to start.</p>
+          <ul class="ci-list app-hope-words" aria-label="Words in your hope box"></ul>
+          <div class="app-hope-photos"></div>
+          <template class="app-hope-word-template">
+            <li class="app-hope-word"><span class="app-hope-word-kind"></span> <span class="app-hope-word-text"></span> <button type="button" class="app-hope-remove">Remove</button></li>
+          </template>
+          <template class="app-hope-photo-template">
+            <figure class="app-hope-photo"><img alt="A photo in your hope box"><figcaption><button type="button" class="app-hope-remove">Remove this photo</button></figcaption></figure>
+          </template>
+        </section>
+      </section>
+<!-- END -->
+
+<!-- BLOCK:circle -->
+        <section class="app-circle" id="app-circle" aria-labelledby="app-circle-title">
+          <h3 id="app-circle-title">My circle</h3>
+          <p>A few people you trust, such as a relative, a friend, a doctor, or a therapist. You decide who is in it, and each time you choose what they see. Everything else stays private.</p>
+          <ul class="app-accommodations">
+            <li>There are no accounts. People in your circle don't need this app.</li>
+            <li>They see only what you send them, as a text message from you. Tidelight never sees it.</li>
+            <li>Nothing is sent by itself. Messages opens with your words filled in, and you tap Send.</li>
+            <li>Once it's sent, it stays on their phones and can't be taken back.</li>
+            <li>It isn't a way to get urgent help. People may not read it for hours. If you need help now, <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a>. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</li>
+          </ul>
+          <p data-age-group="child">Ask a grown-up you trust to help you choose who is in your circle.</p>
+          <p data-age-group="teen">You choose who is in your circle. It doesn't have to be a parent.</p>
+          <h4 id="app-circle-people-title">People in my circle</h4>
+          <p class="ci-empty app-circle-empty">No one yet.</p>
+          <ul class="ci-list app-circle-list" aria-labelledby="app-circle-people-title"></ul>
+          <template class="app-circle-person-template">
+            <li class="app-circle-person"><span class="app-circle-name"></span> <span class="app-circle-phone"></span> <button type="button" class="app-circle-remove">Remove</button></li>
+          </template>
+          <p class="ci-step-buttons"><button type="button" class="app-circle-add">Choose someone from my contacts</button> <button type="button" class="app-circle-import">Add the people from "Places that are hard for me"</button></p>
+          <p class="app-circle-full" role="status">A circle can have up to 5 people. Remove one to add another.</p>
+          <p class="app-circle-no-phone" role="status">That contact has no phone number, so they can't be added.</p>
+          <p>To share something, tap Share on a check-in, a journal entry, or something you kept, then choose "Send to my circle".</p>
+          <h4 id="app-circle-log-title">What I've shared with my circle</h4>
+          <p class="ci-note">A list for you, kept on this phone, of what you opened in Messages for your circle. The app can't tell whether you tapped Send.</p>
+          <p class="ci-empty app-circle-log-empty">Nothing shared yet.</p>
+          <ul class="ci-list app-circle-log" aria-labelledby="app-circle-log-title"></ul>
+          <p class="ci-step-buttons"><button type="button" class="app-circle-log-clear">Clear this list</button></p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:circle-share -->
+    <template class="app-circle-share-template">
+      <span class="app-circle-share">
+        <button type="button" class="app-circle-send">Send to my circle</button>
+        <span class="app-circle-opened" role="status">Messages is opening with your circle filled in. Nothing is sent until you tap Send.</span>
+      </span>
+    </template>
+<!-- END -->

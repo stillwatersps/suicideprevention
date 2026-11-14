@@ -1,0 +1,187 @@
+/* Tidelight phone app additions to the Daily check-in. Uses the website's Shoreline tokens. */
+
+/* Until the age group is known, show only the age question and support. The crisis strip,
+   Quick exit, and the 988 panel stay on screen the whole time. */
+.app-asking-age .ci-start-row,
+.app-asking-age .ci-tabs,
+.app-asking-age .ci-panel { display: none !important; }
+/* Before the app has loaded what's saved, don't flash the age question. */
+html.app:not(.app-ready) .app-age { display: none; }
+
+.app-age,
+.app-share-panel,
+.app-settings,
+.app-foryou {
+  border: 2px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px;
+  margin: 24px 0;
+}
+.app-age h2, .app-share-panel h2 { margin-top: 0; }
+.app-age input[type="date"] {
+  font: inherit;
+  font-size: 1.1rem;
+  min-height: 48px;
+  padding: 8px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--ink);
+  max-width: 100%;
+}
+.app-age-problem { color: var(--plum); font-weight: 600; }
+.app-age-crisis { background: var(--green-soft); padding: 12px; }
+
+.app-foryou { border-color: var(--line); border-top: 5px solid var(--green); }
+.app-foryou h4 { margin-top: 0; }
+.app-foryou-note { color: var(--muted); font-size: 0.95rem; }
+.app-group-names { display: none; }
+
+/* How much accuracy matters, before the date is asked. */
+.app-age-accuracy {
+  border-left: 5px solid var(--plum);
+  background: var(--plum-soft);
+  padding: 10px 14px;
+  margin: 16px 0;
+}
+.app-age-accuracy p { margin: 6px 0; }
+.app-age-confirm { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 8px; }
+.app-age-confirm:focus { outline: none; }
+.app-accommodations { padding-left: 1.2em; }
+.app-accommodations li { margin: 4px 0; }
+
+/* The box at the top of Today for the person's age group. */
+.app-age-box {
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--green-soft);
+  padding: 14px 16px;
+  margin: 16px 0 20px;
+}
+.app-age-box h3 { margin-top: 0; }
+.app-age-box a { overflow-wrap: anywhere; }
+
+/* Larger text: on by default for 65 and over, and anyone can switch it. */
+html.app-large-text { font-size: 118.75%; }
+html:not(.app-large-text) .app-text-large-on,
+html.app-large-text .app-text-large-off { display: none; }
+.app-text-toggle {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.app-share-panel textarea { width: 100%; font: inherit; }
+.app-share-intro-text,
+.app-share-feeling-text { display: none; }
+.app-share-copied { font-weight: 600; }
+
+.app-share {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 2px solid var(--green);
+  border-radius: 0;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+}
+.app-share:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+/* Today's check-ins. */
+.app-log-words, .app-sum-words { display: none; }
+.app-log li { padding: 6px 0; border-top: 1px solid var(--line); }
+.app-share-days {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 2px solid var(--green);
+  border-radius: 0;
+  background: transparent;
+  color: var(--green);
+  cursor: pointer;
+}
+.app-share-days:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+@media print {
+  .app-age, .app-share-panel, .app-share, .app-settings, .app-share-days { display: none !important; }
+}
+
+/* Places that are hard for me (E1), in Your journey. */
+.app-places {
+  border: 2px solid var(--line);
+  border-top: 5px solid var(--green);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px;
+  margin: 24px 0;
+}
+.app-places h3 { margin-top: 0; }
+.app-places-words, .app-places-message-default { display: none; }
+.app-dwell {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+.app-places-notif, .app-places-perm-state [data-auth="denied"], .app-places-perm-state [data-auth="restricted"] { color: var(--plum); font-weight: 600; }
+.app-places-web, .app-places-unavailable { color: var(--muted); }
+.app-places-test-enter { font: inherit; min-height: 44px; padding: 6px 14px; border: 2px dashed var(--muted); border-radius: 0; background: transparent; color: var(--muted); cursor: pointer; }
+
+.app-places h4 { margin: 20px 0 6px; }
+.app-places-setup { border-top: 1px solid var(--line); margin-top: 12px; padding-top: 4px; }
+.app-places-message { width: 100%; font: inherit; }
+.app-places-status { font-weight: 600; }
+.app-places-on, .app-places-lock { width: 24px; height: 24px; vertical-align: middle; }
+.app-item-buttons { display: inline-flex; gap: 8px; flex-wrap: wrap; }
+.app-place-edit, .app-place-remove, .app-person-remove,
+.app-places-allow, .app-place-add, .app-person-add {
+  font: inherit;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+.app-place-add:disabled, .app-person-add:disabled { opacity: 0.5; cursor: default; }
+
+/* The alert screen: the person has stayed at one of their places for the dwell time. */
+.app-place-alert {
+  border: 3px solid var(--plum);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px;
+  margin: 24px 0;
+}
+.app-place-alert h2 { margin-top: 0; }
+.app-place-alert:focus { outline: 3px solid var(--plum); outline-offset: 2px; }
+.app-alert-countdown { background: var(--plum-soft); padding: 12px; font-weight: 600; }
+.app-alert-crisis { background: var(--green-soft); padding: 12px; }
+.app-alert-send, .app-alert-okay, .app-alert-close {
+  font: inherit;
+  min-height: 52px;
+  padding: 8px 18px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--bg);
+  cursor: pointer;
+}
+.app-alert-okay, .app-alert-close { background: transparent; color: var(--ink); }
+.app-alert-send:disabled { opacity: 0.5; cursor: default; }
+
+@media print {
+  .app-place-alert, .app-places { display: none !important; }
+}

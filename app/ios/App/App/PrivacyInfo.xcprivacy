@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Draft, for a lawyer to confirm before any App Store submission. See notes/PRIVACY-INVENTORY.md. -->
+	<!-- No tracking, and no tracking domains: the app contacts no server. -->
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+	<!-- Nothing is collected: what a person enters stays on the phone and is not sent to the app's makers or anyone else. -->
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+	<!-- The app's own code reads and writes the phone's key-and-value storage (UserDefaults),
+	     only for values the app itself saved there. Apple's reason code for that is CA92.1. -->
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array>
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

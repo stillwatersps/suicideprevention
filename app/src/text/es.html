@@ -1,0 +1,284 @@
+<!-- Cada palabra que la app agrega al Registro diario, en español. Borrador sin revisar: es una
+     traducción de IA que ninguna persona con fluidez ha revisado, y ningún profesional ha leído.
+     tools/build.mjs pone cada bloque en la copia de la app de es/registro-diario/index.html. -->
+
+<!-- BLOCK:privacy -->
+      <aside class="ci-privacy" aria-labelledby="ci-privacy-title">
+        <h2 id="ci-privacy-title">Qué pasa con lo que compartes aquí</h2>
+        <p>En esta app, lo que eliges y escribes se guarda solo en este teléfono, para que esté aquí la próxima vez. Tidelight nunca lo recibe, lo lee ni lo analiza.</p>
+        <p>Si la copia de seguridad de iCloud o de Google de este teléfono está activada, la copia lo incluye. Borrar todo, en Tu camino, lo quita del teléfono enseguida. Una copia en una copia de seguridad anterior puede durar hasta la siguiente copia del teléfono.</p>
+        <p>Cualquier persona que pueda desbloquear este teléfono puede abrir la app. La salida rápida te saca enseguida. Nadie en Tidelight ve lo que escribes, así que no es una forma de pedir ayuda. En una crisis, llama al 988 y marca 2, envía AYUDA al 988, o llama al 911.</p>
+      </aside>
+<!-- END -->
+
+<!-- BLOCK:age -->
+      <section class="app-age" id="app-age" tabindex="-1" aria-labelledby="app-age-title">
+        <h2 id="app-age-title">Antes de empezar: tu fecha de nacimiento</h2>
+        <p>Tidelight muestra ideas distintas según la edad, porque las investigaciones encuentran que a distintas edades ayudan cosas distintas. Tu fecha de nacimiento se pide una sola vez.</p>
+        <div class="app-age-accuracy">
+          <p><strong>Escribe tu fecha de nacimiento real. Es importante.</strong></p>
+          <p>La app la usa para elegir el tipo de ayuda que las investigaciones apoyan para tu edad. Una fecha equivocada significa ideas pensadas para otra edad, y algunas podrían no servirte o no ser seguras para ti.</p>
+        </div>
+        <p>La app calcula tu grupo de edad, guarda solo el grupo en este teléfono y olvida la fecha. Nunca sale del teléfono.</p>
+        <p class="app-age-crisis">No necesitas responder esto para recibir ayuda. Puedes <a class="tel-link" href="tel:988">llamar al 988</a> y marcar 2, o <a class="tel-link" href="sms:988">enviar AYUDA al 988</a>, a cualquier hora. Si hay peligro inmediato, <a class="tel-link" href="tel:911">llama al 911</a>.</p>
+        <div class="app-age-ask">
+          <p class="ci-field"><label for="app-birth-date">Fecha de nacimiento</label></p>
+          <input type="date" id="app-birth-date" autocomplete="off" required>
+          <p class="app-age-problem" role="status">Escribe una fecha de nacimiento en el pasado.</p>
+          <p class="ci-step-buttons"><button type="button" class="app-age-save">Continuar</button></p>
+          <p class="app-age-under13">Si tienes menos de 13 años, usa Tidelight con tu mamá, tu papá, la persona que te cuida u otra persona adulta de confianza.</p>
+        </div>
+        <div class="app-age-confirm" tabindex="-1">
+          <h3 class="app-age-confirm-title">Revisa tu grupo de edad</h3>
+          <p>Según esa fecha, tu grupo es: <strong class="app-group-name"></strong>. ¿Es correcto?</p>
+          <p>Esto es lo que la app hará para tu edad:</p>
+<!-- INSERT:accommodations -->
+          <p class="ci-step-buttons"><button type="button" class="app-age-yes">Sí, es correcto</button> <button type="button" class="app-age-redo">No, cambiar la fecha</button></p>
+        </div>
+      </section>
+<!-- END -->
+
+<!-- BLOCK:foryou -->
+          <section class="app-foryou" aria-labelledby="app-foryou-title">
+            <h4 id="app-foryou-title">Para tu edad</h4>
+            <div class="app-group" data-age-group="child">
+              <p>Cuéntale cómo te sientes a una persona adulta de confianza, como tu mamá, tu papá, la persona que te cuida, un maestro o la consejería de la escuela. No necesitas las palabras perfectas. "No estoy bien" es suficiente.</p>
+              <p>Si alguna vez piensas en hacerte daño, díselo enseguida a una persona adulta, o llama o envía un mensaje al 988.</p>
+            </div>
+            <div class="app-group" data-age-group="teen">
+              <p>Aprender sobre los sentimientos y la salud mental puede ayudar, y también contarle a una persona adulta de confianza: tu familia, un maestro, un entrenador o la consejería de la escuela.</p>
+              <p>Si quieres un plan para los momentos difíciles, hazlo con una persona adulta de confianza o con un consejero, no a solas.</p>
+            </div>
+            <div class="app-group" data-age-group="young">
+              <p>Escríbele hoy a una persona, aunque sea un mensaje corto. Si estudias, el servicio de consejería o de salud de tu escuela es un buen lugar para empezar.</p>
+              <p>Un plan para los momentos difíciles ayuda más cuando lo haces con alguien.</p>
+            </div>
+            <div class="app-group" data-age-group="adult">
+              <p>Un plan de seguridad es una lista corta para los momentos difíciles: señales de que viene uno, cosas que te ayudan a sobrellevarlo, personas y lugares a los que acudir, profesionales a quienes llamar y tus razones para vivir. Ayuda más cuando lo haces o lo revisas con un médico o un consejero.</p>
+              <p>Hablar con un médico sobre cómo te has sentido es un buen lugar para empezar.</p>
+            </div>
+            <div class="app-group" data-age-group="older">
+              <p>Cuéntale a tu médico cómo te has sentido, no solo cómo está tu cuerpo. Vale la pena mencionar el ánimo bajo, y tratarlo ayuda.</p>
+              <p>Seguir en contacto con otras personas y moverte, como mejor te quede, también puede ayudar.</p>
+            </div>
+            <p class="app-foryou-note">Ideas para tu grupo de edad, tomadas de investigaciones resumidas en las notas de la app. No es un tratamiento, y ningún profesional lo ha revisado todavía.</p>
+          </section>
+<!-- END -->
+
+<!-- BLOCK:result-share -->
+          <p class="ci-step-buttons"><button type="button" class="app-share" data-share="result">Compartir cómo me siento</button></p>
+<!-- END -->
+
+<!-- BLOCK:share-label -->Compartir<!-- END -->
+
+<!-- BLOCK:share-dialog -->
+    <section class="app-share-panel" id="app-share-panel" tabindex="-1" aria-labelledby="app-share-title">
+      <h2 id="app-share-title">Compartir con alguien que tú elijas</h2>
+      <p>En el siguiente paso eliges a quién se lo envías y cómo. Le llega a esa persona, se queda en sus mensajes o su correo y no se puede deshacer.</p>
+      <p>Puede que la persona no lo vea en horas, así que no es una forma de pedir ayuda urgente. Si necesitas ayuda ahora, <a class="tel-link" href="tel:988">llama al 988</a> y marca 2, o <a class="tel-link" href="sms:988">envía AYUDA al 988</a>. Si hay peligro inmediato, <a class="tel-link" href="tel:911">llama al 911</a>.</p>
+      <p class="ci-field"><label for="app-share-text">Lo que se va a compartir. Puedes cambiarlo.</label></p>
+      <textarea id="app-share-text" rows="5" autocomplete="off"></textarea>
+      <p class="ci-field"><label><input type="checkbox" id="app-share-intro"> Empezar con "Quería compartir esto contigo."</label></p>
+      <p class="app-share-intro-text">Quería compartir esto contigo.</p>
+      <p class="app-share-feeling-text">Hoy me siento:</p>
+      <p class="ci-step-buttons"><button type="button" class="app-share-go">Elegir con quién compartir</button> <button type="button" class="app-share-cancel">Cancelar</button></p>
+      <p class="app-share-copied" role="status">Copiado. Puedes pegarlo en un mensaje.</p>
+    </section>
+<!-- END -->
+
+<!-- BLOCK:journal-note -->
+        <p class="ci-note">Tus entradas se guardan solo en este teléfono, y nunca se leen, se analizan ni se envían a ningún lugar, salvo que compartas una.</p>
+<!-- END -->
+
+<!-- BLOCK:journey-note -->
+        <p class="ci-note">Lo que has compartido, guardado en este teléfono. Aquí nada recibe un puntaje.</p>
+<!-- END -->
+
+<!-- BLOCK:settings -->
+        <section class="app-settings" aria-labelledby="app-settings-title">
+          <h3 id="app-settings-title">Tu grupo de edad</h3>
+          <p>La app muestra ideas para tu grupo: <strong class="app-group-name"></strong>. Lo que hace para tu edad:</p>
+<!-- INSERT:accommodations -->
+          <p class="app-text-size"><span class="app-text-large-on">El texto es más grande para leer mejor.</span><span class="app-text-large-off">El texto tiene el tamaño normal.</span> <button type="button" class="app-text-toggle"><span class="app-text-large-on">Usar texto normal</span><span class="app-text-large-off">Usar texto más grande</span></button></p>
+          <p>Si este grupo no es el correcto, escribe de nuevo tu fecha de nacimiento. El grupo de edad correcto importa para recibir la mejor ayuda.</p>
+          <p class="app-group-names"><span data-age-group="child">menores de 13 años</span><span data-age-group="teen">de 13 a 17 años</span><span data-age-group="young">de 18 a 24 años</span><span data-age-group="adult">de 25 a 64 años</span><span data-age-group="older">de 65 años en adelante</span></p>
+          <p class="ci-step-buttons"><button type="button" class="app-age-change">Escribir de nuevo mi fecha de nacimiento</button></p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:accommodations -->
+          <ul class="app-accommodations">
+            <li>El 988, el 911 y la salida rápida aparecen en cada pantalla, a cualquier edad.</li>
+            <li data-age-group="child">Un recuadro al principio de Hoy para la persona adulta que te acompaña, sobre cómo escuchar y ayudar.</li>
+            <li data-age-group="child">Ideas que te llevan a una persona adulta de confianza.</li>
+            <li data-age-group="teen">Un recuadro al principio de Hoy con ayuda para menores de 18 años, incluido apoyo para jóvenes LGBTQ+.</li>
+            <li data-age-group="teen">Ideas para entender los sentimientos y hablar con una persona adulta de confianza. No tiene que ser tu mamá o tu papá.</li>
+            <li data-age-group="young">Un recuadro al principio de Hoy sobre buscar a alguien y la consejería para estudiantes.</li>
+            <li data-age-group="young">Ideas para hacer con alguien un plan para los momentos difíciles.</li>
+            <li data-age-group="adult">Un recuadro al principio de Hoy sobre el plan de seguridad y cómo hacerlo con un profesional.</li>
+            <li data-age-group="adult">Ideas para hablar con un médico o un consejero.</li>
+            <li data-age-group="older">Texto más grande, que puedes volver a cambiar.</li>
+            <li data-age-group="older">Un recuadro al principio de Hoy sobre hablar con tu médico y seguir en contacto con otras personas.</li>
+          </ul>
+<!-- END -->
+
+<!-- BLOCK:today-box -->
+        <aside class="app-age-box" aria-label="Para tu edad">
+          <div data-age-group="child">
+            <h3>Para la persona adulta que te acompaña</h3>
+            <p>Si ayudas a un niño o una niña con esta app: pregúntale cómo se siente, escucha sin juzgar, mantén fuera de su alcance lo que pueda hacerle daño, ayúdale a buscar ayuda y vuelve a preguntarle más tarde. Si dice que piensa en el suicidio o en hacerse daño, quédate a su lado y llama o envía un mensaje al 988. Si hay peligro inmediato, llama al 911.</p>
+            <p><a href="../obtener-ayuda/#under-18">Ayuda para menores de 18 años</a></p>
+          </div>
+          <div data-age-group="teen">
+            <h3>Ayuda para menores de 18 años</h3>
+            <p>Una persona adulta de confianza puede ayudarte: un familiar, un maestro, un entrenador, la consejería de la escuela, o tu mamá o tu papá si sientes que es seguro. Si eres LGBTQ+, también hay apoyo pensado para ti.</p>
+            <p><a href="../obtener-ayuda/#under-18">Si tienes menos de 18 años</a> · <a href="../obtener-ayuda/#other-ways">Apoyo para jóvenes LGBTQ+</a> · <a href="../adolescentes/">Para adolescentes</a></p>
+          </div>
+          <div data-age-group="young">
+            <h3>Buscar a alguien</h3>
+            <p>Hablar con una persona de confianza puede ayudar. Si estudias, el servicio de consejería o de salud de tu escuela es un buen lugar para empezar.</p>
+            <p><a href="../obtener-ayuda/#other-ways">Otras maneras de comunicarte con alguien</a></p>
+          </div>
+          <div data-age-group="adult">
+            <h3>Un plan para los momentos difíciles</h3>
+            <p>Un plan de seguridad reúne las señales de que viene un momento difícil, lo que te ayuda, a quién acudir y tus razones para vivir. Ayuda más cuando lo haces, o lo revisas, con un médico o un consejero.</p>
+            <p><a href="../obtener-ayuda/#hard-moment">Cómo prepararte para un momento difícil</a></p>
+          </div>
+          <div data-age-group="older">
+            <h3>Tu médico puede ayudarte</h3>
+            <p>Cuéntale a tu médico cómo te has sentido, no solo cómo está tu cuerpo. Seguir en contacto con otras personas, aunque sea con una llamada corta, también puede ayudar.</p>
+            <p><a href="../obtener-ayuda/#other-ways">Otras maneras de comunicarte con alguien</a></p>
+          </div>
+        </aside>
+<!-- END -->
+
+<!-- BLOCK:erase-note -->
+          <p>En la app, esto también borra lo que está guardado en este teléfono. Una copia en una copia de seguridad anterior de iCloud o de Google puede durar hasta la siguiente copia del teléfono. También se borran tus lugares y tus personas de Lugares que son difíciles para mí. También se borran tu nombre, tu lugar de casa, tu racha y tu historial de meditación. Tu grupo de edad, tus ajustes y tus meditaciones guardadas se quedan, para que no se te vuelva a preguntar.</p>
+<!-- END -->
+
+<!-- BLOCK:about-checkin -->
+            <li><strong>El registro diario.</strong> En la app, lo que eliges y escribes ahí se guarda solo en este teléfono, y se incluye en la copia de seguridad de iCloud o de Google del teléfono si está activada. Tidelight nunca lo recibe. Borrar todo, en Tu camino, lo quita del teléfono. Los recordatorios que enciendas los muestra el teléfono mismo y no dicen nada sobre ti. <a href="../registro-diario/">Ir al registro diario</a>.</li>
+<!-- END -->
+
+<!-- BLOCK:today-log -->
+        <section class="app-log-section" aria-labelledby="app-log-title">
+          <h3 id="app-log-title">Registros de hoy</h3>
+          <p class="ci-empty app-log-empty">Todavía no hay registros hoy.</p>
+          <ul class="ci-list app-log" aria-labelledby="app-log-title"></ul>
+          <p class="app-log-words"><span class="app-log-feeling-text">ánimo:</span><span class="app-log-needs-text">Necesidades:</span><span class="app-slot" data-slot="morning">Mañana</span><span class="app-slot" data-slot="midday">Mediodía</span><span class="app-slot" data-slot="afternoon">Después de la escuela</span><span class="app-slot" data-slot="evening">Antes de dormir</span></p>
+          <p>Puedes compartir los registros de hoy, o de los últimos 7 días, con alguien que tú elijas: tu mamá, tu papá o la persona que te cuida, un médico o terapeuta, o una amistad. Verás las palabras primero y puedes cambiarlas. No se comparte nada salvo que toques Compartir.</p>
+          <p class="ci-step-buttons"><button type="button" class="app-share-days" data-days="1">Compartir los registros de hoy</button> <button type="button" class="app-share-days" data-days="7">Compartir los últimos 7 días</button></p>
+          <p class="app-sum-words"><span class="app-sum-title">Registros de Tidelight</span><span class="app-sum-footer">Lo comparto yo desde Tidelight. No es una forma de pedir ayuda urgente. Si te preocupa cómo estoy, por favor llámame.</span><span class="app-sum-none">No hay registros en estos días.</span></p>
+        </section>
+<!-- END -->
+
+<!-- Places that are hard for me (idea E1): a draft the reviewer hasn't seen. -->
+<!-- BLOCK:places -->
+        <section class="app-places" id="app-places" tabindex="-1" aria-labelledby="app-places-title">
+          <h3 id="app-places-title">Lugares que son difíciles para mí</h3>
+          <p>Algunas personas tienen un lugar cerca del cual les cuesta estar. Si quieres, puedes decirle a este teléfono cuáles son los tuyos, para que, cuando lleves un rato allí, el teléfono te pregunte cómo estás y, si tú lo eliges, avise a personas de tu confianza dónde estás.</p>
+          <p>Esto está apagado hasta que lo enciendas. La app no sugiere ningún lugar: solo tú decides qué cuenta como un lugar difícil para ti. Tus lugares y tus personas se quedan en este teléfono, y Tidelight nunca los recibe. Puedes apagarlo o quitar cualquier cosa en cualquier momento, y nadie se entera.</p>
+          <p class="ci-field"><label><input type="checkbox" class="app-places-on"> Encender esto</label></p>
+          <p class="app-places-web" role="status">Esto funciona en la app, en un teléfono. En un navegador web puedes verlo, pero no se puede vigilar ningún lugar.</p>
+          <div class="app-places-setup">
+            <h4>Permiso</h4>
+            <p class="app-places-perm">Para que funcione con la app cerrada, el teléfono tiene que permitir que Tidelight use tu ubicación "siempre". El teléfono lo pregunta en dos pasos: primero "al usar la app" y después "siempre", a veces unos días más tarde. Tu ubicación solo se usa para notar tus propios lugares, y nunca se envía a menos que tú elijas enviarla.</p>
+            <p class="app-places-perm-state" role="status"><span data-auth="notDetermined">Todavía no se ha pedido el permiso de ubicación.</span><span data-auth="whenInUse">El teléfono permite la ubicación solo mientras la app está abierta, así que con la app cerrada no puede notar un lugar. Para permitir "siempre", abre los Ajustes del teléfono, Tidelight, Ubicación.</span><span data-auth="always">El teléfono permite la ubicación siempre. Tus lugares se pueden notar con la app cerrada.</span><span data-auth="denied">El teléfono no permite que Tidelight use tu ubicación, así que no se puede notar ningún lugar. Puedes cambiarlo en los Ajustes del teléfono, en Tidelight.</span><span data-auth="restricted">Este teléfono no permite la ubicación para esta app.</span></p>
+            <p class="app-places-unavailable" role="status">Este teléfono no puede vigilar lugares, así que aquí no se puede notar nada. Tus lugares se guardan, por si usas la app en un teléfono que sí pueda.</p>
+            <p class="ci-step-buttons"><button type="button" class="app-places-allow">Permitir la ubicación</button></p>
+            <p class="app-places-notif" role="status">Este teléfono no permite que Tidelight muestre notificaciones, así que no podría preguntarte cómo estás. Puedes cambiarlo en los Ajustes del teléfono, en Tidelight.</p>
+
+            <h4>Tus lugares</h4>
+            <p>Agrega un lugar eligiéndolo en un mapa, o buscando una dirección. Ponle un nombre que solo tú necesites entender, y elige qué tan cerca cuenta.</p>
+            <p class="ci-empty app-places-empty">Todavía no hay lugares. No tienes que agregar ninguno.</p>
+            <ul class="ci-list app-places-list" aria-label="Tus lugares"></ul>
+            <p class="ci-step-buttons"><button type="button" class="app-place-add">Agregar un lugar</button></p>
+            <p class="app-places-full" role="status">El teléfono puede vigilar hasta 20 lugares. Quita uno para agregar otro.</p>
+
+            <h4>Personas de tu confianza</h4>
+            <p>Elige hasta 5 personas de tus contactos. La app guarda su nombre y su número de teléfono solo en este teléfono. No se les avisa que las elegiste, y no se les envía nada a menos que tú lo envíes.</p>
+            <p class="ci-empty app-people-empty">Todavía no has elegido a nadie. Sin alguien elegido, el teléfono igual puede preguntarte cómo estás, pero no hay nadie a quien enviarle un mensaje.</p>
+            <ul class="ci-list app-people-list" aria-label="Personas de tu confianza"></ul>
+            <p class="ci-step-buttons"><button type="button" class="app-person-add">Elegir a alguien de mis contactos</button></p>
+            <p class="app-people-full" role="status">Puedes elegir hasta 5 personas. Quita una para agregar otra.</p>
+
+            <h4>Cuánto tiempo antes de que el teléfono te pregunte</h4>
+            <p class="ci-field"><label for="app-dwell">Después de estar en un lugar durante</label></p>
+            <select id="app-dwell" class="app-dwell"><option value="10">10 minutos</option><option value="20" selected>20 minutos</option><option value="30">30 minutos</option><option value="1" class="app-dwell-test">1 minuto (solo en versiones de prueba)</option></select>
+            <p>Pasar por un lugar no hace nada. Solo cuenta quedarse.</p>
+
+            <h4>Lo que muestra el teléfono</h4>
+            <p>Cuando se cumple el tiempo, el teléfono muestra una notificación de Tidelight. Por defecto solo dice "Tu plan está aquí", para que nada privado se vea en la pantalla de bloqueo. Al abrirla ves cuánto tiempo llevas allí, tus personas, el 988 y el 911, y las opciones de abajo.</p>
+            <p class="ci-field"><label><input type="checkbox" class="app-places-lock"> Mostrar el nombre del lugar y el tiempo en la pantalla de bloqueo</label></p>
+
+            <h4>Tu mensaje</h4>
+            <p>Si eliges enviarlo, este mensaje llega a tus personas por la app Mensajes del teléfono, con un enlace de mapa a donde estás. Lo ves primero y tú mismo tocas Enviar; la app no puede enviar un mensaje de texto por su cuenta. Puedes cambiar las palabras ahora.</p>
+            <p class="ci-field"><label for="app-places-message">Tu mensaje</label></p>
+            <textarea id="app-places-message" class="app-places-message" rows="4" autocomplete="off"></textarea>
+            <p class="app-places-message-default">Estoy pasando un momento difícil y me gustaría que me llamaras. Preparé esto en Tidelight para enviarlo cuando me quedo en un lugar que es difícil para mí. Aquí es donde estoy:</p>
+
+            <h4>Bueno saberlo</h4>
+            <ul>
+              <li>Antes de confiar en esto, pruébalo una vez con alguien que elegiste, para que ambos sepan qué llega.</li>
+              <li>No puede funcionar si el teléfono está apagado, en modo avión, sin batería, con la ubicación apagada, o en un sitio donde el teléfono no sabe dónde está, como bajo tierra. El teléfono puede tardar unos minutos en notar un lugar, y los lugares de menos de unos 100 metros no son fiables.</li>
+              <li>El teléfono solo nota los lugares que elegiste. No sigue por dónde vas, y la app no guarda ningún registro de visitas.</li>
+              <li>Un mensaje a tus personas no es una forma de pedir ayuda urgente. Puede que tarden en verlo. Si necesitas ayuda ahora, <a class="tel-link" href="tel:988">llama al 988</a> y marca 2, o <a class="tel-link" href="sms:988">envía AYUDA al 988</a>. Si hay peligro inmediato, <a class="tel-link" href="tel:911">llama al 911</a>.</li>
+            </ul>
+            <p class="app-places-status" role="status"></p>
+            <p class="ci-step-buttons app-places-test"><button type="button" class="app-places-test-enter">Fingir que acabo de llegar a mi primer lugar (solo en versiones de prueba)</button></p>
+          </div>
+          <template class="app-place-template">
+            <li class="ci-item"><span class="ci-item-text"><strong class="app-place-name"></strong> <span class="app-place-radius"></span></span> <span class="app-item-buttons"><button type="button" class="app-place-edit">Cambiar</button> <button type="button" class="app-place-remove">Quitar</button></span></li>
+          </template>
+          <template class="app-person-template">
+            <li class="ci-item"><span class="ci-item-text"><strong class="app-person-name"></strong> <span class="app-person-phone"></span></span> <button type="button" class="app-person-remove">Quitar</button></li>
+          </template>
+          <p class="app-places-words">
+            <span data-word="radiusText">a unos {meters} metros o menos</span>
+            <span data-word="watching">Encendido. El teléfono vigila {count} lugar(es).</span>
+            <span data-word="watchingNone">Encendido, pero todavía no hay ningún lugar.</span>
+            <span data-word="off">Apagado. No se vigila nada.</span>
+            <span data-word="and">y</span>
+            <span data-word="notifTitle">Tidelight</span>
+            <span data-word="notifBody">Tu plan está aquí.</span>
+            <span data-word="notifBodyWithPlace">Llevas {minutes} minutos en {place}. Tu plan está aquí.</span>
+            <span data-word="notifOkay">Estoy bien</span>
+            <span data-word="notifSend">Enviar mi mensaje</span>
+            <span data-word="notifCall988">Llamar al 988</span>
+            <span data-word="notifCall911">Llamar al 911</span>
+            <span data-word="linkLabel">Donde estoy</span>
+            <span data-word="mapTitle">Elegir un lugar</span>
+            <span data-word="mapCancel">Cancelar</span>
+            <span data-word="mapSave">Guardar</span>
+            <span data-word="mapSearchPlaceholder">Buscar una dirección o un lugar</span>
+            <span data-word="mapHint">Mantén presionado el mapa para poner el marcador donde está el lugar, o busca arriba.</span>
+            <span data-word="mapUseHere">Usar donde estoy ahora</span>
+            <span data-word="mapNamePlaceholder">Un nombre que solo tú necesites entender</span>
+            <span data-word="mapNameLabel">Nombre de este lugar</span>
+            <span data-word="mapRadiusLabel">Qué tan cerca cuenta</span>
+            <span data-word="mapRadiusText">A unos {meters} metros o menos</span>
+            <span data-word="mapLabel">Mapa. Mantén presionado para poner el marcador.</span>
+            <span data-word="mapNotFound">No se encontró nada con eso. Prueba otra dirección, o mantén presionado el mapa.</span>
+            <span data-word="mapNoLocation">El teléfono no pudo saber dónde estás ahora. Mantén presionado el mapa en su lugar.</span>
+            <span data-word="mapNeedPin">Primero pon el marcador en el mapa.</span>
+            <span data-word="mapNeedName">Primero ponle un nombre al lugar.</span>
+          </p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:place-alert -->
+    <section class="app-place-alert" id="app-place-alert" tabindex="-1" aria-labelledby="app-alert-title">
+      <h2 id="app-alert-title">Llevas <span class="app-alert-minutes"></span> minutos en <span class="app-alert-place"></span></h2>
+      <p class="app-alert-intro">Tú preparaste esto para ti. ¿Quieres enviar tu mensaje, con dónde estás, a <strong class="app-alert-names"></strong>?</p>
+      <p class="app-alert-nobody">No has elegido a nadie a quien enviarle un mensaje, así que no se puede enviar nada. Puedes elegir personas en la pestaña Lugares.</p>
+      <p class="app-alert-countdown" role="status">Tu mensaje se abrirá en Mensajes en <strong class="app-alert-seconds"></strong> segundos, a menos que toques Estoy bien. Allí tú mismo tocas Enviar.</p>
+      <p class="ci-step-buttons"><button type="button" class="app-alert-send">Enviar mi mensaje ahora</button> <button type="button" class="app-alert-okay">Estoy bien</button></p>
+      <p class="app-alert-crisis">También puedes <a class="tel-link" href="tel:988">llamar al 988</a> y marcar 2, o <a class="tel-link" href="sms:988">enviar AYUDA al 988</a> ahora mismo, en cualquier momento. Si hay peligro inmediato, <a class="tel-link" href="tel:911">llama al 911</a>.</p>
+      <p class="app-alert-okay-done" role="status">Está bien. No se envió nada. El teléfono no volverá a preguntar mientras estés aquí.</p>
+      <p class="app-alert-opened" role="status">Tu mensaje está listo en Mensajes. Toca Enviar allí, o cancela. Todavía no se ha enviado nada.</p>
+      <p class="app-alert-fallback" role="status">Este teléfono no puede abrir Mensajes con tus personas ya puestas, así que se abrió la hoja para compartir. Elige Mensajes y a tus personas allí, o cancela.</p>
+      <p class="app-alert-sent" role="status">Tu mensaje se envió. Si puedes, mantén el teléfono cerca para que puedan contactarte. El 988 también está aquí para ti.</p>
+      <p class="app-alert-cancelled" role="status">No se envió nada. Puedes enviarlo más tarde desde aquí, o tocar Estoy bien.</p>
+      <p class="ci-step-buttons app-alert-close-row"><button type="button" class="app-alert-close">Cerrar</button></p>
+    </section>
+<!-- END -->

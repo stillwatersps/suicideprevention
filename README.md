@@ -31,6 +31,8 @@ Each person uses their own Claude access and conversation.
 | Location | Purpose |
 | --- | --- |
 | `CLAUDE.md` | Shared Claude Code instructions |
+| `notes/CODE-MAP.md` | Where every file is, what to edit, and which checks to run. Start here before changing code |
+| `app/` | The phone app draft (see `app/README.md`). Not part of the website |
 | `notes/00 START HERE.md` | Obsidian home page |
 | `notes/PROJECT.md` | Project brief |
 | `notes/STATUS.md` | Current progress and next steps |

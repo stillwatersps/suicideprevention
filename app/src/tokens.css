@@ -1,0 +1,291 @@
+/* Tidelight design tokens: "Dawn at the Shoreline" (app/DESIGN-BRIEF.md).
+   The single source of truth for color, type, space, shape, and motion in the app. Nothing outside
+   this file holds a raw color, a type size, or a spacing value: tools/lint.mjs fails if it does,
+   and test/unit/tokens.test.mjs checks every text and background pair (AA; AAA for crisis parts).
+   design/TOKENS.md lists the measured ratios.
+   The older `--tl-*` names at the end are aliases, so earlier screens keep working. */
+
+@font-face {
+  font-family: "Literata";
+  src: url("fonts/Literata-latin.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Color, light ---- */
+  --ink: #10272F;            /* primary text, headers */
+  --ink-soft: #3E5560;       /* secondary text */
+  --ink-faint: #5C6E77;      /* captions and metadata (darkened from the brief's #6E8089 to pass 4.5 to 1) */
+  --sand: #F5EFE5;           /* app background */
+  --paper: #FBF8F2;          /* raised surfaces */
+  --shell: #ECE3D4;          /* subtle fills, inactive chips */
+  --rule: #D8CCB9;           /* hairlines and field borders */
+  --coral: #C2523B;          /* THE accent: primary buttons only (darkened from #C9573F so white passes 4.5 to 1) */
+  --coral-press: #A9432F;
+  --coral-deep: #9A3B28;     /* coral as text: notices, labels */
+  --coral-soft: #F3D2C4;
+  --on-coral: #FFFFFF;
+  --dawn: #F2C7A2;           /* horizon glow and the highlight: decoration only */
+  --dawn-core: #FBE3CB;
+  --water: #D3DDD6;          /* the still band under the horizon */
+  --seafoam: #2E6E68;        /* secondary actions, progress, links */
+  --seafoam-deep: #235650;
+  --seafoam-soft: #D3E6E0;
+  --on-seafoam: #FFFFFF;
+  --focus: #1F6FB2;          /* keyboard and switch-control focus ring only */
+  --error: #A63A2B;          /* form validation only: never mood, never streaks */
+  /* The crisis strip and crisis buttons: plain, fixed, AAA. */
+  --crisis-bg: #10272F;
+  --crisis-text: #FBF8F2;
+  /* Crisis buttons (Get Support Now, Call 988): the strongest shape on the page in both modes. */
+  --crisis-btn-bg: #10272F;
+  --crisis-btn-text: #FBF8F2;
+  /* Mood tones. None of them reads as "bad". Used as swatches and tints, never behind text. */
+  --mood-1: #8DB7C6;         /* calm water */
+  --mood-2: #A6C8B4;         /* steady */
+  --mood-3: #E3C27F;         /* choppy */
+  --mood-4: #B3A3C6;         /* heavy */
+  --mood-5: #7C8BA2;         /* stormy */
+  --scrim: rgba(16, 39, 47, 0.3);
+  --horizon-line: rgba(16, 39, 47, 0.15);
+  --grain-opacity: 0.05;
+  --grain-blend: multiply;
+
+  /* The meditation worlds are night scenes in both modes, so their colors don't change. */
+  --scene-ink-top: #0B1D24;
+  --scene-ink-mid: #14323C;
+  --scene-glow: #F2C7A2;
+  --scene-glow-core: #FBE6D0;
+  --scene-water: #0E2730;
+  --scene-water-deep: #081920;
+  --scene-forest-top: #12261F;
+  --scene-forest-mid: #234A3B;
+  --scene-forest-low: #0B1A15;
+  --scene-tree-1: #1B3A2E;
+  --scene-tree-2: #142C23;
+  --scene-tree-3: #0B1D17;
+  --scene-ray: #F7EBC4;
+  --scene-firefly: #F6E6A8;
+  --scene-night-top: #050B16;
+  --scene-night-mid: #0F2233;
+  --scene-night-low: #1A3142;
+  --scene-star: #FFFFFF;
+  --scene-moon: #EEF0F4;
+  --scene-ground: #0A1722;
+  --scene-dim: #000000;
+  --on-scene: #FFFFFF;
+  --scene-shade: rgba(6, 16, 28, 0.62);
+
+  /* ---- Type ---- */
+  --font-display: "Literata", "Iowan Old Style", Georgia, serif;   /* headlines only; the one bundled font */
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;   /* the phone's own font: nothing to load */
+  --display-settings: normal;
+  --text-display: 2.125rem;   --lh-display: 2.5rem;     --wt-display: 560;   /* one per screen at most */
+  --text-title: 1.625rem;     --lh-title: 2rem;         --wt-title: 540;
+  --text-heading: 1.25rem;    --lh-heading: 1.625rem;   --wt-heading: 520;
+  --text-body-lg: 1.125rem;   --lh-body-lg: 1.6875rem;
+  --text-body: 1rem;          --lh-body: 1.5rem;
+  --text-label: 0.875rem;     --lh-label: 1.25rem;
+  --text-caption: 0.8125rem;  --lh-caption: 1.125rem;   /* the smallest type there is */
+  --text-eyebrow: 0.75rem;    --lh-eyebrow: 1rem;       --track-eyebrow: 0.08em;
+  --text-stat: 2.75rem;       /* a single large number */
+  --wt-regular: 400;
+  --wt-medium: 500;
+  --wt-strong: 600;
+  --measure: 65ch;
+
+  /* ---- Space: a 4-point scale ---- */
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-32: 2rem;
+  --space-40: 2.5rem;
+  --space-56: 3.5rem;
+  --space-72: 4.5rem;
+
+  /* ---- Shape ---- */
+  --radius-sm: 0.625rem;      /* chips, inputs */
+  --radius-md: 1.125rem;      /* cards, tiles */
+  --radius-lg: 1.75rem;       /* feature cards, hero panels */
+  --radius-pill: 999px;       /* buttons, tags */
+  --hairline: 1px;
+  --border-strong: 2px;
+  --focus-ring: 3px;
+  --focus-offset: 2px;
+  --shadow-float: 0 8px 24px rgba(16, 39, 47, 0.08);   /* the one shadow, for floating things */
+
+  /* ---- Motion: water and light ---- */
+  --ease-tide: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-quick: 140ms;
+  --dur-base: 260ms;
+  --dur-slow: 600ms;
+  --dur-dawn: 2600ms;         /* the horizon arriving on a completion screen */
+  --dur-breath: 5s;
+  --drift: 0.5rem;            /* screens rise this far as they fade in */
+  --stagger: 30ms;
+  --press-scale: 0.98;
+
+  /* ---- Sizes ---- */
+  --tap: 2.75rem;             /* 44 points, the smallest touch target */
+  --button: 3.25rem;          /* 52 points */
+  --row: 3.5rem;              /* 56 points: list rows, answer rows */
+  --icon: 1.5rem;
+  --icon-lg: 2.5rem;
+  --icon-stroke: 1.75;
+  --tile-icon: 2.5rem;
+  --tabbar: 4rem;
+  --tab-dot: 0.25rem;
+  /* Caps in points, not rem: on iPhone the app follows the phone's text size, and at the largest
+     accessibility sizes the tab bar must stay a bar. */
+  --cap-tabbar: 88px;
+  --cap-tab-icon: 40px;
+  --content: 34rem;
+  --guide: 11rem;
+  --preview: 35vh;
+  --thumb: 1.75rem;
+  --track: 0.5rem;
+  --dot: 0.75rem;             /* a day in the month row */
+  --progress: 0.25rem;        /* the slim setup line */
+  --hero: 13rem;
+  --hero-tall: 62vh;
+  --strip: 5rem;              /* the horizon strip above a check-in */
+  --col: 8rem;
+  --col-wide: 9rem;
+  --ring: 4.5rem;
+
+  /* ---- The website's own names, pointed at the tokens, so the older sections inside the app
+     (Daily check-in, Journal, Hope box, Places, My circle) share the look. App only. ---- */
+  --bg: var(--sand);
+  --bg-soft: var(--shell);
+  --card: var(--paper);
+  --body: var(--ink);
+  --muted: var(--ink-soft);
+  --line: var(--rule);
+  --green: var(--seafoam);
+  --tide-deep: var(--seafoam-deep);
+  --green-soft: var(--seafoam-soft);
+  --tide-line: var(--seafoam);
+  --plum: var(--coral-deep);
+  --plum-soft: var(--coral-soft);
+  --notice-line: var(--coral-soft);
+  --serif: var(--font-display);
+  --sans: var(--font-body);
+  --radius: var(--radius-md);
+
+  /* ---- Earlier names, kept as aliases ---- */
+  --tl-bg: var(--sand);
+  --tl-surface: var(--paper);
+  --tl-primary: var(--seafoam);
+  --tl-on-primary: var(--on-seafoam);
+  --tl-secondary: var(--seafoam);
+  --tl-secondary-soft: var(--seafoam-soft);
+  --tl-accent-warm: var(--coral-deep);
+  --tl-accent-warm-soft: var(--coral-soft);
+  --tl-text-primary: var(--ink);
+  --tl-text-secondary: var(--ink-soft);
+  --tl-line: var(--rule);
+  --tl-success: var(--seafoam);
+  --tl-warning: var(--coral-deep);
+  --tl-danger: var(--error);
+  --tl-scrim: var(--scrim);
+  --tl-on-scene: var(--on-scene);
+  --tl-scene-shade: var(--scene-shade);
+  --tl-font: var(--font-body);
+  --tl-font-display: var(--text-display);
+  --tl-font-title: var(--text-title);
+  --tl-font-headline: var(--text-heading);
+  --tl-font-body: var(--text-body);
+  --tl-font-label: var(--text-label);
+  --tl-font-caption: var(--text-caption);
+  --tl-font-huge: var(--text-stat);
+  --tl-line-tight: 1.2;
+  --tl-line-normal: 1.5;
+  --tl-weight-regular: var(--wt-regular);
+  --tl-weight-strong: var(--wt-strong);
+  --tl-space-xs: var(--space-4);
+  --tl-space-sm: var(--space-8);
+  --tl-space-md: var(--space-16);
+  --tl-space-lg: var(--space-24);
+  --tl-space-xl: var(--space-32);
+  --tl-space-xxl: var(--space-40);
+  --tl-radius-sm: var(--radius-sm);
+  --tl-radius-md: var(--radius-md);
+  --tl-radius-lg: var(--radius-md);
+  --tl-radius-full: var(--radius-pill);
+  --tl-speed: 1;              /* the check-in style: Calm is slower, Straightforward quicker */
+  --tl-fast: calc(var(--dur-quick) * var(--tl-speed));
+  --tl-normal: calc(var(--dur-base) * var(--tl-speed));
+  --tl-slow: calc(var(--dur-slow) * var(--tl-speed));
+  --tl-ease: var(--ease-tide);
+  --tl-press-scale: var(--press-scale);
+  --tl-pulse: 2.4s;
+  --tl-shimmer: 1.6s;
+  --tl-breath-once: 5s;
+  --tl-breath-demo: 1.6s;
+  --tl-elev-1: none;
+  --tl-elev-2: var(--shadow-float);
+  --tl-tap: var(--tap);
+  --tl-tap-lg: var(--button);
+  --tl-icon: var(--icon);
+  --tl-icon-lg: var(--icon-lg);
+  --tl-face: 2.5rem;
+  --tl-ring: var(--ring);
+  --tl-tabbar: var(--tabbar);
+  --tl-border: var(--hairline);
+  --tl-border-strong: var(--border-strong);
+  --tl-focus: var(--focus-ring);
+  --tl-dot: 1.5rem;
+  --tl-content: var(--content);
+  --tl-guide: var(--guide);
+  --tl-preview: var(--preview);
+  --tl-thumb: var(--thumb);
+  --tl-track: var(--track);
+  --tl-col: var(--col);
+  --tl-col-wide: var(--col-wide);
+}
+
+/* ---- Color, dark: "night tide". Designed, not inverted. ---- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #F1EBE1;
+    --ink-soft: #C3BDB3;
+    --ink-faint: #948F87;
+    --sand: #0E1C22;
+    --paper: #152830;
+    --shell: #21363F;
+    --rule: #32495A;
+    --coral: #E58468;
+    --coral-press: #D2755A;
+    --coral-deep: #F0A08A;
+    --coral-soft: #4A2B23;
+    --on-coral: #0E1C22;
+    --dawn: #8A5A43;
+    --dawn-core: #B07A5C;
+    --water: #0A161B;
+    --seafoam: #7FC2B7;
+    --seafoam-deep: #9AD3C9;
+    --seafoam-soft: #1F3F3C;
+    --on-seafoam: #0E1C22;
+    --focus: #7DB8EC;
+    --error: #F0A39E;
+    --crisis-bg: #081318;
+    --crisis-text: #F1EBE1;
+    --crisis-btn-bg: #F1EBE1;   /* at night the buttons turn light, so they never sink into the page */
+    --crisis-btn-text: #081318;
+    --scrim: rgba(0, 0, 0, 0.5);
+    --horizon-line: rgba(241, 235, 225, 0.22);
+    --grain-opacity: 0.06;
+    --grain-blend: soft-light;
+    --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* More contrast, when the phone asks for it. */
+@media (prefers-contrast: more) {
+  :root { --ink-soft: var(--ink); --ink-faint: var(--ink); --rule: var(--ink-soft); --horizon-line: var(--ink); --grain-opacity: 0; }
+}

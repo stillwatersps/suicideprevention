@@ -304,6 +304,74 @@ publish nothing. **The other founder's agreement isn't recorded.** Merged into
 
 Still open, and publishing: 5, 8 and 12. Merging any of them still needs both founders.
 
+## November 9, 2026: phone app first draft, proposed
+
+One founder asked Claude to build the reflections and sharing, and the age setup, and to research
+what works for which age groups. **The other founder hasn't agreed, and no reviewer or lawyer has
+seen it.** Built on `app/first-build`, in `app/`, which the website never publishes. Choices, all easy
+to reverse:
+
+- **Capacitor, wrapping the website's own pages,** as [[CHECK-IN-BACKEND]] proposed, so the reviewed
+  words stay in one place. The app adds blocks to the Daily check-in at build time; the website is
+  unchanged except for a small hook in `assets/check-in.js` that the website never uses.
+- **Saved on the phone only,** with Capacitor Preferences, which the phone's own backups are expected
+  to include. To confirm on a phone.
+- **Age groups:** under 13, 13 to 17, 18 to 24, 25 to 64, 65 and over, from [[AGE-STRATEGIES]]. Only
+  the group is kept. 988, 911, and Quick exit come before and during the question.
+- **Delete everything keeps the age group,** so the person isn't asked again. A button in Your
+  journey asks again.
+- **Sharing shows a notice first,** and the person can change the words before the share sheet opens.
+
+## November 9, 2026: age-based accommodations in the app, proposed
+
+One founder asked to show people their accommodations by age, and to make plain that an accurate
+age matters. **The other founder hasn't agreed, and no reviewer has seen it.** Built in the app
+draft (`app/`, branch `app/first-build`):
+
+- **Accuracy comes first.** Before the date of birth, the app says to enter the real date, because
+  a wrong one means ideas meant for a different age that may not fit or be safe.
+- **The group is checked before it's kept.** After the date, the app shows the age group and what
+  it will do for that age, and keeps nothing until the person taps "Yes, that's right".
+- **Accommodations by age:** a box at the top of Today for each group (for the grown-up with a
+  child; under-18 and LGBTQ+ help for teens; reaching out for 18 to 24; a safety plan with a
+  professional for 25 to 64; the doctor and staying in touch for 65 and over), the card in today's
+  results, and larger text by default for 65 and over, which anyone can switch.
+- Your journey lists what the app does for the person's age, and lets them enter the date again.
+
+## November 9, 2026: reminders, shared check-ins, and forty ideas, proposed
+
+Late on November 9, one founder asked Claude to check the whole project, to work out two ideas in full, and to list
+thirty things that would make the app the best of its kind, then ten more. **The other founder hasn't agreed to any
+of it, and no reviewer or lawyer has seen it.**
+
+- **Alerting chosen people when someone stays near a hard place** is worked out in [[LOCATION-ALERT]]. Claude's
+  recommendation: build it on the person's own places (E1), with a wait time and a one-tap send through Messages,
+  and no built-in list of places. Nothing is built.
+- **Four daily check-ins, shared with a guardian or a doctor**, is designed in [[CHECK-IN-SCHEDULE]] and partly built
+  as a draft on `app/daily-check-ins`: four reminders, all off until turned on, with neutral words; today's check-ins
+  listed; Share today or Share the last 7 days through the share sheet. Nothing is sent without a tap, and nothing
+  automatic is built, because that needs accounts and a server.
+- **Forty ideas** are in [[IDEAS-ROUND-3]], none approved.
+- Also done while checking the code: the app's tests now run on GitHub for every pull request, the test browser is
+  listed in `app/package.json`, and a fix so saved check-in and journal dates still read as dates after the app
+  reopens. Node.js was installed on one founder's Mac with Homebrew to run the app's tests there.
+
+Choices Claude made, all easy to reverse: every reminder off by default; the third reminder named "After school
+(or after work)"; the shared summary leaves out journal entries and reflections; reminders survive Delete everything,
+like the age group.
+
+## November 10, 2026: My circle without accounts, and a hope box, proposed
+
+One founder asked to build E2, F9, and F3. **The other founder hasn't agreed to these, and no
+reviewer has seen them.** On `app/my-circle-and-hope-box`, stacked on `app/hard-places-and-reminders`:
+
+- **My circle is built without accounts or a server.** Chosen people get a text message the person
+  sends from their own Messages app. Why: the app may send nothing to Tidelight, and accounts need
+  both founders ([[CHECK-IN-BACKEND]]). A circle whose members see entries inside an app is still
+  an open choice.
+- **Hope box (F9):** words and photos kept in the app on the phone, never shared.
+- **F3 was already being built by the other founder's session,** so nothing of it was rebuilt.
+
 ## November 9, 2026: both founders' answers to 14 questions
 
 Founder A answered 14 questions Claude listed, and founder B agreed to every answer the same day.
@@ -351,3 +419,121 @@ in the Daily check-in. Who owns each step isn't named yet.
 
 For future decisions, add the date, what was chosen, why, who agreed, and any
 remaining questions. Keep the newest entries at the end.
+
+## November 11, 2026: phone app redesign from a build spec, proposed
+
+One founder sent a build spec for the phone app (`app/BUILD-SPEC.md`): fewer words, bottom tabs, onboarding, streaks,
+and meditation, "like Calm, Headspace and Finch". **The other founder hasn't seen the spec or agreed to any of it, and
+no reviewer or lawyer has seen it.** Built as a draft on `app/redesign-dev`, in `app/` only. It publishes nothing.
+The same founder added six safety rules that override the spec; they are in `app/CLAUDE.md`. Choices, all easy to
+reverse, with the full list in `app/PROGRESS.md`:
+
+- **The safety frame stays on every screen, in full.** The crisis strip, Exit, Get Support Now, the Spanish link,
+  both "Draft for review" notices, the privacy notice, Support, and the 988 panel. Nothing new is a pop-up or a
+  layer over them. During a meditation the strip stays on screen and the rest is in the page below.
+- **Kept Capacitor and the website's own pages.** The spec expected a different kind of app; nothing was ported.
+- **Five tabs:** Home, Check-in, Meditate, Location, Friends. Everything that existed has a place.
+- **The date of birth stays required** in onboarding, as decided on November 9. Every other page can be skipped.
+- **A very low check-in shows 988 and 911 at once,** and nothing celebrates for the rest of that day.
+- **Streaks are built as the spec asks, with gentle words, and can be turned off.** Whether they belong in this app
+  at all is the first question in [[CONTENT-REVIEW]].
+- **The four older reminders became "N check-ins a day".** Reminder words stay discreet.
+- **Location:** one home spot the person saves, read only while the app is open, kept on the phone. No list of places.
+- **No new packages.** Haptics, keeping the screen awake, one location, and the audio route are small additions to
+  the project's own iPhone plugin.
+- **The website gained one line it never uses** (`addCheckIn` in `assets/check-in.js`), so a quick check-in marks
+  the calendar.
+
+Open: whether to keep any of it; the reviewer's and the lawyer's answers; a real phone.
+
+## November 11, 2026: phone app visual identity from a design brief, proposed
+
+The same founder sent a design brief (`app/DESIGN-BRIEF.md`) for the phone app's look. **The other founder hasn't
+seen it or agreed to any of it, and no reviewer has seen it.** Built as a draft on `app/visual-identity`, on top of
+`app/redesign-dev`, in `app/` only. It publishes nothing. Choices, with the full list in `app/PROGRESS.md`:
+
+- **Safety rules win over the brief.** The crisis strip, Exit, Get Support Now, the Spanish link, and the review
+  notices keep their words and places. They were restyled to be plainer and higher in contrast, never quieter.
+- **Streak wording is unchanged.** A first version replaced the streak screens with a month view; the founder
+  asked for the original wording back, since it was awaiting review. Only the look of the streak screens changed.
+- **Only plain how-to text folds under "Learn more" on Location and Friends.** The founder's rule: all privacy
+  and consent wording stays in view, always (what is stored, where data stays, who gets a message, that a sent
+  message can't be undone), as do urgent-help lines and controls. No word changed.
+- **A check-in ends on a choice of two** and no longer returns Home by itself; the burst of drops is removed.
+- **Fonts are bundled files** (Fraunces and Figtree, open licenses). Nothing is fetched from another site.
+- **Automated runs are muted**, at the founder's instruction: tests and Simulator checks play no sound, and the
+  app's own audio code is unchanged.
+- **Not done because they would be new features:** seek buttons in the player, filter chips on Meditate.
+
+## November 14, 2026: the phone app's fonts, proposed
+
+The founder who wrote the app's design brief found its fonts too much like other AI-made apps, compared five
+alternatives side by side on the Home, Check-in, and Meditate screens, and chose one. **The other founder hasn't
+seen it, and it has not run on a real phone.** Built as a draft on `app/literata-font`, on top of
+`app/launch-readiness`, in `app/` only. It publishes nothing.
+
+- **Headlines are Literata**, one bundled file with its open license. It replaces Fraunces.
+- **Body text is the phone's own font**: San Francisco on iPhone, Roboto on Android. It replaces Figtree, so the
+  app carries one font file where it carried two (52 KB, down from 141 KB). The two phones will look
+  slightly different from each other, as most apps do.
+- **The app's name in the header is one size smaller** (18 px, from 20 to 26 px depending on the screen). Literata is
+  wider than Fraunces, and without this Get Support Now dropped to a second row on common phone widths, which
+  pushed everything below it down. With it, the button wraps at the same widths as before and no others.
+- **Nothing else changed:** no wording, colors, sizes of other text, crisis controls, or behavior. The website's
+  fonts are untouched.
+
+Not chosen: the phone's own fonts for everything, Atkinson Hyperlegible Next, the phone's rounded font, and
+Newsreader. Open: whether the other founder agrees, and how it looks on a real iPhone and Android phone.
+
+## November 14, 2026: fixes before review, proposed
+
+One founder asked for a list of what would improve the phone app before it goes to a lawyer and a licensed
+reviewer, then asked Claude to build six small items from it. **The other founder hasn't seen any of it, and no
+reviewer or lawyer has.** Built as a draft on `app/pre-review-fixes`, on top of `app/literata-font`, in `app/`
+and notes only. It publishes nothing.
+
+Built, each easy to reverse:
+
+- **After Quick exit the app opens on Home.** Before, it came back on the screen the person had left, which
+  could be a journal entry. A check-in or meditation that was under way is not kept. The reviewer's question
+  about this stays open in [[CONTENT-REVIEW]].
+- **"1 minute in all."** A new line for exactly one minute; the line for every other number is unchanged. It is
+  recorded as wording added since the reviewer's snapshot, not as reviewed.
+- **The Hope box uses the phone's photo picker on iPhone.** The page's own file chooser can offer "Take Photo",
+  and the app states no reason for using the camera, so iOS would close it. The picker shows the library only.
+  Like the phone's contact picker, it covers the crisis strip while it is open.
+- **A draft privacy manifest:** no tracking, nothing collected, one stated reason for on-phone storage. For a
+  lawyer to confirm.
+
+Asked for and not built, because the app's own safety rules say no:
+
+- **A short crisis strip at the largest text sizes.** It would leave out "Need help now?" and "In immediate
+  danger,". The app's first safety rule is never to shorten crisis wording or the 911 banner.
+- **Taller tap areas for crisis links inside sentences.** An earlier check found the taller areas overlap, so a
+  tap meant for 988 could land on 911. The safe fix is a new layout for reviewed sentences.
+
+Both stay decisions for both founders and the reviewer, as [[LAUNCH-BACKLOG]] already says.
+
+## November 14, 2026: one version of the app for review, proposed
+
+The same founder asked for the app to be made ready to hand to reviewers. **The other founder hasn't seen it,
+and no reviewer or lawyer has.** On `app/review-version`, in `app/` and notes only. It publishes nothing.
+
+- **One branch and one pull request for the whole app.** The app had spread over nine stacked pull requests, and
+  the first of them conflicted with pull request 5's branch. Nothing was left out. The founder who asked for
+  this closed the seven older pull requests they had opened (19, 20, 25 to 29), keeping the branches; 16 and 21
+  were opened by the other founder and are theirs to close.
+- **The notes conflict was settled by keeping both sides:** the app's entries here, then both founders'
+  fourteen answers; in [[TASKS]] and [[STATUS]], the wording both founders agreed, with the app's rows and its
+  own Important item kept.
+- **Meditation history is grouped by month,** under month names the phone writes itself. No new wording.
+- **A plainer look.** The founder found the app's look too much like a template. Small labels are no longer in
+  spaced capitals; buttons and chips are rounded rectangles, with the pill kept for the crisis buttons only; the
+  dawn glow and paper grain give way to flat color. This goes against parts of the same founder's design
+  brief, which now says so. It is one block of styles and easy to drop.
+- **The reviewer packet is reordered,** not shortened: support and crisis screens first, then check-in
+  questions, then streaks, then everything else. It also says plainly where each kind of wording came from:
+  nothing is quoted from 988; numbers and keywords come from providers' pages listed in [[SAFETY]]; an AI
+  assistant wrote the rest.
+
+Open: whether the other founder agrees to the plainer look, and all the earlier questions.

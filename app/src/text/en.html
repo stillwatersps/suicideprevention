@@ -1,0 +1,284 @@
+<!-- Every word the phone app adds to the Daily check-in, in English. Draft for review: no licensed
+     reviewer has read it. tools/build.mjs puts each block into the app's copy of check-in/index.html.
+     The website itself never shows these. Blocks start with BLOCK:name and end with END. -->
+
+<!-- BLOCK:privacy -->
+      <aside class="ci-privacy" aria-labelledby="ci-privacy-title">
+        <h2 id="ci-privacy-title">What happens to what you share here</h2>
+        <p>In this app, what you choose and write is saved on this phone only, so it's here next time. Tidelight never receives it, reads it, or analyzes it.</p>
+        <p>If this phone's iCloud or Google backup is on, the backup includes it. Delete everything, in Your journey, removes it from the phone now. A copy in an earlier backup can last until the phone's next backup.</p>
+        <p>Anyone who can unlock this phone can open the app. Quick exit leaves fast. Nobody at Tidelight sees what you write, so it isn't a way to ask for help. In a crisis, call or text 988, or call 911.</p>
+      </aside>
+<!-- END -->
+
+<!-- BLOCK:age -->
+      <section class="app-age" id="app-age" tabindex="-1" aria-labelledby="app-age-title">
+        <h2 id="app-age-title">Before you start: your date of birth</h2>
+        <p>Tidelight shows different ideas for different ages, because research finds that different things help at different ages. Your date of birth is asked once.</p>
+        <div class="app-age-accuracy">
+          <p><strong>Please enter your real date of birth. It matters.</strong></p>
+          <p>The app uses it to choose the kinds of help that research supports for your age. A wrong date means ideas meant for a different age, and some may not fit you or be safe for you.</p>
+        </div>
+        <p>The app works out your age group, keeps only the group on this phone, and forgets the date. It never leaves the phone.</p>
+        <p class="app-age-crisis">You don't need to answer this to get help. You can <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a> at any time. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</p>
+        <div class="app-age-ask">
+          <p class="ci-field"><label for="app-birth-date">Date of birth</label></p>
+          <input type="date" id="app-birth-date" autocomplete="off" required>
+          <p class="app-age-problem" role="status">Please enter a date of birth in the past.</p>
+          <p class="ci-step-buttons"><button type="button" class="app-age-save">Continue</button></p>
+          <p class="app-age-under13">If you're under 13, please use Tidelight with a parent, carer, or another adult you trust.</p>
+        </div>
+        <div class="app-age-confirm" tabindex="-1">
+          <h3 class="app-age-confirm-title">Please check your age group</h3>
+          <p>From that date, you're in the group for <strong class="app-group-name"></strong>. Is that right?</p>
+          <p>Here's what the app will do for your age:</p>
+<!-- INSERT:accommodations -->
+          <p class="ci-step-buttons"><button type="button" class="app-age-yes">Yes, that's right</button> <button type="button" class="app-age-redo">No, change the date</button></p>
+        </div>
+      </section>
+<!-- END -->
+
+<!-- BLOCK:foryou -->
+          <section class="app-foryou" aria-labelledby="app-foryou-title">
+            <h4 id="app-foryou-title">For your age</h4>
+            <div class="app-group" data-age-group="child">
+              <p>Tell a grown-up you trust how you're feeling, like a parent, a carer, a teacher, or a school counselor. You don't have to find the right words. "I'm not okay" is enough.</p>
+              <p>If you ever think about hurting yourself, tell an adult right away, or call or text 988.</p>
+            </div>
+            <div class="app-group" data-age-group="teen">
+              <p>Learning about feelings and mental health can help, and so can telling an adult you trust: a parent, a relative, a teacher, a coach, or a school counselor.</p>
+              <p>If you'd like a plan for hard moments, make it with a trusted adult or a counselor, not alone.</p>
+            </div>
+            <div class="app-group" data-age-group="young">
+              <p>Reach out to one person today, even with a short message. If you're a student, your school's counseling or health service is one place to start.</p>
+              <p>A plan for hard moments can help most when you make it with someone.</p>
+            </div>
+            <div class="app-group" data-age-group="adult">
+              <p>A safety plan is a short list for hard moments: signs that one is coming, things that help you cope, people and places to go to, professionals to call, and your reasons for living. It helps most when you make or review it with a doctor or counselor.</p>
+              <p>Talking to a doctor about how you've been feeling is a good place to start.</p>
+            </div>
+            <div class="app-group" data-age-group="older">
+              <p>Tell your doctor how you've been feeling, not only how your body is. Low mood is worth bringing up, and care for it helps.</p>
+              <p>Staying in touch with people and staying active, in whatever way suits you, can help too.</p>
+            </div>
+            <p class="app-foryou-note">Ideas for your age group, from research summarized in the app's notes. Not a treatment, and not reviewed by a professional yet.</p>
+          </section>
+<!-- END -->
+
+<!-- BLOCK:result-share -->
+          <p class="ci-step-buttons"><button type="button" class="app-share" data-share="result">Share how I'm feeling</button></p>
+<!-- END -->
+
+<!-- BLOCK:share-label -->Share<!-- END -->
+
+<!-- BLOCK:share-dialog -->
+    <section class="app-share-panel" id="app-share-panel" tabindex="-1" aria-labelledby="app-share-title">
+      <h2 id="app-share-title">Share with someone you choose</h2>
+      <p>You choose who gets this and how, in the next step. It goes to them, stays in their messages or email, and can't be taken back.</p>
+      <p>The person may not see it for hours, so this isn't a way to get urgent help. If you need help now, <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a>. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</p>
+      <p class="ci-field"><label for="app-share-text">What will be shared. You can change it.</label></p>
+      <textarea id="app-share-text" rows="5" autocomplete="off"></textarea>
+      <p class="ci-field"><label><input type="checkbox" id="app-share-intro"> Start with "I wanted to share this with you."</label></p>
+      <p class="app-share-intro-text">I wanted to share this with you.</p>
+      <p class="app-share-feeling-text">Today I'm feeling:</p>
+      <p class="ci-step-buttons"><button type="button" class="app-share-go">Choose who to share with</button> <button type="button" class="app-share-cancel">Cancel</button></p>
+      <p class="app-share-copied" role="status">Copied. You can paste it into a message.</p>
+    </section>
+<!-- END -->
+
+<!-- BLOCK:journal-note -->
+        <p class="ci-note">Your entries are saved on this phone only, and are never read, analyzed, or sent anywhere unless you share one.</p>
+<!-- END -->
+
+<!-- BLOCK:journey-note -->
+        <p class="ci-note">What you've shared, saved on this phone. Nothing here is scored.</p>
+<!-- END -->
+
+<!-- BLOCK:settings -->
+        <section class="app-settings" aria-labelledby="app-settings-title">
+          <h3 id="app-settings-title">Your age group</h3>
+          <p>The app shows ideas for <strong class="app-group-name"></strong>. What it does for your age:</p>
+<!-- INSERT:accommodations -->
+          <p class="app-text-size"><span class="app-text-large-on">Text is larger for easier reading.</span><span class="app-text-large-off">Text is the regular size.</span> <button type="button" class="app-text-toggle"><span class="app-text-large-on">Use regular text</span><span class="app-text-large-off">Use larger text</span></button></p>
+          <p>If this group isn't right, enter your date of birth again. The right age group matters for the best help.</p>
+          <p class="app-group-names"><span data-age-group="child">children under 13</span><span data-age-group="teen">ages 13 to 17</span><span data-age-group="young">ages 18 to 24</span><span data-age-group="adult">ages 25 to 64</span><span data-age-group="older">ages 65 and over</span></p>
+          <p class="ci-step-buttons"><button type="button" class="app-age-change">Enter my date of birth again</button></p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:accommodations -->
+          <ul class="app-accommodations">
+            <li>988, 911, and Quick exit stay on every screen, at every age.</li>
+            <li data-age-group="child">A box at the top of Today for the grown-up with you, on how to listen and help.</li>
+            <li data-age-group="child">Ideas that point you to a grown-up you trust.</li>
+            <li data-age-group="teen">A box at the top of Today with help for people under 18, including support for LGBTQ+ young people.</li>
+            <li data-age-group="teen">Ideas about understanding feelings and reaching an adult you trust. That doesn't have to be a parent.</li>
+            <li data-age-group="young">A box at the top of Today about reaching out, and student counseling.</li>
+            <li data-age-group="young">Ideas about making a plan for hard moments with someone.</li>
+            <li data-age-group="adult">A box at the top of Today about a safety plan, and how to make one with a professional.</li>
+            <li data-age-group="adult">Ideas about talking to a doctor or counselor.</li>
+            <li data-age-group="older">Larger text, which you can change back.</li>
+            <li data-age-group="older">A box at the top of Today about talking to your doctor and staying in touch with people.</li>
+          </ul>
+<!-- END -->
+
+<!-- BLOCK:today-box -->
+        <aside class="app-age-box" aria-label="For your age">
+          <div data-age-group="child">
+            <h3>For the grown-up with you</h3>
+            <p>If you're helping a child with this app: ask how they're feeling, listen without judging, keep anything that could hurt them out of reach, help them reach help, and check in again later. If a child says they're thinking about suicide or hurting themselves, stay with them and call or text 988. In immediate danger, call 911.</p>
+            <p><a href="../get-help/#under-18">Help for people under 18</a></p>
+          </div>
+          <div data-age-group="teen">
+            <h3>Help for people under 18</h3>
+            <p>An adult you trust can help: a relative, a teacher, a coach, a school counselor, or a parent if that feels safe. If you're LGBTQ+, there's support made for you too.</p>
+            <p><a href="../get-help/#under-18">If you're under 18</a> · <a href="../get-help/#other-ways">Support for LGBTQ+ young people</a> · <a href="../teens/">For teens</a></p>
+          </div>
+          <div data-age-group="young">
+            <h3>Reaching out</h3>
+            <p>Talking with one person you trust can help. If you're a student, your school's counseling or health service is one place to start.</p>
+            <p><a href="../get-help/#other-ways">Other ways to reach someone</a></p>
+          </div>
+          <div data-age-group="adult">
+            <h3>A plan for hard moments</h3>
+            <p>A safety plan lists signs that a hard moment is coming, what helps, who to contact, and your reasons for living. It helps most when you make it, or go over it, with a doctor or counselor.</p>
+            <p><a href="../get-help/#hard-moment">Planning for a hard moment</a></p>
+          </div>
+          <div data-age-group="older">
+            <h3>Your doctor can help</h3>
+            <p>Tell your doctor how you've been feeling, not only how your body is. Staying in touch with people, even with a short call, can help too.</p>
+            <p><a href="../get-help/#other-ways">Other ways to reach someone</a></p>
+          </div>
+        </aside>
+<!-- END -->
+
+<!-- BLOCK:erase-note -->
+          <p>In the app, this also deletes what's saved on this phone. A copy in an earlier iCloud or Google backup can last until the phone's next backup. Your places and your people from Places that are hard for me go too. Your name, your home spot, your streak, and your meditation history go too. Your age group, your settings, and your saved meditations stay, so you aren't asked again.</p>
+<!-- END -->
+
+<!-- BLOCK:about-checkin -->
+            <li><strong>The Daily check-in.</strong> In the app, what you choose and write there is saved on this phone only, and is included in the phone's iCloud or Google backup if that's on. Tidelight never receives it. Delete everything, in Your journey, removes it from the phone. Check-in reminders you turn on are shown by the phone itself and say nothing about you. <a href="../check-in/">Go to the Daily check-in</a>.</li>
+<!-- END -->
+
+<!-- BLOCK:today-log -->
+        <section class="app-log-section" aria-labelledby="app-log-title">
+          <h3 id="app-log-title">Today's check-ins</h3>
+          <p class="ci-empty app-log-empty">No check-ins today yet.</p>
+          <ul class="ci-list app-log" aria-labelledby="app-log-title"></ul>
+          <p class="app-log-words"><span class="app-log-feeling-text">feeling:</span><span class="app-log-needs-text">Needs:</span><span class="app-slot" data-slot="morning">Morning</span><span class="app-slot" data-slot="midday">Midday</span><span class="app-slot" data-slot="afternoon">After school</span><span class="app-slot" data-slot="evening">Before bed</span></p>
+          <p>You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.</p>
+          <p class="ci-step-buttons"><button type="button" class="app-share-days" data-days="1">Share today's check-ins</button> <button type="button" class="app-share-days" data-days="7">Share the last 7 days</button></p>
+          <p class="app-sum-words"><span class="app-sum-title">Tidelight check-ins</span><span class="app-sum-footer">Shared by me from Tidelight. It isn't a way to get urgent help. If you're worried about me, please call me.</span><span class="app-sum-none">No check-ins on these days.</span></p>
+        </section>
+<!-- END -->
+
+<!-- Places that are hard for me (idea E1): a draft the reviewer hasn't seen. -->
+<!-- BLOCK:places -->
+        <section class="app-places" id="app-places" tabindex="-1" aria-labelledby="app-places-title">
+          <h3 id="app-places-title">Places that are hard for me</h3>
+          <p>Some people have a place that's hard to be near. If you'd like, you can tell this phone about yours, so that when you've stayed there for a while, the phone can check in with you and, if you choose, let people you trust know where you are.</p>
+          <p>This is off until you turn it on. The app suggests no places: only you decide what counts as a hard place for you. Your places and your people stay on this phone, and Tidelight never receives them. You can turn this off or remove anything at any time, and nobody is told.</p>
+          <p class="ci-field"><label><input type="checkbox" class="app-places-on"> Turn this on</label></p>
+          <p class="app-places-web" role="status">This works in the app on a phone. In a web browser you can look at it, but no place can be watched.</p>
+          <div class="app-places-setup">
+            <h4>Permission</h4>
+            <p class="app-places-perm">For this to work with the app closed, the phone needs to allow Tidelight to use your location "always". The phone asks in two steps, first "while using the app", then "always", sometimes a few days later. Your location is only used to notice your own places, and it's never sent unless you choose to send it.</p>
+            <p class="app-places-perm-state" role="status"><span data-auth="notDetermined">Location permission hasn't been asked yet.</span><span data-auth="whenInUse">The phone allows location only while the app is open, so a closed app can't notice a place. To allow "always", open the phone's Settings, Tidelight, Location.</span><span data-auth="always">The phone allows location always. Your places can be noticed with the app closed.</span><span data-auth="denied">The phone isn't allowing Tidelight to use your location, so no place can be noticed. You can change that in the phone's Settings, under Tidelight.</span><span data-auth="restricted">This phone doesn't allow location for this app.</span></p>
+            <p class="app-places-unavailable" role="status">This phone can't watch places, so nothing can be noticed here. Your places are kept, in case you use the app on a phone that can.</p>
+            <p class="ci-step-buttons"><button type="button" class="app-places-allow">Allow location</button></p>
+            <p class="app-places-notif" role="status">This phone isn't letting Tidelight show notifications, so it couldn't check in with you. You can change that in the phone's Settings, under Tidelight.</p>
+
+            <h4>Your places</h4>
+            <p>Add a place by choosing it on a map, or by searching an address. Give it a name only you need to understand, and choose how close counts.</p>
+            <p class="ci-empty app-places-empty">No places yet. You don't have to add any.</p>
+            <ul class="ci-list app-places-list" aria-label="Your places"></ul>
+            <p class="ci-step-buttons"><button type="button" class="app-place-add">Add a place</button></p>
+            <p class="app-places-full" role="status">The phone can watch up to 20 places. Remove one to add another.</p>
+
+            <h4>People you trust</h4>
+            <p>Choose up to 5 people from your contacts. The app keeps their name and phone number on this phone only. They aren't told that you chose them, and nothing is sent to them unless you send it.</p>
+            <p class="ci-empty app-people-empty">No one chosen yet. Without someone chosen, the phone can still check in with you, but there's nobody to send a message to.</p>
+            <ul class="ci-list app-people-list" aria-label="People you trust"></ul>
+            <p class="ci-step-buttons"><button type="button" class="app-person-add">Choose someone from my contacts</button></p>
+            <p class="app-people-full" role="status">You can choose up to 5 people. Remove one to add another.</p>
+
+            <h4>How long before the phone checks in with you</h4>
+            <p class="ci-field"><label for="app-dwell">After staying at a place for</label></p>
+            <select id="app-dwell" class="app-dwell"><option value="10">10 minutes</option><option value="20" selected>20 minutes</option><option value="30">30 minutes</option><option value="1" class="app-dwell-test">1 minute (test builds only)</option></select>
+            <p>Passing through a place does nothing. Only staying counts.</p>
+
+            <h4>What the phone shows</h4>
+            <p>When the time is up, the phone shows a notification from Tidelight. By default it says only "Your plan is here," so nothing private shows on the lock screen. Opening it shows how long you've been there, your people, 988 and 911, and the choices below.</p>
+            <p class="ci-field"><label><input type="checkbox" class="app-places-lock"> Show the place's name and the time on the lock screen</label></p>
+
+            <h4>Your message</h4>
+            <p>If you choose to send it, this message goes to your people through the phone's own Messages app, with a map link to where you are. You see it first and tap Send yourself; the app can't send a text on its own. You can change the words now.</p>
+            <p class="ci-field"><label for="app-places-message">Your message</label></p>
+            <textarea id="app-places-message" class="app-places-message" rows="4" autocomplete="off"></textarea>
+            <p class="app-places-message-default">I'm having a hard time right now and I'd like you to call me. I set this up in Tidelight to send when I stay at a place that's hard for me. Here's where I am:</p>
+
+            <h4>Good to know</h4>
+            <ul>
+              <li>Before you rely on this, try it once with someone you chose, so you both know what arrives.</li>
+              <li>It can't work when the phone is off, in airplane mode, out of battery, has location turned off, or is somewhere the phone can't tell where it is, like underground. It may take the phone a few minutes to notice a place, and places smaller than about 100 meters are unreliable.</li>
+              <li>The phone only notices your chosen places. It doesn't track where you go, and the app keeps no record of visits.</li>
+              <li>A message to your people isn't a way to get urgent help. They may not see it for a while. If you need help now, <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a>. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</li>
+            </ul>
+            <p class="app-places-status" role="status"></p>
+            <p class="ci-step-buttons app-places-test"><button type="button" class="app-places-test-enter">Pretend I just arrived at my first place (test builds only)</button></p>
+          </div>
+          <template class="app-place-template">
+            <li class="ci-item"><span class="ci-item-text"><strong class="app-place-name"></strong> <span class="app-place-radius"></span></span> <span class="app-item-buttons"><button type="button" class="app-place-edit">Edit</button> <button type="button" class="app-place-remove">Remove</button></span></li>
+          </template>
+          <template class="app-person-template">
+            <li class="ci-item"><span class="ci-item-text"><strong class="app-person-name"></strong> <span class="app-person-phone"></span></span> <button type="button" class="app-person-remove">Remove</button></li>
+          </template>
+          <p class="app-places-words">
+            <span data-word="radiusText">within about {meters} meters</span>
+            <span data-word="watching">On. The phone is watching {count} place(s).</span>
+            <span data-word="watchingNone">On, but no place is added yet.</span>
+            <span data-word="off">Off. Nothing is watched.</span>
+            <span data-word="and">and</span>
+            <span data-word="notifTitle">Tidelight</span>
+            <span data-word="notifBody">Your plan is here.</span>
+            <span data-word="notifBodyWithPlace">You've been at {place} for {minutes} minutes. Your plan is here.</span>
+            <span data-word="notifOkay">I'm okay</span>
+            <span data-word="notifSend">Send my message</span>
+            <span data-word="notifCall988">Call 988</span>
+            <span data-word="notifCall911">Call 911</span>
+            <span data-word="linkLabel">Where I am</span>
+            <span data-word="mapTitle">Choose a place</span>
+            <span data-word="mapCancel">Cancel</span>
+            <span data-word="mapSave">Save</span>
+            <span data-word="mapSearchPlaceholder">Search an address or a place</span>
+            <span data-word="mapHint">Touch and hold the map to put the pin where the place is, or search above.</span>
+            <span data-word="mapUseHere">Use where I am now</span>
+            <span data-word="mapNamePlaceholder">A name only you need to understand</span>
+            <span data-word="mapNameLabel">Name for this place</span>
+            <span data-word="mapRadiusLabel">How close counts</span>
+            <span data-word="mapRadiusText">Within about {meters} meters</span>
+            <span data-word="mapLabel">Map. Touch and hold to place the pin.</span>
+            <span data-word="mapNotFound">Nothing found for that. Try another address, or touch and hold the map.</span>
+            <span data-word="mapNoLocation">The phone couldn't find where you are right now. Touch and hold the map instead.</span>
+            <span data-word="mapNeedPin">Put the pin on the map first.</span>
+            <span data-word="mapNeedName">Give the place a name first.</span>
+          </p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:place-alert -->
+    <section class="app-place-alert" id="app-place-alert" tabindex="-1" aria-labelledby="app-alert-title">
+      <h2 id="app-alert-title">You've been at <span class="app-alert-place"></span> for <span class="app-alert-minutes"></span> minutes</h2>
+      <p class="app-alert-intro">You set this up for yourself. Would you like to send your message, with where you are, to <strong class="app-alert-names"></strong>?</p>
+      <p class="app-alert-nobody">You haven't chosen anyone to send a message to, so nothing can be sent. You can choose people on the Location tab.</p>
+      <p class="app-alert-countdown" role="status">Your message will open in Messages in <strong class="app-alert-seconds"></strong> seconds, unless you tap I'm okay. You tap Send there yourself.</p>
+      <p class="ci-step-buttons"><button type="button" class="app-alert-send">Send my message now</button> <button type="button" class="app-alert-okay">I'm okay</button></p>
+      <p class="app-alert-crisis">You can also <a class="tel-link" href="tel:988">call 988</a> or <a class="tel-link" href="sms:988">text 988</a> right now, any time. In immediate danger, <a class="tel-link" href="tel:911">call 911</a>.</p>
+      <p class="app-alert-okay-done" role="status">Okay. Nothing was sent. The phone won't ask again while you're here.</p>
+      <p class="app-alert-opened" role="status">Your message is ready in Messages. Tap Send there, or cancel. Nothing has been sent yet.</p>
+      <p class="app-alert-fallback" role="status">This phone can't open Messages with your people filled in, so the share sheet opened instead. Choose Messages and your people there, or cancel.</p>
+      <p class="app-alert-sent" role="status">Your message was sent. If you can, keep your phone nearby so they can reach you. 988 is also here for you.</p>
+      <p class="app-alert-cancelled" role="status">Nothing was sent. You can send it later from here, or tap I'm okay.</p>
+      <p class="ci-step-buttons app-alert-close-row"><button type="button" class="app-alert-close">Close</button></p>
+    </section>
+<!-- END -->

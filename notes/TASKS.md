@@ -17,7 +17,11 @@ Planning tasks below are suggestions; ownership has not been agreed.
 - [ ] **⚠️ Important, first for attention:** the licensed reviewer looks at idea E1, "Places that
   are hard for me", an opt-in safety-plan feature for the phone app, and the question about it at
   the top of [[CONTENT-REVIEW]]. Both founders agreed on Nov 9, 2026, that it waits for the reviewer.
-  Nothing is built. Owner: the founder arranging the review. Details at the top of [[IDEAS]].
+  A draft is built in the phone app (see Ready for review); it is not agreed to ship. Owner: the
+  founder arranging the review. Details at the top of [[IDEAS]].
+- [ ] **⚠️ Important:** decide which app suggestions at the end of [[AGE-STRATEGIES]] to build, after
+  the reviewer has read them. One founder marked them Important on November 9, 2026, and said not to
+  build them yet. Owner: both founders, with the reviewer.
 - [x] Decide what the public GitHub Pages link should show until the site is reviewed. Both
   founders chose pull request 12, the one crisis page, on November 9, 2026. See [[DECISIONS]].
 - [ ] Publish the one crisis page. Pull request 12 has a website-only publish step since November
@@ -99,6 +103,65 @@ Planning tasks below are suggestions; ownership has not been agreed.
 Nothing else has been claimed. Add an owner above when you start.
 
 ## Ready for review
+
+- [ ] **The phone app, as one version.** Everything in the app pull requests below, on one branch and up to
+  date with pull request 5's branch. Owner: Claude, at one founder's request. Branch: `app/review-version`, one
+  draft pull request, number 30, into `claude/jolly-mayer-2m6eno`. Both founders review this one in place of pull
+  requests 16, 19, 20, 21, 25, 26, 27, 28 and 29, and decide on the plainer look. Seven of the older ones were
+  closed on November 14, 2026, by the founder who opened them; 16 and 21 are for the other founder to close. The reviewer gets [[REVIEWER-PACKET]] from this branch. Handoff:
+  [[worklogs/2026-11-14-claude-app-review-version]].
+
+- [ ] Phone app redesign from one founder's build spec (`app/BUILD-SPEC.md`): tabs, onboarding, quick
+  check-in, streaks, meditation, haptics. Owner: Claude. Branch: `app/redesign-dev`, draft pull request 25
+  into `app/first-build`. Both founders read `app/BUILD-SPEC.md`, the six safety rules in `app/CLAUDE.md`,
+  and the questions in [[CONTENT-REVIEW]], then try it on a real phone with `app/TESTING_CHECKLIST.md`.
+  Handoff: [[worklogs/2026-11-11-claude-app-redesign]].
+- [ ] Phone app visual identity from one founder's design brief (`app/DESIGN-BRIEF.md`): look only, no
+  feature changes. Owner: Claude. Branch: `app/visual-identity`, draft pull request 26 into
+  `app/redesign-dev`. Both founders compare the screens (`app/design/COMPARISON.md`), read the copy changes
+  in the pull request and the new questions in [[CONTENT-REVIEW]], then try it on a real phone.
+  Handoff: [[worklogs/2026-11-11-claude-app-visual-identity]].
+- [ ] Phone app launch readiness from one founder's brief (`app/LAUNCH-BRIEF.md`): tests, measurements,
+  fixes, and documents; no new wording. Also the tab bar on every page inside the app. Owner: Claude.
+  Branch: `app/launch-readiness`, draft pull request 27 into `app/redesign-dev`. Both founders read
+  [[FOUNDER-SUMMARY]], decide the items in [[LAUNCH-BACKLOG]], send [[REVIEWER-PACKET]] and
+  [[LEGAL-PACKET]], and try the app on a real iPhone with `app/TESTING_CHECKLIST.md`.
+  Handoff: [[worklogs/2026-11-12-claude-app-launch-readiness]].
+- [ ] Phone app fonts: Literata for headlines and the phone's own font for body text, chosen by one founder
+  from a side-by-side preview. Look only. Owner: Claude. Branch: `app/literata-font`, a draft pull request
+  into `app/launch-readiness`. The other founder looks at it, and both try it on a real phone, where the
+  body font is the phone's own. Handoff: [[worklogs/2026-11-14-claude-app-literata-font]].
+- [ ] Four fixes to the phone app before review: Home after Quick exit, "1 minute in all", the phone's photo
+  picker for the Hope box, and a draft privacy manifest. Owner: Claude, at one founder's request. Branch:
+  `app/pre-review-fixes`, a draft pull request into `app/literata-font`. Both founders decide the two items
+  that were not built (the short crisis strip at the largest text sizes, and crisis links inside sentences),
+  with the reviewer. Handoff: [[worklogs/2026-11-14-claude-app-pre-review-fixes]].
+- [ ] My circle (E2, no accounts) and Hope box (F9) in the phone app, at one founder's request. Owner:
+  Claude. Branch: `app/my-circle-and-hope-box`, draft pull request into `app/hard-places-and-reminders`.
+  Not merged, never run on a phone. Handoff: [[worklogs/2026-11-10-claude-circle-and-hope-box]].
+- [ ] Give `notes/review-packet/tidelight-app-words.html` (every word the app adds, numbered) to the
+  licensed reviewer and the fluent Spanish reader. Owner: unassigned.
+
+- [ ] Phone app first draft: on-phone saving, age setup, and Share this reflection for the Daily check-in,
+  at one founder's request. Owner: Claude. Branch: `app/first-build`, draft pull request into
+  `claude/jolly-mayer-2m6eno`. Not merged, never run on a phone. Next: the reviewer reads
+  `app/src/text/en.html` and [[AGE-STRATEGIES]], a fluent reader checks `app/src/text/es.html`, a lawyer
+  advises on under-13s, and someone tries it on a real iPhone and Android phone. Handoff:
+  [[worklogs/2026-11-09-claude-phone-app-first-build]].
+- [ ] Check-in reminders and shared check-ins in the app, at one founder's request. Owner: Claude. Branch:
+  `app/daily-check-ins`, draft pull request into `app/first-build`. Not merged, never run on a phone. Next: both
+  founders read [[CHECK-IN-SCHEDULE]] and decide, the reviewer reads the new words in `app/src/text/`, and someone
+  tries the reminders on a real phone. Handoff: [[worklogs/2026-11-09-claude-daily-check-ins]].
+- [ ] Both founders read [[LOCATION-ALERT]] and choose a route with the reviewer. Route A is now a draft on
+  `app/hard-places-and-reminders`, so the choice is whether to keep, change, or drop it. Owner: both.
+- [ ] "Places that are hard for me" (E1) in the app, at one founder's request. Owner: Claude. Branch:
+  `app/hard-places-and-reminders`, draft pull request into `app/first-build`, built on top of `app/daily-check-ins`
+  (pull request 19). Not merged, never run on a real phone. Next: both founders decide, the reviewer reads the new
+  words in `app/src/text/` and the questions in [[CONTENT-REVIEW]], a lawyer advises on minors and location data, and
+  someone tries it on a real iPhone with the app closed. Handoff: [[worklogs/2026-11-10-claude-hard-places]].
+- [ ] Both founders go through [[IDEAS-ROUND-3]] and mark each idea Approved, Not now, or No. Owner: both.
+- [ ] Add the app's words (`app/src/text/`) to the review packets, so the reviewer's packet covers them.
+  Owner: unassigned.
 
 - [ ] Daily check-in page, English and Spanish, at one founder's request. Owner: Claude. Branch:
   `site/daily-check-in`, merged into `claude/jolly-mayer-2m6eno` (pull request 5's branch) on

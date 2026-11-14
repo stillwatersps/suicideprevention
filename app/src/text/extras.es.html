@@ -1,0 +1,92 @@
+<!-- Palabras de la Caja de esperanza (idea F9) y Mi círculo (idea E2, la versión sin cuentas).
+     Borrador sin revisar: traducción de IA que ninguna persona con fluidez ha revisado, y ningún
+     profesional ha leído. tools/build-extras.mjs pone cada bloque en la copia de la app de
+     es/registro-diario/index.html. -->
+
+<!-- BLOCK:hope-tab -->
+          <li><a href="#app-hope">Caja de esperanza</a></li>
+<!-- END -->
+
+<!-- BLOCK:hope -->
+      <section class="ci-panel" id="app-hope" tabindex="-1" aria-labelledby="app-hope-title">
+        <h2 id="app-hope-title">Caja de esperanza</h2>
+        <p class="ci-lead">Un lugar para guardar lo que te recuerda por qué sigues adelante: una foto, unas palabras de alguien, una canción, una razón. Agrégale cosas en los días mejores y ábrela en los difíciles.</p>
+        <p class="ci-note">Todo lo que hay aquí se queda en esta app, en este teléfono. Nunca se envía a ningún lugar, y Compartir nunca lo incluye. Borrar todo, en Tu camino, la vacía. Puede que las fotos no vuelvan si cambias de teléfono, así que conserva las originales.</p>
+        <p class="app-hope-crisis">Una caja de esperanza no es una forma de pedir ayuda. Si piensas en el suicidio, <a class="tel-link" href="tel:988">llama al 988</a> y marca 2, o <a class="tel-link" href="sms:988">envía AYUDA al 988</a>, a cualquier hora. Si hay peligro inmediato, <a class="tel-link" href="tel:911">llama al 911</a>.</p>
+
+        <section aria-labelledby="app-hope-words-title">
+          <h3 id="app-hope-words-title">Agregar unas palabras</h3>
+          <fieldset class="app-hope-kinds">
+            <legend>¿Qué es?</legend>
+            <label><input type="radio" name="app-hope-kind" value="reason" checked> Una razón por la que sigo adelante</label>
+            <label><input type="radio" name="app-hope-kind" value="message"> Algo amable que alguien me dijo</label>
+            <label><input type="radio" name="app-hope-kind" value="song"> Una canción, un libro o un lugar que me calma</label>
+            <label><input type="radio" name="app-hope-kind" value="other"> Otra cosa</label>
+          </fieldset>
+          <p class="ci-field"><label for="app-hope-text">Escríbelo aquí</label></p>
+          <textarea id="app-hope-text" rows="3" autocomplete="off"></textarea>
+          <p class="ci-step-buttons"><button type="button" class="app-hope-add">Agregar a mi caja de esperanza</button></p>
+        </section>
+
+        <section aria-labelledby="app-hope-photo-title">
+          <h3 id="app-hope-photo-title">Agregar una foto</h3>
+          <p>Elige una foto de alguien, de un lugar o de algo que te importa. La app guarda su propia copia más pequeña.</p>
+          <p class="ci-field"><label for="app-hope-photo">Elegir una foto de este teléfono</label></p>
+          <input type="file" id="app-hope-photo" accept="image/*">
+          <p class="app-hope-photo-problem" role="status">No se pudo agregar esa foto. Prueba con otra.</p>
+        </section>
+
+        <section aria-labelledby="app-hope-contents-title">
+          <h3 id="app-hope-contents-title">En tu caja de esperanza</h3>
+          <p class="ci-empty app-hope-empty">Todavía no hay nada. Una cosa pequeña basta para empezar.</p>
+          <ul class="ci-list app-hope-words" aria-label="Palabras en tu caja de esperanza"></ul>
+          <div class="app-hope-photos"></div>
+          <template class="app-hope-word-template">
+            <li class="app-hope-word"><span class="app-hope-word-kind"></span> <span class="app-hope-word-text"></span> <button type="button" class="app-hope-remove">Quitar</button></li>
+          </template>
+          <template class="app-hope-photo-template">
+            <figure class="app-hope-photo"><img alt="Una foto de tu caja de esperanza"><figcaption><button type="button" class="app-hope-remove">Quitar esta foto</button></figcaption></figure>
+          </template>
+        </section>
+      </section>
+<!-- END -->
+
+<!-- BLOCK:circle -->
+        <section class="app-circle" id="app-circle" aria-labelledby="app-circle-title">
+          <h3 id="app-circle-title">Mi círculo</h3>
+          <p>Unas pocas personas de confianza, como un familiar, una amistad, un médico o un terapeuta. Tú decides quién está en él, y cada vez eliges qué ven. Todo lo demás sigue siendo privado.</p>
+          <ul class="app-accommodations">
+            <li>No hay cuentas. Las personas de tu círculo no necesitan esta app.</li>
+            <li>Solo ven lo que tú les envías, como un mensaje de texto tuyo. Tidelight nunca lo ve.</li>
+            <li>Nada se envía solo. Mensajes se abre con tus palabras ya escritas, y tú tocas Enviar.</li>
+            <li>Una vez enviado, se queda en sus teléfonos y no se puede deshacer.</li>
+            <li>No es una forma de pedir ayuda urgente. Puede que no lo lean en horas. Si necesitas ayuda ahora, <a class="tel-link" href="tel:988">llama al 988</a> y marca 2, o <a class="tel-link" href="sms:988">envía AYUDA al 988</a>. Si hay peligro inmediato, <a class="tel-link" href="tel:911">llama al 911</a>.</li>
+          </ul>
+          <p data-age-group="child">Pídele a una persona adulta de confianza que te ayude a elegir quién está en tu círculo.</p>
+          <p data-age-group="teen">Tú eliges quién está en tu círculo. No tiene que ser tu mamá o tu papá.</p>
+          <h4 id="app-circle-people-title">Personas de mi círculo</h4>
+          <p class="ci-empty app-circle-empty">Todavía nadie.</p>
+          <ul class="ci-list app-circle-list" aria-labelledby="app-circle-people-title"></ul>
+          <template class="app-circle-person-template">
+            <li class="app-circle-person"><span class="app-circle-name"></span> <span class="app-circle-phone"></span> <button type="button" class="app-circle-remove">Quitar</button></li>
+          </template>
+          <p class="ci-step-buttons"><button type="button" class="app-circle-add">Elegir a alguien de mis contactos</button> <button type="button" class="app-circle-import">Agregar a las personas de "Lugares que son difíciles para mí"</button></p>
+          <p class="app-circle-full" role="status">Un círculo puede tener hasta 5 personas. Quita a una para agregar a otra.</p>
+          <p class="app-circle-no-phone" role="status">Ese contacto no tiene número de teléfono, así que no se puede agregar.</p>
+          <p>Para compartir algo, toca Compartir en un registro, una entrada del diario o algo que guardaste, y luego elige "Enviar a mi círculo".</p>
+          <h4 id="app-circle-log-title">Lo que he compartido con mi círculo</h4>
+          <p class="ci-note">Una lista para ti, guardada en este teléfono, de lo que abriste en Mensajes para tu círculo. La app no puede saber si tocaste Enviar.</p>
+          <p class="ci-empty app-circle-log-empty">Todavía no has compartido nada.</p>
+          <ul class="ci-list app-circle-log" aria-labelledby="app-circle-log-title"></ul>
+          <p class="ci-step-buttons"><button type="button" class="app-circle-log-clear">Vaciar esta lista</button></p>
+        </section>
+<!-- END -->
+
+<!-- BLOCK:circle-share -->
+    <template class="app-circle-share-template">
+      <span class="app-circle-share">
+        <button type="button" class="app-circle-send">Enviar a mi círculo</button>
+        <span class="app-circle-opened" role="status">Mensajes se está abriendo con tu círculo ya puesto. Nada se envía hasta que toques Enviar.</span>
+      </span>
+    </template>
+<!-- END -->
