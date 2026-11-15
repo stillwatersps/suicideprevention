@@ -1180,6 +1180,20 @@ nothing the person saved. Questions:
 - Should the widget offer Call 988? It was left off, because a crisis number on a Home Screen is not discreet;
   the app's own screens all have it.
 
+### "Other ways to reach someone", inside the app
+
+A second screen made the same way as the 988 screen: it shows the Get Help page's own section of that name
+(Spanish, Deaf or hard of hearing, other languages, the Veterans Crisis Line, LGBTQ+ youth through 988, The
+Trevor Project, Crisis Text Line, 911; in Spanish, SAMHSA's Spanish line too), **word for word and link for
+link**, copied when the app is built. A test fails if a word or a link differs, so your answers about that
+section on the website apply here. It is reached from the support screen after a very low check-in and from
+part 5 of the safety plan, both under the crisis buttons.
+
+- Is a list of eight services helpful on the support screen's path, or too much to read in a hard moment?
+  Should the app show only the services that fit the person's age group?
+- The English page's Spanish block ("En español") now has AYUDA filled in for its text link, like the
+  Spanish pages. English links are unchanged.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

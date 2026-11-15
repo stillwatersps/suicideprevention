@@ -452,3 +452,11 @@ html.tl .tl-support-actions .tl-btn { max-width: 100%; white-space: normal; over
 .tl-ground-steps li { padding: var(--tl-space-xs) 0; border-top: var(--tl-border) solid var(--tl-line); overflow-wrap: anywhere; }
 html.tl .tl-ground-part .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 
+/* "Other ways to reach someone": the Get Help page's own list of services, on a screen of the app.
+   The page's own styles draw it; these keep every link a full-size target that wraps its words. */
+.tl-ways-body { display: grid; gap: var(--tl-space-sm); }
+.tl-ways-body p { margin: 0; overflow-wrap: anywhere; }
+.tl-ways-body .service-list { margin: 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
+.tl-ways-body .service { min-width: 0; }
+.tl-ways-body .pill { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tl-tap); min-width: var(--tl-tap); max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+

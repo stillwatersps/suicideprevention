@@ -242,10 +242,18 @@ console.log('\nThe inventory');
   const allowed = { 'tel:988': 1, 'sms:988': 1, [TEXT_AYUDA]: 1, 'tel:911': 1, '#support': 1, [EXIT_TO]: 1, 'https://988lifeline.org/': 1, 'https://chat.988lifeline.org/': 1, 'https://chat.988lifeline.org/?lang=es': 1,
     // 988's own page on what it keeps private, linked from the Get Help page's section that the app also shows.
     'https://988lifeline.org/confidentiality/': 1, 'https://988lifeline.org/es/confidencialidad/': 1 };
+  // "Other ways to reach someone" is the Get Help page's own section, shown in the app link for
+  // link. The other services it names (the Veterans Crisis Line, The Trevor Project, Crisis Text
+  // Line, and the rest) are allowed because that page names them, and only for that reason: the
+  // list is read from the page itself, in both languages, never written here.
+  for (const file of ['get-help/index.html', 'es/obtener-ayuda/index.html']) {
+    const section = readFileSync(join(fileURLToPath(new URL('../www/', import.meta.url)), file), 'utf8').match(/<section id="other-ways"[\s\S]*?<\/section>/);
+    for (const m of (section ? section[0] : '').matchAll(/<a\b[^>]*\bhref="((?:tel|sms|https):[^"]+)"/g)) allowed[m[1].replace(/&amp;/g, '&')] = 1;
+  }
   for (const lang of ['en', 'es']) {
     const controls = Object.values(inventory.languages[lang]).flatMap((s) => s.controls);
     const odd = [...new Set(controls.map((c) => c.href))].filter((href) => !allowed[href]);
-    check(odd.length === 0, `${lang}: every crisis link leads to one of the eight known places` + (odd.length ? ': not ' + odd.join(', ') : ''));
+    check(odd.length === 0, `${lang}: every crisis link leads to a known place: 988, 911, Support, Quick exit, 988's own pages, or a service the Get Help page names` + (odd.length ? ': not ' + odd.join(', ') : ''));
     const everyScreen = Object.entries(inventory.languages[lang]);
     const lacking = everyScreen.filter(([, s]) => !['strip|tel:988|1', `strip|${lang === 'es' ? TEXT_AYUDA : 'sms:988'}|1`, 'strip|tel:911|1', `strip|${EXIT_TO}|1`].every((key) => s.controls.some((c) => c.key === key && c.aboveFold && c.fullTarget))).map(([id]) => id);
     check(lacking.length === 0, `${lang}: Call 988, Text 988, Call 911, and Quick exit are in view, full size, on all ${everyScreen.length} screens` + (lacking.length ? ': not ' + lacking.join(', ') : ''));
@@ -255,8 +263,11 @@ console.log('\nThe inventory');
   // One known difference, from the website's own pages: where English ends its panel with a link to
   // 988lifeline.org, Spanish links to 988's Spanish chat a second time.
   // And on the 988 screen, the links to 988's own site inside the section copied from the Get Help
-  // page are that page's own, and the Spanish page has one more than the English (its chat).
-  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.filter((c) => !c.key.startsWith('tl-expect|https://')).map((c) => c.key.replace(TEXT_AYUDA, 'sms:988').replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
+  // page are that page's own, and the Spanish page has one more than the English (its chat). The
+  // "Other ways" screen is that page's list of services, which differs by language on the page itself
+  // (English has a Spanish block; Spanish has SAMHSA's Spanish line), so it is compared with its
+  // page, in test/ways-test.mjs, and not with the other language.
+  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.filter((c) => !c.key.startsWith('tl-expect|https://') && !c.key.startsWith('tl-ways|')).map((c) => c.key.replace(TEXT_AYUDA, 'sms:988').replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
   const en = same('en');
   const es = same('es');
   const differs = Object.keys(en).filter((id) => en[id] !== es[id]);
@@ -273,13 +284,14 @@ console.log('\nTexting 988 in Spanish');
   const all = pages(www).map((file) => ({ file, spanish: file.startsWith('es/'), links: links(file) }));
   const spanish = all.filter((p) => p.spanish).flatMap((p) => p.links.map((l) => Object.assign({ file: p.file }, l)));
   const english = all.filter((p) => !p.spanish).flatMap((p) => p.links.map((l) => Object.assign({ file: p.file }, l)));
-  const says = spanish.filter((l) => /\bAYUDA\b/.test(l.words) && /^sms:988/.test(l.href));
+  const everywhere = [...spanish, ...english];
+  const says = everywhere.filter((l) => /\bAYUDA\b/.test(l.words) && /^sms:988/.test(l.href));
   const unfilled = says.filter((l) => l.href !== TEXT_AYUDA);
-  check(says.length >= 30 && unfilled.length === 0, `every Spanish link that says to text AYUDA to 988 opens a message to 988 with AYUDA typed (${says.length} links on ${new Set(says.map((l) => l.file)).size} pages)` + (unfilled.length ? ': not ' + unfilled.slice(0, 3).map((l) => l.file + ' "' + l.words + '"').join(', ') : ''));
-  const wrongly = spanish.filter((l) => /body=/.test(l.href) && !/\bAYUDA\b/.test(l.words));
-  check(wrongly.length === 0, 'no Spanish link has a word filled in that the link itself does not say (a link that says PRIDE is left as it is)' + (wrongly.length ? ': ' + wrongly.map((l) => l.words).join(', ') : ''));
-  check(english.every((l) => !/body=/.test(l.href)) && english.some((l) => l.href === 'sms:988'), 'English links to text 988 are unchanged: no word is filled in');
-  check(spanish.every((l) => /^sms:988(\?&body=AYUDA)?$/.test(l.href) || !/^sms:988/.test(l.href)), 'a Spanish text link to 988 is the plain address or the one with AYUDA, never anything else');
+  check(says.length >= 30 && unfilled.length === 0, `every link that says to text AYUDA to 988, on a Spanish page or in a Spanish block of an English one, opens a message to 988 with AYUDA typed (${says.length} links on ${new Set(says.map((l) => l.file)).size} pages)` + (unfilled.length ? ': not ' + unfilled.slice(0, 3).map((l) => l.file + ' "' + l.words + '"').join(', ') : ''));
+  const wrongly = everywhere.filter((l) => /body=/.test(l.href) && !/\bAYUDA\b/.test(l.words));
+  check(wrongly.length === 0, 'no link has a word filled in that the link itself does not say (a link that says PRIDE is left as it is)' + (wrongly.length ? ': ' + wrongly.map((l) => l.words).join(', ') : ''));
+  check(english.filter((l) => !/\bAYUDA\b/.test(l.words)).every((l) => !/body=/.test(l.href)) && english.some((l) => l.href === 'sms:988'), 'English links to text 988 are unchanged: no word is filled in');
+  check(everywhere.every((l) => /^sms:988(\?&body=AYUDA)?$/.test(l.href) || !/^sms:988/.test(l.href)), 'a text link to 988 is the plain address or the one with AYUDA, never anything else');
 }
 // On screen, in the app: the strip's and the Support panel's Spanish text links, and nothing is sent.
 {

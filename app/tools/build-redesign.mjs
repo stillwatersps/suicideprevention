@@ -78,23 +78,27 @@ function audioManifest() {
   return out;
 }
 
-// "What happens when you reach out to 988": the Get Help page's own section, word for word, for a
-// screen inside the app. It is copied here and never retyped, so the screen can't drift from the
-// page a reviewer reads. The page folds most of it under "Show more"; the screen shows all of it.
-const EXPECT_FROM = { en: 'get-help/index.html', es: 'es/obtener-ayuda/index.html' };
-function expectSection(lang) {
-  const html = readFileSync(join(www, EXPECT_FROM[lang]), 'utf8');
-  const found = html.match(/<section id="what-to-expect"[^>]*>([\s\S]*?)<\/section>/);
-  if (!found) throw new Error(`redesign, 988 section: not found in ${EXPECT_FROM[lang]}`);
+// Two screens of the app show sections of the Get Help page, word for word: "What happens when
+// you reach out to 988" and "Other ways to reach someone". Each is copied here from the app's
+// copy of that page, in each language, and never retyped, so a screen can't drift from the page
+// a reviewer reads. Where the page folds part of a section under "Show more", the screen shows
+// all of it.
+const HELP_PAGE = { en: 'get-help/index.html', es: 'es/obtener-ayuda/index.html' };
+function helpSection(lang, id, titleId, bodyClass) {
+  const html = readFileSync(join(www, HELP_PAGE[lang]), 'utf8');
+  const found = html.match(new RegExp('<section id="' + id + '"[^>]*>([\\s\\S]*?)<\\/section>'));
+  if (!found) throw new Error(`redesign, section ${id}: not found in ${HELP_PAGE[lang]}`);
   const title = (found[1].match(/<h2[^>]*>([\s\S]*?)<\/h2>/) || [])[1];
+  if (!title) throw new Error(`redesign, section ${id}: no heading in ${HELP_PAGE[lang]}`);
   let body = found[1].replace(/<h2[^>]*>[\s\S]*?<\/h2>/, '');
-  if (!title || !/<details class="more">/.test(body) || !/<\/details>/.test(body)) throw new Error(`redesign, 988 section: ${EXPECT_FROM[lang]} is not shaped as expected`);
   body = body.replace(/<details class="more">\s*<summary>[\s\S]*?<\/summary>/, '').replace(/<\/details>/, '');
-  if (/<details|<summary|<script|\bstyle=/.test(body)) throw new Error('redesign, 988 section: something unexpected is in it');
+  if (/<details|<summary|<script|\bstyle=/.test(body)) throw new Error(`redesign, section ${id}: something unexpected is in it`);
   // A link to another part of the Get Help page has to say which page it means from here.
-  body = body.replace(/href="#/g, `href="../${EXPECT_FROM[lang].split('/').slice(-2, -1)[0]}/#`);
-  return `<h2 class="tl-title" id="tl-expect-title">${title.trim()}</h2>\n          <div class="tl-expect-body">${body.trim()}\n          </div>`;
+  body = body.replace(/href="#/g, `href="../${HELP_PAGE[lang].split('/').slice(-2, -1)[0]}/#`);
+  return `<h2 class="tl-title" id="${titleId}">${title.trim()}</h2>\n          <div class="${bodyClass}">${body.trim()}\n          </div>`;
 }
+const expectSection = (lang) => helpSection(lang, 'what-to-expect', 'tl-expect-title', 'tl-expect-body');
+const waysSection = (lang) => helpSection(lang, 'other-ways', 'tl-ways-title', 'tl-ways-body');
 
 const manifest = audioManifest();
 // The Developer section shows which build phase this is, read from PROGRESS.md.
@@ -107,7 +111,7 @@ for (const page of PAGES) {
   // The new screens go above the page's own review notice; the notice for the new words goes
   // right under it. Both notices stay on every screen.
   html = once(html, /( {6}<aside class="page-status review-note"[\s\S]*?<\/aside>\n)/,
-    (all) => once(once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses'), '          <!-- EXPECT -->\n', '          ' + expectSection(page.lang) + '\n', '988 section') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
+    (all) => once(once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses'), '          <!-- EXPECT -->\n', '          ' + expectSection(page.lang) + '\n', '988 section').replace('          <!-- WAYS -->\n', '          ' + waysSection(page.lang) + '\n') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
   // A heavy feeling in the five-question check-in shows support at the top of its results.
   html = once(html, '          <div class="ci-talk-first">', b['result-support'] + '          <div class="ci-talk-first">', 'result support');
   html = once(html, '  <footer class="site-footer"', b.tabbar + (b.overlays || '') + '  <footer class="site-footer"', 'tab bar');
@@ -145,7 +149,8 @@ function siteTabBar(lang, up) {
   return `  <nav class="tl-tabbar" id="tl-tabbar" aria-label="${label}">\n    <ul>\n${items}\n    </ul>\n  </nav>\n`;
 }
 // Spanish: 988 asks people who text in Spanish to send the word AYUDA. Where a Spanish link says
-// so, the app fills the word in, so nobody has to remember it in a hard moment. The link only
+// so (on a Spanish page, or in a Spanish block of an English one), the app fills the word in, so
+// nobody has to remember it in a hard moment. The link only
 // opens the phone's Messages with 988 and the word ready; the person still taps Send. Links that
 // name another word (PRIDE) and every English link are left as they are. App only: the public
 // website's links are not changed. "?&body=" is the form that both iPhone and Android read.
@@ -156,7 +161,7 @@ export function fillInAyuda(html) {
 const appPages = PAGES.map((page) => join(www, page.file));
 for (const page of everyPage(www, 0)) {
   let html = readFileSync(page.path, 'utf8');
-  if (page.path.slice(www.length + 1).startsWith('es/')) html = fillInAyuda(html);
+  html = fillInAyuda(html);
   if (!appPages.includes(page.path)) {
     const lang = page.path.slice(www.length + 1).startsWith('es/') ? 'es' : 'en';
     const bar = siteTabBar(lang, page.up);

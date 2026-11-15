@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-15 (next features, feature 8)
+Last updated: 2026-11-15 (next features, feature 9)
 Current branch: app/next-features (cut from app/privacy-package, the top of the app's stack on November 15)
 Current phase: Next features: a founder's list of twenty, built one at a time with a full check after each
-Current step: Next features: features 1 to 8 done (7 was already built). Next: feature 9, Get Help's "Other ways to reach someone" inside the app: copy that section from the app's copy of the Get Help page at build time, as the 988 screen does (generalize `expectSection`), with the crisis test allowing exactly the links that section holds.
+Current step: Next features: features 1 to 9 done (7 was already built). Next: feature 10, "what tends to help": a gentle view built from the person's own check-in tags and meditations, with no score and no chart of decline (new wording, so a draft for the reviewer).
 
 ## Next features — in progress
 One founder asked Claude for twenty features that would make the app better (November 15, 2026), then asked for all of them, **one at a time, with a thorough check after each before the next**. The other founder hasn't seen the list. Each feature is its own commit on `app/next-features`. The check after each: `npm test` in `app/` (every suite), the four root checks, and, when native code changed, a build and a look in the iOS Simulator (muted). New wording is marked "Draft for review", is in both languages, and has its questions in `notes/CONTENT-REVIEW.md`, "Questions about the app's next features".
@@ -17,7 +17,7 @@ Already built by other sessions before this list was started, so not built again
 - [x] 6 — A Home Screen and Lock Screen widget for iPhone (iOS 17 and later): a new target `TidelightWidget`, discreet words only, no access to anything saved; a tap opens the app at a breathing minute or the safety plan through `tidelight://open/...`, behind the app lock if it is on. `test/unit/widget.test.mjs` (6) and `test/open-test.mjs` (24). In the Simulator the app compiles with the widget inside it and both addresses were seen working; **the widget itself has not been seen on a Home Screen**
 - [x] 7 — App lock (already built, pull request 31)
 - [x] 8 — Recorded voice, as far as it can be built without a person: `notes/VOICE-RECORDING-SHEET.md` lists all 36 recordings (9 lines, 2 voices, 2 languages) with the exact file name the app looks for and how to record them; made by `tools/voice-sheet.mjs`, and `test/unit/voice-sheet.test.mjs` fails if it falls behind the app. The app already plays a recording when its file exists. **Nothing is recorded, and nothing should be before the scripts are reviewed**
-- [ ] 9 — Get Help resources by need, inside the app
+- [x] 9 — "Other ways to reach someone" inside the app: the Get Help page's own list of services by need, word for word and link for link, copied at build time (no new wording); reached from the support screen and part 5 of the plan. AYUDA is now filled in wherever a link says it, including the Spanish block of an English page. `test/ways-test.mjs` (46 checks)
 - [ ] 10 — What tends to help, from the person's own check-ins
 - [x] 11 — Remove one item (already built, pull request 31)
 - [x] 12 — A copy of my data (already built, pull request 31)

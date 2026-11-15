@@ -175,9 +175,10 @@ each covers and what only a real phone can show.
 
 ## The 988 screen, and screens opened from the support step (November 15, 2026, a draft)
 
-- **`#tl-expect` holds no wording of its own.** `tools/build-redesign.mjs` (`expectSection`) copies the
-  Get Help page's "What happens when you reach out to 988" section into it at build time, in each
-  language. Change the words on the website's page, never in the app. `test/expect-test.mjs` fails
+- **`#tl-expect` and `#tl-ways` hold no wording of their own.** `tools/build-redesign.mjs` (`helpSection`)
+  copies the Get Help page's "What happens when you reach out to 988" and "Other ways to reach someone"
+  sections into them at build time, in each language. The crisis test allows the other services' numbers
+  only because that page names them, and reads the list from the page. Change the words on the website's page, never in the app. `test/expect-test.mjs` fails
   if one word differs. The button that opens it carries the same words as the section's heading.
 - **A screen opened from the support step uses `data-tl-over`** beside `data-tl-push`, so it opens
   on top of the support step wherever else it was open (`shell.pushOver`). Back then returns to the

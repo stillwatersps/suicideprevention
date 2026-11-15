@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 10 screens, about 255 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 297 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -121,6 +121,7 @@ Picture: `app/design/after-launch-pass/reviewer/36-flow-support.png`
 > More ways to get support  
 > Back to Home  
 > What happens when you reach out to 988  
+> Other ways to reach someone  
 > Grounding  
 > Short ways to steady yourself
 
@@ -323,6 +324,7 @@ Picture: `app/design/after-launch-pass/reviewer/40-plan.png`
 > Text 988  
 > In immediate danger, call 911  
 > What happens when you reach out to 988  
+> Other ways to reach someone  
 > Name  
 > Phone number (optional)  
 > Add  
@@ -334,13 +336,13 @@ Picture: `app/design/after-launch-pass/reviewer/40-plan.png`
 > The reasons you keep going are in your Hope box.  
 > Open my Hope box
 
-#### 42. What happens when you reach out to 988
+#### 43. What happens when you reach out to 988
 
 The Get Help page's own section on calling, texting, and chatting with 988, shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/42-expect.png`
+Picture: `app/design/after-launch-pass/reviewer/43-expect.png`
 
 > Draft for review  
 > Back  
@@ -368,13 +370,62 @@ Picture: `app/design/after-launch-pass/reviewer/42-expect.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 41. Grounding
+#### 41. Other ways to reach someone
+
+The Get Help page's own list of other services (Spanish, Deaf or hard of hearing, veterans, LGBTQ+ youth, text lines, 911), shown inside the app word for word.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/41-ways.png`
+
+> Draft for review  
+> Back  
+> Other ways to reach someone  
+> These are separate services with their own rules. Tidelight does not run them.  
+> En español  
+> Para hablar con un consejero de la Línea 988 en español, marca 988 y luego presiona 2. Para enviar un mensaje de texto, envía la palabra AYUDA al 988. También puedes chatear en español. Es gratis y confidencial, y está disponible las 24 horas. La Línea 988 es un servicio aparte de Tidelight. Si hay peligro inmediato, llama al 911.  
+> Llamar al 988 y marcar 2  
+> Enviar AYUDA al 988  
+> Chatear en español  
+> Esta página en español  
+> Deaf or hard of hearing  
+> You can reach 988 counselors in American Sign Language by dialing 988 from a videophone (VP) number. You can also text or chat. TTY users can use a preferred relay service or dial 711, then 988. In an emergency, texting 911 only works in some places. If it isn't available, use a TTY or relay service if you can.  
+> Text 988  
+> Chat with 988  
+> 988 options for Deaf and hard of hearing people  
+> Other languages  
+> Call 988 and ask for an interpreter, or say the name of your language. The 988 Lifeline offers more than 240 languages this way, on voice calls only.  
+> Call 988  
+> Veterans Crisis Line  
+> For veterans, service members, National Guard and Reserve members, and the people who support them. Free, confidential, and available 24/7. You don't need to be enrolled in VA benefits or health care.  
+> Call 988, then press 1  
+> Text 838255  
+> Veterans Crisis Line chat  
+> LGBTQ+ youth, through 988  
+> The 988 Lifeline says its specialized service for LGBTQ+ youth has been restored. It is separate from The Trevor Project.  
+> Call 988, then press 3  
+> Text PRIDE to 988  
+> The Trevor Project  
+> For LGBTQ+ young people. Its terms describe the phone lifeline as for people under age 25. Trained counselors by phone, text, or chat, free and confidential, 24/7. Message and data rates may apply to texts. On a phone, The Trevor Project suggests calling or texting, and using chat from a computer. Its terms say phone calls offer access to interpreters, subject to availability. You can choose the language option on the keypad or ask the counselor for an interpreter.  
+> Call 1-866-488-7386  
+> Text START to 678-678  
+> Trevor Project chat and TTY  
+> Crisis Text Line  
+> Trained volunteer crisis counselors by text, free and confidential, 24/7, anywhere in the United States. Crisis Text Line says your first message can say anything, and a word like HOME helps it know how you found it. Its FAQ says messages are free on AT&T, T-Mobile, Sprint, and Verizon. On other carriers, it says standard rates apply and 741741 will appear on the bill. Its terms say message and data rates may apply. Crisis Text Line says many T-Mobile prepaid plans don't allow numbers like 741741. It also says it isn't available yet on Google Voice or TextNow. If a text doesn't go through, it offers web chat and WhatsApp on its website. Its privacy policy says WhatsApp may also have access to your information. You can also call or text 988.  
+> Text HOME to 741741  
+> Crisis Text Line website  
+> 911  
+> If you or someone else is in immediate danger, call 911. Texting 911 only works in some places, and the Federal Communications Commission (FCC) advises making a voice call if you can. If you text 911 where it isn't available, you should get an automatic message telling you to use another way. If you are Deaf, hard of hearing, or can't speak and texting 911 isn't available, use a TTY or relay service if you can.  
+> Call 911  
+> The 988 Lifeline, the Veterans Crisis Line, The Trevor Project, and Crisis Text Line keep conversations confidential, with limits. Each says it may contact emergency services or other authorities in some situations. Their websites explain when.
+
+#### 42. Grounding
 
 Four short grounding exercises, offered on the support screen and the Check-in tab. New wording.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/41-ground.png`
+Picture: `app/design/after-launch-pass/reviewer/42-ground.png`
 
 > Draft for review  
 > Back  
@@ -1132,9 +1183,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> After school, 3:56 PM: feeling: Good.  
+> After school, 5:35 PM: feeling: Good.  
 > Remove  
-> After school, 3:56 PM: feeling: Okay.  
+> After school, 5:35 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  

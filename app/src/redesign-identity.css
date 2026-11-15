@@ -30,6 +30,9 @@ html.tl .header-cta, html.tl .tl-crisis-btn, html.tl .tl-support-actions .tl-btn
   border-radius: var(--radius-pill); min-height: var(--button); font-family: var(--font-body); font-weight: var(--wt-strong); text-decoration: none;
 }
 html.tl .tl-support-actions .tl-btn-secondary { background: var(--paper); color: var(--ink); border: var(--border-strong) solid var(--ink); }
+/* The Get Help page's own list of services, shown on a screen of the app: its call and text
+   buttons are crisis controls too, so they get the same plain ink on paper (at least 7 to 1). */
+html.tl .tl-ways-body .pill { background: var(--paper); color: var(--ink); border: var(--border-strong) solid var(--ink); }
 html.tl .crisis-panel { background: var(--paper); border: 0; border-radius: var(--radius-lg); }
 html.tl .crisis-panel .action { border-radius: var(--radius-md); }
 html.tl .crisis-panel .action:not(.action-primary) { border-radius: var(--radius-md); border-color: var(--ink); color: var(--ink); background: var(--paper); }
