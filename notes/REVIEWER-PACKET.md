@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 9 screens, about 231 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 10 screens, about 255 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -120,7 +120,9 @@ Picture: `app/design/after-launch-pass/reviewer/36-flow-support.png`
 > Your check-in is saved on this phone. Nobody at Tidelight sees it, so it isn't a way to ask for help.  
 > More ways to get support  
 > Back to Home  
-> What happens when you reach out to 988
+> What happens when you reach out to 988  
+> Grounding  
+> Short ways to steady yourself
 
 #### 37. Daily check-in, result after a heavy feeling
 
@@ -332,13 +334,13 @@ Picture: `app/design/after-launch-pass/reviewer/40-plan.png`
 > The reasons you keep going are in your Hope box.  
 > Open my Hope box
 
-#### 41. What happens when you reach out to 988
+#### 42. What happens when you reach out to 988
 
 The Get Help page's own section on calling, texting, and chatting with 988, shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/41-expect.png`
+Picture: `app/design/after-launch-pass/reviewer/42-expect.png`
 
 > Draft for review  
 > Back  
@@ -362,6 +364,37 @@ Picture: `app/design/after-launch-pass/reviewer/41-expect.png`
 > The 988 Lifeline is separate from 911, and SAMHSA says most crises are managed by counselors working with you, without involving law enforcement. The Lifeline recommends that counselors contact emergency services, which can mean 911, police, or a sheriff, only if someone is in danger of being hurt right now or very soon and they can't work out a safer plan together. It reports that fewer than 2 in 100 calls involve emergency services, and that more than half of those happen with the caller's consent.  
 > This is a recommendation, not a guarantee. The Lifeline's terms say that if a counselor believes there is an immediate threat to someone's physical safety, you may not get a say: they may ask for 911 or a mobile crisis team to come to your location, and can share your information without your permission. If you need help because of an immediate threat to your safety, the terms ask you to call 911 first.  
 > These details come from the 988 Lifeline's website and SAMHSA, and can change. Tidelight does not run 988 and cannot see who contacts it.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
+#### 41. Grounding
+
+Four short grounding exercises, offered on the support screen and the Check-in tab. New wording.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/41-ground.png`
+
+> Draft for review  
+> Back  
+> Grounding  
+> A few short ways to steady yourself when things feel like too much. Try one. If it doesn't help, try another, or stop.  
+> These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.  
+> 5, 4, 3, 2, 1  
+> Look around you and name, out loud or in your head:  
+> 5 things you can see  
+> 4 things you can touch  
+> 3 things you can hear  
+> 2 things you can smell  
+> 1 thing you can taste  
+> Something cold  
+> Hold something cold, or run cold water over your hands, for about half a minute. Notice how it feels.  
+> Feet on the floor  
+> Press your feet into the floor. Feel the chair or the ground holding you up. Open your hands and let your shoulders drop.  
+> A slower breath  
+> Breathe out for a little longer than you breathe in. A circle on the next screen can pace you for one minute, in silence.  
+> Breathe for a minute  
 > Call 988  
 > Text 988  
 > In immediate danger, call 911
@@ -413,7 +446,7 @@ Picture: `app/design/after-launch-pass/reviewer/39-locked.png`
 
 ### Part 2. Check-in questions
 
-What the app asks, and what an ordinary answer leads to. 5 screens, about 95 lines of the app's words.
+What the app asks, and what an ordinary answer leads to. 5 screens, about 97 lines of the app's words.
 
 #### 14. Check-in tab
 
@@ -438,6 +471,8 @@ Picture: `app/design/after-launch-pass/reviewer/14-checkin.png`
 > Reasons, words, photos  
 > My safety plan  
 > What to do when things get hard  
+> Grounding  
+> Short ways to steady yourself  
 > Your journey  
 > What you've kept
 
@@ -1097,9 +1132,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> After school, 3:12 PM: feeling: Good.  
+> After school, 3:56 PM: feeling: Good.  
 > Remove  
-> After school, 3:12 PM: feeling: Okay.  
+> After school, 3:56 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  

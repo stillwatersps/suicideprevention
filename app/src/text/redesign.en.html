@@ -127,6 +127,11 @@
               <span class="tl-card-text"><span class="tl-card-title">My safety plan</span> <span class="tl-card-sub">What to do when things get hard</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" id="tl-checkin-ground">
+              <span class="tl-card-icon" data-tl-icon="stone"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Grounding</span> <span class="tl-card-sub">Short ways to steady yourself</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
               <span class="tl-card-icon" data-tl-icon="path"></span>
               <span class="tl-card-text"><span class="tl-card-title">Your journey</span> <span class="tl-card-sub">What you've kept</span></span>
@@ -192,6 +197,11 @@
               <li><button type="button" class="tl-card tl-card-action" data-tl-push="expect" data-tl-over>
                 <span class="tl-card-icon" data-tl-icon="info"></span>
                 <span class="tl-card-text"><span class="tl-card-title">What happens when you reach out to 988</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="stone"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Grounding</span> <span class="tl-card-sub">Short ways to steady yourself</span></span>
                 <span class="tl-card-go" data-tl-icon="next"></span>
               </button></li>
             </ul>
@@ -786,6 +796,43 @@
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
           <!-- EXPECT -->
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-ground" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-ground-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-ground-title">Grounding</h2>
+          <p>A few short ways to steady yourself when things feel like too much. Try one. If it doesn't help, try another, or stop.</p>
+          <p class="tl-sub">These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.</p>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">5, 4, 3, 2, 1</h3>
+            <p class="tl-sub">Look around you and name, out loud or in your head:</p>
+            <ol class="tl-ground-steps">
+              <li>5 things you can see</li>
+              <li>4 things you can touch</li>
+              <li>3 things you can hear</li>
+              <li>2 things you can smell</li>
+              <li>1 thing you can taste</li>
+            </ol>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Something cold</h3>
+            <p class="tl-sub">Hold something cold, or run cold water over your hands, for about half a minute. Notice how it feels.</p>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Feet on the floor</h3>
+            <p class="tl-sub">Press your feet into the floor. Feel the chair or the ground holding you up. Open your hands and let your shoulders drop.</p>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">A slower breath</h3>
+            <p class="tl-sub">Breathe out for a little longer than you breathe in. A circle on the next screen can pace you for one minute, in silence.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-ground-breathe">Breathe for a minute</button></p>
+          </div>
           <ul class="tl-support-actions">
             <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
             <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>

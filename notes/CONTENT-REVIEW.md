@@ -1131,6 +1131,33 @@ and it has Call 988, Text 988, and Call 911 at its end.
 - **Back from this screen, and from the safety plan, now returns to the support screen** with Call 988 on it.
   Before, it started a new check-in. Please confirm that is what you would expect.
 
+### Grounding
+
+A new screen with four short exercises, offered on the support screen after a very low check-in (under the
+crisis buttons) and on the Check-in tab. **This wording is new and was written by an AI assistant**, unlike
+the 988 screen. It asks for nothing and stores nothing. Call 988, Text 988, and Call 911 are at its end. The
+four, in full:
+
+- **5, 4, 3, 2, 1.** "Look around you and name, out loud or in your head: 5 things you can see, 4 things you can
+  touch, 3 things you can hear, 2 things you can smell, 1 thing you can taste."
+- **Something cold.** "Hold something cold, or run cold water over your hands, for about half a minute. Notice
+  how it feels."
+- **Feet on the floor.** "Press your feet into the floor. Feel the chair or the ground holding you up. Open
+  your hands and let your shoulders drop."
+- **A slower breath.** "Breathe out for a little longer than you breathe in." with a button to the silent
+  one-minute breathing circle the app already has.
+
+Questions:
+
+- Are these four safe and useful for someone who has just said they are very low, including a child or a
+  teen? Should any come out, or be worded differently?
+- "Something cold" stops at holding something cold or running water over the hands, on purpose. Is that the
+  right limit?
+- The screen says "These don't replace help from a person." Is that the right line, in the right place?
+- Does offering exercises on the support screen risk a person trying them instead of calling?
+- Spanish: the screen's name is "Volver al presente" ("come back to the present"), because Spanish has no
+  everyday word for "grounding". A fluent reader should choose.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

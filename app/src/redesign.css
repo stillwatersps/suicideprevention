@@ -447,3 +447,8 @@ html.tl .tl-plan-part .tl-btn { max-width: 100%; white-space: normal; overflow-w
 .tl-support-actions { grid-template-columns: minmax(0, 1fr); }
 html.tl .tl-support-actions .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 
+/* Grounding: a few short exercises, each in its own panel. */
+.tl-ground-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--tl-space-xs); }
+.tl-ground-steps li { padding: var(--tl-space-xs) 0; border-top: var(--tl-border) solid var(--tl-line); overflow-wrap: anywhere; }
+html.tl .tl-ground-part .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+

@@ -126,6 +126,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Mi plan de seguridad</span> <span class="tl-card-sub">Qué hacer cuando las cosas se ponen difíciles</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" id="tl-checkin-ground">
+              <span class="tl-card-icon" data-tl-icon="stone"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Volver al presente</span> <span class="tl-card-sub">Maneras breves de recuperar la calma</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
               <span class="tl-card-icon" data-tl-icon="path"></span>
               <span class="tl-card-text"><span class="tl-card-title">Tu camino</span> <span class="tl-card-sub">Lo que has guardado</span></span>
@@ -191,6 +196,11 @@
               <li><button type="button" class="tl-card tl-card-action" data-tl-push="expect" data-tl-over>
                 <span class="tl-card-icon" data-tl-icon="info"></span>
                 <span class="tl-card-text"><span class="tl-card-title">Qué pasa cuando te comunicas con la 988</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="stone"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Volver al presente</span> <span class="tl-card-sub">Maneras breves de recuperar la calma</span></span>
                 <span class="tl-card-go" data-tl-icon="next"></span>
               </button></li>
             </ul>
@@ -785,6 +795,43 @@
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
           <!-- EXPECT -->
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-ground" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-ground-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-ground-title">Volver al presente</h2>
+          <p>Algunas maneras breves de recuperar la calma cuando todo se siente demasiado. Prueba una. Si no ayuda, prueba otra, o detente.</p>
+          <p class="tl-sub">Esto no reemplaza la ayuda de una persona. Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla, y al final de esta.</p>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">5, 4, 3, 2, 1</h3>
+            <p class="tl-sub">Mira a tu alrededor y nombra, en voz alta o en tu mente:</p>
+            <ol class="tl-ground-steps">
+              <li>5 cosas que puedes ver</li>
+              <li>4 cosas que puedes tocar</li>
+              <li>3 cosas que puedes oír</li>
+              <li>2 cosas que puedes oler</li>
+              <li>1 cosa que puedes saborear</li>
+            </ol>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Algo frío</h3>
+            <p class="tl-sub">Sostén algo frío, o deja correr agua fría sobre tus manos, durante medio minuto más o menos. Nota cómo se siente.</p>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Los pies en el suelo</h3>
+            <p class="tl-sub">Apoya los pies con firmeza en el suelo. Siente cómo la silla o el suelo te sostienen. Abre las manos y deja caer los hombros.</p>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Una respiración más lenta</h3>
+            <p class="tl-sub">Exhala un poco más largo de lo que inhalas. Un círculo en la siguiente pantalla puede marcarte el ritmo durante un minuto, en silencio.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-ground-breathe">Respirar un minuto</button></p>
+          </div>
           <ul class="tl-support-actions">
             <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
             <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>

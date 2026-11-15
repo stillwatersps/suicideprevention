@@ -82,6 +82,9 @@ export async function initRedesign(context) {
   initPlayer(shell, ctx);
   initMeditate(shell, ctx);
   ctx.startReset = () => startType('quick', { minutes: 1 });
+  // Grounding's "Breathe for a minute" is the same silent one-minute reset.
+  const groundBreathe = document.getElementById('tl-ground-breathe');
+  if (groundBreathe) groundBreathe.addEventListener('click', () => ctx.startReset());
   initBuilder(shell, ctx);
   initOnboarding(shell, ctx);
   keepNamesHonest(document.getElementById('tl-app'));
