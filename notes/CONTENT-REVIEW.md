@@ -1116,6 +1116,21 @@ Send. English links are unchanged, and so is the link that says PRIDE. The publi
   typed, the same screen the plain link opens. Whether 988 shows as the recipient on a real iPhone and a real
   Android phone is a step in `app/TESTING_CHECKLIST.md`. If it fails on either, this must come out before release.
 
+### "What happens when you reach out to 988", inside the app
+
+A new screen that shows the Get Help page's own section of that name, in each language, **word for word**. It
+is copied from that page when the app is built, and a test fails if one word differs, so there is nothing new
+to review in it: your answers about that section on the website apply here too. It is reached from the
+support screen after a very low check-in and from part 5 of the safety plan, both under the crisis buttons,
+and it has Call 988, Text 988, and Call 911 at its end.
+
+- The page folds most of the section under "Show more". The app's screen shows all of it, including what 988
+  keeps private and when emergency services get involved. Is showing all of it right for someone who has just
+  said they are very low, or should the screen lead with "If you call" and "If you text" only?
+- Is the support screen the right place to offer it, or does a third choice under Call 988 slow a person down?
+- **Back from this screen, and from the safety plan, now returns to the support screen** with Call 988 on it.
+  Before, it started a new check-in. Please confirm that is what you would expect.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

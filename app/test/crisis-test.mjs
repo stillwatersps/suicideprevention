@@ -239,7 +239,9 @@ await sweep('en', { name: 'offline', offline: true });
 // ---------- the inventory itself ----------
 console.log('\nThe inventory');
 {
-  const allowed = { 'tel:988': 1, 'sms:988': 1, [TEXT_AYUDA]: 1, 'tel:911': 1, '#support': 1, [EXIT_TO]: 1, 'https://988lifeline.org/': 1, 'https://chat.988lifeline.org/': 1, 'https://chat.988lifeline.org/?lang=es': 1 };
+  const allowed = { 'tel:988': 1, 'sms:988': 1, [TEXT_AYUDA]: 1, 'tel:911': 1, '#support': 1, [EXIT_TO]: 1, 'https://988lifeline.org/': 1, 'https://chat.988lifeline.org/': 1, 'https://chat.988lifeline.org/?lang=es': 1,
+    // 988's own page on what it keeps private, linked from the Get Help page's section that the app also shows.
+    'https://988lifeline.org/confidentiality/': 1, 'https://988lifeline.org/es/confidencialidad/': 1 };
   for (const lang of ['en', 'es']) {
     const controls = Object.values(inventory.languages[lang]).flatMap((s) => s.controls);
     const odd = [...new Set(controls.map((c) => c.href))].filter((href) => !allowed[href]);
@@ -252,7 +254,9 @@ console.log('\nThe inventory');
   }
   // One known difference, from the website's own pages: where English ends its panel with a link to
   // 988lifeline.org, Spanish links to 988's Spanish chat a second time.
-  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.map((c) => c.key.replace(TEXT_AYUDA, 'sms:988').replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
+  // And on the 988 screen, the links to 988's own site inside the section copied from the Get Help
+  // page are that page's own, and the Spanish page has one more than the English (its chat).
+  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.filter((c) => !c.key.startsWith('tl-expect|https://')).map((c) => c.key.replace(TEXT_AYUDA, 'sms:988').replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
   const en = same('en');
   const es = same('es');
   const differs = Object.keys(en).filter((id) => en[id] !== es[id]);

@@ -184,9 +184,16 @@
             <p class="tl-sub">Tu registro se guarda en este teléfono. Nadie en Tidelight lo ve, así que no es una forma de pedir ayuda.</p>
             <div class="tl-row tl-row-center">
               <a class="tl-btn tl-btn-secondary" href="#support">Más formas de recibir apoyo</a>
-              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="plan" data-plan-open hidden>Abrir mi plan de seguridad</button>
+              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="plan" data-tl-over data-plan-open hidden>Abrir mi plan de seguridad</button>
               <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Volver a Inicio</button>
             </div>
+            <ul class="tl-list tl-support-more">
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="expect" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="info"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Qué pasa cuando te comunicas con la 988</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+            </ul>
           </div>
         </section>
 
@@ -748,6 +755,7 @@
               <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
               <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
             </ul>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="expect" data-tl-over>Qué pasa cuando te comunicas con la 988</button></p>
             <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-pros-title"></ul>
             <p class="tl-field"><label for="tl-plan-pros-name">Nombre</label><input class="tl-input" id="tl-plan-pros-name" type="text" maxlength="120" autocomplete="off" data-plan-name></p>
             <p class="tl-field"><label for="tl-plan-pros-phone">Número de teléfono (opcional)</label><input class="tl-input" id="tl-plan-pros-phone" type="tel" maxlength="24" autocomplete="off" data-plan-phone></p>
@@ -771,6 +779,17 @@
             <p class="tl-sub">Con alguien que tú elijas, como la persona con quien lo hiciste. Primero verás el texto y podrás cambiarlo.</p>
             <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-share">Compartir mi plan</button></p>
           </div>
+        </section>
+
+        <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <!-- EXPECT -->
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+          </ul>
         </section>
 
         <section class="tl-screen" id="tl-licenses" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-licenses-title" hidden>

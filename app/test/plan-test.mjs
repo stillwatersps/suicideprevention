@@ -168,6 +168,12 @@ for (const lang of ['en', 'es']) {
   await page.click('#tl-flow-support [data-plan-open]');
   await page.waitForSelector('#tl-plan:not([hidden])');
   check((await items(page, 'signs')).length === 1 && (await safetyFrame(page)).length === 0, 'it opens the plan, with the safety frame still on screen');
+  await page.click('#tl-plan [data-tl-back]');
+  await page.waitForTimeout(400);
+  const backTo = await page.evaluate(() => ({ support: !document.getElementById('tl-flow-support').hidden && document.getElementById('tl-flow-support').getClientRects().length > 0, mood: !document.querySelector('#tl-flow [data-flow="mood"]').hidden, call: Boolean(document.querySelector('#tl-flow-support a[href="tel:988"]')) }));
+  check(backTo.support && !backTo.mood && backTo.call, 'Back from the plan returns to the support screen with Call 988, not to a new check-in');
+  await page.click('#tl-flow-support [data-plan-open]');
+  await page.waitForSelector('#tl-plan:not([hidden])');
 
   // ---- Delete everything removes the plan ----
   await page.click('#tl-plan [data-tl-back]').catch(() => {});

@@ -432,6 +432,18 @@ html.tl-locked #app-age { display: none !important; }
 .tl-plan-text { flex: 1 1 50%; min-width: 0; overflow-wrap: anywhere; }
 .tl-plan-part .tl-row { flex-wrap: wrap; min-width: 0; max-width: 100%; }
 /* At the phone's largest text a button's words wrap inside it instead of pushing it off the side. */
-.tl-plan-part .tl-support-actions { grid-template-columns: minmax(0, 1fr); }
 html.tl .tl-plan-part .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 .tl-plan-part .tl-row .tl-input { flex: 1 1 50%; min-width: 0; }
+
+/* "What happens when you reach out to 988": the Get Help page's own words, on a screen of the app. */
+.tl-expect-body { display: grid; gap: var(--tl-space-sm); }
+.tl-expect-body h3 { margin: var(--tl-space-md) 0 0; }
+.tl-expect-body p { margin: 0; overflow-wrap: anywhere; }
+.tl-support-more { margin: var(--tl-space-md) 0 0; }
+
+/* Call 988, Text 988, and Call 911 as a list of buttons (the support screens, the safety plan, the
+   988 screen). At the phone's largest text on a small phone, a button's words wrap inside it; the
+   button is never pushed off the side of the screen. */
+.tl-support-actions { grid-template-columns: minmax(0, 1fr); }
+html.tl .tl-support-actions .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+

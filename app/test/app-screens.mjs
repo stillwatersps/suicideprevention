@@ -79,6 +79,7 @@ export const SCREENS = [
   } },
   // Added November 15, 2026, at the end, so the screens above keep their numbers.
   { id: 'plan', name: 'My safety plan', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); } },
+  { id: 'expect', name: 'What happens when you reach out to 988', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); await page.click('#tl-plan [data-plan-part="pros"] [data-tl-push="expect"]'); } },
 ];
 
 // Visits every screen in order. `each(screen, page, problem)` is called once per screen, with

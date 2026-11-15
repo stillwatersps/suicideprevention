@@ -157,6 +157,16 @@ each covers and what only a real phone can show.
   this order the screen the person left shows for a moment. A timer lifts the cover anyway after
   a few seconds: the app must never stay covered.
 
+## The 988 screen, and screens opened from the support step (November 15, 2026, a draft)
+
+- **`#tl-expect` holds no wording of its own.** `tools/build-redesign.mjs` (`expectSection`) copies the
+  Get Help page's "What happens when you reach out to 988" section into it at build time, in each
+  language. Change the words on the website's page, never in the app. `test/expect-test.mjs` fails
+  if one word differs. The button that opens it carries the same words as the section's heading.
+- **A screen opened from the support step uses `data-tl-over`** beside `data-tl-push`, so it opens
+  on top of the support step wherever else it was open (`shell.pushOver`). Back then returns to the
+  support step with Call 988, never to a new check-in (`onSupport` in `src/ui/checkin.js`).
+
 ## Texting 988 in Spanish (November 15, 2026, a draft)
 
 - In the app's copy of the Spanish pages, a link that says to text AYUDA to 988 is

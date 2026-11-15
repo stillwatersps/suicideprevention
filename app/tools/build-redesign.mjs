@@ -78,6 +78,24 @@ function audioManifest() {
   return out;
 }
 
+// "What happens when you reach out to 988": the Get Help page's own section, word for word, for a
+// screen inside the app. It is copied here and never retyped, so the screen can't drift from the
+// page a reviewer reads. The page folds most of it under "Show more"; the screen shows all of it.
+const EXPECT_FROM = { en: 'get-help/index.html', es: 'es/obtener-ayuda/index.html' };
+function expectSection(lang) {
+  const html = readFileSync(join(www, EXPECT_FROM[lang]), 'utf8');
+  const found = html.match(/<section id="what-to-expect"[^>]*>([\s\S]*?)<\/section>/);
+  if (!found) throw new Error(`redesign, 988 section: not found in ${EXPECT_FROM[lang]}`);
+  const title = (found[1].match(/<h2[^>]*>([\s\S]*?)<\/h2>/) || [])[1];
+  let body = found[1].replace(/<h2[^>]*>[\s\S]*?<\/h2>/, '');
+  if (!title || !/<details class="more">/.test(body) || !/<\/details>/.test(body)) throw new Error(`redesign, 988 section: ${EXPECT_FROM[lang]} is not shaped as expected`);
+  body = body.replace(/<details class="more">\s*<summary>[\s\S]*?<\/summary>/, '').replace(/<\/details>/, '');
+  if (/<details|<summary|<script|\bstyle=/.test(body)) throw new Error('redesign, 988 section: something unexpected is in it');
+  // A link to another part of the Get Help page has to say which page it means from here.
+  body = body.replace(/href="#/g, `href="../${EXPECT_FROM[lang].split('/').slice(-2, -1)[0]}/#`);
+  return `<h2 class="tl-title" id="tl-expect-title">${title.trim()}</h2>\n          <div class="tl-expect-body">${body.trim()}\n          </div>`;
+}
+
 const manifest = audioManifest();
 // The Developer section shows which build phase this is, read from PROGRESS.md.
 const progress = existsSync(join(appDir, 'PROGRESS.md')) ? readFileSync(join(appDir, 'PROGRESS.md'), 'utf8') : '';
@@ -89,7 +107,7 @@ for (const page of PAGES) {
   // The new screens go above the page's own review notice; the notice for the new words goes
   // right under it. Both notices stay on every screen.
   html = once(html, /( {6}<aside class="page-status review-note"[\s\S]*?<\/aside>\n)/,
-    (all) => once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
+    (all) => once(once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses'), '          <!-- EXPECT -->\n', '          ' + expectSection(page.lang) + '\n', '988 section') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
   // A heavy feeling in the five-question check-in shows support at the top of its results.
   html = once(html, '          <div class="ci-talk-first">', b['result-support'] + '          <div class="ci-talk-first">', 'result support');
   html = once(html, '  <footer class="site-footer"', b.tabbar + (b.overlays || '') + '  <footer class="site-footer"', 'tab bar');

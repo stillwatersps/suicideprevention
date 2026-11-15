@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-15 (next features, feature 3)
+Last updated: 2026-11-15 (next features, feature 4)
 Current branch: app/next-features (cut from app/privacy-package, the top of the app's stack on November 15)
 Current phase: Next features: a founder's list of twenty, built one at a time with a full check after each
-Current step: Next features: features 1 to 3 done. Next: feature 4, a screen that shows the Get Help page's own "What happens when you reach out to 988" section, copied at build time from the app's copy of that page in each language, so no clinical wording is new; reached from the support screens and part 5 of the plan.
+Current step: Next features: features 1 to 4 done. Next: feature 5, grounding exercises (new wording, so a draft for the reviewer): a screen with a few short exercises, reached from the support screen under the crisis buttons with `data-tl-over`, and from Meditate.
 
 ## Next features — in progress
 One founder asked Claude for twenty features that would make the app better (November 15, 2026), then asked for all of them, **one at a time, with a thorough check after each before the next**. The other founder hasn't seen the list. Each feature is its own commit on `app/next-features`. The check after each: `npm test` in `app/` (every suite), the four root checks, and, when native code changed, a build and a look in the iOS Simulator (muted). New wording is marked "Draft for review", is in both languages, and has its questions in `notes/CONTENT-REVIEW.md`, "Questions about the app's next features".
@@ -12,7 +12,7 @@ Already built by other sessions before this list was started, so not built again
 - [x] 1 — My safety plan: `src/logic/plan.js`, `src/ui/plan.js`, `test/unit/plan.test.mjs`, `test/plan-test.mjs`; in the crisis inventory, the damaged-data test, the data copy, Delete everything, and behind the app lock
 - [x] 2 — The crisis strip at the largest text sizes: every word kept, the strip's words held at 28 points and its tap targets at 56 (the founder chose this over the short form, so safety rule 1 is not overridden). 86% of the screen becomes 27% (English) and 32% (Spanish) on an iPhone 17. `test/strip-test.mjs` (112 checks); tried in the Simulator at the phone's largest text setting
 - [x] 3 — "AYUDA" filled in for Spanish texts to 988, in the app's copy of the Spanish pages (98 links on the app's screens, and every Spanish website page inside the app); English and the PRIDE link unchanged; the public website unchanged. Six new checks in `test/crisis-test.mjs`. Seen in the Simulator as far as the compose screen; **the recipient is not confirmed on a real phone**
-- [ ] 4 — "What happens when you call 988"
+- [x] 4 — "What happens when you reach out to 988": a screen that shows the Get Help page's own section word for word, copied at build time (no new clinical wording), with 988 and 911 at its end; reached from the support screen and part 5 of the plan. Back from it, and from the plan, now returns to the support screen instead of starting a new check-in. `test/expect-test.mjs` (42 checks)
 - [ ] 5 — Grounding exercises on the support screen
 - [ ] 6 — A home-screen widget (a new Xcode target; a founder said to build it)
 - [x] 7 — App lock (already built, pull request 31)

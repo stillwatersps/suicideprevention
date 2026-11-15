@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 8 screens, about 204 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 9 screens, about 231 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -119,7 +119,8 @@ Picture: `app/design/after-launch-pass/reviewer/36-flow-support.png`
 > The 988 Suicide & Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.  
 > Your check-in is saved on this phone. Nobody at Tidelight sees it, so it isn't a way to ask for help.  
 > More ways to get support  
-> Back to Home
+> Back to Home  
+> What happens when you reach out to 988
 
 #### 37. Daily check-in, result after a heavy feeling
 
@@ -319,6 +320,7 @@ Picture: `app/design/after-launch-pass/reviewer/40-plan.png`
 > Call 988  
 > Text 988  
 > In immediate danger, call 911  
+> What happens when you reach out to 988  
 > Name  
 > Phone number (optional)  
 > Add  
@@ -329,6 +331,40 @@ Picture: `app/design/after-launch-pass/reviewer/40-plan.png`
 > My reasons  
 > The reasons you keep going are in your Hope box.  
 > Open my Hope box
+
+#### 41. What happens when you reach out to 988
+
+The Get Help page's own section on calling, texting, and chatting with 988, shown inside the app word for word.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/41-expect.png`
+
+> Draft for review  
+> Back  
+> What happens when you reach out to 988  
+> You don't need to be sure it's an emergency. The 988 Lifeline says anyone who is struggling can reach out, whether you are depressed, need to talk, or are thinking about suicide. It also takes concerns about alcohol or drug use.  
+> If you call  
+> You'll hear a short recorded message with options, such as pressing 1 for the Veterans Crisis Line, 2 for Spanish, or 3 for LGBTQ+ youth. You don't have to press anything. If you stay on the line, you'll be connected to a local 988 center, based on your approximate location or your phone's area code. SAMHSA, a federal agency that funds 988, says that if that center can't take your call, it goes to a national backup center. Hold music plays while you are connected. SAMHSA says wait times vary. If your wait is longer, it asks you to stay on the line. A counselor then says hello, asks if you are safe, listens to what's going on, and shares resources that may help.  
+> If you text  
+> Send any message to 988. Automated messages come first. Reply NEXT to accept the terms of service, then answer a few questions that help the counselor know how to support you. You may then get a message asking you to wait. A counselor then says hello, asks if you are safe, and listens.  
+> If you chat online  
+> The chat opens with a short form that helps the counselor know how to support you. It asks for your zip code, whether you are having thoughts of suicide, and how upset you feel. A phone number is optional. Starting the chat accepts the terms of service. You then wait to be connected to a counselor.  
+> What it costs  
+> Contacting 988 is free, and you don't need insurance. Your phone carrier may still charge for calls or texts if your plan doesn't include unlimited use. If a counselor contacts emergency services, such as 911 or a mobile crisis team, you may get a bill. This could include an ambulance or hospital care. Services they refer you to may charge too, so ask about fees first. The Lifeline's terms say a small number of its centers bill Medicaid or other health insurance and may ask for your personal information. They must explain why. You can say no and still get support. If you give it and a claim is filed, you, a parent or guardian, or the person you called about may get an insurance statement.  
+> If you can't get through  
+> Try another way. If a call doesn't connect, try text or chat. If texting is busy, try a call or chat. In an emergency, call 911.  
+> What stays private  
+> The 988 Lifeline says conversations are confidential, but contacting it isn't anonymous. You don't have to give your name or your exact location to get support. The counselor has your phone number if you call or text, or your IP address if you chat. In rare emergencies they must give this to 911, and 911 may ask your phone or internet company for your exact location.  
+> Counselors take notes, and centers keep records for at least three years. Call recordings or chat and text transcripts may be used to improve the service. You can ask a counselor not to share your personal information. The Lifeline's confidentiality statement lists when information can be shared, including when someone is at imminent risk of harm, when the law requires it, or when you agree.  
+> On a shared phone or computer, visits to this site can show up in browser history, and calls or texts can show up in phone logs. On a school or work device or account, the school or employer may see what you search and read, even in a private window. Whether a call appears on a phone bill depends on the carrier. Quick exit and saved offline copies have limits. See what they can and can't hide.  
+> When emergency services get involved  
+> The 988 Lifeline is separate from 911, and SAMHSA says most crises are managed by counselors working with you, without involving law enforcement. The Lifeline recommends that counselors contact emergency services, which can mean 911, police, or a sheriff, only if someone is in danger of being hurt right now or very soon and they can't work out a safer plan together. It reports that fewer than 2 in 100 calls involve emergency services, and that more than half of those happen with the caller's consent.  
+> This is a recommendation, not a guarantee. The Lifeline's terms say that if a counselor believes there is an immediate threat to someone's physical safety, you may not get a say: they may ask for 911 or a mobile crisis team to come to your location, and can share your information without your permission. If you need help because of an immediate threat to your safety, the terms ask you to call 911 first.  
+> These details come from the 988 Lifeline's website and SAMHSA, and can change. Tidelight does not run 988 and cannot see who contacts it.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
 
 #### 23. Hope box
 
@@ -520,10 +556,10 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good morning  
+> Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 2:30 PM  
+> At 7:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -774,10 +810,10 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good morning  
+> Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 2:30 PM  
+> At 7:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -1061,9 +1097,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Midday, 11:43 AM: feeling: Good.  
+> After school, 3:12 PM: feeling: Good.  
 > Remove  
-> Midday, 11:43 AM: feeling: Okay.  
+> After school, 3:12 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
