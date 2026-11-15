@@ -1,0 +1,6 @@
+/* Words on the Tidelight widget. They show on the Home Screen and the Lock Screen, where anyone
+   can see them, so they say nothing about the person, mood, or crisis. Draft for review. */
+"widget.description" = "A quiet way back into Tidelight. It shows nothing about you.";
+"widget.breathe.long" = "A minute to breathe";
+"widget.breathe" = "Breathe";
+"widget.plan" = "My plan";

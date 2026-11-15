@@ -157,6 +157,21 @@ each covers and what only a real phone can show.
   this order the screen the person left shows for a moment. A timer lifts the cover anyway after
   a few seconds: the app must never stay covered.
 
+## The widget, and opening the app at a named place (November 15, 2026, a draft)
+
+- **`ios/App/TidelightWidget/` is its own Xcode target** (`org.tidelight.app.widget`, iOS 17), added by
+  `tools/add-widget-target.rb` with CocoaPods' `xcodeproj` library; never edit `project.pbxproj` by hand.
+  No team or signing identity is set for it. Android has no widget.
+- **The widget is discreet, like a notification:** the app's name and a few plain words from its own
+  `Localizable.strings` (English and Spanish). Never a mood, a check-in, a streak, a name, 988, or the
+  word "safety". It has no entitlements and no shared container, so it can read nothing the person
+  saved. `test/unit/widget.test.mjs` checks all of that from its files.
+- **A tap opens `tidelight://open/breathe`, `/plan`, or `/home`.** `TidelightPlugin.swift` turns the
+  first two into a launch target; `src/redesign.js` acts on `tidelight-launch`: the plan opens
+  (behind the lock, if it is on), a breathing minute starts only when the app is not locked, and
+  nothing happens during first-time setup. Any other address just opens the app.
+  `test/open-test.mjs` checks the page's side.
+
 ## The 988 screen, and screens opened from the support step (November 15, 2026, a draft)
 
 - **`#tl-expect` holds no wording of its own.** `tools/build-redesign.mjs` (`expectSection`) copies the

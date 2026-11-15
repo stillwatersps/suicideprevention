@@ -14,7 +14,8 @@ import { initMeditate, renderSuggestion, renderHistory, startType } from './ui/m
 import { initBuilder, renderPresets } from './ui/builder.js';
 import { initFeel } from './ui/feel.js';
 import { initSections } from './ui/sections.js';
-import { initLock } from './ui/lock.js';
+import { initLock, isLocked } from './ui/lock.js';
+import { Tidelight } from './native.js';
 import { initPlan, renderPlan } from './ui/plan.js';
 import { keepNamesHonest } from './ui/components.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
@@ -109,6 +110,18 @@ export async function initRedesign(context) {
     renderPlan();
     await refreshStreak();
     refresh();
+  });
+  // Opened from the widget, at a place it names: the safety plan, or a minute of breathing. The
+  // phone hands over only that one word. Setting up for the first time is never skipped, and the
+  // app lock, if it is on, still covers the plan; a breathing minute never starts behind the lock.
+  window.addEventListener('tidelight-launch', (event) => {
+    const target = event.detail || '';
+    if (target !== '#tl-plan' && target !== '#tl-breathe') return;
+    // The phone keeps the place until the page takes it; taking it here means it is used once.
+    try { Promise.resolve(Tidelight.takeLaunchTarget()).catch(() => {}); } catch (e) { /* web */ }
+    if (!state.onboarding.completed) return;
+    if (target === '#tl-plan') shell.pushOver('plan');
+    else if (!isLocked()) ctx.startReset();
   });
   // After Quick exit the app opens on Home, never on the entry or check-in that had been open
   // (app-return.js says when). Setting up for the first time stays where it was.

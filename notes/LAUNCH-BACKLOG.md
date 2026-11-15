@@ -154,4 +154,8 @@ decides.
   331% text, the Support section that sits below every screen (the website's own block, with the 988
   panel) is 16 points wider than the screen. Its buttons stay on screen and full size. It is the
   website's layout and reviewed markup, so it was left; found while testing the safety plan.
+- **The widget is iPhone only, iOS 17 and later,** and has never been seen on a Home Screen: only its
+  files and the app's side were checked. Android has none. It also needs its own entry in an Apple
+  Developer account (its identifier is the app's with `.widget` added) before the app can be signed
+  for a real phone. Who: a founder, with the account.
 

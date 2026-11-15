@@ -59,6 +59,14 @@ Not stored anywhere: the date of birth; any location other than the home spot an
 own places; any record of taps, screens visited, or time spent; any identifier for the person or
 the phone.
 
+## The Home Screen widget (iPhone)
+
+A separate small program inside the app. It stores nothing and can read nothing the app stores: there is no
+shared storage between them. It shows only fixed words and never changes. A tap passes the app one word,
+"breathe", "plan", or "home", through the app's own address (`tidelight://open/...`); any other app on the
+phone could open that address too, and all it can do is open Tidelight at one of those places, behind the app
+lock if it is on.
+
 ## When data leaves the phone
 
 | How | What goes | To whom | Who starts it |

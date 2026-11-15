@@ -86,6 +86,26 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         }
         // Opened with an alert already due (for example after a tap the page missed): go to it.
         if watcher.pendingAlert() != nil { goToCheckIn(hash: "#app-place-alert") }
+        // Opened from the widget, through the app's own address (tidelight://open/...).
+        center.addObserver(self, selector: #selector(openedByAddress(_:)), name: .capacitorOpenURL, object: nil)
+        if let url = ApplicationDelegateProxy.shared.lastURL { open(address: url) }
+    }
+
+    // MARK: - Opened from the widget
+
+    // The widget names a place in the app: the plan, or a minute of breathing. Anything else, and
+    // any address this doesn't know, just opens the app. The page decides what to show, and the
+    // app lock, if it is on, still covers it. Nothing is read from the address but that one word.
+    private static let openTargets = ["plan": "#tl-plan", "breathe": "#tl-breathe"]
+
+    @objc private func openedByAddress(_ notification: Notification) {
+        guard let info = notification.object as? [String: Any], let url = info["url"] as? URL else { return }
+        open(address: url)
+    }
+
+    private func open(address url: URL) {
+        guard url.scheme == "tidelight", url.host == "open", let hash = TidelightPlugin.openTargets[url.lastPathComponent] else { return }
+        goToCheckIn(hash: hash)
     }
 
     // MARK: - Automated Simulator runs make no sound

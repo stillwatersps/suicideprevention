@@ -72,7 +72,8 @@ const webStandIn = {
     if (hooks().onCompose) hooks().onCompose(options);
     return { result: 'unavailable', fallback: true };
   },
-  async takeLaunchTarget() { return { target: '' }; },
+  // Tests pretend the app was opened at a named place (a notification, or the widget).
+  async takeLaunchTarget() { const target = hooks().launchTarget || ''; if (target) hooks().launchTarget = ''; return { target }; },
   async debugEnterPlace() { return { done: false }; },
   // The redesign: one location on request, haptics, keeping the screen awake, the audio route.
   // In a browser these are stand-ins; tests set window.__tidelight to pretend.

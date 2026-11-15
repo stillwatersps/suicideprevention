@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-15 (next features, feature 5)
+Last updated: 2026-11-15 (next features, feature 6)
 Current branch: app/next-features (cut from app/privacy-package, the top of the app's stack on November 15)
 Current phase: Next features: a founder's list of twenty, built one at a time with a full check after each
-Current step: Next features: features 1 to 5 done. Next: feature 6, a home-screen widget: a new WidgetKit target in the iOS project (added with the `xcodeproj` Ruby gem that CocoaPods brings, not by hand), a discreet widget that opens the app, and a way for the app to open on a named screen. Simulator only; no team or signing setting is touched.
+Current step: Next features: features 1 to 6 done (7 was already built). Next: feature 8, the voice recording sheet: a note listing every clip a person needs to record (file name and words, both languages), generated from the meditation scripts, since the app already plays such files when they exist.
 
 ## Next features — in progress
 One founder asked Claude for twenty features that would make the app better (November 15, 2026), then asked for all of them, **one at a time, with a thorough check after each before the next**. The other founder hasn't seen the list. Each feature is its own commit on `app/next-features`. The check after each: `npm test` in `app/` (every suite), the four root checks, and, when native code changed, a build and a look in the iOS Simulator (muted). New wording is marked "Draft for review", is in both languages, and has its questions in `notes/CONTENT-REVIEW.md`, "Questions about the app's next features".
@@ -14,7 +14,7 @@ Already built by other sessions before this list was started, so not built again
 - [x] 3 — "AYUDA" filled in for Spanish texts to 988, in the app's copy of the Spanish pages (98 links on the app's screens, and every Spanish website page inside the app); English and the PRIDE link unchanged; the public website unchanged. Six new checks in `test/crisis-test.mjs`. Seen in the Simulator as far as the compose screen; **the recipient is not confirmed on a real phone**
 - [x] 4 — "What happens when you reach out to 988": a screen that shows the Get Help page's own section word for word, copied at build time (no new clinical wording), with 988 and 911 at its end; reached from the support screen and part 5 of the plan. Back from it, and from the plan, now returns to the support screen instead of starting a new check-in. `test/expect-test.mjs` (42 checks)
 - [x] 5 — Grounding: a screen with four short exercises (5-4-3-2-1, something cold, feet on the floor, a slower breath with the app's silent one-minute circle), on the support screen under the crisis buttons and on the Check-in tab; stores nothing; 988 and 911 at its end. New AI-written wording, with questions for the reviewer. `test/ground-test.mjs` (44 checks)
-- [ ] 6 — A home-screen widget (a new Xcode target; a founder said to build it)
+- [x] 6 — A Home Screen and Lock Screen widget for iPhone (iOS 17 and later): a new target `TidelightWidget`, discreet words only, no access to anything saved; a tap opens the app at a breathing minute or the safety plan through `tidelight://open/...`, behind the app lock if it is on. `test/unit/widget.test.mjs` (6) and `test/open-test.mjs` (24). In the Simulator the app compiles with the widget inside it and both addresses were seen working; **the widget itself has not been seen on a Home Screen**
 - [x] 7 — App lock (already built, pull request 31)
 - [ ] 8 — Recorded voice: a recording sheet only (a person has to record the voice)
 - [ ] 9 — Get Help resources by need, inside the app

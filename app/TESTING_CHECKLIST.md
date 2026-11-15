@@ -73,6 +73,23 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1f. The widget (added November 15, 2026; iPhone, iOS 17 or later)
+
+Never seen on a Home Screen: in the Simulator the app's addresses were tried, but the widget could not be
+placed by the automated taps. Please do this by hand.
+
+- [ ] Touch and hold the Home Screen, tap Edit, Add Widget, and find Tidelight. *Expected:* a small widget
+  (a leaf, "Tidelight", "A minute to breathe") and a wider one ("Breathe" and "My plan"). Nothing on
+  either says anything about you.
+- [ ] Add the small one and tap it. *Expected:* Tidelight opens on the one-minute breathing circle, with
+  the crisis strip above it.
+- [ ] Add the wider one and tap "My plan". *Expected:* Tidelight opens on the safety plan.
+- [ ] Turn on the app lock (Settings), leave the app, tap each widget. *Expected:* the lock screen first;
+  no breathing starts behind it, and the plan shows only after Face ID.
+- [ ] Add the Lock Screen widget (touch and hold the Lock Screen, Customize). *Expected:* a leaf, or
+  "Tidelight / A minute to breathe". Decide whether you want the app's name on a Lock Screen at all.
+- [ ] Set the phone to Spanish. *Expected:* "Un minuto para respirar", "Respirar", "Mi plan".
+
 ## 1e. Texting 988 in Spanish (added November 15, 2026). Do this on an iPhone AND an Android phone
 
 - [ ] In Spanish, tap "envía AYUDA al 988" in the strip. *Expected:* Messages opens on a new message,

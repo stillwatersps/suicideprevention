@@ -1158,6 +1158,28 @@ Questions:
 - Spanish: the screen's name is "Volver al presente" ("come back to the present"), because Spanish has no
   everyday word for "grounding". A fluent reader should choose.
 
+### The Home Screen and Lock Screen widget (iPhone)
+
+A small widget a person can add to their Home Screen or Lock Screen. A tap opens the app at a minute of
+breathing or at the safety plan. Because anyone can see a Home Screen, it follows the founder's rule for
+notifications: discreet. Its words, all of them, in English and Spanish:
+
+| Where | English | Spanish (AI translation) |
+| --- | --- | --- |
+| The widget picker's description | A quiet way back into Tidelight. It shows nothing about you. | Una forma discreta de volver a Tidelight. No muestra nada sobre ti. |
+| Small widget and Lock Screen | A minute to breathe | Un minuto para respirar |
+| Wider widget, first button | Breathe | Respirar |
+| Wider widget, second button | My plan | Mi plan |
+
+It also shows the app's name and a small leaf. It shows no mood, check-in, streak, or name, and it can read
+nothing the person saved. Questions:
+
+- Is "My plan" discreet enough for a Home Screen that a parent, partner, or classmate may see, or should the
+  widget offer only breathing?
+- Should a Lock Screen widget exist at all for this app? The app's name is on it.
+- Should the widget offer Call 988? It was left off, because a crisis number on a Home Screen is not discreet;
+  the app's own screens all have it.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].
