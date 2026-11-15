@@ -91,6 +91,7 @@ npm run test:a11y   # the accessibility audit alone (about 8 minutes)
 npm run test:ios    # the Swift logic for places (needs Xcode)
 node tools/launch-time.mjs 5        # cold launch time in the booted Simulator, median of 5
 node tools/reviewer-walkthrough.mjs # refills the screen-by-screen part of notes/REVIEWER-PACKET.md
+node tools/voice-sheet.mjs          # rewrites notes/VOICE-RECORDING-SHEET.md after a script line changes
 LANG=en_US.UTF-8 npm run sync   # build, then copy into the iOS and Android projects (needs CocoaPods)
 ```
 

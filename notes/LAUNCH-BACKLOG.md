@@ -158,4 +158,7 @@ decides.
   files and the app's side were checked. Android has none. It also needs its own entry in an Apple
   Developer account (its identifier is the app's with `.widget` added) before the app can be signed
   for a real phone. Who: a founder, with the account.
+- **The meditation voice needs a person.** The app is ready to play recordings and
+  [[VOICE-RECORDING-SHEET]] lists the 36 to make, but someone has to record them, after the
+  reviewer has approved the scripts, and agree in writing to their use. Who: the founders.
 
