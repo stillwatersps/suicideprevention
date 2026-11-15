@@ -73,6 +73,14 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1d. The crisis strip at the largest text (added November 15, 2026)
+
+- [ ] Settings, Accessibility, Display & Text Size, Larger Text: turn on Larger Accessibility Sizes and
+  drag to the largest. Open Tidelight. *Expected:* the strip shows every word ("Need help now? Call 988
+  or text 988. In immediate danger, call 911." and Exit), takes about a third of the screen, and Get
+  Support Now is on screen under it. The strip's words are smaller than the rest of the screen's.
+- [ ] Tap Call 988, text 988, and call 911 there, as far as the dial or compose screen, then cancel.
+
 ## 1c. The tab bar on the website's pages (added November 12, 2026)
 
 - [ ] Open the menu and choose Get Help. *Expected:* the page opens with the same five tabs at the

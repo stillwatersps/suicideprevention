@@ -42,6 +42,12 @@
   /* Crisis buttons (Get Support Now, Call 988): the strongest shape on the page in both modes. */
   --crisis-btn-bg: #10272F;
   --crisis-btn-text: #FBF8F2;
+  /* The strip's own words follow the phone's text size up to 28 points and no further (the phone's
+     usual size is 17), and its tap targets up to 56, so that at the largest sizes the strip leaves
+     room for the screen under it. Every word stays. A founder's choice, November 15, 2026. */
+  --crisis-size: 0.9rem;
+  --crisis-size-cap: 28px;
+  --crisis-tap-cap: 56px;
   /* Mood tones. None of them reads as "bad". Used as swatches and tints, never behind text. */
   --mood-1: #8DB7C6;         /* calm water */
   --mood-2: #A6C8B4;         /* steady */

@@ -192,6 +192,9 @@ each covers and what only a real phone can show.
   - **Crisis controls are plain on purpose**: `--crisis-bg`/`--crisis-text` for the strip,
     `--crisis-btn-bg`/`--crisis-btn-text` for Get Support Now and Call 988. At least 7 to 1 (a unit
     test checks), no grain, no animation, no highlight, no haptic of the app's own, never coral.
+    The strip's own words follow the phone's text size up to 28 points and its tap targets up to 56
+    (`--crisis-size-cap`, `--crisis-tap-cap`), so the strip leaves room for the screen at the largest
+    sizes. Every word stays; `test/strip-test.mjs` checks six sizes. A draft, one founder's choice.
   - **The horizon** (`.tl-horizon`, with `-hero`, `-progress`, `-complete`) is the one
     signature shape: a flat line with light at its edge. No waves. It is decoration
     (`aria-hidden`) and never appears on a support screen or on a "quiet" day.

@@ -26,6 +26,9 @@ decides.
   which the website already uses on a phone held sideways) at those sizes; cap how far the strip's
   text grows; or let the strip scroll away at those sizes. Each changes how the strip looks, so
   none was done. Who decides: both founders, with the reviewer.
+  **Built one way on November 15, 2026, as a draft:** one founder chose the third option below, every word
+  kept with the strip's words held at 28 points. The short form was not used. The other founder and the
+  reviewer still decide; the questions are in [[CONTENT-REVIEW]], "Questions about the app's next features".
   **Looked at again on November 14, 2026, and still not done.** One founder asked for the short form.
   The short form leaves out "Need help now?" and "In immediate danger,", and the app's first safety
   rule (`app/CLAUDE.md`) says never to shorten crisis wording or the 911 banner. So it stays a

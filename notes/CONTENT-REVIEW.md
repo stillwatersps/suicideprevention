@@ -1087,6 +1087,20 @@ person types short lines; nothing is suggested and nothing is filled in for them
 - **A lawyer:** the plan may hold other people's names and phone numbers, and what a person writes about their
   own warning signs. It is stored on the phone, is in the phone's backup, and is in "a copy of my data".
 
+### The crisis strip at the largest text sizes
+
+The app follows the phone's text size. At the top sizes the strip took most of the screen (86% of an iPhone 17's
+at the largest), which left almost no room for anything else. Pictures of three options were made on November 14
+([[LAUNCH-BACKLOG]]). On November 15 one founder chose the one that keeps every word: **the strip's own words stop
+growing at 28 points** (the phone's usual size is 17), and its tap targets at 56. Nothing changes below about
+twice the usual text size. The strip now takes about 27% of that screen in English and 32% in Spanish at every
+larger size. The short form ("Call 988 · Text 988 · Call 911") was not used, so no crisis wording is left out.
+
+- Is it right for the strip to be smaller than the text size the person chose, when everything else on the
+  screen follows it? A person who needs 53-point text reads the strip at 28.
+- On the smallest phones (320 points wide) the strip still takes about half the screen in English and two
+  thirds in Spanish at those sizes. Is that acceptable, or should those phones get something else?
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].
