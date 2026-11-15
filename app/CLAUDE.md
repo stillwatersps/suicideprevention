@@ -157,6 +157,18 @@ each covers and what only a real phone can show.
   this order the screen the person left shows for a moment. A timer lifts the cover anyway after
   a few seconds: the app must never stay covered.
 
+## The safety plan (November 15, 2026, a draft)
+
+- **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the
+  order the website's Get Help page gives them. Entries are the person's own words: the app suggests
+  nothing and fills nothing in.
+- **Call 988, Text 988, and Call 911 are markup in part 5**, the same three lines as the support screen,
+  never stored entries, so nothing a person does can remove them. Never name a method anywhere in the plan.
+- **Whatever is stored comes back whole or empty** (`cleanPlan`), because the plan is read in a hard moment.
+- "Open my safety plan" shows on the support screen only when the plan has something in it, and always
+  below the crisis buttons. "Delete everything" removes the plan; the app lock covers it; "a copy of my
+  data" includes it. `test/plan-test.mjs` checks each.
+
 ## Architecture after the redesign
 
 - **Tabs** (`src/ui/shell.js`): `TABS` in `src/ui/icons.js` is the one list; adding a tab is one line there, plus its

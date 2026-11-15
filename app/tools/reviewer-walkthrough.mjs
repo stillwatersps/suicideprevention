@@ -58,6 +58,7 @@ const ABOUT = {
   friends: 'The fifth tab: My circle, and sharing check-ins.',
   'flow-support': 'What a quick check-in shows at once after "Very low" or "Low", instead of the thanks line.',
   'daily-result-heavy': 'The Daily check-in\'s result after choosing a heavy feeling (here, Sad).',
+  plan: 'The person\'s own safety plan: six short lists they write ahead of time, with 988 and 911 built into part 5. Shown empty here.',
 };
 
 // The words on screen now, without the parts that are on every screen. Those parts are taken out
@@ -127,7 +128,7 @@ if (!before.includes(START) || !before.includes(END)) { console.log('notes/REVIE
 // them, but they are printed in four parts with what matters most for safety first.
 const PARTS = [
   ['Part 1. Support and crisis screens', 'What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first.',
-    ['flow-support', 'daily-result-heavy', 'complete-support', 'place-alert', 'daily-needs', 'hope', 'locked']],
+    ['flow-support', 'daily-result-heavy', 'complete-support', 'place-alert', 'daily-needs', 'plan', 'hope', 'locked']],
   ['Part 2. Check-in questions', 'What the app asks, and what an ordinary answer leads to.',
     ['checkin', 'flow-mood', 'flow-done', 'daily-question', 'daily-result']],
   ['Part 3. Streaks and rewards', 'Where the app counts days or marks something as done.',

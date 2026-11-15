@@ -131,7 +131,8 @@ async function dataTests(browser, lang) {
   check(text.includes(lang === 'es' ? 'Nada guardado.' : 'Nothing saved.'), 'a kind of thing with nothing kept says so');
   check(!/undefined|\[object|NaN|null/.test(text), 'nothing reads as "undefined", "null", or an object');
   const headings = text.split('\n').filter((line) => line && line === line.toUpperCase() && /[A-ZÁÉÍÓÚÑ]{3}/.test(line));
-  check(headings.length === 12 && new Set(headings).size === 12, 'twelve sections, each under its own heading: ' + headings.length);
+  // Thirteen since November 15, 2026: the safety plan has its own section.
+  check(headings.length === 13 && new Set(headings).size === 13, 'thirteen sections, each under its own heading: ' + headings.length);
   check(/\S/.test(await page.textContent('#tl-set-export-note')), 'the page says the copy was made');
   check(outside.length === 0, 'making the copy sent nothing anywhere');
   check(JSON.stringify(await stored(page, 'tidelight.log.v1')) === JSON.stringify(LOG), 'and changed nothing that is saved');

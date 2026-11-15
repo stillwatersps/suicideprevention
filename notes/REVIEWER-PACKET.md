@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 7 screens, about 164 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 8 screens, about 204 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -281,6 +281,55 @@ Picture: `app/design/after-launch-pass/reviewer/18-daily-needs.png`
 > Back  
 > See every suggestion this page can show
 
+#### 40. My safety plan
+
+The person's own safety plan: six short lists they write ahead of time, with 988 and 911 built into part 5. Shown empty here.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/40-plan.png`
+
+> Draft for review  
+> Back  
+> My safety plan  
+> A short list, in your own words, of what to do when things get hard. You write it ahead of time, so you don't have to work it out in the moment.  
+> A plan helps most when you make it, or go over it, with someone: a doctor, a counselor, or an adult you trust. It does not replace professional care.  
+> You don't have to work through this list before asking for help. The buttons to call or text 988 and to call 911 are at the top of every screen, and in part 5 below.  
+> Your plan is saved on this phone only. Tidelight never receives it. Anyone who can unlock this phone can read it, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes it.  
+> 1. My warning signs  
+> Thoughts, feelings, or situations that tell me things are getting harder.  
+> Add a warning sign  
+> Add  
+> 2. Things I can do on my own  
+> Ways I can get through it by myself, like a walk, music, or a shower.  
+> Add something I can do  
+> Add  
+> 3. People and places that take my mind off it  
+> Somewhere to be, or someone to be around, without having to talk about it.  
+> Add a person or a place  
+> Add  
+> 4. People I can ask for help  
+> Family or friends I can tell that I'm struggling.  
+> Name  
+> Phone number (optional)  
+> Add  
+> Choose someone from my contacts  
+> 5. Professionals and crisis lines  
+> A doctor, a counselor, or a clinic I can contact. 988 and 911 are always here.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911  
+> Name  
+> Phone number (optional)  
+> Add  
+> 6. Making my space safer  
+> Things I can put out of reach, or ask someone to hold for a while, so a hard moment is safer.  
+> Add a way to make my space safer  
+> Add  
+> My reasons  
+> The reasons you keep going are in your Hope box.  
+> Open my Hope box
+
 #### 23. Hope box
 
 The Hope box: the person's own reasons, words, and photos.
@@ -328,7 +377,7 @@ Picture: `app/design/after-launch-pass/reviewer/39-locked.png`
 
 ### Part 2. Check-in questions
 
-What the app asks, and what an ordinary answer leads to. 5 screens, about 93 lines of the app's words.
+What the app asks, and what an ordinary answer leads to. 5 screens, about 95 lines of the app's words.
 
 #### 14. Check-in tab
 
@@ -351,6 +400,8 @@ Picture: `app/design/after-launch-pass/reviewer/14-checkin.png`
 > Find your way back  
 > Hope box  
 > Reasons, words, photos  
+> My safety plan  
+> What to do when things get hard  
 > Your journey  
 > What you've kept
 
@@ -469,10 +520,10 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good afternoon  
+> Good morning  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 7:30 PM  
+> At 2:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -723,10 +774,10 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good afternoon  
+> Good morning  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 7:30 PM  
+> At 2:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -1010,9 +1061,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> After school, 5:33 PM: feeling: Good.  
+> Midday, 11:43 AM: feeling: Good.  
 > Remove  
-> After school, 5:34 PM: feeling: Okay.  
+> Midday, 11:43 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  

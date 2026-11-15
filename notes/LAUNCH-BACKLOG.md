@@ -147,4 +147,8 @@ decides.
   language link, and the "Draft for review" mark take close to half the screen before a screen's
   own content starts. Shortening any of them is against a founder's safety rules, so it needs a
   decision from both founders and the reviewer, together with the strip's large-text question.
+- **The Support section at the very largest text on the smallest phone.** On a 320-point screen at
+  331% text, the Support section that sits below every screen (the website's own block, with the 988
+  panel) is 16 points wider than the screen. Its buttons stay on screen and full size. It is the
+  website's layout and reviewed markup, so it was left; found while testing the safety plan.
 

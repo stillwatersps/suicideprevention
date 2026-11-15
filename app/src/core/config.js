@@ -80,4 +80,6 @@ export const CONFIG = deepFreeze({
   motion: { pressScale: 0.96, calmMultiplier: 1.4, straightforwardMultiplier: 0.8, numberMs: 400 },
   onboarding: { stylePreviewMs: 2000 },
   developer: { tapsToUnlock: 7 },
+  // The safety plan: a short list, so each part stays short enough to read in a hard moment.
+  plan: { maxItems: 8, maxLength: 120 },
 });

@@ -1054,6 +1054,39 @@ For a fluent Spanish reader: "Bloquear la app", "Tidelight está bloqueada", "De
 "Crear una copia de mis datos", "Lugar de casa", and the sentences around them are an unreviewed AI
 translation. The license notices are left in English on purpose.
 
+## Questions about the app's next features
+
+Added from November 15, 2026, on `app/next-features`, at one founder's request, one feature at a time. **The other
+founder hasn't seen the list.** Every new line is in `app/src/text/` in both languages and is listed as added since
+the reviewer's snapshot, not as reviewed. The Spanish is an AI translation.
+
+### My safety plan
+
+A new screen, reached from the Check-in tab and, once something is written in it, from the support screen after a
+very low check-in. Six parts, with the names and order the Get Help page already gives, in the first person. The
+person types short lines; nothing is suggested and nothing is filled in for them. Please look at:
+
+- **Should the app offer a plan a person writes alone?** The research in [[AGE-STRATEGIES]] is for plans made with
+  a clinician, and found no clear benefit for teens from brief programs built around a plan. The screen says "A plan
+  helps most when you make it, or go over it, with someone: a doctor, a counselor, or an adult you trust. It does
+  not replace professional care." Is that enough, for adults and for minors? Should under-18s see something
+  different, or no plan at all?
+- **The six names and their one-line hints**, for example "6. Making my space safer: Things I can put out of
+  reach, or ask someone to hold for a while, so a hard moment is safer." No method is named anywhere. Is that
+  the right way to say it, and should the app say more or less?
+- **988 and 911 are built into part 5** as full-size buttons that can't be removed, above the person's own
+  professionals. The screen also says "You don't have to work through this list before asking for help." Is the
+  order right: should crisis lines come first on the screen instead of fifth?
+- **"Open my safety plan" on the support screen** after a very low check-in, under Call 988, Text 988, and Call
+  911, and only when the plan has something in it. Is offering the plan there helpful, or does it put a step
+  between the person and a call?
+- **A person in part 4 or 5 with a phone number gets a "Call {name}" button.** It dials their own contact. Fine?
+- **Reasons for living are not a seventh part.** The plan points to the Hope box instead. Should the plan hold them?
+- **Sharing the plan** goes through the same notice as every other share. Should the app encourage sharing it
+  with the person it was made with, as it does now in one line?
+- **A lawyer:** the plan may hold other people's names and phone numbers, and what a person writes about their
+  own warning signs. It is stored on the phone, is in the phone's backup, and is in "a copy of my data".
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

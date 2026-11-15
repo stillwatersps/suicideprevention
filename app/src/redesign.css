@@ -424,3 +424,14 @@ html.tl-locked .tl-screen,
 html.tl-locked .tl-tabbar,
 html.tl-locked #app-share-panel,
 html.tl-locked #app-age { display: none !important; }
+
+/* The safety plan: each entry is a line of the person's own words, with what can be done to it
+   beside it or, when there isn't room, under it. */
+.tl-plan-list { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0; padding: 0; list-style: none; }
+.tl-plan-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tl-space-sm); padding: var(--tl-space-sm) 0; border-top: var(--tl-border) solid var(--tl-line); }
+.tl-plan-text { flex: 1 1 50%; min-width: 0; overflow-wrap: anywhere; }
+.tl-plan-part .tl-row { flex-wrap: wrap; min-width: 0; max-width: 100%; }
+/* At the phone's largest text a button's words wrap inside it instead of pushing it off the side. */
+.tl-plan-part .tl-support-actions { grid-template-columns: minmax(0, 1fr); }
+html.tl .tl-plan-part .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+.tl-plan-part .tl-row .tl-input { flex: 1 1 50%; min-width: 0; }

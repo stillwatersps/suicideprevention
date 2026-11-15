@@ -1,8 +1,39 @@
 # Tidelight Build Progress
-Last updated: 2026-11-12 (launch brief, Phase 12: finished)
-Current branch: app/launch-readiness (cut from app/visual-identity at Phase 0's commit)
-Current phase: Launch readiness brief (`app/LAUNCH-BRIEF.md`), 13 phases, 0 to 12
-Current step: The launch readiness brief is finished (Phases 0 to 12). Nothing is in progress. Next is for people: the founders read `notes/FOUNDER-SUMMARY.md`, send `notes/REVIEWER-PACKET.md` and `notes/LEGAL-PACKET.md`, and try the app on a real iPhone with `app/TESTING_CHECKLIST.md`.
+Last updated: 2026-11-15 (next features, feature 1)
+Current branch: app/next-features (cut from app/privacy-package, the top of the app's stack on November 15)
+Current phase: Next features: a founder's list of twenty, built one at a time with a full check after each
+Current step: Next features: feature 1 (My safety plan) done. Next: feature 2, the short crisis strip at the three largest text sizes (a founder overrode safety rule 1 for it on November 15; build it as a draft and record the override).
+
+## Next features — in progress
+One founder asked Claude for twenty features that would make the app better (November 15, 2026), then asked for all of them, **one at a time, with a thorough check after each before the next**. The other founder hasn't seen the list. Each feature is its own commit on `app/next-features`. The check after each: `npm test` in `app/` (every suite), the four root checks, and, when native code changed, a build and a look in the iOS Simulator (muted). New wording is marked "Draft for review", is in both languages, and has its questions in `notes/CONTENT-REVIEW.md`, "Questions about the app's next features".
+
+Already built by other sessions before this list was started, so not built again: app lock (7), removing one item (11), a copy of your data (12), meditation history by month (14), a licenses screen and a draft privacy manifest (part of 18).
+
+- [x] 1 — My safety plan: `src/logic/plan.js`, `src/ui/plan.js`, `test/unit/plan.test.mjs`, `test/plan-test.mjs`; in the crisis inventory, the damaged-data test, the data copy, Delete everything, and behind the app lock
+- [ ] 2 — Short crisis strip at the three largest text sizes (a founder's override of safety rule 1, as a draft)
+- [ ] 3 — Prefilled "AYUDA" in the Spanish text link to 988
+- [ ] 4 — "What happens when you call 988"
+- [ ] 5 — Grounding exercises on the support screen
+- [ ] 6 — A home-screen widget (a new Xcode target; a founder said to build it)
+- [x] 7 — App lock (already built, pull request 31)
+- [ ] 8 — Recorded voice: a recording sheet only (a person has to record the voice)
+- [ ] 9 — Get Help resources by need, inside the app
+- [ ] 10 — What tends to help, from the person's own check-ins
+- [x] 11 — Remove one item (already built, pull request 31)
+- [x] 12 — A copy of my data (already built, pull request 31)
+- [ ] 13 — Tell the person when a save failed
+- [x] 14 — Meditation history by month (already built, pull request 30)
+- [ ] 15 — A note for the person who receives a shared message
+- [ ] 16 — "For the person helping"
+- [ ] 17 — A one-page summary for an appointment
+- [ ] 18 — A privacy screen (licenses already built; the policy itself is a lawyer's)
+- [ ] 19 — Shortcuts, and Apple Health (a founder said to build Health; it changes what "stays on this phone" means)
+- [ ] 20 — iPad layout, and an Apple Watch app (a founder said to build it)
+
+### Next features vs. project rules
+- **The crisis inventory** gains entries for each new screen. The app's rules say to ask a founder before re-recording it; the founder said yes on November 15 for new screens only. After each recording, every earlier entry and the order are compared with the file before and must be unchanged.
+- **Feature 2 against safety rule 1** ("never shorten the 911 banner"): declined on November 14 for that reason. On November 15 the founder who wrote the rule chose "Build it as a draft". It applies at the three largest text sizes only and is a question for the other founder and the reviewer.
+- **Features 6, 19, and 20** need new signed targets or an entitlement in Xcode. The launch brief's "never change signing or bundle settings" was that brief's rule; the founder chose to build all three on November 15. No team, account, or App Store setting is touched, and none can be tested on a real device here.
 
 ## Launch readiness brief — finished November 12, 2026
 A third brief from the same founder (`app/LAUNCH-BRIEF.md`, November 12, 2026): harden, test, measure, and document. No new features, no change to reviewed wording, no network, draft pull requests only. The record of findings is `notes/LAUNCH-READINESS.md`; out-of-scope ideas go to `notes/LAUNCH-BACKLOG.md`. Checkpoints: commit and update this file after every phase; full suite at phase ends; stop cleanly on "checkpoint"; never redo a finished phase.

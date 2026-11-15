@@ -121,6 +121,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Caja de esperanza</span> <span class="tl-card-sub">Razones, palabras, fotos</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="plan" id="tl-checkin-plan">
+              <span class="tl-card-icon" data-tl-icon="lifebuoy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Mi plan de seguridad</span> <span class="tl-card-sub">Qué hacer cuando las cosas se ponen difíciles</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
               <span class="tl-card-icon" data-tl-icon="path"></span>
               <span class="tl-card-text"><span class="tl-card-title">Tu camino</span> <span class="tl-card-sub">Lo que has guardado</span></span>
@@ -179,6 +184,7 @@
             <p class="tl-sub">Tu registro se guarda en este teléfono. Nadie en Tidelight lo ve, así que no es una forma de pedir ayuda.</p>
             <div class="tl-row tl-row-center">
               <a class="tl-btn tl-btn-secondary" href="#support">Más formas de recibir apoyo</a>
+              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="plan" data-plan-open hidden>Abrir mi plan de seguridad</button>
               <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Volver a Inicio</button>
             </div>
           </div>
@@ -695,6 +701,78 @@
           </div>
         </section>
 
+        <section class="tl-screen" id="tl-plan" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-plan-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-plan-title">Mi plan de seguridad</h2>
+          <p>Una lista corta, con tus propias palabras, de qué hacer cuando las cosas se ponen difíciles. La escribes con tiempo, para no tener que resolverlo en el momento.</p>
+          <p class="tl-sub">Un plan ayuda más cuando lo haces, o lo repasas, con alguien: un médico, un consejero o una persona adulta de confianza. No reemplaza la atención profesional.</p>
+          <p><strong>No tienes que repasar esta lista antes de pedir ayuda.</strong> Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla, y en la parte 5 más abajo.</p>
+          <p class="tl-sub" id="tl-plan-privacy">Tu plan se guarda solo en este teléfono. Tidelight nunca lo recibe. Cualquier persona que pueda desbloquear este teléfono puede leerlo, a menos que actives el bloqueo de la app en Ajustes. Borrar todo, en Tu camino, lo elimina.</p>
+          <p class="tl-status" id="tl-plan-status" role="status" hidden></p>
+          <div class="tl-panel tl-plan-part" data-plan-part="signs">
+            <h3 class="tl-headline" id="tl-plan-signs-title">1. Mis señales de alerta</h3>
+            <p class="tl-sub">Pensamientos, sentimientos o situaciones que me avisan de que las cosas se están poniendo más difíciles.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-signs-title"></ul>
+            <p class="tl-field"><label for="tl-plan-signs-new">Agregar una señal de alerta</label><span class="tl-row"><input class="tl-input" id="tl-plan-signs-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="coping">
+            <h3 class="tl-headline" id="tl-plan-coping-title">2. Cosas que puedo hacer por mi cuenta</h3>
+            <p class="tl-sub">Maneras de sobrellevarlo a solas, como caminar, escuchar música o darme una ducha.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-coping-title"></ul>
+            <p class="tl-field"><label for="tl-plan-coping-new">Agregar algo que puedo hacer</label><span class="tl-row"><input class="tl-input" id="tl-plan-coping-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="distract">
+            <h3 class="tl-headline" id="tl-plan-distract-title">3. Personas y lugares que me distraen</h3>
+            <p class="tl-sub">Un lugar donde estar, o alguien con quien estar, sin tener que hablar del tema.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-distract-title"></ul>
+            <p class="tl-field"><label for="tl-plan-distract-new">Agregar una persona o un lugar</label><span class="tl-row"><input class="tl-input" id="tl-plan-distract-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="people">
+            <h3 class="tl-headline" id="tl-plan-people-title">4. Personas a quienes puedo pedir ayuda</h3>
+            <p class="tl-sub">Familiares o amistades a quienes puedo contarles que lo estoy pasando mal.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-people-title"></ul>
+            <p class="tl-field"><label for="tl-plan-people-name">Nombre</label><input class="tl-input" id="tl-plan-people-name" type="text" maxlength="120" autocomplete="off" data-plan-name></p>
+            <p class="tl-field"><label for="tl-plan-people-phone">Número de teléfono (opcional)</label><input class="tl-input" id="tl-plan-people-phone" type="tel" maxlength="24" autocomplete="off" data-plan-phone></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button><button type="button" class="tl-btn tl-btn-quiet" data-plan-pick>Elegir a alguien de mis contactos</button></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="pros">
+            <h3 class="tl-headline" id="tl-plan-pros-title">5. Profesionales y líneas de crisis</h3>
+            <p class="tl-sub">Un médico, un consejero o una clínica con quien puedo comunicarme. El 988 y el 911 siempre están aquí.</p>
+            <ul class="tl-support-actions">
+              <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+            </ul>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-pros-title"></ul>
+            <p class="tl-field"><label for="tl-plan-pros-name">Nombre</label><input class="tl-input" id="tl-plan-pros-name" type="text" maxlength="120" autocomplete="off" data-plan-name></p>
+            <p class="tl-field"><label for="tl-plan-pros-phone">Número de teléfono (opcional)</label><input class="tl-input" id="tl-plan-pros-phone" type="tel" maxlength="24" autocomplete="off" data-plan-phone></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="safer">
+            <h3 class="tl-headline" id="tl-plan-safer-title">6. Hacer mi espacio más seguro</h3>
+            <p class="tl-sub">Cosas que puedo poner fuera de mi alcance, o pedirle a alguien que guarde por un tiempo, para que un momento difícil sea más seguro.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-safer-title"></ul>
+            <p class="tl-field"><label for="tl-plan-safer-new">Agregar una manera de hacer mi espacio más seguro</label><span class="tl-row"><input class="tl-input" id="tl-plan-safer-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">Mis razones</h3>
+            <p class="tl-sub">Las razones por las que sigues adelante están en tu Caja de esperanza.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-legacy="app-hope">Abrir mi Caja de esperanza</button></p>
+          </div>
+          <div class="tl-panel" id="tl-plan-share-box" hidden>
+            <h3 class="tl-headline">Compartir mi plan</h3>
+            <p class="tl-sub">Con alguien que tú elijas, como la persona con quien lo hiciste. Primero verás el texto y podrás cambiarlo.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-share">Compartir mi plan</button></p>
+          </div>
+        </section>
+
         <section class="tl-screen" id="tl-licenses" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-licenses-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -862,6 +940,13 @@
         <span data-word="export.age">Grupo de edad: {group}</span>
         <span data-word="export.home">Lugar de casa: {latitude}, {longitude}</span>
         <span data-word="export.none">Nada guardado.</span>
+        <span data-word="plan.title">Mi plan de seguridad</span>
+        <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
+        <span data-word="plan.saved">Guardado en este teléfono.</span>
+        <span data-word="plan.removed">Quitado.</span>
+        <span data-word="plan.remove">Quitar</span>
+        <span data-word="plan.removeNamed">Quitar: {text}</span>
+        <span data-word="plan.call">Llamar a {name}</span>
         <span data-word="builder.minutes">{minutes} min</span>
         <span data-word="builder.title">{situation} de {minutes} min · {world}</span>
         <span data-word="builder.summary">{title}. {breaths}</span>

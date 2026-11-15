@@ -15,6 +15,7 @@ import { initBuilder, renderPresets } from './ui/builder.js';
 import { initFeel } from './ui/feel.js';
 import { initSections } from './ui/sections.js';
 import { initLock } from './ui/lock.js';
+import { initPlan, renderPlan } from './ui/plan.js';
 import { keepNamesHonest } from './ui/components.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
@@ -67,6 +68,7 @@ export async function initRedesign(context) {
   initSetup(shell, ctx);
   initSettings(shell, ctx);
   initStreaks(shell, ctx);
+  initPlan(shell, ctx);
   // The meditation player: a finished session (60% or more) counts toward today and the setup list.
   ctx.isQuiet = isQuiet;
   ctx.goQuiet = goQuiet;
@@ -97,9 +99,11 @@ export async function initRedesign(context) {
     await syncReminders(ctx.checkInsToday());
     refresh();
   });
-  // Delete everything also removes the name, the home spot, the streak, and meditation history.
+  // Delete everything also removes the name, the home spot, the streak, meditation history, and
+  // the safety plan.
   window.addEventListener('tidelight-erased', async () => {
-    for (const name of ['profile', 'home', 'days', 'streak', 'sessions']) await clear(name);
+    for (const name of ['profile', 'home', 'days', 'streak', 'sessions', 'plan']) await clear(name);
+    renderPlan();
     await refreshStreak();
     refresh();
   });

@@ -27,6 +27,7 @@ export const KEYS = Object.freeze({
   sessions: 'tidelight.sessions',
   presets: 'tidelight.presets',
   language: 'tidelight.language', // plain text
+  plan: 'tidelight.plan.v1', // the safety plan: six short lists in the person's own words
 });
 
 export function memoryBackend(initial) {

@@ -77,6 +77,8 @@ export const SCREENS = [
     await openSettings(page);
     if (await page.isChecked('#tl-set-lock')) await page.click('#tl-set-lock');
   } },
+  // Added November 15, 2026, at the end, so the screens above keep their numbers.
+  { id: 'plan', name: 'My safety plan', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); } },
 ];
 
 // Visits every screen in order. `each(screen, page, problem)` is called once per screen, with

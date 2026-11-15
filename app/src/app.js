@@ -602,6 +602,8 @@ function start() {
       try {
         const started = await initRedesign({
           api, addQuickCheckIn, getGroup: () => group,
+          // Anything shared goes through the one notice: who sees it, and that it can't be taken back.
+          share: (text, from) => openShare(text, from),
           getLog: () => log, todaysLog, removeCheckIn,
           // Every check-in kept, oldest first, as the words a person reads (for a copy of their data).
           logLines: () => log.map((item) => ({ day: dayOf(new Date(item.t)), line: lineFor(item) + (item.note ? ' ' + item.note : '') })),
