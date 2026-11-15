@@ -158,6 +158,18 @@ each covers and what only a real phone can show.
   this order the screen the person left shows for a moment. A timer lifts the cover anyway after
   a few seconds: the app must never stay covered.
 
+## "What tends to help" (November 15, 2026, a draft)
+
+- **Rule in `src/logic/helps.js`, screen in `src/ui/helps.js`, numbers in `CONFIG.helps`.** It looks only
+  at better days (a quick check-in of Good or Great) and says what else was recorded on them.
+- **Never a score, a chart, an average, or a trend, and hard days are never counted, listed, or
+  mentioned.** The result has no field for them, and a unit test checks that. It never says one thing
+  caused another.
+- It stores nothing. The screen's words say "30 days", "three days", and "two or more"; a unit test fails
+  if `CONFIG.helps` and those words disagree.
+- The check-in log is cleaned once, when it is loaded (`src/app.js`): an entry that isn't a record with a
+  readable time is left out. One such entry used to stop the whole app from starting.
+
 ## The widget, and opening the app at a named place (November 15, 2026, a draft)
 
 - **`ios/App/TidelightWidget/` is its own Xcode target** (`org.tidelight.app.widget`, iOS 17), added by

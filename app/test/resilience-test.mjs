@@ -185,6 +185,16 @@ console.log('\nYears of data');
   await context.close();
 }
 
+// ---------- a damaged check-in log doesn't cost the person the app ----------
+console.log('\nA damaged check-in log');
+for (const [how, value] of [['holes and numbers among the entries', '[null,7,"x",[],{"t":"not a date","kind":"quick","mood":5},{"kind":"quick","mood":4}]'], ['a record where the list belongs', '{"0":"x"}'], ['a sentence', '"not a list"']]) {
+  const { context, page, errors, ready } = await open('en', { storage: { 'tidelight.log.v1': value } });
+  await page.waitForTimeout(500);
+  const started = await page.evaluate(() => ({ tabs: document.querySelectorAll('#tl-tabbar .tl-tab').length, home: document.getElementById('tl-home').getClientRects().length > 0, newer: document.documentElement.classList.contains('tl') }));
+  check(ready && started.tabs === 5 && started.home && started.newer && errors.length === 0, `${how}: the app starts as usual, on Home with its five tabs, not in a fallback` + (errors.length ? ': ' + errors[0] : ''));
+  await context.close();
+}
+
 // ---------- if the app's own code fails to start ----------
 console.log('\nIf the app itself fails to start');
 for (const lang of ['en', 'es']) {

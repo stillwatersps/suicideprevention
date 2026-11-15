@@ -566,6 +566,10 @@ function start() {
     panel.classList.add('ci-off');
     try { await store.migrate(); } catch (e) { /* storage blocked: start with defaults */ }
     try { log = JSON.parse((await load(LOG_KEY)) || '[]'); } catch (e) { log = []; }
+    // Whatever was stored, the log is a list of check-ins, each with a time that can be read. A
+    // damaged entry is left out here, once, so nothing later has to guard against it: one bad
+    // entry used to stop the whole app from starting.
+    log = (Array.isArray(log) ? log : []).filter((item) => item && typeof item === 'object' && !Array.isArray(item) && typeof item.t === 'string' && !isNaN(new Date(item.t)));
     if (!Array.isArray(log)) log = [];
     renderLog();
     const saved = await load(STATE_KEY);

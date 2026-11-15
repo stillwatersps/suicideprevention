@@ -59,6 +59,12 @@ Not stored anywhere: the date of birth; any location other than the home spot an
 own places; any record of taps, screens visited, or time spent; any identifier for the person or
 the phone.
 
+## "What tends to help"
+
+A screen that counts, from check-ins, meditations, and journal dates already on the phone, what else was
+recorded on days with a quick check-in of Good or Great. The count is made each time the screen opens and is
+never stored; nothing new is kept, and nothing leaves the phone. The app lock covers it.
+
 ## The Home Screen widget (iPhone)
 
 A separate small program inside the app. It stores nothing and can read nothing the app stores: there is no

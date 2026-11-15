@@ -336,13 +336,13 @@ Picture: `app/design/after-launch-pass/reviewer/40-plan.png`
 > The reasons you keep going are in your Hope box.  
 > Open my Hope box
 
-#### 43. What happens when you reach out to 988
+#### 44. What happens when you reach out to 988
 
 The Get Help page's own section on calling, texting, and chatting with 988, shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/43-expect.png`
+Picture: `app/design/after-launch-pass/reviewer/44-expect.png`
 
 > Draft for review  
 > Back  
@@ -370,13 +370,13 @@ Picture: `app/design/after-launch-pass/reviewer/43-expect.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 41. Other ways to reach someone
+#### 42. Other ways to reach someone
 
 The Get Help page's own list of other services (Spanish, Deaf or hard of hearing, veterans, LGBTQ+ youth, text lines, 911), shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/41-ways.png`
+Picture: `app/design/after-launch-pass/reviewer/42-ways.png`
 
 > Draft for review  
 > Back  
@@ -419,13 +419,13 @@ Picture: `app/design/after-launch-pass/reviewer/41-ways.png`
 > Call 911  
 > The 988 Lifeline, the Veterans Crisis Line, The Trevor Project, and Crisis Text Line keep conversations confidential, with limits. Each says it may contact emergency services or other authorities in some situations. Their websites explain when.
 
-#### 42. Grounding
+#### 43. Grounding
 
 Four short grounding exercises, offered on the support screen and the Check-in tab. New wording.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/42-ground.png`
+Picture: `app/design/after-launch-pass/reviewer/43-ground.png`
 
 > Draft for review  
 > Back  
@@ -497,7 +497,7 @@ Picture: `app/design/after-launch-pass/reviewer/39-locked.png`
 
 ### Part 2. Check-in questions
 
-What the app asks, and what an ordinary answer leads to. 5 screens, about 97 lines of the app's words.
+What the app asks, and what an ordinary answer leads to. 5 screens, about 99 lines of the app's words.
 
 #### 14. Check-in tab
 
@@ -524,6 +524,8 @@ Picture: `app/design/after-launch-pass/reviewer/14-checkin.png`
 > What to do when things get hard  
 > Grounding  
 > Short ways to steady yourself  
+> What tends to help  
+> From your own check-ins  
 > Your journey  
 > What you've kept
 
@@ -642,7 +644,7 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good afternoon  
+> Good evening  
 > You don't have to have everything figured out.  
 > Next check-in  
 > At 7:30 PM  
@@ -743,7 +745,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 24 screens, about 553 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 25 screens, about 559 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -896,7 +898,7 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good afternoon  
+> Good evening  
 > You don't have to have everything figured out.  
 > Next check-in  
 > At 7:30 PM  
@@ -1183,9 +1185,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> After school, 5:35 PM: feeling: Good.  
+> Before bed, 6:25 PM: feeling: Good.  
 > Remove  
-> After school, 5:35 PM: feeling: Okay.  
+> Before bed, 6:25 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1323,7 +1325,7 @@ Picture: `app/design/after-launch-pass/reviewer/29-player-end.png`
 > Get Support Now  
 > One minute  
 > 1-minute reset, 1 min  
-> 0:58 left  
+> 0:57 left  
 > Tap for controls  
 > End  
 > Pause  
@@ -1475,6 +1477,19 @@ Picture: `app/design/after-launch-pass/reviewer/38-licenses.png`
 > This license becomes null and void if any of the above conditions are not met.  
 > DISCLAIMER  
 > THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
+
+#### 41. What tends to help
+
+What else the person recorded on days they chose Good or Great, counted from their own check-ins. Shown here with too little to count. New wording.
+
+Picture: `app/design/after-launch-pass/reviewer/41-helps.png`
+
+> Draft for review  
+> Back  
+> What tends to help  
+> A look at your own check-ins from the last 30 days: on the days you chose Good or Great, what else did you record?  
+> It is worked out on this phone each time you open this page. Nothing here is a score, nothing new is kept, and nothing is sent anywhere.  
+> There isn't enough here yet. After three days with a quick check-in of Good or Great, this page shows what else you recorded on those days.
 
 <!-- WALKTHROUGH:END -->
 

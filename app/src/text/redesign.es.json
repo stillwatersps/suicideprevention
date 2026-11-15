@@ -431,6 +431,17 @@
   "Press your feet into the floor. Feel the chair or the ground holding you up. Open your hands and let your shoulders drop.": "Apoya los pies con firmeza en el suelo. Siente cómo la silla o el suelo te sostienen. Abre las manos y deja caer los hombros.",
   "A slower breath": "Una respiración más lenta",
   "Breathe out for a little longer than you breathe in. A circle on the next screen can pace you for one minute, in silence.": "Exhala un poco más largo de lo que inhalas. Un círculo en la siguiente pantalla puede marcarte el ritmo durante un minuto, en silencio.",
-  "Other ways to reach someone": "Otras maneras de comunicarte con alguien"
+  "Other ways to reach someone": "Otras maneras de comunicarte con alguien",
+  "What tends to help": "Lo que suele ayudar",
+  "From your own check-ins": "De tus propios registros",
+  "A look at your own check-ins from the last 30 days: on the days you chose Good or Great, what else did you record?": "Una mirada a tus propios registros de los últimos 30 días: en los días en que elegiste Bien o Muy bien, ¿qué más registraste?",
+  "It is worked out on this phone each time you open this page. Nothing here is a score, nothing new is kept, and nothing is sent anywhere.": "Se calcula en este teléfono cada vez que abres esta página. Nada aquí es una puntuación, no se guarda nada nuevo y no se envía nada a ningún lugar.",
+  "There isn't enough here yet. After three days with a quick check-in of Good or Great, this page shows what else you recorded on those days.": "Todavía no hay suficiente aquí. Después de tres días con un registro rápido de Bien o Muy bien, esta página muestra qué más registraste en esos días.",
+  "Nothing else was recorded on two or more of those days.": "No se registró nada más en dos o más de esos días.",
+  "This only counts what you recorded. It can't tell what caused what.": "Esto solo cuenta lo que registraste. No puede decir qué causó qué.",
+  "On the {days} days you chose Good or Great, you also recorded:": "En los {days} días en que elegiste Bien o Muy bien, también registraste:",
+  "{name}: {count} of {days} days": "{name}: {count} de {days} días",
+  "A meditation": "Una meditación",
+  "A journal entry": "Una entrada de diario"
  }
 }

@@ -80,6 +80,9 @@ export const CONFIG = deepFreeze({
   motion: { pressScale: 0.96, calmMultiplier: 1.4, straightforwardMultiplier: 0.8, numberMs: 400 },
   onboarding: { stylePreviewMs: 2000 },
   developer: { tapsToUnlock: 7 },
+  // "What tends to help": the last 30 days, shown once there are three better days, and only what
+  // was recorded on two or more of them. The screen's own words say these numbers; change both together.
+  helps: { days: 30, minDays: 3, minCount: 2, maxItems: 6 },
   // The safety plan: a short list, so each part stays short enough to read in a hard moment.
   plan: { maxItems: 8, maxLength: 120 },
 });

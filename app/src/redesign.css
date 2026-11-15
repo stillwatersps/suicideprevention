@@ -460,3 +460,7 @@ html.tl .tl-ground-part .tl-btn { max-width: 100%; white-space: normal; overflow
 .tl-ways-body .service { min-width: 0; }
 .tl-ways-body .pill { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tl-tap); min-width: var(--tl-tap); max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 
+/* "What tends to help": a plain list of what was also recorded on better days. */
+.tl-helps-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); }
+.tl-helps-item { padding: var(--tl-space-sm) 0; border-top: var(--tl-border) solid var(--tl-line); overflow-wrap: anywhere; }
+

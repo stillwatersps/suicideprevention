@@ -1194,6 +1194,26 @@ part 5 of the safety plan, both under the crisis buttons.
 - The English page's Spanish block ("En español") now has AYUDA filled in for its text link, like the
   Spanish pages. English links are unchanged.
 
+### What tends to help
+
+A new screen on the Check-in tab. It looks at the last 30 days of the person's own quick check-ins and, for the
+days they chose Good or Great, lists what else they recorded on two or more of those days: a tag, a meditation,
+a journal entry. For example: "On the 4 days you chose Good or Great, you also recorded: Grateful: 3 of 4 days.
+A meditation: 2 of 4 days." It appears only after three such days. It is worked out on the phone each time and
+nothing new is stored.
+
+What it deliberately does not do: no score, no chart, no average, no trend; it never counts, lists, or mentions
+hard days; and it says "This only counts what you recorded. It can't tell what caused what." Earlier notes say
+the mood is "never shown as a score or a chart", and this keeps to that.
+
+- Is showing a person what was there on their better days helpful, or could it read as "you didn't do these
+  things, so you felt bad"?
+- Is "Good or Great" the right line for a better day? Should "Okay" count?
+- Three days and "two or more" are small numbers. Could a pattern from so few days mislead?
+- Should this be offered on the support screen after a very low check-in, as a reminder of what has helped? It
+  isn't, today.
+- The name "What tends to help" promises more than a count can show. Is there a more honest name?
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].
