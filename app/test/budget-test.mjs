@@ -69,7 +69,7 @@ const browser = await openBrowser();
   await page.goto(base + pagePath('en'), { waitUntil: 'commit' });
   await page.waitForSelector('.crisis-bar a[href="tel:988"]', { state: 'visible', timeout: 5000 });
   const stripAt = Date.now() - started;
-  const early = await page.evaluate(() => ({ ready: document.documentElement.classList.contains('app-ready'), links: ['tel:988', 'sms:988', 'tel:911'].every((href) => { const a = document.querySelector(`.crisis-bar a[href="${href}"]`); return a && a.getBoundingClientRect().height >= 43.5; }), exit: Boolean(document.querySelector('.crisis-bar .quick-exit')) }));
+  const early = await page.evaluate(() => ({ ready: document.documentElement.classList.contains('app-ready'), links: ['tel:988', 'sms:988', 'tel:911'].every((href) => { const a = document.querySelector(`.crisis-bar a[href^="${href}"]`); return a && a.getBoundingClientRect().height >= 43.5; }), exit: Boolean(document.querySelector('.crisis-bar .quick-exit')) }));
   check(!early.ready && early.links && early.exit, `the crisis strip is on screen and usable (${stripAt} ms here) before the app's own script has arrived`);
   await page.waitForSelector('html.app-ready', { timeout: 8000 });
   await context.close();

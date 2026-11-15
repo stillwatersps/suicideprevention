@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-15 (next features, feature 2)
+Last updated: 2026-11-15 (next features, feature 3)
 Current branch: app/next-features (cut from app/privacy-package, the top of the app's stack on November 15)
 Current phase: Next features: a founder's list of twenty, built one at a time with a full check after each
-Current step: Next features: features 1 and 2 done. Next: feature 3, "AYUDA" filled in for the Spanish text links to 988, at build time, in the app's copy of the Spanish pages only (`sms:988?&body=AYUDA` for links whose words include AYUDA). Tests that look for the exact address need the prefix form; the Spanish entries in the crisis inventory change and must be the only change. Then feature 4: a screen that shows the Get Help page's own "What happens when you reach out to 988" section, copied at build time.
+Current step: Next features: features 1 to 3 done. Next: feature 4, a screen that shows the Get Help page's own "What happens when you reach out to 988" section, copied at build time from the app's copy of that page in each language, so no clinical wording is new; reached from the support screens and part 5 of the plan.
 
 ## Next features — in progress
 One founder asked Claude for twenty features that would make the app better (November 15, 2026), then asked for all of them, **one at a time, with a thorough check after each before the next**. The other founder hasn't seen the list. Each feature is its own commit on `app/next-features`. The check after each: `npm test` in `app/` (every suite), the four root checks, and, when native code changed, a build and a look in the iOS Simulator (muted). New wording is marked "Draft for review", is in both languages, and has its questions in `notes/CONTENT-REVIEW.md`, "Questions about the app's next features".
@@ -11,7 +11,7 @@ Already built by other sessions before this list was started, so not built again
 
 - [x] 1 — My safety plan: `src/logic/plan.js`, `src/ui/plan.js`, `test/unit/plan.test.mjs`, `test/plan-test.mjs`; in the crisis inventory, the damaged-data test, the data copy, Delete everything, and behind the app lock
 - [x] 2 — The crisis strip at the largest text sizes: every word kept, the strip's words held at 28 points and its tap targets at 56 (the founder chose this over the short form, so safety rule 1 is not overridden). 86% of the screen becomes 27% (English) and 32% (Spanish) on an iPhone 17. `test/strip-test.mjs` (112 checks); tried in the Simulator at the phone's largest text setting
-- [ ] 3 — Prefilled "AYUDA" in the Spanish text link to 988
+- [x] 3 — "AYUDA" filled in for Spanish texts to 988, in the app's copy of the Spanish pages (98 links on the app's screens, and every Spanish website page inside the app); English and the PRIDE link unchanged; the public website unchanged. Six new checks in `test/crisis-test.mjs`. Seen in the Simulator as far as the compose screen; **the recipient is not confirmed on a real phone**
 - [ ] 4 — "What happens when you call 988"
 - [ ] 5 — Grounding exercises on the support screen
 - [ ] 6 — A home-screen widget (a new Xcode target; a founder said to build it)
@@ -31,6 +31,7 @@ Already built by other sessions before this list was started, so not built again
 - [ ] 20 — iPad layout, and an Apple Watch app (a founder said to build it)
 
 ### Next features vs. project rules
+- **Feature 3 changed existing entries in the crisis inventory**, which the founder's November 15 answer (new screens only) did not cover. The change is the feature itself, which the founder asked for by name: in Spanish, the address of each text link to 988 that says AYUDA gained `?&body=AYUDA`. It was compared entry by entry: English is identical, 98 Spanish entries changed in exactly that way, and nothing else changed.
 - **The crisis inventory** gains entries for each new screen. The app's rules say to ask a founder before re-recording it; the founder said yes on November 15 for new screens only. After each recording, every earlier entry and the order are compared with the file before and must be unchanged.
 - **Feature 2 against safety rule 1** ("never shorten the 911 banner"): the short form was declined on November 14 for that reason. On November 15 the founder first chose to build it as a draft, then, shown the three pictured options, chose "full words, capped" instead. So nothing is shortened and rule 1 stands. What is new is that the strip is shown smaller than the text size the person chose, above about twice the usual size; that is a question for the other founder and the reviewer.
 - **Features 6, 19, and 20** need new signed targets or an entitlement in Xcode. The launch brief's "never change signing or bundle settings" was that brief's rule; the founder chose to build all three on November 15. No team, account, or App Store setting is touched, and none can be tested on a real device here.

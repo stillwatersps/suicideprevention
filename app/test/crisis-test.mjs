@@ -12,7 +12,8 @@
 //
 // Desktop Chromium with stand-ins for the phone, muted. No call, text, or chat is ever started:
 // links are read and measured, and Quick exit's destination is stopped before it loads.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serve, counter, pagePath, openPanel, SEEDED } from './helpers.mjs';
 import { walk as walkScreens, walkFirstLaunch as walkFirstPages, home, root, startFlow } from './app-screens.mjs';
@@ -25,6 +26,8 @@ const CRISIS = 'a[href^="tel:"], a[href^="sms:"], a[href="#support"], .quick-exi
 const TARGET = 44; // points each way, for anything that is a button, a tile, or in the strip
 const CONTRAST = 7; // to 1, for the words of every crisis control
 const EXIT_TO = 'https://www.weather.gov/';
+// In Spanish, a text to 988 opens with the word 988 asks for already typed (tools/build-redesign.mjs).
+const TEXT_AYUDA = 'sms:988?&body=AYUDA';
 
 // ---------- reading the page ----------
 // Every crisis control on screen now: what it is, where it leads, how big, how clear, and whether
@@ -236,31 +239,57 @@ await sweep('en', { name: 'offline', offline: true });
 // ---------- the inventory itself ----------
 console.log('\nThe inventory');
 {
-  const allowed = { 'tel:988': 1, 'sms:988': 1, 'tel:911': 1, '#support': 1, [EXIT_TO]: 1, 'https://988lifeline.org/': 1, 'https://chat.988lifeline.org/': 1, 'https://chat.988lifeline.org/?lang=es': 1 };
+  const allowed = { 'tel:988': 1, 'sms:988': 1, [TEXT_AYUDA]: 1, 'tel:911': 1, '#support': 1, [EXIT_TO]: 1, 'https://988lifeline.org/': 1, 'https://chat.988lifeline.org/': 1, 'https://chat.988lifeline.org/?lang=es': 1 };
   for (const lang of ['en', 'es']) {
     const controls = Object.values(inventory.languages[lang]).flatMap((s) => s.controls);
     const odd = [...new Set(controls.map((c) => c.href))].filter((href) => !allowed[href]);
     check(odd.length === 0, `${lang}: every crisis link leads to one of the eight known places` + (odd.length ? ': not ' + odd.join(', ') : ''));
     const everyScreen = Object.entries(inventory.languages[lang]);
-    const lacking = everyScreen.filter(([, s]) => !['strip|tel:988|1', 'strip|sms:988|1', 'strip|tel:911|1', `strip|${EXIT_TO}|1`].every((key) => s.controls.some((c) => c.key === key && c.aboveFold && c.fullTarget))).map(([id]) => id);
+    const lacking = everyScreen.filter(([, s]) => !['strip|tel:988|1', `strip|${lang === 'es' ? TEXT_AYUDA : 'sms:988'}|1`, 'strip|tel:911|1', `strip|${EXIT_TO}|1`].every((key) => s.controls.some((c) => c.key === key && c.aboveFold && c.fullTarget))).map(([id]) => id);
     check(lacking.length === 0, `${lang}: Call 988, Text 988, Call 911, and Quick exit are in view, full size, on all ${everyScreen.length} screens` + (lacking.length ? ': not ' + lacking.join(', ') : ''));
     const noSupport = everyScreen.filter(([, s]) => !s.controls.some((c) => c.href === '#support') || !s.controls.some((c) => c.key.startsWith('support|tel:988'))).map(([id]) => id);
     check(noSupport.length === 0, `${lang}: a way to Support and the 988 panel are on every screen` + (noSupport.length ? ': not ' + noSupport.join(', ') : ''));
   }
   // One known difference, from the website's own pages: where English ends its panel with a link to
   // 988lifeline.org, Spanish links to 988's Spanish chat a second time.
-  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.map((c) => c.key.replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
+  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.map((c) => c.key.replace(TEXT_AYUDA, 'sms:988').replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
   const en = same('en');
   const es = same('es');
   const differs = Object.keys(en).filter((id) => en[id] !== es[id]);
-  check(differs.length === 0, 'Spanish has the same crisis controls as English on every screen (the chat link is the Spanish chat)' + (differs.length ? ': differs on ' + differs.join(', ') : ''));
+  check(differs.length === 0, 'Spanish has the same crisis controls as English on every screen (the chat link is the Spanish chat, and a Spanish text to 988 has AYUDA filled in)' + (differs.length ? ': differs on ' + differs.join(', ') : ''));
+}
+
+// ---------- Spanish texts to 988 have the word filled in ----------
+console.log('\nTexting 988 in Spanish');
+{
+  // Read from the built pages themselves: every page inside the app, in both languages.
+  const www = fileURLToPath(new URL('../www/', import.meta.url));
+  const pages = (dir, prefix = '') => readdirSync(dir, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? (e.name === 'assets' ? [] : pages(join(dir, e.name), prefix + e.name + '/')) : (e.name.endsWith('.html') ? [prefix + e.name] : [])));
+  const links = (file) => [...readFileSync(join(www, file), 'utf8').matchAll(/<a\b[^>]*\bhref="(sms:[^"]*)"[^>]*>([\s\S]*?)<\/a>/g)].map((m) => ({ href: m[1].replace(/&amp;/g, '&'), words: m[2].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() }));
+  const all = pages(www).map((file) => ({ file, spanish: file.startsWith('es/'), links: links(file) }));
+  const spanish = all.filter((p) => p.spanish).flatMap((p) => p.links.map((l) => Object.assign({ file: p.file }, l)));
+  const english = all.filter((p) => !p.spanish).flatMap((p) => p.links.map((l) => Object.assign({ file: p.file }, l)));
+  const says = spanish.filter((l) => /\bAYUDA\b/.test(l.words) && /^sms:988/.test(l.href));
+  const unfilled = says.filter((l) => l.href !== TEXT_AYUDA);
+  check(says.length >= 30 && unfilled.length === 0, `every Spanish link that says to text AYUDA to 988 opens a message to 988 with AYUDA typed (${says.length} links on ${new Set(says.map((l) => l.file)).size} pages)` + (unfilled.length ? ': not ' + unfilled.slice(0, 3).map((l) => l.file + ' "' + l.words + '"').join(', ') : ''));
+  const wrongly = spanish.filter((l) => /body=/.test(l.href) && !/\bAYUDA\b/.test(l.words));
+  check(wrongly.length === 0, 'no Spanish link has a word filled in that the link itself does not say (a link that says PRIDE is left as it is)' + (wrongly.length ? ': ' + wrongly.map((l) => l.words).join(', ') : ''));
+  check(english.every((l) => !/body=/.test(l.href)) && english.some((l) => l.href === 'sms:988'), 'English links to text 988 are unchanged: no word is filled in');
+  check(spanish.every((l) => /^sms:988(\?&body=AYUDA)?$/.test(l.href) || !/^sms:988/.test(l.href)), 'a Spanish text link to 988 is the plain address or the one with AYUDA, never anything else');
+}
+// On screen, in the app: the strip's and the Support panel's Spanish text links, and nothing is sent.
+{
+  const { context, page } = await newPage(browser, 'es');
+  const seen = await page.evaluate(() => ['.crisis-bar a[href^="sms:988"]', '#support a[href^="sms:988"]'].map((sel) => { const a = document.querySelector(sel); return a ? { href: a.getAttribute('href'), protocol: a.protocol, words: a.textContent.replace(/\s+/g, ' ').trim() } : null; }));
+  check(seen.every((a) => a && a.href === TEXT_AYUDA && a.protocol === 'sms:' && /AYUDA/.test(a.words)), 'in the app in Spanish, the strip\'s and the Support panel\'s text links carry AYUDA: ' + seen.map((a) => a && a.href).join(', '));
+  await context.close();
 }
 
 // ---------- nothing a crisis control depends on ----------
 console.log('\nCrisis controls depend on nothing that can fail');
 for (const lang of ['en', 'es']) {
-  const strip = ['.crisis-bar a[href="tel:988"]', '.crisis-bar a[href="sms:988"]', '.crisis-bar a[href="tel:911"]', '.crisis-bar .quick-exit'];
-  const support = ['#support a[href="tel:988"]', '#support a[href="sms:988"]'];
+  const strip = ['.crisis-bar a[href="tel:988"]', '.crisis-bar a[href^="sms:988"]', '.crisis-bar a[href="tel:911"]', '.crisis-bar .quick-exit'];
+  const support = ['#support a[href="tel:988"]', '#support a[href^="sms:988"]'];
   // With scripts turned off entirely, the strip and the Support panel are still there and still links.
   let { context, page } = await newPage(browser, lang, { javaScriptEnabled: false });
   let all = true;

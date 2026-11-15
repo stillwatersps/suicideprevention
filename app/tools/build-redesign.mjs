@@ -126,9 +126,19 @@ function siteTabBar(lang, up) {
   const items = TABS.map((tab) => `      <li><a class="tl-tab" data-tl-tab-btn="${tab.id}" href="${home}${tab.id === 'home' ? '' : '#tl-' + tab.id}"><svg class="tl-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="${ICONS[tab.icon]}"/></svg><span class="tl-tab-label">${word('tab.' + tab.id)}</span></a></li>`).join('\n');
   return `  <nav class="tl-tabbar" id="tl-tabbar" aria-label="${label}">\n    <ul>\n${items}\n    </ul>\n  </nav>\n`;
 }
+// Spanish: 988 asks people who text in Spanish to send the word AYUDA. Where a Spanish link says
+// so, the app fills the word in, so nobody has to remember it in a hard moment. The link only
+// opens the phone's Messages with 988 and the word ready; the person still taps Send. Links that
+// name another word (PRIDE) and every English link are left as they are. App only: the public
+// website's links are not changed. "?&body=" is the form that both iPhone and Android read.
+export const TEXT_AYUDA = 'sms:988?&amp;body=AYUDA';
+export function fillInAyuda(html) {
+  return html.replace(/<a\b[^>]*\bhref="sms:988"[^>]*>[\s\S]*?<\/a>/g, (link) => (/\bAYUDA\b/.test(link.replace(/<[^>]+>/g, ' ')) ? link.replace('href="sms:988"', `href="${TEXT_AYUDA}"`) : link));
+}
 const appPages = PAGES.map((page) => join(www, page.file));
 for (const page of everyPage(www, 0)) {
   let html = readFileSync(page.path, 'utf8');
+  if (page.path.slice(www.length + 1).startsWith('es/')) html = fillInAyuda(html);
   if (!appPages.includes(page.path)) {
     const lang = page.path.slice(www.length + 1).startsWith('es/') ? 'es' : 'en';
     const bar = siteTabBar(lang, page.up);

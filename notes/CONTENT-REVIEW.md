@@ -1101,6 +1101,21 @@ larger size. The short form ("Call 988 · Text 988 · Call 911") was not used, s
 - On the smallest phones (320 points wide) the strip still takes about half the screen in English and two
   thirds in Spanish at those sizes. Is that acceptable, or should those phones get something else?
 
+### "AYUDA" filled in for Spanish texts to 988
+
+988's Spanish instructions are to text the word AYUDA. Until now every Spanish text link opened an empty
+message, so a person in distress had to remember the word (asked about earlier in this note, under "The text
+links open a blank message"). In the phone app only, a Spanish link that says to text AYUDA now opens the
+phone's Messages with 988 as the recipient and AYUDA already typed. Nothing is sent: the person still taps
+Send. English links are unchanged, and so is the link that says PRIDE. The public website is unchanged.
+
+- Is filling in the word right, or could a person send it without meaning to start a conversation?
+- Should the other keywords the pages mention (PRIDE to 988, and the keywords for other services) be filled in
+  the same way, in the app and on the website?
+- **Not yet confirmed on a real phone.** In the iPhone Simulator the link opens a new message with AYUDA
+  typed, the same screen the plain link opens. Whether 988 shows as the recipient on a real iPhone and a real
+  Android phone is a step in `app/TESTING_CHECKLIST.md`. If it fails on either, this must come out before release.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

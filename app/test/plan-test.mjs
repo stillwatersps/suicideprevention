@@ -59,7 +59,7 @@ for (const lang of ['en', 'es']) {
   const empty = await page.evaluate(() => {
     const screen = document.getElementById('tl-plan');
     const parts = Array.from(screen.querySelectorAll('[data-plan-part]')).map((el) => el.getAttribute('data-plan-part'));
-    const crisis = ['tel:988', 'sms:988', 'tel:911'].map((href) => { const a = screen.querySelector(`[data-plan-part="pros"] a[href="${href}"]`); const r = a ? a.getBoundingClientRect() : { width: 0, height: 0 }; return a ? { w: r.width, h: r.height } : null; });
+    const crisis = ['tel:988', 'sms:988', 'tel:911'].map((href) => { const a = screen.querySelector(`[data-plan-part="pros"] a[href^="${href}"]`); const r = a ? a.getBoundingClientRect() : { width: 0, height: 0 }; return a ? { w: r.width, h: r.height } : null; });
     const privacy = document.getElementById('tl-plan-privacy');
     return { parts, crisis, privacyShown: privacy.getClientRects().length > 0 && !privacy.closest('details'), privacy: privacy.textContent, lists: screen.querySelectorAll('.tl-plan-list:not([hidden])').length, share: !document.getElementById('tl-plan-share-box').hidden, streak: Boolean(screen.querySelector('[class*="streak"], .tl-horizon')), hope: Boolean(screen.querySelector('[data-tl-legacy="app-hope"]')) };
   });
@@ -101,7 +101,7 @@ for (const lang of ['en', 'es']) {
   await addPerson(page, 'pros', 'A made-up counselor', '');
   await page.waitForFunction(() => document.querySelectorAll('#tl-plan [data-plan-part="pros"] .tl-plan-text').length === 1);
   check((await page.$('#tl-plan [data-plan-part="pros"] .tl-plan-call')) === null, 'a person with no number has no call button');
-  const crisisStill = await page.evaluate(() => ['tel:988', 'sms:988', 'tel:911'].every((href) => document.querySelector(`#tl-plan [data-plan-part="pros"] .tl-support-actions a[href="${href}"]`)) && !document.querySelector('#tl-plan .tl-support-actions [data-plan-remove]'));
+  const crisisStill = await page.evaluate(() => ['tel:988', 'sms:988', 'tel:911'].every((href) => document.querySelector(`#tl-plan [data-plan-part="pros"] .tl-support-actions a[href^="${href}"]`)) && !document.querySelector('#tl-plan .tl-support-actions [data-plan-remove]'));
   check(crisisStill, '988 and 911 stay in part 5 and have no Remove button');
 
   const kept = await stored(page);
@@ -235,7 +235,7 @@ for (const [lang, colorScheme] of [['es', 'dark'], ['en', 'dark']]) {
     await page.evaluate((s) => { document.documentElement.style.fontSize = s; }, size);
     await page.waitForTimeout(250);
     // Measured on the plan itself. (On a 320-point phone at 331% the website's own Support section, below every screen, is 16 points too wide; that was so before the plan and is in notes/LAUNCH-BACKLOG.md.)
-    const fit = await page.evaluate(() => ({ sideways: Array.from(document.querySelectorAll('#tl-plan, #tl-plan *')).some((el) => { const r = el.getBoundingClientRect(); return r.width > 0 && (r.left < -1 || r.right > window.innerWidth + 1); }), crisis: ['tel:988', 'sms:988', 'tel:911'].every((href) => { const a = document.querySelector(`#tl-plan .tl-support-actions a[href="${href}"]`); const r = a.getBoundingClientRect(); return r.width >= 44 && r.height >= 44 && r.left >= -1 && r.right <= window.innerWidth + 1; }) }));
+    const fit = await page.evaluate(() => ({ sideways: Array.from(document.querySelectorAll('#tl-plan, #tl-plan *')).some((el) => { const r = el.getBoundingClientRect(); return r.width > 0 && (r.left < -1 || r.right > window.innerWidth + 1); }), crisis: ['tel:988', 'sms:988', 'tel:911'].every((href) => { const a = document.querySelector(`#tl-plan .tl-support-actions a[href^="${href}"]`); const r = a.getBoundingClientRect(); return r.width >= 44 && r.height >= 44 && r.left >= -1 && r.right <= window.innerWidth + 1; }) }));
     check(!fit.sideways && fit.crisis, `${name(lang)}, text at ${size}: nothing in the plan runs off the side, and 988 and 911 in it stay full size`);
   }
   await context.close();

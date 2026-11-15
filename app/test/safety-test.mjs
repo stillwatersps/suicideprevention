@@ -40,7 +40,7 @@ async function newPage(lang, { seed = true, hooks = {}, storage = {}, at = null,
 const home = async (page) => { await tab(page, 'home'); if (!(await page.isVisible('#tl-home'))) await tab(page, 'home'); };
 const startFlow = async (page) => { await home(page); await page.click('#tl-home [data-tl-quick="checkin"]'); if (await page.isVisible('#tl-flow-skip')) await page.click('#tl-flow-skip'); };
 const stored = (page, key) => page.evaluate((k) => { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } }, key);
-const supportLinks = async (page, box) => (await page.isVisible(`${box} a[href="tel:988"]`)) && (await page.isVisible(`${box} a[href="sms:988"]`)) && (await page.isVisible(`${box} a[href="tel:911"]`));
+const supportLinks = async (page, box) => (await page.isVisible(`${box} a[href="tel:988"]`)) && (await page.isVisible(`${box} a[href^="sms:988"]`)) && (await page.isVisible(`${box} a[href="tel:911"]`));
 const localKey = (d) => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
 
 for (const lang of ['en', 'es']) {

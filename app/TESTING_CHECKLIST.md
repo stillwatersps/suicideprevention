@@ -73,6 +73,15 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1e. Texting 988 in Spanish (added November 15, 2026). Do this on an iPhone AND an Android phone
+
+- [ ] In Spanish, tap "envía AYUDA al 988" in the strip. *Expected:* Messages opens on a new message,
+  **To: 988**, with **AYUDA** typed and not sent. **Do not tap Send.** Close the message.
+- [ ] The same from "Texto al 988" in the Support panel and "Enviar AYUDA al 988" on a support screen.
+- [ ] In English, tap "text 988". *Expected:* a new message to 988 with nothing typed.
+- [ ] If the recipient is anything other than 988 on either phone, tell Claude: the filled-in word must
+  come out (`fillInAyuda` in `app/tools/build-redesign.mjs`) before anyone uses the app.
+
 ## 1d. The crisis strip at the largest text (added November 15, 2026)
 
 - [ ] Settings, Accessibility, Display & Text Size, Larger Text: turn on Larger Accessibility Sizes and

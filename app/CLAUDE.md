@@ -157,6 +157,15 @@ each covers and what only a real phone can show.
   this order the screen the person left shows for a moment. A timer lifts the cover anyway after
   a few seconds: the app must never stay covered.
 
+## Texting 988 in Spanish (November 15, 2026, a draft)
+
+- In the app's copy of the Spanish pages, a link that says to text AYUDA to 988 is
+  `sms:988?&body=AYUDA` (`fillInAyuda` in `tools/build-redesign.mjs`, at build time). The word
+  sources and the public website keep `sms:988`. English links and the PRIDE link are never filled in.
+- Tests look for a text link with `a[href^="sms:988"]`, never the exact address.
+- It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
+  as unproven on the crisis path.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

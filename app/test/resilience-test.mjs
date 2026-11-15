@@ -53,7 +53,7 @@ async function open(lang, { storage = {}, before = null, seed = true, prepare = 
 async function look(page) {
   return page.evaluate((technical) => {
     const shown = (sel) => { const el = document.querySelector(sel); if (!el) return false; for (let n = el; n && n.nodeType === 1; n = n.parentElement) { const cs = getComputedStyle(n); if (n.hidden || cs.display === 'none' || cs.visibility === 'hidden') return false; } return el.getBoundingClientRect().height > 20; };
-    const strip = ['a[href="tel:988"]', 'a[href="sms:988"]', 'a[href="tel:911"]', '.quick-exit'].every((sel) => { const el = document.querySelector('.crisis-bar ' + sel); return el && el.getBoundingClientRect().height >= 43.5; });
+    const strip = ['a[href="tel:988"]', 'a[href^="sms:988"]', 'a[href="tel:911"]', '.quick-exit'].every((sel) => { const el = document.querySelector('.crisis-bar ' + sel); return el && el.getBoundingClientRect().height >= 43.5; });
     const screen = ['#tl-home', '#tl-onboarding', '#tl-checkin', '#tl-flow', '#app-age'].some(shown) || Array.from(document.querySelectorAll('.ci-body .ci-panel, .ci-body .ci-step')).some((el) => el.offsetParent !== null && el.getBoundingClientRect().height > 60);
     const text = document.body.innerText;
     const words = text.replace(/\s+/g, ' ').trim().length;
@@ -210,7 +210,7 @@ for (const lang of ['en', 'es']) {
       const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
       const strip = document.querySelector('.crisis-bar');
       const back = lum(getComputedStyle(strip).backgroundColor);
-      const parts = ['a[href="tel:988"]', 'a[href="sms:988"]', 'a[href="tel:911"]', 'p'].map((selector) => ratio(lum(getComputedStyle(strip.querySelector(selector)).color), back));
+      const parts = ['a[href="tel:988"]', 'a[href^="sms:988"]', 'a[href="tel:911"]', 'p'].map((selector) => ratio(lum(getComputedStyle(strip.querySelector(selector)).color), back));
       const exit = strip.querySelector('.quick-exit');
       parts.push(ratio(lum(getComputedStyle(exit).color), lum(getComputedStyle(exit).backgroundColor)));
       return parts.map((n) => Math.round(n * 10) / 10);
