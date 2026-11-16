@@ -512,3 +512,11 @@ html:not(.tl) .tl-save-note { position: static; margin: var(--tl-space-md); }
 textarea.tl-input { width: 100%; resize: vertical; font: inherit; }
 .tl-summary-preview { white-space: pre-wrap; overflow-wrap: anywhere; padding: var(--tl-space-md); border: var(--tl-border) solid var(--tl-line); border-radius: var(--tl-radius-md); background: var(--tl-surface); }
 
+/* "Your privacy in Tidelight": plain paragraphs, every one in view; nothing here folds. */
+.tl-privacy-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-sm); }
+.tl-privacy-body > * { min-width: 0; }
+.tl-privacy-body h3 { margin: var(--tl-space-lg) 0 0; }
+.tl-privacy-body p { margin: 0; overflow-wrap: anywhere; }
+.tl-privacy-body ul { margin: 0; padding: 0 0 0 var(--tl-space-lg); list-style: disc; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-xs); }
+.tl-privacy-body li { overflow-wrap: anywhere; }
+

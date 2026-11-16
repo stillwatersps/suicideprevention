@@ -197,6 +197,15 @@ each covers and what only a real phone can show.
   nothing happens during first-time setup. Any other address just opens the app.
   `test/open-test.mjs` checks the page's side.
 
+## "Your privacy in Tidelight" (November 15, 2026, a draft)
+
+- **`#tl-privacy` describes what the app does; it is not a privacy policy and says so first.** Its
+  words are privacy wording: never folded, never shortened.
+- **A new stored thing, or a new way for something to leave the phone, changes this screen** as well
+  as `notes/PRIVACY-INVENTORY.md`. `test/unit/privacy-screen.test.mjs` lists each key in `KEYS` beside
+  the words that cover it and fails on a key it doesn't know. It also fails on words the code can't
+  back up ("encrypted", "anonymous", "secure", "guarantee").
+
 ## A summary for an appointment (November 15, 2026, a draft)
 
 - **Rule in `src/logic/summary.js`, screen in `src/ui/summary.js`, numbers in `CONFIG.summary`.** Only

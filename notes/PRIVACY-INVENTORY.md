@@ -65,6 +65,12 @@ A screen that counts, from check-ins, meditations, and journal dates already on 
 recorded on days with a quick check-in of Good or Great. The count is made each time the screen opens and is
 never stored; nothing new is kept, and nothing leaves the phone. The app lock covers it.
 
+## What the app tells the person
+
+"Your privacy in Tidelight" (Settings, About) is a plain description written from this inventory. It says
+first that it is not a privacy policy. When this inventory changes, that screen changes too; a unit test
+ties the screen to the app's list of stored things.
+
 ## A summary for an appointment
 
 A screen that puts the person's own check-ins, journal entries, and safety plan from the last 14 or 30 days

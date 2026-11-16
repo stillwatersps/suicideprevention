@@ -1291,6 +1291,31 @@ over the last {days} days.", "These are my own notes. They are not a medical rec
 - Printing is not promised. On iPhone the share sheet usually offers Print for a text file; that has not
   been seen on a real phone.
 
+### "Your privacy in Tidelight" (for a lawyer first)
+
+A new screen in Settings, under About: a plain description of what the app keeps and where it goes, in eight
+short parts (what stays on the phone; what the app doesn't do; when something leaves the phone; calls, texts,
+and links; location; who can see it on this phone; your choices; what the page can't tell you). It opens with:
+"This is not a privacy policy. It is a plain description of what the app does today, written by an AI
+assistant from the app's own code. No lawyer has written or read it. Tidelight does not have a privacy policy
+yet." Every word is in view; nothing folds. It was written from [[PRIVACY-INVENTORY]], and a test fails if
+the app stores something the screen doesn't cover.
+
+**It does not replace a privacy policy.** A real one is still a launch blocker ([[LAUNCH-BACKLOG]]).
+
+- A lawyer: may an app show a description like this before it has a policy? Does any sentence promise more
+  than the founders can keep, for example "Tidelight never receives what you enter, reads it, or analyzes it"
+  or "It has no code from another company that contacts anyone"?
+- A lawyer: the screen says nothing about children or about a parent's consent, on purpose. What must it say,
+  given the app is for adults and minors?
+- A lawyer: there is no way to contact anyone about privacy, because the project has no public address yet.
+- "Remove the app from your phone. That removes everything it saved on this phone." True on iPhone as far as
+  the code can show; not checked on a real phone or on Android.
+- The reviewer: does a person in distress need any of this said differently, for example that nobody at
+  Tidelight sees what they write, so the app is not a way to ask for help? (The check-in's own privacy note
+  says that; this screen does not repeat it.)
+- If Apple Health is added (feature 19), this screen must gain a part about it before that ships.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

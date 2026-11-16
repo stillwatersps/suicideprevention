@@ -56,6 +56,7 @@ export const SCREENS = [
     await page.click('.ci-finish');
   } },
   // Added November 14, 2026, at the end, so the screens above keep their numbers in the reviewer packet.
+  { id: 'privacy', name: 'Your privacy in Tidelight', go: async (page) => { await openSettings(page); await page.click('#tl-settings-privacy'); } },
   { id: 'licenses', name: 'Open-source licenses', go: async (page) => { await openSettings(page); await page.click('#tl-settings-licenses'); } },
   { id: 'locked', name: 'App lock, locked', go: async (page) => {
     // A pretend phone that confirms the person once (to turn the lock on), then no more.
