@@ -100,6 +100,31 @@ function helpSection(lang, id, titleId, bodyClass) {
 const expectSection = (lang) => helpSection(lang, 'what-to-expect', 'tl-expect-title', 'tl-expect-body');
 const waysSection = (lang) => helpSection(lang, 'other-ways', 'tl-ways-title', 'tl-ways-body');
 
+// "Helping someone you're worried about": the Help Someone page's own opening and its six sections
+// (signs, five steps, the conversation, a child or teen, a post online, looking after yourself),
+// word for word, for a screen on the Friends tab. Copied, never retyped, like the two above. The
+// page's headings move down one level each, since the screen's title is the page's own.
+const HELPING_PAGE = { en: 'help-someone/index.html', es: 'es/ayudar-a-alguien/index.html' };
+const HELPING_SECTIONS = ['signs', 'five-steps', 'conversation', 'child-or-teen', 'online', 'yourself'];
+function helpingPage(lang) {
+  const html = readFileSync(join(www, HELPING_PAGE[lang]), 'utf8');
+  const need = (found, what) => { if (!found) throw new Error(`redesign, helping: no ${what} in ${HELPING_PAGE[lang]}`); return found; };
+  const title = need(html.match(/<h1 id="page-title">([\s\S]*?)<\/h1>/), 'title')[1].trim();
+  const lead = need(html.match(/<p class="hero-lead">[\s\S]*?<\/p>/), 'opening line')[0];
+  const urgent = need(html.match(/<p class="urgent">[\s\S]*?<\/p>/), 'urgent line')[0];
+  const parts = HELPING_SECTIONS.map((id) => {
+    let body = need(html.match(new RegExp('<section id="' + id + '"[^>]*>([\\s\\S]*?)<\\/section>')), 'section ' + id)[1];
+    body = body.replace(/<details class="more">\s*<summary>[\s\S]*?<\/summary>/g, '').replace(/<\/details>/g, '');
+    if (/<details|<summary|<script|\bstyle=/.test(body)) throw new Error(`redesign, helping: something unexpected is in section ${id}`);
+    body = body.replace(/<(\/?)h3\b/g, '<$1h4').replace(/<(\/?)h2\b/g, '<$1h3').replace(/ id="[^"]*"/g, '');
+    return body.trim();
+  });
+  let body = [lead, urgent, ...parts].join('\n          ');
+  // A link to another part of the Help Someone page has to say which page it means from here.
+  body = body.replace(/href="#/g, `href="../${HELPING_PAGE[lang].split('/').slice(-2, -1)[0]}/#`);
+  return `<h2 class="tl-title" id="tl-helping-title">${title}</h2>\n          <div class="tl-helping-body">${body}\n          </div>`;
+}
+
 const manifest = audioManifest();
 // The Developer section shows which build phase this is, read from PROGRESS.md.
 const progress = existsSync(join(appDir, 'PROGRESS.md')) ? readFileSync(join(appDir, 'PROGRESS.md'), 'utf8') : '';
@@ -111,7 +136,7 @@ for (const page of PAGES) {
   // The new screens go above the page's own review notice; the notice for the new words goes
   // right under it. Both notices stay on every screen.
   html = once(html, /( {6}<aside class="page-status review-note"[\s\S]*?<\/aside>\n)/,
-    (all) => once(once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses'), '          <!-- EXPECT -->\n', '          ' + expectSection(page.lang) + '\n', '988 section').replace('          <!-- WAYS -->\n', '          ' + waysSection(page.lang) + '\n') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
+    (all) => once(once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses'), '          <!-- EXPECT -->\n', '          ' + expectSection(page.lang) + '\n', '988 section').replace('          <!-- WAYS -->\n', '          ' + waysSection(page.lang) + '\n').replace('          <!-- HELPING -->\n', '          ' + helpingPage(page.lang) + '\n') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
   // A heavy feeling in the five-question check-in shows support at the top of its results.
   html = once(html, '          <div class="ci-talk-first">', b['result-support'] + '          <div class="ci-talk-first">', 'result support');
   html = once(html, '  <footer class="site-footer"', b.tabbar + (b.overlays || '') + '  <footer class="site-footer"', 'tab bar');

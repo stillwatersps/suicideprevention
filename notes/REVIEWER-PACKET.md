@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 297 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 297 lines of the app's words. 6 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 41); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -336,13 +336,13 @@ Picture: `app/design/after-launch-pass/reviewer/40-plan.png`
 > The reasons you keep going are in your Hope box.  
 > Open my Hope box
 
-#### 44. What happens when you reach out to 988
+#### 45. What happens when you reach out to 988
 
 The Get Help page's own section on calling, texting, and chatting with 988, shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/44-expect.png`
+Picture: `app/design/after-launch-pass/reviewer/45-expect.png`
 
 > Draft for review  
 > Back  
@@ -370,13 +370,13 @@ Picture: `app/design/after-launch-pass/reviewer/44-expect.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 42. Other ways to reach someone
+#### 43. Other ways to reach someone
 
 The Get Help page's own list of other services (Spanish, Deaf or hard of hearing, veterans, LGBTQ+ youth, text lines, 911), shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/42-ways.png`
+Picture: `app/design/after-launch-pass/reviewer/43-ways.png`
 
 > Draft for review  
 > Back  
@@ -419,13 +419,13 @@ Picture: `app/design/after-launch-pass/reviewer/42-ways.png`
 > Call 911  
 > The 988 Lifeline, the Veterans Crisis Line, The Trevor Project, and Crisis Text Line keep conversations confidential, with limits. Each says it may contact emergency services or other authorities in some situations. Their websites explain when.
 
-#### 43. Grounding
+#### 44. Grounding
 
 Four short grounding exercises, offered on the support screen and the Check-in tab. New wording.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/43-ground.png`
+Picture: `app/design/after-launch-pass/reviewer/44-ground.png`
 
 > Draft for review  
 > Back  
@@ -647,7 +647,7 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > Good evening  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 7:30 PM  
+> Any time you like  
 > Start  
 > Suggested for you  
 > Silent  
@@ -745,7 +745,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 25 screens, about 559 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 26 screens, about 626 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -901,7 +901,7 @@ Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 > Good evening  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 7:30 PM  
+> Any time you like  
 > Start  
 > Suggested for you  
 > Silent  
@@ -1052,6 +1052,7 @@ Picture: `app/design/after-launch-pass/reviewer/20-share.png`
 > The person may not see it for hours, so this isn't a way to get urgent help. If you need help now, call 988 or text 988. In immediate danger, call 911.  
 > What will be shared. You can change it.  
 > Start with "I wanted to share this with you."  
+> End with what they can do if they're worried: "If you ever think I'm in immediate danger, call 911. You can also call or text 988, the Suicide & Crisis Lifeline, about someone you're worried about."  
 > Choose who to share with  
 > Cancel
 
@@ -1185,9 +1186,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 6:25 PM: feeling: Good.  
+> Before bed, 8:18 PM: feeling: Good.  
 > Remove  
-> Before bed, 6:25 PM: feeling: Okay.  
+> Before bed, 8:18 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1325,7 +1326,7 @@ Picture: `app/design/after-launch-pass/reviewer/29-player-end.png`
 > Get Support Now  
 > One minute  
 > 1-minute reset, 1 min  
-> 0:57 left  
+> 0:58 left  
 > Tap for controls  
 > End  
 > Pause  
@@ -1421,6 +1422,7 @@ Picture: `app/design/after-launch-pass/reviewer/35-friends.png`
 > What I've shared with my circle  
 > A list for you, kept on this phone, of what you opened in Messages for your circle. The app can't tell whether you tapped Send.  
 > Nothing shared yet.  
+> Helping someone you're worried about  
 > Share check-ins  
 > Today or 7 days, in Your journey
 
@@ -1478,11 +1480,85 @@ Picture: `app/design/after-launch-pass/reviewer/38-licenses.png`
 > DISCLAIMER  
 > THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
 
-#### 41. What tends to help
+#### 41. Helping someone you're worried about
+
+The Help Someone page's own opening and six sections, shown inside the app word for word, on the Friends tab.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/41-helping.png`
+
+> Draft for review  
+> Back  
+> Helping someone you're worried about  
+> If you're worried about a friend, family member, or someone else, you can help. You don't need to be an expert.  
+> If you think they are in immediate danger, call 911. If it is safe, stay with them, or make sure they are in a private, secure place with another caring person, until help comes. If you're worried they may be in danger of suicide, call or text 988.  
+> Signs someone may be struggling  
+> These may be signs that someone is thinking about suicide. Take any of these seriously. Be especially concerned if a behavior is new, has increased, or seems related to a painful event, loss, or change.  
+> What they talk about  
+> Wanting to die  
+> Feeling great guilt or shame  
+> Being a burden to others  
+> How they feel  
+> Empty, hopeless, trapped, or having no reason to live  
+> Extremely sad, more anxious, agitated, or full of rage  
+> In unbearable emotional or physical pain  
+> What they do  
+> Making a plan or researching ways to die  
+> Withdrawing from friends, saying goodbye, giving away important items, or making a will  
+> Taking dangerous risks  
+> Having extreme mood swings  
+> Eating or sleeping more or less  
+> Using drugs or alcohol more often  
+> If you notice these signs, get help as soon as possible. You don't have to be certain. You can contact 988 at any time if you're worried about someone.  
+> Five steps you can take  
+> The National Institute of Mental Health (NIMH) publishes these steps, which are also used by the 988 Lifeline's #BeThe1To campaign. Some details below come from the other sources listed at the end of this page.  
+> Ask  
+> Ask directly: "Are you thinking about suicide?" It isn't an easy question, but it can start the conversation. NIMH says studies show that asking does not increase suicidal thoughts or behavior.  
+> Be there  
+> Listen without judgment to learn what they are thinking and feeling. NIMH says research suggests that acknowledging and talking about suicide may reduce suicidal thoughts.  
+> Help keep them safe  
+> Ask whether they have a plan. If they do, call or text 988 right away. If they intend to act on it right away and have the means, call 911. If you can do it safely, remove or safely store anything they could use to hurt themselves. The 988 Lifeline can also help you work out what to do next.  
+> Help them connect  
+> Help them reach 988 by call or text, and other local resources. You can also help them reach a family member, friend, spiritual advisor, or mental health professional they trust. You can contact 988 yourself about them, too. If you think they are in immediate danger, call 911 first. The 988 Lifeline says a counselor may contact 911 if someone is in immediate danger and a safer plan can't be worked out. SAMHSA, a U.S. government health agency, says most crises are managed by counselors without involving law enforcement, but that is not a guarantee. See when emergency services get involved.  
+> Follow up  
+> Stay in touch after a crisis or after they leave care. NIMH says supportive, ongoing contact can play an important role in preventing suicide.  
+> What helps in the conversation  
+> This draws on advice from the 988 Lifeline and NIMH.  
+> Try to  
+> Be direct, and talk openly and calmly about suicide.  
+> Listen, let them finish, and accept what they feel.  
+> Say back what you hear, such as "It sounds like you're saying..."  
+> Let them know help is out there and that you'll help them reach it. Don't rush to say everything will be fine.  
+> Get help from people who specialize in crisis support.  
+> What to avoid  
+> Don't debate whether suicide is right or wrong, or lecture about the value of life.  
+> Don't act shocked, or dare them to do it.  
+> Don't dismiss what they say as a bid for attention. All talk of suicide should be taken seriously.  
+> Don't promise to keep it a secret. If someone tells you about a plan to hurt themselves, tell someone who can help.  
+> Don't leave them alone if they tell you they are going to end their life. If it is safe, stay with them and call 911, or call or text 988.  
+> If it's a child or teen  
+> If you're a parent or caregiver  
+> Take what they say seriously, even if they say they didn't mean it. Don't argue with their feelings. Tell them you care and that you will help them get help.  
+> If they have a suicide plan or can't stop thinking about ending their life, call or text 988 right away, and call 911 if they need immediate help. Stay close and don't leave them alone while you get help. Remove or safely store anything they could use to hurt themselves.  
+> Any child with suicidal thoughts or plans should be evaluated right away by a trained mental health professional. Call their pediatrician or a mental health provider now, even if it doesn't seem like a crisis. Their pediatrician can also help you make a safety plan.  
+> At school  
+> School counselors and school psychologists can help connect a family to support. School counselors are expected to tell a parent or guardian when a student has thoughts of suicide, even at 18. The exception is when a student says a parent's or guardian's abuse or neglect is the reason for those thoughts. Then the counselor must contact child protective services, and caseworkers may talk with the parents and other people around the student. So don't promise a young person that it will stay private.  
+> If you're a young person worried about a friend  
+> You don't need to have the answers. Start with a caring question and listen. If you're worried about suicide, it's okay to ask directly: "Are you thinking about suicide?" Encourage your friend to talk to a trusted adult, such as a parent, coach, teacher, or school counselor, and talk to one yourself.  
+> If your friend talks about suicide or about hurting themselves, don't keep it a secret, even if they ask you to. Tell a trusted adult, or call or text 988 to ask what to do. You can contact 988 at any time, even if it's about a friend.  
+> If they say they are going to end their life, call 911 if it's an emergency. If you're with them and it is safe, stay with them. If they told you by text or online, keep talking if you can while you get an adult, or call or text 988. You don't have to handle this by yourself.  
+> More for teens is on For Teens.  
+> If you see a worrying post online  
+> If you think someone may be in danger right now, call 911. You can also contact the site's safety team, because many social media sites have a way to get help for the person posting. The 988 Lifeline explains how this works on different platforms.  
+> Look after yourself too  
+> Supporting someone through a hard time can bring up difficult emotions of your own, and the responsibility doesn't have to be yours alone. The 988 Lifeline encourages helpers to reach out for support themselves. You can call or text 988 for yourself, even if you're not the one in crisis.
+
+#### 42. What tends to help
 
 What else the person recorded on days they chose Good or Great, counted from their own check-ins. Shown here with too little to count. New wording.
 
-Picture: `app/design/after-launch-pass/reviewer/41-helps.png`
+Picture: `app/design/after-launch-pass/reviewer/42-helps.png`
 
 > Draft for review  
 > Back  

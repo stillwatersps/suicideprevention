@@ -495,3 +495,14 @@ html.tl.tl-save-noted body { padding-bottom: calc(min(var(--tl-tabbar), var(--ca
 .tl-save-note.tl-save-note-inline { position: static; max-height: none; margin: var(--tl-space-sm); }
 html:not(.tl) .tl-save-note { position: static; margin: var(--tl-space-md); }
 
+/* "Helping someone you're worried about": the Help Someone page's own words, on a screen of the app. */
+.tl-helping-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-sm); }
+.tl-helping-body > * { min-width: 0; }
+.tl-helping-body h3 { margin: var(--tl-space-lg) 0 0; }
+.tl-helping-body h4 { margin: var(--tl-space-sm) 0 0; }
+.tl-helping-body p, .tl-helping-body li { overflow-wrap: anywhere; }
+.tl-helping-body p { margin: 0; }
+/* Its plain lists keep their marks, as on the page, so one sign reads apart from the next. */
+.tl-helping-body ul { margin: 0; padding: 0 0 0 var(--tl-space-lg); list-style: disc; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-xs); }
+.tl-helping-body .steps h4 { margin: 0; }
+

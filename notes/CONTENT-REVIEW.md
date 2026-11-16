@@ -1249,6 +1249,22 @@ so they matter more than most.
 - Spanish: it does not tell the receiver to press 2 or to text AYUDA, to keep to one line. Should it?
 - A lawyer: this is advice to a third party, sent in the sender's name.
 
+### "Helping someone you're worried about", inside the app
+
+A third screen made the same way as the 988 screen, on the Friends tab: it shows the Help Someone page's own
+opening (with its 911 line and its 988 call and text links) and its six sections (warning signs, the five
+steps, what helps in the conversation, a child or teen, a post online, looking after yourself), **word for
+word and link for link**, copied when the app is built. A test fails if a word or a link differs, so your
+answers about that page on the website apply here. Nothing on the screen was written for the app. On the
+page, parts of some sections fold under "more"; on this screen everything is open, because the app never
+folds words about urgent help.
+
+- The app is mainly for the person who is struggling. Is a screen for the person helping right inside it, on
+  the tab where they keep the people they trust? Could reading a list of warning signs about oneself do harm?
+- The warning signs include "Making a plan or researching ways to die". The page says it; so does this
+  screen. Is that line right for an app that minors use?
+- Should the row that opens it sit above "My circle" or below it? It is below.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

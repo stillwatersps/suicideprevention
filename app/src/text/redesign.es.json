@@ -443,6 +443,7 @@
   "{name}: {count} of {days} days": "{name}: {count} de {days} días",
   "A meditation": "Una meditación",
   "A journal entry": "Una entrada de diario",
-  "Tidelight can't save on this phone right now. The phone may be out of space. What you enter stays on screen until the app closes.": "Tidelight no puede guardar en este teléfono en este momento. Puede que el teléfono no tenga espacio. Lo que escribas se queda en pantalla hasta que se cierre la app."
+  "Tidelight can't save on this phone right now. The phone may be out of space. What you enter stays on screen until the app closes.": "Tidelight no puede guardar en este teléfono en este momento. Puede que el teléfono no tenga espacio. Lo que escribas se queda en pantalla hasta que se cierre la app.",
+  "Helping someone you're worried about": "Cómo ayudar a alguien que te preocupa"
  }
 }

@@ -58,6 +58,7 @@ const ABOUT = {
   friends: 'The fifth tab: My circle, and sharing check-ins.',
   'flow-support': 'What a quick check-in shows at once after "Very low" or "Low", instead of the thanks line.',
   'daily-result-heavy': 'The Daily check-in\'s result after choosing a heavy feeling (here, Sad).',
+  helping: 'The Help Someone page\'s own opening and six sections, shown inside the app word for word, on the Friends tab.',
   helps: 'What else the person recorded on days they chose Good or Great, counted from their own check-ins. Shown here with too little to count. New wording.',
   ways: 'The Get Help page\'s own list of other services (Spanish, Deaf or hard of hearing, veterans, LGBTQ+ youth, text lines, 911), shown inside the app word for word.',
   ground: 'Four short grounding exercises, offered on the support screen and the Check-in tab. New wording.',

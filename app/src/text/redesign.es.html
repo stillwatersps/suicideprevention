@@ -591,6 +591,11 @@
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <h2 class="tl-title" id="tl-friends-title">Amistades</h2>
           <div id="tl-friends-slot"></div>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="helping" id="tl-friends-helping">
+            <span class="tl-card-icon" data-tl-icon="people"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Cómo ayudar a alguien que te preocupa</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
             <span class="tl-card-icon" data-tl-icon="path"></span>
             <span class="tl-card-text"><span class="tl-card-title">Compartir registros</span> <span class="tl-card-sub">Hoy o 7 días, en Tu camino</span></span>
@@ -874,6 +879,12 @@
             <p class="tl-sub" id="tl-helps-nothing" hidden>No se registró nada más en dos o más de esos días.</p>
             <p class="tl-sub">Esto solo cuenta lo que registraste. No puede decir qué causó qué.</p>
           </div>
+        </section>
+
+        <section class="tl-screen" id="tl-helping" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-helping-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <!-- HELPING -->
         </section>
 
         <section class="tl-screen" id="tl-licenses" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-licenses-title" hidden>

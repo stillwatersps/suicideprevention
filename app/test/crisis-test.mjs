@@ -250,6 +250,15 @@ console.log('\nThe inventory');
     const section = readFileSync(join(fileURLToPath(new URL('../www/', import.meta.url)), file), 'utf8').match(/<section id="other-ways"[\s\S]*?<\/section>/);
     for (const m of (section ? section[0] : '').matchAll(/<a\b[^>]*\bhref="((?:tel|sms|https):[^"]+)"/g)) allowed[m[1].replace(/&amp;/g, '&')] = 1;
   }
+  // "Helping someone you're worried about" is the Help Someone page's own sections; 988's pages
+  // about helping someone else are allowed there for the same reason, read from that page.
+  for (const file of ['help-someone/index.html', 'es/ayudar-a-alguien/index.html']) {
+    const page = readFileSync(join(fileURLToPath(new URL('../www/', import.meta.url)), file), 'utf8');
+    for (const id of ['signs', 'five-steps', 'conversation', 'child-or-teen', 'online', 'yourself']) {
+      const section = page.match(new RegExp('<section id="' + id + '"[\\s\\S]*?<\\/section>'));
+      for (const m of (section ? section[0] : '').matchAll(/<a\b[^>]*\bhref="((?:tel|sms|https):[^"]+)"/g)) allowed[m[1].replace(/&amp;/g, '&')] = 1;
+    }
+  }
   for (const lang of ['en', 'es']) {
     const controls = Object.values(inventory.languages[lang]).flatMap((s) => s.controls);
     const odd = [...new Set(controls.map((c) => c.href))].filter((href) => !allowed[href]);
@@ -267,7 +276,7 @@ console.log('\nThe inventory');
   // "Other ways" screen is that page's list of services, which differs by language on the page itself
   // (English has a Spanish block; Spanish has SAMHSA's Spanish line), so it is compared with its
   // page, in test/ways-test.mjs, and not with the other language.
-  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.filter((c) => !c.key.startsWith('tl-expect|https://') && !c.key.startsWith('tl-ways|')).map((c) => c.key.replace(TEXT_AYUDA, 'sms:988').replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
+  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.filter((c) => !c.key.startsWith('tl-expect|https://') && !c.key.startsWith('tl-ways|') && !c.key.startsWith('tl-helping|https://')).map((c) => c.key.replace(TEXT_AYUDA, 'sms:988').replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
   const en = same('en');
   const es = same('es');
   const differs = Object.keys(en).filter((id) => en[id] !== es[id]);

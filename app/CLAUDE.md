@@ -197,6 +197,14 @@ each covers and what only a real phone can show.
   nothing happens during first-time setup. Any other address just opens the app.
   `test/open-test.mjs` checks the page's side.
 
+## "Helping someone you're worried about" (November 15, 2026, a draft)
+
+- **`#tl-helping`, on the Friends tab, holds no wording of its own.** `helpingPage` in
+  `tools/build-redesign.mjs` copies the Help Someone page's title, opening, urgent line, and six
+  sections into it at build time, in each language, with folded parts opened and headings moved down
+  one level. Change the words on the website's page, never in the app. `test/helping-test.mjs` fails
+  if one word or link differs. The row that opens it carries the page's own title.
+
 ## The 988 screen, and screens opened from the support step (November 15, 2026, a draft)
 
 - **`#tl-expect` and `#tl-ways` hold no wording of their own.** `tools/build-redesign.mjs` (`helpSection`)
