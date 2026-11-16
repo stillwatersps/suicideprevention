@@ -118,6 +118,14 @@ Nothing else has been claimed. Add an owner above when you start.
   read the questions in [[CONTENT-REVIEW]]; someone tries the lock on a real iPhone with section 9b of
   `app/TESTING_CHECKLIST.md`. Handoff: [[worklogs/2026-11-14-claude-app-privacy-package]].
 
+- [ ] Twenty more features for the phone app (a safety plan, grounding, a widget, a summary for an
+  appointment, a privacy screen, Shortcuts, Apple Health, an iPad layout, an Apple Watch app, and others).
+  Owner: Claude, at one founder's request. Branch: `app/next-features`, draft pull request 32 into
+  `app/privacy-package`. Both founders decide which to keep; the reviewer and a lawyer read "Questions about
+  the app's next features" in [[CONTENT-REVIEW]]; someone tries sections 1d to 1h of
+  `app/TESTING_CHECKLIST.md` on a real iPhone, iPad, Android phone, and watch. **The watch app has never run.**
+  Handoff: [[worklogs/2026-11-15-claude-app-next-features]].
+
 - [ ] Phone app redesign from one founder's build spec (`app/BUILD-SPEC.md`): tabs, onboarding, quick
   check-in, streaks, meditation, haptics. Owner: Claude. Branch: `app/redesign-dev`, draft pull request 25
   into `app/first-build`. Both founders read `app/BUILD-SPEC.md`, the six safety rules in `app/CLAUDE.md`,

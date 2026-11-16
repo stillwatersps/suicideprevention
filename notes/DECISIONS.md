@@ -569,3 +569,30 @@ to reverse:
 
 Open: all of it, for the other founder, the reviewer, and a lawyer; and a real phone, where the lock has
 never run.
+
+## November 15, 2026: twenty more features in the phone app, proposed
+
+One founder asked Claude to list 20 features that would make the app better, then to build all of them, one at
+a time, with a full check after each. **The other founder hasn't seen any of it, and no reviewer or lawyer
+has.** Built as a draft on `app/next-features`, on top of `app/privacy-package`, as draft pull request 32.
+It publishes nothing. It adds a lot of wording; the questions are in [[CONTENT-REVIEW]] under "Questions about
+the app's next features". What that founder chose along the way, each easy to reverse:
+
+- **New screens may be added to the crisis inventory**, the recorded list of every crisis control on every
+  screen. Existing entries were compared each time and left unchanged. The one exception is the feature the
+  founder asked for by name: the Spanish text address gained AYUDA.
+- **At the largest text, the crisis strip keeps every word and stops growing at 28 points** ("full words,
+  capped"), so the strip leaves room for the screen under it. Chosen over shortening its words, which the
+  safety rules forbid.
+- **Build the widget, the Apple Watch app, and Apple Health**, all three, as drafts.
+- **Apple Health gets mindful minutes only**, off until turned on. Never a mood, a check-in, or a word, and
+  the app asks for no access to read Health. This changes what "stays on this phone" means, and the app's
+  privacy screen says so.
+
+Choices Claude made that both founders should look at: the safety plan suggests nothing and fills nothing in;
+"what tends to help" never counts or shows hard days; the summary for an appointment lists records as recorded
+and interprets nothing; the privacy screen says first that it is not a privacy policy; the shortcuts and the
+widget avoid the words mood, crisis, and safety; the watch app puts the three crisis lines on its first screen
+with no step in front of them. **Open and urgent before anyone uses the watch app:** whether a tap on "Call
+988" or "Call 911" dials at once on a watch. Nobody has seen it run.
+
