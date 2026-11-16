@@ -91,8 +91,7 @@ export async function exportText(ctx) {
 
 // Hands the file to the phone's share sheet. 'done' when the person sent or saved it there,
 // 'cancelled' when they closed the sheet. Anything that goes wrong is thrown.
-async function hand(text) {
-  const name = t('export.fileName');
+export async function handFile(name, text) {
   let result = null;
   try { result = await Tidelight.shareFile({ name, text }); } catch (e) { devLog('share file', e); result = { unavailable: true }; }
   if (result && !result.unavailable) return result.completed === false ? 'cancelled' : 'done';
@@ -119,7 +118,7 @@ export function initExport(ctx) {
   button.addEventListener('click', async () => {
     note.hidden = true;
     let outcome = 'failed';
-    try { outcome = await hand(await exportText(ctx)); } catch (e) { devLog('export', e); }
+    try { outcome = await handFile(t('export.fileName'), await exportText(ctx)); } catch (e) { devLog('export', e); }
     if (outcome === 'cancelled') return; // the sheet was closed: nothing happened, so nothing to say
     note.textContent = t(outcome === 'done' ? 'export.done' : 'export.failed');
     note.hidden = false;

@@ -506,3 +506,9 @@ html:not(.tl) .tl-save-note { position: static; margin: var(--tl-space-md); }
 .tl-helping-body ul { margin: 0; padding: 0 0 0 var(--tl-space-lg); list-style: disc; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-xs); }
 .tl-helping-body .steps h4 { margin: 0; }
 
+/* "A summary for an appointment": the choices, and every word of the page as it would be shared. */
+.tl-summary-choices { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-md); }
+.tl-summary-choices .tl-switch span { min-width: 0; overflow-wrap: anywhere; }
+textarea.tl-input { width: 100%; resize: vertical; font: inherit; }
+.tl-summary-preview { white-space: pre-wrap; overflow-wrap: anywhere; padding: var(--tl-space-md); border: var(--tl-border) solid var(--tl-line); border-radius: var(--tl-radius-md); background: var(--tl-surface); }
+

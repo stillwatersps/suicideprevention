@@ -1265,6 +1265,32 @@ folds words about urgent help.
   screen. Is that line right for an app that minors use?
 - Should the row that opens it sit above "My circle" or below it? It is below.
 
+### A summary for an appointment
+
+A new screen on the Check-in tab. The person chooses how far back (14 or 30 days) and what goes on a short
+page: their check-ins (ticked to begin with), their journal entries, their safety plan, and one thing they
+want to ask or say. The screen shows every word of the page before anything is shared, and "Share this
+summary" hands it to the phone's share sheet as one text file. Nothing ticked or typed is kept, and opening
+the screen again starts over. The page lists records as they were recorded: nothing is counted, averaged,
+scored, or interpreted.
+
+The page begins: "A summary for my appointment", "Made on {date}, from what I recorded in the Tidelight app
+over the last {days} days.", "These are my own notes. They are not a medical record or a diagnosis."
+
+- Is a page like this useful to a clinician, or could a list of self-recorded check-ins mislead one? Should
+  it say anything more about what a check-in is?
+- Hard days are on the page as recorded, because the person is choosing to show their own record to someone
+  treating them. "What tends to help" never shows hard days. Is that difference right?
+- Check-ins are ticked to begin with; the journal and the safety plan are not. Should nothing be ticked?
+- Beside the button: "The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it
+  back. You choose where it goes." Is that enough for a page that may hold a safety plan?
+- A minor can make this page and send it to anyone. Should the screen say something about showing it to a
+  parent or guardian, or about who it is meant for?
+- A lawyer: the line "not a medical record or a diagnosis", and whether a page made for a clinician changes
+  what the app is.
+- Printing is not promised. On iPhone the share sheet usually offers Print for a text file; that has not
+  been seen on a real phone.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

@@ -197,6 +197,17 @@ each covers and what only a real phone can show.
   nothing happens during first-time setup. Any other address just opens the app.
   `test/open-test.mjs` checks the page's side.
 
+## A summary for an appointment (November 15, 2026, a draft)
+
+- **Rule in `src/logic/summary.js`, screen in `src/ui/summary.js`, numbers in `CONFIG.summary`.** Only
+  what the person ticks goes on the page, as it was recorded. **Never a count, an average, a score, a
+  chart, or an interpretation**; a unit test reads the rule's source for them.
+- **It stores nothing.** Choices and the typed line live only on the screen, and opening it again starts
+  over (check-ins ticked, the rest not). The screen shows every word before sharing, and what is shared
+  is exactly that text, through `handFile` in `src/ui/export.js` (the same way as "a copy of my data").
+- The screen says "14 days", "30 days", and holds 300 characters; a unit test fails if `CONFIG.summary`
+  and the screen disagree.
+
 ## "Helping someone you're worried about" (November 15, 2026, a draft)
 
 - **`#tl-helping`, on the Friends tab, holds no wording of its own.** `helpingPage` in

@@ -83,6 +83,9 @@ export const CONFIG = deepFreeze({
   // "What tends to help": the last 30 days, shown once there are three better days, and only what
   // was recorded on two or more of them. The screen's own words say these numbers; change both together.
   helps: { days: 30, minDays: 3, minCount: 2, maxItems: 6 },
+  // A summary for an appointment: how far back it may look, and how much the person may type on it.
+  // The screen's own words and its field say these numbers; change both together.
+  summary: { days: [14, 30], maxAsk: 300 },
   // The safety plan: a short list, so each part stays short enough to read in a hard moment.
   plan: { maxItems: 8, maxLength: 120 },
 });

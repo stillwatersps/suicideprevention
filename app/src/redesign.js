@@ -18,6 +18,7 @@ import { initLock, isLocked } from './ui/lock.js';
 import { Tidelight } from './native.js';
 import { initPlan, renderPlan } from './ui/plan.js';
 import { initHelps } from './ui/helps.js';
+import { initSummary } from './ui/summary.js';
 import { initSaveNote } from './ui/save-note.js';
 import { keepNamesHonest } from './ui/components.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
@@ -74,6 +75,7 @@ export async function initRedesign(context) {
   initStreaks(shell, ctx);
   initPlan(shell, ctx);
   initHelps(shell, ctx);
+  initSummary(shell, ctx);
   // The meditation player: a finished session (60% or more) counts toward today and the setup list.
   ctx.isQuiet = isQuiet;
   ctx.goQuiet = goQuiet;

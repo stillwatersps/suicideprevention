@@ -140,6 +140,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Lo que suele ayudar</span> <span class="tl-card-sub">De tus propios registros</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
+              <span class="tl-card-icon" data-tl-icon="copy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Un resumen para una cita</span> <span class="tl-card-sub">Tú eliges qué incluye</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
               <span class="tl-card-icon" data-tl-icon="path"></span>
               <span class="tl-card-text"><span class="tl-card-title">Tu camino</span> <span class="tl-card-sub">Lo que has guardado</span></span>
@@ -881,6 +886,37 @@
           </div>
         </section>
 
+        <section class="tl-screen" id="tl-summary" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-summary-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-summary-title">Un resumen para una cita</h2>
+          <p>Una página breve con lo que registraste aquí, para llevar a un médico, un terapeuta o un consejero. Tú eliges qué incluye.</p>
+          <p class="tl-sub">Se arma en este teléfono cada vez que abres esta página. Nada de lo que elijas o escribas aquí se guarda, y nada se envía a ningún lugar a menos que tú lo envíes.</p>
+          <div class="tl-panel tl-summary-choices">
+            <div role="radiogroup" aria-labelledby="tl-summary-days-title">
+              <span class="tl-label" id="tl-summary-days-title">Desde cuándo</span>
+              <label class="tl-switch"><span>Los últimos 14 días</span><input type="radio" name="tl-summary-days" value="14" checked></label>
+              <label class="tl-switch"><span>Los últimos 30 días</span><input type="radio" name="tl-summary-days" value="30"></label>
+            </div>
+            <div role="group" aria-labelledby="tl-summary-what-title">
+              <span class="tl-label" id="tl-summary-what-title">Qué incluye</span>
+              <label class="tl-switch"><span>Mis registros</span><input type="checkbox" id="tl-summary-checkins" checked></label>
+              <label class="tl-switch"><span>Mis entradas del diario</span><input type="checkbox" id="tl-summary-journal"></label>
+              <label class="tl-switch"><span>Mi plan de seguridad</span><input type="checkbox" id="tl-summary-plan"></label>
+            </div>
+            <p class="tl-field"><label for="tl-summary-ask">Algo que quiero preguntar o decir (opcional)</label><textarea class="tl-input" id="tl-summary-ask" rows="3" maxlength="300" autocomplete="off"></textarea></p>
+          </div>
+          <p class="tl-sub" id="tl-summary-empty" hidden>Aún no hay nada elegido. Elige algo arriba, o escribe algo que quieras preguntar o decir.</p>
+          <div class="tl-panel" id="tl-summary-out">
+            <h3 class="tl-label" id="tl-summary-preview-title">Lo que dirá</h3>
+            <p class="tl-sub">Esta es la página completa, palabra por palabra.</p>
+            <div class="tl-summary-preview" id="tl-summary-preview" role="group" tabindex="0" aria-labelledby="tl-summary-preview-title"></div>
+            <p class="tl-sub">La página no está bloqueada. Quien la reciba puede leerla, y Tidelight no puede recuperarla. Tú eliges adónde va.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-summary-share">Compartir este resumen</button>
+            <p class="tl-status" id="tl-summary-note" role="status" hidden></p>
+          </div>
+        </section>
+
         <section class="tl-screen" id="tl-helping" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-helping-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -1054,6 +1090,14 @@
         <span data-word="export.age">Grupo de edad: {group}</span>
         <span data-word="export.home">Lugar de casa: {latitude}, {longitude}</span>
         <span data-word="export.none">Nada guardado.</span>
+        <span data-word="summary.title">Un resumen para mi cita</span>
+        <span data-word="summary.made">Creado el {date}, con lo que registré en la app Tidelight durante los últimos {days} días.</span>
+        <span data-word="summary.note">Estas son mis propias notas. No son un expediente médico ni un diagnóstico.</span>
+        <span data-word="summary.ask">Lo que quiero preguntar o decir</span>
+        <span data-word="summary.none">Nada registrado.</span>
+        <span data-word="summary.fileName">tidelight-resumen.txt</span>
+        <span data-word="summary.done">El resumen se entregó a tu teléfono para compartirlo. Tidelight no guarda ningún registro de adónde fue.</span>
+        <span data-word="summary.failed">No se pudo crear el resumen. Nada salió de la app.</span>
         <span data-word="helps.lead">En los {days} días en que elegiste Bien o Muy bien, también registraste:</span>
         <span data-word="helps.item">{name}: {count} de {days} días</span>
         <span data-word="helps.meditation">Una meditación</span>

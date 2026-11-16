@@ -614,7 +614,7 @@ function start() {
           share: (text, from) => openShare(text, from),
           getLog: () => log, todaysLog, removeCheckIn,
           // Every check-in kept, oldest first, as the words a person reads (for a copy of their data).
-          logLines: () => log.map((item) => ({ day: dayOf(new Date(item.t)), line: lineFor(item) + (item.note ? ' ' + item.note : '') })),
+          logLines: () => log.map((item) => ({ t: item.t, day: dayOf(new Date(item.t)), line: lineFor(item) + (item.note ? ' ' + item.note : '') })),
           todayLines: () => todaysLog().map((item) => ({ t: item.t, line: lineFor(item) + (item.note ? ' ' + item.note : '') })),
         });
         // Starting without an error is not enough: there must be a screen to look at.

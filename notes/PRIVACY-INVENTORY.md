@@ -65,6 +65,12 @@ A screen that counts, from check-ins, meditations, and journal dates already on 
 recorded on days with a quick check-in of Good or Great. The count is made each time the screen opens and is
 never stored; nothing new is kept, and nothing leaves the phone. The app lock covers it.
 
+## A summary for an appointment
+
+A screen that puts the person's own check-ins, journal entries, and safety plan from the last 14 or 30 days
+on one short page, with one line they may type. Only what they tick is on it. It is made each time the screen
+opens; what is ticked or typed is never stored, and the app keeps no copy of the page. The app lock covers it.
+
 ## The Home Screen widget (iPhone)
 
 A separate small program inside the app. It stores nothing and can read nothing the app stores: there is no
@@ -80,6 +86,7 @@ lock if it is on.
 | A text message from "Places that are hard for me" | The person's own message and, if they choose, where they are | The people they chose, through the phone's Messages screen; the person still taps Send | The person |
 | "Send to my circle" and Share | The text of a check-in, a journal entry, or a Hope box item, as shown in a preview they can edit | Whoever they pick in Messages or the phone's Share sheet | The person |
 | "Make a copy of my data" (Settings, on `app/privacy-package`) | One text file with the check-ins, journal, reflections, lists, Hope box words, people, places, meditation history, name, age group, and home spot. No photos | Wherever the person sends or saves it from the phone's share sheet | The person, by tapping the button. The file is written to the app's temporary folder and deleted when the sheet closes; the app keeps no record of it |
+| "Share this summary" (a summary for an appointment) | One text file with what the person ticked: check-ins and journal entries from the last 14 or 30 days, the safety plan, and one line they typed. Every word is shown on the screen first | Wherever the person sends or saves it from the phone's share sheet | The person, by tapping the button. The file is written to the app's temporary folder and deleted when the sheet closes; the app keeps no record of it |
 | The phone's backup | Everything in the table above | Apple (iCloud) or Google, under the person's own account, if backups are on | The phone, on its own schedule |
 | Quick exit | Nothing from the app. The phone's browser opens weather.gov, which sees a visit like any other | weather.gov | The person |
 | Call 988, Text 988, Call 911, Chat Online | Nothing from the app. The phone's own dialer, Messages, or browser opens | 988 or 911 | The person |
