@@ -649,7 +649,7 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
-> Any time you like  
+> At 9:30 AM  
 > Start  
 > Suggested for you  
 > Sleep  
@@ -903,7 +903,7 @@ Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 > Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
-> Any time you like  
+> At 9:30 AM  
 > Start  
 > Suggested for you  
 > Sleep  
@@ -1190,9 +1190,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 10:59 PM: feeling: Good.  
+> Before bed, 12:01 AM: feeling: Good.  
 > Remove  
-> Before bed, 10:59 PM: feeling: Okay.  
+> Before bed, 12:01 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1627,14 +1627,14 @@ Picture: `app/design/after-launch-pass/reviewer/43-summary.png`
 > What it will say  
 > This is the whole page, word for word.  
 > A summary for my appointment  
-> Made on November 15, 2026, from what I recorded in the Tidelight app over the last 14 days.  
+> Made on November 16, 2026, from what I recorded in the Tidelight app over the last 14 days.  
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
-> Sunday, November 15  
-> - Before bed, 10:59 PM: feeling: Good.  
-> - Before bed, 10:59 PM: feeling: Okay.  
-> - Before bed, 11:00 PM: feeling: Very low.  
-> - Before bed, 11:00 PM: feeling: Sad.  
+> Monday, November 16  
+> - Before bed, 12:01 AM: feeling: Good.  
+> - Before bed, 12:01 AM: feeling: Okay.  
+> - Before bed, 12:01 AM: feeling: Very low.  
+> - Before bed, 12:02 AM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

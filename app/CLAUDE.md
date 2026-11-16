@@ -197,6 +197,28 @@ each covers and what only a real phone can show.
   nothing happens during first-time setup. Any other address just opens the app.
   `test/open-test.mjs` checks the page's side.
 
+## The iPad layout, and the Apple Watch app (November 15, 2026, a draft)
+
+- **iPad:** the app's column (`.tl-app`, inside `.page-body`) sits in the middle of the screen at every
+  width, in line with the tab bar. `test/ipad-test.mjs` walks every screen in `test/app-screens.mjs` at
+  four iPad sizes and checks that, the safety frame, and that each crisis control is full size and
+  uncovered. On a wide screen the website puts Quick exit in a corner, over the end of the tab bar;
+  leave it there, and never let it cover a tab.
+- **The crisis strip is pinned at every width in the app** (`src/app-safe-area.css`). The website lets
+  it scroll away on a screen 960 points wide or more; an iPad on its side is that wide.
+- Build the iOS app with a destination and without `-sdk iphonesimulator`: that flag forces the
+  phone's SDK onto the watch target, which then fails to build.
+- **`ios/App/TidelightWatch/` is its own Xcode target** (`org.tidelight.app.watchkitapp`, watchOS 10),
+  added by `tools/add-watch-target.rb`; never edit `project.pbxproj` by hand. No team or signing
+  identity is set for it.
+- **The watch app's first screen carries the phone app's three crisis lines** (call 988, text 988,
+  call 911), with the phone app's own words in each language; `test/unit/watch.test.mjs` compares them.
+  Nothing may be put in front of them. The breathing minute is silent.
+- **It stores nothing, reads nothing the phone app saved, and shows nothing outside itself:** no
+  storage, no network, no link to the phone app, no Health, no notifications, no complication. The
+  unit test fails on any of those, and on a file in the folder it has not read.
+- It has been built for the watch Simulator and has never run. Treat every screen of it as unseen.
+
 ## Shortcuts and Apple Health (November 15, 2026, a draft; iPhone only)
 
 - **Shortcuts** (`ios/App/App/TidelightShortcuts.swift`): two App Intents, "A minute to breathe" and

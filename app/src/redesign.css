@@ -18,6 +18,9 @@ html.tl-full body { padding-bottom: 0; }
 html.tl .page-hero-inner > :not(.lang-switch) { display: none; }
 html.tl .page-hero { padding-top: var(--tl-space-xs); padding-bottom: var(--tl-space-xs); }
 html.tl .ci-body { padding-top: var(--tl-space-md); }
+/* On a wide screen (an iPad, most of all on its side) the website keeps its pages to the left. In
+   the app the column sits in the middle instead, in line with the tab bar under it. */
+html.tl .page-body.ci-body { margin-left: auto; margin-right: auto; }
 html.app:not(.app-ready) .tl-app,
 html.app:not(.app-ready) .tl-tabbar { visibility: hidden; }
 html:not(.tl) .tl-app,

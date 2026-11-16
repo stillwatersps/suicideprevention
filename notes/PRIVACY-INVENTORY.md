@@ -77,6 +77,13 @@ A screen that puts the person's own check-ins, journal entries, and safety plan 
 on one short page, with one line they may type. Only what they tick is on it. It is made each time the screen
 opens; what is ticked or typed is never stored, and the app keeps no copy of the page. The app lock covers it.
 
+## The Apple Watch app
+
+A separate small program that comes with the iPhone app. It stores nothing, and it can read nothing the phone
+app stores: the two share no storage and do not talk to each other. It has no notifications and no watch-face
+complication. "Call 988", "Text 988", and "Call 911" hand an address to the watch's own Phone and Messages;
+nothing from the app goes with it but, in Spanish, the word AYUDA in the text.
+
 ## The Home Screen widget (iPhone)
 
 A separate small program inside the app. It stores nothing and can read nothing the app stores: there is no

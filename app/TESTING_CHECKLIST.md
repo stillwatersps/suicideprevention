@@ -73,6 +73,25 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1h. The iPad layout and the Apple Watch app (added November 15, 2026; neither seen on a real device)
+
+iPad:
+- [ ] Upright and on its side: the app's column is in the middle, in line with the tab bar, on every tab.
+- [ ] On its side: Quick exit is in a corner of the screen and covers no tab; it still leaves at once.
+- [ ] The share sheet and "a copy of my data" open as a popover and can be closed.
+
+Apple Watch (the app has never run; check everything):
+- [ ] The app installs with the iPhone app and is named only "Tidelight".
+- [ ] Its first screen shows "A minute to breathe" and, under "Need help now?", Call 988, Text 988, and
+      "In immediate danger, call 911", without scrolling far, and "Draft for review".
+- [ ] **Tap "Call 988" and read the screen. Does the watch ask before dialing, or dial at once? Stop before
+      the call connects.** The same for 911. Write down what happens: it decides whether this can ship.
+- [ ] Text 988: the watch's Messages opens with 988 as the recipient. In Spanish, AYUDA is filled in. Do not send.
+- [ ] A watch away from its iPhone and without its own plan: what does a tap on Call 988 do?
+- [ ] The breathing minute: silent, a soft tap at each turn, six breaths, then "Done". Nothing is kept.
+- [ ] With Reduce Motion on, the circle fades instead of growing.
+- [ ] In Spanish, every word is Spanish.
+
 ## 1g. Shortcuts and Apple Health (iPhone only; not seen on a real phone)
 
 Seen in the Simulator on November 15, 2026: the Health sheet, one entry written and removed, and both

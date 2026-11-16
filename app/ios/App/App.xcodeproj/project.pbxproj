@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0A72EC6C14D05897DF9494C5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 095FF357817B3B2E5867EC08 /* Localizable.strings */; };
+		16EA19F27AA1A574E8531FEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57B376D896E6CA46195CB00A /* Assets.xcassets */; };
+		281A436396B063CA17333AFD /* TidelightWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = D5E4FAF39510539798C0DA38 /* TidelightWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2FAD9763203C412B000D30F8 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 2FAD9762203C412B000D30F8 /* config.xml */; };
 		50379B232058CBB4000EE86E /* capacitor.config.json in Resources */ = {isa = PBXBuildFile; fileRef = 50379B222058CBB4000EE86E /* capacitor.config.json */; };
 		504EC3081FED79650016851F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504EC3071FED79650016851F /* AppDelegate.swift */; };
@@ -16,6 +18,7 @@
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
 		57049C7FCC7FE83194E6B12E /* TidelightShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2423FA816E93F701FB3C0C /* TidelightShortcuts.swift */; };
+		6B4A6CF1FB2784768170E03F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC16F111AB85880E16E8DB0 /* Foundation.framework */; };
 		70F2EE98FE6223EDE68300D5 /* AppShortcuts.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2966709438EA2AB8D9FD557C /* AppShortcuts.strings */; };
 		7A1D00010000000000000000 /* TidelightPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01010000000000000000 /* TidelightPlugin.swift */; };
 		7A1D00020000000000000000 /* PlaceWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01020000000000000000 /* PlaceWatcher.swift */; };
@@ -27,8 +30,10 @@
 		92E5ACB6173BD0422D23FADF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238AA0C7C73F34F2A156D08D /* Foundation.framework */; };
 		94EFEA4F4217D7E8A7A91E19 /* TidelightWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC88041F0BA6979F8D390B /* TidelightWidget.swift */; };
 		A084ECDBA7D38E1E42DFC39D /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */; };
+		A138A1B5C108E1C20EE4B1C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA8B3100A8FEA0F8124E6D68 /* Localizable.strings */; };
 		A506C8A87BB157DC4D6876A5 /* TidelightWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EBEB137D305EFC9550488066 /* TidelightWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C3E8E13E3D6BC275AA7A07AD /* TidelightHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4E94E95F681B8F598AE238 /* TidelightHealth.swift */; };
+		EAF3245DD77238E10C87CC08 /* TidelightWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8026EB067CFEDC300FEC4 /* TidelightWatchApp.swift */; };
 		FC52679961057DF29DEB4BE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEFBABD6E5B50597BC83441A /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +44,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 093614B24987D04FED0214E6;
 			remoteInfo = TidelightWidget;
+		};
+		FCB7891CCBE21ECA235912EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 504EC2FC1FED79650016851F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 03E4240C9256B7E05EA419FB;
+			remoteInfo = TidelightWatch;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -54,14 +66,27 @@
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B5EBCA08C7588CF2A302EA04 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				281A436396B063CA17333AFD /* TidelightWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0AAC0B3075FA39AFCF49323F /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0C4E94E95F681B8F598AE238 /* TidelightHealth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TidelightHealth.swift; sourceTree = "<group>"; };
 		0D55552F78A0C78816331692 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0EEC88041F0BA6979F8D390B /* TidelightWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TidelightWidget.swift; sourceTree = "<group>"; };
 		174FA324245B9866BB7D71B1 /* App.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		238AA0C7C73F34F2A156D08D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		2E19BA8077CDF9AEE4AFCE60 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		40890F6DFF815D2C4685F28E /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
@@ -72,6 +97,7 @@
 		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
+		57B376D896E6CA46195CB00A /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5DC1DCDC3E485FA71807E8AF /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		7A1D00060000000000000000 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7A1D01010000000000000000 /* TidelightPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TidelightPlugin.swift; path = TidelightPlugin.swift; sourceTree = "<group>"; };
@@ -81,17 +107,28 @@
 		7A1D01050000000000000000 /* DwellTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DwellTracker.swift; path = ../../TidelightLogic/Sources/TidelightLogic/DwellTracker.swift; sourceTree = "<group>"; };
 		7A1D01070000000000000000 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		8B2423FA816E93F701FB3C0C /* TidelightShortcuts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TidelightShortcuts.swift; sourceTree = "<group>"; };
+		96B8026EB067CFEDC300FEC4 /* TidelightWatchApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TidelightWatchApp.swift; sourceTree = "<group>"; };
 		ACB68483EBB8C32AD663025F /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
 		BF96F3910C35001571E6D62B /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C40A2A6B73F093D6741885E9 /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D5E4FAF39510539798C0DA38 /* TidelightWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TidelightWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBEB137D305EFC9550488066 /* TidelightWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TidelightWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEC16F111AB85880E16E8DB0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		F5E0F61614ACA6848662C07C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC68EB0AF532CFC21C3344DD /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1E9F27E680CA236E31C64E8F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B4A6CF1FB2784768170E03F /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3B07CFA838F7387D6684F550 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -116,8 +153,20 @@
 			children = (
 				AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */,
 				E20523AF0BCA5522407E67B9 /* iOS */,
+				EB75C70A74459EDB4EF63AA7 /* watchOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4D82ED6CE4B64D25EFEDFF00 /* TidelightWatch */ = {
+			isa = PBXGroup;
+			children = (
+				96B8026EB067CFEDC300FEC4 /* TidelightWatchApp.swift */,
+				57B376D896E6CA46195CB00A /* Assets.xcassets */,
+				CA8B3100A8FEA0F8124E6D68 /* Localizable.strings */,
+			);
+			name = TidelightWatch;
+			path = TidelightWatch;
 			sourceTree = "<group>";
 		};
 		504EC2FB1FED79650016851F = {
@@ -128,6 +177,7 @@
 				7F8756D8B27F46E3366F6CEA /* Pods */,
 				27E2DDA53C4D2A4D1A88CE4A /* Frameworks */,
 				A889EC86BB435C99115704AF /* TidelightWidget */,
+				4D82ED6CE4B64D25EFEDFF00 /* TidelightWatch */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +186,7 @@
 			children = (
 				504EC3041FED79650016851F /* App.app */,
 				EBEB137D305EFC9550488066 /* TidelightWidget.appex */,
+				D5E4FAF39510539798C0DA38 /* TidelightWatch.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,9 +246,34 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
+		EB75C70A74459EDB4EF63AA7 /* watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				EEC16F111AB85880E16E8DB0 /* Foundation.framework */,
+			);
+			name = watchOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		03E4240C9256B7E05EA419FB /* TidelightWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1B02435E193E28270F51A17 /* Build configuration list for PBXNativeTarget "TidelightWatch" */;
+			buildPhases = (
+				0191D777A1C805B2FC34B5B5 /* Sources */,
+				1E9F27E680CA236E31C64E8F /* Frameworks */,
+				5698F01E415DCB3EA6896115 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TidelightWatch;
+			productName = TidelightWatch;
+			productReference = D5E4FAF39510539798C0DA38 /* TidelightWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
 		093614B24987D04FED0214E6 /* TidelightWidget */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE8AD0AADD3D4B832560F17F /* Build configuration list for PBXNativeTarget "TidelightWidget" */;
@@ -225,11 +301,13 @@
 				504EC3021FED79650016851F /* Resources */,
 				9592DBEFFC6D2A0C8D5DEB22 /* [CP] Embed Pods Frameworks */,
 				4D71FED3A20692B68B1043DF /* Embed Foundation Extensions */,
+				B5EBCA08C7588CF2A302EA04 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				56650F6373D99B43C9DC49E9 /* PBXTargetDependency */,
+				8D79367C0B5D3BC5826ADF3E /* PBXTargetDependency */,
 			);
 			name = App;
 			productName = App;
@@ -268,6 +346,7 @@
 			targets = (
 				504EC3031FED79650016851F /* App */,
 				093614B24987D04FED0214E6 /* TidelightWidget */,
+				03E4240C9256B7E05EA419FB /* TidelightWatch */,
 			);
 		};
 /* End PBXProject section */
@@ -286,6 +365,15 @@
 				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
 				FC52679961057DF29DEB4BE8 /* Localizable.strings in Resources */,
 				70F2EE98FE6223EDE68300D5 /* AppShortcuts.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5698F01E415DCB3EA6896115 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				16EA19F27AA1A574E8531FEC /* Assets.xcassets in Resources */,
+				A138A1B5C108E1C20EE4B1C9 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +424,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0191D777A1C805B2FC34B5B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EAF3245DD77238E10C87CC08 /* TidelightWatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		47903BAFD1D21EE121FE52A4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -368,6 +464,12 @@
 			name = TidelightWidget;
 			target = 093614B24987D04FED0214E6 /* TidelightWidget */;
 			targetProxy = FB3F11EE7C3D6887BEC02591 /* PBXContainerItemProxy */;
+		};
+		8D79367C0B5D3BC5826ADF3E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = TidelightWatch;
+			target = 03E4240C9256B7E05EA419FB /* TidelightWatch */;
+			targetProxy = FCB7891CCBE21ECA235912EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -406,6 +508,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		CA8B3100A8FEA0F8124E6D68 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E19BA8077CDF9AEE4AFCE60 /* en */,
+				0AAC0B3075FA39AFCF49323F /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		EEFBABD6E5B50597BC83441A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -418,6 +529,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		40D40BCD84100F45C637A2EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Tidelight;
+				INFOPLIST_KEY_WKApplication = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = org.tidelight.app;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tidelight.app.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 		504EC3141FED79650016851F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -566,6 +703,31 @@
 			};
 			name = Release;
 		};
+		8B372346213189286F971643 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Tidelight;
+				INFOPLIST_KEY_WKApplication = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = org.tidelight.app;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tidelight.app.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
 		8DAC8332B87343A56E7E7B36 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -626,6 +788,15 @@
 			buildConfigurations = (
 				504EC3171FED79650016851F /* Debug */,
 				504EC3181FED79650016851F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1B02435E193E28270F51A17 /* Build configuration list for PBXNativeTarget "TidelightWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				40D40BCD84100F45C637A2EB /* Release */,
+				8B372346213189286F971643 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

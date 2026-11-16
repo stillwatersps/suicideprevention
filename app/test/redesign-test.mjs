@@ -479,7 +479,10 @@ async function streakTests(browser, lang) {
   check(await page.isVisible('#tl-streak') && (await page.textContent('#tl-streak-current')).trim() === '3' && (await page.textContent('#tl-streak-best')).trim() === '3', 'the streak screen shows now and best');
   const monthDays = await page.locator('#tl-streak-month .tl-day:not(.is-blank)').count();
   check(monthDays >= 28 && monthDays <= 31 && (await page.locator('#tl-streak-month .tl-day.is-complete').count()) >= 1, 'with this month as a calendar of days');
-  check((await page.locator('#tl-streak .tl-legend li').count()) === 4 && (await page.textContent('#tl-streak-freeze-line')).includes('1'), 'a legend in words, and the freezes held');
+  // One freeze is held from the start; a new week's freeze arrives on its Monday. So the number
+  // depends on the day this runs: the screen must say the number the phone holds, one or two.
+  const held = ((await stored(page, 'tidelight.streak')) || {}).freezesAvailable;
+  check((await page.locator('#tl-streak .tl-legend li').count()) === 4 && (held === 1 || held === 2) && (await page.textContent('#tl-streak-freeze-line')).includes(held + ' '), 'a legend in words, and the freezes held');
   check((await safetyFrame(page)).length === 0 && await page.isVisible('#tl-streak .tl-draft-tag'), 'the streak screen keeps the safety frame and is marked "Draft for review"');
   check(await noSideways(page), 'the streak screen fits');
   check((await page.textContent('#tl-streak-title')).trim().length > 0 && (await page.locator('#tl-streak .tl-panel p.tl-sub').count()) === 2, 'with its two lines that explain what counts and what a freeze does');

@@ -11,3 +11,12 @@ body { padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-are
    sticky bar can never be scrolled to. So the strip never grows past the screen, and scrolls
    within itself: every control in it can always be reached. Nothing in it is hidden or shortened. */
 .crisis-bar { max-height: 100vh; max-height: 100dvh; overflow-y: auto; overscroll-behavior: contain; }
+/* The app only ever runs on a phone or a tablet. On a wide tablet (an iPad on its side, or a large
+   iPad upright) the website's desktop layout lets the crisis strip scroll away with the page. In
+   the app it stays pinned at every width, so Call 988, Text 988, and Call 911 are always one tap
+   away. Quick exit stays where the website puts it there, in the corner of the screen. */
+@media (min-width: 960px) {
+  .crisis-bar { position: sticky; top: 0; z-index: 60; }
+  .crisis-bar p a { min-height: 44px; padding: 11px 0; line-height: 1.4; }
+}
+

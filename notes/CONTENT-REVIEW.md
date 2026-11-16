@@ -1360,6 +1360,44 @@ screen has a part about it.
   enough, or should the Delete everything note say it too? (That note is reviewed wording, so it was not
   changed.)
 
+### The app on an iPad
+
+The app already ran on an iPad. On a wide screen its column sat left of the middle, out of line with the tab
+bar; it now sits in the middle at every size, upright and on its side. No word changed.
+
+**A fault found and fixed:** on an iPad on its side (and a large iPad upright) the crisis strip scrolled away
+with the page, because the website treats a screen that wide as a desktop. In the app the strip now stays
+pinned at every width, as the app's first rule says it must. On an iPad on its
+side the website's own layout puts Quick exit in a corner of the screen, over the end of the tab bar; it
+covers no tab, and it was left where the website puts it (a safety control is never moved).
+
+- A founder: is a single centered column right for an iPad, or should a later version use the width (two
+  columns, a side bar)? That is a design task of its own.
+
+### The Apple Watch app, a founder's choice to build
+
+A small app for Apple Watch (watchOS 10 and later) that comes with the iPhone app. Its first screen has "A
+minute to breathe" and, under "Need help now?", the same three lines as the phone app's support screen: "Call
+988", "Text 988", and "In immediate danger, call 911" (Spanish: the phone app's own Spanish for each, with
+AYUDA filled in for the text). The breathing minute is six silent breaths, four seconds in and six out, with a
+soft tap at each turn. It stores nothing, reads nothing from the phone app, has no notifications and no
+watch-face complication, and shows only the name "Tidelight" outside itself. It is marked "Draft for review".
+
+**It has been built, and has never run**: this computer has no watch Simulator and there is no watch. Nobody
+has seen its screens.
+
+- The reviewer: on a watch, does a tap on "Call 988" dial at once, with no "are you sure"? On an iPhone the
+  phone asks first. If the watch does not, a mis-tap on a small screen could place a call to a crisis line.
+  This must be tried on a real watch (by reading the screen, not by completing a call) before anyone uses it.
+- Does a watch without its own phone plan, away from its iPhone, fail quietly when someone taps "Call 988"?
+  What should the app say then?
+- "Text 988" on a watch, and AYUDA filled in for Spanish: neither has been seen. The same open question as
+  on the phone (the part about AYUDA, above).
+- The app's name shows on the watch among the person's other apps. Is that discreet enough on a wrist?
+- Should the breathing minute end with anything other than "Done"? It says nothing else, on purpose.
+- A founder: a watch app needs its own identifier in the developer account. No team or signing identity
+  was chosen.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].
