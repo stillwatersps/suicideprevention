@@ -158,6 +158,29 @@ each covers and what only a real phone can show.
   this order the screen the person left shows for a moment. A timer lifts the cover anyway after
   a few seconds: the app must never stay covered.
 
+## Rules from the check on November 16, 2026
+
+- **The crisis strip never takes most of a short screen** (`src/ui/strip-fit.js`): past 70% of the screen's
+  height its words are set smaller, never under 18 points. Fonts differ between computers and phones, so
+  `test/strip-test.mjs` also runs with a deliberately wide font; a layout check must hold with any font.
+- **A native screen of the app's own opens below the crisis strip**, never over it. The map for a place takes
+  `top` from the page (`stripBottom`). The phone's own pickers (contacts, photos, the share sheet) are the
+  phone's and can't be changed.
+- **Nothing is saved before what was saved has been read** (`loaded` in `src/app.js`).
+- **After Quick exit, nothing the person had open is left on the page**: `tidelight-back-from-exit` closes
+  the share notice and "Enter my date of birth again" as well as going Home. A new panel outside the
+  screens must listen for it too.
+- **Nothing celebrates on a quiet day**, the setup list included (`isQuiet()` before any success haptic or
+  "done" card).
+- **Reminders:** `TidelightPlugin.swift` takes over the phone's notification handler and passes reminders on
+  to the reminders plugin's own handler, which it must keep hold of at load. A tapped reminder reaches the
+  page through `onReminderTap` in `src/ui/device.js`.
+- **Why the phone asks for a permission** is written three times and must stay the same: `Info.plist`,
+  `en.lproj/InfoPlist.strings`, and (in Spanish) `es.lproj/InfoPlist.strings`. A unit test compares them.
+- **Android is not working** and has never been built: no `Tidelight` plugin, no routing for pages in
+  folders, no location permission. Don't describe a feature as working on Android.
+- `test/faults-test.mjs` and `test/unit/native-fixes.test.mjs` hold the faults from that check fixed.
+
 ## When the phone can't save (November 15, 2026, a draft)
 
 - **Every write to the phone reports a failure** by calling `saveFailed()` from `src/core/save-note.js`

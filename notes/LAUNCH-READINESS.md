@@ -595,6 +595,12 @@ Simulator number is the closest thing here to a phone, and it is a Mac.
 - **A budget test** (`app/test/budget-test.mjs`, in `npm test`) fails if the script passes 150 KB,
   the stylesheets 175 KB, the fonts 150 KB, the whole folder 2,100 KB, any single file 300 KB, the
   start-up file count 24, or if anything outside the app is requested at start.
+  **Raised on purpose on November 16, 2026:** the script's ceiling is now 260 KB (and every script the
+  page loads, 295 KB). The script stood at 149 KB when one founder asked for forty more features; the
+  fixes from that day's check took it to 152 KB, and each new screen adds 2 to 3 KB. The file is read
+  from the phone itself, never over a network, and the crisis strip needs none of it. "No single file
+  over 300 KB" stays as the hard stop: before the script reaches that, the newer screens should be
+  built into a file of their own that loads after the first screen.
 
 ### What was looked at and left
 

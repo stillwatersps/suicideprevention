@@ -32,6 +32,7 @@
 		A084ECDBA7D38E1E42DFC39D /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */; };
 		A138A1B5C108E1C20EE4B1C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA8B3100A8FEA0F8124E6D68 /* Localizable.strings */; };
 		A506C8A87BB157DC4D6876A5 /* TidelightWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EBEB137D305EFC9550488066 /* TidelightWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C1C34365B8DA158D87C83209 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8C36A5C4683812CA031FB18 /* InfoPlist.strings */; };
 		C3E8E13E3D6BC275AA7A07AD /* TidelightHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4E94E95F681B8F598AE238 /* TidelightHealth.swift */; };
 		EAF3245DD77238E10C87CC08 /* TidelightWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96B8026EB067CFEDC300FEC4 /* TidelightWatchApp.swift */; };
 		FC52679961057DF29DEB4BE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEFBABD6E5B50597BC83441A /* Localizable.strings */; };
@@ -87,6 +88,7 @@
 		174FA324245B9866BB7D71B1 /* App.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		238AA0C7C73F34F2A156D08D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		2E19BA8077CDF9AEE4AFCE60 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2E88230AB06B07B46F8DDB7C /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
 		40890F6DFF815D2C4685F28E /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 		ACB68483EBB8C32AD663025F /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
+		BEA75CDA7800DF30026B181C /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF96F3910C35001571E6D62B /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C40A2A6B73F093D6741885E9 /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D5E4FAF39510539798C0DA38 /* TidelightWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TidelightWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +217,7 @@
 				EEFBABD6E5B50597BC83441A /* Localizable.strings */,
 				2966709438EA2AB8D9FD557C /* AppShortcuts.strings */,
 				174FA324245B9866BB7D71B1 /* App.entitlements */,
+				B8C36A5C4683812CA031FB18 /* InfoPlist.strings */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -365,6 +369,7 @@
 				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
 				FC52679961057DF29DEB4BE8 /* Localizable.strings in Resources */,
 				70F2EE98FE6223EDE68300D5 /* AppShortcuts.strings in Resources */,
+				C1C34365B8DA158D87C83209 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +511,15 @@
 				504EC3111FED79650016851F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		B8C36A5C4683812CA031FB18 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BEA75CDA7800DF30026B181C /* en */,
+				2E88230AB06B07B46F8DDB7C /* es */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		CA8B3100A8FEA0F8124E6D68 /* Localizable.strings */ = {

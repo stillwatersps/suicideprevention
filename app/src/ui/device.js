@@ -93,6 +93,13 @@ export async function setNotifications(list, cancelIds) {
     }
   } catch (e) { devLog('reminders', e); }
 }
+// A reminder was tapped. The phone keeps the tap until the page asks, so it also arrives when the
+// tap is what opened the app.
+export function onReminderTap(then) {
+  if (hooks().reminderTap) hooks().reminderTap.then = then; // a stand-in for tests
+  if (!native) return;
+  try { Promise.resolve(LocalNotifications.addListener('localNotificationActionPerformed', () => then())).catch((e) => devLog('reminder tap', e)); } catch (e) { devLog('reminder tap', e); }
+}
 export async function pendingNotifications() {
   if (!native) return hooks().scheduled || [];
   try {

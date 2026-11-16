@@ -73,6 +73,20 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1i. Faults fixed on November 16, 2026 (seen in the Simulator only)
+
+- [ ] Reminders on, app open: "Send a test notification" shows a banner within a few seconds.
+- [ ] Tap a check-in reminder with the app closed, and again with it open: the Check-in tab opens.
+- [ ] Places: open a saved place, change only its name, save. Its pin has not moved.
+- [ ] The map for a place opens below the crisis strip; Call 988, Text 988, Call 911, and Quick exit can be
+      tapped while it is open (stop at the dial or compose screen). Cancel and Save both close it.
+- [ ] VoiceOver names the map with words, not "mapLabel".
+- [ ] App lock on: leave the app from Get help and come back. The page shows at once.
+- [ ] Settings: three check-in times fit inside their panel, and each can be changed with the phone's picker.
+- [ ] Phone set to Spanish: the Face ID, Health, and location questions are in Spanish.
+- [ ] Phone set to Spanish, app language Spanish: the widget's "My plan" opens the plan.
+- [ ] A small phone at the largest text, in Spanish: the whole crisis strip is on screen without scrolling.
+
 ## 1h. The iPad layout and the Apple Watch app (added November 15, 2026; neither seen on a real device)
 
 iPad:

@@ -1398,6 +1398,19 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Changes from the check on November 16, 2026
+
+- **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,
+  Apple Health, and location (`app/ios/App/App/es.lproj/InfoPlist.strings`). They are an AI translation of
+  the English reasons, using the app's own Spanish names for each setting.
+- The reviewer: on a short screen the crisis strip's words may now be set smaller than 28 points, never
+  under 18, so the strip does not fill the screen ([[DECISIONS]], November 16). Is 18 points acceptable for
+  someone who chose the phone's largest text, given that the alternative hides "call 911" below the fold?
+- The reviewer: a check-in reminder now shows as a banner while the app is open. For about five seconds it
+  covers "Need help now? Call 988 or text 988". Should reminders stay silent while the app is open instead?
+- "Setup complete" now waits for another day when the day has a very low check-in. No wording changed.
+- The map for choosing a place now opens below the crisis strip. No wording changed.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

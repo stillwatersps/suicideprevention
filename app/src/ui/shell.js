@@ -7,6 +7,7 @@ import { icon, drawIcons, el } from './components.js';
 import { haptic } from './haptics.js';
 import { TABS } from './icons.js';
 import { watchTabBar } from './tabbar-fit.js';
+import { watchStrip } from './strip-fit.js';
 
 export { TABS };
 
@@ -160,6 +161,7 @@ export function initShell() {
   root.classList.add('tl');
   // The height of the crisis strip, which stays above everything, for screens that fill the rest.
   const strip = $('.crisis-bar');
+  watchStrip(strip); // smaller words where the strip would take most of a short screen (strip-fit.js)
   const measure = () => { if (strip) root.style.setProperty('--tl-top', strip.offsetHeight + 'px'); };
   measure();
   window.addEventListener('resize', measure);

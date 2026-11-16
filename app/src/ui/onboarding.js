@@ -60,8 +60,15 @@ function show(i, focus) {
 // Leaving a page forward keeps what was chosen on it.
 async function keep(name) {
   if (name === 'name') await save('profile', { name: $('#tl-ob-name').value.trim() });
-  if (name === 'count') await save('settings', { checkInsPerDay: pickedCount, countChosen: true, customTimes: null });
-  if (name === 'times') await save('settings', { wakeTime: $('#tl-ob-wake').value || CONFIG.checkIn.wakeDefault, sleepTime: $('#tl-ob-sleep').value || CONFIG.checkIn.sleepDefault, customTimes: null });
+  // Times the person set by hand (or that came over from the older app) are kept unless this page
+  // changes what they depend on.
+  const s = state.settings;
+  if (name === 'count') await save('settings', { checkInsPerDay: pickedCount, countChosen: true, customTimes: pickedCount === s.checkInsPerDay ? s.customTimes || null : null });
+  if (name === 'times') {
+    const wakeTime = $('#tl-ob-wake').value || CONFIG.checkIn.wakeDefault;
+    const sleepTime = $('#tl-ob-sleep').value || CONFIG.checkIn.sleepDefault;
+    await save('settings', { wakeTime, sleepTime, customTimes: wakeTime === s.wakeTime && sleepTime === s.sleepTime ? s.customTimes || null : null });
+  }
   if (name === 'style' && pickedStyle) await save('settings', { checkInStyle: pickedStyle, styleChosen: true });
 }
 async function next(keepIt) {
@@ -129,6 +136,15 @@ function startAgeOnly() {
   shellRef.setFull(true);
   shellRef.push('onboarding');
   show(0);
+}
+
+// Leaving that page without answering (Quick exit, or the phone opening the app somewhere else)
+// puts everything back: the tab bar returns, and the age group already saved stays.
+export function leaveAgeOnly() {
+  if (!ageOnly) return;
+  ageOnly = false;
+  shellRef.setFull(false);
+  document.dispatchEvent(new Event('tidelight-age-left'));
 }
 
 let countStepper = null;

@@ -596,3 +596,17 @@ widget avoid the words mood, crisis, and safety; the watch app puts the three cr
 with no step in front of them. **Open and urgent before anyone uses the watch app:** whether a tap on "Call
 988" or "Call 911" dials at once on a watch. Nobody has seen it run.
 
+## November 16, 2026: the crisis strip on a short screen, proposed
+
+On November 15 one founder chose that the crisis strip keeps every word and stops growing at 28 points. A
+check on November 16 found a case that choice did not cover: on a short screen (320 by 568 points), in Spanish,
+with a font wider than an iPhone's, 28 points made the strip as tall as the whole screen, so "call 911" had to
+be scrolled to inside the strip. **Proposed, built, and easy to reverse:** where the strip would take more than
+70% of the screen's height, its words are set smaller a point at a time, never under 18 points (an iPhone's
+usual size is 17). Every word and every control stays, at full tap size. On an iPhone with its own font the
+strip never reaches 70% in the sizes tested, so nothing changes there. **The other founder and the reviewer
+haven't seen this.** The alternative is to leave the strip to fill a short screen.
+
+Also proposed the same day: a check-in reminder now shows as a banner while the app is open (it showed nothing
+before). For about five seconds the banner covers the strip's first line, as any notification does.
+

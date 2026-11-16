@@ -3,6 +3,7 @@
 import { CONFIG } from '../core/config.js';
 import { t } from './words.js';
 import { style, profile, isQuiet } from './state.js';
+import { devLog } from '../core/dev.js';
 import { choiceGroup } from './components.js';
 import { haptic } from './haptics.js';
 import { isLowMood, isHeavyFeeling } from '../logic/safety.js';
@@ -66,7 +67,8 @@ async function finish() {
   const mood = Number(faces.get());
   if (!mood) return;
   const labels = tags.get().map((id) => t('tag.' + id));
-  await ctx.addQuickCheckIn({ mood, moodLabel: t('mood.' + mood), tagIds: tags.get(), tags: labels, note: $('#tl-flow-note').value.trim().slice(0, CONFIG.checkIn.noteMaxLength) });
+  // If the phone can't save it, the app says so elsewhere (save-note.js). Support must still come.
+  try { await ctx.addQuickCheckIn({ mood, moodLabel: t('mood.' + mood), tagIds: tags.get(), tags: labels, note: $('#tl-flow-note').value.trim().slice(0, CONFIG.checkIn.noteMaxLength) }); } catch (e) { devLog('check-in not saved', e); }
   if (isLowMood(mood)) {
     // Support comes first: no celebration, no streak, and the screen stays until the person leaves it.
     onSupport = true;

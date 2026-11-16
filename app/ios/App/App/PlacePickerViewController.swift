@@ -2,7 +2,9 @@ import UIKit
 import MapKit
 import CoreLocation
 
-// A full-screen map for choosing one of the person's own places: a pin, a radius, and a name.
+// A map for choosing one of the person's own places: a pin, a radius, and a name. It opens below
+// the page's crisis strip (the page says where the strip ends), so Call 988, Text 988, Call 911,
+// and Quick exit stay on screen and can be tapped while the map is open.
 // The app suggests no places. Searching an address uses Apple's map search, which needs a signal.
 // Every label comes from the page's text files through `words`; nothing here is wording of its own.
 final class PlacePickerViewController: UIViewController, MKMapViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
@@ -48,7 +50,7 @@ final class PlacePickerViewController: UIViewController, MKMapViewDelegate, UISe
         map.delegate = self
         map.showsUserLocation = true
         map.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(longPressed(_:))))
-        map.accessibilityLabel = word("mapLabel")
+        map.accessibilityLabel = word("label") // the page sends its map words without the "map" prefix
 
         hint.text = word("hint")
         hint.font = .preferredFont(forTextStyle: .footnote)
@@ -111,8 +113,14 @@ final class PlacePickerViewController: UIViewController, MKMapViewDelegate, UISe
         setPin(map.convert(point, toCoordinateFrom: map), zoom: false)
     }
 
+    // The phone's location is read only after "Use where I am" is tapped. (The phone reports the
+    // permission as soon as the picker opens; without this, that moved a saved place's pin to
+    // wherever the phone was.)
+    private var askedForHere = false
+
     @objc private func useHere() {
-        if locator.authorizationStatus == .notDetermined { locator.requestWhenInUseAuthorization() }
+        askedForHere = true
+        if locator.authorizationStatus == .notDetermined { locator.requestWhenInUseAuthorization(); return }
         locator.requestLocation()
     }
 
@@ -158,17 +166,32 @@ final class PlacePickerViewController: UIViewController, MKMapViewDelegate, UISe
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard askedForHere else { return }
+        askedForHere = false
         if let here = locations.last { setPin(here.coordinate, zoom: true) }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         hint.text = word("noLocation")
     }
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        guard askedForHere else { return }
         if manager.authorizationStatus == .authorizedWhenInUse || manager.authorizationStatus == .authorizedAlways { manager.requestLocation() }
     }
 
-    @objc private func cancelTapped() {
-        dismiss(animated: true) { [weak self] in self?.completion?(nil) }
+    @objc private func cancelTapped() { finish(nil) }
+
+    // Closes the map whichever way it was opened: laid over the page below the crisis strip, or
+    // (when the page gave no place for the strip) presented over the whole screen.
+    private func finish(_ result: Place?) {
+        view.endEditing(true)
+        if let holder = navigationController, holder.parent != nil, holder.presentingViewController == nil {
+            holder.willMove(toParent: nil)
+            holder.view.removeFromSuperview()
+            holder.removeFromParent()
+            completion?(result)
+        } else {
+            dismiss(animated: true) { [weak self] in self?.completion?(result) }
+        }
     }
 
     @objc private func saveTapped() {
@@ -177,6 +200,6 @@ final class PlacePickerViewController: UIViewController, MKMapViewDelegate, UISe
         guard !name.isEmpty else { hint.text = word("needName"); nameField.becomeFirstResponder(); return }
         p.name = name
         p.radius = radius
-        dismiss(animated: true) { [weak self] in self?.completion?(p) }
+        finish(p)
     }
 }

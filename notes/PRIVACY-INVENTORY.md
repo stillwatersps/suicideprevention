@@ -53,6 +53,7 @@ key-value storage. Formats are JSON unless marked plain text. The stored format'
 | IndexedDB `tidelight-hope` | Hope box photos. On `app/pre-review-fixes` an iPhone uses the phone's own photo picker: the app sees only the photo chosen, asks for no access to the library, and never opens the camera. The app redraws the photo smaller, which leaves out where and when it was taken | The Hope box | The person, from their photo library | Only if they share one |
 | `tidelight.reminders.v1` | The four reminders of an older version | Read once when upgrading; kept unchanged | The older version | No |
 | `tidelight.schema` (plain text) | The stored format's version number | Upgrades | The app | No |
+| Session only: `tidelight.language.tapped` | "en" or "es", when the language link is tapped on a website page inside the app, until the Daily check-in page saves it as the language | Remembering the language | The app | No; gone when the app closes |
 | Session only: `tidelight.older-layout` | A mark that the newer screens failed to start, so the older layout is used until the app is closed | Reliability | The app | No; gone when the app closes |
 
 Not stored anywhere: the date of birth; any location other than the home spot and the person's

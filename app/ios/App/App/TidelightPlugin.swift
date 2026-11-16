@@ -71,6 +71,9 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         #if DEBUG && targetEnvironment(simulator)
         quietForAutomatedRuns()
         #endif
+        // The reminders plugin registered its own handler before this plugin loaded. Keep hold of it,
+        // so a check-in reminder still shows while the app is open and its taps still reach the page.
+        if let earlier = bridge?.notificationRouter.localNotificationHandler, earlier !== self { reminders = earlier }
         bridge?.notificationRouter.localNotificationHandler = self
         let center = NotificationCenter.default
         for name in [UIApplication.didEnterBackgroundNotification, UIScene.didEnterBackgroundNotification] {
@@ -240,8 +243,21 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
                 }
             }
             let nav = UINavigationController(rootViewController: picker)
-            nav.modalPresentationStyle = .fullScreen
-            self?.bridge?.viewController?.present(nav, animated: true)
+            // The map is laid over the page from the bottom of the crisis strip down, so the strip
+            // (Call 988, Text 988, Call 911, Quick exit) is never under it. Only if the page gave no
+            // place for the strip does it take the whole screen.
+            let top = CGFloat(call.getDouble("top") ?? 0)
+            if let host = self?.bridge?.viewController, top > 0, top < host.view.bounds.height - 300 {
+                host.addChild(nav)
+                nav.view.frame = CGRect(x: 0, y: top, width: host.view.bounds.width, height: host.view.bounds.height - top)
+                nav.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                host.view.addSubview(nav.view)
+                nav.didMove(toParent: host)
+                UIAccessibility.post(notification: .screenChanged, argument: nav.view)
+            } else {
+                nav.modalPresentationStyle = .fullScreen
+                self?.bridge?.viewController?.present(nav, animated: true)
+            }
         }
     }
 
@@ -596,9 +612,10 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
 
     // MARK: - NotificationHandlerProtocol
 
-    private func otherHandler() -> NotificationHandlerProtocol? {
-        bridge?.plugin(withName: "LocalNotifications") as? NotificationHandlerProtocol
-    }
+    // The reminders plugin's own handler (not the plugin itself, which doesn't handle notifications).
+    // The plugin owns it for as long as the app runs.
+    private weak var reminders: NotificationHandlerProtocol?
+    private func otherHandler() -> NotificationHandlerProtocol? { reminders }
 
     public func willPresent(notification: UNNotification) -> UNNotificationPresentationOptions {
         let kind = notification.request.content.userInfo["kind"] as? String

@@ -153,10 +153,16 @@ function start() {
     $('#page-title').scrollIntoView({ block: 'start' });
   });
   $('.app-age-change').addEventListener('click', () => { askAge(true); ageBox.scrollIntoView({ block: 'start' }); });
+  // "Enter my date of birth again" was left without an answer: the age group already saved stays.
+  document.addEventListener('tidelight-age-left', () => { if (group) askAge(false); });
 
   // ---- Saving: whenever something changes, keep a copy on this phone.
   let lastSaved = '';
+  // Nothing is written until what was saved has been read: a save in those first moments (the app
+  // hidden as it opens) would put an empty copy over the journal and the lists.
+  let loaded = false;
   async function persist() {
+    if (!loaded) return;
     const json = JSON.stringify(api.getState());
     if (json === lastSaved) return;
     lastSaved = json;
@@ -166,7 +172,7 @@ function start() {
   function soon() { clearTimeout(timer); timer = setTimeout(persist, 250); }
   body.addEventListener('click', soon, true);
   body.addEventListener('change', soon, true);
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') persist(); });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') persist(); else renderLog(); /* a new day may have started */ });
 
   // ---- Share one entry through the phone's share sheet.
   const panel = $('#app-share-panel');
@@ -190,6 +196,8 @@ function start() {
     panel.classList.add('ci-off');
     if (returnTo) returnTo.focus();
   }
+  // After Quick exit nothing the person had open is left on the page, the words to share included.
+  document.addEventListener('tidelight-back-from-exit', () => { shareText.value = ''; returnTo = null; panel.classList.add('ci-off'); });
   function textOf(button) {
     const kind = button.getAttribute('data-share');
     if (kind === 'result') {
@@ -294,8 +302,8 @@ function start() {
     const now = new Date();
     log.push({ t: now.toISOString(), slot: slotFor(now), feeling: current.feelingLabel || '', needs });
     renderLog();
-    await saveLog();
-    window.dispatchEvent(new CustomEvent('tidelight-checkin', { detail: { t: now.toISOString(), kind: 'daily', feeling: current.feeling || '' } }));
+    // Whether or not the phone could save it, the rest of the app hears about the check-in.
+    try { await saveLog(); } finally { window.dispatchEvent(new CustomEvent('tidelight-checkin', { detail: { t: now.toISOString(), kind: 'daily', feeling: current.feeling || '' } })); }
   });
   // The redesign's quick check-in: a mood, optional tags, and a note, kept the same way.
   async function addQuickCheckIn(entry) {
@@ -303,9 +311,7 @@ function start() {
     log.push({ t: now.toISOString(), slot: slotFor(now), feeling: entry.moodLabel, needs: [], kind: 'quick', mood: entry.mood, tags: entry.tags || [], note: entry.note || '' });
     if (api.addCheckIn) api.addCheckIn(now);
     renderLog();
-    await saveLog();
-    await persist();
-    window.dispatchEvent(new CustomEvent('tidelight-checkin', { detail: { t: now.toISOString(), kind: 'quick', mood: entry.mood } }));
+    try { await saveLog(); await persist(); } finally { window.dispatchEvent(new CustomEvent('tidelight-checkin', { detail: { t: now.toISOString(), kind: 'quick', mood: entry.mood } })); }
   }
   const todaysLog = () => { const today = new Date(); return log.filter((item) => sameDay(new Date(item.t), today)); };
   document.addEventListener('click', async (event) => {
@@ -428,8 +434,11 @@ function start() {
     await save(PLACES_KEY, JSON.stringify(places));
     try { placesStatus = Object.assign(placesStatus || {}, await Tidelight.setPlaces({ config: nativeConfig() })); } catch (e) { /* keep the last status */ }
     if (native && places.enabled) {
-      const asked = await Tidelight.requestNotificationPermission();
-      if (placesStatus) placesStatus.notificationAuthorization = asked.granted ? 'authorized' : 'denied';
+      // A phone without this part of the app (Android, so far) must still redraw the list below.
+      try {
+        const asked = await Tidelight.requestNotificationPermission();
+        if (placesStatus) placesStatus.notificationAuthorization = asked.granted ? 'authorized' : 'denied';
+      } catch (e) { /* keep the last status */ }
     }
     renderPlaces();
   }
@@ -442,15 +451,21 @@ function start() {
     await applyPlaces();
     if (places.enabled && native) {
       const auth = placesStatus && placesStatus.locationAuthorization;
-      if (auth === 'notDetermined' || auth === 'whenInUse') { placesStatus = await Tidelight.requestLocationPermission(); renderPlacesStatus(); }
+      if (auth === 'notDetermined' || auth === 'whenInUse') { try { placesStatus = await Tidelight.requestLocationPermission(); } catch (e) { /* keep the last status */ } renderPlacesStatus(); }
     }
   });
   $('.app-places-allow').addEventListener('click', async () => {
-    placesStatus = await Tidelight.requestLocationPermission();
+    try { placesStatus = await Tidelight.requestLocationPermission(); } catch (e) { /* keep the last status */ }
     renderPlacesStatus();
   });
+  // Where the crisis strip ends on screen, in points, for a screen of the phone's own laid over the page.
+  function stripBottom() {
+    const strip = $('.crisis-bar');
+    return strip ? Math.max(0, Math.round(strip.getBoundingClientRect().bottom)) : 0;
+  }
   async function editPlace(existing) {
-    const options = { words: mapWords, radius: existing ? existing.radius : 200 };
+    // The map opens below the crisis strip, so the strip stays on screen while it is open.
+    const options = { words: mapWords, radius: existing ? existing.radius : 200, top: stripBottom() };
     if (existing) Object.assign(options, { name: existing.name, latitude: existing.latitude, longitude: existing.longitude });
     let picked;
     try { picked = await Tidelight.pickPlace(options); } catch (e) { picked = { cancelled: true }; }
@@ -580,6 +595,7 @@ function start() {
     if (saved) {
       try { api.setState(JSON.parse(saved)); lastSaved = saved; } catch (e) { /* unreadable: start fresh */ }
     }
+    loaded = true;
     // Places that are hard for me (E1).
     try {
       const savedPlaces = JSON.parse((await load(PLACES_KEY)) || 'null');
@@ -617,6 +633,8 @@ function start() {
           logLines: () => log.map((item) => ({ t: item.t, day: dayOf(new Date(item.t)), line: lineFor(item) + (item.note ? ' ' + item.note : '') })),
           todayLines: () => todaysLog().map((item) => ({ t: item.t, line: lineFor(item) + (item.note ? ' ' + item.note : '') })),
         });
+        // The page is on its way to the other language: leave everything for the page it opens.
+        if (started === 'leaving') return;
         // Starting without an error is not enough: there must be a screen to look at.
         if (started === true && !newerScreensAreShowing()) throw new Error('the newer screens started but none is showing');
       } catch (e) {

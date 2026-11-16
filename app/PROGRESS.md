@@ -1,8 +1,18 @@
 # Tidelight Build Progress
-Last updated: 2026-11-15 (next features, feature 15)
+Last updated: 2026-11-16 (a full check before forty more features)
 Current branch: app/next-features (cut from app/privacy-package, the top of the app's stack on November 15)
 Current phase: Next features: a founder's list of twenty, built one at a time with a full check after each
 Current step: Next features: all 20 are built on `app/next-features` (7, 11, 12, and 14 were already built by pull requests 30 and 31), each with a full run of the suite before the next. Draft pull request 32 into `app/privacy-package`; the handoff is `notes/worklogs/2026-11-15-claude-app-next-features.md`. Next: a founder reads the draft pull request and `notes/CONTENT-REVIEW.md` ("Questions about the app's next features"); nothing here has been reviewed or run on a real phone, iPad, or watch.
+
+## A full check before forty more features — November 16, 2026
+
+A founder asked for forty more features and, first, a full check of the app and its code. Two independent
+reads of the code, the full suite, and a run in the iPhone and iPad Simulators found about thirty faults.
+Those that could be fixed and checked here are fixed on `app/next-features`; the handoff
+`notes/worklogs/2026-11-16-claude-app-check-before-forty.md` lists each, and what was left (Android does not
+work and has never been built; GitHub's checks build no native code). New tests: `test/faults-test.mjs`,
+`test/unit/native-fixes.test.mjs`, `test/unit/permission-words.test.mjs`; `test/strip-test.mjs` now also runs
+with a wide font, which is what failed on GitHub.
 
 ## Next features — in progress
 One founder asked Claude for twenty features that would make the app better (November 15, 2026), then asked for all of them, **one at a time, with a thorough check after each before the next**. The other founder hasn't seen the list. Each feature is its own commit on `app/next-features`. The check after each: `npm test` in `app/` (every suite), the four root checks, and, when native code changed, a build and a look in the iOS Simulator (muted). New wording is marked "Draft for review", is in both languages, and has its questions in `notes/CONTENT-REVIEW.md`, "Questions about the app's next features".

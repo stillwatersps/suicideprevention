@@ -1,0 +1,7 @@
+/* Why the phone asks for each permission, in Spanish, so a phone set to Spanish does not
+   ask in English. An AI translation of Info.plist's words that no fluent reader has checked.
+   Draft for review. */
+"NSFaceIDUsageDescription" = "Solo si activas \"Bloquear la app\": para comprobar que eres tú antes de que Tidelight muestre algo que hayas guardado. La comprobación se hace en este teléfono y no se envía nada sobre ella a ningún lugar.";
+"NSHealthUpdateUsageDescription" = "Solo si activas \"Agregar meditaciones a Salud de Apple\": para agregar a Salud, como minutos de atención plena, cada meditación que termines. No se agrega nada más, y Tidelight no lee nada de Salud.";
+"NSLocationWhenInUseUsageDescription" = "Para guardar un lugar de casa que tú eliges, y para ver si estás cerca de él cuando la app sugiere una meditación. Y solo si activas \"Lugares que son difíciles para mí\": para notar cuando este teléfono entra en un lugar que elegiste, y para poner tu ubicación en un mensaje que tú decides enviar. Tu ubicación se queda en este teléfono. No se sigue ni se envía nada más.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Solo si activas \"Lugares que son difíciles para mí\": \"Siempre\" permite que el teléfono note un lugar que elegiste aunque Tidelight esté cerrada. Tu ubicación se queda en este teléfono y nunca se envía a menos que tú decidas enviarla.";

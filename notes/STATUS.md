@@ -88,6 +88,9 @@ not on a real phone.
 
 ## Known issues
 
+- **The Android phone app does not work and has never been built** (found November 16, 2026). The iPhone app
+  is the only one that runs, and only in the Simulator so far. See
+  [[worklogs/2026-11-16-claude-app-check-before-forty|the check before forty more features]].
 - Offline support (idea A6) saves copies of this site's pages on a visitor's phone or
   computer. On a shared device that is another trace of the visit, like browser
   history, and Quick exit can't remove it. A question for the reviewer in
