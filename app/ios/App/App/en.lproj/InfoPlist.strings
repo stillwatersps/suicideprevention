@@ -1,0 +1,6 @@
+/* Why the phone asks for each permission, in English. The same words as Info.plist
+   (test/unit/permission-words.test.mjs holds them equal). Draft for review. */
+"NSFaceIDUsageDescription" = "Only if you turn on \"Lock the app\": to check it's you before Tidelight shows anything you've saved. The check happens on this phone and nothing about it is sent anywhere.";
+"NSHealthUpdateUsageDescription" = "Only if you turn on \"Add meditations to Apple Health\": to add each meditation you finish to Health as mindful minutes. Nothing else is added, and Tidelight reads nothing from Health.";
+"NSLocationWhenInUseUsageDescription" = "To save a home spot you choose, and to check whether you're near it when the app suggests a meditation. And only if you turn on \"Places that are hard for me\": to notice when this phone enters a place you chose, and to put your location in a message you choose to send. Your location stays on this phone. Nothing is tracked or sent otherwise.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Only if you turn on \"Places that are hard for me\": \"Always\" lets the phone notice a place you chose even when Tidelight is closed. Your location stays on this phone and is never sent unless you choose to send it.";

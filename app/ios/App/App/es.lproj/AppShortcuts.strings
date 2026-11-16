@@ -1,0 +1,6 @@
+/* Lo que una persona puede decirle a Siri, o encontrar en la búsqueda, para los dos atajos.
+   Una traducción de IA sin revisar. Borrador para revisión. */
+"A minute to breathe with ${applicationName}" = "Un minuto para respirar con ${applicationName}";
+"Breathe with ${applicationName}" = "Respirar con ${applicationName}";
+"Open my plan in ${applicationName}" = "Abrir mi plan en ${applicationName}";
+"My plan in ${applicationName}" = "Mi plan en ${applicationName}";

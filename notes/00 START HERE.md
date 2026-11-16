@@ -55,6 +55,7 @@ Our shared notebook for building a suicide prevention website.
 | [[PRIVACY-INVENTORY\|Phone app: privacy inventory]] | Everything the app stores, and when anything leaves the phone |
 | [[APP-STORE-PRIVACY-DRAFT\|Phone app: App Privacy answers]] | Draft answers to Apple's privacy questions |
 | [[THIRD-PARTY-LICENSES\|Phone app: licenses]] | The open-source code and fonts that ship with the app |
+| [[VOICE-RECORDING-SHEET\|Phone app: voice recording sheet]] | Every line to record for the meditation voice, with its file name. Record nothing before review |
 | `review-packet/` folder | Printable packets for the therapist and a fluent Spanish reader |
 | [[WORKFLOW\|Working together]] | How to work independently and share changes |
 | [[SHARED-MEMORY\|Our shared second brain]] | How both Claude sessions and Obsidian stay current |

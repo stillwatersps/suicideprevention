@@ -26,8 +26,8 @@ export async function openSettings(page) {
 // The safety frame that must be on screen everywhere: 988 by call and text, 911, Exit, Get Support
 // Now, the Spanish (or English) link, and both review notices.
 export async function safetyFrame(page) {
-  const need = ['.crisis-bar a[href="tel:988"]', '.crisis-bar a[href="sms:988"]', '.crisis-bar a[href="tel:911"]', '.crisis-bar .quick-exit',
-    '.header-cta', '.lang-switch a', '.review-note:not(.tl-review)', '.tl-review', '#support a[href="tel:988"]', '#support a[href="sms:988"]'];
+  const need = ['.crisis-bar a[href="tel:988"]', '.crisis-bar a[href^="sms:988"]', '.crisis-bar a[href="tel:911"]', '.crisis-bar .quick-exit',
+    '.header-cta', '.lang-switch a', '.review-note:not(.tl-review)', '.tl-review', '#support a[href="tel:988"]', '#support a[href^="sms:988"]'];
   const missing = [];
   for (const selector of need) if (!(await page.isVisible(selector))) missing.push(selector);
   return missing;

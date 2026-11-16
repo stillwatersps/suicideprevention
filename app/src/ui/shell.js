@@ -7,6 +7,7 @@ import { icon, drawIcons, el } from './components.js';
 import { haptic } from './haptics.js';
 import { TABS } from './icons.js';
 import { watchTabBar } from './tabbar-fit.js';
+import { watchStrip } from './strip-fit.js';
 
 export { TABS };
 
@@ -18,6 +19,7 @@ const showHandlers = {};
 const hideHandlers = {};
 let active = 'home';
 let bar = null;
+let goingBack = false;
 
 const screenEl = (name) => document.getElementById('tl-' + name);
 const top = (tab) => stacks[tab][stacks[tab].length - 1];
@@ -70,10 +72,24 @@ export const shell = {
     if (at >= 0) stacks[tab].length = at + 1; else stacks[tab].push(name);
     render(true);
   },
-  back() {
-    if (stacks[active].length > 1) stacks[active].length -= 1;
+  // Opens a screen on top of the one showing, even if it was already open further down this tab's
+  // stack, so that Back returns to where the person was. The support step uses it: Back from the
+  // safety plan must come back to Call 988, not to wherever the plan was last opened from.
+  pushOver(name) {
+    const screen = screenEl(name);
+    if (!screen) return;
+    const tab = screen.getAttribute('data-tl-tab') || active;
+    active = tab;
+    stacks[tab] = stacks[tab].filter((item) => item !== name).concat([name]);
     render(true);
   },
+  back() {
+    if (stacks[active].length > 1) stacks[active].length -= 1;
+    goingBack = true;
+    try { render(true); } finally { goingBack = false; }
+  },
+  // True while a screen is being shown again because the person tapped Back from the one above it.
+  isBack: () => goingBack,
   // Home's first screen, with every tab back at its own first screen. Used after Quick exit, so
   // nothing the person had open is the first thing on screen when the app is opened again.
   home() {
@@ -145,9 +161,12 @@ export function initShell() {
   root.classList.add('tl');
   // The height of the crisis strip, which stays above everything, for screens that fill the rest.
   const strip = $('.crisis-bar');
+  watchStrip(strip); // smaller words where the strip would take most of a short screen (strip-fit.js)
   const measure = () => { if (strip) root.style.setProperty('--tl-top', strip.offsetHeight + 'px'); };
   measure();
   window.addEventListener('resize', measure);
+  // The strip's height also changes with the phone's text size and with the language.
+  if (window.ResizeObserver && strip) new ResizeObserver(measure).observe(strip);
   buildTabBar();
   adoptLegacy();
   relocate('.app-places', '#tl-location-slot');
@@ -160,7 +179,7 @@ export function initShell() {
     if (go) { shell.go(go.getAttribute('data-tl-go')); return; }
     const push = event.target.closest('[data-tl-push]');
     if (push) {
-      shell.push(push.getAttribute('data-tl-push'));
+      if (push.hasAttribute('data-tl-over')) shell.pushOver(push.getAttribute('data-tl-push')); else shell.push(push.getAttribute('data-tl-push'));
       const anchor = push.getAttribute('data-tl-anchor') && document.getElementById(push.getAttribute('data-tl-anchor'));
       if (anchor) anchor.scrollIntoView({ block: 'start' });
       return;

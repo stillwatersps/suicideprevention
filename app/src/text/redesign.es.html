@@ -16,6 +16,10 @@
 
 <!-- BLOCK:app -->
       <div class="tl-app" id="tl-app">
+        <div class="tl-save-note" id="tl-save-note" role="status" hidden>
+          <p>Tidelight no puede guardar en este teléfono en este momento. Puede que el teléfono no tenga espacio. Lo que escribas se queda en pantalla hasta que se cierre la app.</p>
+          <button type="button" class="tl-btn tl-btn-secondary" id="tl-save-note-ok">Entendido</button>
+        </div>
 
         <section class="tl-screen" id="tl-home" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-home-title" hidden>
           <div class="tl-hero">
@@ -121,6 +125,26 @@
               <span class="tl-card-text"><span class="tl-card-title">Caja de esperanza</span> <span class="tl-card-sub">Razones, palabras, fotos</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="plan" id="tl-checkin-plan">
+              <span class="tl-card-icon" data-tl-icon="lifebuoy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Mi plan de seguridad</span> <span class="tl-card-sub">Qué hacer cuando las cosas se ponen difíciles</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" id="tl-checkin-ground">
+              <span class="tl-card-icon" data-tl-icon="stone"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Volver al presente</span> <span class="tl-card-sub">Maneras breves de recuperar la calma</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="helps" id="tl-checkin-helps">
+              <span class="tl-card-icon" data-tl-icon="sliders"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Lo que suele ayudar</span> <span class="tl-card-sub">De tus propios registros</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
+              <span class="tl-card-icon" data-tl-icon="copy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Un resumen para una cita</span> <span class="tl-card-sub">Tú eliges qué incluye</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
               <span class="tl-card-icon" data-tl-icon="path"></span>
               <span class="tl-card-text"><span class="tl-card-title">Tu camino</span> <span class="tl-card-sub">Lo que has guardado</span></span>
@@ -179,8 +203,26 @@
             <p class="tl-sub">Tu registro se guarda en este teléfono. Nadie en Tidelight lo ve, así que no es una forma de pedir ayuda.</p>
             <div class="tl-row tl-row-center">
               <a class="tl-btn tl-btn-secondary" href="#support">Más formas de recibir apoyo</a>
+              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="plan" data-tl-over data-plan-open hidden>Abrir mi plan de seguridad</button>
               <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Volver a Inicio</button>
             </div>
+            <ul class="tl-list tl-support-more">
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="expect" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="info"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Qué pasa cuando te comunicas con la 988</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="ways" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="people"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Otras maneras de comunicarte con alguien</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="stone"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Volver al presente</span> <span class="tl-card-sub">Maneras breves de recuperar la calma</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+            </ul>
           </div>
         </section>
 
@@ -536,6 +578,7 @@
             </div>
             <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-player-done>Listo</button>
             <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" id="tl-complete-favorite">Guardar como favorita</button>
+            <p class="tl-status" id="tl-complete-note" role="status" hidden></p>
           </div>
         </section>
 
@@ -554,6 +597,11 @@
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <h2 class="tl-title" id="tl-friends-title">Amistades</h2>
           <div id="tl-friends-slot"></div>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="helping" id="tl-friends-helping">
+            <span class="tl-card-icon" data-tl-icon="people"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Cómo ayudar a alguien que te preocupa</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
             <span class="tl-card-icon" data-tl-icon="path"></span>
             <span class="tl-card-text"><span class="tl-card-title">Compartir registros</span> <span class="tl-card-sub">Hoy o 7 días, en Tu camino</span></span>
@@ -653,6 +701,14 @@
             <p class="tl-sub">El bloqueo usa el código de este teléfono. Quien conozca ese código puede abrir la app.</p>
             <p class="tl-status" id="tl-set-lock-note" role="status" hidden></p>
           </div>
+          <div class="tl-panel" id="tl-set-health-box" hidden>
+            <label class="tl-switch"><span>Agregar meditaciones a Salud de Apple</span><input type="checkbox" id="tl-set-health"></label>
+            <p class="tl-sub">Cuando está activado, cada meditación que terminas se agrega a la app Salud de este teléfono como minutos de atención plena: cuándo empezó y cuánto duró. No se agrega nada más. Ni registros, ni estados de ánimo, ni nada de lo que escribes.</p>
+            <p class="tl-sub">Salud es una app de Apple, no de Tidelight. Lo que hay en ella puede ir a tu iCloud, y otras apps a las que les diste permiso pueden leerlo. Tidelight no lee nada de Salud.</p>
+            <p class="tl-sub">Desactivarlo detiene las entradas nuevas. Las que ya se agregaron se quedan en Salud hasta que las quites aquí o en la app Salud. Borrar todo, en Tu camino, también las quita.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-health-remove">Quitar de Salud las entradas de Tidelight</button>
+            <p class="tl-status" id="tl-set-health-note" role="status" hidden></p>
+          </div>
           <div class="tl-panel" id="tl-set-export-box">
             <span class="tl-label">Una copia de tus datos</span>
             <p class="tl-sub">Crea un archivo de texto con lo que Tidelight ha guardado en este teléfono: tus registros, diario, reflexiones, palabras de la Caja de esperanza, personas, lugares e historial de meditación. Las fotos no están en el archivo.</p>
@@ -666,6 +722,11 @@
             <span class="tl-card-go" data-tl-icon="next"></span>
           </button>
           <h3 class="tl-section-title">Acerca de</h3>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="privacy" id="tl-settings-privacy">
+            <span class="tl-card-icon" data-tl-icon="info"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Tu privacidad</span> <span class="tl-card-sub">Lo que la app guarda y adónde va</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <button type="button" class="tl-card tl-card-action" data-tl-push="licenses" id="tl-settings-licenses">
             <span class="tl-card-icon" data-tl-icon="info"></span>
             <span class="tl-card-text"><span class="tl-card-title">Licencias de código abierto</span> <span class="tl-card-sub">Código y fuentes dentro de la app</span></span>
@@ -692,6 +753,238 @@
             </div>
             <span class="tl-label">Notas de desarrollo</span>
             <ul class="tl-list" id="tl-dev-log"></ul>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-plan" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-plan-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-plan-title">Mi plan de seguridad</h2>
+          <p>Una lista corta, con tus propias palabras, de qué hacer cuando las cosas se ponen difíciles. La escribes con tiempo, para no tener que resolverlo en el momento.</p>
+          <p class="tl-sub">Un plan ayuda más cuando lo haces, o lo repasas, con alguien: un médico, un consejero o una persona adulta de confianza. No reemplaza la atención profesional.</p>
+          <p><strong>No tienes que repasar esta lista antes de pedir ayuda.</strong> Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla, y en la parte 5 más abajo.</p>
+          <p class="tl-sub" id="tl-plan-privacy">Tu plan se guarda solo en este teléfono. Tidelight nunca lo recibe. Cualquier persona que pueda desbloquear este teléfono puede leerlo, a menos que actives el bloqueo de la app en Ajustes. Borrar todo, en Tu camino, lo elimina.</p>
+          <p class="tl-status" id="tl-plan-status" role="status" hidden></p>
+          <div class="tl-panel tl-plan-part" data-plan-part="signs">
+            <h3 class="tl-headline" id="tl-plan-signs-title">1. Mis señales de alerta</h3>
+            <p class="tl-sub">Pensamientos, sentimientos o situaciones que me avisan de que las cosas se están poniendo más difíciles.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-signs-title"></ul>
+            <p class="tl-field"><label for="tl-plan-signs-new">Agregar una señal de alerta</label><span class="tl-row"><input class="tl-input" id="tl-plan-signs-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="coping">
+            <h3 class="tl-headline" id="tl-plan-coping-title">2. Cosas que puedo hacer por mi cuenta</h3>
+            <p class="tl-sub">Maneras de sobrellevarlo a solas, como caminar, escuchar música o darme una ducha.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-coping-title"></ul>
+            <p class="tl-field"><label for="tl-plan-coping-new">Agregar algo que puedo hacer</label><span class="tl-row"><input class="tl-input" id="tl-plan-coping-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="distract">
+            <h3 class="tl-headline" id="tl-plan-distract-title">3. Personas y lugares que me distraen</h3>
+            <p class="tl-sub">Un lugar donde estar, o alguien con quien estar, sin tener que hablar del tema.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-distract-title"></ul>
+            <p class="tl-field"><label for="tl-plan-distract-new">Agregar una persona o un lugar</label><span class="tl-row"><input class="tl-input" id="tl-plan-distract-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="people">
+            <h3 class="tl-headline" id="tl-plan-people-title">4. Personas a quienes puedo pedir ayuda</h3>
+            <p class="tl-sub">Familiares o amistades a quienes puedo contarles que lo estoy pasando mal.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-people-title"></ul>
+            <p class="tl-field"><label for="tl-plan-people-name">Nombre</label><input class="tl-input" id="tl-plan-people-name" type="text" maxlength="120" autocomplete="off" data-plan-name></p>
+            <p class="tl-field"><label for="tl-plan-people-phone">Número de teléfono (opcional)</label><input class="tl-input" id="tl-plan-people-phone" type="tel" maxlength="24" autocomplete="off" data-plan-phone></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button><button type="button" class="tl-btn tl-btn-quiet" data-plan-pick>Elegir a alguien de mis contactos</button></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="pros">
+            <h3 class="tl-headline" id="tl-plan-pros-title">5. Profesionales y líneas de crisis</h3>
+            <p class="tl-sub">Un médico, un consejero o una clínica con quien puedo comunicarme. El 988 y el 911 siempre están aquí.</p>
+            <ul class="tl-support-actions">
+              <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+            </ul>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="expect" data-tl-over>Qué pasa cuando te comunicas con la 988</button><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="ways" data-tl-over>Otras maneras de comunicarte con alguien</button></p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-pros-title"></ul>
+            <p class="tl-field"><label for="tl-plan-pros-name">Nombre</label><input class="tl-input" id="tl-plan-pros-name" type="text" maxlength="120" autocomplete="off" data-plan-name></p>
+            <p class="tl-field"><label for="tl-plan-pros-phone">Número de teléfono (opcional)</label><input class="tl-input" id="tl-plan-pros-phone" type="tel" maxlength="24" autocomplete="off" data-plan-phone></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="safer">
+            <h3 class="tl-headline" id="tl-plan-safer-title">6. Hacer mi espacio más seguro</h3>
+            <p class="tl-sub">Cosas que puedo poner fuera de mi alcance, o pedirle a alguien que guarde por un tiempo, para que un momento difícil sea más seguro.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-safer-title"></ul>
+            <p class="tl-field"><label for="tl-plan-safer-new">Agregar una manera de hacer mi espacio más seguro</label><span class="tl-row"><input class="tl-input" id="tl-plan-safer-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Agregar</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">Mis razones</h3>
+            <p class="tl-sub">Las razones por las que sigues adelante están en tu Caja de esperanza.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-legacy="app-hope">Abrir mi Caja de esperanza</button></p>
+          </div>
+          <div class="tl-panel" id="tl-plan-share-box" hidden>
+            <h3 class="tl-headline">Compartir mi plan</h3>
+            <p class="tl-sub">Con alguien que tú elijas, como la persona con quien lo hiciste. Primero verás el texto y podrás cambiarlo.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-share">Compartir mi plan</button></p>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <!-- EXPECT -->
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-ground" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-ground-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-ground-title">Volver al presente</h2>
+          <p>Algunas maneras breves de recuperar la calma cuando todo se siente demasiado. Prueba una. Si no ayuda, prueba otra, o detente.</p>
+          <p class="tl-sub">Esto no reemplaza la ayuda de una persona. Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla, y al final de esta.</p>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">5, 4, 3, 2, 1</h3>
+            <p class="tl-sub">Mira a tu alrededor y nombra, en voz alta o en tu mente:</p>
+            <ol class="tl-ground-steps">
+              <li>5 cosas que puedes ver</li>
+              <li>4 cosas que puedes tocar</li>
+              <li>3 cosas que puedes oír</li>
+              <li>2 cosas que puedes oler</li>
+              <li>1 cosa que puedes saborear</li>
+            </ol>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Algo frío</h3>
+            <p class="tl-sub">Sostén algo frío, o deja correr agua fría sobre tus manos, durante medio minuto más o menos. Nota cómo se siente.</p>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Los pies en el suelo</h3>
+            <p class="tl-sub">Apoya los pies con firmeza en el suelo. Siente cómo la silla o el suelo te sostienen. Abre las manos y deja caer los hombros.</p>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Una respiración más lenta</h3>
+            <p class="tl-sub">Exhala un poco más largo de lo que inhalas. Un círculo en la siguiente pantalla puede marcarte el ritmo durante un minuto, en silencio.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-ground-breathe">Respirar un minuto</button></p>
+          </div>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-ways" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-ways-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <!-- WAYS -->
+        </section>
+
+        <section class="tl-screen" id="tl-helps" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-helps-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-helps-title">Lo que suele ayudar</h2>
+          <p>Una mirada a tus propios registros de los últimos 30 días: en los días en que elegiste Bien o Muy bien, ¿qué más registraste?</p>
+          <p class="tl-sub">Se calcula en este teléfono cada vez que abres esta página. Nada aquí es una puntuación, no se guarda nada nuevo y no se envía nada a ningún lugar.</p>
+          <div class="tl-panel" id="tl-helps-none">
+            <p>Todavía no hay suficiente aquí. Después de tres días con un registro rápido de Bien o Muy bien, esta página muestra qué más registraste en esos días.</p>
+          </div>
+          <div class="tl-panel" id="tl-helps-some" hidden>
+            <p id="tl-helps-lead"></p>
+            <ul class="tl-list tl-helps-list" id="tl-helps-list"></ul>
+            <p class="tl-sub" id="tl-helps-nothing" hidden>No se registró nada más en dos o más de esos días.</p>
+            <p class="tl-sub">Esto solo cuenta lo que registraste. No puede decir qué causó qué.</p>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-summary" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-summary-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-summary-title">Un resumen para una cita</h2>
+          <p>Una página breve con lo que registraste aquí, para llevar a un médico, un terapeuta o un consejero. Tú eliges qué incluye.</p>
+          <p class="tl-sub">Se arma en este teléfono cada vez que abres esta página. Nada de lo que elijas o escribas aquí se guarda, y nada se envía a ningún lugar a menos que tú lo envíes.</p>
+          <div class="tl-panel tl-summary-choices">
+            <div role="radiogroup" aria-labelledby="tl-summary-days-title">
+              <span class="tl-label" id="tl-summary-days-title">Desde cuándo</span>
+              <label class="tl-switch"><span>Los últimos 14 días</span><input type="radio" name="tl-summary-days" value="14" checked></label>
+              <label class="tl-switch"><span>Los últimos 30 días</span><input type="radio" name="tl-summary-days" value="30"></label>
+            </div>
+            <div role="group" aria-labelledby="tl-summary-what-title">
+              <span class="tl-label" id="tl-summary-what-title">Qué incluye</span>
+              <label class="tl-switch"><span>Mis registros</span><input type="checkbox" id="tl-summary-checkins" checked></label>
+              <label class="tl-switch"><span>Mis entradas del diario</span><input type="checkbox" id="tl-summary-journal"></label>
+              <label class="tl-switch"><span>Mi plan de seguridad</span><input type="checkbox" id="tl-summary-plan"></label>
+            </div>
+            <p class="tl-field"><label for="tl-summary-ask">Algo que quiero preguntar o decir (opcional)</label><textarea class="tl-input" id="tl-summary-ask" rows="3" maxlength="300" autocomplete="off"></textarea></p>
+          </div>
+          <p class="tl-sub" id="tl-summary-empty" hidden>Aún no hay nada elegido. Elige algo arriba, o escribe algo que quieras preguntar o decir.</p>
+          <div class="tl-panel" id="tl-summary-out">
+            <h3 class="tl-label" id="tl-summary-preview-title">Lo que dirá</h3>
+            <p class="tl-sub">Esta es la página completa, palabra por palabra.</p>
+            <div class="tl-summary-preview" id="tl-summary-preview" role="group" tabindex="0" aria-labelledby="tl-summary-preview-title"></div>
+            <p class="tl-sub">La página no está bloqueada. Quien la reciba puede leerla, y Tidelight no puede recuperarla. Tú eliges adónde va.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-summary-share">Compartir este resumen</button>
+            <p class="tl-status" id="tl-summary-note" role="status" hidden></p>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-helping" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-helping-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <!-- HELPING -->
+        </section>
+
+        <section class="tl-screen" id="tl-privacy" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-privacy-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-privacy-title">Tu privacidad en Tidelight</h2>
+          <div class="tl-panel" id="tl-privacy-status">
+            <p class="tl-label">Esto no es una política de privacidad.</p>
+            <p>Es una descripción sencilla de lo que la app hace hoy, escrita por un asistente de IA a partir del propio código de la app. Ningún abogado la ha escrito ni leído. Tidelight todavía no tiene una política de privacidad.</p>
+          </div>
+          <div class="tl-privacy-body">
+            <h3>Lo que se queda en este teléfono</h3>
+            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
+            <p>Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.</p>
+            <h3>Lo que Tidelight no hace</h3>
+            <ul>
+              <li>No muestra publicidad.</li>
+              <li>No tiene rastreo, ni analítica, ni informes de fallos.</li>
+              <li>No tiene código de otra empresa que se comunique con nadie.</li>
+            </ul>
+            <h3>Cuando algo sale de este teléfono</h3>
+            <p>Solo cuando tú lo inicias, o a través de la copia de seguridad de tu teléfono:</p>
+            <ul>
+              <li>Un mensaje de texto que envías desde la pantalla de Mensajes de tu teléfono, a personas que tú elegiste.</li>
+              <li>Algo que compartes desde el menú para compartir de tu teléfono: una entrada, tu plan de seguridad, un resumen para una cita o una copia de tus datos.</li>
+              <li>La copia de seguridad de iCloud o de Google de tu teléfono, si está activada. Va a tu propia cuenta de Apple o de Google.</li>
+            </ul>
+            <p>Una vez que algo se envía o se comparte, Tidelight no puede recuperarlo.</p>
+            <h3>Llamadas, mensajes y enlaces</h3>
+            <p>Los botones para llamar o enviar un mensaje al 988 y para llamar al 911 abren las apps Teléfono y Mensajes de tu teléfono. Tidelight no participa en la llamada ni en el mensaje.</p>
+            <p>La salida rápida y los enlaces a otros servicios se abren en el navegador de tu teléfono. Esos sitios ven una visita como cualquier otro sitio web.</p>
+            <h3>Ubicación</h3>
+            <p>Tidelight lee dónde estás solo cuando tú se lo pides. Si activas Lugares que son difíciles para mí, tu propio teléfono vigila los lugares que elegiste.</p>
+            <p>Tidelight nunca envía tu ubicación a ningún lugar. Va en un mensaje de texto solo si tú eliges incluirla.</p>
+            <h3>Salud de Apple</h3>
+            <p>En un iPhone, y solo si activas "Agregar meditaciones a Salud de Apple" en Ajustes: cada meditación que terminas se agrega a la app Salud de este teléfono como minutos de atención plena. Ni registros, ni estados de ánimo, ni nada de lo que escribes van allí, y Tidelight no lee nada de Salud.</p>
+            <p>Salud es una app de Apple. Lo que hay en ella puede ir a tu iCloud, y otras apps a las que les diste permiso pueden leerlo.</p>
+            <h3>Quién puede verlo en este teléfono</h3>
+            <p>Cualquier persona que pueda desbloquear este teléfono puede abrir la app, a menos que actives el bloqueo de la app en Ajustes.</p>
+            <p>Los recordatorios de registro que actives los muestra el propio teléfono y no dicen nada sobre ti.</p>
+            <h3>Tus opciones</h3>
+            <ul>
+              <li>Quitar una cosa a la vez: un registro de hoy, una entrada del diario, algo de la Caja de esperanza, un lugar, una persona o una meditación de tu historial.</li>
+              <li>Hacer una copia de tus datos, en Ajustes.</li>
+              <li>Borrar todo, en Tu camino. Quita lo que está guardado en este teléfono. Tu grupo de edad, tus ajustes y tus meditaciones guardadas se quedan, para que no se te pregunte de nuevo.</li>
+              <li>Quitar la app de tu teléfono. Eso quita todo lo que guardó en este teléfono.</li>
+            </ul>
+            <p>Una copia en una copia de seguridad anterior de iCloud o de Google puede durar hasta la siguiente copia del teléfono.</p>
+            <h3>Lo que esta página no puede decirte</h3>
+            <p>No cubre lo que Apple, Google, tu compañía telefónica o las personas a quienes escribes hacen con lo que les llega.</p>
           </div>
         </section>
 
@@ -862,6 +1155,28 @@
         <span data-word="export.age">Grupo de edad: {group}</span>
         <span data-word="export.home">Lugar de casa: {latitude}, {longitude}</span>
         <span data-word="export.none">Nada guardado.</span>
+        <span data-word="health.denied">Salud no lo permitió, así que esto sigue desactivado. Puedes cambiarlo en los Ajustes de tu teléfono, en Salud.</span>
+        <span data-word="health.removed">Las entradas de Tidelight se quitaron de Salud.</span>
+        <span data-word="health.removeFailed">No se pudieron quitar desde aquí. Puedes quitarlas en la app Salud.</span>
+        <span data-word="summary.title">Un resumen para mi cita</span>
+        <span data-word="summary.made">Creado el {date}, con lo que registré en la app Tidelight durante los últimos {days} días.</span>
+        <span data-word="summary.note">Estas son mis propias notas. No son un expediente médico ni un diagnóstico.</span>
+        <span data-word="summary.ask">Lo que quiero preguntar o decir</span>
+        <span data-word="summary.none">Nada registrado.</span>
+        <span data-word="summary.fileName">tidelight-resumen.txt</span>
+        <span data-word="summary.done">El resumen se entregó a tu teléfono para compartirlo. Tidelight no guarda ningún registro de adónde fue.</span>
+        <span data-word="summary.failed">No se pudo crear el resumen. Nada salió de la app.</span>
+        <span data-word="helps.lead">En los {days} días en que elegiste Bien o Muy bien, también registraste:</span>
+        <span data-word="helps.item">{name}: {count} de {days} días</span>
+        <span data-word="helps.meditation">Una meditación</span>
+        <span data-word="helps.journal">Una entrada de diario</span>
+        <span data-word="plan.title">Mi plan de seguridad</span>
+        <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
+        <span data-word="plan.saved">Guardado en este teléfono.</span>
+        <span data-word="plan.removed">Quitado.</span>
+        <span data-word="plan.remove">Quitar</span>
+        <span data-word="plan.removeNamed">Quitar: {text}</span>
+        <span data-word="plan.call">Llamar a {name}</span>
         <span data-word="builder.minutes">{minutes} min</span>
         <span data-word="builder.title">{situation} de {minutes} min · {world}</span>
         <span data-word="builder.summary">{title}. {breaths}</span>

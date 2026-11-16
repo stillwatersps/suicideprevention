@@ -7,6 +7,7 @@ import { Tidelight } from '../native.js';
 import { store } from '../core/device-storage.js';
 import { KEYS } from '../core/storage.js';
 import { buildExport, oneLine, listOf } from '../logic/export.js';
+import { PARTS, planLines } from '../logic/plan.js';
 import { t, lang } from './words.js';
 import { state } from './state.js';
 import { devLog } from '../core/dev.js';
@@ -53,6 +54,9 @@ export async function exportText(ctx) {
   if (photos) hope.push(t('export.photos', { count: photos }));
   sections.push({ heading: heading('#app-hope-title'), lines: hope });
 
+  const plan = planLines(state.plan, Object.fromEntries(PARTS.map((part) => [part, heading('#tl-plan-' + part + '-title')])));
+  sections.push({ heading: t('plan.title'), lines: plan });
+
   const circle = (await stored(KEYS.circle)) || {};
   const person = (p) => '- ' + [oneLine(p.name), oneLine(p.phone)].filter(Boolean).join(', ');
   sections.push({ heading: heading('#app-circle-title'), lines: listOf(circle.people).map(person) });
@@ -87,8 +91,7 @@ export async function exportText(ctx) {
 
 // Hands the file to the phone's share sheet. 'done' when the person sent or saved it there,
 // 'cancelled' when they closed the sheet. Anything that goes wrong is thrown.
-async function hand(text) {
-  const name = t('export.fileName');
+export async function handFile(name, text) {
   let result = null;
   try { result = await Tidelight.shareFile({ name, text }); } catch (e) { devLog('share file', e); result = { unavailable: true }; }
   if (result && !result.unavailable) return result.completed === false ? 'cancelled' : 'done';
@@ -115,7 +118,7 @@ export function initExport(ctx) {
   button.addEventListener('click', async () => {
     note.hidden = true;
     let outcome = 'failed';
-    try { outcome = await hand(await exportText(ctx)); } catch (e) { devLog('export', e); }
+    try { outcome = await handFile(t('export.fileName'), await exportText(ctx)); } catch (e) { devLog('export', e); }
     if (outcome === 'cancelled') return; // the sheet was closed: nothing happened, so nothing to say
     note.textContent = t(outcome === 'done' ? 'export.done' : 'export.failed');
     note.hidden = false;

@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 7 screens, about 164 lines of the app's words. 5 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 297 lines of the app's words. 7 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 38, 42); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -119,7 +119,11 @@ Picture: `app/design/after-launch-pass/reviewer/36-flow-support.png`
 > The 988 Suicide & Crisis Lifeline is free, confidential, and available any time. It is a separate service from Tidelight.  
 > Your check-in is saved on this phone. Nobody at Tidelight sees it, so it isn't a way to ask for help.  
 > More ways to get support  
-> Back to Home
+> Back to Home  
+> What happens when you reach out to 988  
+> Other ways to reach someone  
+> Grounding  
+> Short ways to steady yourself
 
 #### 37. Daily check-in, result after a heavy feeling
 
@@ -281,6 +285,171 @@ Picture: `app/design/after-launch-pass/reviewer/18-daily-needs.png`
 > Back  
 > See every suggestion this page can show
 
+#### 41. My safety plan
+
+The person's own safety plan: six short lists they write ahead of time, with 988 and 911 built into part 5. Shown empty here.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/41-plan.png`
+
+> Draft for review  
+> Back  
+> My safety plan  
+> A short list, in your own words, of what to do when things get hard. You write it ahead of time, so you don't have to work it out in the moment.  
+> A plan helps most when you make it, or go over it, with someone: a doctor, a counselor, or an adult you trust. It does not replace professional care.  
+> You don't have to work through this list before asking for help. The buttons to call or text 988 and to call 911 are at the top of every screen, and in part 5 below.  
+> Your plan is saved on this phone only. Tidelight never receives it. Anyone who can unlock this phone can read it, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes it.  
+> 1. My warning signs  
+> Thoughts, feelings, or situations that tell me things are getting harder.  
+> Add a warning sign  
+> Add  
+> 2. Things I can do on my own  
+> Ways I can get through it by myself, like a walk, music, or a shower.  
+> Add something I can do  
+> Add  
+> 3. People and places that take my mind off it  
+> Somewhere to be, or someone to be around, without having to talk about it.  
+> Add a person or a place  
+> Add  
+> 4. People I can ask for help  
+> Family or friends I can tell that I'm struggling.  
+> Name  
+> Phone number (optional)  
+> Add  
+> Choose someone from my contacts  
+> 5. Professionals and crisis lines  
+> A doctor, a counselor, or a clinic I can contact. 988 and 911 are always here.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911  
+> What happens when you reach out to 988  
+> Other ways to reach someone  
+> Name  
+> Phone number (optional)  
+> Add  
+> 6. Making my space safer  
+> Things I can put out of reach, or ask someone to hold for a while, so a hard moment is safer.  
+> Add a way to make my space safer  
+> Add  
+> My reasons  
+> The reasons you keep going are in your Hope box.  
+> Open my Hope box
+
+#### 47. What happens when you reach out to 988
+
+The Get Help page's own section on calling, texting, and chatting with 988, shown inside the app word for word.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/47-expect.png`
+
+> Draft for review  
+> Back  
+> What happens when you reach out to 988  
+> You don't need to be sure it's an emergency. The 988 Lifeline says anyone who is struggling can reach out, whether you are depressed, need to talk, or are thinking about suicide. It also takes concerns about alcohol or drug use.  
+> If you call  
+> You'll hear a short recorded message with options, such as pressing 1 for the Veterans Crisis Line, 2 for Spanish, or 3 for LGBTQ+ youth. You don't have to press anything. If you stay on the line, you'll be connected to a local 988 center, based on your approximate location or your phone's area code. SAMHSA, a federal agency that funds 988, says that if that center can't take your call, it goes to a national backup center. Hold music plays while you are connected. SAMHSA says wait times vary. If your wait is longer, it asks you to stay on the line. A counselor then says hello, asks if you are safe, listens to what's going on, and shares resources that may help.  
+> If you text  
+> Send any message to 988. Automated messages come first. Reply NEXT to accept the terms of service, then answer a few questions that help the counselor know how to support you. You may then get a message asking you to wait. A counselor then says hello, asks if you are safe, and listens.  
+> If you chat online  
+> The chat opens with a short form that helps the counselor know how to support you. It asks for your zip code, whether you are having thoughts of suicide, and how upset you feel. A phone number is optional. Starting the chat accepts the terms of service. You then wait to be connected to a counselor.  
+> What it costs  
+> Contacting 988 is free, and you don't need insurance. Your phone carrier may still charge for calls or texts if your plan doesn't include unlimited use. If a counselor contacts emergency services, such as 911 or a mobile crisis team, you may get a bill. This could include an ambulance or hospital care. Services they refer you to may charge too, so ask about fees first. The Lifeline's terms say a small number of its centers bill Medicaid or other health insurance and may ask for your personal information. They must explain why. You can say no and still get support. If you give it and a claim is filed, you, a parent or guardian, or the person you called about may get an insurance statement.  
+> If you can't get through  
+> Try another way. If a call doesn't connect, try text or chat. If texting is busy, try a call or chat. In an emergency, call 911.  
+> What stays private  
+> The 988 Lifeline says conversations are confidential, but contacting it isn't anonymous. You don't have to give your name or your exact location to get support. The counselor has your phone number if you call or text, or your IP address if you chat. In rare emergencies they must give this to 911, and 911 may ask your phone or internet company for your exact location.  
+> Counselors take notes, and centers keep records for at least three years. Call recordings or chat and text transcripts may be used to improve the service. You can ask a counselor not to share your personal information. The Lifeline's confidentiality statement lists when information can be shared, including when someone is at imminent risk of harm, when the law requires it, or when you agree.  
+> On a shared phone or computer, visits to this site can show up in browser history, and calls or texts can show up in phone logs. On a school or work device or account, the school or employer may see what you search and read, even in a private window. Whether a call appears on a phone bill depends on the carrier. Quick exit and saved offline copies have limits. See what they can and can't hide.  
+> When emergency services get involved  
+> The 988 Lifeline is separate from 911, and SAMHSA says most crises are managed by counselors working with you, without involving law enforcement. The Lifeline recommends that counselors contact emergency services, which can mean 911, police, or a sheriff, only if someone is in danger of being hurt right now or very soon and they can't work out a safer plan together. It reports that fewer than 2 in 100 calls involve emergency services, and that more than half of those happen with the caller's consent.  
+> This is a recommendation, not a guarantee. The Lifeline's terms say that if a counselor believes there is an immediate threat to someone's physical safety, you may not get a say: they may ask for 911 or a mobile crisis team to come to your location, and can share your information without your permission. If you need help because of an immediate threat to your safety, the terms ask you to call 911 first.  
+> These details come from the 988 Lifeline's website and SAMHSA, and can change. Tidelight does not run 988 and cannot see who contacts it.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
+#### 45. Other ways to reach someone
+
+The Get Help page's own list of other services (Spanish, Deaf or hard of hearing, veterans, LGBTQ+ youth, text lines, 911), shown inside the app word for word.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/45-ways.png`
+
+> Draft for review  
+> Back  
+> Other ways to reach someone  
+> These are separate services with their own rules. Tidelight does not run them.  
+> En español  
+> Para hablar con un consejero de la Línea 988 en español, marca 988 y luego presiona 2. Para enviar un mensaje de texto, envía la palabra AYUDA al 988. También puedes chatear en español. Es gratis y confidencial, y está disponible las 24 horas. La Línea 988 es un servicio aparte de Tidelight. Si hay peligro inmediato, llama al 911.  
+> Llamar al 988 y marcar 2  
+> Enviar AYUDA al 988  
+> Chatear en español  
+> Esta página en español  
+> Deaf or hard of hearing  
+> You can reach 988 counselors in American Sign Language by dialing 988 from a videophone (VP) number. You can also text or chat. TTY users can use a preferred relay service or dial 711, then 988. In an emergency, texting 911 only works in some places. If it isn't available, use a TTY or relay service if you can.  
+> Text 988  
+> Chat with 988  
+> 988 options for Deaf and hard of hearing people  
+> Other languages  
+> Call 988 and ask for an interpreter, or say the name of your language. The 988 Lifeline offers more than 240 languages this way, on voice calls only.  
+> Call 988  
+> Veterans Crisis Line  
+> For veterans, service members, National Guard and Reserve members, and the people who support them. Free, confidential, and available 24/7. You don't need to be enrolled in VA benefits or health care.  
+> Call 988, then press 1  
+> Text 838255  
+> Veterans Crisis Line chat  
+> LGBTQ+ youth, through 988  
+> The 988 Lifeline says its specialized service for LGBTQ+ youth has been restored. It is separate from The Trevor Project.  
+> Call 988, then press 3  
+> Text PRIDE to 988  
+> The Trevor Project  
+> For LGBTQ+ young people. Its terms describe the phone lifeline as for people under age 25. Trained counselors by phone, text, or chat, free and confidential, 24/7. Message and data rates may apply to texts. On a phone, The Trevor Project suggests calling or texting, and using chat from a computer. Its terms say phone calls offer access to interpreters, subject to availability. You can choose the language option on the keypad or ask the counselor for an interpreter.  
+> Call 1-866-488-7386  
+> Text START to 678-678  
+> Trevor Project chat and TTY  
+> Crisis Text Line  
+> Trained volunteer crisis counselors by text, free and confidential, 24/7, anywhere in the United States. Crisis Text Line says your first message can say anything, and a word like HOME helps it know how you found it. Its FAQ says messages are free on AT&T, T-Mobile, Sprint, and Verizon. On other carriers, it says standard rates apply and 741741 will appear on the bill. Its terms say message and data rates may apply. Crisis Text Line says many T-Mobile prepaid plans don't allow numbers like 741741. It also says it isn't available yet on Google Voice or TextNow. If a text doesn't go through, it offers web chat and WhatsApp on its website. Its privacy policy says WhatsApp may also have access to your information. You can also call or text 988.  
+> Text HOME to 741741  
+> Crisis Text Line website  
+> 911  
+> If you or someone else is in immediate danger, call 911. Texting 911 only works in some places, and the Federal Communications Commission (FCC) advises making a voice call if you can. If you text 911 where it isn't available, you should get an automatic message telling you to use another way. If you are Deaf, hard of hearing, or can't speak and texting 911 isn't available, use a TTY or relay service if you can.  
+> Call 911  
+> The 988 Lifeline, the Veterans Crisis Line, The Trevor Project, and Crisis Text Line keep conversations confidential, with limits. Each says it may contact emergency services or other authorities in some situations. Their websites explain when.
+
+#### 46. Grounding
+
+Four short grounding exercises, offered on the support screen and the Check-in tab. New wording.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/46-ground.png`
+
+> Draft for review  
+> Back  
+> Grounding  
+> A few short ways to steady yourself when things feel like too much. Try one. If it doesn't help, try another, or stop.  
+> These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.  
+> 5, 4, 3, 2, 1  
+> Look around you and name, out loud or in your head:  
+> 5 things you can see  
+> 4 things you can touch  
+> 3 things you can hear  
+> 2 things you can smell  
+> 1 thing you can taste  
+> Something cold  
+> Hold something cold, or run cold water over your hands, for about half a minute. Notice how it feels.  
+> Feet on the floor  
+> Press your feet into the floor. Feel the chair or the ground holding you up. Open your hands and let your shoulders drop.  
+> A slower breath  
+> Breathe out for a little longer than you breathe in. A circle on the next screen can pace you for one minute, in silence.  
+> Breathe for a minute  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
 #### 23. Hope box
 
 The Hope box: the person's own reasons, words, and photos.
@@ -314,11 +483,11 @@ Picture: `app/design/after-launch-pass/reviewer/23-hope.png`
 > In your hope box  
 > Nothing yet. One small thing is enough to start.
 
-#### 39. App lock, locked
+#### 40. App lock, locked
 
 
 
-Picture: `app/design/after-launch-pass/reviewer/39-locked.png`
+Picture: `app/design/after-launch-pass/reviewer/40-locked.png`
 
 > Draft for review  
 > Tidelight is locked  
@@ -328,7 +497,7 @@ Picture: `app/design/after-launch-pass/reviewer/39-locked.png`
 
 ### Part 2. Check-in questions
 
-What the app asks, and what an ordinary answer leads to. 5 screens, about 93 lines of the app's words.
+What the app asks, and what an ordinary answer leads to. 5 screens, about 101 lines of the app's words.
 
 #### 14. Check-in tab
 
@@ -351,6 +520,14 @@ Picture: `app/design/after-launch-pass/reviewer/14-checkin.png`
 > Find your way back  
 > Hope box  
 > Reasons, words, photos  
+> My safety plan  
+> What to do when things get hard  
+> Grounding  
+> Short ways to steady yourself  
+> What tends to help  
+> From your own check-ins  
+> A summary for an appointment  
+> You choose what goes on it  
 > Your journey  
 > What you've kept
 
@@ -469,14 +646,14 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good afternoon  
+> Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 7:30 PM  
+> At 9:30 AM  
 > Start  
 > Suggested for you  
-> Silent  
-> Silent and ready anywhere  
+> Sleep  
+> Winding down  
 > Start  
 > 0  
 > day streak  
@@ -570,7 +747,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 24 screens, about 553 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 28 screens, about 692 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -723,14 +900,14 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good afternoon  
+> Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 7:30 PM  
+> At 9:30 AM  
 > Start  
 > Suggested for you  
-> Silent  
-> Silent and ready anywhere  
+> Sleep  
+> Winding down  
 > Start  
 > 0  
 > day streak  
@@ -822,6 +999,8 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Delete everything  
 > In Your journey  
 > About  
+> Your privacy  
+> What the app keeps, and where it goes  
 > Open-source licenses  
 > Code and fonts inside the app  
 > Tidelight app, draft  
@@ -877,6 +1056,7 @@ Picture: `app/design/after-launch-pass/reviewer/20-share.png`
 > The person may not see it for hours, so this isn't a way to get urgent help. If you need help now, call 988 or text 988. In immediate danger, call 911.  
 > What will be shared. You can change it.  
 > Start with "I wanted to share this with you."  
+> End with what they can do if they're worried: "If you ever think I'm in immediate danger, call 911. You can also call or text 988, the Suicide & Crisis Lifeline, about someone you're worried about."  
 > Choose who to share with  
 > Cancel
 
@@ -1010,9 +1190,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> After school, 5:33 PM: feeling: Good.  
+> Before bed, 12:01 AM: feeling: Good.  
 > Remove  
-> After school, 5:34 PM: feeling: Okay.  
+> Before bed, 12:01 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1041,8 +1221,8 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > Draft for review  
 > Meditate  
 > Suggested for you  
-> Silent  
-> Silent and ready anywhere  
+> Sleep  
+> Winding down  
 > Start  
 > Silent · anywhere  
 > 3 min  
@@ -1246,14 +1426,62 @@ Picture: `app/design/after-launch-pass/reviewer/35-friends.png`
 > What I've shared with my circle  
 > A list for you, kept on this phone, of what you opened in Messages for your circle. The app can't tell whether you tapped Send.  
 > Nothing shared yet.  
+> Helping someone you're worried about  
 > Share check-ins  
 > Today or 7 days, in Your journey
 
-#### 38. Open-source licenses
+#### 38. Your privacy in Tidelight
+
+A plain description of what the app keeps and where it goes, marked as not a privacy policy. New wording, for a lawyer as well as the reviewer.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/38-privacy.png`
+
+> Draft for review  
+> Back  
+> Your privacy in Tidelight  
+> This is not a privacy policy.  
+> It is a plain description of what the app does today, written by an AI assistant from the app's own code. No lawyer has written or read it. Tidelight does not have a privacy policy yet.  
+> What stays on this phone  
+> What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.  
+> Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.  
+> What Tidelight doesn't do  
+> It shows no advertising.  
+> It has no tracking, no analytics, and no crash reports.  
+> It has no code from another company that contacts anyone.  
+> When something leaves this phone  
+> Only when you start it, or through your phone's own backup:  
+> A text message you send from your phone's Messages screen, to people you chose.  
+> Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, or a copy of your data.  
+> Your phone's iCloud or Google backup, if that's on. It goes to your own account with Apple or Google.  
+> Once something is sent or shared, Tidelight can't take it back.  
+> Calls, texts, and links  
+> The buttons to call or text 988 and to call 911 open your phone's own Phone and Messages apps. Tidelight is not part of the call or the text.  
+> Quick exit, and links to other services, open in your phone's browser. Those sites see a visit like any other website does.  
+> Location  
+> Tidelight reads where you are only when you ask it to. If you turn on Places that are hard for me, your phone itself watches for the places you chose.  
+> Tidelight never sends your location anywhere. It goes in a text message only if you choose to put it there.  
+> Apple Health  
+> On an iPhone, and only if you turn on "Add meditations to Apple Health" in Settings: each meditation you finish is added to the Health app on this phone as mindful minutes. No check-ins, no moods, and nothing you write go there, and Tidelight reads nothing from Health.  
+> Health is Apple's app. What is in it can go to your iCloud, and other apps you have allowed can read it.  
+> Who can see it on this phone  
+> Anyone who can unlock this phone can open the app, unless you turn on the app lock in Settings.  
+> Check-in reminders you turn on are shown by the phone itself and say nothing about you.  
+> Your choices  
+> Remove one thing at a time: a check-in from today, a journal entry, a Hope box item, a place, a person, or a meditation from your history.  
+> Make a copy of your data, in Settings.  
+> Delete everything, in Your journey. It removes what's saved on this phone. Your age group, your settings, and your saved meditations stay, so you aren't asked again.  
+> Remove the app from your phone. That removes everything it saved on this phone.  
+> A copy in an earlier iCloud or Google backup can last until the phone's next backup.  
+> What this page can't tell you  
+> It doesn't cover what Apple, Google, your phone company, or the people you message do with what reaches them.
+
+#### 39. Open-source licenses
 
 
 
-Picture: `app/design/after-launch-pass/reviewer/38-licenses.png`
+Picture: `app/design/after-launch-pass/reviewer/39-licenses.png`
 
 > Draft for review  
 > Back  
@@ -1302,6 +1530,126 @@ Picture: `app/design/after-launch-pass/reviewer/38-licenses.png`
 > This license becomes null and void if any of the above conditions are not met.  
 > DISCLAIMER  
 > THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
+
+#### 42. Helping someone you're worried about
+
+The Help Someone page's own opening and six sections, shown inside the app word for word, on the Friends tab.
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/42-helping.png`
+
+> Draft for review  
+> Back  
+> Helping someone you're worried about  
+> If you're worried about a friend, family member, or someone else, you can help. You don't need to be an expert.  
+> If you think they are in immediate danger, call 911. If it is safe, stay with them, or make sure they are in a private, secure place with another caring person, until help comes. If you're worried they may be in danger of suicide, call or text 988.  
+> Signs someone may be struggling  
+> These may be signs that someone is thinking about suicide. Take any of these seriously. Be especially concerned if a behavior is new, has increased, or seems related to a painful event, loss, or change.  
+> What they talk about  
+> Wanting to die  
+> Feeling great guilt or shame  
+> Being a burden to others  
+> How they feel  
+> Empty, hopeless, trapped, or having no reason to live  
+> Extremely sad, more anxious, agitated, or full of rage  
+> In unbearable emotional or physical pain  
+> What they do  
+> Making a plan or researching ways to die  
+> Withdrawing from friends, saying goodbye, giving away important items, or making a will  
+> Taking dangerous risks  
+> Having extreme mood swings  
+> Eating or sleeping more or less  
+> Using drugs or alcohol more often  
+> If you notice these signs, get help as soon as possible. You don't have to be certain. You can contact 988 at any time if you're worried about someone.  
+> Five steps you can take  
+> The National Institute of Mental Health (NIMH) publishes these steps, which are also used by the 988 Lifeline's #BeThe1To campaign. Some details below come from the other sources listed at the end of this page.  
+> Ask  
+> Ask directly: "Are you thinking about suicide?" It isn't an easy question, but it can start the conversation. NIMH says studies show that asking does not increase suicidal thoughts or behavior.  
+> Be there  
+> Listen without judgment to learn what they are thinking and feeling. NIMH says research suggests that acknowledging and talking about suicide may reduce suicidal thoughts.  
+> Help keep them safe  
+> Ask whether they have a plan. If they do, call or text 988 right away. If they intend to act on it right away and have the means, call 911. If you can do it safely, remove or safely store anything they could use to hurt themselves. The 988 Lifeline can also help you work out what to do next.  
+> Help them connect  
+> Help them reach 988 by call or text, and other local resources. You can also help them reach a family member, friend, spiritual advisor, or mental health professional they trust. You can contact 988 yourself about them, too. If you think they are in immediate danger, call 911 first. The 988 Lifeline says a counselor may contact 911 if someone is in immediate danger and a safer plan can't be worked out. SAMHSA, a U.S. government health agency, says most crises are managed by counselors without involving law enforcement, but that is not a guarantee. See when emergency services get involved.  
+> Follow up  
+> Stay in touch after a crisis or after they leave care. NIMH says supportive, ongoing contact can play an important role in preventing suicide.  
+> What helps in the conversation  
+> This draws on advice from the 988 Lifeline and NIMH.  
+> Try to  
+> Be direct, and talk openly and calmly about suicide.  
+> Listen, let them finish, and accept what they feel.  
+> Say back what you hear, such as "It sounds like you're saying..."  
+> Let them know help is out there and that you'll help them reach it. Don't rush to say everything will be fine.  
+> Get help from people who specialize in crisis support.  
+> What to avoid  
+> Don't debate whether suicide is right or wrong, or lecture about the value of life.  
+> Don't act shocked, or dare them to do it.  
+> Don't dismiss what they say as a bid for attention. All talk of suicide should be taken seriously.  
+> Don't promise to keep it a secret. If someone tells you about a plan to hurt themselves, tell someone who can help.  
+> Don't leave them alone if they tell you they are going to end their life. If it is safe, stay with them and call 911, or call or text 988.  
+> If it's a child or teen  
+> If you're a parent or caregiver  
+> Take what they say seriously, even if they say they didn't mean it. Don't argue with their feelings. Tell them you care and that you will help them get help.  
+> If they have a suicide plan or can't stop thinking about ending their life, call or text 988 right away, and call 911 if they need immediate help. Stay close and don't leave them alone while you get help. Remove or safely store anything they could use to hurt themselves.  
+> Any child with suicidal thoughts or plans should be evaluated right away by a trained mental health professional. Call their pediatrician or a mental health provider now, even if it doesn't seem like a crisis. Their pediatrician can also help you make a safety plan.  
+> At school  
+> School counselors and school psychologists can help connect a family to support. School counselors are expected to tell a parent or guardian when a student has thoughts of suicide, even at 18. The exception is when a student says a parent's or guardian's abuse or neglect is the reason for those thoughts. Then the counselor must contact child protective services, and caseworkers may talk with the parents and other people around the student. So don't promise a young person that it will stay private.  
+> If you're a young person worried about a friend  
+> You don't need to have the answers. Start with a caring question and listen. If you're worried about suicide, it's okay to ask directly: "Are you thinking about suicide?" Encourage your friend to talk to a trusted adult, such as a parent, coach, teacher, or school counselor, and talk to one yourself.  
+> If your friend talks about suicide or about hurting themselves, don't keep it a secret, even if they ask you to. Tell a trusted adult, or call or text 988 to ask what to do. You can contact 988 at any time, even if it's about a friend.  
+> If they say they are going to end their life, call 911 if it's an emergency. If you're with them and it is safe, stay with them. If they told you by text or online, keep talking if you can while you get an adult, or call or text 988. You don't have to handle this by yourself.  
+> More for teens is on For Teens.  
+> If you see a worrying post online  
+> If you think someone may be in danger right now, call 911. You can also contact the site's safety team, because many social media sites have a way to get help for the person posting. The 988 Lifeline explains how this works on different platforms.  
+> Look after yourself too  
+> Supporting someone through a hard time can bring up difficult emotions of your own, and the responsibility doesn't have to be yours alone. The 988 Lifeline encourages helpers to reach out for support themselves. You can call or text 988 for yourself, even if you're not the one in crisis.
+
+#### 43. A summary for an appointment
+
+A short page of the person's own records for an appointment. They tick what goes on it and see every word before sharing. Nothing is kept. New wording.
+
+Picture: `app/design/after-launch-pass/reviewer/43-summary.png`
+
+> Draft for review  
+> Back  
+> A summary for an appointment  
+> A short page of what you recorded here, to bring to a doctor, a therapist, or a counselor. You choose what goes on it.  
+> It is put together on this phone each time you open this page. Nothing you choose or type here is kept, and nothing is sent anywhere unless you send it.  
+> How far back  
+> The last 14 days  
+> The last 30 days  
+> What goes on it  
+> My check-ins  
+> My journal entries  
+> My safety plan  
+> Something I want to ask or say (optional)  
+> What it will say  
+> This is the whole page, word for word.  
+> A summary for my appointment  
+> Made on November 16, 2026, from what I recorded in the Tidelight app over the last 14 days.  
+> These are my own notes. They are not a medical record or a diagnosis.  
+> CHECK-INS  
+> Monday, November 16  
+> - Before bed, 12:01 AM: feeling: Good.  
+> - Before bed, 12:01 AM: feeling: Okay.  
+> - Before bed, 12:01 AM: feeling: Very low.  
+> - Before bed, 12:02 AM: feeling: Sad.  
+> The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
+> Share this summary
+
+#### 44. What tends to help
+
+What else the person recorded on days they chose Good or Great, counted from their own check-ins. Shown here with too little to count. New wording.
+
+Picture: `app/design/after-launch-pass/reviewer/44-helps.png`
+
+> Draft for review  
+> Back  
+> What tends to help  
+> A look at your own check-ins from the last 30 days: on the days you chose Good or Great, what else did you record?  
+> It is worked out on this phone each time you open this page. Nothing here is a score, nothing new is kept, and nothing is sent anywhere.  
+> There isn't enough here yet. After three days with a quick check-in of Good or Great, this page shows what else you recorded on those days.
 
 <!-- WALKTHROUGH:END -->
 

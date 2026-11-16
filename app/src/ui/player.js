@@ -123,7 +123,15 @@ async function applySound() {
 }
 
 // Starts a session. `meditation` is data from logic/meditations.js or logic/generate.js.
+// A second start that arrives while the first is still starting (the phone can deliver "open at
+// a breathing minute" twice) is ignored: it used to leave a session of no length in the history.
+let starting = false;
 export async function playMeditation(meditation, source) {
+  if (starting) return;
+  starting = true;
+  try { await startSession(meditation, source); } finally { starting = false; }
+}
+async function startSession(meditation, source) {
   if (session) await endSession(false);
   const stage = $('#tl-stage');
   const reduced = reducedMotion();
@@ -188,6 +196,7 @@ export async function playMeditation(meditation, source) {
 }
 
 async function record(completedSeconds, moodAfter) {
+  session.doneSeconds = completedSeconds; // what a mood chosen afterwards is recorded with
   const entry = sessionRecord({ meditation: session.meditation, startedAt: session.startedAt, completedSeconds, moodAfter });
   const sessions = [entry].concat(state.sessions.filter((s) => s.id !== entry.id)).slice(0, CONFIG.meditation.maxSessionsKept);
   await replace('sessions', sessions);
@@ -232,6 +241,7 @@ function showCompletion(entry) {
   $('#tl-complete-total').textContent = t(allMinutes === 1 ? 'player.totalOne' : 'player.total', { minutes: allMinutes });
   $('#tl-complete-favorite').hidden = !session.source || Boolean(session.source.presetId);
   $('#tl-complete-favorite').disabled = false;
+  $('#tl-complete-note').hidden = true;
   window.scrollTo(0, 0);
   $('#tl-complete-title').focus({ preventScroll: true });
   // The finish is the full dawn, slowly. After a very low check-in today there is no dawn and no
@@ -316,7 +326,7 @@ export function initPlayer(shell, context) {
   faces = choiceGroup($('#tl-complete-faces'), {
     onChange: async (value) => {
       const mood = Number(value);
-      if (session) await record(session.meditation.totalSeconds, mood);
+      if (session) await record(typeof session.doneSeconds === 'number' ? session.doneSeconds : session.meditation.totalSeconds, mood);
       // A very low mood after a session: support options at once, no celebration.
       const low = isLowMood(mood);
       $('#tl-complete-support').hidden = !low;
@@ -327,7 +337,11 @@ export function initPlayer(shell, context) {
   $$('[data-player-done]').forEach((button) => button.addEventListener('click', close));
   $('#tl-complete-favorite').addEventListener('click', async () => {
     if (!session || !session.source) return;
-    await ctx.saveFavorite(session.source);
+    const kept = await ctx.saveFavorite(session.source);
+    const note = $('#tl-complete-note');
+    note.textContent = kept ? '' : t('preset.full');
+    note.hidden = kept;
+    if (!kept) return;
     $('#tl-complete-favorite').disabled = true;
     haptic('success');
   });

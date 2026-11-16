@@ -50,7 +50,7 @@ for (const scheme of ['light', 'dark']) {
       const box = bar.getBoundingClientRect();
       const tabs = Array.from(bar.querySelectorAll('a.tl-tab')).map((a) => { const r = a.getBoundingClientRect(); return { id: a.getAttribute('data-tl-tab-btn'), href: a.getAttribute('href'), name: a.textContent.trim(), w: r.width, h: r.height, icon: Boolean(a.querySelector('svg[aria-hidden="true"]')), top: document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2) === a || a.contains(document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)) }; });
       // The crisis strip's own controls: present, full size, and not under anything.
-      const crisis = ['a[href="tel:988"]', 'a[href="sms:988"]', 'a[href="tel:911"]', '.quick-exit'].map((selector) => {
+      const crisis = ['a[href="tel:988"]', 'a[href^="sms:988"]', 'a[href="tel:911"]', '.quick-exit'].map((selector) => {
         const el = document.querySelector('.crisis-bar ' + selector);
         if (!el) return { selector, missing: true };
         const r = el.getBoundingClientRect();
@@ -116,7 +116,7 @@ console.log('\nAt the largest text, the bar shows icons and keeps its names for 
   await page.goto(base + 'get-help/');
   await page.evaluate(() => { document.documentElement.style.fontSize = '300%'; });
   await page.waitForFunction(() => document.getElementById('tl-tabbar').classList.contains('is-compact'), null, { timeout: 4000 }).catch(() => {});
-  const big = await page.evaluate(() => { const bar = document.getElementById('tl-tabbar'); const tabs = Array.from(bar.querySelectorAll('a.tl-tab')); return { compact: bar.classList.contains('is-compact'), names: tabs.map((a) => a.textContent.trim()), sizes: tabs.every((a) => { const r = a.getBoundingClientRect(); return r.width >= 44 && r.height >= 44; }), height: bar.getBoundingClientRect().height, sideways: tabs.some((a) => { const r = a.getBoundingClientRect(); return r.left < -1 || r.right > window.innerWidth + 1; }), strip: ['tel:988', 'sms:988', 'tel:911'].every((href) => document.querySelector(`.crisis-bar a[href="${href}"]`)) }; });
+  const big = await page.evaluate(() => { const bar = document.getElementById('tl-tabbar'); const tabs = Array.from(bar.querySelectorAll('a.tl-tab')); return { compact: bar.classList.contains('is-compact'), names: tabs.map((a) => a.textContent.trim()), sizes: tabs.every((a) => { const r = a.getBoundingClientRect(); return r.width >= 44 && r.height >= 44; }), height: bar.getBoundingClientRect().height, sideways: tabs.some((a) => { const r = a.getBoundingClientRect(); return r.left < -1 || r.right > window.innerWidth + 1; }), strip: ['tel:988', 'sms:988', 'tel:911'].every((href) => document.querySelector(`.crisis-bar a[href^="${href}"]`)) }; });
   check(big.compact && big.names.join(',') === NAMES.en.join(','), 'a 320-point phone at 300% text: icons only, and all five names are still in the page');
   check(big.sizes && big.height <= 100 && !big.sideways, `and every tab is still 44 points, the bar is no taller than ${Math.round(big.height)} points, and no tab runs off the side`);
   check(big.strip, 'and the crisis strip still has its three links');

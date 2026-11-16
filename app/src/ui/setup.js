@@ -2,7 +2,7 @@
 // one button that does it. Every item is read from the app's real state each time.
 import { deriveChecklist, checklistProgress } from '../logic/checklist.js';
 import { t } from './words.js';
-import { state, save } from './state.js';
+import { state, save, isQuiet } from './state.js';
 import { progressLine } from './components.js';
 import { haptic } from './haptics.js';
 import { locationPermission, notificationPermission, requestLocationPermission, requestNotificationPermission, currentPosition } from './device.js';
@@ -44,7 +44,9 @@ export async function renderSetup() {
   });
   const keep = $('[data-setup-do="count"]', box);
   keep.textContent = keep.getAttribute('data-words').replace('{count}', String(state.settings.checkInsPerDay));
-  // All done: a small, quiet "complete" card, once. Then the ring is gone for good.
+  // All done: a small, quiet "complete" card, once. Then the ring is gone for good. Never on a day
+  // with a very low check-in: nothing is celebrated near support, so it waits for another day.
+  if (isQuiet()) { $('#tl-setup-done').hidden = true; return; }
   if (progress.complete && !finished && state.onboarding.completed) {
     await save('onboarding', { setupCelebrated: true });
     $('#tl-setup-done').hidden = false;

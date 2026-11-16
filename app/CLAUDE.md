@@ -91,6 +91,7 @@ npm run test:a11y   # the accessibility audit alone (about 8 minutes)
 npm run test:ios    # the Swift logic for places (needs Xcode)
 node tools/launch-time.mjs 5        # cold launch time in the booted Simulator, median of 5
 node tools/reviewer-walkthrough.mjs # refills the screen-by-screen part of notes/REVIEWER-PACKET.md
+node tools/voice-sheet.mjs          # rewrites notes/VOICE-RECORDING-SHEET.md after a script line changes
 LANG=en_US.UTF-8 npm run sync   # build, then copy into the iOS and Android projects (needs CocoaPods)
 ```
 
@@ -157,6 +158,166 @@ each covers and what only a real phone can show.
   this order the screen the person left shows for a moment. A timer lifts the cover anyway after
   a few seconds: the app must never stay covered.
 
+## Rules from the check on November 16, 2026
+
+- **The crisis strip never takes most of a short screen** (`src/ui/strip-fit.js`): past 70% of the screen's
+  height its words are set smaller, never under 18 points. Fonts differ between computers and phones, so
+  `test/strip-test.mjs` also runs with a deliberately wide font; a layout check must hold with any font.
+- **A native screen of the app's own opens below the crisis strip**, never over it. The map for a place takes
+  `top` from the page (`stripBottom`). The phone's own pickers (contacts, photos, the share sheet) are the
+  phone's and can't be changed.
+- **Nothing is saved before what was saved has been read** (`loaded` in `src/app.js`).
+- **After Quick exit, nothing the person had open is left on the page**: `tidelight-back-from-exit` closes
+  the share notice and "Enter my date of birth again" as well as going Home. A new panel outside the
+  screens must listen for it too.
+- **Nothing celebrates on a quiet day**, the setup list included (`isQuiet()` before any success haptic or
+  "done" card).
+- **Reminders:** `TidelightPlugin.swift` takes over the phone's notification handler and passes reminders on
+  to the reminders plugin's own handler, which it must keep hold of at load. A tapped reminder reaches the
+  page through `onReminderTap` in `src/ui/device.js`.
+- **Why the phone asks for a permission** is written three times and must stay the same: `Info.plist`,
+  `en.lproj/InfoPlist.strings`, and (in Spanish) `es.lproj/InfoPlist.strings`. A unit test compares them.
+- **Android is not working** and has never been built: no `Tidelight` plugin, no routing for pages in
+  folders, no location permission. Don't describe a feature as working on Android.
+- `test/faults-test.mjs` and `test/unit/native-fixes.test.mjs` hold the faults from that check fixed.
+
+## When the phone can't save (November 15, 2026, a draft)
+
+- **Every write to the phone reports a failure** by calling `saveFailed()` from `src/core/save-note.js`
+  (the storage layer in `src/core/device-storage.js`, and the Hope box layer's own `save` in
+  `src/extras.js`). A new place that writes must do the same. What failed is never recorded.
+- **`src/ui/save-note.js` shows one line, once,** until "Got it". It sits at the bottom, above the tab
+  bar, and the page grows by its height; where there is no room between the crisis strip and the tab
+  bar it sits in the page instead. It is never laid over the strip. `test/save-test.mjs` checks it.
+- **Things scrolled to land just under the crisis strip** (`scroll-padding-top` follows `--tl-top`, the
+  strip's measured height). The website's fixed allowance was taller than a small screen at the largest
+  text, so Support landed off the screen after Get Support Now. `test/strip-test.mjs` checks every size.
+
+## "What tends to help" (November 15, 2026, a draft)
+
+- **Rule in `src/logic/helps.js`, screen in `src/ui/helps.js`, numbers in `CONFIG.helps`.** It looks only
+  at better days (a quick check-in of Good or Great) and says what else was recorded on them.
+- **Never a score, a chart, an average, or a trend, and hard days are never counted, listed, or
+  mentioned.** The result has no field for them, and a unit test checks that. It never says one thing
+  caused another.
+- It stores nothing. The screen's words say "30 days", "three days", and "two or more"; a unit test fails
+  if `CONFIG.helps` and those words disagree.
+- The check-in log is cleaned once, when it is loaded (`src/app.js`): an entry that isn't a record with a
+  readable time is left out. One such entry used to stop the whole app from starting.
+
+## The widget, and opening the app at a named place (November 15, 2026, a draft)
+
+- **`ios/App/TidelightWidget/` is its own Xcode target** (`org.tidelight.app.widget`, iOS 17), added by
+  `tools/add-widget-target.rb` with CocoaPods' `xcodeproj` library; never edit `project.pbxproj` by hand.
+  No team or signing identity is set for it. Android has no widget.
+- **The widget is discreet, like a notification:** the app's name and a few plain words from its own
+  `Localizable.strings` (English and Spanish). Never a mood, a check-in, a streak, a name, 988, or the
+  word "safety". It has no entitlements and no shared container, so it can read nothing the person
+  saved. `test/unit/widget.test.mjs` checks all of that from its files.
+- **A tap opens `tidelight://open/breathe`, `/plan`, or `/home`.** `TidelightPlugin.swift` turns the
+  first two into a launch target; `src/redesign.js` acts on `tidelight-launch`: the plan opens
+  (behind the lock, if it is on), a breathing minute starts only when the app is not locked, and
+  nothing happens during first-time setup. Any other address just opens the app.
+  `test/open-test.mjs` checks the page's side.
+
+## The iPad layout, and the Apple Watch app (November 15, 2026, a draft)
+
+- **iPad:** the app's column (`.tl-app`, inside `.page-body`) sits in the middle of the screen at every
+  width, in line with the tab bar. `test/ipad-test.mjs` walks every screen in `test/app-screens.mjs` at
+  four iPad sizes and checks that, the safety frame, and that each crisis control is full size and
+  uncovered. On a wide screen the website puts Quick exit in a corner, over the end of the tab bar;
+  leave it there, and never let it cover a tab.
+- **The crisis strip is pinned at every width in the app** (`src/app-safe-area.css`). The website lets
+  it scroll away on a screen 960 points wide or more; an iPad on its side is that wide.
+- Build the iOS app with a destination and without `-sdk iphonesimulator`: that flag forces the
+  phone's SDK onto the watch target, which then fails to build.
+- **`ios/App/TidelightWatch/` is its own Xcode target** (`org.tidelight.app.watchkitapp`, watchOS 10),
+  added by `tools/add-watch-target.rb`; never edit `project.pbxproj` by hand. No team or signing
+  identity is set for it.
+- **The watch app's first screen carries the phone app's three crisis lines** (call 988, text 988,
+  call 911), with the phone app's own words in each language; `test/unit/watch.test.mjs` compares them.
+  Nothing may be put in front of them. The breathing minute is silent.
+- **It stores nothing, reads nothing the phone app saved, and shows nothing outside itself:** no
+  storage, no network, no link to the phone app, no Health, no notifications, no complication. The
+  unit test fails on any of those, and on a file in the folder it has not read.
+- It has been built for the watch Simulator and has never run. Treat every screen of it as unseen.
+
+## Shortcuts and Apple Health (November 15, 2026, a draft; iPhone only)
+
+- **Shortcuts** (`ios/App/App/TidelightShortcuts.swift`): two App Intents, "A minute to breathe" and
+  "My plan", which only open the app at the widget's two places through the same launch target.
+  Their names and Siri phrases are in `en.lproj` and `es.lproj` and are as discreet as the widget's
+  words. They take nothing typed and read nothing saved.
+- **Apple Health** (`TidelightHealth.swift`, `src/ui/health.js`, `settings.health`, off by default):
+  the app may add **mindful minutes only** (a start and an end), and may remove what it added.
+  **Never a mood, a check-in, or a word, and never any read access.** The setting is hidden where the
+  phone has no Health. "Delete everything" removes the entries too. `test/unit/shortcuts-health.test.mjs`
+  reads the Swift for all of this; `test/health-test.mjs` checks the page with a stand-in.
+- New files join the Xcode project through `tools/add-shortcuts-health.rb`, never by hand. No team or
+  signing identity is set. The one entitlement is `com.apple.developer.healthkit` in `App.entitlements`.
+- A change to what goes to Health changes the privacy screen, `notes/PRIVACY-INVENTORY.md`, and
+  `notes/APP-STORE-PRIVACY-DRAFT.md` together.
+
+## "Your privacy in Tidelight" (November 15, 2026, a draft)
+
+- **`#tl-privacy` describes what the app does; it is not a privacy policy and says so first.** Its
+  words are privacy wording: never folded, never shortened.
+- **A new stored thing, or a new way for something to leave the phone, changes this screen** as well
+  as `notes/PRIVACY-INVENTORY.md`. `test/unit/privacy-screen.test.mjs` lists each key in `KEYS` beside
+  the words that cover it and fails on a key it doesn't know. It also fails on words the code can't
+  back up ("encrypted", "anonymous", "secure", "guarantee").
+
+## A summary for an appointment (November 15, 2026, a draft)
+
+- **Rule in `src/logic/summary.js`, screen in `src/ui/summary.js`, numbers in `CONFIG.summary`.** Only
+  what the person ticks goes on the page, as it was recorded. **Never a count, an average, a score, a
+  chart, or an interpretation**; a unit test reads the rule's source for them.
+- **It stores nothing.** Choices and the typed line live only on the screen, and opening it again starts
+  over (check-ins ticked, the rest not). The screen shows every word before sharing, and what is shared
+  is exactly that text, through `handFile` in `src/ui/export.js` (the same way as "a copy of my data").
+- The screen says "14 days", "30 days", and holds 300 characters; a unit test fails if `CONFIG.summary`
+  and the screen disagree.
+
+## "Helping someone you're worried about" (November 15, 2026, a draft)
+
+- **`#tl-helping`, on the Friends tab, holds no wording of its own.** `helpingPage` in
+  `tools/build-redesign.mjs` copies the Help Someone page's title, opening, urgent line, and six
+  sections into it at build time, in each language, with folded parts opened and headings moved down
+  one level. Change the words on the website's page, never in the app. `test/helping-test.mjs` fails
+  if one word or link differs. The row that opens it carries the page's own title.
+
+## The 988 screen, and screens opened from the support step (November 15, 2026, a draft)
+
+- **`#tl-expect` and `#tl-ways` hold no wording of their own.** `tools/build-redesign.mjs` (`helpSection`)
+  copies the Get Help page's "What happens when you reach out to 988" and "Other ways to reach someone"
+  sections into them at build time, in each language. The crisis test allows the other services' numbers
+  only because that page names them, and reads the list from the page. Change the words on the website's page, never in the app. `test/expect-test.mjs` fails
+  if one word differs. The button that opens it carries the same words as the section's heading.
+- **A screen opened from the support step uses `data-tl-over`** beside `data-tl-push`, so it opens
+  on top of the support step wherever else it was open (`shell.pushOver`). Back then returns to the
+  support step with Call 988, never to a new check-in (`onSupport` in `src/ui/checkin.js`).
+
+## Texting 988 in Spanish (November 15, 2026, a draft)
+
+- In the app's copy of the Spanish pages, a link that says to text AYUDA to 988 is
+  `sms:988?&body=AYUDA` (`fillInAyuda` in `tools/build-redesign.mjs`, at build time). The word
+  sources and the public website keep `sms:988`. English links and the PRIDE link are never filled in.
+- Tests look for a text link with `a[href^="sms:988"]`, never the exact address.
+- It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
+  as unproven on the crisis path.
+
+## The safety plan (November 15, 2026, a draft)
+
+- **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the
+  order the website's Get Help page gives them. Entries are the person's own words: the app suggests
+  nothing and fills nothing in.
+- **Call 988, Text 988, and Call 911 are markup in part 5**, the same three lines as the support screen,
+  never stored entries, so nothing a person does can remove them. Never name a method anywhere in the plan.
+- **Whatever is stored comes back whole or empty** (`cleanPlan`), because the plan is read in a hard moment.
+- "Open my safety plan" shows on the support screen only when the plan has something in it, and always
+  below the crisis buttons. "Delete everything" removes the plan; the app lock covers it; "a copy of my
+  data" includes it. `test/plan-test.mjs` checks each.
+
 ## Architecture after the redesign
 
 - **Tabs** (`src/ui/shell.js`): `TABS` in `src/ui/icons.js` is the one list; adding a tab is one line there, plus its
@@ -180,6 +341,9 @@ each covers and what only a real phone can show.
   - **Crisis controls are plain on purpose**: `--crisis-bg`/`--crisis-text` for the strip,
     `--crisis-btn-bg`/`--crisis-btn-text` for Get Support Now and Call 988. At least 7 to 1 (a unit
     test checks), no grain, no animation, no highlight, no haptic of the app's own, never coral.
+    The strip's own words follow the phone's text size up to 28 points and its tap targets up to 56
+    (`--crisis-size-cap`, `--crisis-tap-cap`), so the strip leaves room for the screen at the largest
+    sizes. Every word stays; `test/strip-test.mjs` checks six sizes. A draft, one founder's choice.
   - **The horizon** (`.tl-horizon`, with `-hero`, `-progress`, `-complete`) is the one
     signature shape: a flat line with light at its edge. No waves. It is decoration
     (`aria-hidden`) and never appears on a support screen or on a "quiet" day.

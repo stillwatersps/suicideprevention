@@ -3,6 +3,7 @@
 import { CONFIG } from '../core/config.js';
 import { t } from './words.js';
 import { style, profile, isQuiet } from './state.js';
+import { devLog } from '../core/dev.js';
 import { choiceGroup } from './components.js';
 import { haptic } from './haptics.js';
 import { isLowMood, isHeavyFeeling } from '../logic/safety.js';
@@ -13,6 +14,7 @@ let timers = [];
 let faces = null;
 let tags = null;
 let shellRef = null;
+let onSupport = false; // the support step is showing, after a very low mood
 let ctx = null;
 
 // The horizon above the check-in: light arrives as the person goes. It only ever grows; skipping
@@ -36,6 +38,10 @@ function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
 
 function start() {
   clearTimers();
+  // Back from a screen opened from the support step (the safety plan, what happens at 988) returns
+  // to the support step as it was. It never starts a new check-in in its place.
+  if (onSupport && shellRef && shellRef.isBack()) { step('support'); return; }
+  onSupport = false;
   light = 0;
   $('#tl-flow-horizon').classList.remove('tl-horizon-complete');
   arrive(0.1);
@@ -61,9 +67,11 @@ async function finish() {
   const mood = Number(faces.get());
   if (!mood) return;
   const labels = tags.get().map((id) => t('tag.' + id));
-  await ctx.addQuickCheckIn({ mood, moodLabel: t('mood.' + mood), tagIds: tags.get(), tags: labels, note: $('#tl-flow-note').value.trim().slice(0, CONFIG.checkIn.noteMaxLength) });
+  // If the phone can't save it, the app says so elsewhere (save-note.js). Support must still come.
+  try { await ctx.addQuickCheckIn({ mood, moodLabel: t('mood.' + mood), tagIds: tags.get(), tags: labels, note: $('#tl-flow-note').value.trim().slice(0, CONFIG.checkIn.noteMaxLength) }); } catch (e) { devLog('check-in not saved', e); }
   if (isLowMood(mood)) {
     // Support comes first: no celebration, no streak, and the screen stays until the person leaves it.
+    onSupport = true;
     step('support');
     const box = $('#tl-flow-support');
     window.scrollTo(0, 0);

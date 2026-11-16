@@ -4,7 +4,7 @@ import { initShell, shell } from './ui/shell.js';
 import { initHome, renderHome } from './ui/home.js';
 import { initCheckin, renderToday } from './ui/checkin.js';
 import { showsSupport } from './logic/safety.js';
-import { initOnboarding, startOnboarding } from './ui/onboarding.js';
+import { initOnboarding, startOnboarding, leaveAgeOnly } from './ui/onboarding.js';
 import { initSetup, renderSetup } from './ui/setup.js';
 import { initSettings, renderSettings } from './ui/settings.js';
 import { syncReminders } from './ui/reminders.js';
@@ -14,14 +14,24 @@ import { initMeditate, renderSuggestion, renderHistory, startType } from './ui/m
 import { initBuilder, renderPresets } from './ui/builder.js';
 import { initFeel } from './ui/feel.js';
 import { initSections } from './ui/sections.js';
-import { initLock } from './ui/lock.js';
+import { initLock, isLocked } from './ui/lock.js';
+import { Tidelight } from './native.js';
+import { initPlan, renderPlan } from './ui/plan.js';
+import { initHelps } from './ui/helps.js';
+import { initSummary } from './ui/summary.js';
+import { initHealth, addMindfulMinutes } from './ui/health.js';
+import { initSaveNote } from './ui/save-note.js';
 import { keepNamesHonest } from './ui/components.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
+import { onReminderTap } from './ui/device.js';
 import { CONFIG } from './core/config.js';
 import { store } from './core/device-storage.js';
 import { KEYS } from './core/storage.js';
 import { devLog } from './core/dev.js';
+
+// The same name app-tabbar.js writes under.
+const LANGUAGE_TAPPED = 'tidelight.language.tapped';
 
 // Called by app.js once what's saved has been loaded, before the page is shown.
 export async function initRedesign(context) {
@@ -30,8 +40,18 @@ export async function initRedesign(context) {
   // the phone, so the app opens in it next time. The link itself stays on every screen.
   const other = document.querySelector('.lang-switch a');
   const here = document.documentElement.lang || 'en';
-  const wanted = await store.getRaw(KEYS.language);
-  if (other && wanted && wanted !== here && wanted === other.getAttribute('hreflang')) { location.replace(other.getAttribute('href')); return false; }
+  let wanted = await store.getRaw(KEYS.language);
+  // The link was tapped on one of the website's pages inside the app (app-tabbar.js notes it for
+  // this visit): that is the person's choice too, and it is kept here, where the app can save.
+  let tapped = null;
+  try { tapped = window.sessionStorage.getItem(LANGUAGE_TAPPED); window.sessionStorage.removeItem(LANGUAGE_TAPPED); } catch (e) { /* no session storage */ }
+  if ((tapped === 'en' || tapped === 'es') && tapped !== wanted) {
+    wanted = tapped;
+    try { await store.setRaw(KEYS.language, tapped); } catch (e) { devLog('language', e); }
+  }
+  // Going to the other language keeps the tab or screen the address asked for. 'leaving' tells
+  // app.js to stop there: this page must not use up the place a widget or shortcut asked for.
+  if (other && wanted && wanted !== here && wanted === other.getAttribute('hreflang')) { location.replace(other.getAttribute('href') + location.hash); return 'leaving'; }
   if (other) {
     other.addEventListener('click', async (event) => {
       event.preventDefault();
@@ -39,6 +59,7 @@ export async function initRedesign(context) {
       location.href = other.getAttribute('href');
     });
   }
+  initSaveNote();
   await loadState();
   // The app lock, if the person turned it on, covers the screens before any of them is filled in.
   await initLock();
@@ -67,19 +88,31 @@ export async function initRedesign(context) {
   initSetup(shell, ctx);
   initSettings(shell, ctx);
   initStreaks(shell, ctx);
+  initPlan(shell, ctx);
+  initHelps(shell, ctx);
+  initSummary(shell, ctx);
+  initHealth(shell);
   // The meditation player: a finished session (60% or more) counts toward today and the setup list.
   ctx.isQuiet = isQuiet;
   ctx.goQuiet = goQuiet;
-  ctx.onMeditationDone = async () => { await addMeditationToStreak(); refresh(); };
+  // A finished meditation counts toward today, and, only if the person turned that on, is added
+  // to Apple Health as mindful minutes.
+  ctx.onMeditationDone = async (entry) => { await addMeditationToStreak(); addMindfulMinutes(entry); refresh(); };
   ctx.onPlayerClosed = refresh;
   ctx.saveFavorite = async (source) => {
     const name = source.name || source.type;
-    if (state.presets.some((p) => p.favoriteOf === source.key)) return;
-    await replace('presets', state.presets.concat([{ id: 'fav-' + Date.now().toString(36), name, favoriteOf: source.key, builtIn: source.builtIn || null, choices: source.choices || null }]).slice(-CONFIG.builder.presetMax));
+    if (state.presets.some((p) => p.favoriteOf === source.key)) return true;
+    // The list is full: say so (the player does), and remove nothing the person saved.
+    if (state.presets.length >= CONFIG.builder.presetMax) return false;
+    await replace('presets', state.presets.concat([{ id: 'fav-' + Date.now().toString(36), name, favoriteOf: source.key, builtIn: source.builtIn || null, choices: source.choices || null }]));
+    return true;
   };
   initPlayer(shell, ctx);
   initMeditate(shell, ctx);
   ctx.startReset = () => startType('quick', { minutes: 1 });
+  // Grounding's "Breathe for a minute" is the same silent one-minute reset.
+  const groundBreathe = document.getElementById('tl-ground-breathe');
+  if (groundBreathe) groundBreathe.addEventListener('click', () => ctx.startReset());
   initBuilder(shell, ctx);
   initOnboarding(shell, ctx);
   keepNamesHonest(document.getElementById('tl-app'));
@@ -97,15 +130,32 @@ export async function initRedesign(context) {
     await syncReminders(ctx.checkInsToday());
     refresh();
   });
-  // Delete everything also removes the name, the home spot, the streak, and meditation history.
+  // Delete everything also removes the name, the home spot, the streak, meditation history, and
+  // the safety plan.
   window.addEventListener('tidelight-erased', async () => {
-    for (const name of ['profile', 'home', 'days', 'streak', 'sessions']) await clear(name);
+    for (const name of ['profile', 'home', 'days', 'streak', 'sessions', 'plan']) await clear(name);
+    renderPlan();
     await refreshStreak();
     refresh();
   });
+  // Opened from the widget, at a place it names: the safety plan, or a minute of breathing. The
+  // phone hands over only that one word. Setting up for the first time is never skipped, and the
+  // app lock, if it is on, still covers the plan; a breathing minute never starts behind the lock.
+  window.addEventListener('tidelight-launch', (event) => {
+    const target = event.detail || '';
+    if (target !== '#tl-plan' && target !== '#tl-breathe') return;
+    // The phone keeps the place until the page takes it; taking it here means it is used once.
+    try { Promise.resolve(Tidelight.takeLaunchTarget()).catch(() => {}); } catch (e) { /* web */ }
+    if (!state.onboarding.completed) return;
+    leaveAgeOnly();
+    if (target === '#tl-plan') shell.pushOver('plan');
+    else if (!isLocked()) ctx.startReset();
+  });
+  // A tapped check-in reminder opens the Check-in tab (shell.js listens). Never during first setup.
+  onReminderTap(() => { if (!state.onboarding.completed) return; leaveAgeOnly(); window.dispatchEvent(new CustomEvent('tidelight-launch', { detail: '#ci-today' })); });
   // After Quick exit the app opens on Home, never on the entry or check-in that had been open
   // (app-return.js says when). Setting up for the first time stays where it was.
-  document.addEventListener('tidelight-back-from-exit', () => { if (state.onboarding.completed) shell.home(); });
+  document.addEventListener('tidelight-back-from-exit', () => { if (state.onboarding.completed) { leaveAgeOnly(); shell.home(); } });
   document.addEventListener('visibilitychange', async () => {
     if (document.visibilityState !== 'visible') return;
     await refreshStreak(); // days that ended while the app was away

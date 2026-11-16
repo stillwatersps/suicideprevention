@@ -1,0 +1,12 @@
+/* Las palabras de la app de Tidelight para el reloj, en español. Las líneas de crisis son las
+   mismas palabras de la app del teléfono. Una traducción de IA sin revisar: ninguna persona
+   hispanohablante la ha revisado. Borrador para revisión. */
+"A minute to breathe" = "Un minuto para respirar";
+"Need help now?" = "¿Necesitas ayuda ahora?";
+"Call 988" = "Llamar al 988 y marcar 2";
+"Text 988" = "Enviar AYUDA al 988";
+"In immediate danger, call 911" = "Si hay peligro inmediato, llama al 911";
+"Draft for review" = "Borrador para revisión";
+"Breathe in" = "Inhala";
+"Breathe out" = "Exhala";
+"Done" = "Listo";

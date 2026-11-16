@@ -17,6 +17,10 @@
 
 <!-- BLOCK:app -->
       <div class="tl-app" id="tl-app">
+        <div class="tl-save-note" id="tl-save-note" role="status" hidden>
+          <p>Tidelight can't save on this phone right now. The phone may be out of space. What you enter stays on screen until the app closes.</p>
+          <button type="button" class="tl-btn tl-btn-secondary" id="tl-save-note-ok">Got it</button>
+        </div>
 
         <section class="tl-screen" id="tl-home" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-home-title" hidden>
           <div class="tl-hero">
@@ -122,6 +126,26 @@
               <span class="tl-card-text"><span class="tl-card-title">Hope box</span> <span class="tl-card-sub">Reasons, words, photos</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="plan" id="tl-checkin-plan">
+              <span class="tl-card-icon" data-tl-icon="lifebuoy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">My safety plan</span> <span class="tl-card-sub">What to do when things get hard</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" id="tl-checkin-ground">
+              <span class="tl-card-icon" data-tl-icon="stone"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Grounding</span> <span class="tl-card-sub">Short ways to steady yourself</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="helps" id="tl-checkin-helps">
+              <span class="tl-card-icon" data-tl-icon="sliders"></span>
+              <span class="tl-card-text"><span class="tl-card-title">What tends to help</span> <span class="tl-card-sub">From your own check-ins</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
+              <span class="tl-card-icon" data-tl-icon="copy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">A summary for an appointment</span> <span class="tl-card-sub">You choose what goes on it</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
               <span class="tl-card-icon" data-tl-icon="path"></span>
               <span class="tl-card-text"><span class="tl-card-title">Your journey</span> <span class="tl-card-sub">What you've kept</span></span>
@@ -180,8 +204,26 @@
             <p class="tl-sub">Your check-in is saved on this phone. Nobody at Tidelight sees it, so it isn't a way to ask for help.</p>
             <div class="tl-row tl-row-center">
               <a class="tl-btn tl-btn-secondary" href="#support">More ways to get support</a>
+              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="plan" data-tl-over data-plan-open hidden>Open my safety plan</button>
               <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Back to Home</button>
             </div>
+            <ul class="tl-list tl-support-more">
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="expect" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="info"></span>
+                <span class="tl-card-text"><span class="tl-card-title">What happens when you reach out to 988</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="ways" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="people"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Other ways to reach someone</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="stone"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Grounding</span> <span class="tl-card-sub">Short ways to steady yourself</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+            </ul>
           </div>
         </section>
 
@@ -537,6 +579,7 @@
             </div>
             <button type="button" class="tl-btn tl-btn-primary tl-btn-wide" data-player-done>Done</button>
             <button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" id="tl-complete-favorite">Save as favorite</button>
+            <p class="tl-status" id="tl-complete-note" role="status" hidden></p>
           </div>
         </section>
 
@@ -555,6 +598,11 @@
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <h2 class="tl-title" id="tl-friends-title">Friends</h2>
           <div id="tl-friends-slot"></div>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="helping" id="tl-friends-helping">
+            <span class="tl-card-icon" data-tl-icon="people"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Helping someone you're worried about</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey">
             <span class="tl-card-icon" data-tl-icon="path"></span>
             <span class="tl-card-text"><span class="tl-card-title">Share check-ins</span> <span class="tl-card-sub">Today or 7 days, in Your journey</span></span>
@@ -654,6 +702,14 @@
             <p class="tl-sub">The lock uses this phone's own passcode. Someone who knows that passcode can still open the app.</p>
             <p class="tl-status" id="tl-set-lock-note" role="status" hidden></p>
           </div>
+          <div class="tl-panel" id="tl-set-health-box" hidden>
+            <label class="tl-switch"><span>Add meditations to Apple Health</span><input type="checkbox" id="tl-set-health"></label>
+            <p class="tl-sub">When this is on, each meditation you finish is added to the Health app on this phone as mindful minutes: when it started and how long it lasted. Nothing else is added. No check-ins, no moods, and nothing you write.</p>
+            <p class="tl-sub">Health is Apple's app, not Tidelight's. What is in it can go to your iCloud, and other apps you have allowed can read it. Tidelight reads nothing from Health.</p>
+            <p class="tl-sub">Turning this off stops new entries. The ones already added stay in Health until you remove them here or in the Health app. Delete everything, in Your journey, removes them too.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-health-remove">Remove Tidelight's entries from Health</button>
+            <p class="tl-status" id="tl-set-health-note" role="status" hidden></p>
+          </div>
           <div class="tl-panel" id="tl-set-export-box">
             <span class="tl-label">A copy of your data</span>
             <p class="tl-sub">Makes one text file with what Tidelight has saved on this phone: your check-ins, journal, reflections, Hope box words, people, places, and meditation history. Photos are not in the file.</p>
@@ -667,6 +723,11 @@
             <span class="tl-card-go" data-tl-icon="next"></span>
           </button>
           <h3 class="tl-section-title">About</h3>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="privacy" id="tl-settings-privacy">
+            <span class="tl-card-icon" data-tl-icon="info"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Your privacy</span> <span class="tl-card-sub">What the app keeps, and where it goes</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <button type="button" class="tl-card tl-card-action" data-tl-push="licenses" id="tl-settings-licenses">
             <span class="tl-card-icon" data-tl-icon="info"></span>
             <span class="tl-card-text"><span class="tl-card-title">Open-source licenses</span> <span class="tl-card-sub">Code and fonts inside the app</span></span>
@@ -693,6 +754,238 @@
             </div>
             <span class="tl-label">Developer notes</span>
             <ul class="tl-list" id="tl-dev-log"></ul>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-plan" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-plan-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-plan-title">My safety plan</h2>
+          <p>A short list, in your own words, of what to do when things get hard. You write it ahead of time, so you don't have to work it out in the moment.</p>
+          <p class="tl-sub">A plan helps most when you make it, or go over it, with someone: a doctor, a counselor, or an adult you trust. It does not replace professional care.</p>
+          <p><strong>You don't have to work through this list before asking for help.</strong> The buttons to call or text 988 and to call 911 are at the top of every screen, and in part 5 below.</p>
+          <p class="tl-sub" id="tl-plan-privacy">Your plan is saved on this phone only. Tidelight never receives it. Anyone who can unlock this phone can read it, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes it.</p>
+          <p class="tl-status" id="tl-plan-status" role="status" hidden></p>
+          <div class="tl-panel tl-plan-part" data-plan-part="signs">
+            <h3 class="tl-headline" id="tl-plan-signs-title">1. My warning signs</h3>
+            <p class="tl-sub">Thoughts, feelings, or situations that tell me things are getting harder.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-signs-title"></ul>
+            <p class="tl-field"><label for="tl-plan-signs-new">Add a warning sign</label><span class="tl-row"><input class="tl-input" id="tl-plan-signs-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Add</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="coping">
+            <h3 class="tl-headline" id="tl-plan-coping-title">2. Things I can do on my own</h3>
+            <p class="tl-sub">Ways I can get through it by myself, like a walk, music, or a shower.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-coping-title"></ul>
+            <p class="tl-field"><label for="tl-plan-coping-new">Add something I can do</label><span class="tl-row"><input class="tl-input" id="tl-plan-coping-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Add</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="distract">
+            <h3 class="tl-headline" id="tl-plan-distract-title">3. People and places that take my mind off it</h3>
+            <p class="tl-sub">Somewhere to be, or someone to be around, without having to talk about it.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-distract-title"></ul>
+            <p class="tl-field"><label for="tl-plan-distract-new">Add a person or a place</label><span class="tl-row"><input class="tl-input" id="tl-plan-distract-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Add</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="people">
+            <h3 class="tl-headline" id="tl-plan-people-title">4. People I can ask for help</h3>
+            <p class="tl-sub">Family or friends I can tell that I'm struggling.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-people-title"></ul>
+            <p class="tl-field"><label for="tl-plan-people-name">Name</label><input class="tl-input" id="tl-plan-people-name" type="text" maxlength="120" autocomplete="off" data-plan-name></p>
+            <p class="tl-field"><label for="tl-plan-people-phone">Phone number (optional)</label><input class="tl-input" id="tl-plan-people-phone" type="tel" maxlength="24" autocomplete="off" data-plan-phone></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Add</button><button type="button" class="tl-btn tl-btn-quiet" data-plan-pick>Choose someone from my contacts</button></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="pros">
+            <h3 class="tl-headline" id="tl-plan-pros-title">5. Professionals and crisis lines</h3>
+            <p class="tl-sub">A doctor, a counselor, or a clinic I can contact. 988 and 911 are always here.</p>
+            <ul class="tl-support-actions">
+              <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+            </ul>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="expect" data-tl-over>What happens when you reach out to 988</button><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="ways" data-tl-over>Other ways to reach someone</button></p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-pros-title"></ul>
+            <p class="tl-field"><label for="tl-plan-pros-name">Name</label><input class="tl-input" id="tl-plan-pros-name" type="text" maxlength="120" autocomplete="off" data-plan-name></p>
+            <p class="tl-field"><label for="tl-plan-pros-phone">Phone number (optional)</label><input class="tl-input" id="tl-plan-pros-phone" type="tel" maxlength="24" autocomplete="off" data-plan-phone></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Add</button></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel tl-plan-part" data-plan-part="safer">
+            <h3 class="tl-headline" id="tl-plan-safer-title">6. Making my space safer</h3>
+            <p class="tl-sub">Things I can put out of reach, or ask someone to hold for a while, so a hard moment is safer.</p>
+            <ul class="tl-list tl-plan-list" aria-labelledby="tl-plan-safer-title"></ul>
+            <p class="tl-field"><label for="tl-plan-safer-new">Add a way to make my space safer</label><span class="tl-row"><input class="tl-input" id="tl-plan-safer-new" type="text" maxlength="120" autocomplete="off" data-plan-text><button type="button" class="tl-btn tl-btn-secondary" data-plan-add>Add</button></span></p>
+            <p class="tl-sub" data-plan-full hidden></p>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">My reasons</h3>
+            <p class="tl-sub">The reasons you keep going are in your Hope box.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-legacy="app-hope">Open my Hope box</button></p>
+          </div>
+          <div class="tl-panel" id="tl-plan-share-box" hidden>
+            <h3 class="tl-headline">Share my plan</h3>
+            <p class="tl-sub">With someone you choose, such as the person you made it with. You'll see the words first and can change them.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-share">Share my plan</button></p>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <!-- EXPECT -->
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-ground" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-ground-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-ground-title">Grounding</h2>
+          <p>A few short ways to steady yourself when things feel like too much. Try one. If it doesn't help, try another, or stop.</p>
+          <p class="tl-sub">These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.</p>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">5, 4, 3, 2, 1</h3>
+            <p class="tl-sub">Look around you and name, out loud or in your head:</p>
+            <ol class="tl-ground-steps">
+              <li>5 things you can see</li>
+              <li>4 things you can touch</li>
+              <li>3 things you can hear</li>
+              <li>2 things you can smell</li>
+              <li>1 thing you can taste</li>
+            </ol>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Something cold</h3>
+            <p class="tl-sub">Hold something cold, or run cold water over your hands, for about half a minute. Notice how it feels.</p>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Feet on the floor</h3>
+            <p class="tl-sub">Press your feet into the floor. Feel the chair or the ground holding you up. Open your hands and let your shoulders drop.</p>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">A slower breath</h3>
+            <p class="tl-sub">Breathe out for a little longer than you breathe in. A circle on the next screen can pace you for one minute, in silence.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-ground-breathe">Breathe for a minute</button></p>
+          </div>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-ways" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-ways-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <!-- WAYS -->
+        </section>
+
+        <section class="tl-screen" id="tl-helps" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-helps-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-helps-title">What tends to help</h2>
+          <p>A look at your own check-ins from the last 30 days: on the days you chose Good or Great, what else did you record?</p>
+          <p class="tl-sub">It is worked out on this phone each time you open this page. Nothing here is a score, nothing new is kept, and nothing is sent anywhere.</p>
+          <div class="tl-panel" id="tl-helps-none">
+            <p>There isn't enough here yet. After three days with a quick check-in of Good or Great, this page shows what else you recorded on those days.</p>
+          </div>
+          <div class="tl-panel" id="tl-helps-some" hidden>
+            <p id="tl-helps-lead"></p>
+            <ul class="tl-list tl-helps-list" id="tl-helps-list"></ul>
+            <p class="tl-sub" id="tl-helps-nothing" hidden>Nothing else was recorded on two or more of those days.</p>
+            <p class="tl-sub">This only counts what you recorded. It can't tell what caused what.</p>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-summary" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-summary-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-summary-title">A summary for an appointment</h2>
+          <p>A short page of what you recorded here, to bring to a doctor, a therapist, or a counselor. You choose what goes on it.</p>
+          <p class="tl-sub">It is put together on this phone each time you open this page. Nothing you choose or type here is kept, and nothing is sent anywhere unless you send it.</p>
+          <div class="tl-panel tl-summary-choices">
+            <div role="radiogroup" aria-labelledby="tl-summary-days-title">
+              <span class="tl-label" id="tl-summary-days-title">How far back</span>
+              <label class="tl-switch"><span>The last 14 days</span><input type="radio" name="tl-summary-days" value="14" checked></label>
+              <label class="tl-switch"><span>The last 30 days</span><input type="radio" name="tl-summary-days" value="30"></label>
+            </div>
+            <div role="group" aria-labelledby="tl-summary-what-title">
+              <span class="tl-label" id="tl-summary-what-title">What goes on it</span>
+              <label class="tl-switch"><span>My check-ins</span><input type="checkbox" id="tl-summary-checkins" checked></label>
+              <label class="tl-switch"><span>My journal entries</span><input type="checkbox" id="tl-summary-journal"></label>
+              <label class="tl-switch"><span>My safety plan</span><input type="checkbox" id="tl-summary-plan"></label>
+            </div>
+            <p class="tl-field"><label for="tl-summary-ask">Something I want to ask or say (optional)</label><textarea class="tl-input" id="tl-summary-ask" rows="3" maxlength="300" autocomplete="off"></textarea></p>
+          </div>
+          <p class="tl-sub" id="tl-summary-empty" hidden>Nothing is chosen yet. Choose something above, or write something you want to ask or say.</p>
+          <div class="tl-panel" id="tl-summary-out">
+            <h3 class="tl-label" id="tl-summary-preview-title">What it will say</h3>
+            <p class="tl-sub">This is the whole page, word for word.</p>
+            <div class="tl-summary-preview" id="tl-summary-preview" role="group" tabindex="0" aria-labelledby="tl-summary-preview-title"></div>
+            <p class="tl-sub">The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-summary-share">Share this summary</button>
+            <p class="tl-status" id="tl-summary-note" role="status" hidden></p>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-helping" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-helping-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <!-- HELPING -->
+        </section>
+
+        <section class="tl-screen" id="tl-privacy" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-privacy-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-privacy-title">Your privacy in Tidelight</h2>
+          <div class="tl-panel" id="tl-privacy-status">
+            <p class="tl-label">This is not a privacy policy.</p>
+            <p>It is a plain description of what the app does today, written by an AI assistant from the app's own code. No lawyer has written or read it. Tidelight does not have a privacy policy yet.</p>
+          </div>
+          <div class="tl-privacy-body">
+            <h3>What stays on this phone</h3>
+            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
+            <p>Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.</p>
+            <h3>What Tidelight doesn't do</h3>
+            <ul>
+              <li>It shows no advertising.</li>
+              <li>It has no tracking, no analytics, and no crash reports.</li>
+              <li>It has no code from another company that contacts anyone.</li>
+            </ul>
+            <h3>When something leaves this phone</h3>
+            <p>Only when you start it, or through your phone's own backup:</p>
+            <ul>
+              <li>A text message you send from your phone's Messages screen, to people you chose.</li>
+              <li>Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, or a copy of your data.</li>
+              <li>Your phone's iCloud or Google backup, if that's on. It goes to your own account with Apple or Google.</li>
+            </ul>
+            <p>Once something is sent or shared, Tidelight can't take it back.</p>
+            <h3>Calls, texts, and links</h3>
+            <p>The buttons to call or text 988 and to call 911 open your phone's own Phone and Messages apps. Tidelight is not part of the call or the text.</p>
+            <p>Quick exit, and links to other services, open in your phone's browser. Those sites see a visit like any other website does.</p>
+            <h3>Location</h3>
+            <p>Tidelight reads where you are only when you ask it to. If you turn on Places that are hard for me, your phone itself watches for the places you chose.</p>
+            <p>Tidelight never sends your location anywhere. It goes in a text message only if you choose to put it there.</p>
+            <h3>Apple Health</h3>
+            <p>On an iPhone, and only if you turn on "Add meditations to Apple Health" in Settings: each meditation you finish is added to the Health app on this phone as mindful minutes. No check-ins, no moods, and nothing you write go there, and Tidelight reads nothing from Health.</p>
+            <p>Health is Apple's app. What is in it can go to your iCloud, and other apps you have allowed can read it.</p>
+            <h3>Who can see it on this phone</h3>
+            <p>Anyone who can unlock this phone can open the app, unless you turn on the app lock in Settings.</p>
+            <p>Check-in reminders you turn on are shown by the phone itself and say nothing about you.</p>
+            <h3>Your choices</h3>
+            <ul>
+              <li>Remove one thing at a time: a check-in from today, a journal entry, a Hope box item, a place, a person, or a meditation from your history.</li>
+              <li>Make a copy of your data, in Settings.</li>
+              <li>Delete everything, in Your journey. It removes what's saved on this phone. Your age group, your settings, and your saved meditations stay, so you aren't asked again.</li>
+              <li>Remove the app from your phone. That removes everything it saved on this phone.</li>
+            </ul>
+            <p>A copy in an earlier iCloud or Google backup can last until the phone's next backup.</p>
+            <h3>What this page can't tell you</h3>
+            <p>It doesn't cover what Apple, Google, your phone company, or the people you message do with what reaches them.</p>
           </div>
         </section>
 
@@ -863,6 +1156,28 @@
         <span data-word="export.age">Age group: {group}</span>
         <span data-word="export.home">Home spot: {latitude}, {longitude}</span>
         <span data-word="export.none">Nothing saved.</span>
+        <span data-word="health.denied">Health didn't allow it, so this stays off. You can change that in your phone's Settings, under Health.</span>
+        <span data-word="health.removed">Tidelight's entries were removed from Health.</span>
+        <span data-word="health.removeFailed">They couldn't be removed from here. You can remove them in the Health app.</span>
+        <span data-word="summary.title">A summary for my appointment</span>
+        <span data-word="summary.made">Made on {date}, from what I recorded in the Tidelight app over the last {days} days.</span>
+        <span data-word="summary.note">These are my own notes. They are not a medical record or a diagnosis.</span>
+        <span data-word="summary.ask">What I want to ask or say</span>
+        <span data-word="summary.none">Nothing recorded.</span>
+        <span data-word="summary.fileName">tidelight-summary.txt</span>
+        <span data-word="summary.done">The summary was handed to your phone to share. Tidelight keeps no record of where it went.</span>
+        <span data-word="summary.failed">The summary couldn't be made. Nothing left the app.</span>
+        <span data-word="helps.lead">On the {days} days you chose Good or Great, you also recorded:</span>
+        <span data-word="helps.item">{name}: {count} of {days} days</span>
+        <span data-word="helps.meditation">A meditation</span>
+        <span data-word="helps.journal">A journal entry</span>
+        <span data-word="plan.title">My safety plan</span>
+        <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
+        <span data-word="plan.saved">Saved on this phone.</span>
+        <span data-word="plan.removed">Removed.</span>
+        <span data-word="plan.remove">Remove</span>
+        <span data-word="plan.removeNamed">Remove: {text}</span>
+        <span data-word="plan.call">Call {name}</span>
         <span data-word="builder.minutes">{minutes} min</span>
         <span data-word="builder.title">{minutes}-min {situation} · {world}</span>
         <span data-word="builder.summary">{title}. {breaths}</span>

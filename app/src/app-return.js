@@ -14,6 +14,19 @@
     if (!afterExit) return;
     try { document.dispatchEvent(new Event('tidelight-back-from-exit')); } catch (e) { /* the page is shown; that is what matters */ }
   }
-  window.addEventListener('pageshow', show);
-  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') show(); });
+  // With the app lock on, the phone covers the app when it leaves the screen and keeps the cover
+  // until a page says it has drawn its lock screen (TidelightPlugin.swift, lockDrawn). Only the
+  // Daily check-in page has one. Every other page in the app is a website page with nothing saved
+  // on it, so it says "drawn" at once; otherwise the cover sat over the page, and the crisis
+  // services listed on it, for three seconds.
+  function liftCover() {
+    if (document.getElementById('tl-lock')) return;
+    try {
+      var phone = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Tidelight;
+      if (phone && phone.lockDrawn) Promise.resolve(phone.lockDrawn()).catch(function () { /* the cover lifts by itself after three seconds */ });
+    } catch (e) { /* the same */ }
+  }
+  function back() { show(); liftCover(); }
+  window.addEventListener('pageshow', back);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') back(); });
 }());

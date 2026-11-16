@@ -26,6 +26,9 @@ decides.
   which the website already uses on a phone held sideways) at those sizes; cap how far the strip's
   text grows; or let the strip scroll away at those sizes. Each changes how the strip looks, so
   none was done. Who decides: both founders, with the reviewer.
+  **Built one way on November 15, 2026, as a draft:** one founder chose the third option below, every word
+  kept with the strip's words held at 28 points. The short form was not used. The other founder and the
+  reviewer still decide; the questions are in [[CONTENT-REVIEW]], "Questions about the app's next features".
   **Looked at again on November 14, 2026, and still not done.** One founder asked for the short form.
   The short form leaves out "Need help now?" and "In immediate danger,", and the app's first safety
   rule (`app/CLAUDE.md`) says never to shorten crisis wording or the 911 banner. So it stays a
@@ -147,4 +150,15 @@ decides.
   language link, and the "Draft for review" mark take close to half the screen before a screen's
   own content starts. Shortening any of them is against a founder's safety rules, so it needs a
   decision from both founders and the reviewer, together with the strip's large-text question.
+- **The Support section at the very largest text on the smallest phone.** On a 320-point screen at
+  331% text, the Support section that sits below every screen (the website's own block, with the 988
+  panel) is 16 points wider than the screen. Its buttons stay on screen and full size. It is the
+  website's layout and reviewed markup, so it was left; found while testing the safety plan.
+- **The widget is iPhone only, iOS 17 and later,** and has never been seen on a Home Screen: only its
+  files and the app's side were checked. Android has none. It also needs its own entry in an Apple
+  Developer account (its identifier is the app's with `.widget` added) before the app can be signed
+  for a real phone. Who: a founder, with the account.
+- **The meditation voice needs a person.** The app is ready to play recordings and
+  [[VOICE-RECORDING-SHEET]] lists the 36 to make, but someone has to record them, after the
+  reviewer has approved the scripts, and agree in writing to their use. Who: the founders.
 

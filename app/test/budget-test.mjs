@@ -23,8 +23,12 @@ console.log('Sizes of what the phone loads');
 const files = walk(www);
 const assets = files.filter((f) => f.includes('/assets/'));
 const BUDGET = [
-  ['the app\'s own script (assets/app.js)', [join(www, 'assets', 'app.js')], 150],
-  ['every script the Daily check-in page loads', ['app.js', 'check-in.js', 'menu.js', 'app-return.js'].map((n) => join(www, 'assets', n)), 185],
+  // Raised on purpose on November 16, 2026, from 150 and 185: the script was at 149 KB when a founder
+  // asked for forty more features, and each screen adds 2 to 3 KB. "No single file over 300 KB" below
+  // is the hard stop: before the script reaches it, the newer screens move to a file of their own.
+  // notes/LAUNCH-READINESS.md has the reason.
+  ['the app\'s own script (assets/app.js)', [join(www, 'assets', 'app.js')], 260],
+  ['every script the Daily check-in page loads', ['app.js', 'check-in.js', 'menu.js', 'app-return.js'].map((n) => join(www, 'assets', n)), 295],
   ['every stylesheet', assets.filter((f) => extname(f) === '.css'), 175],
   ['the bundled font', assets.filter((f) => extname(f) === '.woff2'), 60],
   ['the whole app folder', files, 2100],
@@ -69,7 +73,7 @@ const browser = await openBrowser();
   await page.goto(base + pagePath('en'), { waitUntil: 'commit' });
   await page.waitForSelector('.crisis-bar a[href="tel:988"]', { state: 'visible', timeout: 5000 });
   const stripAt = Date.now() - started;
-  const early = await page.evaluate(() => ({ ready: document.documentElement.classList.contains('app-ready'), links: ['tel:988', 'sms:988', 'tel:911'].every((href) => { const a = document.querySelector(`.crisis-bar a[href="${href}"]`); return a && a.getBoundingClientRect().height >= 43.5; }), exit: Boolean(document.querySelector('.crisis-bar .quick-exit')) }));
+  const early = await page.evaluate(() => ({ ready: document.documentElement.classList.contains('app-ready'), links: ['tel:988', 'sms:988', 'tel:911'].every((href) => { const a = document.querySelector(`.crisis-bar a[href^="${href}"]`); return a && a.getBoundingClientRect().height >= 43.5; }), exit: Boolean(document.querySelector('.crisis-bar .quick-exit')) }));
   check(!early.ready && early.links && early.exit, `the crisis strip is on screen and usable (${stripAt} ms here) before the app's own script has arrived`);
   await page.waitForSelector('html.app-ready', { timeout: 8000 });
   await context.close();

@@ -1,0 +1,7 @@
+/* Las palabras del widget de Tidelight, en español. Una traducción de IA sin revisar: ninguna
+   persona hispanohablante la ha revisado. Se ven en la pantalla de inicio y en la pantalla de
+   bloqueo, así que no dicen nada sobre la persona, el ánimo ni una crisis. Borrador para revisión. */
+"widget.description" = "Una forma discreta de volver a Tidelight. No muestra nada sobre ti.";
+"widget.breathe.long" = "Un minuto para respirar";
+"widget.breathe" = "Respirar";
+"widget.plan" = "Mi plan";

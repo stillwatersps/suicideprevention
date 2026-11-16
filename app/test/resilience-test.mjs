@@ -12,7 +12,7 @@ const { base, close } = await serve();
 const browser = await openBrowser();
 
 // Every key the app keeps (src/core/storage.js), and the plain-text ones.
-const KEYS = ['tidelight.checkin.v1', 'tidelight.agegroup.v1', 'tidelight.textsize.v1', 'tidelight.log.v1', 'tidelight.reminders.v1', 'tidelight.places.v1', 'tidelight.hope.v1', 'tidelight.circle.v1',
+const KEYS = ['tidelight.plan.v1', 'tidelight.checkin.v1', 'tidelight.agegroup.v1', 'tidelight.textsize.v1', 'tidelight.log.v1', 'tidelight.reminders.v1', 'tidelight.places.v1', 'tidelight.hope.v1', 'tidelight.circle.v1',
   'tidelight.settings', 'tidelight.profile', 'tidelight.onboarding', 'tidelight.home', 'tidelight.days', 'tidelight.streak', 'tidelight.sessions', 'tidelight.presets', 'tidelight.language', 'tidelight.schema'];
 // Ways a stored value can be wrong: cut off mid-save, the wrong kind of thing, the right kind with
 // wrong things inside, nonsense, and enormous.
@@ -53,7 +53,7 @@ async function open(lang, { storage = {}, before = null, seed = true, prepare = 
 async function look(page) {
   return page.evaluate((technical) => {
     const shown = (sel) => { const el = document.querySelector(sel); if (!el) return false; for (let n = el; n && n.nodeType === 1; n = n.parentElement) { const cs = getComputedStyle(n); if (n.hidden || cs.display === 'none' || cs.visibility === 'hidden') return false; } return el.getBoundingClientRect().height > 20; };
-    const strip = ['a[href="tel:988"]', 'a[href="sms:988"]', 'a[href="tel:911"]', '.quick-exit'].every((sel) => { const el = document.querySelector('.crisis-bar ' + sel); return el && el.getBoundingClientRect().height >= 43.5; });
+    const strip = ['a[href="tel:988"]', 'a[href^="sms:988"]', 'a[href="tel:911"]', '.quick-exit'].every((sel) => { const el = document.querySelector('.crisis-bar ' + sel); return el && el.getBoundingClientRect().height >= 43.5; });
     const screen = ['#tl-home', '#tl-onboarding', '#tl-checkin', '#tl-flow', '#app-age'].some(shown) || Array.from(document.querySelectorAll('.ci-body .ci-panel, .ci-body .ci-step')).some((el) => el.offsetParent !== null && el.getBoundingClientRect().height > 60);
     const text = document.body.innerText;
     const words = text.replace(/\s+/g, ' ').trim().length;
@@ -185,6 +185,16 @@ console.log('\nYears of data');
   await context.close();
 }
 
+// ---------- a damaged check-in log doesn't cost the person the app ----------
+console.log('\nA damaged check-in log');
+for (const [how, value] of [['holes and numbers among the entries', '[null,7,"x",[],{"t":"not a date","kind":"quick","mood":5},{"kind":"quick","mood":4}]'], ['a record where the list belongs', '{"0":"x"}'], ['a sentence', '"not a list"']]) {
+  const { context, page, errors, ready } = await open('en', { storage: { 'tidelight.log.v1': value } });
+  await page.waitForTimeout(500);
+  const started = await page.evaluate(() => ({ tabs: document.querySelectorAll('#tl-tabbar .tl-tab').length, home: document.getElementById('tl-home').getClientRects().length > 0, newer: document.documentElement.classList.contains('tl') }));
+  check(ready && started.tabs === 5 && started.home && started.newer && errors.length === 0, `${how}: the app starts as usual, on Home with its five tabs, not in a fallback` + (errors.length ? ': ' + errors[0] : ''));
+  await context.close();
+}
+
 // ---------- if the app's own code fails to start ----------
 console.log('\nIf the app itself fails to start');
 for (const lang of ['en', 'es']) {
@@ -210,7 +220,7 @@ for (const lang of ['en', 'es']) {
       const ratio = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
       const strip = document.querySelector('.crisis-bar');
       const back = lum(getComputedStyle(strip).backgroundColor);
-      const parts = ['a[href="tel:988"]', 'a[href="sms:988"]', 'a[href="tel:911"]', 'p'].map((selector) => ratio(lum(getComputedStyle(strip.querySelector(selector)).color), back));
+      const parts = ['a[href="tel:988"]', 'a[href^="sms:988"]', 'a[href="tel:911"]', 'p'].map((selector) => ratio(lum(getComputedStyle(strip.querySelector(selector)).color), back));
       const exit = strip.querySelector('.quick-exit');
       parts.push(ratio(lum(getComputedStyle(exit).color), lum(getComputedStyle(exit).backgroundColor)));
       return parts.map((n) => Math.round(n * 10) / 10);

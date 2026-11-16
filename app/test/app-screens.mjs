@@ -56,6 +56,7 @@ export const SCREENS = [
     await page.click('.ci-finish');
   } },
   // Added November 14, 2026, at the end, so the screens above keep their numbers in the reviewer packet.
+  { id: 'privacy', name: 'Your privacy in Tidelight', go: async (page) => { await openSettings(page); await page.click('#tl-settings-privacy'); } },
   { id: 'licenses', name: 'Open-source licenses', go: async (page) => { await openSettings(page); await page.click('#tl-settings-licenses'); } },
   { id: 'locked', name: 'App lock, locked', go: async (page) => {
     // A pretend phone that confirms the person once (to turn the lock on), then no more.
@@ -77,6 +78,14 @@ export const SCREENS = [
     await openSettings(page);
     if (await page.isChecked('#tl-set-lock')) await page.click('#tl-set-lock');
   } },
+  // Added November 15, 2026, at the end, so the screens above keep their numbers.
+  { id: 'plan', name: 'My safety plan', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); } },
+  { id: 'helping', name: 'Helping someone you\'re worried about', go: async (page) => { await root(page, 'friends'); await page.click('#tl-friends-helping'); } },
+  { id: 'summary', name: 'A summary for an appointment', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-summary'); } },
+  { id: 'helps', name: 'What tends to help', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-helps'); } },
+  { id: 'ways', name: 'Other ways to reach someone', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); await page.click('#tl-plan [data-plan-part="pros"] [data-tl-push="ways"]'); } },
+  { id: 'ground', name: 'Grounding', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-ground'); } },
+  { id: 'expect', name: 'What happens when you reach out to 988', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); await page.click('#tl-plan [data-plan-part="pros"] [data-tl-push="expect"]'); } },
 ];
 
 // Visits every screen in order. `each(screen, page, problem)` is called once per screen, with

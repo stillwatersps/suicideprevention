@@ -1054,6 +1054,363 @@ For a fluent Spanish reader: "Bloquear la app", "Tidelight está bloqueada", "De
 "Crear una copia de mis datos", "Lugar de casa", and the sentences around them are an unreviewed AI
 translation. The license notices are left in English on purpose.
 
+## Questions about the app's next features
+
+Added from November 15, 2026, on `app/next-features`, at one founder's request, one feature at a time. **The other
+founder hasn't seen the list.** Every new line is in `app/src/text/` in both languages and is listed as added since
+the reviewer's snapshot, not as reviewed. The Spanish is an AI translation.
+
+### My safety plan
+
+A new screen, reached from the Check-in tab and, once something is written in it, from the support screen after a
+very low check-in. Six parts, with the names and order the Get Help page already gives, in the first person. The
+person types short lines; nothing is suggested and nothing is filled in for them. Please look at:
+
+- **Should the app offer a plan a person writes alone?** The research in [[AGE-STRATEGIES]] is for plans made with
+  a clinician, and found no clear benefit for teens from brief programs built around a plan. The screen says "A plan
+  helps most when you make it, or go over it, with someone: a doctor, a counselor, or an adult you trust. It does
+  not replace professional care." Is that enough, for adults and for minors? Should under-18s see something
+  different, or no plan at all?
+- **The six names and their one-line hints**, for example "6. Making my space safer: Things I can put out of
+  reach, or ask someone to hold for a while, so a hard moment is safer." No method is named anywhere. Is that
+  the right way to say it, and should the app say more or less?
+- **988 and 911 are built into part 5** as full-size buttons that can't be removed, above the person's own
+  professionals. The screen also says "You don't have to work through this list before asking for help." Is the
+  order right: should crisis lines come first on the screen instead of fifth?
+- **"Open my safety plan" on the support screen** after a very low check-in, under Call 988, Text 988, and Call
+  911, and only when the plan has something in it. Is offering the plan there helpful, or does it put a step
+  between the person and a call?
+- **A person in part 4 or 5 with a phone number gets a "Call {name}" button.** It dials their own contact. Fine?
+- **Reasons for living are not a seventh part.** The plan points to the Hope box instead. Should the plan hold them?
+- **Sharing the plan** goes through the same notice as every other share. Should the app encourage sharing it
+  with the person it was made with, as it does now in one line?
+- **A lawyer:** the plan may hold other people's names and phone numbers, and what a person writes about their
+  own warning signs. It is stored on the phone, is in the phone's backup, and is in "a copy of my data".
+
+### The crisis strip at the largest text sizes
+
+The app follows the phone's text size. At the top sizes the strip took most of the screen (86% of an iPhone 17's
+at the largest), which left almost no room for anything else. Pictures of three options were made on November 14
+([[LAUNCH-BACKLOG]]). On November 15 one founder chose the one that keeps every word: **the strip's own words stop
+growing at 28 points** (the phone's usual size is 17), and its tap targets at 56. Nothing changes below about
+twice the usual text size. The strip now takes about 27% of that screen in English and 32% in Spanish at every
+larger size. The short form ("Call 988 · Text 988 · Call 911") was not used, so no crisis wording is left out.
+
+- Is it right for the strip to be smaller than the text size the person chose, when everything else on the
+  screen follows it? A person who needs 53-point text reads the strip at 28.
+- On the smallest phones (320 points wide) the strip still takes about half the screen in English and two
+  thirds in Spanish at those sizes. Is that acceptable, or should those phones get something else?
+
+### "AYUDA" filled in for Spanish texts to 988
+
+988's Spanish instructions are to text the word AYUDA. Until now every Spanish text link opened an empty
+message, so a person in distress had to remember the word (asked about earlier in this note, under "The text
+links open a blank message"). In the phone app only, a Spanish link that says to text AYUDA now opens the
+phone's Messages with 988 as the recipient and AYUDA already typed. Nothing is sent: the person still taps
+Send. English links are unchanged, and so is the link that says PRIDE. The public website is unchanged.
+
+- Is filling in the word right, or could a person send it without meaning to start a conversation?
+- Should the other keywords the pages mention (PRIDE to 988, and the keywords for other services) be filled in
+  the same way, in the app and on the website?
+- **Not yet confirmed on a real phone.** In the iPhone Simulator the link opens a new message with AYUDA
+  typed, the same screen the plain link opens. Whether 988 shows as the recipient on a real iPhone and a real
+  Android phone is a step in `app/TESTING_CHECKLIST.md`. If it fails on either, this must come out before release.
+
+### "What happens when you reach out to 988", inside the app
+
+A new screen that shows the Get Help page's own section of that name, in each language, **word for word**. It
+is copied from that page when the app is built, and a test fails if one word differs, so there is nothing new
+to review in it: your answers about that section on the website apply here too. It is reached from the
+support screen after a very low check-in and from part 5 of the safety plan, both under the crisis buttons,
+and it has Call 988, Text 988, and Call 911 at its end.
+
+- The page folds most of the section under "Show more". The app's screen shows all of it, including what 988
+  keeps private and when emergency services get involved. Is showing all of it right for someone who has just
+  said they are very low, or should the screen lead with "If you call" and "If you text" only?
+- Is the support screen the right place to offer it, or does a third choice under Call 988 slow a person down?
+- **Back from this screen, and from the safety plan, now returns to the support screen** with Call 988 on it.
+  Before, it started a new check-in. Please confirm that is what you would expect.
+
+### Grounding
+
+A new screen with four short exercises, offered on the support screen after a very low check-in (under the
+crisis buttons) and on the Check-in tab. **This wording is new and was written by an AI assistant**, unlike
+the 988 screen. It asks for nothing and stores nothing. Call 988, Text 988, and Call 911 are at its end. The
+four, in full:
+
+- **5, 4, 3, 2, 1.** "Look around you and name, out loud or in your head: 5 things you can see, 4 things you can
+  touch, 3 things you can hear, 2 things you can smell, 1 thing you can taste."
+- **Something cold.** "Hold something cold, or run cold water over your hands, for about half a minute. Notice
+  how it feels."
+- **Feet on the floor.** "Press your feet into the floor. Feel the chair or the ground holding you up. Open
+  your hands and let your shoulders drop."
+- **A slower breath.** "Breathe out for a little longer than you breathe in." with a button to the silent
+  one-minute breathing circle the app already has.
+
+Questions:
+
+- Are these four safe and useful for someone who has just said they are very low, including a child or a
+  teen? Should any come out, or be worded differently?
+- "Something cold" stops at holding something cold or running water over the hands, on purpose. Is that the
+  right limit?
+- The screen says "These don't replace help from a person." Is that the right line, in the right place?
+- Does offering exercises on the support screen risk a person trying them instead of calling?
+- Spanish: the screen's name is "Volver al presente" ("come back to the present"), because Spanish has no
+  everyday word for "grounding". A fluent reader should choose.
+
+### The Home Screen and Lock Screen widget (iPhone)
+
+A small widget a person can add to their Home Screen or Lock Screen. A tap opens the app at a minute of
+breathing or at the safety plan. Because anyone can see a Home Screen, it follows the founder's rule for
+notifications: discreet. Its words, all of them, in English and Spanish:
+
+| Where | English | Spanish (AI translation) |
+| --- | --- | --- |
+| The widget picker's description | A quiet way back into Tidelight. It shows nothing about you. | Una forma discreta de volver a Tidelight. No muestra nada sobre ti. |
+| Small widget and Lock Screen | A minute to breathe | Un minuto para respirar |
+| Wider widget, first button | Breathe | Respirar |
+| Wider widget, second button | My plan | Mi plan |
+
+It also shows the app's name and a small leaf. It shows no mood, check-in, streak, or name, and it can read
+nothing the person saved. Questions:
+
+- Is "My plan" discreet enough for a Home Screen that a parent, partner, or classmate may see, or should the
+  widget offer only breathing?
+- Should a Lock Screen widget exist at all for this app? The app's name is on it.
+- Should the widget offer Call 988? It was left off, because a crisis number on a Home Screen is not discreet;
+  the app's own screens all have it.
+
+### "Other ways to reach someone", inside the app
+
+A second screen made the same way as the 988 screen: it shows the Get Help page's own section of that name
+(Spanish, Deaf or hard of hearing, other languages, the Veterans Crisis Line, LGBTQ+ youth through 988, The
+Trevor Project, Crisis Text Line, 911; in Spanish, SAMHSA's Spanish line too), **word for word and link for
+link**, copied when the app is built. A test fails if a word or a link differs, so your answers about that
+section on the website apply here. It is reached from the support screen after a very low check-in and from
+part 5 of the safety plan, both under the crisis buttons.
+
+- Is a list of eight services helpful on the support screen's path, or too much to read in a hard moment?
+  Should the app show only the services that fit the person's age group?
+- The English page's Spanish block ("En español") now has AYUDA filled in for its text link, like the
+  Spanish pages. English links are unchanged.
+
+### What tends to help
+
+A new screen on the Check-in tab. It looks at the last 30 days of the person's own quick check-ins and, for the
+days they chose Good or Great, lists what else they recorded on two or more of those days: a tag, a meditation,
+a journal entry. For example: "On the 4 days you chose Good or Great, you also recorded: Grateful: 3 of 4 days.
+A meditation: 2 of 4 days." It appears only after three such days. It is worked out on the phone each time and
+nothing new is stored.
+
+What it deliberately does not do: no score, no chart, no average, no trend; it never counts, lists, or mentions
+hard days; and it says "This only counts what you recorded. It can't tell what caused what." Earlier notes say
+the mood is "never shown as a score or a chart", and this keeps to that.
+
+- Is showing a person what was there on their better days helpful, or could it read as "you didn't do these
+  things, so you felt bad"?
+- Is "Good or Great" the right line for a better day? Should "Okay" count?
+- Three days and "two or more" are small numbers. Could a pattern from so few days mislead?
+- Should this be offered on the support screen after a very low check-in, as a reminder of what has helped? It
+  isn't, today.
+- The name "What tends to help" promises more than a count can show. Is there a more honest name?
+
+### When the phone can't save
+
+If the phone's storage is full or refuses a write, the app used to lose the check-in, the plan entry, or the
+journal entry without a word. It now shows one line, once, at the bottom of the screen above the tabs, never
+near the crisis strip: "Tidelight can't save on this phone right now. The phone may be out of space. What you
+enter stays on screen until the app closes." with a "Got it" button. A very low check-in still shows support at
+once; the line appears as well.
+
+- Is that the right thing to say to someone who has just checked in very low, and in the right place?
+- Should it say what to do (free up space on the phone), or is that too much in the moment?
+
+### A last line for the person who receives a shared message
+
+The share notice gains one optional choice, off until ticked and off again every time: "End with what they can
+do if they're worried". When ticked, this sentence is added as the last line of what is shared, and of a
+message to My circle. The box shows the exact words:
+
+> If you ever think I'm in immediate danger, call 911. You can also call or text 988, the Suicide & Crisis
+> Lifeline, about someone you're worried about.
+
+Spanish: "Si alguna vez crees que estoy en peligro inmediato, llama al 911. También puedes llamar o enviar un
+mensaje de texto al 988, la Línea de Prevención del Suicidio y Crisis, por alguien que te preocupa."
+
+It is drawn from the Help Someone page ("If you think they are in immediate danger, call 911"; "You can contact
+it about someone else, too"). **These words leave the phone and reach someone who did not choose this app**,
+so they matter more than most.
+
+- Is this the right thing to tell a friend, a parent, or a classmate, in one line? Should it say "stay with me"
+  or "ask me directly", as the Help Someone page does at more length?
+- It names the Suicide & Crisis Lifeline in a message that may be about an ordinary day. Could that alarm the
+  person receiving it, or expose the sender? Should it be offered only for some things, such as the safety plan?
+- Should it be on by default for the safety plan, or never on by default?
+- Spanish: it does not tell the receiver to press 2 or to text AYUDA, to keep to one line. Should it?
+- A lawyer: this is advice to a third party, sent in the sender's name.
+
+### "Helping someone you're worried about", inside the app
+
+A third screen made the same way as the 988 screen, on the Friends tab: it shows the Help Someone page's own
+opening (with its 911 line and its 988 call and text links) and its six sections (warning signs, the five
+steps, what helps in the conversation, a child or teen, a post online, looking after yourself), **word for
+word and link for link**, copied when the app is built. A test fails if a word or a link differs, so your
+answers about that page on the website apply here. Nothing on the screen was written for the app. On the
+page, parts of some sections fold under "more"; on this screen everything is open, because the app never
+folds words about urgent help.
+
+- The app is mainly for the person who is struggling. Is a screen for the person helping right inside it, on
+  the tab where they keep the people they trust? Could reading a list of warning signs about oneself do harm?
+- The warning signs include "Making a plan or researching ways to die". The page says it; so does this
+  screen. Is that line right for an app that minors use?
+- Should the row that opens it sit above "My circle" or below it? It is below.
+
+### A summary for an appointment
+
+A new screen on the Check-in tab. The person chooses how far back (14 or 30 days) and what goes on a short
+page: their check-ins (ticked to begin with), their journal entries, their safety plan, and one thing they
+want to ask or say. The screen shows every word of the page before anything is shared, and "Share this
+summary" hands it to the phone's share sheet as one text file. Nothing ticked or typed is kept, and opening
+the screen again starts over. The page lists records as they were recorded: nothing is counted, averaged,
+scored, or interpreted.
+
+The page begins: "A summary for my appointment", "Made on {date}, from what I recorded in the Tidelight app
+over the last {days} days.", "These are my own notes. They are not a medical record or a diagnosis."
+
+- Is a page like this useful to a clinician, or could a list of self-recorded check-ins mislead one? Should
+  it say anything more about what a check-in is?
+- Hard days are on the page as recorded, because the person is choosing to show their own record to someone
+  treating them. "What tends to help" never shows hard days. Is that difference right?
+- Check-ins are ticked to begin with; the journal and the safety plan are not. Should nothing be ticked?
+- Beside the button: "The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it
+  back. You choose where it goes." Is that enough for a page that may hold a safety plan?
+- A minor can make this page and send it to anyone. Should the screen say something about showing it to a
+  parent or guardian, or about who it is meant for?
+- A lawyer: the line "not a medical record or a diagnosis", and whether a page made for a clinician changes
+  what the app is.
+- Printing is not promised. On iPhone the share sheet usually offers Print for a text file; that has not
+  been seen on a real phone.
+
+### "Your privacy in Tidelight" (for a lawyer first)
+
+A new screen in Settings, under About: a plain description of what the app keeps and where it goes, in eight
+short parts (what stays on the phone; what the app doesn't do; when something leaves the phone; calls, texts,
+and links; location; who can see it on this phone; your choices; what the page can't tell you). It opens with:
+"This is not a privacy policy. It is a plain description of what the app does today, written by an AI
+assistant from the app's own code. No lawyer has written or read it. Tidelight does not have a privacy policy
+yet." Every word is in view; nothing folds. It was written from [[PRIVACY-INVENTORY]], and a test fails if
+the app stores something the screen doesn't cover.
+
+**It does not replace a privacy policy.** A real one is still a launch blocker ([[LAUNCH-BACKLOG]]).
+
+- A lawyer: may an app show a description like this before it has a policy? Does any sentence promise more
+  than the founders can keep, for example "Tidelight never receives what you enter, reads it, or analyzes it"
+  or "It has no code from another company that contacts anyone"?
+- A lawyer: the screen says nothing about children or about a parent's consent, on purpose. What must it say,
+  given the app is for adults and minors?
+- A lawyer: there is no way to contact anyone about privacy, because the project has no public address yet.
+- "Remove the app from your phone. That removes everything it saved on this phone." True on iPhone as far as
+  the code can show; not checked on a real phone or on Android.
+- The reviewer: does a person in distress need any of this said differently, for example that nobody at
+  Tidelight sees what they write, so the app is not a way to ask for help? (The check-in's own privacy note
+  says that; this screen does not repeat it.)
+- If Apple Health is added (feature 19), this screen must gain a part about it before that ships.
+
+### Shortcuts and Siri (iPhone)
+
+Two shortcuts, the same two places the widget opens: "A minute to breathe" and "My plan" (Spanish: "Un
+minuto para respirar", "Mi plan"). They appear in the phone's Shortcuts app and in search, and a person can
+say "Breathe with Tidelight" or "Open my plan in Tidelight" to Siri. Each only opens the app there, behind
+the app lock if it is on. They read nothing the person saved.
+
+- Their names can be seen by anyone holding the phone, and a Siri phrase is said out loud. They avoid mood,
+  crisis, and the word "safety", like the widget. Is "My plan" discreet enough, and is it clear enough to the
+  person who needs it?
+- Should there be a shortcut at all for the plan, given it is spoken aloud?
+
+### Apple Health (iPhone), a founder's choice to build
+
+A setting, off until turned on: "Add meditations to Apple Health". When on, each finished meditation is added
+to the phone's Health app as mindful minutes (when it started, how long it lasted). No check-in, mood, or
+word is ever added, and Tidelight asks for no access to read Health. A button removes the entries Tidelight
+added, and "Delete everything" removes them too. The setting isn't shown on a phone without Health.
+
+The setting's words: "When this is on, each meditation you finish is added to the Health app on this phone as
+mindful minutes: when it started and how long it lasted. Nothing else is added. No check-ins, no moods, and
+nothing you write." "Health is Apple's app, not Tidelight's. What is in it can go to your iCloud, and other
+apps you have allowed can read it. Tidelight reads nothing from Health." "Turning this off stops new entries.
+The ones already added stay in Health until you remove them here or in the Health app. Delete everything, in
+Your journey, removes them too."
+
+**This changes what "stays on this phone" means.** Until now, nothing the app recorded went anywhere unless
+the person shared it. With this on, a record that the person meditated, with the app's name on it, sits in
+Apple's Health store, where it can sync to iCloud and be read by other apps the person allowed. The privacy
+screen has a part about it.
+
+- The reviewer: could a record in Health that names this app expose a person, for example to a parent who
+  manages a child's phone or sees Health data through Family Sharing? Should minors be offered this at all?
+- A lawyer: Apple's rules for apps that use HealthKit (a privacy policy is required; health data may not be
+  used for advertising), and whether writing to Health changes the App Store privacy answers in
+  [[APP-STORE-PRIVACY-DRAFT]]. The app's purpose string is in `Info.plist` (`NSHealthUpdateUsageDescription`).
+- A founder: the app now has one entitlement (`com.apple.developer.healthkit`). A build for a real phone or
+  the App Store needs HealthKit turned on for the app's identifier in the developer account. No team or
+  signing identity was chosen.
+- Mood is deliberately not written to Health (Apple has a "State of Mind" record). Leave it that way?
+- The reviewed Delete everything wording doesn't mention Health; the Health setting's own words do. Is that
+  enough, or should the Delete everything note say it too? (That note is reviewed wording, so it was not
+  changed.)
+
+### The app on an iPad
+
+The app already ran on an iPad. On a wide screen its column sat left of the middle, out of line with the tab
+bar; it now sits in the middle at every size, upright and on its side. No word changed.
+
+**A fault found and fixed:** on an iPad on its side (and a large iPad upright) the crisis strip scrolled away
+with the page, because the website treats a screen that wide as a desktop. In the app the strip now stays
+pinned at every width, as the app's first rule says it must. On an iPad on its
+side the website's own layout puts Quick exit in a corner of the screen, over the end of the tab bar; it
+covers no tab, and it was left where the website puts it (a safety control is never moved).
+
+- A founder: is a single centered column right for an iPad, or should a later version use the width (two
+  columns, a side bar)? That is a design task of its own.
+
+### The Apple Watch app, a founder's choice to build
+
+A small app for Apple Watch (watchOS 10 and later) that comes with the iPhone app. Its first screen has "A
+minute to breathe" and, under "Need help now?", the same three lines as the phone app's support screen: "Call
+988", "Text 988", and "In immediate danger, call 911" (Spanish: the phone app's own Spanish for each, with
+AYUDA filled in for the text). The breathing minute is six silent breaths, four seconds in and six out, with a
+soft tap at each turn. It stores nothing, reads nothing from the phone app, has no notifications and no
+watch-face complication, and shows only the name "Tidelight" outside itself. It is marked "Draft for review".
+
+**It has been built, and has never run**: this computer has no watch Simulator and there is no watch. Nobody
+has seen its screens.
+
+- The reviewer: on a watch, does a tap on "Call 988" dial at once, with no "are you sure"? On an iPhone the
+  phone asks first. If the watch does not, a mis-tap on a small screen could place a call to a crisis line.
+  This must be tried on a real watch (by reading the screen, not by completing a call) before anyone uses it.
+- Does a watch without its own phone plan, away from its iPhone, fail quietly when someone taps "Call 988"?
+  What should the app say then?
+- "Text 988" on a watch, and AYUDA filled in for Spanish: neither has been seen. The same open question as
+  on the phone (the part about AYUDA, above).
+- The app's name shows on the watch among the person's other apps. Is that discreet enough on a wrist?
+- Should the breathing minute end with anything other than "Done"? It says nothing else, on purpose.
+- A founder: a watch app needs its own identifier in the developer account. No team or signing identity
+  was chosen.
+
+### Changes from the check on November 16, 2026
+
+- **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,
+  Apple Health, and location (`app/ios/App/App/es.lproj/InfoPlist.strings`). They are an AI translation of
+  the English reasons, using the app's own Spanish names for each setting.
+- The reviewer: on a short screen the crisis strip's words may now be set smaller than 28 points, never
+  under 18, so the strip does not fill the screen ([[DECISIONS]], November 16). Is 18 points acceptable for
+  someone who chose the phone's largest text, given that the alternative hides "call 911" below the fold?
+- The reviewer: a check-in reminder now shows as a banner while the app is open. For about five seconds it
+  covers "Need help now? Call 988 or text 988". Should reminders stay silent while the app is open instead?
+- "Setup complete" now waits for another day when the day has a very low check-in. No wording changed.
+- The map for choosing a place now opens below the crisis strip. No wording changed.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

@@ -37,8 +37,16 @@ async function afterChange() {
 
 function renderTimesEditor() {
   const list = $('#tl-set-times');
+  const times = effectiveTimes(state.settings);
+  // The same number of fields as before: only their values change, and never the one being edited.
+  // (Rebuilding them took the field away mid-edit, so the minutes could not be typed.)
+  const fields = Array.from(list.querySelectorAll('input'));
+  if (fields.length === times.length) {
+    fields.forEach((field, i) => { if (field !== document.activeElement && field.value !== times[i]) field.value = times[i]; });
+    return;
+  }
   list.textContent = '';
-  effectiveTimes(state.settings).forEach((time, i) => {
+  times.forEach((time, i) => {
     const item = el('li', 'tl-field');
     const id = 'tl-set-time-' + i;
     const label = el('label', '', t('set.timeLabel', { number: i + 1 }));

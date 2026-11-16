@@ -285,7 +285,7 @@ async function onboardingTests(browser, lang) {
   await page.click('#tl-flow-faces [data-value="1"]');
   await page.click('#tl-flow-done');
   check(await page.isVisible('#tl-flow-support'), 'a very low mood shows support options at once');
-  check(await page.isVisible('#tl-flow-support a[href="tel:988"]') && await page.isVisible('#tl-flow-support a[href="sms:988"]') && await page.isVisible('#tl-flow-support a[href="tel:911"]'), 'with Call 988, Text 988, and Call 911');
+  check(await page.isVisible('#tl-flow-support a[href="tel:988"]') && await page.isVisible('#tl-flow-support a[href^="sms:988"]') && await page.isVisible('#tl-flow-support a[href="tel:911"]'), 'with Call 988, Text 988, and Call 911');
   check(!(await page.isVisible('#tl-flow [data-flow="done"]')), 'instead of the usual thanks');
   check((await page.locator('#tl-flow-support').evaluate((el) => /streak|racha|🎉/i.test(el.textContent))) === false, 'no streak or celebration words near it');
   await page.waitForTimeout(2600);
@@ -479,7 +479,10 @@ async function streakTests(browser, lang) {
   check(await page.isVisible('#tl-streak') && (await page.textContent('#tl-streak-current')).trim() === '3' && (await page.textContent('#tl-streak-best')).trim() === '3', 'the streak screen shows now and best');
   const monthDays = await page.locator('#tl-streak-month .tl-day:not(.is-blank)').count();
   check(monthDays >= 28 && monthDays <= 31 && (await page.locator('#tl-streak-month .tl-day.is-complete').count()) >= 1, 'with this month as a calendar of days');
-  check((await page.locator('#tl-streak .tl-legend li').count()) === 4 && (await page.textContent('#tl-streak-freeze-line')).includes('1'), 'a legend in words, and the freezes held');
+  // One freeze is held from the start; a new week's freeze arrives on its Monday. So the number
+  // depends on the day this runs: the screen must say the number the phone holds, one or two.
+  const held = ((await stored(page, 'tidelight.streak')) || {}).freezesAvailable;
+  check((await page.locator('#tl-streak .tl-legend li').count()) === 4 && (held === 1 || held === 2) && (await page.textContent('#tl-streak-freeze-line')).includes(held + ' '), 'a legend in words, and the freezes held');
   check((await safetyFrame(page)).length === 0 && await page.isVisible('#tl-streak .tl-draft-tag'), 'the streak screen keeps the safety frame and is marked "Draft for review"');
   check(await noSideways(page), 'the streak screen fits');
   check((await page.textContent('#tl-streak-title')).trim().length > 0 && (await page.locator('#tl-streak .tl-panel p.tl-sub').count()) === 2, 'with its two lines that explain what counts and what a freeze does');
@@ -779,7 +782,7 @@ async function playerTests(browser, lang) {
   let { context, page, errors, outside } = await newPage(browser, lang, { hooks: { clockRate: 20 }, storage: { 'tidelight.settings': oneADay } });
   await startSample(page);
   check(!(await page.isVisible('#tl-tabbar')), 'the tab bar steps aside during a session');
-  check(await page.isVisible('.crisis-bar a[href="tel:988"]') && await page.isVisible('.crisis-bar a[href="sms:988"]') && await page.isVisible('.crisis-bar a[href="tel:911"]') && await page.isVisible('.crisis-bar .quick-exit'), 'Call 988, Text 988, Call 911, and Exit stay on screen over the player');
+  check(await page.isVisible('.crisis-bar a[href="tel:988"]') && await page.isVisible('.crisis-bar a[href^="sms:988"]') && await page.isVisible('.crisis-bar a[href="tel:911"]') && await page.isVisible('.crisis-bar .quick-exit'), 'Call 988, Text 988, Call 911, and Exit stay on screen over the player');
   check(await page.isVisible('#tl-stage .tl-player-support[href="#support"]') && await page.isVisible('#tl-stage a[href="#tl-review"]'), 'the stage carries Get Support Now and "Draft for review"');
   // The page glides to the stage; once it has settled, the stage sits below the strip.
   check(await page.waitForFunction(() => { const top = document.querySelector('.crisis-bar').getBoundingClientRect(); const stage = document.querySelector('#tl-stage').getBoundingClientRect(); return stage.top >= top.bottom - 1; }, null, { timeout: 2500 }).then(() => true, () => false), 'the stage starts under the crisis strip, not over it');
@@ -822,7 +825,7 @@ async function playerTests(browser, lang) {
   await startSample(page);
   await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 8000 });
   await page.click('#tl-complete-faces [data-value="1"]');
-  check(await page.isVisible('#tl-complete-support a[href="tel:988"]') && await page.isVisible('#tl-complete-support a[href="sms:988"]') && await page.isVisible('#tl-complete-support a[href="tel:911"]'), 'a very low mood after a session shows Call 988, Text 988, and Call 911 at once');
+  check(await page.isVisible('#tl-complete-support a[href="tel:988"]') && await page.isVisible('#tl-complete-support a[href^="sms:988"]') && await page.isVisible('#tl-complete-support a[href="tel:911"]'), 'a very low mood after a session shows Call 988, Text 988, and Call 911 at once');
   check(!(await page.isVisible('#tl-complete-body')), 'in place of "Well done"');
   await page.click('#tl-complete [data-player-done]');
   check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.join(' | ') : ''));

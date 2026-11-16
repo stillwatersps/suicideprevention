@@ -7,6 +7,8 @@ import { defaultSettings } from '../core/migrations.js';
 import { profileFor } from '../logic/style-profile.js';
 import { dateKey } from '../logic/streaks.js';
 import { isQuietDay } from '../logic/safety.js';
+import { emptyPlan, cleanPlan } from '../logic/plan.js';
+import { CONFIG } from '../core/config.js';
 
 export const state = {
   settings: defaultSettings(),
@@ -17,6 +19,7 @@ export const state = {
   streak: null,
   sessions: [],
   presets: [],
+  plan: emptyPlan(), // the safety plan (src/logic/plan.js)
 };
 
 const DEFAULTS = {
@@ -28,6 +31,7 @@ const DEFAULTS = {
   streak: () => null,
   sessions: () => [],
   presets: () => [],
+  plan: () => emptyPlan(),
 };
 const listeners = [];
 
@@ -36,6 +40,8 @@ function tell(what) { listeners.forEach((fn) => fn(what)); }
 
 export async function loadState() {
   for (const name of Object.keys(DEFAULTS)) state[name] = await store.get(KEYS[name], DEFAULTS[name]());
+  // The plan is read in a hard moment: whatever was stored, it comes back whole or empty, never broken.
+  state.plan = cleanPlan(state.plan, CONFIG.plan);
   applyStyle();
 }
 // save('settings', { checkInsPerDay: 4 }) lays the change over what's there; arrays and null replace.

@@ -2,7 +2,11 @@
    Safety frame: nothing here hides the crisis strip, Exit, "Get Support Now", the Spanish link,
    the "Draft for review" notices, the privacy notice, Support, or the 988 panel. */
 
-html.tl { --bg: var(--tl-bg); scroll-padding-bottom: calc(var(--tl-tabbar) + var(--tl-space-lg)); }
+html.tl { --bg: var(--tl-bg); scroll-padding-bottom: calc(min(var(--tl-tabbar), var(--cap-tabbar)) + var(--tl-space-lg)); }
+/* Something scrolled to (Get Support Now goes to Support) lands just under the crisis strip, however
+   tall the strip is. The website allows a fixed 7 or 12 lines of text for it, which at the phone's
+   largest text is more than a small screen is tall, so the thing scrolled to landed off the screen. */
+html.tl { scroll-padding-top: calc(var(--tl-top, var(--strip-room)) + var(--tl-space-sm)); }
 html.tl body { padding-bottom: calc(var(--tl-tabbar) + env(safe-area-inset-bottom, 0)); }
 html.tl-full body { padding-bottom: 0; }
 /* On iPhone, follow the phone's text size setting. */
@@ -14,6 +18,9 @@ html.tl-full body { padding-bottom: 0; }
 html.tl .page-hero-inner > :not(.lang-switch) { display: none; }
 html.tl .page-hero { padding-top: var(--tl-space-xs); padding-bottom: var(--tl-space-xs); }
 html.tl .ci-body { padding-top: var(--tl-space-md); }
+/* On a wide screen (an iPad, most of all on its side) the website keeps its pages to the left. In
+   the app the column sits in the middle instead, in line with the tab bar under it. */
+html.tl .page-body.ci-body { margin-left: auto; margin-right: auto; }
 html.app:not(.app-ready) .tl-app,
 html.app:not(.app-ready) .tl-tabbar { visibility: hidden; }
 html:not(.tl) .tl-app,
@@ -153,6 +160,8 @@ html.tl .tl-stepper .tl-icon-btn { width: var(--tl-tap-lg); height: var(--tl-tap
 .tl-input:focus { border-color: var(--tl-primary); }
 .tl-switch { display: flex; align-items: center; justify-content: space-between; gap: var(--tl-space-md); min-height: var(--tl-tap); }
 .tl-switch input { width: var(--tl-icon); height: var(--tl-icon); flex: none; accent-color: var(--tl-primary); }
+/* A long label wraps, even mid-word at the largest text, so the switch itself never leaves the screen. */
+.tl-switch > span { min-width: 0; overflow-wrap: anywhere; }
 .tl-status { margin: 0; color: var(--tl-text-secondary); font-size: var(--tl-font-label); }
 .tl-section-title { margin: var(--tl-space-md) 0 0; font-family: var(--tl-font); font-size: var(--tl-font-label); letter-spacing: 0.04em; text-transform: uppercase; color: var(--tl-text-secondary); font-weight: var(--tl-weight-strong); }
 
@@ -390,6 +399,10 @@ html.tl .tl-ob-top .tl-btn { min-width: var(--tl-tap); padding-left: var(--tl-sp
 .tl-grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--tl-col)), 1fr)); }
 .tl-grid-2 > *, .tl-grid-3 > *, .tl-panel, .tl-panel > *, .tl-field { min-width: 0; }
 .tl-input { min-width: 0; max-width: 100%; box-sizing: border-box; }
+/* On an iPhone a time or date field keeps the phone's own width unless its native look is turned
+   off, and two of them side by side ran past the edge of their panel. */
+.tl-input[type="time"], .tl-input[type="date"] { -webkit-appearance: none; appearance: none; }
+.tl-input::-webkit-date-and-time-value { min-width: 0; text-align: start; }
 .tl-times-edit { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--tl-col)), 1fr)); }
 .tl-streak-line { flex-wrap: wrap; }
 html.tl .tl-card { min-width: 0; }
@@ -424,3 +437,94 @@ html.tl-locked .tl-screen,
 html.tl-locked .tl-tabbar,
 html.tl-locked #app-share-panel,
 html.tl-locked #app-age { display: none !important; }
+
+/* The safety plan: each entry is a line of the person's own words, with what can be done to it
+   beside it or, when there isn't room, under it. */
+.tl-plan-list { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0; padding: 0; list-style: none; }
+.tl-plan-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tl-space-sm); padding: var(--tl-space-sm) 0; border-top: var(--tl-border) solid var(--tl-line); }
+.tl-plan-text { flex: 1 1 50%; min-width: 0; overflow-wrap: anywhere; }
+.tl-plan-part .tl-row { flex-wrap: wrap; min-width: 0; max-width: 100%; }
+/* At the phone's largest text a button's words wrap inside it instead of pushing it off the side. */
+html.tl .tl-plan-part .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+.tl-plan-part .tl-row .tl-input { flex: 1 1 50%; min-width: 0; }
+
+/* "What happens when you reach out to 988": the Get Help page's own words, on a screen of the app. */
+.tl-expect-body { display: grid; gap: var(--tl-space-sm); }
+.tl-expect-body h3 { margin: var(--tl-space-md) 0 0; }
+.tl-expect-body p { margin: 0; overflow-wrap: anywhere; }
+.tl-support-more { margin: var(--tl-space-md) 0 0; }
+
+/* Call 988, Text 988, and Call 911 as a list of buttons (the support screens, the safety plan, the
+   988 screen). At the phone's largest text on a small phone, a button's words wrap inside it; the
+   button is never pushed off the side of the screen. */
+.tl-support-actions { grid-template-columns: minmax(0, 1fr); }
+html.tl .tl-support-actions .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+
+/* Grounding: a few short exercises, each in its own panel. */
+.tl-ground-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--tl-space-xs); }
+.tl-ground-steps li { padding: var(--tl-space-xs) 0; border-top: var(--tl-border) solid var(--tl-line); overflow-wrap: anywhere; }
+html.tl .tl-ground-part .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+
+/* "Other ways to reach someone": the Get Help page's own list of services, on a screen of the app.
+   The page's own styles draw it; these keep every link a full-size target that wraps its words. */
+.tl-ways-body { display: grid; gap: var(--tl-space-sm); }
+.tl-ways-body p { margin: 0; overflow-wrap: anywhere; }
+.tl-ways-body .service-list { margin: 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
+.tl-ways-body .service { min-width: 0; }
+.tl-ways-body .pill { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tl-tap); min-width: var(--tl-tap); max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+
+/* "What tends to help": a plain list of what was also recorded on better days. */
+.tl-helps-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); }
+.tl-helps-item { padding: var(--tl-space-sm) 0; border-top: var(--tl-border) solid var(--tl-line); overflow-wrap: anywhere; }
+
+/* "Tidelight can't save on this phone right now": one line at the bottom of the screen, above the
+   tab bar (or at the very bottom when the tab bar steps aside). The page grows by its height while
+   it shows, so whatever is under it can always be scrolled into view. Never near the crisis strip. */
+.tl-save-note {
+  position: fixed; left: var(--tl-space-sm); right: var(--tl-space-sm); z-index: 49;
+  /* The tab bar stops growing at the largest text sizes (--cap-tabbar), so the line follows it. */
+  bottom: calc(min(var(--tl-tabbar), var(--cap-tabbar)) + env(safe-area-inset-bottom, 0px) + var(--tl-space-sm));
+  display: grid; gap: var(--tl-space-sm); justify-items: start;
+  /* Never taller than half the screen, and never taller than the room between the crisis strip
+     and the tab bar: past that it scrolls within itself, so it can't reach up under the strip. */
+  max-height: min(var(--note-max), calc(100vh - var(--tl-top, 7rem) - min(var(--tl-tabbar), var(--cap-tabbar)) - env(safe-area-inset-bottom, 0px) - var(--tl-space-md)));
+  overflow-y: auto;
+  padding: var(--tl-space-md); border: var(--tl-border-strong) solid var(--tl-primary); border-radius: var(--tl-radius-lg);
+  background: var(--tl-surface); color: var(--tl-text-primary);
+}
+.tl-save-note[hidden] { display: none; }
+.tl-save-note p { margin: 0; overflow-wrap: anywhere; }
+.tl-save-note { grid-template-columns: minmax(0, 1fr); }
+html.tl .tl-save-note .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+html.tl-full .tl-save-note { bottom: calc(env(safe-area-inset-bottom, 0px) + var(--tl-space-sm)); }
+html.tl.tl-save-noted body { padding-bottom: calc(min(var(--tl-tabbar), var(--cap-tabbar)) + env(safe-area-inset-bottom, 0) + var(--tl-save-note) + var(--tl-space-md)); }
+/* Where there isn't room for it between the crisis strip and the tab bar (the largest text on a
+   small phone), the line takes its place in the page instead, at the top of the app's own part,
+   and scrolls with it. It is never laid over the strip. */
+.tl-save-note.tl-save-note-inline { position: static; max-height: none; margin: var(--tl-space-sm); }
+html:not(.tl) .tl-save-note { position: static; margin: var(--tl-space-md); }
+
+/* "Helping someone you're worried about": the Help Someone page's own words, on a screen of the app. */
+.tl-helping-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-sm); }
+.tl-helping-body > * { min-width: 0; }
+.tl-helping-body h3 { margin: var(--tl-space-lg) 0 0; }
+.tl-helping-body h4 { margin: var(--tl-space-sm) 0 0; }
+.tl-helping-body p, .tl-helping-body li { overflow-wrap: anywhere; }
+.tl-helping-body p { margin: 0; }
+/* Its plain lists keep their marks, as on the page, so one sign reads apart from the next. */
+.tl-helping-body ul { margin: 0; padding: 0 0 0 var(--tl-space-lg); list-style: disc; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-xs); }
+.tl-helping-body .steps h4 { margin: 0; }
+
+/* "A summary for an appointment": the choices, and every word of the page as it would be shared. */
+.tl-summary-choices { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-md); }
+textarea.tl-input { width: 100%; resize: vertical; font: inherit; }
+.tl-summary-preview { white-space: pre-wrap; overflow-wrap: anywhere; padding: var(--tl-space-md); border: var(--tl-border) solid var(--tl-line); border-radius: var(--tl-radius-md); background: var(--tl-surface); }
+
+/* "Your privacy in Tidelight": plain paragraphs, every one in view; nothing here folds. */
+.tl-privacy-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-sm); }
+.tl-privacy-body > * { min-width: 0; }
+.tl-privacy-body h3 { margin: var(--tl-space-lg) 0 0; }
+.tl-privacy-body p { margin: 0; overflow-wrap: anywhere; }
+.tl-privacy-body ul { margin: 0; padding: 0 0 0 var(--tl-space-lg); list-style: disc; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-xs); }
+.tl-privacy-body li { overflow-wrap: anywhere; }
+

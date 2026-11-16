@@ -73,6 +73,89 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1i. Faults fixed on November 16, 2026 (seen in the Simulator only)
+
+- [ ] Reminders on, app open: "Send a test notification" shows a banner within a few seconds.
+- [ ] Tap a check-in reminder with the app closed, and again with it open: the Check-in tab opens.
+- [ ] Places: open a saved place, change only its name, save. Its pin has not moved.
+- [ ] The map for a place opens below the crisis strip; Call 988, Text 988, Call 911, and Quick exit can be
+      tapped while it is open (stop at the dial or compose screen). Cancel and Save both close it.
+- [ ] VoiceOver names the map with words, not "mapLabel".
+- [ ] App lock on: leave the app from Get help and come back. The page shows at once.
+- [ ] Settings: three check-in times fit inside their panel, and each can be changed with the phone's picker.
+- [ ] Phone set to Spanish: the Face ID, Health, and location questions are in Spanish.
+- [ ] Phone set to Spanish, app language Spanish: the widget's "My plan" opens the plan.
+- [ ] A small phone at the largest text, in Spanish: the whole crisis strip is on screen without scrolling.
+
+## 1h. The iPad layout and the Apple Watch app (added November 15, 2026; neither seen on a real device)
+
+iPad:
+- [ ] Upright and on its side: the app's column is in the middle, in line with the tab bar, on every tab.
+- [ ] On its side: Quick exit is in a corner of the screen and covers no tab; it still leaves at once.
+- [ ] The share sheet and "a copy of my data" open as a popover and can be closed.
+
+Apple Watch (the app has never run; check everything):
+- [ ] The app installs with the iPhone app and is named only "Tidelight".
+- [ ] Its first screen shows "A minute to breathe" and, under "Need help now?", Call 988, Text 988, and
+      "In immediate danger, call 911", without scrolling far, and "Draft for review".
+- [ ] **Tap "Call 988" and read the screen. Does the watch ask before dialing, or dial at once? Stop before
+      the call connects.** The same for 911. Write down what happens: it decides whether this can ship.
+- [ ] Text 988: the watch's Messages opens with 988 as the recipient. In Spanish, AYUDA is filled in. Do not send.
+- [ ] A watch away from its iPhone and without its own plan: what does a tap on Call 988 do?
+- [ ] The breathing minute: silent, a soft tap at each turn, six breaths, then "Done". Nothing is kept.
+- [ ] With Reduce Motion on, the circle fades instead of growing.
+- [ ] In Spanish, every word is Spanish.
+
+## 1g. Shortcuts and Apple Health (iPhone only; not seen on a real phone)
+
+Seen in the Simulator on November 15, 2026: the Health sheet, one entry written and removed, and both
+shortcuts in the Shortcuts app. Everything below still needs a real phone.
+
+- [ ] Shortcuts app: Tidelight shows "A minute to breathe" and "My plan". Each opens the app at that place.
+      With the app lock on, the plan is behind the lock, and a breathing minute does not start behind it.
+- [ ] Siri: "Breathe with Tidelight" and "Open my plan in Tidelight" do the same. In Spanish too.
+- [ ] Settings in the app: "Add meditations to Apple Health" is off. Turning it on shows the phone's own
+      Health sheet, asking only to write Mindful Minutes, with nothing to read.
+- [ ] Finish a meditation: the Health app shows it under Mindfulness, from Tidelight, with the right start
+      and length. A check-in adds nothing to Health.
+- [ ] "Remove Tidelight's entries from Health" empties them; so does Delete everything.
+- [ ] Say no on the Health sheet: the switch goes back off and the app says why.
+- [ ] An iPad without the Health app: the setting isn't shown.
+
+## 1f. The widget (added November 15, 2026; iPhone, iOS 17 or later)
+
+Never seen on a Home Screen: in the Simulator the app's addresses were tried, but the widget could not be
+placed by the automated taps. Please do this by hand.
+
+- [ ] Touch and hold the Home Screen, tap Edit, Add Widget, and find Tidelight. *Expected:* a small widget
+  (a leaf, "Tidelight", "A minute to breathe") and a wider one ("Breathe" and "My plan"). Nothing on
+  either says anything about you.
+- [ ] Add the small one and tap it. *Expected:* Tidelight opens on the one-minute breathing circle, with
+  the crisis strip above it.
+- [ ] Add the wider one and tap "My plan". *Expected:* Tidelight opens on the safety plan.
+- [ ] Turn on the app lock (Settings), leave the app, tap each widget. *Expected:* the lock screen first;
+  no breathing starts behind it, and the plan shows only after Face ID.
+- [ ] Add the Lock Screen widget (touch and hold the Lock Screen, Customize). *Expected:* a leaf, or
+  "Tidelight / A minute to breathe". Decide whether you want the app's name on a Lock Screen at all.
+- [ ] Set the phone to Spanish. *Expected:* "Un minuto para respirar", "Respirar", "Mi plan".
+
+## 1e. Texting 988 in Spanish (added November 15, 2026). Do this on an iPhone AND an Android phone
+
+- [ ] In Spanish, tap "envía AYUDA al 988" in the strip. *Expected:* Messages opens on a new message,
+  **To: 988**, with **AYUDA** typed and not sent. **Do not tap Send.** Close the message.
+- [ ] The same from "Texto al 988" in the Support panel and "Enviar AYUDA al 988" on a support screen.
+- [ ] In English, tap "text 988". *Expected:* a new message to 988 with nothing typed.
+- [ ] If the recipient is anything other than 988 on either phone, tell Claude: the filled-in word must
+  come out (`fillInAyuda` in `app/tools/build-redesign.mjs`) before anyone uses the app.
+
+## 1d. The crisis strip at the largest text (added November 15, 2026)
+
+- [ ] Settings, Accessibility, Display & Text Size, Larger Text: turn on Larger Accessibility Sizes and
+  drag to the largest. Open Tidelight. *Expected:* the strip shows every word ("Need help now? Call 988
+  or text 988. In immediate danger, call 911." and Exit), takes about a third of the screen, and Get
+  Support Now is on screen under it. The strip's words are smaller than the rest of the screen's.
+- [ ] Tap Call 988, text 988, and call 911 there, as far as the dial or compose screen, then cancel.
+
 ## 1c. The tab bar on the website's pages (added November 12, 2026)
 
 - [ ] Open the menu and choose Get Help. *Expected:* the page opens with the same five tabs at the
