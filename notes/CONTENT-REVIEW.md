@@ -1214,6 +1214,17 @@ the mood is "never shown as a score or a chart", and this keeps to that.
   isn't, today.
 - The name "What tends to help" promises more than a count can show. Is there a more honest name?
 
+### When the phone can't save
+
+If the phone's storage is full or refuses a write, the app used to lose the check-in, the plan entry, or the
+journal entry without a word. It now shows one line, once, at the bottom of the screen above the tabs, never
+near the crisis strip: "Tidelight can't save on this phone right now. The phone may be out of space. What you
+enter stays on screen until the app closes." with a "Got it" button. A very low check-in still shows support at
+once; the line appears as well.
+
+- Is that the right thing to say to someone who has just checked in very low, and in the right place?
+- Should it say what to do (free up space on the phone), or is that too much in the moment?
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

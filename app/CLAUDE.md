@@ -158,6 +158,18 @@ each covers and what only a real phone can show.
   this order the screen the person left shows for a moment. A timer lifts the cover anyway after
   a few seconds: the app must never stay covered.
 
+## When the phone can't save (November 15, 2026, a draft)
+
+- **Every write to the phone reports a failure** by calling `saveFailed()` from `src/core/save-note.js`
+  (the storage layer in `src/core/device-storage.js`, and the Hope box layer's own `save` in
+  `src/extras.js`). A new place that writes must do the same. What failed is never recorded.
+- **`src/ui/save-note.js` shows one line, once,** until "Got it". It sits at the bottom, above the tab
+  bar, and the page grows by its height; where there is no room between the crisis strip and the tab
+  bar it sits in the page instead. It is never laid over the strip. `test/save-test.mjs` checks it.
+- **Things scrolled to land just under the crisis strip** (`scroll-padding-top` follows `--tl-top`, the
+  strip's measured height). The website's fixed allowance was taller than a small screen at the largest
+  text, so Support landed off the screen after Get Support Now. `test/strip-test.mjs` checks every size.
+
 ## "What tends to help" (November 15, 2026, a draft)
 
 - **Rule in `src/logic/helps.js`, screen in `src/ui/helps.js`, numbers in `CONFIG.helps`.** It looks only

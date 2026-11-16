@@ -4,6 +4,7 @@ import { Preferences } from '@capacitor/preferences';
 import { Capacitor } from '@capacitor/core';
 import { createStore } from './storage.js';
 import { MIGRATIONS } from './migrations.js';
+import { saveFailed } from './save-note.js';
 
 const native = Capacitor.isNativePlatform();
 
@@ -13,8 +14,9 @@ export const deviceBackend = {
     try { return window.localStorage.getItem(key); } catch (e) { return null; }
   },
   async set(key, value) {
-    if (native) return Preferences.set({ key, value });
-    try { window.localStorage.setItem(key, value); } catch (e) { /* storage blocked: nothing kept */ }
+    // A write that fails is reported (the person is told, once), then handled as it was before.
+    if (native) { try { return await Preferences.set({ key, value }); } catch (e) { saveFailed(); throw e; } }
+    try { window.localStorage.setItem(key, value); } catch (e) { saveFailed(); /* storage blocked: nothing kept */ }
     return undefined;
   },
   async remove(key) {

@@ -18,6 +18,7 @@ import { initLock, isLocked } from './ui/lock.js';
 import { Tidelight } from './native.js';
 import { initPlan, renderPlan } from './ui/plan.js';
 import { initHelps } from './ui/helps.js';
+import { initSaveNote } from './ui/save-note.js';
 import { keepNamesHonest } from './ui/components.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
 import { loadState, state, clear } from './ui/state.js';
@@ -42,6 +43,7 @@ export async function initRedesign(context) {
       location.href = other.getAttribute('href');
     });
   }
+  initSaveNote();
   await loadState();
   // The app lock, if the person turned it on, covers the screens before any of them is filled in.
   await initLock();

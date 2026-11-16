@@ -163,6 +163,8 @@ export function initShell() {
   const measure = () => { if (strip) root.style.setProperty('--tl-top', strip.offsetHeight + 'px'); };
   measure();
   window.addEventListener('resize', measure);
+  // The strip's height also changes with the phone's text size and with the language.
+  if (window.ResizeObserver && strip) new ResizeObserver(measure).observe(strip);
   buildTabBar();
   adoptLegacy();
   relocate('.app-places', '#tl-location-slot');

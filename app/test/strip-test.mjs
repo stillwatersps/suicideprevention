@@ -65,6 +65,13 @@ for (const lang of ['en', 'es']) {
       check(m.controls.length === 4 && small.length === 0, `${what}: Quick exit, Call 988, Text 988, and Call 911 are each at least 44 points, on screen, and uncovered` + (small.length ? ': ' + small.map((c) => c.href).join(', ') : ''));
       check(m.share <= most && !m.sideways, `${what}: the strip takes ${Math.round(m.share)}% of the screen (at most ${most}%)`);
       if (viewport.height > 800) check(m.ctaTop !== null && m.ctaTop < viewport.height - 80, `${what}: Get Support Now is on screen under the strip, without scrolling`);
+      // Get Support Now goes to Support, which must land on screen, just under the strip. (The website
+      // allows the strip a fixed number of text lines; at the largest text that is more than a small
+      // screen is tall, and Support used to land off the screen.)
+      await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; location.hash = ''; document.querySelector('.header-cta').click(); });
+      await page.waitForTimeout(350);
+      const landed = await page.evaluate(() => { const strip = document.querySelector('.crisis-bar').getBoundingClientRect(); const support = document.getElementById('support').getBoundingClientRect(); const bar = document.getElementById('tl-tabbar').getBoundingClientRect(); return { top: support.top, strip: strip.bottom, bar: bar.top }; });
+      check(landed.top >= landed.strip - 1 && landed.top < landed.bar - 20, `${what}: Get Support Now brings Support onto the screen, just under the strip`);
     }
     // The older layout (what a person sees if the newer screens fail to start) is held the same way.
     await page.evaluate(() => { document.documentElement.classList.remove('tl'); document.documentElement.style.fontSize = '331%'; });

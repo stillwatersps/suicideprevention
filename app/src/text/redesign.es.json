@@ -442,6 +442,7 @@
   "On the {days} days you chose Good or Great, you also recorded:": "En los {days} días en que elegiste Bien o Muy bien, también registraste:",
   "{name}: {count} of {days} days": "{name}: {count} de {days} días",
   "A meditation": "Una meditación",
-  "A journal entry": "Una entrada de diario"
+  "A journal entry": "Una entrada de diario",
+  "Tidelight can't save on this phone right now. The phone may be out of space. What you enter stays on screen until the app closes.": "Tidelight no puede guardar en este teléfono en este momento. Puede que el teléfono no tenga espacio. Lo que escribas se queda en pantalla hasta que se cierre la app."
  }
 }

@@ -48,6 +48,10 @@
   --crisis-size: 0.9rem;
   --crisis-size-cap: 28px;
   --crisis-tap-cap: 56px;
+  /* The most of the screen a note laid over the page may take: half. It scrolls within itself past that. */
+  --note-max: 50vh;
+  /* Room allowed for the crisis strip before the app has measured it (the website's own figure). */
+  --strip-room: 7rem;
   /* Mood tones. None of them reads as "bad". Used as swatches and tints, never behind text. */
   --mood-1: #8DB7C6;         /* calm water */
   --mood-2: #A6C8B4;         /* steady */

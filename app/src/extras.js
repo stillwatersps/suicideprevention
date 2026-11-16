@@ -5,6 +5,7 @@
 //   those people and the words filled in; the person taps Send. Tidelight receives nothing.
 // Every word shown is in app/src/text/extras.*.html.
 import { Preferences } from '@capacitor/preferences';
+import { saveFailed } from './core/save-note.js';
 import { Capacitor } from '@capacitor/core';
 import { Tidelight } from './native.js';
 import { smsLink, preview, fitInside } from './extras-logic.js';
@@ -27,8 +28,10 @@ async function load(key) {
   try { return window.localStorage.getItem(key); } catch (e) { return null; }
 }
 async function save(key, value) {
-  if (native) return Preferences.set({ key, value });
-  try { window.localStorage.setItem(key, value); } catch (e) { /* storage blocked: nothing kept */ }
+  // A write that fails is reported (the person is told, once), then handled as it was before.
+  if (native) { try { return await Preferences.set({ key, value }); } catch (e) { saveFailed(); throw e; } }
+  try { window.localStorage.setItem(key, value); } catch (e) { saveFailed(); /* storage blocked: nothing kept */ }
+  return undefined;
 }
 async function loadJson(key, fallback) {
   try { const value = JSON.parse((await load(key)) || 'null'); return value === null ? fallback : value; } catch (e) { return fallback; }

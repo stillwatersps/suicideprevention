@@ -2,7 +2,11 @@
    Safety frame: nothing here hides the crisis strip, Exit, "Get Support Now", the Spanish link,
    the "Draft for review" notices, the privacy notice, Support, or the 988 panel. */
 
-html.tl { --bg: var(--tl-bg); scroll-padding-bottom: calc(var(--tl-tabbar) + var(--tl-space-lg)); }
+html.tl { --bg: var(--tl-bg); scroll-padding-bottom: calc(min(var(--tl-tabbar), var(--cap-tabbar)) + var(--tl-space-lg)); }
+/* Something scrolled to (Get Support Now goes to Support) lands just under the crisis strip, however
+   tall the strip is. The website allows a fixed 7 or 12 lines of text for it, which at the phone's
+   largest text is more than a small screen is tall, so the thing scrolled to landed off the screen. */
+html.tl { scroll-padding-top: calc(var(--tl-top, var(--strip-room)) + var(--tl-space-sm)); }
 html.tl body { padding-bottom: calc(var(--tl-tabbar) + env(safe-area-inset-bottom, 0)); }
 html.tl-full body { padding-bottom: 0; }
 /* On iPhone, follow the phone's text size setting. */
@@ -463,4 +467,31 @@ html.tl .tl-ground-part .tl-btn { max-width: 100%; white-space: normal; overflow
 /* "What tends to help": a plain list of what was also recorded on better days. */
 .tl-helps-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); }
 .tl-helps-item { padding: var(--tl-space-sm) 0; border-top: var(--tl-border) solid var(--tl-line); overflow-wrap: anywhere; }
+
+/* "Tidelight can't save on this phone right now": one line at the bottom of the screen, above the
+   tab bar (or at the very bottom when the tab bar steps aside). The page grows by its height while
+   it shows, so whatever is under it can always be scrolled into view. Never near the crisis strip. */
+.tl-save-note {
+  position: fixed; left: var(--tl-space-sm); right: var(--tl-space-sm); z-index: 49;
+  /* The tab bar stops growing at the largest text sizes (--cap-tabbar), so the line follows it. */
+  bottom: calc(min(var(--tl-tabbar), var(--cap-tabbar)) + env(safe-area-inset-bottom, 0px) + var(--tl-space-sm));
+  display: grid; gap: var(--tl-space-sm); justify-items: start;
+  /* Never taller than half the screen, and never taller than the room between the crisis strip
+     and the tab bar: past that it scrolls within itself, so it can't reach up under the strip. */
+  max-height: min(var(--note-max), calc(100vh - var(--tl-top, 7rem) - min(var(--tl-tabbar), var(--cap-tabbar)) - env(safe-area-inset-bottom, 0px) - var(--tl-space-md)));
+  overflow-y: auto;
+  padding: var(--tl-space-md); border: var(--tl-border-strong) solid var(--tl-primary); border-radius: var(--tl-radius-lg);
+  background: var(--tl-surface); color: var(--tl-text-primary);
+}
+.tl-save-note[hidden] { display: none; }
+.tl-save-note p { margin: 0; overflow-wrap: anywhere; }
+.tl-save-note { grid-template-columns: minmax(0, 1fr); }
+html.tl .tl-save-note .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+html.tl-full .tl-save-note { bottom: calc(env(safe-area-inset-bottom, 0px) + var(--tl-space-sm)); }
+html.tl.tl-save-noted body { padding-bottom: calc(min(var(--tl-tabbar), var(--cap-tabbar)) + env(safe-area-inset-bottom, 0) + var(--tl-save-note) + var(--tl-space-md)); }
+/* Where there isn't room for it between the crisis strip and the tab bar (the largest text on a
+   small phone), the line takes its place in the page instead, at the top of the app's own part,
+   and scrolls with it. It is never laid over the strip. */
+.tl-save-note.tl-save-note-inline { position: static; max-height: none; margin: var(--tl-space-sm); }
+html:not(.tl) .tl-save-note { position: static; margin: var(--tl-space-md); }
 
