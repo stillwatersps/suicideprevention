@@ -250,6 +250,8 @@ function start() {
       if (!text) { box.focus(); return; }
       if (!circle.people.length) return;
       if ($('#app-share-intro').checked) text = $('.app-share-intro-text').textContent.trim() + '\n\n' + text;
+      const worry = $('#app-share-worry');
+      if (worry && worry.checked) text = text + '\n\n' + $('.app-share-worry-text').textContent.trim();
       const link = smsLink(circle.people.map((p) => p.phone), text, Capacitor.getPlatform());
       circle.log.push({ when: Date.now(), preview: preview(text) });
       circle.log = circle.log.slice(-MAX_LOG);

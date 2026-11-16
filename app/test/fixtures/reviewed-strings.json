@@ -2054,12 +2054,16 @@
  },
  "addedSince": {
   "en.html": [
+   "End with what they can do if they're worried: \"If you ever think I'm in immediate danger, call 911. You can also call or text 988, the Suicide & Crisis Lifeline, about someone you're worried about.\"",
+   "If you ever think I'm in immediate danger, call 911. You can also call or text 988, the Suicide & Crisis Lifeline, about someone you're worried about.",
    "Remove",
    "Removed. The day stays marked on your calendar."
   ],
   "es.html": [
    "Quitado. El día sigue marcado en tu calendario.",
-   "Quitar"
+   "Quitar",
+   "Si alguna vez crees que estoy en peligro inmediato, llama al 911. También puedes llamar o enviar un mensaje de texto al 988, la Línea de Prevención del Suicidio y Crisis, por alguien que te preocupa.",
+   "Terminar con lo que puede hacer si se preocupa: \"Si alguna vez crees que estoy en peligro inmediato, llama al 911. También puedes llamar o enviar un mensaje de texto al 988, la Línea de Prevención del Suicidio y Crisis, por alguien que te preocupa.\""
   ],
   "redesign.en.html": [
    "1 thing you can taste",

@@ -1225,6 +1225,30 @@ once; the line appears as well.
 - Is that the right thing to say to someone who has just checked in very low, and in the right place?
 - Should it say what to do (free up space on the phone), or is that too much in the moment?
 
+### A last line for the person who receives a shared message
+
+The share notice gains one optional choice, off until ticked and off again every time: "End with what they can
+do if they're worried". When ticked, this sentence is added as the last line of what is shared, and of a
+message to My circle. The box shows the exact words:
+
+> If you ever think I'm in immediate danger, call 911. You can also call or text 988, the Suicide & Crisis
+> Lifeline, about someone you're worried about.
+
+Spanish: "Si alguna vez crees que estoy en peligro inmediato, llama al 911. También puedes llamar o enviar un
+mensaje de texto al 988, la Línea de Prevención del Suicidio y Crisis, por alguien que te preocupa."
+
+It is drawn from the Help Someone page ("If you think they are in immediate danger, call 911"; "You can contact
+it about someone else, too"). **These words leave the phone and reach someone who did not choose this app**,
+so they matter more than most.
+
+- Is this the right thing to tell a friend, a parent, or a classmate, in one line? Should it say "stay with me"
+  or "ask me directly", as the Help Someone page does at more length?
+- It names the Suicide & Crisis Lifeline in a message that may be about an ordinary day. Could that alarm the
+  person receiving it, or expose the sender? Should it be offered only for some things, such as the safety plan?
+- Should it be on by default for the safety plan, or never on by default?
+- Spanish: it does not tell the receiver to press 2 or to text AYUDA, to keep to one line. Should it?
+- A lawyer: this is advice to a third party, sent in the sender's name.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

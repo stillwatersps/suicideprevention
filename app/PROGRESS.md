@@ -1,8 +1,8 @@
 # Tidelight Build Progress
-Last updated: 2026-11-15 (next features, feature 13)
+Last updated: 2026-11-15 (next features, feature 15)
 Current branch: app/next-features (cut from app/privacy-package, the top of the app's stack on November 15)
 Current phase: Next features: a founder's list of twenty, built one at a time with a full check after each
-Current step: Next features: features 1 to 13 done (7, 11, and 12 were already built; so was 14). Next: feature 15, a note for the person who receives a shared message: what to do if they are worried, added to what is shared (new wording that leaves the phone, so the reviewer's questions matter most here).
+Current step: Next features: features 1 to 15 done (7, 11, 12, and 14 were already built). Next: feature 16, "For the person helping": the Help Someone page's own steps shown inside the app, copied at build time like the 988 screen, reached from Friends.
 
 ## Next features — in progress
 One founder asked Claude for twenty features that would make the app better (November 15, 2026), then asked for all of them, **one at a time, with a thorough check after each before the next**. The other founder hasn't seen the list. Each feature is its own commit on `app/next-features`. The check after each: `npm test` in `app/` (every suite), the four root checks, and, when native code changed, a build and a look in the iOS Simulator (muted). New wording is marked "Draft for review", is in both languages, and has its questions in `notes/CONTENT-REVIEW.md`, "Questions about the app's next features".
@@ -23,7 +23,7 @@ Already built by other sessions before this list was started, so not built again
 - [x] 12 — A copy of my data (already built, pull request 31)
 - [x] 13 — When the phone can't save, the app says so: one line, once, above the tab bar and never near the crisis strip, with "Got it"; every write reports a failure (`src/core/save-note.js`). `test/save-test.mjs` (41 checks). **A fault found and fixed:** at the largest text on a small phone, anything scrolled to, such as Support after Get Support Now, landed off the screen, because the website's fixed allowance for the strip was taller than the screen; it now follows the strip's real height, and `test/strip-test.mjs` checks every size (136 checks)
 - [x] 14 — Meditation history by month (already built, pull request 30)
-- [ ] 15 — A note for the person who receives a shared message
+- [x] 15 — An optional last line for the person who receives a shared message: a box in the share notice, off until ticked and off again each time, that shows the exact sentence it adds (911 for immediate danger; 988 about someone you're worried about). Added to what is shared and to a message to My circle. `test/share-note-test.mjs` (26 checks). These words reach people who did not choose the app, so the reviewer's and a lawyer's questions matter most here
 - [ ] 16 — "For the person helping"
 - [ ] 17 — A one-page summary for an appointment
 - [ ] 18 — A privacy screen (licenses already built; the policy itself is a lawyer's)

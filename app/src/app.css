@@ -80,6 +80,7 @@ html.app-large-text .app-text-large-off { display: none; }
 
 .app-share-panel textarea { width: 100%; font: inherit; }
 .app-share-intro-text,
+.app-share-worry-text,
 .app-share-feeling-text { display: none; }
 .app-share-copied { font-weight: 600; }
 

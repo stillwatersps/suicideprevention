@@ -172,12 +172,15 @@ function start() {
   const panel = $('#app-share-panel');
   const shareText = $('#app-share-text');
   const intro = $('#app-share-intro');
+  // An optional last line for the person who receives it: what they can do if they are worried.
+  const worry = $('#app-share-worry');
   const copied = $('.app-share-copied');
   let returnTo = null;
   function openShare(text, from) {
     returnTo = from;
     shareText.value = text;
     intro.checked = false;
+    if (worry) worry.checked = false; // never added unless the person asks, each time
     copied.classList.add('ci-off');
     panel.classList.remove('ci-off');
     panel.scrollIntoView({ block: 'start' });
@@ -211,6 +214,7 @@ function start() {
     let text = shareText.value.trim();
     if (!text) { shareText.focus(); return; }
     if (intro.checked) text = $('.app-share-intro-text').textContent.trim() + '\n\n' + text;
+    if (worry && worry.checked) text = text + '\n\n' + $('.app-share-worry-text').textContent.trim();
     try {
       if (native) await Share.share({ text });
       else if (navigator.share) await navigator.share({ text });
