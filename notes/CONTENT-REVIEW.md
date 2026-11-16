@@ -1316,6 +1316,50 @@ the app stores something the screen doesn't cover.
   says that; this screen does not repeat it.)
 - If Apple Health is added (feature 19), this screen must gain a part about it before that ships.
 
+### Shortcuts and Siri (iPhone)
+
+Two shortcuts, the same two places the widget opens: "A minute to breathe" and "My plan" (Spanish: "Un
+minuto para respirar", "Mi plan"). They appear in the phone's Shortcuts app and in search, and a person can
+say "Breathe with Tidelight" or "Open my plan in Tidelight" to Siri. Each only opens the app there, behind
+the app lock if it is on. They read nothing the person saved.
+
+- Their names can be seen by anyone holding the phone, and a Siri phrase is said out loud. They avoid mood,
+  crisis, and the word "safety", like the widget. Is "My plan" discreet enough, and is it clear enough to the
+  person who needs it?
+- Should there be a shortcut at all for the plan, given it is spoken aloud?
+
+### Apple Health (iPhone), a founder's choice to build
+
+A setting, off until turned on: "Add meditations to Apple Health". When on, each finished meditation is added
+to the phone's Health app as mindful minutes (when it started, how long it lasted). No check-in, mood, or
+word is ever added, and Tidelight asks for no access to read Health. A button removes the entries Tidelight
+added, and "Delete everything" removes them too. The setting isn't shown on a phone without Health.
+
+The setting's words: "When this is on, each meditation you finish is added to the Health app on this phone as
+mindful minutes: when it started and how long it lasted. Nothing else is added. No check-ins, no moods, and
+nothing you write." "Health is Apple's app, not Tidelight's. What is in it can go to your iCloud, and other
+apps you have allowed can read it. Tidelight reads nothing from Health." "Turning this off stops new entries.
+The ones already added stay in Health until you remove them here or in the Health app. Delete everything, in
+Your journey, removes them too."
+
+**This changes what "stays on this phone" means.** Until now, nothing the app recorded went anywhere unless
+the person shared it. With this on, a record that the person meditated, with the app's name on it, sits in
+Apple's Health store, where it can sync to iCloud and be read by other apps the person allowed. The privacy
+screen has a part about it.
+
+- The reviewer: could a record in Health that names this app expose a person, for example to a parent who
+  manages a child's phone or sees Health data through Family Sharing? Should minors be offered this at all?
+- A lawyer: Apple's rules for apps that use HealthKit (a privacy policy is required; health data may not be
+  used for advertising), and whether writing to Health changes the App Store privacy answers in
+  [[APP-STORE-PRIVACY-DRAFT]]. The app's purpose string is in `Info.plist` (`NSHealthUpdateUsageDescription`).
+- A founder: the app now has one entitlement (`com.apple.developer.healthkit`). A build for a real phone or
+  the App Store needs HealthKit turned on for the app's identifier in the developer account. No team or
+  signing identity was chosen.
+- Mood is deliberately not written to Health (Apple has a "State of Mind" record). Leave it that way?
+- The reviewed Delete everything wording doesn't mention Health; the Health setting's own words do. Is that
+  enough, or should the Delete everything note say it too? (That note is reviewed wording, so it was not
+  changed.)
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

@@ -41,6 +41,10 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         CAPPluginMethod(name: "setLock", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "lockDrawn", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "shareFile", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "healthStatus", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "healthAsk", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "healthWrite", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "healthRemoveAll", returnType: CAPPluginReturnPromise),
     ]
 
     private var launchTarget: String?
@@ -89,6 +93,9 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         // Opened from the widget, through the app's own address (tidelight://open/...).
         center.addObserver(self, selector: #selector(openedByAddress(_:)), name: .capacitorOpenURL, object: nil)
         if let url = ApplicationDelegateProxy.shared.lastURL { open(address: url) }
+        // Opened by a shortcut (the Shortcuts app or Siri), which names the same two places.
+        center.addObserver(self, selector: #selector(openedByShortcut(_:)), name: .tidelightShortcut, object: nil)
+        if let word = TidelightShortcuts.pending { open(place: word) }
     }
 
     // MARK: - Opened from the widget
@@ -104,7 +111,19 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
     }
 
     private func open(address url: URL) {
-        guard url.scheme == "tidelight", url.host == "open", let hash = TidelightPlugin.openTargets[url.lastPathComponent] else { return }
+        guard url.scheme == "tidelight", url.host == "open" else { return }
+        open(place: url.lastPathComponent)
+    }
+
+    @objc private func openedByShortcut(_ notification: Notification) {
+        guard let word = notification.object as? String else { return }
+        open(place: word)
+    }
+
+    // One word, from the widget's address or from a shortcut. A word this doesn't know does nothing.
+    private func open(place word: String) {
+        TidelightShortcuts.pending = nil
+        guard let hash = TidelightPlugin.openTargets[word] else { return }
         goToCheckIn(hash: hash)
     }
 
@@ -396,6 +415,34 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
                 popover.permittedArrowDirections = []
             }
             host.present(sheet, animated: true)
+        }
+    }
+
+    // MARK: - Apple Health (only if the person turns it on)
+
+    @objc func healthStatus(_ call: CAPPluginCall) {
+        call.resolve(["status": TidelightHealth.shared.status()])
+    }
+
+    @objc func healthAsk(_ call: CAPPluginCall) {
+        TidelightHealth.shared.ask { status in call.resolve(["status": status]) }
+    }
+
+    // One finished meditation: when it started and how many seconds it lasted. Nothing else.
+    @objc func healthWrite(_ call: CAPPluginCall) {
+        guard let started = call.getDouble("startedAt"), let seconds = call.getDouble("seconds"), seconds > 0, seconds <= 4 * 60 * 60 else {
+            call.resolve(["saved": false])
+            return
+        }
+        let start = Date(timeIntervalSince1970: started / 1000)
+        TidelightHealth.shared.write(start: start, end: start.addingTimeInterval(seconds)) { saved in
+            call.resolve(["saved": saved])
+        }
+    }
+
+    @objc func healthRemoveAll(_ call: CAPPluginCall) {
+        TidelightHealth.shared.removeAll { removed, count in
+            call.resolve(["removed": removed, "count": count])
         }
     }
 

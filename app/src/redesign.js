@@ -19,6 +19,7 @@ import { Tidelight } from './native.js';
 import { initPlan, renderPlan } from './ui/plan.js';
 import { initHelps } from './ui/helps.js';
 import { initSummary } from './ui/summary.js';
+import { initHealth, addMindfulMinutes } from './ui/health.js';
 import { initSaveNote } from './ui/save-note.js';
 import { keepNamesHonest } from './ui/components.js';
 import { replace, isQuiet, goQuiet } from './ui/state.js';
@@ -76,10 +77,13 @@ export async function initRedesign(context) {
   initPlan(shell, ctx);
   initHelps(shell, ctx);
   initSummary(shell, ctx);
+  initHealth(shell);
   // The meditation player: a finished session (60% or more) counts toward today and the setup list.
   ctx.isQuiet = isQuiet;
   ctx.goQuiet = goQuiet;
-  ctx.onMeditationDone = async () => { await addMeditationToStreak(); refresh(); };
+  // A finished meditation counts toward today, and, only if the person turned that on, is added
+  // to Apple Health as mindful minutes.
+  ctx.onMeditationDone = async (entry) => { await addMeditationToStreak(); addMindfulMinutes(entry); refresh(); };
   ctx.onPlayerClosed = refresh;
   ctx.saveFavorite = async (source) => {
     const name = source.name || source.type;

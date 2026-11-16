@@ -701,6 +701,14 @@
             <p class="tl-sub">The lock uses this phone's own passcode. Someone who knows that passcode can still open the app.</p>
             <p class="tl-status" id="tl-set-lock-note" role="status" hidden></p>
           </div>
+          <div class="tl-panel" id="tl-set-health-box" hidden>
+            <label class="tl-switch"><span>Add meditations to Apple Health</span><input type="checkbox" id="tl-set-health"></label>
+            <p class="tl-sub">When this is on, each meditation you finish is added to the Health app on this phone as mindful minutes: when it started and how long it lasted. Nothing else is added. No check-ins, no moods, and nothing you write.</p>
+            <p class="tl-sub">Health is Apple's app, not Tidelight's. What is in it can go to your iCloud, and other apps you have allowed can read it. Tidelight reads nothing from Health.</p>
+            <p class="tl-sub">Turning this off stops new entries. The ones already added stay in Health until you remove them here or in the Health app. Delete everything, in Your journey, removes them too.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-health-remove">Remove Tidelight's entries from Health</button>
+            <p class="tl-status" id="tl-set-health-note" role="status" hidden></p>
+          </div>
           <div class="tl-panel" id="tl-set-export-box">
             <span class="tl-label">A copy of your data</span>
             <p class="tl-sub">Makes one text file with what Tidelight has saved on this phone: your check-ins, journal, reflections, Hope box words, people, places, and meditation history. Photos are not in the file.</p>
@@ -961,6 +969,9 @@
             <h3>Location</h3>
             <p>Tidelight reads where you are only when you ask it to. If you turn on Places that are hard for me, your phone itself watches for the places you chose.</p>
             <p>Tidelight never sends your location anywhere. It goes in a text message only if you choose to put it there.</p>
+            <h3>Apple Health</h3>
+            <p>On an iPhone, and only if you turn on "Add meditations to Apple Health" in Settings: each meditation you finish is added to the Health app on this phone as mindful minutes. No check-ins, no moods, and nothing you write go there, and Tidelight reads nothing from Health.</p>
+            <p>Health is Apple's app. What is in it can go to your iCloud, and other apps you have allowed can read it.</p>
             <h3>Who can see it on this phone</h3>
             <p>Anyone who can unlock this phone can open the app, unless you turn on the app lock in Settings.</p>
             <p>Check-in reminders you turn on are shown by the phone itself and say nothing about you.</p>
@@ -1144,6 +1155,9 @@
         <span data-word="export.age">Age group: {group}</span>
         <span data-word="export.home">Home spot: {latitude}, {longitude}</span>
         <span data-word="export.none">Nothing saved.</span>
+        <span data-word="health.denied">Health didn't allow it, so this stays off. You can change that in your phone's Settings, under Health.</span>
+        <span data-word="health.removed">Tidelight's entries were removed from Health.</span>
+        <span data-word="health.removeFailed">They couldn't be removed from here. You can remove them in the Health app.</span>
         <span data-word="summary.title">A summary for my appointment</span>
         <span data-word="summary.made">Made on {date}, from what I recorded in the Tidelight app over the last {days} days.</span>
         <span data-word="summary.note">These are my own notes. They are not a medical record or a diagnosis.</span>

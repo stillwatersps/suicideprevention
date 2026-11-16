@@ -646,7 +646,7 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good evening  
+> Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
 > Any time you like  
@@ -747,7 +747,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 28 screens, about 689 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 28 screens, about 692 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -900,7 +900,7 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good evening  
+> Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
 > Any time you like  
@@ -1190,9 +1190,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 9:56 PM: feeling: Good.  
+> Before bed, 10:59 PM: feeling: Good.  
 > Remove  
-> Before bed, 9:57 PM: feeling: Okay.  
+> Before bed, 10:59 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1462,6 +1462,9 @@ Picture: `app/design/after-launch-pass/reviewer/38-privacy.png`
 > Location  
 > Tidelight reads where you are only when you ask it to. If you turn on Places that are hard for me, your phone itself watches for the places you chose.  
 > Tidelight never sends your location anywhere. It goes in a text message only if you choose to put it there.  
+> Apple Health  
+> On an iPhone, and only if you turn on "Add meditations to Apple Health" in Settings: each meditation you finish is added to the Health app on this phone as mindful minutes. No check-ins, no moods, and nothing you write go there, and Tidelight reads nothing from Health.  
+> Health is Apple's app. What is in it can go to your iCloud, and other apps you have allowed can read it.  
 > Who can see it on this phone  
 > Anyone who can unlock this phone can open the app, unless you turn on the app lock in Settings.  
 > Check-in reminders you turn on are shown by the phone itself and say nothing about you.  
@@ -1628,10 +1631,10 @@ Picture: `app/design/after-launch-pass/reviewer/43-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Sunday, November 15  
-> - Before bed, 9:56 PM: feeling: Good.  
-> - Before bed, 9:57 PM: feeling: Okay.  
-> - Before bed, 9:57 PM: feeling: Very low.  
-> - Before bed, 9:57 PM: feeling: Sad.  
+> - Before bed, 10:59 PM: feeling: Good.  
+> - Before bed, 10:59 PM: feeling: Okay.  
+> - Before bed, 11:00 PM: feeling: Very low.  
+> - Before bed, 11:00 PM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

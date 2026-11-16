@@ -86,6 +86,8 @@ export const CONFIG = deepFreeze({
   // A summary for an appointment: how far back it may look, and how much the person may type on it.
   // The screen's own words and its field say these numbers; change both together.
   summary: { days: [14, 30], maxAsk: 300 },
+  // Apple Health: a finished meditation shorter than this is not added as mindful minutes.
+  health: { minSeconds: 60 },
   // The safety plan: a short list, so each part stays short enough to read in a hard moment.
   plan: { maxItems: 8, maxLength: 120 },
 });

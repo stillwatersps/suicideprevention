@@ -197,6 +197,22 @@ each covers and what only a real phone can show.
   nothing happens during first-time setup. Any other address just opens the app.
   `test/open-test.mjs` checks the page's side.
 
+## Shortcuts and Apple Health (November 15, 2026, a draft; iPhone only)
+
+- **Shortcuts** (`ios/App/App/TidelightShortcuts.swift`): two App Intents, "A minute to breathe" and
+  "My plan", which only open the app at the widget's two places through the same launch target.
+  Their names and Siri phrases are in `en.lproj` and `es.lproj` and are as discreet as the widget's
+  words. They take nothing typed and read nothing saved.
+- **Apple Health** (`TidelightHealth.swift`, `src/ui/health.js`, `settings.health`, off by default):
+  the app may add **mindful minutes only** (a start and an end), and may remove what it added.
+  **Never a mood, a check-in, or a word, and never any read access.** The setting is hidden where the
+  phone has no Health. "Delete everything" removes the entries too. `test/unit/shortcuts-health.test.mjs`
+  reads the Swift for all of this; `test/health-test.mjs` checks the page with a stand-in.
+- New files join the Xcode project through `tools/add-shortcuts-health.rb`, never by hand. No team or
+  signing identity is set. The one entitlement is `com.apple.developer.healthkit` in `App.entitlements`.
+- A change to what goes to Health changes the privacy screen, `notes/PRIVACY-INVENTORY.md`, and
+  `notes/APP-STORE-PRIVACY-DRAFT.md` together.
+
 ## "Your privacy in Tidelight" (November 15, 2026, a draft)
 
 - **`#tl-privacy` describes what the app does; it is not a privacy policy and says so first.** Its

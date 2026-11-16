@@ -51,6 +51,12 @@ lawyer reads Apple's definition differently, or a future version adds a server.
 4. **Third-party SDKs' own declarations.** Apple expects the label to cover SDKs too. The app's
    only SDK is Capacitor and three of its plugins; none sends data anywhere.
 
+5. **Apple Health (added on `app/next-features`, November 15, 2026).** If the person turns it on, the app
+   writes mindful minutes to the phone's Health store and reads nothing. The data goes to Apple's store on
+   the device, not to the developer, so the draft answer above is unchanged; a lawyer should confirm. Apple
+   has its own rules for apps that use HealthKit, including a privacy policy and limits on how health data
+   may be used. The app has the HealthKit entitlement and `NSHealthUpdateUsageDescription`.
+
 ## What Apple also requires around this (not answered here)
 
 - **A privacy policy URL.** Required for every app, even with "Data Not Collected". None exists

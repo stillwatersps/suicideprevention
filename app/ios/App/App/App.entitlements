@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Apple Health: only to add mindful minutes when the person turns that on in Settings.
+	     A draft, for a founder and a lawyer to confirm before any App Store submission. -->
+	<key>com.apple.developer.healthkit</key>
+	<true/>
+</dict>
+</plist>

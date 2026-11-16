@@ -62,6 +62,14 @@ test('it names every way something leaves the phone', () => {
   }
 });
 
+test('it says what goes to Apple Health, and that nothing is read from it', () => {
+  const text = textOf(en);
+  assert.match(text, /only if you turn on "Add meditations to Apple Health" in Settings/);
+  assert.match(text, /mindful minutes/);
+  assert.match(text, /No check-ins, no moods, and nothing you write go there, and Tidelight reads nothing from Health\./);
+  assert.match(text, /can go to your iCloud, and other apps you have allowed can read it/);
+});
+
 test('it claims nothing the code can\'t back up', () => {
   for (const html of [en, es]) {
     assert.doesNotMatch(textOf(html), /encrypt|cifrad|HIPAA|COPPA|GDPR|anonym|anónim|guarantee|garantiz|100%|secure|segura?\b(?! de)|confidential|confidencial/i);

@@ -73,6 +73,22 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1g. Shortcuts and Apple Health (iPhone only; not seen on a real phone)
+
+Seen in the Simulator on November 15, 2026: the Health sheet, one entry written and removed, and both
+shortcuts in the Shortcuts app. Everything below still needs a real phone.
+
+- [ ] Shortcuts app: Tidelight shows "A minute to breathe" and "My plan". Each opens the app at that place.
+      With the app lock on, the plan is behind the lock, and a breathing minute does not start behind it.
+- [ ] Siri: "Breathe with Tidelight" and "Open my plan in Tidelight" do the same. In Spanish too.
+- [ ] Settings in the app: "Add meditations to Apple Health" is off. Turning it on shows the phone's own
+      Health sheet, asking only to write Mindful Minutes, with nothing to read.
+- [ ] Finish a meditation: the Health app shows it under Mindfulness, from Tidelight, with the right start
+      and length. A check-in adds nothing to Health.
+- [ ] "Remove Tidelight's entries from Health" empties them; so does Delete everything.
+- [ ] Say no on the Health sheet: the switch goes back off and the app says why.
+- [ ] An iPad without the Health app: the setting isn't shown.
+
 ## 1f. The widget (added November 15, 2026; iPhone, iOS 17 or later)
 
 Never seen on a Home Screen: in the Simulator the app's addresses were tried, but the widget could not be

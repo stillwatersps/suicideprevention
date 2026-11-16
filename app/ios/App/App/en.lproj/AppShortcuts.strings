@@ -1,0 +1,5 @@
+/* What a person can say to Siri, or find in search, for the two shortcuts. Draft for review. */
+"A minute to breathe with ${applicationName}" = "A minute to breathe with ${applicationName}";
+"Breathe with ${applicationName}" = "Breathe with ${applicationName}";
+"Open my plan in ${applicationName}" = "Open my plan in ${applicationName}";
+"My plan in ${applicationName}" = "My plan in ${applicationName}";

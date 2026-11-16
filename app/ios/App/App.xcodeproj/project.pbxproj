@@ -15,6 +15,8 @@
 		504EC30F1FED79650016851F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 504EC30E1FED79650016851F /* Assets.xcassets */; };
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
+		57049C7FCC7FE83194E6B12E /* TidelightShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2423FA816E93F701FB3C0C /* TidelightShortcuts.swift */; };
+		70F2EE98FE6223EDE68300D5 /* AppShortcuts.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2966709438EA2AB8D9FD557C /* AppShortcuts.strings */; };
 		7A1D00010000000000000000 /* TidelightPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01010000000000000000 /* TidelightPlugin.swift */; };
 		7A1D00020000000000000000 /* PlaceWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01020000000000000000 /* PlaceWatcher.swift */; };
 		7A1D00030000000000000000 /* PlacePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01030000000000000000 /* PlacePickerViewController.swift */; };
@@ -26,6 +28,8 @@
 		94EFEA4F4217D7E8A7A91E19 /* TidelightWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC88041F0BA6979F8D390B /* TidelightWidget.swift */; };
 		A084ECDBA7D38E1E42DFC39D /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */; };
 		A506C8A87BB157DC4D6876A5 /* TidelightWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EBEB137D305EFC9550488066 /* TidelightWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C3E8E13E3D6BC275AA7A07AD /* TidelightHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4E94E95F681B8F598AE238 /* TidelightHealth.swift */; };
+		FC52679961057DF29DEB4BE8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEFBABD6E5B50597BC83441A /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,10 +57,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0C4E94E95F681B8F598AE238 /* TidelightHealth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TidelightHealth.swift; sourceTree = "<group>"; };
 		0D55552F78A0C78816331692 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0EEC88041F0BA6979F8D390B /* TidelightWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TidelightWidget.swift; sourceTree = "<group>"; };
+		174FA324245B9866BB7D71B1 /* App.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = App.entitlements; sourceTree = "<group>"; };
 		238AA0C7C73F34F2A156D08D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		2FAD9762203C412B000D30F8 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = config.xml; sourceTree = "<group>"; };
+		40890F6DFF815D2C4685F28E /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		50379B222058CBB4000EE86E /* capacitor.config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = capacitor.config.json; sourceTree = "<group>"; };
 		504EC3041FED79650016851F /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		504EC3071FED79650016851F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +72,7 @@
 		504EC3111FED79650016851F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		504EC3131FED79650016851F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50B271D01FEDC1A000F3C39B /* public */ = {isa = PBXFileReference; lastKnownFileType = folder; path = public; sourceTree = "<group>"; };
+		5DC1DCDC3E485FA71807E8AF /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/AppShortcuts.strings; sourceTree = "<group>"; };
 		7A1D00060000000000000000 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7A1D01010000000000000000 /* TidelightPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TidelightPlugin.swift; path = TidelightPlugin.swift; sourceTree = "<group>"; };
 		7A1D01020000000000000000 /* PlaceWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlaceWatcher.swift; path = PlaceWatcher.swift; sourceTree = "<group>"; };
@@ -72,8 +80,11 @@
 		7A1D01040000000000000000 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7A1D01050000000000000000 /* DwellTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DwellTracker.swift; path = ../../TidelightLogic/Sources/TidelightLogic/DwellTracker.swift; sourceTree = "<group>"; };
 		7A1D01070000000000000000 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8B2423FA816E93F701FB3C0C /* TidelightShortcuts.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TidelightShortcuts.swift; sourceTree = "<group>"; };
+		ACB68483EBB8C32AD663025F /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
+		BF96F3910C35001571E6D62B /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C40A2A6B73F093D6741885E9 /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EBEB137D305EFC9550488066 /* TidelightWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TidelightWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E0F61614ACA6848662C07C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -147,6 +158,11 @@
 				7A1D01070000000000000000 /* PrivacyInfo.xcprivacy */,
 				2FAD9762203C412B000D30F8 /* config.xml */,
 				50B271D01FEDC1A000F3C39B /* public */,
+				8B2423FA816E93F701FB3C0C /* TidelightShortcuts.swift */,
+				0C4E94E95F681B8F598AE238 /* TidelightHealth.swift */,
+				EEFBABD6E5B50597BC83441A /* Localizable.strings */,
+				2966709438EA2AB8D9FD557C /* AppShortcuts.strings */,
+				174FA324245B9866BB7D71B1 /* App.entitlements */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -268,6 +284,8 @@
 				50379B232058CBB4000EE86E /* capacitor.config.json in Resources */,
 				504EC30D1FED79650016851F /* Main.storyboard in Resources */,
 				2FAD9763203C412B000D30F8 /* config.xml in Resources */,
+				FC52679961057DF29DEB4BE8 /* Localizable.strings in Resources */,
+				70F2EE98FE6223EDE68300D5 /* AppShortcuts.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +355,8 @@
 				7A1D00030000000000000000 /* PlacePickerViewController.swift in Sources */,
 				7A1D00040000000000000000 /* MainViewController.swift in Sources */,
 				7A1D00050000000000000000 /* DwellTracker.swift in Sources */,
+				57049C7FCC7FE83194E6B12E /* TidelightShortcuts.swift in Sources */,
+				C3E8E13E3D6BC275AA7A07AD /* TidelightHealth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +381,15 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
+		2966709438EA2AB8D9FD557C /* AppShortcuts.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				40890F6DFF815D2C4685F28E /* en */,
+				5DC1DCDC3E485FA71807E8AF /* es */,
+			);
+			name = AppShortcuts.strings;
+			sourceTree = "<group>";
+		};
 		504EC30B1FED79650016851F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -375,6 +404,15 @@
 				504EC3111FED79650016851F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EEFBABD6E5B50597BC83441A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BF96F3910C35001571E6D62B /* en */,
+				ACB68483EBB8C32AD663025F /* es */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -492,6 +530,7 @@
 			baseConfigurationReference = FC68EB0AF532CFC21C3344DD /* Pods-App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = App/Info.plist;
@@ -512,6 +551,7 @@
 			baseConfigurationReference = AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = App/App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = App/Info.plist;

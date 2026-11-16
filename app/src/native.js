@@ -55,6 +55,29 @@ const webStandIn = {
   },
   async lockDrawn() { if (hooks().lock) hooks().lock.drawn = (hooks().lock.drawn || 0) + 1; },
   async setLock(options) { if (hooks().lock) Object.assign(hooks().lock, { enabled: Boolean(options && options.enabled), top: options && options.top }); },
+  // Apple Health. A test sets window.__tidelight.health = { status, grant } to pretend to be an
+  // iPhone; without it there is no Health here, and the setting is not shown. Nothing is written.
+  async healthStatus() { const health = hooks().health; return { status: health ? health.status || 'notDetermined' : 'unavailable' }; },
+  async healthAsk() {
+    const health = hooks().health;
+    if (!health) return { status: 'unavailable' };
+    if (health.status !== 'allowed' && health.status !== 'denied') health.status = health.grant === false ? 'denied' : 'allowed';
+    return { status: health.status };
+  },
+  async healthWrite(options) {
+    const health = hooks().health;
+    if (!health || health.status !== 'allowed') return { saved: false };
+    (health.written = health.written || []).push(options);
+    return { saved: true };
+  },
+  async healthRemoveAll() {
+    const health = hooks().health;
+    if (!health || health.failRemove) return { removed: false, count: 0 };
+    const count = (health.written || []).length;
+    health.written = [];
+    health.removed = (health.removed || 0) + 1;
+    return { removed: true, count };
+  },
   // One text file handed to the phone's share sheet. Here a test reads it; nothing is sent.
   async shareFile(options) {
     if (hooks().onShareFile) return hooks().onShareFile(options) || { completed: true };

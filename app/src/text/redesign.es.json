@@ -502,6 +502,17 @@
   "What this page can't tell you": "Lo que esta página no puede decirte",
   "It doesn't cover what Apple, Google, your phone company, or the people you message do with what reaches them.": "No cubre lo que Apple, Google, tu compañía telefónica o las personas a quienes escribes hacen con lo que les llega.",
   "Your privacy": "Tu privacidad",
-  "What the app keeps, and where it goes": "Lo que la app guarda y adónde va"
+  "What the app keeps, and where it goes": "Lo que la app guarda y adónde va",
+  "Add meditations to Apple Health": "Agregar meditaciones a Salud de Apple",
+  "When this is on, each meditation you finish is added to the Health app on this phone as mindful minutes: when it started and how long it lasted. Nothing else is added. No check-ins, no moods, and nothing you write.": "Cuando está activado, cada meditación que terminas se agrega a la app Salud de este teléfono como minutos de atención plena: cuándo empezó y cuánto duró. No se agrega nada más. Ni registros, ni estados de ánimo, ni nada de lo que escribes.",
+  "Health is Apple's app, not Tidelight's. What is in it can go to your iCloud, and other apps you have allowed can read it. Tidelight reads nothing from Health.": "Salud es una app de Apple, no de Tidelight. Lo que hay en ella puede ir a tu iCloud, y otras apps a las que les diste permiso pueden leerlo. Tidelight no lee nada de Salud.",
+  "Turning this off stops new entries. The ones already added stay in Health until you remove them here or in the Health app. Delete everything, in Your journey, removes them too.": "Desactivarlo detiene las entradas nuevas. Las que ya se agregaron se quedan en Salud hasta que las quites aquí o en la app Salud. Borrar todo, en Tu camino, también las quita.",
+  "Remove Tidelight's entries from Health": "Quitar de Salud las entradas de Tidelight",
+  "Health didn't allow it, so this stays off. You can change that in your phone's Settings, under Health.": "Salud no lo permitió, así que esto sigue desactivado. Puedes cambiarlo en los Ajustes de tu teléfono, en Salud.",
+  "Tidelight's entries were removed from Health.": "Las entradas de Tidelight se quitaron de Salud.",
+  "They couldn't be removed from here. You can remove them in the Health app.": "No se pudieron quitar desde aquí. Puedes quitarlas en la app Salud.",
+  "Apple Health": "Salud de Apple",
+  "On an iPhone, and only if you turn on \"Add meditations to Apple Health\" in Settings: each meditation you finish is added to the Health app on this phone as mindful minutes. No check-ins, no moods, and nothing you write go there, and Tidelight reads nothing from Health.": "En un iPhone, y solo si activas \"Agregar meditaciones a Salud de Apple\" en Ajustes: cada meditación que terminas se agrega a la app Salud de este teléfono como minutos de atención plena. Ni registros, ni estados de ánimo, ni nada de lo que escribes van allí, y Tidelight no lee nada de Salud.",
+  "Health is Apple's app. What is in it can go to your iCloud, and other apps you have allowed can read it.": "Salud es una app de Apple. Lo que hay en ella puede ir a tu iCloud, y otras apps a las que les diste permiso pueden leerlo."
  }
 }

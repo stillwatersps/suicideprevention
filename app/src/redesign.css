@@ -157,6 +157,8 @@ html.tl .tl-stepper .tl-icon-btn { width: var(--tl-tap-lg); height: var(--tl-tap
 .tl-input:focus { border-color: var(--tl-primary); }
 .tl-switch { display: flex; align-items: center; justify-content: space-between; gap: var(--tl-space-md); min-height: var(--tl-tap); }
 .tl-switch input { width: var(--tl-icon); height: var(--tl-icon); flex: none; accent-color: var(--tl-primary); }
+/* A long label wraps, even mid-word at the largest text, so the switch itself never leaves the screen. */
+.tl-switch > span { min-width: 0; overflow-wrap: anywhere; }
 .tl-status { margin: 0; color: var(--tl-text-secondary); font-size: var(--tl-font-label); }
 .tl-section-title { margin: var(--tl-space-md) 0 0; font-family: var(--tl-font); font-size: var(--tl-font-label); letter-spacing: 0.04em; text-transform: uppercase; color: var(--tl-text-secondary); font-weight: var(--tl-weight-strong); }
 
@@ -508,7 +510,6 @@ html:not(.tl) .tl-save-note { position: static; margin: var(--tl-space-md); }
 
 /* "A summary for an appointment": the choices, and every word of the page as it would be shared. */
 .tl-summary-choices { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-md); }
-.tl-summary-choices .tl-switch span { min-width: 0; overflow-wrap: anywhere; }
 textarea.tl-input { width: 100%; resize: vertical; font: inherit; }
 .tl-summary-preview { white-space: pre-wrap; overflow-wrap: anywhere; padding: var(--tl-space-md); border: var(--tl-border) solid var(--tl-line); border-radius: var(--tl-radius-md); background: var(--tl-surface); }
 

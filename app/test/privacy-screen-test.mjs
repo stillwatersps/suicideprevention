@@ -72,7 +72,7 @@ for (const lang of ['en', 'es']) {
   check((await safetyFrame(page)).length === 0, 'the whole safety frame is on screen with it open');
   check(seen.draft && !seen.streak, 'it is marked "Draft for review", and has no streak and no horizon');
   check(/not a privacy policy|no es una política de privacidad/.test(seen.status) && /lawyer|abogado/.test(seen.status) && seen.statusAboveBody, `it says first that it is not a privacy policy and that no lawyer has read it: "${seen.status.slice(0, 60)}…"`);
-  check(seen.headings.length === 8, `it has eight short parts: ${seen.headings.join(' · ')}`);
+  check(seen.headings.length === 9, `it has nine short parts: ${seen.headings.join(' · ')}`);
   check(seen.unseen === 0 && seen.folded === 0 && seen.pieces >= 30, `every one of its ${seen.pieces} headings, paragraphs, and list items is in view; nothing folds behind a tap`);
   check(seen.controls.length === 2, 'it asks for nothing: its only controls are Back and the "Draft for review" link');
   check(/iCloud/.test(seen.text) && /Google/.test(seen.text) && /988/.test(seen.text) && /911/.test(seen.text), 'it names the phone\'s backup, and says what calling or texting 988 and calling 911 open');

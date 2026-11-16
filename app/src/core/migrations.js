@@ -19,6 +19,7 @@ export function defaultSettings() {
     haptics: true,
     reduceMotion: false,
     appLock: false, // ask the phone to confirm who it is before showing anything saved
+    health: false, // add finished meditations to Apple Health as mindful minutes (iPhone)
     meditation: {
       defaultMinutes: CONFIG.meditation.defaultMinutes,
       defaultSound: CONFIG.meditation.defaultSound,
