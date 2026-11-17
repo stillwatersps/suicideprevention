@@ -755,7 +755,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 32 screens, about 737 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 32 screens, about 740 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -957,6 +957,9 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Gentle and slow  
 > Straightforward  
 > Quick and direct  
+> At night  
+> Darker at night  
+> Between the time you go to bed and the time you wake up, Tidelight uses its dark colors, whatever the phone is set to. Both times are yours to set, above.  
 > Notifications  
 > Check-in reminders  
 > The phone shows them itself. A reminder only says "A moment to check in, if you'd like." Nothing about you is in it, and nothing is sent anywhere.  
@@ -1198,9 +1201,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 10:02 PM: feeling: Good.  
+> Before bed, 11:01 PM: feeling: Good.  
 > Remove  
-> Before bed, 10:02 PM: feeling: Okay.  
+> Before bed, 11:01 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1720,10 +1723,10 @@ Picture: `app/design/after-launch-pass/reviewer/47-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Monday, November 16  
-> - Before bed, 10:02 PM: feeling: Good.  
-> - Before bed, 10:02 PM: feeling: Okay.  
-> - Before bed, 10:02 PM: feeling: Very low.  
-> - Before bed, 10:03 PM: feeling: Sad.  
+> - Before bed, 11:01 PM: feeling: Good.  
+> - Before bed, 11:01 PM: feeling: Okay.  
+> - Before bed, 11:01 PM: feeling: Very low.  
+> - Before bed, 11:01 PM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

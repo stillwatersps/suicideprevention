@@ -8,6 +8,12 @@
 // A page that was hidden by Quick exit also says so as it comes back, so the app can open on Home
 // rather than on the journal entry or check-in the person had been in (redesign.js listens).
 (function () {
+  // "Darker at night" (src/ui/night.js): the Daily check-in page notes, for this visit only, when
+  // tonight ends. Until then every page in the app starts dark, before anything is drawn.
+  try {
+    var until = Number(window.sessionStorage.getItem('tidelight.night-until'));
+    if (until && until > Date.now()) document.documentElement.classList.add('tl-night');
+  } catch (e) { /* no session storage: the page follows the phone */ }
   function show() {
     var afterExit = document.documentElement.hidden === true;
     document.documentElement.hidden = false;

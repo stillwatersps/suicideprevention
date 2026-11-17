@@ -109,3 +109,14 @@ await build({
 console.log('Built app/www from the website, with the app-only parts added.');
 await import('./build-extras.mjs'); // Hope box and My circle
 await import('./build-redesign.mjs'); // tabs, onboarding, streaks, meditation
+// "Darker at night": every dark rule again, for a phone set to light (tools/night-css.mjs says why).
+{
+  const { nightCss } = await import('./night-css.mjs');
+  const { readdirSync } = await import('node:fs');
+  const folder = join(www, 'assets');
+  for (const name of readdirSync(folder).filter((file) => file.endsWith('.css'))) {
+    const css = readFileSync(join(folder, name), 'utf8');
+    const night = nightCss(css);
+    if (night) writeFileSync(join(folder, name), css + night);
+  }
+}

@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-16 (forty features, feature 5)
+Last updated: 2026-11-16 (forty features, feature 6)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -23,7 +23,7 @@ In a hard moment
 - [x] 3 — Reach someone I trust: `src/logic/reach.js`, `src/ui/reach.js`, `test/unit/reach.test.mjs`, `test/reach-test.mjs`; a short message ready ahead of time for one person in My circle, on the Friends tab and, when the circle has someone in it, on the support step under the crisis buttons; the phone's own messages open with the words filled in and the person sends it; the app sends nothing and keeps only words the person changed and saved
 - [x] 4 — Ten minutes at a time: `src/logic/ride.js`, `src/ui/ride.js`, `test/unit/ride.test.mjs`, `test/ride-test.mjs`; five small steps of two minutes, silent, storing nothing, on the Check-in tab and on the support step under the crisis buttons; Call 988, Text 988, and Call 911 are on the screen the whole time; at the end or on "Stop here" it asks how things are, and "Still hard" shows support at once and makes the day quiet
 - [x] 5 — Quick body skills: "Tense and release" is the fifth exercise in Grounding (`#tl-ground`), between "Feet on the floor" and "A slower breath"; "Something cold" and the paced breath were already there; `test/ground-test.mjs` now expects five
-- [ ] 6 — Night mode: a darker, quieter app during hours the person sets
+- [x] 6 — Darker at night: `src/logic/night.js`, `src/ui/night.js`, `tools/night-css.mjs`, `test/unit/night.test.mjs`, `test/unit/night-css.test.mjs`, `test/night-test.mjs`; a switch in Settings (`settings.nightMode`, off by default): between bed time and wake time the app uses its dark colors on a phone set to light; the build makes a night copy of every dark rule; the website's pages inside the app follow through a session-only note of when tonight ends; at night everything, the crisis strip included, looks as it does on a phone set to dark
 - [x] 7 — "Make my space safer" (already built: part 6 of the safety plan)
 - [x] 8 — Crisis lines by need (already built: "Other ways to reach someone")
 - [ ] 9 — Find nearby help: opens the phone's maps at "emergency room", saying first what leaves the phone
@@ -77,6 +77,12 @@ goes in `test/app-screens.mjs` and the crisis inventory is re-recorded for it (`
 `node app/tools/strings.mjs snapshot app/redesign-dev` from the root (the reviewed count must stay 1997), and a
 question in `notes/CONTENT-REVIEW.md`. Tick the line here, commit, push, go on. At the end: a draft pull request
 into `app/next-features`, a handoff in `notes/worklogs/`, and the status, task, and decision notes.
+
+**After the last feature (a founder's instruction, November 16, 2026): a full rundown of the whole app.** Every
+feature and every button, old and new, checked that it does what it was planned to do: the full suite, then a
+walk through every screen in the iPhone Simulator (muted, `npm run sim:launch`; never complete a call or send a
+text), in English and Spanish, with the result written up screen by screen in the handoff, faults fixed or listed.
+The founder is away while this runs: keep going without asking, one feature after another.
 
 ## A full check before forty more features — November 16, 2026
 

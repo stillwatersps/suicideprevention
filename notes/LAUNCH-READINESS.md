@@ -601,6 +601,8 @@ Simulator number is the closest thing here to a phone, and it is a Mac.
   from the phone itself, never over a network, and the crisis strip needs none of it. "No single file
   over 300 KB" stays as the hard stop: before the script reaches that, the newer screens should be
   built into a file of their own that loads after the first screen.
+  The stylesheets' ceiling is now 230 KB, raised the same day from 175: "Darker at night" needs every dark
+  rule a second time, made by the build, and the new screens need styles of their own.
 
 ### What was looked at and left
 

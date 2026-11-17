@@ -20,6 +20,7 @@ import { initPlan, renderPlan } from './ui/plan.js';
 import { initLetter, renderLetter } from './ui/letter.js';
 import { initReach, renderReach } from './ui/reach.js';
 import { initRide } from './ui/ride.js';
+import { initNight } from './ui/night.js';
 import { initHelps } from './ui/helps.js';
 import { initSummary } from './ui/summary.js';
 import { initHealth, addMindfulMinutes } from './ui/health.js';
@@ -95,6 +96,7 @@ export async function initRedesign(context) {
   initLetter(shell);
   initReach(shell);
   initRide(shell);
+  initNight(shell);
   initHelps(shell, ctx);
   initSummary(shell, ctx);
   initHealth(shell);

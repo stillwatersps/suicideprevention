@@ -306,6 +306,19 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## Darker at night (November 16, 2026, a draft)
+
+- **Rule in `src/logic/night.js`, switch in `src/ui/night.js`, `settings.nightMode` (off by default).** Between
+  the bed time and the wake time in Settings the root element has the class `tl-night`.
+- **Never write a night color by hand.** Dark colors are written once, for a phone set to dark
+  (`@media (prefers-color-scheme: dark)`); `tools/night-css.mjs` copies every such rule for `html.tl-night` at
+  build time, in every stylesheet in `www/assets`. A new dark rule needs nothing more.
+- At night every part of the app, the crisis strip included, looks exactly as it does on a phone set to dark
+  (the strip's dark colors pass the same 7 to 1 test). `test/night-test.mjs` compares them, and checks contrast
+  on each tab at night on a phone set to light.
+- The website's pages inside the app can't read the settings. `src/ui/night.js` notes when tonight ends in
+  session storage (`tidelight.night-until`), and `src/app-return.js` reads it before the page is drawn.
+
 ## Ten minutes at a time (November 16, 2026, a draft)
 
 - **Clock rules in `src/logic/ride.js`, screen in `src/ui/ride.js`, numbers in `CONFIG.ride`** (five steps of

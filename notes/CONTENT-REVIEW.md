@@ -1398,6 +1398,16 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 6: darker at night (November 16, 2026)
+
+A switch in Settings, "Darker at night", off until turned on. Between the bed time and wake time the person
+already set, the app uses its dark colors: exactly what a phone set to dark shows, crisis strip included.
+
+- The reviewer: nothing clinical was added. Is a darker screen at night enough, or should the app also say or
+  do something different at night (for example, put the Sleep session or the support options first)? Nothing
+  like that was built.
+- The Spanish ("Más oscura de noche") is an AI translation no fluent reader has checked.
+
 ### Forty features, 5: tense and release (November 16, 2026)
 
 Grounding has a fifth exercise: "Make two fists and hold them tight while you count to five. Let go, and notice

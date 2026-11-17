@@ -75,6 +75,11 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Darker at night:
+- [ ] Phone set to light, "Darker at night" on, bed time set to a minute from now: within a minute the app
+      turns dark, the crisis strip is easy to read, and Get help (from the menu) is dark too.
+- [ ] Set the wake time to a minute from now: the app turns light again.
+
 Ten minutes at a time:
 - [ ] Start it and leave the phone alone for two minutes: the step changes by itself, with one soft tap, and
       the screen stays awake.
