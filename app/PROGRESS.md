@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 25)
+Last updated: 2026-11-17 (forty features, feature 26)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -45,7 +45,7 @@ Day to day
 - [x] 23 — Home adapts (already built: "Suggested for you")
 - [x] 24 — Reminders in the person's own words: a field in Settings, Notifications (`#tl-set-rem-words`), kept as `settings.reminderWords`; `src/logic/reminder-words.js` refuses words about mood, crisis, or getting help (English and Spanish), and a refused or missing line means the app's usual words; the screen warns that a reminder shows on the lock screen; in the copy of my data, and removed by Delete everything; `test/unit/reminder-words.test.mjs`, `test/reminder-words-test.mjs`
 - [x] 25 — My week, in words: `#tl-week` on the Check-in tab, `src/logic/week.js`, `src/ui/week.js`; a few plain sentences about the last seven days (check-ins, meditations, good things) and the person's own check-in lines; no numbers, scores, charts, or comparisons, by a unit test; put together each time and never kept; the three crisis lines are on the screen; `test/unit/week.test.mjs`, `test/week-test.mjs`
-- [ ] 26 — A searchable list of every tool
+- [x] 26 — A searchable list of every tool: `#tl-tools`, opened from Home's toolkit card ("All tools"), `src/ui/tools-list.js`; twenty-two tools from `EVERY` in `src/logic/tools.js` (the fourteen that can be pinned and eight that have a tab or row already), each a name and a line; search matches either, without capitals or accents; what is typed is never kept and is cleared on leaving; a search that reads like a need for urgent help shows the three crisis lines first (`asksForHelp`); `test/unit/tools-list.test.mjs`, `test/tools-test.mjs`
 
 With other people
 - [x] 27 — My circle (already built)

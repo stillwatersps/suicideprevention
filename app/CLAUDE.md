@@ -463,6 +463,15 @@ each covers and what only a real phone can show.
   scored, averaged, charted, or compared with another week**; a unit test reads every sentence for that.
 - It never interprets mood ("a good week", "a hard week"). Put together each time; nothing is kept.
 
+## All tools (November 17, 2026, a draft)
+
+- **`#tl-tools`, opened from Home; `src/ui/tools-list.js`.** The list is `EVERY` in `src/logic/tools.js`: `TOOLS`
+  (can be pinned) and `MORE` (can't: they have a tab, a tile, or a row already). A new tool gets a line in one
+  of them and the words `tool.<id>` and `tool.<id>.about`.
+- **What is typed in the search is never kept, logged, or sent**, and is cleared when the screen is left; a unit
+  test reads the file for that. **`asksForHelp()` decides when the crisis lines show above the results.** Add
+  words to it freely; never remove one without a reviewer.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

@@ -1,7 +1,7 @@
 // "My toolkit": up to four tools the person pins to Home (#tl-home-toolkit), chosen on their own
 // screen (#tl-toolkit). Only the tools' ids are kept. A draft: no licensed reviewer has seen it.
 import { CONFIG } from '../core/config.js';
-import { TOOLS, toolById, isPinned, setPinned } from '../logic/tools.js';
+import { TOOLS, toolById, anyTool, isPinned, setPinned } from '../logic/tools.js';
 import { state, save } from './state.js';
 import { t } from './words.js';
 import { el, icon } from './components.js';
@@ -12,10 +12,11 @@ const $$ = (sel, scope) => Array.from((scope || document).querySelectorAll(sel))
 
 // Opens a tool the way its own row or card does.
 export function openTool(shell, id) {
-  const tool = toolById(id);
+  const tool = anyTool(id);
   if (!tool) return;
   if (tool.session) startType(tool.session, { minutes: tool.minutes });
   else if (tool.legacy) shell.openLegacy(tool.legacy);
+  else if (tool.go) shell.go(tool.go);
   else shell.push(tool.push);
 }
 

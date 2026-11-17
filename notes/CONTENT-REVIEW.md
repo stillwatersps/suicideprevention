@@ -1658,6 +1658,19 @@ the three crisis lines. No numbers, no chart, no comparison with last week.
 - Should a week with a very low check-in show something different, for example the support step's words first?
 - The Spanish ("Mi semana, en palabras") is an AI translation no fluent reader has checked.
 
+### Forty features, 26: a list of every tool, with a search (November 17, 2026)
+
+A new screen, "All tools", opened from Home: twenty-two tools, each with its name and one line, and a search
+field. Most names and lines are ones the app already had. What is typed is not kept.
+
+- **When someone types words that read like a need for urgent help** ("suicide", "help", "kill", "die",
+  "crisis", "overdose", "hurt", and Spanish forms), the screen shows, above the results: "If you are thinking
+  about suicide, or you are in crisis, you can reach a person now." with Call 988, Text 988, and Call 911. The
+  reviewer: is that sentence right, and is the list of words (`asksForHelp` in `src/logic/tools.js`) missing any?
+- "help" also shows it for someone who only wanted the "What tends to help" tool. The list errs that way on
+  purpose. Is that the right side to err on?
+- The Spanish is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

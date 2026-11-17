@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+All tools:
+- [ ] Home, "All tools": type "sleep" with the phone's keyboard: one row is left, and the keyboard's Search key
+      closes the keyboard. Type "help": Call 988 shows above the results and is not under the keyboard.
+
 My week, in words:
 - [ ] Check-in tab, "My week, in words", after a few days of real use: the sentences fit what happened, the
       days are in an order that makes sense, and nothing on it reads as a grade.

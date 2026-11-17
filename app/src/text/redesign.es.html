@@ -77,7 +77,7 @@
             <span class="tl-card-icon" data-tl-icon="box"></span>
             <span class="tl-card-text"><span class="tl-eyebrow">Mis herramientas</span> <span class="tl-card-sub" id="tl-home-toolkit-empty">Fija las herramientas que más usas, y estarán aquí.</span></span>
             <span class="tl-row tl-toolkit-row" id="tl-home-toolkit-list" role="group" aria-label="Mis herramientas" hidden></span>
-            <span class="tl-row tl-step-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="toolkit" id="tl-home-toolkit-edit">Elegir herramientas</button></span>
+            <span class="tl-row tl-step-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="toolkit" id="tl-home-toolkit-edit">Elegir herramientas</button> <button type="button" class="tl-btn tl-btn-quiet" data-tl-push="tools" id="tl-home-tools">Todas las herramientas</button></span>
           </div>
           <div id="tl-home-setup" hidden>
             <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
@@ -1231,6 +1231,24 @@
           </ul>
         </section>
 
+        <section class="tl-screen" id="tl-tools" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-tools-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-tools-title">Todas las herramientas</h2>
+          <p class="tl-field"><label for="tl-tools-search">Buscar en las herramientas</label><input class="tl-input" id="tl-tools-search" type="search" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-describedby="tl-tools-kept"></p>
+          <p class="tl-sub" id="tl-tools-kept">Lo que escribes aquí no se guarda ni se envía a ningún lugar.</p>
+          <div class="tl-panel" id="tl-tools-crisis" hidden>
+            <p><strong>Si estás pensando en el suicidio, o estás en crisis, puedes hablar con una persona ahora.</strong></p>
+            <ul class="tl-support-actions">
+              <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+            </ul>
+          </div>
+          <p class="tl-status" id="tl-tools-status" role="status" hidden></p>
+          <ul class="tl-list" id="tl-tools-list" aria-labelledby="tl-tools-title"></ul>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -1618,6 +1636,38 @@
         <span data-word="week.checkins.most">Te registraste la mayoría de los días.</span>
         <span data-word="week.sessions">Te diste un rato para respirar o meditar.</span>
         <span data-word="week.good">Anotaste algunas cosas buenas.</span>
+        <span data-word="tool.reset.about">Un minuto de respiración con el círculo</span>
+        <span data-word="tool.ground.about">Maneras breves de recuperar la calma</span>
+        <span data-word="tool.ride.about">Cinco pasos pequeños, uno tras otro</span>
+        <span data-word="tool.plan.about">Qué hacer cuando las cosas se ponen difíciles</span>
+        <span data-word="tool.letter.about">Para un día difícil, desde uno más tranquilo</span>
+        <span data-word="tool.hope.about">Razones, palabras, fotos</span>
+        <span data-word="tool.good.about">Las pequeñas cuentan</span>
+        <span data-word="tool.reframe.about">Cuatro preguntas para un pensamiento que pesa</span>
+        <span data-word="tool.kind.about">Tres maneras breves de estar de tu lado</span>
+        <span data-word="tool.journal.about">Escríbelo</span>
+        <span data-word="tool.wind.about">Cuatro pasos pequeños, y luego la sesión para dormir</span>
+        <span data-word="tool.helps.about">De tus propios registros</span>
+        <span data-word="tool.course.about">Siete cosas pequeñas, una al día o más despacio</span>
+        <span data-word="tool.nearby.about">Salas de emergencias, en los mapas de tu teléfono</span>
+        <span data-word="tool.checkin">Registro rápido</span>
+        <span data-word="tool.checkin.about">Un toque: cómo estás</span>
+        <span data-word="tool.meditate">Meditar</span>
+        <span data-word="tool.meditate.about">Sesiones con o sin sonido</span>
+        <span data-word="tool.week">Mi semana, en palabras</span>
+        <span data-word="tool.week.about">Unas frases sencillas. Sin puntajes</span>
+        <span data-word="tool.summary">Un resumen para una cita</span>
+        <span data-word="tool.summary.about">Tú eliges qué incluye</span>
+        <span data-word="tool.reach">Contactar a alguien de confianza</span>
+        <span data-word="tool.reach.about">Un mensaje listo para un momento difícil</span>
+        <span data-word="tool.circle">Amistades</span>
+        <span data-word="tool.circle.about">Personas a las que puedes acudir</span>
+        <span data-word="tool.rediscover">Redescubrir</span>
+        <span data-word="tool.rediscover.about">Encuentra tu camino de vuelta</span>
+        <span data-word="tool.journey">Tu camino</span>
+        <span data-word="tool.journey.about">Lo que has guardado</span>
+        <span data-word="tools.none">Nada coincide con eso. Prueba con otra palabra, o borra la búsqueda para ver todas las herramientas.</span>
+        <span data-word="tools.some">Se muestran las herramientas que coinciden.</span>
         <span data-word="plan.title">Mi plan de seguridad</span>
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>

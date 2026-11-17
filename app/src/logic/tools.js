@@ -19,6 +19,38 @@ export const TOOLS = Object.freeze([
 ].map(Object.freeze));
 export const toolById = (id) => TOOLS.find((tool) => tool.id === id) || null;
 
+// Tools that are in the list of every tool but can't be pinned: each has a tab, a tile, or a row
+// of its own already. `go` opens a tab.
+export const MORE = Object.freeze([
+  { id: 'checkin', icon: 'heart', push: 'flow' },
+  { id: 'meditate', icon: 'horizon', go: 'meditate' },
+  { id: 'week', icon: 'clock', push: 'week' },
+  { id: 'summary', icon: 'copy', push: 'summary' },
+  { id: 'reach', icon: 'people', push: 'reach' },
+  { id: 'circle', icon: 'people', go: 'friends' },
+  { id: 'rediscover', icon: 'spark', legacy: 'ci-rediscover' },
+  { id: 'journey', icon: 'path', legacy: 'ci-journey' },
+].map(Object.freeze));
+export const EVERY = Object.freeze(TOOLS.concat(MORE));
+export const anyTool = (id) => EVERY.find((tool) => tool.id === id) || null;
+
+const plain = (text) => String(text === null || text === undefined ? '' : text).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim();
+// The tools that match what was typed: every word typed must be somewhere in the tool's name or
+// its line. Capitals and accents don't matter. Nothing typed matches every tool.
+export function findTools(list, query, textOf) {
+  const words = plain(query).split(' ').filter(Boolean);
+  return list.filter((tool) => { const text = plain(textOf(tool)); return words.every((word) => text.includes(word)); });
+}
+// True when what was typed reads like someone looking for urgent help. The list of tools then
+// shows the crisis lines first. It errs on the side of showing them.
+const HELP_PARTS = ['suicid', 'kill', 'dying', 'crisis', 'emergenc', 'overdos', 'self-harm', 'self harm', 'selfharm', 'hurt', 'harm', 'help', 'hotline', 'lifeline', 'end my life', 'end it',
+  'matar', 'morir', 'muert', 'autolesi', 'sobredosis', 'ayuda', 'quitarme la vida', 'hacerme dano'];
+const HELP_WORDS = ['die', 'dead', '988', '911', 'sos'];
+export function asksForHelp(query) {
+  const text = ' ' + plain(query) + ' ';
+  return HELP_PARTS.some((part) => text.includes(part)) || HELP_WORDS.some((word) => new RegExp('[^a-z0-9]' + word + '[^a-z0-9]').test(text));
+}
+
 export const emptyToolkit = () => ({ pinned: [] });
 // Whatever was stored comes back as a clean list of known tools, in the order pinned: never broken.
 export function cleanToolkit(stored, limits) {

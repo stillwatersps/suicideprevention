@@ -78,7 +78,7 @@
             <span class="tl-card-icon" data-tl-icon="box"></span>
             <span class="tl-card-text"><span class="tl-eyebrow">My toolkit</span> <span class="tl-card-sub" id="tl-home-toolkit-empty">Pin the tools you reach for most, and they will be here.</span></span>
             <span class="tl-row tl-toolkit-row" id="tl-home-toolkit-list" role="group" aria-label="My toolkit" hidden></span>
-            <span class="tl-row tl-step-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="toolkit" id="tl-home-toolkit-edit">Choose tools</button></span>
+            <span class="tl-row tl-step-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="toolkit" id="tl-home-toolkit-edit">Choose tools</button> <button type="button" class="tl-btn tl-btn-quiet" data-tl-push="tools" id="tl-home-tools">All tools</button></span>
           </div>
           <div id="tl-home-setup" hidden>
             <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
@@ -1232,6 +1232,24 @@
           </ul>
         </section>
 
+        <section class="tl-screen" id="tl-tools" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-tools-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-tools-title">All tools</h2>
+          <p class="tl-field"><label for="tl-tools-search">Search the tools</label><input class="tl-input" id="tl-tools-search" type="search" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-describedby="tl-tools-kept"></p>
+          <p class="tl-sub" id="tl-tools-kept">What you type here is not kept or sent anywhere.</p>
+          <div class="tl-panel" id="tl-tools-crisis" hidden>
+            <p><strong>If you are thinking about suicide, or you are in crisis, you can reach a person now.</strong></p>
+            <ul class="tl-support-actions">
+              <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+            </ul>
+          </div>
+          <p class="tl-status" id="tl-tools-status" role="status" hidden></p>
+          <ul class="tl-list" id="tl-tools-list" aria-labelledby="tl-tools-title"></ul>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
@@ -1619,6 +1637,38 @@
         <span data-word="week.checkins.most">You checked in on most days.</span>
         <span data-word="week.sessions">You took some time to breathe or meditate.</span>
         <span data-word="week.good">You wrote down some good things.</span>
+        <span data-word="tool.reset.about">One minute of breathing with the circle</span>
+        <span data-word="tool.ground.about">Short ways to steady yourself</span>
+        <span data-word="tool.ride.about">Five small steps, one after another</span>
+        <span data-word="tool.plan.about">What to do when things get hard</span>
+        <span data-word="tool.letter.about">For a hard day, from a steadier one</span>
+        <span data-word="tool.hope.about">Reasons, words, photos</span>
+        <span data-word="tool.good.about">Small ones count</span>
+        <span data-word="tool.reframe.about">Four questions for a heavy thought</span>
+        <span data-word="tool.kind.about">Three short ways to be on your own side</span>
+        <span data-word="tool.journal.about">Write it out</span>
+        <span data-word="tool.wind.about">Four small steps, then the Sleep session</span>
+        <span data-word="tool.helps.about">From your own check-ins</span>
+        <span data-word="tool.course.about">Seven small things, one a day or slower</span>
+        <span data-word="tool.nearby.about">Emergency rooms, in your phone's maps</span>
+        <span data-word="tool.checkin">Quick check-in</span>
+        <span data-word="tool.checkin.about">One tap, how you are</span>
+        <span data-word="tool.meditate">Meditate</span>
+        <span data-word="tool.meditate.about">Sessions with or without sound</span>
+        <span data-word="tool.week">My week, in words</span>
+        <span data-word="tool.week.about">A few plain sentences. No scores</span>
+        <span data-word="tool.summary">A summary for an appointment</span>
+        <span data-word="tool.summary.about">You choose what goes on it</span>
+        <span data-word="tool.reach">Reach someone I trust</span>
+        <span data-word="tool.reach.about">A message ready for a hard moment</span>
+        <span data-word="tool.circle">Friends</span>
+        <span data-word="tool.circle.about">People you can reach out to</span>
+        <span data-word="tool.rediscover">Rediscover</span>
+        <span data-word="tool.rediscover.about">Find your way back</span>
+        <span data-word="tool.journey">Your journey</span>
+        <span data-word="tool.journey.about">What you've kept</span>
+        <span data-word="tools.none">Nothing matches that. Try another word, or clear the search to see every tool.</span>
+        <span data-word="tools.some">Showing the tools that match.</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>

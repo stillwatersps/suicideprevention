@@ -574,3 +574,6 @@ html.tl #tl-course .tl-btn { max-width: 100%; white-space: normal; overflow-wrap
 /* My week, in words: sentences and the person's own lines, as plain lists that wrap. */
 .tl-week-lines, .tl-week-own { display: grid; gap: var(--tl-space-sm); margin: 0; padding: 0; list-style: none; overflow-wrap: anywhere; }
 .tl-week-day { color: var(--tl-text-secondary); font-size: var(--tl-font-label); margin-top: var(--tl-space-xs); }
+/* All tools: a hidden row takes no space, and long names wrap. */
+#tl-tools-list [hidden] { display: none; }
+#tl-tools-list .tl-card-text { min-width: 0; overflow-wrap: anywhere; }
