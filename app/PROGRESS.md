@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 24)
+Last updated: 2026-11-17 (forty features, feature 25)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -44,7 +44,7 @@ Day to day
 - [x] 22 — My toolkit: a card on Home (`#tl-home-toolkit`) with up to four tools the person pins, chosen on `#tl-toolkit`; `src/logic/tools.js` (the list of tools as data, `TOOLS`, which a list of every tool can reuse), `src/ui/toolkit.js`, `tidelight.toolkit.v1` (ids only); the crisis lines are not tools and can't be pinned or unpinned; in the copy of my data, the erase, and the privacy screen; `test/unit/toolkit.test.mjs`, `test/toolkit-test.mjs`
 - [x] 23 — Home adapts (already built: "Suggested for you")
 - [x] 24 — Reminders in the person's own words: a field in Settings, Notifications (`#tl-set-rem-words`), kept as `settings.reminderWords`; `src/logic/reminder-words.js` refuses words about mood, crisis, or getting help (English and Spanish), and a refused or missing line means the app's usual words; the screen warns that a reminder shows on the lock screen; in the copy of my data, and removed by Delete everything; `test/unit/reminder-words.test.mjs`, `test/reminder-words-test.mjs`
-- [ ] 25 — A weekly reflection in words, never a score
+- [x] 25 — My week, in words: `#tl-week` on the Check-in tab, `src/logic/week.js`, `src/ui/week.js`; a few plain sentences about the last seven days (check-ins, meditations, good things) and the person's own check-in lines; no numbers, scores, charts, or comparisons, by a unit test; put together each time and never kept; the three crisis lines are on the screen; `test/unit/week.test.mjs`, `test/week-test.mjs`
 - [ ] 26 — A searchable list of every tool
 
 With other people

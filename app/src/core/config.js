@@ -91,6 +91,8 @@ export const CONFIG = deepFreeze({
   health: { minSeconds: 60 },
   // The safety plan: a short list, so each part stays short enough to read in a hard moment.
   plan: { maxItems: 8, maxLength: 120 },
+  // My week, in words: the last seven days, and at most this many of the person's own lines.
+  week: { days: 7, maxLines: 30 },
   // My toolkit: at most four tools pinned to Home.
   toolkit: { max: 4 },
   // A first week: seven steps, each ticked or not.

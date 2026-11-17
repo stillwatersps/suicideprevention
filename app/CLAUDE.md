@@ -456,6 +456,13 @@ each covers and what only a real phone can show.
   list without a founder's decision; add to it freely. Delete everything clears the words and sets the
   reminders again.
 
+## My week, in words (November 17, 2026, a draft)
+
+- **`#tl-week`, on the Check-in tab; `src/logic/week.js`, `src/ui/week.js`.** Sentences chosen by `weekKeys()`, then
+  the person's own check-in lines from the last seven days. **No sentence has a number in it, and nothing is
+  scored, averaged, charted, or compared with another week**; a unit test reads every sentence for that.
+- It never interprets mood ("a good week", "a hard week"). Put together each time; nothing is kept.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

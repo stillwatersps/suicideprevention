@@ -182,6 +182,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Being kind to yourself</span> <span class="tl-card-sub">Three short ways to be on your own side</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="week" id="tl-checkin-week">
+              <span class="tl-card-icon" data-tl-icon="clock"></span>
+              <span class="tl-card-text"><span class="tl-card-title">My week, in words</span> <span class="tl-card-sub">A few plain sentences. No scores</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
               <span class="tl-card-icon" data-tl-icon="copy"></span>
               <span class="tl-card-text"><span class="tl-card-title">A summary for an appointment</span> <span class="tl-card-sub">You choose what goes on it</span></span>
@@ -1208,6 +1213,25 @@
           <div class="tl-panel" id="tl-toolkit-list" role="group" aria-labelledby="tl-toolkit-title"></div>
         </section>
 
+        <section class="tl-screen" id="tl-week" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-week-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-week-title">My week, in words</h2>
+          <p>A few plain sentences about the last seven days, from what you recorded here. Nothing is counted, scored, or compared.</p>
+          <p class="tl-sub">It is put together on this phone each time you open this page. Nothing here is kept or sent anywhere.</p>
+          <div class="tl-panel"><ul class="tl-week-lines" id="tl-week-lines" aria-labelledby="tl-week-title"></ul></div>
+          <div class="tl-panel" id="tl-week-own-box" hidden>
+            <h3 class="tl-headline" id="tl-week-own-title">What you recorded</h3>
+            <ul class="tl-week-own" id="tl-week-own" aria-labelledby="tl-week-own-title"></ul>
+          </div>
+          <p>However the week went, you don't have to carry it alone.</p>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
@@ -1589,6 +1613,12 @@
         <span data-word="rem.ownCleared">Cleared. Your reminders will use the usual words.</span>
         <span data-word="rem.ownRefused">A reminder can't say that. It shows on the lock screen, so it must not say anything about how you are or about getting help. Try other words.</span>
         <span data-word="export.reminderWords">My reminder words: {words}</span>
+        <span data-word="week.checkins.none">No check-ins this week. That's all right. One is here whenever you want it.</span>
+        <span data-word="week.checkins.few">You checked in on a day or two.</span>
+        <span data-word="week.checkins.some">You checked in on several days.</span>
+        <span data-word="week.checkins.most">You checked in on most days.</span>
+        <span data-word="week.sessions">You took some time to breathe or meditate.</span>
+        <span data-word="week.good">You wrote down some good things.</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>

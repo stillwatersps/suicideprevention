@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+My week, in words:
+- [ ] Check-in tab, "My week, in words", after a few days of real use: the sentences fit what happened, the
+      days are in an order that makes sense, and nothing on it reads as a grade.
+
 Reminders in my own words:
 - [ ] Settings, Notifications: turn reminders on, write "Blue door", Save, then "Send a test notification" and
       lock the phone. The notification says "Tidelight" and "Blue door" and nothing else.

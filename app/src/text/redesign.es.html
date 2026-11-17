@@ -181,6 +181,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Tratarte con amabilidad</span> <span class="tl-card-sub">Tres maneras breves de estar de tu lado</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="week" id="tl-checkin-week">
+              <span class="tl-card-icon" data-tl-icon="clock"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Mi semana, en palabras</span> <span class="tl-card-sub">Unas frases sencillas. Sin puntajes</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
               <span class="tl-card-icon" data-tl-icon="copy"></span>
               <span class="tl-card-text"><span class="tl-card-title">Un resumen para una cita</span> <span class="tl-card-sub">Tú eliges qué incluye</span></span>
@@ -1207,6 +1212,25 @@
           <div class="tl-panel" id="tl-toolkit-list" role="group" aria-labelledby="tl-toolkit-title"></div>
         </section>
 
+        <section class="tl-screen" id="tl-week" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-week-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-week-title">Mi semana, en palabras</h2>
+          <p>Unas frases sencillas sobre los últimos siete días, a partir de lo que registraste aquí. Nada se cuenta, se puntúa ni se compara.</p>
+          <p class="tl-sub">Se arma en este teléfono cada vez que abres esta página. Nada de esto se guarda ni se envía a ningún lugar.</p>
+          <div class="tl-panel"><ul class="tl-week-lines" id="tl-week-lines" aria-labelledby="tl-week-title"></ul></div>
+          <div class="tl-panel" id="tl-week-own-box" hidden>
+            <h3 class="tl-headline" id="tl-week-own-title">Lo que registraste</h3>
+            <ul class="tl-week-own" id="tl-week-own" aria-labelledby="tl-week-own-title"></ul>
+          </div>
+          <p>Haya sido como haya sido la semana, no tienes que cargar con ella a solas.</p>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+          </ul>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -1588,6 +1612,12 @@
         <span data-word="rem.ownCleared">Borrado. Tus recordatorios usarán las palabras de siempre.</span>
         <span data-word="rem.ownRefused">Un recordatorio no puede decir eso. Aparece en la pantalla de bloqueo, así que no debe decir nada sobre cómo estás ni sobre pedir ayuda. Prueba con otras palabras.</span>
         <span data-word="export.reminderWords">Mis palabras para el recordatorio: {words}</span>
+        <span data-word="week.checkins.none">No hubo registros esta semana. Está bien. Aquí hay uno para cuando quieras.</span>
+        <span data-word="week.checkins.few">Te registraste uno o dos días.</span>
+        <span data-word="week.checkins.some">Te registraste varios días.</span>
+        <span data-word="week.checkins.most">Te registraste la mayoría de los días.</span>
+        <span data-word="week.sessions">Te diste un rato para respirar o meditar.</span>
+        <span data-word="week.good">Anotaste algunas cosas buenas.</span>
         <span data-word="plan.title">Mi plan de seguridad</span>
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>

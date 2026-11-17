@@ -702,6 +702,18 @@
   "Saved. Your reminders will say this.": "Guardado. Tus recordatorios dirán esto.",
   "Cleared. Your reminders will use the usual words.": "Borrado. Tus recordatorios usarán las palabras de siempre.",
   "A reminder can't say that. It shows on the lock screen, so it must not say anything about how you are or about getting help. Try other words.": "Un recordatorio no puede decir eso. Aparece en la pantalla de bloqueo, así que no debe decir nada sobre cómo estás ni sobre pedir ayuda. Prueba con otras palabras.",
-  "My reminder words: {words}": "Mis palabras para el recordatorio: {words}"
+  "My reminder words: {words}": "Mis palabras para el recordatorio: {words}",
+  "My week, in words": "Mi semana, en palabras",
+  "A few plain sentences. No scores": "Unas frases sencillas. Sin puntajes",
+  "A few plain sentences about the last seven days, from what you recorded here. Nothing is counted, scored, or compared.": "Unas frases sencillas sobre los últimos siete días, a partir de lo que registraste aquí. Nada se cuenta, se puntúa ni se compara.",
+  "It is put together on this phone each time you open this page. Nothing here is kept or sent anywhere.": "Se arma en este teléfono cada vez que abres esta página. Nada de esto se guarda ni se envía a ningún lugar.",
+  "What you recorded": "Lo que registraste",
+  "However the week went, you don't have to carry it alone.": "Haya sido como haya sido la semana, no tienes que cargar con ella a solas.",
+  "No check-ins this week. That's all right. One is here whenever you want it.": "No hubo registros esta semana. Está bien. Aquí hay uno para cuando quieras.",
+  "You checked in on a day or two.": "Te registraste uno o dos días.",
+  "You checked in on several days.": "Te registraste varios días.",
+  "You checked in on most days.": "Te registraste la mayoría de los días.",
+  "You took some time to breathe or meditate.": "Te diste un rato para respirar o meditar.",
+  "You wrote down some good things.": "Anotaste algunas cosas buenas."
  }
 }

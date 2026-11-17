@@ -1644,6 +1644,20 @@ help, in English and Spanish, and says why.
   reminder shows on the lock screen, where anyone near the phone can read it."
 - The Spanish is an AI translation no fluent reader has checked.
 
+### Forty features, 25: my week, in words (November 17, 2026)
+
+A new screen on the Check-in tab: one to three plain sentences about the last seven days ("You checked in on
+several days." "You took some time to breathe or meditate." "You wrote down some good things."), then the
+person's own check-in lines from those days, then "However the week went, you don't have to carry it alone." and
+the three crisis lines. No numbers, no chart, no comparison with last week.
+
+- The reviewer: is a look back at the week safe for someone whose week was very bad? The screen says nothing
+  about mood itself, but it does list their own check-in lines, low ones included.
+- With no check-ins it says: "No check-ins this week. That's all right. One is here whenever you want it." Could
+  that read as a nudge?
+- Should a week with a very low check-in show something different, for example the support step's words first?
+- The Spanish ("Mi semana, en palabras") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

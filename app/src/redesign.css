@@ -571,3 +571,6 @@ html.tl #tl-course .tl-btn { max-width: 100%; white-space: normal; overflow-wrap
    especially) used to widen the whole field past the screen; now the word breaks instead. */
 .tl-field { grid-template-columns: minmax(0, 1fr); }
 .tl-field > label { min-width: 0; overflow-wrap: anywhere; }
+/* My week, in words: sentences and the person's own lines, as plain lists that wrap. */
+.tl-week-lines, .tl-week-own { display: grid; gap: var(--tl-space-sm); margin: 0; padding: 0; list-style: none; overflow-wrap: anywhere; }
+.tl-week-day { color: var(--tl-text-secondary); font-size: var(--tl-font-label); margin-top: var(--tl-space-xs); }
