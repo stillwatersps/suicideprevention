@@ -306,6 +306,17 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## Ten minutes at a time (November 16, 2026, a draft)
+
+- **Clock rules in `src/logic/ride.js`, screen in `src/ui/ride.js`, numbers in `CONFIG.ride`** (five steps of
+  two minutes). The screen's words say "ten minutes" and "five small steps, two minutes each"; a unit test
+  fails if they and the numbers disagree. The steps' words are `ride.step.1` to `ride.step.5`.
+- **It is silent, stores nothing, and celebrates nothing.** Call 988, Text 988, and Call 911 are the screen's
+  last lines the whole time. At the end, or on "Stop here", it asks how things are and chooses no answer;
+  **"Still hard" shows support at once and makes the day quiet** (`goQuiet`), like a very low check-in.
+- No step names a method or a way to get hurt; a unit test reads the words. Leaving the screen, or Quick
+  exit, ends the ten minutes. `test/ride-test.mjs` checks each.
+
 ## Reach someone I trust (November 16, 2026, a draft)
 
 - **Rules in `src/logic/reach.js`, screen in `src/ui/reach.js`, limits in `CONFIG.reach`.** A short message for

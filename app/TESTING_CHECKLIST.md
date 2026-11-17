@@ -75,6 +75,12 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Ten minutes at a time:
+- [ ] Start it and leave the phone alone for two minutes: the step changes by itself, with one soft tap, and
+      the screen stays awake.
+- [ ] Lock the phone for a minute during a step and unlock it: the clock has moved on by that minute.
+- [ ] VoiceOver reads each new step once and does not read the clock every second.
+
 Reach someone I trust (stop at the compose screen; never send):
 - [ ] Friends tab, with one person in My circle: "Message (name)" opens Messages addressed to that one person,
       with the words filled in, and nothing is sent until Send. Cancel there returns to the app.

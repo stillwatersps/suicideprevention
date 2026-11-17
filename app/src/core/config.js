@@ -94,4 +94,6 @@ export const CONFIG = deepFreeze({
   letter: { maxLength: 2000 },
   // A message for a hard moment: short enough to be a text. As many people as My circle holds.
   reach: { maxLength: 300, maxPeople: 5 },
+  // Ten minutes at a time: five steps of two minutes. The screen's words say the same numbers.
+  ride: { steps: 5, stepSeconds: 120 },
 });

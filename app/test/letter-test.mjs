@@ -103,6 +103,7 @@ for (const lang of ['en', 'es']) {
   await page.waitForFunction(([k, want]) => (JSON.parse(localStorage.getItem(k) || '{}').text || '') === want, [KEY, LETTER]);
 
   // ---- accessibility, and the largest text ----
+  await page.waitForTimeout(600); // a screen fades in; colors are measured once it has
   await page.evaluate(axeSource);
   const audit = await page.evaluate(async () => { const result = await window.axe.run('#tl-letter', { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] }, resultTypes: ['violations'] }); return result.violations.filter((v) => ['serious', 'critical'].includes(v.impact)).map((v) => `${v.id} (${v.nodes.length})`); });
   check(audit.length === 0, 'no serious accessibility finding on the letter' + (audit.length ? ': ' + audit.join(', ') : ''));
@@ -205,6 +206,7 @@ console.log('\nThe letter and the rest of the app');
     const wide = await page.evaluate(() => { const screen = document.getElementById('tl-letter'); const limit = window.innerWidth + 1; return Array.from(screen.querySelectorAll('*')).filter((el) => el.getClientRects().length && el.getBoundingClientRect().right > limit).map((el) => el.id || el.className).slice(0, 3); });
     check(wide.length === 0, `Spanish, dark, a small phone, text at ${size}: nothing on the letter runs off the side` + (wide.length ? ': ' + wide.join(', ') : ''));
   }
+  await page.waitForTimeout(600); // a screen fades in; colors are measured once it has
   await page.evaluate(axeSource);
   const audit = await page.evaluate(async () => { const result = await window.axe.run('#tl-letter', { runOnly: { type: 'tag', values: ['wcag2aa', 'wcag21aa', 'wcag22aa'] }, resultTypes: ['violations'] }); return result.violations.filter((v) => ['serious', 'critical'].includes(v.impact)).map((v) => v.id); });
   check(audit.length === 0, 'and no serious accessibility finding in dark' + (audit.length ? ': ' + audit.join(', ') : ''));

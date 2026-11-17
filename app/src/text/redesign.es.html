@@ -140,6 +140,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Volver al presente</span> <span class="tl-card-sub">Maneras breves de recuperar la calma</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="ride" id="tl-checkin-ride">
+              <span class="tl-card-icon" data-tl-icon="clock"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Diez minutos a la vez</span> <span class="tl-card-sub">Cinco pasos pequeños, uno tras otro</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="helps" id="tl-checkin-helps">
               <span class="tl-card-icon" data-tl-icon="sliders"></span>
               <span class="tl-card-text"><span class="tl-card-title">Lo que suele ayudar</span> <span class="tl-card-sub">De tus propios registros</span></span>
@@ -227,6 +232,11 @@
               <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" data-tl-over>
                 <span class="tl-card-icon" data-tl-icon="stone"></span>
                 <span class="tl-card-text"><span class="tl-card-title">Volver al presente</span> <span class="tl-card-sub">Maneras breves de recuperar la calma</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="ride" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="clock"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Diez minutos a la vez</span> <span class="tl-card-sub">Cinco pasos pequeños, uno tras otro</span></span>
                 <span class="tl-card-go" data-tl-icon="next"></span>
               </button></li>
             </ul>
@@ -890,6 +900,36 @@
           </div>
         </section>
 
+        <section class="tl-screen" id="tl-ride" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-ride-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-ride-title">Diez minutos a la vez</h2>
+          <p>Los sentimientos fuertes suben y bajan, aunque no parezca que vayan a hacerlo. Esta es una manera de pasar los próximos diez minutos: cinco pasos pequeños, de dos minutos cada uno. Es en silencio, y no se guarda nada de esto.</p>
+          <p><strong>No tienes que terminar esto antes de pedir ayuda.</strong> Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla, y al final de esta.</p>
+          <div class="tl-panel" id="tl-ride-start-box">
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-ride-start">Empezar los diez minutos</button></p>
+          </div>
+          <div class="tl-panel" id="tl-ride-step-box" hidden>
+            <p class="tl-sub" id="tl-ride-count"></p>
+            <h3 class="tl-headline" id="tl-ride-step" tabindex="-1"></h3>
+            <p class="tl-display tl-ride-time" id="tl-ride-time" aria-hidden="true"></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-ride-next"></button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-ride-stop">Parar aquí</button></p>
+          </div>
+          <div class="tl-panel" id="tl-ride-end-box" hidden>
+            <h3 class="tl-headline" id="tl-ride-end-title" tabindex="-1">¿Cómo están las cosas ahora?</h3>
+            <p class="tl-sub" id="tl-ride-passed" hidden>Pasaron diez minutos.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-ride-easier">Un poco más llevaderas</button> <button type="button" class="tl-btn tl-btn-secondary" id="tl-ride-hard">Siguen difíciles</button></p>
+            <p id="tl-ride-easier-note" tabindex="-1" hidden>Pasaste diez minutos. Puedes volver a esto cuando quieras.</p>
+            <p id="tl-ride-hard-note" tabindex="-1" hidden><strong>No tienes que cargar con esto a solas.</strong> Puedes hablar con alguien ahora mismo, con los botones que están justo abajo.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" id="tl-ride-again">Empezar de nuevo</button></p>
+          </div>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+          </ul>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -1238,6 +1278,14 @@
         <span data-word="letter.title">Una carta para mí</span>
         <span data-word="letter.saved">Tu carta está guardada en este teléfono.</span>
         <span data-word="letter.removed">Tu carta se quitó.</span>
+        <span data-word="ride.count">Paso {step} de {total}</span>
+        <span data-word="ride.next">Siguiente paso</span>
+        <span data-word="ride.finish">Terminar</span>
+        <span data-word="ride.step.1">Pon los dos pies en el suelo. Mira a tu alrededor y nombra cinco cosas que puedes ver.</span>
+        <span data-word="ride.step.2">Suelta el aire despacio, por más tiempo del que lo tomas. Sigue así hasta que pase el tiempo.</span>
+        <span data-word="ride.step.3">Busca un vaso de agua. Tómalo despacio.</span>
+        <span data-word="ride.step.4">Cambia de lugar: otra habitación, una puerta, o afuera si puedes.</span>
+        <span data-word="ride.step.5">Piensa en una persona con la que podrías estar, o a la que podrías escribirle. No tienes que decir por qué.</span>
         <span data-word="reach.title">Un mensaje para un momento difícil</span>
         <span data-word="reach.start">Estoy pasando por un momento difícil. ¿Podrías llamarme o escribirme cuando veas esto?</span>
         <span data-word="reach.saved">Tu mensaje está guardado en este teléfono.</span>

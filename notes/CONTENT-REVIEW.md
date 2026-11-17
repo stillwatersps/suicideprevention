@@ -1398,6 +1398,24 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 4: ten minutes at a time (November 16, 2026)
+
+A new screen on the Check-in tab and on the support step (under the crisis buttons): five small steps, two
+minutes each, with a silent clock. It stores nothing. Call 988, Text 988, and Call 911 are on the screen the
+whole time. At the end it asks "How are things now?"; "Still hard" shows "You don't have to carry it alone"
+and brings Call 988 into view. All of its wording is new, in both languages.
+
+- The reviewer: the opening line is "Strong feelings rise and ease, even when it doesn't feel like they will."
+  Is that safe to say to someone in a crisis, and is it true enough to say?
+- **Does offering "ten minutes" risk someone waiting instead of calling?** The screen says first: "You don't
+  have to finish this before asking for help."
+- The five steps: feet on the floor and five things you can see; a longer breath out; a glass of water; move
+  to a different spot; think of one person you could be near or message. Are any of these wrong for someone
+  at high risk? Step 4 says "outside if you can".
+- "A little easier" answers: "You got through ten minutes. You can come back to this any time." Is that too
+  close to praise?
+- The Spanish is an AI translation ("Diez minutos a la vez") no fluent reader has checked.
+
 ### Forty features, 3: reach someone I trust (November 16, 2026)
 
 A new screen on the Friends tab. It holds a short message, ready ahead of time, and lists the people in My
