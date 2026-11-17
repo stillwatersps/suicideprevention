@@ -151,6 +151,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Care near me</span> <span class="tl-card-sub">Emergency rooms, in your phone's maps</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="good" id="tl-checkin-good">
+              <span class="tl-card-icon" data-tl-icon="star"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Three good things</span> <span class="tl-card-sub">Small ones count</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="helps" id="tl-checkin-helps">
               <span class="tl-card-icon" data-tl-icon="sliders"></span>
               <span class="tl-card-text"><span class="tl-card-title">What tends to help</span> <span class="tl-card-sub">From your own check-ins</span></span>
@@ -999,6 +1004,27 @@
           <p class="tl-sub">If the night feels like too much, you don't have to wait for morning. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
         </section>
 
+        <section class="tl-screen" id="tl-good" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-good-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-good-title">Three good things</h2>
+          <p>Each day, up to three things that went all right, however small. A warm drink counts. So does getting out of bed.</p>
+          <p class="tl-sub">Some days there won't be any, and that is all right. Nothing here is counted, and nobody is keeping score.</p>
+          <p class="tl-sub" id="tl-good-privacy">What you write is saved on this phone only. Tidelight never receives it. Anyone who can unlock this phone can read it, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes it.</p>
+          <p class="tl-status" id="tl-good-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel" id="tl-good-today">
+            <h3 class="tl-headline" id="tl-good-today-title">Today</h3>
+            <p class="tl-field"><label for="tl-good-1">One thing</label><input class="tl-input" id="tl-good-1" type="text" maxlength="140" autocomplete="off" data-good-thing></p>
+            <p class="tl-field"><label for="tl-good-2">Another</label><input class="tl-input" id="tl-good-2" type="text" maxlength="140" autocomplete="off" data-good-thing></p>
+            <p class="tl-field"><label for="tl-good-3">And one more</label><input class="tl-input" id="tl-good-3" type="text" maxlength="140" autocomplete="off" data-good-thing></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-good-save">Save today's</button></p>
+          </div>
+          <div class="tl-panel" id="tl-good-earlier-box" hidden>
+            <h3 class="tl-headline" id="tl-good-earlier-title">Earlier days</h3>
+            <ul class="tl-list tl-good-days" id="tl-good-earlier" aria-labelledby="tl-good-earlier-title"></ul>
+          </div>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
@@ -1121,7 +1147,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>What stays on this phone</h3>
-            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
+            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
             <p>Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.</p>
             <h3>What Tidelight doesn't do</h3>
             <ul>
@@ -1360,6 +1386,11 @@
         <span data-word="ride.step.3">Get a glass of water. Drink it slowly.</span>
         <span data-word="ride.step.4">Move to a different spot: another room, a doorway, or outside if you can.</span>
         <span data-word="ride.step.5">Think of one person you could be near, or could send a message to. You don't have to say why.</span>
+        <span data-word="good.title">Three good things</span>
+        <span data-word="good.saved">Saved on this phone.</span>
+        <span data-word="good.removed">That day was removed.</span>
+        <span data-word="good.remove">Remove this day</span>
+        <span data-word="good.removeDay">Remove {day}</span>
         <span data-word="reach.title">A message for a hard moment</span>
         <span data-word="reach.start">I'm having a hard time right now. Could you call or text me when you see this?</span>
         <span data-word="reach.saved">Your message is saved on this phone.</span>

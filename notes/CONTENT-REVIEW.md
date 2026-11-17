@@ -1398,6 +1398,19 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 14: three good things (November 17, 2026)
+
+A new screen on the Check-in tab: each day, up to three short lines about things that went all right, in the
+person's own words, with the last seven days shown underneath. Nothing is counted. It is never offered on the
+support step. All of its wording is new, in both languages.
+
+- The reviewer: is asking for "good things" safe for someone who is suicidal? On a bad day an empty list could
+  feel like proof. The screen says: "Some days there won't be any, and that is all right. Nothing here is
+  counted, and nobody is keeping score."
+- "A warm drink counts. So does getting out of bed." Is that the right register, or does it talk down?
+- Should earlier days be shown at all, or only today?
+- The Spanish ("Tres cosas buenas") is an AI translation no fluent reader has checked.
+
 ### Forty features, 13: wind down for sleep (November 17, 2026)
 
 A new screen on the Meditate tab: four small steps to tick off before bed (dim the lights; write down what is

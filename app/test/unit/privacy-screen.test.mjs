@@ -24,6 +24,7 @@ const COVERED = {
   plan: 'your safety plan',
   letter: 'your letter to yourself',
   reach: 'your message for a hard moment',
+  good: 'your three good things',
   hope: 'your Hope box',
   circle: 'the people and places you add',
   places: 'the people and places you add',

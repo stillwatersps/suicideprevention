@@ -44,7 +44,7 @@ test('the screen\'s words agree with the numbers: ten minutes, five steps, two m
   const { steps, stepSeconds } = CONFIG.ride;
   assert.equal(steps * stepSeconds, 600);
   const page = readFileSync(new URL('../../src/text/redesign.en.html', import.meta.url), 'utf8');
-  const screen = page.slice(page.indexOf('id="tl-ride"'), page.indexOf('id="tl-expect"'));
+  const screen = page.slice(page.indexOf('id="tl-ride"'), page.indexOf('</section>', page.indexOf('id="tl-ride"')));
   assert.match(screen, /ten minutes/i);
   assert.match(screen, /five small steps, two minutes each/);
   for (let n = 1; n <= steps; n += 1) assert.match(page, new RegExp(`data-word="ride\\.step\\.${n}">[^<]{20,}`), 'step ' + n + ' has no words');

@@ -84,6 +84,7 @@ export const SCREENS = [
   { id: 'ride', name: 'Ten minutes at a time', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-ride'); } },
   { id: 'ride-step', name: 'Ten minutes at a time, a step', go: async (page) => { await page.click('#tl-ride-start'); await page.waitForSelector('#tl-ride-step-box:not([hidden])'); }, leave: async (page) => { if (await page.isVisible('#tl-ride-stop')) await page.click('#tl-ride-stop'); } },
   { id: 'wind', name: 'Wind down for sleep', go: async (page) => { await root(page, 'meditate'); await page.click('#tl-meditate-wind'); } },
+  { id: 'good', name: 'Three good things', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-good'); } },
   { id: 'nearby', name: 'Care near me', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-nearby'); } },
   { id: 'reach', name: 'Reach someone I trust', go: async (page) => { await root(page, 'friends'); await page.click('#tl-friends-reach'); } },
   { id: 'helping', name: 'Helping someone you\'re worried about', go: async (page) => { await root(page, 'friends'); await page.click('#tl-friends-helping'); } },

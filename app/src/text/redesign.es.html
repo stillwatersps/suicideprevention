@@ -150,6 +150,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Atención cerca de mí</span> <span class="tl-card-sub">Salas de emergencias, en los mapas de tu teléfono</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="good" id="tl-checkin-good">
+              <span class="tl-card-icon" data-tl-icon="star"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Tres cosas buenas</span> <span class="tl-card-sub">Las pequeñas cuentan</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="helps" id="tl-checkin-helps">
               <span class="tl-card-icon" data-tl-icon="sliders"></span>
               <span class="tl-card-text"><span class="tl-card-title">Lo que suele ayudar</span> <span class="tl-card-sub">De tus propios registros</span></span>
@@ -998,6 +1003,27 @@
           <p class="tl-sub">Si la noche se siente demasiado pesada, no tienes que esperar a la mañana. Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.</p>
         </section>
 
+        <section class="tl-screen" id="tl-good" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-good-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-good-title">Tres cosas buenas</h2>
+          <p>Cada día, hasta tres cosas que salieron bien, por pequeñas que sean. Una bebida caliente cuenta. También levantarse de la cama.</p>
+          <p class="tl-sub">Algunos días no habrá ninguna, y está bien. Aquí no se cuenta nada, y nadie lleva la cuenta.</p>
+          <p class="tl-sub" id="tl-good-privacy">Lo que escribes se guarda solo en este teléfono. Tidelight nunca lo recibe. Cualquier persona que pueda desbloquear este teléfono puede leerlo, a menos que actives el bloqueo de la app en Ajustes. Borrar todo, en Tu camino, lo elimina.</p>
+          <p class="tl-status" id="tl-good-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel" id="tl-good-today">
+            <h3 class="tl-headline" id="tl-good-today-title">Hoy</h3>
+            <p class="tl-field"><label for="tl-good-1">Una cosa</label><input class="tl-input" id="tl-good-1" type="text" maxlength="140" autocomplete="off" data-good-thing></p>
+            <p class="tl-field"><label for="tl-good-2">Otra</label><input class="tl-input" id="tl-good-2" type="text" maxlength="140" autocomplete="off" data-good-thing></p>
+            <p class="tl-field"><label for="tl-good-3">Y una más</label><input class="tl-input" id="tl-good-3" type="text" maxlength="140" autocomplete="off" data-good-thing></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-good-save">Guardar las de hoy</button></p>
+          </div>
+          <div class="tl-panel" id="tl-good-earlier-box" hidden>
+            <h3 class="tl-headline" id="tl-good-earlier-title">Días anteriores</h3>
+            <ul class="tl-list tl-good-days" id="tl-good-earlier" aria-labelledby="tl-good-earlier-title"></ul>
+          </div>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -1120,7 +1146,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>Lo que se queda en este teléfono</h3>
-            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
+            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
             <p>Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.</p>
             <h3>Lo que Tidelight no hace</h3>
             <ul>
@@ -1359,6 +1385,11 @@
         <span data-word="ride.step.3">Busca un vaso de agua. Tómalo despacio.</span>
         <span data-word="ride.step.4">Cambia de lugar: otra habitación, una puerta, o afuera si puedes.</span>
         <span data-word="ride.step.5">Piensa en una persona con la que podrías estar, o a la que podrías escribirle. No tienes que decir por qué.</span>
+        <span data-word="good.title">Tres cosas buenas</span>
+        <span data-word="good.saved">Guardado en este teléfono.</span>
+        <span data-word="good.removed">Ese día se quitó.</span>
+        <span data-word="good.remove">Quitar este día</span>
+        <span data-word="good.removeDay">Quitar {day}</span>
         <span data-word="reach.title">Un mensaje para un momento difícil</span>
         <span data-word="reach.start">Estoy pasando por un momento difícil. ¿Podrías llamarme o escribirme cuando veas esto?</span>
         <span data-word="reach.saved">Tu mensaje está guardado en este teléfono.</span>

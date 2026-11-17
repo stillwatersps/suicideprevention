@@ -445,6 +445,12 @@ html.tl-locked #app-age { display: none !important; }
 .tl-letter-field { display: block; min-height: calc(var(--tl-tap-lg) * 4); resize: vertical; overflow-wrap: anywhere; }
 #tl-letter .tl-row { flex-wrap: wrap; }
 #tl-nearby .tl-row { flex-wrap: wrap; }
+/* Three good things: each earlier day is a small block; long words wrap. */
+.tl-good-days { display: grid; gap: var(--tl-space-md); margin: 0; padding: 0; list-style: none; }
+.tl-good-day { display: grid; gap: var(--tl-space-xs); padding-top: var(--tl-space-sm); border-top: var(--tl-border) solid var(--tl-line); min-width: 0; }
+.tl-good-things { margin: 0; padding-left: var(--tl-space-lg); overflow-wrap: anywhere; }
+.tl-good-day .tl-btn { justify-self: start; }
+html.tl #tl-good .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 #tl-wind-steps { display: grid; gap: var(--tl-space-sm); }
 html.tl #tl-wind .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 html.tl #tl-nearby .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const read = (file) => readFileSync(new URL('../../src/' + file, import.meta.url), 'utf8');
-const screenOf = (page) => page.slice(page.indexOf('id="tl-wind"'), page.indexOf('id="tl-expect"'));
+const screenOf = (page) => page.slice(page.indexOf('id="tl-wind"'), page.indexOf('</section>', page.indexOf('id="tl-wind"')));
 
 test('four steps, each a plain tick box, in both languages', () => {
   for (const file of ['text/redesign.en.html', 'text/redesign.es.html']) {

@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Three good things:
+- [ ] Check-in tab, "Three good things": write two lines with the phone's keyboard, save, close the app, open
+      it. They are there. The next day they are under "Earlier days" and today is empty.
+
 Wind down for sleep:
 - [ ] Meditate tab, "Wind down for sleep": tick two steps, start the Sleep session, end it. The app is back
       on the Meditate tab; open the screen again, and nothing is ticked.

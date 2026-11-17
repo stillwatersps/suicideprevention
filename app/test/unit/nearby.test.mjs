@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
 const read = (file) => readFileSync(new URL('../../src/' + file, import.meta.url), 'utf8');
-const screenOf = (page) => page.slice(page.indexOf('id="tl-nearby"'), page.indexOf('id="tl-expect"'));
+const screenOf = (page) => page.slice(page.indexOf('id="tl-nearby"'), page.indexOf('</section>', page.indexOf('id="tl-nearby"')));
 
 for (const [lang, file, query] of [['English', 'text/redesign.en.html', 'emergency+room'], ['Spanish', 'text/redesign.es.html', 'sala+de+emergencias']]) {
   test(`${lang}: the link is a plain search in the phone's maps, with nothing about the person in it`, () => {

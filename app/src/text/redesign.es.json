@@ -474,7 +474,7 @@
   "This is not a privacy policy.": "Esto no es una política de privacidad.",
   "It is a plain description of what the app does today, written by an AI assistant from the app's own code. No lawyer has written or read it. Tidelight does not have a privacy policy yet.": "Es una descripción sencilla de lo que la app hace hoy, escrita por un asistente de IA a partir del propio código de la app. Ningún abogado la ha escrito ni leído. Tidelight todavía no tiene una política de privacidad.",
   "What stays on this phone": "Lo que se queda en este teléfono",
-  "What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.": "Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.",
+  "What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.": "Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.",
   "Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.": "Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.",
   "What Tidelight doesn't do": "Lo que Tidelight no hace",
   "It shows no advertising.": "No muestra publicidad.",
@@ -594,6 +594,19 @@
   "Turn on Do Not Disturb, if you'd like a quiet phone.": "Activa No molestar, si quieres un teléfono en silencio.",
   "Get comfortable. Let your shoulders and your jaw go loose.": "Ponte en una postura cómoda. Deja que los hombros y la mandíbula se aflojen.",
   "Start the Sleep session": "Empezar la sesión para dormir",
-  "If the night feels like too much, you don't have to wait for morning. The buttons to call or text 988 and to call 911 are at the top of every screen.": "Si la noche se siente demasiado pesada, no tienes que esperar a la mañana. Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla."
+  "If the night feels like too much, you don't have to wait for morning. The buttons to call or text 988 and to call 911 are at the top of every screen.": "Si la noche se siente demasiado pesada, no tienes que esperar a la mañana. Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.",
+  "Three good things": "Tres cosas buenas",
+  "Small ones count": "Las pequeñas cuentan",
+  "Each day, up to three things that went all right, however small. A warm drink counts. So does getting out of bed.": "Cada día, hasta tres cosas que salieron bien, por pequeñas que sean. Una bebida caliente cuenta. También levantarse de la cama.",
+  "Some days there won't be any, and that is all right. Nothing here is counted, and nobody is keeping score.": "Algunos días no habrá ninguna, y está bien. Aquí no se cuenta nada, y nadie lleva la cuenta.",
+  "What you write is saved on this phone only. Tidelight never receives it. Anyone who can unlock this phone can read it, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes it.": "Lo que escribes se guarda solo en este teléfono. Tidelight nunca lo recibe. Cualquier persona que pueda desbloquear este teléfono puede leerlo, a menos que actives el bloqueo de la app en Ajustes. Borrar todo, en Tu camino, lo elimina.",
+  "One thing": "Una cosa",
+  "Another": "Otra",
+  "And one more": "Y una más",
+  "Save today's": "Guardar las de hoy",
+  "Earlier days": "Días anteriores",
+  "That day was removed.": "Ese día se quitó.",
+  "Remove this day": "Quitar este día",
+  "Remove {day}": "Quitar {day}"
  }
 }

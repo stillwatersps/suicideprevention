@@ -9,6 +9,8 @@ import { KEYS } from '../core/storage.js';
 import { buildExport, oneLine, listOf } from '../logic/export.js';
 import { PARTS, planLines } from '../logic/plan.js';
 import { letterLines } from '../logic/letter.js';
+import { goodLines } from '../logic/good.js';
+import { sayDay } from './good.js';
 import { t, lang } from './words.js';
 import { state } from './state.js';
 import { devLog } from '../core/dev.js';
@@ -58,6 +60,7 @@ export async function exportText(ctx) {
   const plan = planLines(state.plan, Object.fromEntries(PARTS.map((part) => [part, heading('#tl-plan-' + part + '-title')])));
   sections.push({ heading: t('plan.title'), lines: plan });
   sections.push({ heading: t('letter.title'), lines: letterLines(state.letter) });
+  sections.push({ heading: t('good.title'), lines: goodLines(state.good, sayDay) });
   sections.push({ heading: t('reach.title'), lines: state.reach && state.reach.message ? state.reach.message.split('\n') : [] });
 
   const circle = (await stored(KEYS.circle)) || {};

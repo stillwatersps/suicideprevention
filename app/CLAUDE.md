@@ -306,6 +306,15 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## Three good things (November 17, 2026, a draft)
+
+- **Rules in `src/logic/good.js`, screen in `src/ui/good.js`, numbers in `CONFIG.good`.** Up to three short lines
+  a day, in the person's own words; the app writes none of them.
+- **Never a count of days, a streak, a score, or a comparison**, and a day with nothing is never remarked on.
+  A unit test reads the rules and the script for those words. No celebration on saving.
+- **It is never offered on a support step**: a hard moment is not the time to be asked for good things.
+  `test/good-test.mjs` checks that, and the rest.
+
 ## Wind down for sleep (November 17, 2026, a draft)
 
 - **`#tl-wind`, on the Meditate tab, with `src/ui/wind.js`.** Four tick boxes and a button that starts the
