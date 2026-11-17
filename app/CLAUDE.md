@@ -306,6 +306,19 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## Reach someone I trust (November 16, 2026, a draft)
+
+- **Rules in `src/logic/reach.js`, screen in `src/ui/reach.js`, limits in `CONFIG.reach`.** A short message for
+  one person in My circle. **The app sends nothing:** a tap opens the phone's own messages to that one person
+  with the words filled in, and the person taps Send there. Never to a crisis line, and never to more than the
+  one person tapped; a unit test reads the script for both.
+- The screen starts with its own short message (`reach.start`), which names no method and is not a call for
+  emergency help. Only words the person changed and saved are stored (`tidelight.reach.v1`).
+- It reads My circle (kept by `src/extras.js`) and never writes it. `src/extras.js` announces a change with
+  `tidelight-circle-changed`.
+- "Message someone I trust" shows on the support step only when the circle has someone in it, below the crisis
+  buttons. The screen says first that a message is not a way to get urgent help. `test/reach-test.mjs` checks each.
+
 ## A letter to myself (November 16, 2026, a draft)
 
 - **Rules in `src/logic/letter.js`, screen in `src/ui/letter.js`, the limit in `CONFIG.letter`.** One letter, in

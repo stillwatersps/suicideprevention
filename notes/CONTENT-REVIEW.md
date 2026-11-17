@@ -1398,6 +1398,24 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 3: reach someone I trust (November 16, 2026)
+
+A new screen on the Friends tab. It holds a short message, ready ahead of time, and lists the people in My
+circle; "Message (name)" opens the phone's own messages to that one person with the words filled in. The
+person taps Send there. When the circle has someone in it, the support step after a very low check-in shows
+"Message someone I trust" under Call 988, Text 988, and Call 911. All of its wording is new, in both languages.
+
+- The reviewer: the screen starts with these words, which the person can change: "I'm having a hard time right
+  now. Could you call or text me when you see this?" Is that the right thing to put in someone's mouth? It
+  names nothing and asks for a call back, not for rescue.
+- Is it safe to offer a message to a friend on the support step at all? The screen says first: "A message is
+  not a way to get urgent help. The person may not see it right away."
+- Each person also has "Call (name)". It is their own contact, as in the safety plan.
+- A teenager's circle "doesn't have to include a parent" (existing wording). Does a ready message to a friend
+  need any different wording for under-18s?
+- A lawyer: the message goes through the phone's own messages, so the app never has it. The privacy screen
+  now lists "your message for a hard moment" among what is kept (only words the person saved).
+
 ### Forty features, 2: a letter to myself (November 16, 2026)
 
 A new screen on the Check-in tab. The person writes one letter, on a steadier day, to read on a hard one. The

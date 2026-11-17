@@ -9,6 +9,7 @@ import { dateKey } from '../logic/streaks.js';
 import { isQuietDay } from '../logic/safety.js';
 import { emptyPlan, cleanPlan } from '../logic/plan.js';
 import { emptyLetter, cleanLetter } from '../logic/letter.js';
+import { emptyReach, cleanReach } from '../logic/reach.js';
 import { CONFIG } from '../core/config.js';
 
 export const state = {
@@ -22,6 +23,7 @@ export const state = {
   presets: [],
   plan: emptyPlan(), // the safety plan (src/logic/plan.js)
   letter: emptyLetter(), // a letter to myself (src/logic/letter.js)
+  reach: emptyReach(), // a message for a hard moment (src/logic/reach.js)
 };
 
 const DEFAULTS = {
@@ -35,6 +37,7 @@ const DEFAULTS = {
   presets: () => [],
   plan: () => emptyPlan(),
   letter: () => emptyLetter(),
+  reach: () => emptyReach(),
 };
 const listeners = [];
 
@@ -46,6 +49,7 @@ export async function loadState() {
   // The plan is read in a hard moment: whatever was stored, it comes back whole or empty, never broken.
   state.plan = cleanPlan(state.plan, CONFIG.plan);
   state.letter = cleanLetter(state.letter, CONFIG.letter); // the same care: it is read in a hard moment too
+  state.reach = cleanReach(state.reach, CONFIG.reach);
   applyStyle();
 }
 // save('settings', { checkInsPerDay: 4 }) lays the change over what's there; arrays and null replace.

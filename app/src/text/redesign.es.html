@@ -210,6 +210,7 @@
               <a class="tl-btn tl-btn-secondary" href="#support">Más formas de recibir apoyo</a>
               <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="plan" data-tl-over data-plan-open hidden>Abrir mi plan de seguridad</button>
               <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="letter" data-tl-over data-letter-open hidden>Leer mi carta</button>
+              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="reach" data-tl-over data-reach-open hidden>Escribirle a alguien de confianza</button>
               <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Volver a Inicio</button>
             </div>
             <ul class="tl-list tl-support-more">
@@ -603,6 +604,11 @@
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <h2 class="tl-title" id="tl-friends-title">Amistades</h2>
           <div id="tl-friends-slot"></div>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="reach" id="tl-friends-reach">
+            <span class="tl-card-icon" data-tl-icon="heart"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Contactar a alguien de confianza</span> <span class="tl-card-sub">Un mensaje listo para un momento difícil</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <button type="button" class="tl-card tl-card-action" data-tl-push="helping" id="tl-friends-helping">
             <span class="tl-card-icon" data-tl-icon="people"></span>
             <span class="tl-card-text"><span class="tl-card-title">Cómo ayudar a alguien que te preocupa</span></span>
@@ -860,6 +866,30 @@
           </div>
         </section>
 
+        <!-- No tab of its own: it opens in whichever tab it was asked for (Friends, or the support step), so Back returns there. -->
+        <section class="tl-screen" id="tl-reach" tabindex="-1" aria-labelledby="tl-reach-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-reach-title">Contactar a alguien de confianza</h2>
+          <p>Un mensaje corto para alguien de tu círculo, listo de antemano. Tú eliges quién lo recibe, puedes cambiar las palabras y lo envías tú desde los mensajes de tu teléfono.</p>
+          <p><strong>Un mensaje no es una forma de recibir ayuda urgente.</strong> Puede que la persona no lo vea enseguida. Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.</p>
+          <p class="tl-sub" id="tl-reach-privacy">Tidelight no envía nada y nunca ve tu mensaje ni quién lo recibe. Lo envían los mensajes de tu teléfono, como cualquier mensaje de texto, así que la persona que elijas lo recibe y no se puede deshacer. Las palabras que guardes aquí se quedan en este teléfono. Borrar todo, en Tu camino, las elimina.</p>
+          <p class="tl-status" id="tl-reach-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel" id="tl-reach-words">
+            <p class="tl-field"><label for="tl-reach-text">Mi mensaje</label><textarea class="tl-input tl-letter-field" id="tl-reach-text" rows="4" maxlength="300" autocomplete="off"></textarea></p>
+            <p class="tl-sub">Hasta 300 caracteres. Estas palabras son un comienzo; cámbialas para que suenen a ti.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-reach-save">Guardar mi mensaje</button></p>
+          </div>
+          <div class="tl-panel tl-plan-part" id="tl-reach-who">
+            <h3 class="tl-headline" id="tl-reach-who-title">A quién contactar</h3>
+            <ul class="tl-list tl-plan-list" id="tl-reach-people" aria-labelledby="tl-reach-who-title"></ul>
+            <div id="tl-reach-nobody" hidden>
+              <p>Todavía no hay nadie en tu círculo. Puedes agregar a personas de confianza en la pestaña Amigos.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-go="friends">Ir a Amigos</button></p>
+            </div>
+          </div>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -978,7 +1008,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>Lo que se queda en este teléfono</h3>
-            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
+            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
             <p>Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.</p>
             <h3>Lo que Tidelight no hace</h3>
             <ul>
@@ -1208,6 +1238,11 @@
         <span data-word="letter.title">Una carta para mí</span>
         <span data-word="letter.saved">Tu carta está guardada en este teléfono.</span>
         <span data-word="letter.removed">Tu carta se quitó.</span>
+        <span data-word="reach.title">Un mensaje para un momento difícil</span>
+        <span data-word="reach.start">Estoy pasando por un momento difícil. ¿Podrías llamarme o escribirme cuando veas esto?</span>
+        <span data-word="reach.saved">Tu mensaje está guardado en este teléfono.</span>
+        <span data-word="reach.message">Escribirle a {name}</span>
+        <span data-word="reach.opened">Se abrieron los mensajes de tu teléfono con las palabras ya escritas. No se envía nada hasta que toques Enviar allí.</span>
         <span data-word="plan.remove">Quitar</span>
         <span data-word="plan.removeNamed">Quitar: {text}</span>
         <span data-word="plan.call">Llamar a {name}</span>

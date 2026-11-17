@@ -18,6 +18,7 @@ import { initLock, isLocked } from './ui/lock.js';
 import { Tidelight } from './native.js';
 import { initPlan, renderPlan } from './ui/plan.js';
 import { initLetter, renderLetter } from './ui/letter.js';
+import { initReach, renderReach } from './ui/reach.js';
 import { initHelps } from './ui/helps.js';
 import { initSummary } from './ui/summary.js';
 import { initHealth, addMindfulMinutes } from './ui/health.js';
@@ -91,6 +92,7 @@ export async function initRedesign(context) {
   initStreaks(shell, ctx);
   initPlan(shell, ctx);
   initLetter(shell);
+  initReach(shell);
   initHelps(shell, ctx);
   initSummary(shell, ctx);
   initHealth(shell);
@@ -135,9 +137,10 @@ export async function initRedesign(context) {
   // Delete everything also removes the name, the home spot, the streak, meditation history, and
   // the safety plan.
   window.addEventListener('tidelight-erased', async () => {
-    for (const name of ['profile', 'home', 'days', 'streak', 'sessions', 'plan', 'letter']) await clear(name);
+    for (const name of ['profile', 'home', 'days', 'streak', 'sessions', 'plan', 'letter', 'reach']) await clear(name);
     renderPlan();
     renderLetter();
+    renderReach();
     await refreshStreak();
     refresh();
   });

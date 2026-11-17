@@ -58,6 +58,7 @@ export async function exportText(ctx) {
   const plan = planLines(state.plan, Object.fromEntries(PARTS.map((part) => [part, heading('#tl-plan-' + part + '-title')])));
   sections.push({ heading: t('plan.title'), lines: plan });
   sections.push({ heading: t('letter.title'), lines: letterLines(state.letter) });
+  sections.push({ heading: t('reach.title'), lines: state.reach && state.reach.message ? state.reach.message.split('\n') : [] });
 
   const circle = (await stored(KEYS.circle)) || {};
   const person = (p) => '- ' + [oneLine(p.name), oneLine(p.phone)].filter(Boolean).join(', ');

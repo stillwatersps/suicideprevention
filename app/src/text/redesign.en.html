@@ -211,6 +211,7 @@
               <a class="tl-btn tl-btn-secondary" href="#support">More ways to get support</a>
               <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="plan" data-tl-over data-plan-open hidden>Open my safety plan</button>
               <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="letter" data-tl-over data-letter-open hidden>Read my letter</button>
+              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="reach" data-tl-over data-reach-open hidden>Message someone I trust</button>
               <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Back to Home</button>
             </div>
             <ul class="tl-list tl-support-more">
@@ -604,6 +605,11 @@
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <h2 class="tl-title" id="tl-friends-title">Friends</h2>
           <div id="tl-friends-slot"></div>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="reach" id="tl-friends-reach">
+            <span class="tl-card-icon" data-tl-icon="heart"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Reach someone I trust</span> <span class="tl-card-sub">A message ready for a hard moment</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
           <button type="button" class="tl-card tl-card-action" data-tl-push="helping" id="tl-friends-helping">
             <span class="tl-card-icon" data-tl-icon="people"></span>
             <span class="tl-card-text"><span class="tl-card-title">Helping someone you're worried about</span></span>
@@ -861,6 +867,30 @@
           </div>
         </section>
 
+        <!-- No tab of its own: it opens in whichever tab it was asked for (Friends, or the support step), so Back returns there. -->
+        <section class="tl-screen" id="tl-reach" tabindex="-1" aria-labelledby="tl-reach-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-reach-title">Reach someone I trust</h2>
+          <p>A short message for someone in your circle, ready ahead of time. You choose who gets it, you can change the words, and you send it yourself from your phone's messages.</p>
+          <p><strong>A message is not a way to get urgent help.</strong> The person may not see it right away. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+          <p class="tl-sub" id="tl-reach-privacy">Tidelight sends nothing and never sees your message or who gets it. Your phone's own messages send it, like any text, so the person you choose receives it and it can't be taken back. Words you save here stay on this phone. Delete everything, in Your journey, removes them.</p>
+          <p class="tl-status" id="tl-reach-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel" id="tl-reach-words">
+            <p class="tl-field"><label for="tl-reach-text">My message</label><textarea class="tl-input tl-letter-field" id="tl-reach-text" rows="4" maxlength="300" autocomplete="off"></textarea></p>
+            <p class="tl-sub">Up to 300 characters. These words are a start; change them to sound like you.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-reach-save">Save my message</button></p>
+          </div>
+          <div class="tl-panel tl-plan-part" id="tl-reach-who">
+            <h3 class="tl-headline" id="tl-reach-who-title">Who to reach</h3>
+            <ul class="tl-list tl-plan-list" id="tl-reach-people" aria-labelledby="tl-reach-who-title"></ul>
+            <div id="tl-reach-nobody" hidden>
+              <p>There is nobody in your circle yet. You can add people you trust on the Friends tab.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-go="friends">Go to Friends</button></p>
+            </div>
+          </div>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
@@ -979,7 +1009,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>What stays on this phone</h3>
-            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
+            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
             <p>Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.</p>
             <h3>What Tidelight doesn't do</h3>
             <ul>
@@ -1209,6 +1239,11 @@
         <span data-word="letter.title">A letter to myself</span>
         <span data-word="letter.saved">Your letter is saved on this phone.</span>
         <span data-word="letter.removed">Your letter was removed.</span>
+        <span data-word="reach.title">A message for a hard moment</span>
+        <span data-word="reach.start">I'm having a hard time right now. Could you call or text me when you see this?</span>
+        <span data-word="reach.saved">Your message is saved on this phone.</span>
+        <span data-word="reach.message">Message {name}</span>
+        <span data-word="reach.opened">Your phone's messages opened with the words filled in. Nothing is sent until you tap Send there.</span>
         <span data-word="plan.remove">Remove</span>
         <span data-word="plan.removeNamed">Remove: {text}</span>
         <span data-word="plan.call">Call {name}</span>

@@ -92,4 +92,6 @@ export const CONFIG = deepFreeze({
   plan: { maxItems: 8, maxLength: 120 },
   // A letter to myself: long enough for a real letter, short enough to read in a hard moment.
   letter: { maxLength: 2000 },
+  // A message for a hard moment: short enough to be a text. As many people as My circle holds.
+  reach: { maxLength: 300, maxPeople: 5 },
 });

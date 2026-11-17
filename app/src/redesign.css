@@ -444,6 +444,7 @@ html.tl-locked #app-age { display: none !important; }
 .tl-letter-words { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .tl-letter-field { display: block; min-height: calc(var(--tl-tap-lg) * 4); resize: vertical; overflow-wrap: anywhere; }
 #tl-letter .tl-row { flex-wrap: wrap; }
+#tl-reach .tl-letter-field { min-height: calc(var(--tl-tap-lg) * 2); }
 html.tl #tl-letter .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 .tl-plan-list { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0; padding: 0; list-style: none; }
 .tl-plan-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tl-space-sm); padding: var(--tl-space-sm) 0; border-top: var(--tl-border) solid var(--tl-line); }

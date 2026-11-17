@@ -75,6 +75,12 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Reach someone I trust (stop at the compose screen; never send):
+- [ ] Friends tab, with one person in My circle: "Message (name)" opens Messages addressed to that one person,
+      with the words filled in, and nothing is sent until Send. Cancel there returns to the app.
+- [ ] On an iPhone and on an Android phone: the recipient and the words are both filled in.
+- [ ] A very low quick check-in: "Message someone I trust" is under the crisis buttons.
+
 A letter to myself:
 - [ ] Check-in tab, "A letter to myself": write a few lines with the phone's keyboard, with line breaks. Save.
       It reads back the same, and is still there after the app is closed and opened.

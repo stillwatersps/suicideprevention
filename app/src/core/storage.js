@@ -29,6 +29,7 @@ export const KEYS = Object.freeze({
   language: 'tidelight.language', // plain text
   plan: 'tidelight.plan.v1', // the safety plan: six short lists in the person's own words
   letter: 'tidelight.letter.v1', // a letter to myself: one letter in the person's own words
+  reach: 'tidelight.reach.v1', // a message for a hard moment, if the person changed the words
 });
 
 export function memoryBackend(initial) {
