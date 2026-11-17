@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Body scan:
+- [ ] Meditate tab, "Body scan", 5 minutes, with sound on: three lines are spoken (settle, the scan, come
+      back) and the long quiet between them does not feel like the app has stopped.
+
 Another way to see it:
 - [ ] Check-in tab, "Another way to see it": type in two fields with the phone's keyboard; the keyboard does
       not cover the field being typed in. Go to another tab and back: the fields are empty.

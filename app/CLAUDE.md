@@ -400,6 +400,13 @@ each covers and what only a real phone can show.
 - It says, before the questions, that it isn't for thoughts of ending your life, and it never tells the person
   their thought is a mistake (no "distorted", "irrational", "negative thinking"). Never on a support step.
 
+## Body scan (November 17, 2026, a draft)
+
+- **A sixth built-in type, `scan`** (`src/logic/meditations.js`): settle, six slow breaths, the body scan, a long
+  quiet, come back. **It reuses the Deep session's lines** (`intro.deep`, `bodyScan`, `outro.deep`), so there is
+  nothing new to record. A new spoken line means new entries in `notes/VOICE-RECORDING-SHEET.md`
+  (`node tools/voice-sheet.mjs`) and a reviewer's read; none was added.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

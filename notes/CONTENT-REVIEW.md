@@ -1546,6 +1546,20 @@ each with an empty field. Nothing typed is kept. All of its wording is new, in b
 - Nothing is saved, on purpose. Would a person be better served by keeping what they wrote?
 - The Spanish ("Otra manera de verlo") is an AI translation no fluent reader has checked.
 
+### Forty features, 17: body scan (November 17, 2026)
+
+A sixth kind of session on the Meditate tab, "Body scan", for 5 or 10 minutes. It says only lines the Deep
+session already says (the opening, the body scan, the closing), with a long quiet after the scan. Its name is
+the only new wording.
+
+- The reviewer: the body scan line is said once and then there is quiet for several minutes. Is one pass
+  enough, or should the scan be written out part by part? That would be new script lines and new recordings.
+- A spoken muscle relaxation session was on the list. It was not written: the app has it only as words
+  ("Tense and release", in Grounding). Should a spoken one be written, and by whom?
+- For some people attention to the body is distressing. The opening line says "If anything feels like too
+  much, you can stop at any time." Is that enough?
+- The Spanish name ("Recorrido por el cuerpo") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

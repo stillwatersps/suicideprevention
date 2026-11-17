@@ -766,7 +766,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 36 screens, about 796 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 36 screens, about 801 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -1215,9 +1215,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Morning, 5:05 AM: feeling: Good.  
+> Morning, 6:06 AM: feeling: Good.  
 > Remove  
-> Morning, 5:05 AM: feeling: Okay.  
+> Morning, 6:06 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1273,6 +1273,11 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > 5 min  
 > 15 min  
 > 30 min  
+> Start  
+> Options  
+> Body scan  
+> 5 min  
+> 10 min  
 > Start  
 > Options  
 > Wind down for sleep  
@@ -1824,10 +1829,10 @@ Picture: `app/design/after-launch-pass/reviewer/51-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Tuesday, November 17  
-> - Morning, 5:05 AM: feeling: Good.  
-> - Morning, 5:05 AM: feeling: Okay.  
-> - Morning, 5:05 AM: feeling: Very low.  
-> - Morning, 5:05 AM: feeling: Sad.  
+> - Morning, 6:06 AM: feeling: Good.  
+> - Morning, 6:06 AM: feeling: Okay.  
+> - Morning, 6:06 AM: feeling: Very low.  
+> - Morning, 6:06 AM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

@@ -6,7 +6,7 @@
 import { CONFIG } from '../core/config.js';
 import { cycleLength, totalSeconds } from './timeline.js';
 
-export const TYPES = ['silent', 'quick', 'deep', 'sleep', 'sound'];
+export const TYPES = ['silent', 'quick', 'deep', 'sleep', 'sound', 'scan'];
 export const WORLDS = ['ocean', 'forest', 'nightSky'];
 export const SOUNDS = ['none', 'rain', 'ocean', 'whiteNoise', 'brownNoise'];
 
@@ -91,6 +91,16 @@ export function builtIn(type, options = {}) {
     const second = breaths(PATTERNS.calm, bodyTime - scan - silence - first.used);
     m.segments = [seg('intro', intro, spoken('intro.deep')), ...first.segments, seg('bodyScan', scan, spoken('bodyScan')),
       seg('silence', silence + second.left, { screenTextId: 'silence' }), ...second.segments, seg('outro', outro, spoken('outro.deep'))];
+  } else if (type === 'scan') {
+    // Body scan: settle, a few slow breaths, then attention moves up the body, and a long quiet to
+    // stay with it. Every line is one the Deep session already says, so nothing new is recorded.
+    m = base(type, minutes, style, { world: 'forest', voiceEnabled: true, hapticBreathing: false });
+    const [intro, outro] = [30, 30];
+    const first = breaths(PATTERNS.calm, 60);
+    const rest = T - intro - outro - first.used;
+    const scan = Math.round(rest * 0.5);
+    m.segments = [seg('intro', intro, spoken('intro.deep')), ...first.segments, seg('bodyScan', scan, spoken('bodyScan')),
+      seg('silence', rest - scan, { screenTextId: 'silence' }), seg('outro', outro, spoken('outro.deep'))];
   } else if (type === 'sound') {
     // Just sound: rain, ocean, or steady noise for the whole time, and nothing else. No voice, no
     // breathing to follow, no taps: one quiet stretch with two words on the screen.
