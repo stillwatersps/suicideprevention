@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 299 lines of the app's words. 11 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 38, 42, 43, 44, 45, 46); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 301 lines of the app's words. 11 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 38, 42, 43, 44, 45, 46); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -445,6 +445,8 @@ Picture: `app/design/after-launch-pass/reviewer/50-ground.png`
 > Hold something cold, or run cold water over your hands, for about half a minute. Notice how it feels.  
 > Feet on the floor  
 > Press your feet into the floor. Feel the chair or the ground holding you up. Open your hands and let your shoulders drop.  
+> Tense and release  
+> Make two fists and hold them tight while you count to five. Let go, and notice your hands soften. Then lift your shoulders toward your ears, hold, and let them drop. If tensing hurts, skip this one.  
 > A slower breath  
 > Breathe out for a little longer than you breathe in. A circle on the next screen can pace you for one minute, in silence.  
 > Breathe for a minute  
@@ -652,14 +654,14 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good evening  
+> Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
 > Any time you like  
 > Start  
 > Suggested for you  
-> Silent  
-> Silent and ready anywhere  
+> Sleep  
+> Winding down  
 > Start  
 > 0  
 > day streak  
@@ -906,14 +908,14 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good evening  
+> Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
 > Any time you like  
 > Start  
 > Suggested for you  
-> Silent  
-> Silent and ready anywhere  
+> Sleep  
+> Winding down  
 > Start  
 > 0  
 > day streak  
@@ -1196,9 +1198,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 8:50 PM: feeling: Good.  
+> Before bed, 10:02 PM: feeling: Good.  
 > Remove  
-> Before bed, 8:50 PM: feeling: Okay.  
+> Before bed, 10:02 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1227,8 +1229,8 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > Draft for review  
 > Meditate  
 > Suggested for you  
-> Silent  
-> Silent and ready anywhere  
+> Sleep  
+> Winding down  
 > Start  
 > Silent · anywhere  
 > 3 min  
@@ -1718,10 +1720,10 @@ Picture: `app/design/after-launch-pass/reviewer/47-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Monday, November 16  
-> - Before bed, 8:50 PM: feeling: Good.  
-> - Before bed, 8:50 PM: feeling: Okay.  
-> - Before bed, 8:51 PM: feeling: Very low.  
-> - Before bed, 8:51 PM: feeling: Sad.  
+> - Before bed, 10:02 PM: feeling: Good.  
+> - Before bed, 10:02 PM: feeling: Okay.  
+> - Before bed, 10:02 PM: feeling: Very low.  
+> - Before bed, 10:03 PM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

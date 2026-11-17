@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-16 (forty features, feature 4)
+Last updated: 2026-11-16 (forty features, feature 5)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -22,7 +22,7 @@ In a hard moment
 - [x] 2 — A letter to myself: `src/logic/letter.js`, `src/ui/letter.js`, `test/unit/letter.test.mjs`, `test/letter-test.mjs` (69 checks); one letter in the person's own words, on the Check-in tab and, once written, on the support step under the crisis buttons; in the crisis inventory, the data copy, Delete everything, the privacy screen, and behind the app lock
 - [x] 3 — Reach someone I trust: `src/logic/reach.js`, `src/ui/reach.js`, `test/unit/reach.test.mjs`, `test/reach-test.mjs`; a short message ready ahead of time for one person in My circle, on the Friends tab and, when the circle has someone in it, on the support step under the crisis buttons; the phone's own messages open with the words filled in and the person sends it; the app sends nothing and keeps only words the person changed and saved
 - [x] 4 — Ten minutes at a time: `src/logic/ride.js`, `src/ui/ride.js`, `test/unit/ride.test.mjs`, `test/ride-test.mjs`; five small steps of two minutes, silent, storing nothing, on the Check-in tab and on the support step under the crisis buttons; Call 988, Text 988, and Call 911 are on the screen the whole time; at the end or on "Stop here" it asks how things are, and "Still hard" shows support at once and makes the day quiet
-- [ ] 5 — Quick body skills: add "Tense and release" to Grounding
+- [x] 5 — Quick body skills: "Tense and release" is the fifth exercise in Grounding (`#tl-ground`), between "Feet on the floor" and "A slower breath"; "Something cold" and the paced breath were already there; `test/ground-test.mjs` now expects five
 - [ ] 6 — Night mode: a darker, quieter app during hours the person sets
 - [x] 7 — "Make my space safer" (already built: part 6 of the safety plan)
 - [x] 8 — Crisis lines by need (already built: "Other ways to reach someone")

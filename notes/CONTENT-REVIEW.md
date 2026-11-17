@@ -1398,6 +1398,16 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 5: tense and release (November 16, 2026)
+
+Grounding has a fifth exercise: "Make two fists and hold them tight while you count to five. Let go, and notice
+your hands soften. Then lift your shoulders toward your ears, hold, and let them drop. If tensing hurts, skip
+this one."
+
+- The reviewer: is tensing a fist safe to suggest to someone who may hurt themselves? It names only the hands
+  and shoulders, and gives a way out.
+- The Spanish ("Tensar y soltar") is an AI translation no fluent reader has checked.
+
 ### Forty features, 4: ten minutes at a time (November 16, 2026)
 
 A new screen on the Check-in tab and on the support step (under the crisis buttons): five small steps, two

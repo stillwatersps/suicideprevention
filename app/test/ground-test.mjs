@@ -1,4 +1,4 @@
-// Grounding: four short exercises to steady yourself, offered on the support screen after a very
+// Grounding: five short exercises to steady yourself, offered on the support screen after a very
 // low check-in and on the Check-in tab. New wording, a draft for the reviewer.
 //   node test/ground-test.mjs      (after a build; part of `npm test`)
 // Desktop Chromium with stand-ins for the phone, muted. Not a phone. No call, text, or chat is
@@ -59,7 +59,10 @@ for (const lang of ['en', 'es']) {
     const text = screen.innerText;
     return { parts, steps, crisis, draft: Boolean(screen.querySelector('.tl-draft-tag')), streak: Boolean(screen.querySelector('[class*="streak"], .tl-horizon')), says988: /988/.test(text) && /911/.test(text), inputs: screen.querySelectorAll('input, textarea, select').length };
   });
-  check(seen.parts.length === 4 && seen.parts.every((p) => p.title.length > 2 && p.words > 30), `four exercises, each with a name and what to do: ${seen.parts.map((p) => p.title).join('; ')}`);
+  check(seen.parts.length === 5 && seen.parts.every((p) => p.title.length > 2 && p.words > 30), `five exercises, each with a name and what to do: ${seen.parts.map((p) => p.title).join('; ')}`);
+  // Since November 16, 2026: tensing and releasing, with a way out for anyone it hurts.
+  const tense = await page.evaluate(() => { const part = Array.from(document.querySelectorAll('#tl-ground .tl-ground-part'))[3]; return { words: part.textContent.replace(/\s+/g, ' ').trim(), controls: part.querySelectorAll('button, a, input').length }; });
+  check(/five|cinco/.test(tense.words) && /skip this one|sáltate este/.test(tense.words) && tense.controls === 0, 'the fourth is tensing and releasing: plain words, a count of five, and "skip this one" if it hurts');
   check(seen.steps.length === 5 && seen.steps.map((s) => s[0]).join('') === '54321', 'the first counts down through five senses: 5, 4, 3, 2, 1');
   check(seen.crisis.every((c) => c && c.w >= 44 && c.h >= 44) && seen.says988, 'Call 988, Text 988, and Call 911 are on the screen itself, full size, and the screen says they are there');
   check(seen.draft, 'it is marked "Draft for review"');
