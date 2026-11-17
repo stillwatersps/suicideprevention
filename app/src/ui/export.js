@@ -89,6 +89,7 @@ export async function exportText(ctx) {
 
   const me = [];
   if (state.profile.name) me.push(t('export.name', { name: oneLine(state.profile.name) }));
+  if (typeof state.settings.reminderWords === 'string' && state.settings.reminderWords.trim()) me.push(t('export.reminderWords', { words: oneLine(state.settings.reminderWords) }));
   const group = ctx.getGroup && ctx.getGroup();
   const groupName = group && $('.app-group-names [data-age-group="' + group + '"]');
   if (groupName) me.push(t('export.age', { group: groupName.textContent.trim() }));

@@ -31,6 +31,7 @@ export const CONFIG = deepFreeze({
     maxDays: 14,
     testDelayMs: 5000,
     testId: 299,
+    ownMaxLength: 60, // the person's own words for a reminder
   },
   streak: {
     enabledDefault: true,

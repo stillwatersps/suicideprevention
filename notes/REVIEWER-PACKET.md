@@ -667,7 +667,7 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 2:30 PM  
+> At 7:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -771,7 +771,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 39 screens, about 897 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 39 screens, about 900 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -927,7 +927,7 @@ Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 > Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 2:30 PM  
+> At 7:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -985,6 +985,9 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Notifications  
 > Check-in reminders  
 > The phone shows them itself. A reminder only says "A moment to check in, if you'd like." Nothing about you is in it, and nothing is sent anywhere.  
+> Your own words for the reminder (optional)  
+> A reminder shows on the lock screen, where anyone near the phone can read it. Use words only you would understand, and nothing about how you are. Leave this empty for the usual words.  
+> Save my words  
 > Send a test notification  
 > Meditation  
 > Usual length  
@@ -1223,9 +1226,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Midday, 1:08 PM: feeling: Good.  
+> After school, 2:42 PM: feeling: Good.  
 > Remove  
-> Midday, 1:08 PM: feeling: Okay.  
+> After school, 2:42 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1957,10 +1960,10 @@ Picture: `app/design/after-launch-pass/reviewer/54-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Tuesday, November 17  
-> - Midday, 1:08 PM: feeling: Good.  
-> - Midday, 1:08 PM: feeling: Okay.  
-> - Midday, 1:08 PM: feeling: Very low.  
-> - Midday, 1:08 PM: feeling: Sad.  
+> - After school, 2:42 PM: feeling: Good.  
+> - After school, 2:42 PM: feeling: Okay.  
+> - After school, 2:43 PM: feeling: Very low.  
+> - After school, 2:43 PM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

@@ -17,6 +17,7 @@ import { initSections } from './ui/sections.js';
 import { initLock, isLocked } from './ui/lock.js';
 import { Tidelight } from './native.js';
 import { initPlan, renderPlan } from './ui/plan.js';
+import { initReminderWords } from './ui/reminder-words.js';
 import { initToolkit, renderToolkit } from './ui/toolkit.js';
 import { initCourse, renderCourse } from './ui/course.js';
 import { initLetter, renderLetter } from './ui/letter.js';
@@ -100,6 +101,7 @@ export async function initRedesign(context) {
   initSettings(shell, ctx);
   initStreaks(shell, ctx);
   initPlan(shell, ctx);
+  initReminderWords(shell, ctx);
   initToolkit(shell);
   initCourse(shell);
   initLetter(shell);

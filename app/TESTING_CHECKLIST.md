@@ -75,6 +75,11 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Reminders in my own words:
+- [ ] Settings, Notifications: turn reminders on, write "Blue door", Save, then "Send a test notification" and
+      lock the phone. The notification says "Tidelight" and "Blue door" and nothing else.
+- [ ] Write "How is your mood?" and Save: it is refused and the test notification still says "Blue door".
+
 My toolkit:
 - [ ] Home, "Choose tools": pin Grounding and Hope box. Back on Home both are buttons; each opens its tool. At
       the phone's largest text size the buttons wrap and none is cut off.

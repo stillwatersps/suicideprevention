@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 22)
+Last updated: 2026-11-17 (forty features, feature 24)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -43,7 +43,7 @@ Day to day
 - [x] 21 — A choice of breathing patterns: an eighth built-in type, `breathe`, with a pattern picked on its card (`BREATHE`: calm 4-6, box 4-4-4-4, 4-7-8), for 1, 3 or 5 minutes; breathing only, nothing spoken; the card says to stop if it makes you dizzy; a favorite keeps its pattern; `test/unit/breathe.test.mjs`, `test/breathe-test.mjs`
 - [x] 22 — My toolkit: a card on Home (`#tl-home-toolkit`) with up to four tools the person pins, chosen on `#tl-toolkit`; `src/logic/tools.js` (the list of tools as data, `TOOLS`, which a list of every tool can reuse), `src/ui/toolkit.js`, `tidelight.toolkit.v1` (ids only); the crisis lines are not tools and can't be pinned or unpinned; in the copy of my data, the erase, and the privacy screen; `test/unit/toolkit.test.mjs`, `test/toolkit-test.mjs`
 - [x] 23 — Home adapts (already built: "Suggested for you")
-- [ ] 24 — Reminders in the person's own words
+- [x] 24 — Reminders in the person's own words: a field in Settings, Notifications (`#tl-set-rem-words`), kept as `settings.reminderWords`; `src/logic/reminder-words.js` refuses words about mood, crisis, or getting help (English and Spanish), and a refused or missing line means the app's usual words; the screen warns that a reminder shows on the lock screen; in the copy of my data, and removed by Delete everything; `test/unit/reminder-words.test.mjs`, `test/reminder-words-test.mjs`
 - [ ] 25 — A weekly reflection in words, never a score
 - [ ] 26 — A searchable list of every tool
 

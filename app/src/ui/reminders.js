@@ -2,6 +2,7 @@
 // (they never mention mood, crisis, or anything about the person) and come from the page.
 import { CONFIG } from '../core/config.js';
 import { effectiveTimes, planReminders } from '../logic/spread.js';
+import { ownWords } from '../logic/reminder-words.js';
 import { t } from './words.js';
 import { state, style } from './state.js';
 import { notificationPermission, setNotifications } from './device.js';
@@ -14,7 +15,9 @@ function allIds() {
 }
 
 export function reminderWords() {
-  return { title: t('rem.title'), body: t('rem.body', null, style()) };
+  // The person's own words, if they wrote some and they are discreet; else the app's.
+  const own = ownWords(state.settings.reminderWords, CONFIG.reminders.ownMaxLength);
+  return { title: t('rem.title'), body: own || t('rem.body', null, style()) };
 }
 
 // Sets the reminders again from the settings. Call it whenever a related setting changes, the app

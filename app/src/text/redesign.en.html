@@ -770,6 +770,10 @@
             <div class="tl-panel">
               <label class="tl-switch"><span>Check-in reminders</span><input type="checkbox" id="tl-set-reminders"></label>
               <p class="tl-sub">The phone shows them itself. A reminder only says "<span class="tl-rem-sample"></span>" Nothing about you is in it, and nothing is sent anywhere.</p>
+              <p class="tl-field"><label for="tl-set-rem-words">Your own words for the reminder (optional)</label><input class="tl-input" id="tl-set-rem-words" type="text" maxlength="60" autocomplete="off" aria-describedby="tl-set-rem-words-note"></p>
+              <p class="tl-sub" id="tl-set-rem-words-note">A reminder shows on the lock screen, where anyone near the phone can read it. Use words only you would understand, and nothing about how you are. Leave this empty for the usual words.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-set-rem-words-save">Save my words</button></p>
+              <p class="tl-status" id="tl-set-rem-words-status" role="status" hidden></p>
               <p class="tl-status" id="tl-set-rem-web" role="status" hidden>Reminders work in the app on a phone. In a web browser, your choices are kept, but no reminder can be shown.</p>
               <p class="tl-status" id="tl-set-rem-denied" role="status" hidden>This phone isn't letting Tidelight show notifications, so no reminder can be set. You can change that in the phone's settings.</p>
               <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-test">Send a test notification</button>
@@ -1581,6 +1585,10 @@
         <span data-word="tool.helps">What tends to help</span>
         <span data-word="tool.course">A first week</span>
         <span data-word="tool.nearby">Care near me</span>
+        <span data-word="rem.ownSaved">Saved. Your reminders will say this.</span>
+        <span data-word="rem.ownCleared">Cleared. Your reminders will use the usual words.</span>
+        <span data-word="rem.ownRefused">A reminder can't say that. It shows on the lock screen, so it must not say anything about how you are or about getting help. Try other words.</span>
+        <span data-word="export.reminderWords">My reminder words: {words}</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>

@@ -14,6 +14,7 @@ export function defaultSettings() {
     styleChosen: false, // true once the person picks a style themself
     countChosen: false, // true once the person picks how many check-ins a day
     remindersOn: false,
+    reminderWords: '', // the person's own words for a reminder; empty means the app's usual words
     customTimes: null, // null: spread evenly between wake and sleep
     streaksOn: CONFIG.streak.enabledDefault,
     haptics: true,

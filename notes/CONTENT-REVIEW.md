@@ -1626,6 +1626,24 @@ plan, the 1-minute reset, the Hope box, and ten others) so they are one tap away
   The chooser says so. Is the sentence clear?
 - The Spanish ("Mis herramientas") is an AI translation no fluent reader has checked.
 
+### Forty features, 24: reminders in the person's own words (November 17, 2026)
+
+In Settings, Notifications, a person can write one short line (60 characters) for their check-in reminders to
+say instead of "A moment to check in, if you'd like." The app refuses words about mood, crisis, or getting
+help, in English and Spanish, and says why.
+
+- **A founder's decision is needed.** The rule is that notifications are discreet. This lets the person choose
+  the words, inside a list of words the app refuses. Is that within the rule, or should reminders only ever
+  say the app's own words? If the answer is no, the field comes out and nothing else changes.
+- Settings already says, in reviewed wording, "A reminder only says "…" Nothing about you is in it." With the
+  person's own words that sentence is only as true as what they wrote. Does it need to change?
+- The reviewer: the refused list (`src/logic/reminder-words.js`) is an AI assistant's guess: suicide, kill,
+  die, crisis, self-harm, hurt, cut, mood, feel, sad, depress, anxiety, panic, therapy, medication, pills,
+  mental, safety plan, hotline, 988, 911, the app's name, and Spanish forms of the same. What is missing?
+- A list can't catch everything ("you know what to do"). The warning on the screen is the other half: "A
+  reminder shows on the lock screen, where anyone near the phone can read it."
+- The Spanish is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

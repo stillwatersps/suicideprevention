@@ -610,3 +610,9 @@ haven't seen this.** The alternative is to leave the strip to fill a short scree
 Also proposed the same day: a check-in reminder now shows as a banner while the app is open (it showed nothing
 before). For about five seconds the banner covers the strip's first line, as any notification does.
 
+## November 17, 2026: reminders in the person's own words (a proposal, not agreed)
+
+Built by Claude as feature 24 of the forty, on the unmerged branch `app/forty-features`. A person can write one
+short line for their check-in reminders to say. The app refuses words about mood, crisis, or getting help. The
+founder's rule is that notifications are discreet; whether a person's own words, inside that list, are within
+the rule is for the founders to decide. Until then this stays a draft on its branch.

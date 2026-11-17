@@ -769,6 +769,10 @@
             <div class="tl-panel">
               <label class="tl-switch"><span>Recordatorios de registro</span><input type="checkbox" id="tl-set-reminders"></label>
               <p class="tl-sub">El teléfono los muestra por sí mismo. Un recordatorio solo dice "<span class="tl-rem-sample"></span>" No incluye nada sobre ti, y no se envía nada a ningún lugar.</p>
+              <p class="tl-field"><label for="tl-set-rem-words">Tus propias palabras para el recordatorio (opcional)</label><input class="tl-input" id="tl-set-rem-words" type="text" maxlength="60" autocomplete="off" aria-describedby="tl-set-rem-words-note"></p>
+              <p class="tl-sub" id="tl-set-rem-words-note">Un recordatorio aparece en la pantalla de bloqueo, donde cualquier persona cerca del teléfono puede leerlo. Usa palabras que solo tú entenderías, y nada sobre cómo estás. Déjalo vacío para usar las palabras de siempre.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-set-rem-words-save">Guardar mis palabras</button></p>
+              <p class="tl-status" id="tl-set-rem-words-status" role="status" hidden></p>
               <p class="tl-status" id="tl-set-rem-web" role="status" hidden>Los recordatorios funcionan en la app en un teléfono. En un navegador web, tus elecciones se guardan, pero no se puede mostrar ningún recordatorio.</p>
               <p class="tl-status" id="tl-set-rem-denied" role="status" hidden>Este teléfono no deja que Tidelight muestre notificaciones, así que no se puede poner ningún recordatorio. Puedes cambiarlo en los ajustes del teléfono.</p>
               <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-test">Enviar una notificación de prueba</button>
@@ -1580,6 +1584,10 @@
         <span data-word="tool.helps">Lo que suele ayudar</span>
         <span data-word="tool.course">Una primera semana</span>
         <span data-word="tool.nearby">Atención cerca de mí</span>
+        <span data-word="rem.ownSaved">Guardado. Tus recordatorios dirán esto.</span>
+        <span data-word="rem.ownCleared">Borrado. Tus recordatorios usarán las palabras de siempre.</span>
+        <span data-word="rem.ownRefused">Un recordatorio no puede decir eso. Aparece en la pantalla de bloqueo, así que no debe decir nada sobre cómo estás ni sobre pedir ayuda. Prueba con otras palabras.</span>
+        <span data-word="export.reminderWords">Mis palabras para el recordatorio: {words}</span>
         <span data-word="plan.title">Mi plan de seguridad</span>
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>

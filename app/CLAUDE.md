@@ -447,6 +447,15 @@ each covers and what only a real phone can show.
 - **The card on Home (`#tl-home-toolkit`) sits below the quick actions** and shows up to four pinned tools
   (`tidelight.toolkit.v1`, ids only). `openTool(shell, id)` in `src/ui/toolkit.js` opens any tool.
 
+## Reminders in the person's own words (November 17, 2026, a draft)
+
+- **`settings.reminderWords`, set in Settings, Notifications.** `reminderWords()` in `src/ui/reminders.js` uses
+  them only when `ownWords()` (`src/logic/reminder-words.js`) lets them through: one line, 60 characters, and
+  **nothing about mood, crisis, or getting help**, in English or Spanish. The title stays "Tidelight".
+- **The founder's rule about discreet notifications holds for the person's own words too.** Never loosen the
+  list without a founder's decision; add to it freely. Delete everything clears the words and sets the
+  reminders again.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the
