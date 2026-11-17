@@ -392,6 +392,14 @@ each covers and what only a real phone can show.
   and the plan. Removing the letter asks first. "Delete everything" removes it; the app lock covers it; "a copy
   of my data" includes it; the privacy screen names it. `test/letter-test.mjs` checks each.
 
+## Another way to see it (November 17, 2026, a draft)
+
+- **`#tl-reframe`, on the Check-in tab, with `src/ui/reframe.js`.** Four questions and four empty fields. **Nothing
+  typed is kept anywhere**: it is cleared when the screen is left, on Quick exit, and by "Clear what I wrote".
+  Never add saving or sharing to it without a founder's decision; a unit test fails on either.
+- It says, before the questions, that it isn't for thoughts of ending your life, and it never tells the person
+  their thought is a mistake (no "distorted", "irrational", "negative thinking"). Never on a support step.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

@@ -161,6 +161,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Three good things</span> <span class="tl-card-sub">Small ones count</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="reframe" id="tl-checkin-reframe">
+              <span class="tl-card-icon" data-tl-icon="spark"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Another way to see it</span> <span class="tl-card-sub">Four questions for a heavy thought</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="helps" id="tl-checkin-helps">
               <span class="tl-card-icon" data-tl-icon="sliders"></span>
               <span class="tl-card-text"><span class="tl-card-title">What tends to help</span> <span class="tl-card-sub">From your own check-ins</span></span>
@@ -1028,6 +1033,23 @@
             <h3 class="tl-headline" id="tl-good-earlier-title">Earlier days</h3>
             <ul class="tl-list tl-good-days" id="tl-good-earlier" aria-labelledby="tl-good-earlier-title"></ul>
           </div>
+        </section>
+
+        <section class="tl-screen" id="tl-reframe" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-reframe-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-reframe-title">Another way to see it</h2>
+          <p>Four questions for a thought that keeps coming back and weighs on you. There are no right answers. Answer the ones you want, in your own words.</p>
+          <p><strong>This isn't for thoughts of ending your life.</strong> Those are for a person, not a worksheet. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+          <p class="tl-sub" id="tl-reframe-privacy">This is a place to think, not a record: nothing you write here is kept. It is gone when you leave this screen.</p>
+          <div class="tl-panel" id="tl-reframe-questions">
+            <p class="tl-field"><label for="tl-reframe-1">What happened?</label><textarea class="tl-input tl-letter-field" id="tl-reframe-1" rows="3" maxlength="500" autocomplete="off" data-reframe-answer></textarea></p>
+            <p class="tl-field"><label for="tl-reframe-2">What went through my mind?</label><textarea class="tl-input tl-letter-field" id="tl-reframe-2" rows="3" maxlength="500" autocomplete="off" data-reframe-answer></textarea></p>
+            <p class="tl-field"><label for="tl-reframe-3">What would I say to a friend who thought that?</label><textarea class="tl-input tl-letter-field" id="tl-reframe-3" rows="3" maxlength="500" autocomplete="off" data-reframe-answer></textarea></p>
+            <p class="tl-field"><label for="tl-reframe-4">Is there another way to see it?</label><textarea class="tl-input tl-letter-field" id="tl-reframe-4" rows="3" maxlength="500" autocomplete="off" data-reframe-answer></textarea></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-reframe-clear">Clear what I wrote</button></p>
+          </div>
+          <p class="tl-sub">If the thought is still heavy afterwards, that doesn't mean you did this wrong. Some thoughts need another person.</p>
         </section>
 
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>

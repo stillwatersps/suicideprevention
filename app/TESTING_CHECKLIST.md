@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Another way to see it:
+- [ ] Check-in tab, "Another way to see it": type in two fields with the phone's keyboard; the keyboard does
+      not cover the field being typed in. Go to another tab and back: the fields are empty.
+
 One small thing for today:
 - [ ] Add three things under Rediscover, "Things you'd like to try". Home shows one; "Another one" goes
       through all three; tomorrow it may start on a different one.

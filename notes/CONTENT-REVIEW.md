@@ -1531,6 +1531,21 @@ letter" under Call 988, Text 988, Call 911, and the plan. All of its wording is 
 - The letter can be up to 2,000 characters. It is stored as the person wrote it and is in "a copy of my data".
 - The Spanish is an AI translation ("Una carta para mí") no fluent reader has checked.
 
+### Forty features, 16: another way to see it (November 17, 2026)
+
+A new screen on the Check-in tab: four questions for a thought that keeps coming back ("What happened?", "What
+went through my mind?", "What would I say to a friend who thought that?", "Is there another way to see it?"),
+each with an empty field. Nothing typed is kept. All of its wording is new, in both languages.
+
+- The reviewer: this is a thought record in plain words. Is it safe to offer without a clinician, and are
+  these the right four questions?
+- It says first: "This isn't for thoughts of ending your life. Those are for a person, not a worksheet." Is
+  that the right line, and could it read as turning someone away?
+- Its last line: "If the thought is still heavy afterwards, that doesn't mean you did this wrong. Some thoughts
+  need another person."
+- Nothing is saved, on purpose. Would a person be better served by keeping what they wrote?
+- The Spanish ("Otra manera de verlo") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

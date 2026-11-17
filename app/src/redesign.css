@@ -445,6 +445,8 @@ html.tl-locked #app-age { display: none !important; }
 .tl-letter-field { display: block; min-height: calc(var(--tl-tap-lg) * 4); resize: vertical; overflow-wrap: anywhere; }
 #tl-letter .tl-row { flex-wrap: wrap; }
 #tl-nearby .tl-row { flex-wrap: wrap; }
+#tl-reframe .tl-letter-field { min-height: calc(var(--tl-tap-lg) * 1.5); }
+html.tl #tl-reframe .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 /* One small thing for today: the line is the person's own and may be long; the buttons sit under it. */
 .tl-step-card { flex-wrap: wrap; }
 .tl-step-card .tl-card-text { min-width: 0; overflow-wrap: anywhere; }
