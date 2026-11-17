@@ -75,6 +75,11 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+A mindful walk:
+- [ ] Meditate tab, "A mindful walk", 5 minutes, sound on, phone in a pocket, walking: four lines are heard, at
+      the start, after about 30 seconds, about half way, and at the end. The screen can be locked without the
+      session stopping (if it stops, write that down: it has not been tried on a phone).
+
 Being kind to yourself:
 - [ ] Check-in tab, "Being kind to yourself": the three exercises read well at the phone's largest text, and
       Call 988 at the end is full size.

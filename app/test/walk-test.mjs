@@ -1,0 +1,64 @@
+// "A mindful walk": a spoken session for walking, with the phone in a pocket.
+//   node test/walk-test.mjs      (after a build; part of `npm test`)
+// Desktop Chromium, muted: what would be spoken or sounded is recorded by a stand-in.
+import { tab, safetyFrame, serve, counter, pagePath, SEEDED } from './helpers.mjs';
+import { openBrowser } from './quiet.mjs';
+
+const { base, close } = await serve();
+const { check, tally } = counter();
+const name = (lang) => (lang === 'es' ? 'Spanish' : 'English');
+const card = '.tl-type[data-type="walk"]';
+
+async function newPage(browser, lang, rate, settings) {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const errors = [];
+  const outside = [];
+  await context.route((url) => !url.href.startsWith(base), (route) => { outside.push(route.request().url()); return route.abort(); });
+  await context.addInitScript(([r, s]) => {
+    window.__tidelight = { clockRate: r, spoken: [], ambient: [], haptics: [], onSpeak(o) { this.spoken.push(o); }, onAmbient(kind) { this.ambient.push(kind); }, onHaptic(o) { this.haptics.push(o); } };
+    if (s) { try { localStorage.setItem('tidelight.settings', JSON.stringify(s)); } catch (e) { /* first load */ } }
+  }, [rate, settings || null]);
+  await context.addInitScript(SEEDED);
+  const page = await context.newPage();
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto(base + pagePath(lang));
+  await page.waitForSelector('html.app-ready');
+  return { context, page, errors, outside };
+}
+
+const browser = await openBrowser();
+for (const lang of ['en', 'es']) {
+  console.log(`\nA mindful walk, ${name(lang)}`);
+  const { context, page, errors, outside } = await newPage(browser, lang, 60);
+  await tab(page, 'meditate');
+  if (!(await page.isVisible('#tl-meditate'))) await tab(page, 'meditate');
+  const seen = await page.evaluate((sel) => { const c = document.querySelector(sel); return c ? { name: c.querySelector('.tl-type-name').textContent.trim(), lengths: Array.from(c.querySelectorAll('[data-type-length] .tl-chip')).map((b) => b.getAttribute('data-value')).join(), label: c.querySelector('[data-type-start]').getAttribute('aria-label'), h: Math.round(c.querySelector('[data-type-start]').getBoundingClientRect().height) } : null; }, card);
+  check(seen && seen.name.length > 3 && seen.lengths === '5,10,15', `the Meditate tab has a "${seen && seen.name}" card, for 5, 10 or 15 minutes`);
+  check(seen && seen.label.includes(seen.name) && /5/.test(seen.label) && seen.h >= 44, 'Start says what it starts and is full size: "' + (seen && seen.label) + '"');
+  await page.click(card + ' [data-type-start]');
+  await page.waitForSelector('#tl-stage:not([hidden])');
+  check((await safetyFrame(page)).length === 0, 'the safety frame is on screen while it plays');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 30000 });
+  const heard = await page.evaluate(() => ({ spoken: window.__tidelight.spoken.map((l) => l.scriptId), text: window.__tidelight.spoken.map((l) => String(l.text || '')), ambient: window.__tidelight.ambient.length, breath: window.__tidelight.haptics.filter((h) => /breath|inhale|exhale/i.test(JSON.stringify(h))).length }));
+  check(heard.spoken.join() === 'intro.walk,walk.steps,walk.around,outro.walk', 'it says four lines, in order: set off, your steps, what is around you, slow to a stop (' + heard.spoken.join(', ') + ')');
+  check(heard.text.every((line) => line.length > 20 && !/^script\./.test(line)), 'each is a real line in this language, not a missing word');
+  check(heard.ambient === 0 && heard.breath === 0, 'with no background sound unless one is chosen, and no taps to breathe to');
+  const kept = await page.evaluate(() => JSON.parse(localStorage.getItem('tidelight.sessions') || '[]')[0]);
+  check(kept && kept.type === 'walk' && kept.completed && kept.totalSeconds === 300, 'when the time is up it is kept in the history as a five-minute session');
+  check(await page.isVisible('#tl-complete-faces'), 'and asks how the person feels now, like every session');
+  check(errors.length === 0, 'no script errors' + (errors.length ? ': ' + errors.slice(0, 2).join(' | ') : ''));
+  check(outside.length === 0, 'nothing was requested from outside the app');
+  await context.close();
+}
+{
+  const { context, page } = await newPage(browser, 'en', 60, { meditation: { voice: false } });
+  await tab(page, 'meditate');
+  await page.click(card + ' [data-type-start]');
+  await page.waitForSelector('#tl-complete:not([hidden])', { timeout: 30000 });
+  check((await page.evaluate(() => window.__tidelight.spoken.length)) === 0, 'with the voice guide off in Settings, nothing is spoken and the session still runs to its end');
+  await context.close();
+}
+await browser.close();
+close();
+console.log(`\n${tally.passes} passed, ${tally.failures} failed. Desktop Chromium only, muted, with stand-ins for voice and sound; not a phone.`);
+process.exit(tally.failures ? 1 : 0);

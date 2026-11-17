@@ -413,6 +413,14 @@ each covers and what only a real phone can show.
   the three crisis lines at its end. No script, nothing to type, nothing kept. Its words never blame, promise
   a result, or tell the person what they should feel; a unit test reads them for that.
 
+## A mindful walk (November 17, 2026, a draft)
+
+- **A seventh built-in type, `walk`** (`src/logic/meditations.js`): four spoken lines with quiet walking between
+  them. **Nothing to look at while moving**: no breathing segment, no taps, and the opening line says to put
+  the phone in a pocket and watch where you're going. A unit test fails if any of that is removed.
+- Its lines are new, so `notes/VOICE-RECORDING-SHEET.md` gained eight rows per language. With the voice guide
+  off in Settings the session is silent with words on the screen only.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

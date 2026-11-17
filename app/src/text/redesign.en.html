@@ -479,6 +479,19 @@
                   <span class="tl-row" data-type-sound role="group" aria-label="Sound"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">None</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Rain</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">White noise</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Brown noise</button></span>
                 </div>
               </div>
+              <div class="tl-type" data-type="walk">
+                <span class="tl-choice-art" data-tl-icon="path" data-tl-large></span>
+                <h3 class="tl-headline tl-type-name">A mindful walk</h3>
+                <span class="tl-row" data-type-length role="group" aria-label="Length"><button type="button" class="tl-chip" data-value="5" aria-pressed="true">5 min</button><button type="button" class="tl-chip" data-value="10" aria-pressed="false">10 min</button><button type="button" class="tl-chip" data-value="15" aria-pressed="false">15 min</button></span>
+                <button type="button" class="tl-btn tl-btn-primary" data-type-start>Start</button>
+                <button type="button" class="tl-btn tl-btn-quiet" data-type-options aria-expanded="false">Options</button>
+                <div class="tl-stack tl-type-more" hidden>
+                  <span class="tl-label">World</span>
+                  <span class="tl-row" data-type-world role="group" aria-label="World"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Forest</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Night sky</button></span>
+                  <span class="tl-label">Sound</span>
+                  <span class="tl-row" data-type-sound role="group" aria-label="Sound"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">None</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Rain</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">White noise</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Brown noise</button></span>
+                </div>
+              </div>
             </div>
             <button type="button" class="tl-card tl-card-action" data-tl-push="wind" id="tl-meditate-wind">
               <span class="tl-card-icon" data-tl-icon="moon"></span>
@@ -1369,6 +1382,18 @@
         <span data-word="screen.silence.sleep">Rest</span>
         <span data-word="screen.intro.custom">Settle in</span>
         <span data-word="screen.outro.custom">Gently come back</span>
+        <span data-word="screen.intro.walk">A short walk</span>
+        <span data-word="screen.walk.steps">Notice your steps</span>
+        <span data-word="screen.walk.around">Notice what is around you</span>
+        <span data-word="screen.outro.walk">Slow to a stop</span>
+        <span data-word="script.intro.walk" data-style="calm">Let's walk for a few minutes. Put the phone in a pocket and go at any pace that's comfortable. Keep your eyes on where you're going. You can stop at any time.</span>
+        <span data-word="script.intro.walk" data-style="straightforward">A few minutes of walking. Phone in a pocket. Any pace. Watch where you're going. Stop any time you need to.</span>
+        <span data-word="script.walk.steps" data-style="calm">Notice your feet meeting the ground, one step and then the next. You don't have to change how you move. If your mind wanders, that's okay. Come back to your steps.</span>
+        <span data-word="script.walk.steps" data-style="straightforward">Notice your feet on the ground. One step, then the next. If your mind wanders, come back to your steps.</span>
+        <span data-word="script.walk.around" data-style="calm">Now notice what is around you. One thing you can see. One thing you can hear. The air on your skin. There is nowhere you need to get to.</span>
+        <span data-word="script.walk.around" data-style="straightforward">Notice what's around you. One thing you see. One thing you hear. The air on your skin.</span>
+        <span data-word="script.outro.walk" data-style="calm">Slow down, and stop when you're ready. Notice how you feel. Thank you for taking this time for yourself.</span>
+        <span data-word="script.outro.walk" data-style="straightforward">Slow down and stop when you're ready. Notice how you feel. Done.</span>
         <span data-word="script.intro.custom" data-style="calm">Let's begin. Find a comfortable position and follow the circle. You can stop at any time.</span>
         <span data-word="script.intro.custom" data-style="straightforward">Let's begin. Follow the circle. Stop any time you need to.</span>
         <span data-word="script.outro.custom" data-style="calm">Gently come back. Notice how you feel. Thank you for taking this time.</span>
@@ -1393,6 +1418,7 @@
         <span data-word="med.sleep">Sleep</span>
         <span data-word="med.sound">Just sound</span>
         <span data-word="med.scan">Body scan</span>
+        <span data-word="med.walk">A mindful walk</span>
         <span data-word="med.custom">Your own</span>
         <span data-word="med.startLabel">Start {minutes}-minute {name}</span>
         <span data-word="med.withLength">{name}, {minutes} min</span>

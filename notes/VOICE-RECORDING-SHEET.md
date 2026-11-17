@@ -33,10 +33,18 @@ screen are the same.
   the app uses them. A missing file is never a fault: that line falls back to the phone's voice.
 - **Check.** Play each in the app, in a meditation of its type, with the sound on.
 
-## English: 18 recordings
+## English: 26 recordings
 
 | File | Voice | About | Words to read |
 | --- | --- | --- | --- |
+| `en/intro.walk_calm.mp3` | calm | 19 s | Let's walk for a few minutes. Put the phone in a pocket and go at any pace that's comfortable. Keep your eyes on where you're going. You can stop at any time. |
+| `en/intro.walk_straightforward.mp3` | straightforward | 14 s | A few minutes of walking. Phone in a pocket. Any pace. Watch where you're going. Stop any time you need to. |
+| `en/walk.steps_calm.mp3` | calm | 18 s | Notice your feet meeting the ground, one step and then the next. You don't have to change how you move. If your mind wanders, that's okay. Come back to your steps. |
+| `en/walk.steps_straightforward.mp3` | straightforward | 12 s | Notice your feet on the ground. One step, then the next. If your mind wanders, come back to your steps. |
+| `en/walk.around_calm.mp3` | calm | 18 s | Now notice what is around you. One thing you can see. One thing you can hear. The air on your skin. There is nowhere you need to get to. |
+| `en/walk.around_straightforward.mp3` | straightforward | 11 s | Notice what's around you. One thing you see. One thing you hear. The air on your skin. |
+| `en/outro.walk_calm.mp3` | calm | 12 s | Slow down, and stop when you're ready. Notice how you feel. Thank you for taking this time for yourself. |
+| `en/outro.walk_straightforward.mp3` | straightforward | 8 s | Slow down and stop when you're ready. Notice how you feel. Done. |
 | `en/intro.custom_calm.mp3` | calm | 10 s | Let's begin. Find a comfortable position and follow the circle. You can stop at any time. |
 | `en/intro.custom_straightforward.mp3` | straightforward | 8 s | Let's begin. Follow the circle. Stop any time you need to. |
 | `en/outro.custom_calm.mp3` | calm | 9 s | Gently come back. Notice how you feel. Thank you for taking this time. |
@@ -56,10 +64,18 @@ screen are the same.
 | `en/bodyScan.sleep_calm.mp3` | calm | 20 s | Let your feet rest. Let your legs rest. Let your belly soften. Let your shoulders sink into the bed. Let your face be still. There is nothing left to do today. |
 | `en/bodyScan.sleep_straightforward.mp3` | straightforward | 12 s | Rest your feet. Your legs. Your belly. Your shoulders. Your face. Nothing left to do today. |
 
-## Spanish: 18 recordings
+## Spanish: 26 recordings
 
 | File | Voice | About | Words to read |
 | --- | --- | --- | --- |
+| `es/intro.walk_calm.mp3` | calm | 17 s | Caminemos unos minutos. Guarda el teléfono en un bolsillo y ve al paso que te resulte cómodo. Mantén la vista en el camino. Puedes parar en cualquier momento. |
+| `es/intro.walk_straightforward.mp3` | straightforward | 14 s | Unos minutos de caminata. El teléfono en un bolsillo. A cualquier paso. Mira por dónde vas. Para cuando lo necesites. |
+| `es/walk.steps_calm.mp3` | calm | 19 s | Nota cómo tus pies tocan el suelo, un paso y luego el siguiente. No tienes que cambiar tu manera de moverte. Si tu mente se va, está bien. Vuelve a tus pasos. |
+| `es/walk.steps_straightforward.mp3` | straightforward | 12 s | Nota tus pies en el suelo. Un paso, luego el siguiente. Si tu mente se va, vuelve a tus pasos. |
+| `es/walk.around_calm.mp3` | calm | 19 s | Ahora nota lo que te rodea. Una cosa que puedes ver. Una cosa que puedes oír. El aire en tu piel. No hay ningún lugar al que tengas que llegar. |
+| `es/walk.around_straightforward.mp3` | straightforward | 12 s | Nota lo que te rodea. Una cosa que ves. Una cosa que oyes. El aire en tu piel. |
+| `es/outro.walk_calm.mp3` | calm | 10 s | Ve más despacio y detente cuando quieras. Nota cómo te sientes. Gracias por darte este tiempo. |
+| `es/outro.walk_straightforward.mp3` | straightforward | 8 s | Ve más despacio y detente cuando quieras. Nota cómo te sientes. Listo. |
 | `es/intro.custom_calm.mp3` | calm | 9 s | Empecemos. Busca una postura cómoda y sigue el círculo. Puedes parar en cualquier momento. |
 | `es/intro.custom_straightforward.mp3` | straightforward | 6 s | Empecemos. Sigue el círculo. Para cuando lo necesites. |
 | `es/outro.custom_calm.mp3` | calm | 8 s | Vuelve con suavidad. Nota cómo te sientes. Gracias por tomarte este tiempo. |
@@ -81,4 +97,4 @@ screen are the same.
 
 ## Counts
 
-36 recordings in all: 9 lines, in 2 voices, in 2 languages.
+52 recordings in all: 13 lines, in 2 voices, in 2 languages.

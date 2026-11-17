@@ -1572,6 +1572,22 @@ this too. I can go gently with myself while it lasts." All of its wording is new
 - It is not offered on the support step. Should it be?
 - The Spanish ("Tratarte con amabilidad") is an AI translation no fluent reader has checked.
 
+### Forty features, 19: a mindful walk (November 17, 2026)
+
+A seventh kind of session on the Meditate tab, "A mindful walk", for 5, 10 or 15 minutes. Four new spoken lines,
+each in the calm and the straightforward style: set off ("Put the phone in a pocket ... Keep your eyes on where
+you're going. You can stop at any time."), notice your steps, notice what is around you, slow to a stop.
+
+- The reviewer: these are new meditation lines, written by an AI assistant. They are in the voice recording
+  sheet and should not be recorded before a read.
+- The session is built for the voice. With the voice guide off, or the phone on silent, it is a timer with a
+  few words on the screen, which nobody should be reading while walking. Should it say so on its card, or
+  refuse to start without the voice?
+- "Walk" leaves out people who use a wheelchair or can't go out. The lines say "how you move" where they can.
+  Is there a better name?
+- The opening line assumes the person is somewhere safe to walk. Should it say so?
+- The Spanish ("Una caminata consciente") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

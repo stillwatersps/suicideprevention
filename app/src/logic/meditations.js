@@ -6,7 +6,7 @@
 import { CONFIG } from '../core/config.js';
 import { cycleLength, totalSeconds } from './timeline.js';
 
-export const TYPES = ['silent', 'quick', 'deep', 'sleep', 'sound', 'scan'];
+export const TYPES = ['silent', 'quick', 'deep', 'sleep', 'sound', 'scan', 'walk'];
 export const WORLDS = ['ocean', 'forest', 'nightSky'];
 export const SOUNDS = ['none', 'rain', 'ocean', 'whiteNoise', 'brownNoise'];
 
@@ -101,6 +101,14 @@ export function builtIn(type, options = {}) {
     const scan = Math.round(rest * 0.5);
     m.segments = [seg('intro', intro, spoken('intro.deep')), ...first.segments, seg('bodyScan', scan, spoken('bodyScan')),
       seg('silence', rest - scan, { screenTextId: 'silence' }), seg('outro', outro, spoken('outro.deep'))];
+  } else if (type === 'walk') {
+    // A mindful walk: the phone stays in a pocket. Four spoken lines with quiet walking between
+    // them. No breathing to follow and no taps, so there is nothing to look at while moving.
+    m = base(type, minutes, style, { world: 'forest', voiceEnabled: true, hapticBreathing: false });
+    const [intro, outro] = [30, 30];
+    const half = Math.round((T - intro - outro) / 2);
+    m.segments = [seg('intro', intro, spoken('intro.walk')), seg('silence', half, spoken('walk.steps')),
+      seg('silence', T - intro - outro - half, spoken('walk.around')), seg('outro', outro, spoken('outro.walk'))];
   } else if (type === 'sound') {
     // Just sound: rain, ocean, or steady noise for the whole time, and nothing else. No voice, no
     // breathing to follow, no taps: one quiet stretch with two words on the screen.
