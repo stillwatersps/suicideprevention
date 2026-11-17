@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+My toolkit:
+- [ ] Home, "Choose tools": pin Grounding and Hope box. Back on Home both are buttons; each opens its tool. At
+      the phone's largest text size the buttons wrap and none is cut off.
+
 Breathe in a pattern:
 - [ ] Meditate tab, "Breathe in a pattern", Box, 1 minute: the circle holds after the breath in and after the
       breath out, and the taps (if on) follow it. Then 4-7-8: the hold is seven counts.

@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 21)
+Last updated: 2026-11-17 (forty features, feature 22)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -41,7 +41,7 @@ Day to day
 - [x] 19 — A mindful walk: a seventh built-in type, `walk` (5, 10 or 15 minutes), with its card on the Meditate tab; four new spoken lines in two styles and two languages (`intro.walk`, `walk.steps`, `walk.around`, `outro.walk`), which are in the voice recording sheet; no breathing circle and no taps, and its first line says to put the phone in a pocket and watch where you're going; `test/unit/walk.test.mjs`, `test/walk-test.mjs`
 - [x] 20 — A first week: `#tl-course` on the Meditate tab, `src/logic/course.js`, `src/ui/course.js`, `tidelight.course.v1` (step numbers only, no dates); seven steps, each one something the app already has (1-minute reset, Grounding, Body scan, Three good things, A mindful walk, Being kind to yourself, My safety plan); a tick is the person's own and can be taken back; nothing is counted, and the closing line is hidden on a quiet day; in the copy of my data, the erase, and the privacy screen; `test/unit/course.test.mjs`, `test/course-test.mjs`
 - [x] 21 — A choice of breathing patterns: an eighth built-in type, `breathe`, with a pattern picked on its card (`BREATHE`: calm 4-6, box 4-4-4-4, 4-7-8), for 1, 3 or 5 minutes; breathing only, nothing spoken; the card says to stop if it makes you dizzy; a favorite keeps its pattern; `test/unit/breathe.test.mjs`, `test/breathe-test.mjs`
-- [ ] 22 — My toolkit: tools pinned to Home
+- [x] 22 — My toolkit: a card on Home (`#tl-home-toolkit`) with up to four tools the person pins, chosen on `#tl-toolkit`; `src/logic/tools.js` (the list of tools as data, `TOOLS`, which a list of every tool can reuse), `src/ui/toolkit.js`, `tidelight.toolkit.v1` (ids only); the crisis lines are not tools and can't be pinned or unpinned; in the copy of my data, the erase, and the privacy screen; `test/unit/toolkit.test.mjs`, `test/toolkit-test.mjs`
 - [x] 23 — Home adapts (already built: "Suggested for you")
 - [ ] 24 — Reminders in the person's own words
 - [ ] 25 — A weekly reflection in words, never a score

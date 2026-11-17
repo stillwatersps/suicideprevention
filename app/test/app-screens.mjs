@@ -81,6 +81,7 @@ export const SCREENS = [
   // Added November 15, 2026, at the end, so the screens above keep their numbers.
   { id: 'kind', name: 'Being kind to yourself', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-kind'); } },
   { id: 'course', name: 'A first week', go: async (page) => { await root(page, 'meditate'); await page.click('#tl-meditate-course'); } },
+  { id: 'toolkit', name: 'My toolkit', go: async (page) => { await root(page, 'home'); await page.click('#tl-home-toolkit-edit'); } },
   { id: 'plan', name: 'My safety plan', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); } },
   { id: 'letter', name: 'A letter to myself', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-letter'); } },
   { id: 'ride', name: 'Ten minutes at a time', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-ride'); } },

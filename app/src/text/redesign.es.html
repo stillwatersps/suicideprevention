@@ -73,6 +73,12 @@
             <button type="button" class="tl-tile tl-tile-seafoam" id="tl-home-reset" data-tl-quick="reset"><span class="tl-tile-icon" data-tl-icon="wind"></span><span class="tl-tile-label">Pausa de 1 min</span></button>
             <a class="tl-tile tl-tile-shell" href="#support"><span class="tl-tile-icon" data-tl-icon="lifebuoy"></span><span class="tl-tile-label">Obtener ayuda</span></a>
           </div>
+          <div class="tl-card tl-step-card tl-toolkit-card" id="tl-home-toolkit">
+            <span class="tl-card-icon" data-tl-icon="box"></span>
+            <span class="tl-card-text"><span class="tl-eyebrow">Mis herramientas</span> <span class="tl-card-sub" id="tl-home-toolkit-empty">Fija las herramientas que más usas, y estarán aquí.</span></span>
+            <span class="tl-row tl-toolkit-row" id="tl-home-toolkit-list" role="group" aria-label="Mis herramientas" hidden></span>
+            <span class="tl-row tl-step-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="toolkit" id="tl-home-toolkit-edit">Elegir herramientas</button></span>
+          </div>
           <div id="tl-home-setup" hidden>
             <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
               <span class="tl-card-text"><span class="tl-card-title">Termina de configurar</span> <span class="tl-card-sub" id="tl-setup-count"></span><span class="tl-progress-label" id="tl-setup-ring-label" aria-hidden="true"></span><span class="tl-progress" id="tl-setup-ring" aria-hidden="true"><span></span></span></span>
@@ -1187,6 +1193,16 @@
           <p class="tl-sub">Esto no reemplaza la ayuda de una persona. Los botones para llamar o enviar un mensaje de texto al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.</p>
         </section>
 
+        <section class="tl-screen" id="tl-toolkit" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-toolkit-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-toolkit-title">Mis herramientas</h2>
+          <p>Elige hasta cuatro herramientas para tenerlas en Inicio, a un toque.</p>
+          <p class="tl-sub">Lo que eliges se guarda solo en este teléfono. Llamar al 988, enviar un mensaje de texto al 988 y llamar al 911 están siempre en la parte de arriba de cada pantalla, fijes lo que fijes.</p>
+          <p class="tl-status" id="tl-toolkit-status" role="status" hidden>Puedes fijar hasta cuatro. Quita una para fijar otra.</p>
+          <div class="tl-panel" id="tl-toolkit-list" role="group" aria-labelledby="tl-toolkit-title"></div>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -1309,7 +1325,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>Lo que se queda en este teléfono</h3>
-            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, los pasos que marcaste en Una primera semana, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
+            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, los pasos que marcaste en Una primera semana, las herramientas que fijaste en Inicio, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
             <p>Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.</p>
             <h3>Lo que Tidelight no hace</h3>
             <ul>
@@ -1549,6 +1565,21 @@
         <span data-word="helps.meditation">Una meditación</span>
         <span data-word="helps.journal">Una entrada de diario</span>
         <span data-word="course.title">Una primera semana</span>
+        <span data-word="toolkit.title">Mis herramientas</span>
+        <span data-word="tool.reset">Pausa de 1 minuto</span>
+        <span data-word="tool.ground">Volver al presente</span>
+        <span data-word="tool.ride">Diez minutos a la vez</span>
+        <span data-word="tool.plan">Mi plan de seguridad</span>
+        <span data-word="tool.letter">Una carta para mí</span>
+        <span data-word="tool.hope">Caja de esperanza</span>
+        <span data-word="tool.good">Tres cosas buenas</span>
+        <span data-word="tool.reframe">Otra manera de verlo</span>
+        <span data-word="tool.kind">Tratarte con amabilidad</span>
+        <span data-word="tool.journal">Diario</span>
+        <span data-word="tool.wind">Prepararse para dormir</span>
+        <span data-word="tool.helps">Lo que suele ayudar</span>
+        <span data-word="tool.course">Una primera semana</span>
+        <span data-word="tool.nearby">Atención cerca de mí</span>
         <span data-word="plan.title">Mi plan de seguridad</span>
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>

@@ -1615,6 +1615,17 @@ already in the app (the 1-minute reset uses box; "stressed" sessions use 4-7-8);
 - For some people, attention to the breath makes panic worse. Should the card say so?
 - The Spanish ("Respirar con un patrón") is an AI translation no fluent reader has checked.
 
+### Forty features, 22: my toolkit (November 17, 2026)
+
+A new card on Home, "My toolkit", where a person can pin up to four of the app's tools (Grounding, My safety
+plan, the 1-minute reset, the Hope box, and ten others) so they are one tap away. A new screen to choose them.
+
+- The reviewer: should anything be pinned for the person from the start, for example My safety plan, or is an
+  empty card with "Pin the tools you reach for most, and they will be here." right?
+- Call 988, Text 988, Call 911 and Get Support Now are not in the list, on purpose: they can't be unpinned.
+  The chooser says so. Is the sentence clear?
+- The Spanish ("Mis herramientas") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

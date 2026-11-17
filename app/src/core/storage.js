@@ -28,6 +28,7 @@ export const KEYS = Object.freeze({
   presets: 'tidelight.presets',
   language: 'tidelight.language', // plain text
   plan: 'tidelight.plan.v1', // the safety plan: six short lists in the person's own words
+  toolkit: 'tidelight.toolkit.v1', // my toolkit: which tools (up to four) the person pinned to Home
   course: 'tidelight.course.v1', // a first week: which of its seven steps the person ticked
   letter: 'tidelight.letter.v1', // a letter to myself: one letter in the person's own words
   good: 'tidelight.good.v1', // three good things: up to three short lines a day, in the person's own words

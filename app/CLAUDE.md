@@ -439,6 +439,14 @@ each covers and what only a real phone can show.
 - **The card's line about dizziness stays.** A new pattern needs a reviewer's read first: long holds are not
   safe for everyone. A unit test fails if the warning goes.
 
+## My toolkit (November 17, 2026, a draft)
+
+- **`src/logic/tools.js` is the list of tools as data** (`TOOLS`: an id, an icon, and one way to open: a screen,
+  an older section, or a session). A tool's name is the word `tool.<id>`. A new tool screen gets a line there.
+  **The crisis lines are never in it**: they are on every screen and can't be pinned, so they can't be unpinned.
+- **The card on Home (`#tl-home-toolkit`) sits below the quick actions** and shows up to four pinned tools
+  (`tidelight.toolkit.v1`, ids only). `openTool(shell, id)` in `src/ui/toolkit.js` opens any tool.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

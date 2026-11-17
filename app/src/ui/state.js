@@ -8,6 +8,7 @@ import { profileFor } from '../logic/style-profile.js';
 import { dateKey } from '../logic/streaks.js';
 import { isQuietDay } from '../logic/safety.js';
 import { emptyPlan, cleanPlan } from '../logic/plan.js';
+import { emptyToolkit, cleanToolkit } from '../logic/tools.js';
 import { emptyCourse, cleanCourse } from '../logic/course.js';
 import { emptyLetter, cleanLetter } from '../logic/letter.js';
 import { emptyReach, cleanReach } from '../logic/reach.js';
@@ -24,6 +25,7 @@ export const state = {
   sessions: [],
   presets: [],
   plan: emptyPlan(), // the safety plan (src/logic/plan.js)
+  toolkit: emptyToolkit(), // tools pinned to Home (src/logic/tools.js)
   course: emptyCourse(), // a first week (src/logic/course.js)
   letter: emptyLetter(), // a letter to myself (src/logic/letter.js)
   reach: emptyReach(), // a message for a hard moment (src/logic/reach.js)
@@ -40,6 +42,7 @@ const DEFAULTS = {
   sessions: () => [],
   presets: () => [],
   plan: () => emptyPlan(),
+  toolkit: () => emptyToolkit(),
   course: () => emptyCourse(),
   letter: () => emptyLetter(),
   reach: () => emptyReach(),
@@ -54,6 +57,7 @@ export async function loadState() {
   for (const name of Object.keys(DEFAULTS)) state[name] = await store.get(KEYS[name], DEFAULTS[name]());
   // The plan is read in a hard moment: whatever was stored, it comes back whole or empty, never broken.
   state.plan = cleanPlan(state.plan, CONFIG.plan);
+  state.toolkit = cleanToolkit(state.toolkit, CONFIG.toolkit);
   state.course = cleanCourse(state.course, CONFIG.course);
   state.letter = cleanLetter(state.letter, CONFIG.letter); // the same care: it is read in a hard moment too
   state.reach = cleanReach(state.reach, CONFIG.reach);

@@ -563,3 +563,7 @@ html.tl #tl-course .tl-btn { max-width: 100%; white-space: normal; overflow-wrap
 /* Breathe in a pattern: the pattern chips and the note wrap inside the card. */
 .tl-type [data-type-pattern] { flex-wrap: wrap; }
 .tl-type-note { display: block; min-width: 0; overflow-wrap: anywhere; }
+/* My toolkit: the pinned tools are buttons that wrap under the card's words. */
+.tl-toolkit-row { flex: 1 1 100%; flex-wrap: wrap; gap: var(--tl-space-sm); }
+.tl-toolkit-row .tl-btn { display: inline-flex; align-items: center; gap: var(--tl-space-xs); max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: left; }
+#tl-toolkit-list { display: grid; gap: var(--tl-space-sm); }

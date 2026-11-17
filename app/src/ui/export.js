@@ -60,6 +60,7 @@ export async function exportText(ctx) {
 
   const plan = planLines(state.plan, Object.fromEntries(PARTS.map((part) => [part, heading('#tl-plan-' + part + '-title')])));
   sections.push({ heading: t('plan.title'), lines: plan });
+  sections.push({ heading: t('toolkit.title'), lines: state.toolkit.pinned.map((id) => '- ' + t('tool.' + id)) });
   sections.push({ heading: t('course.title'), lines: courseLines(state.course, Array.from(document.querySelectorAll('#tl-course [data-course-step] h3')).map((h) => h.textContent.trim())) });
   sections.push({ heading: t('letter.title'), lines: letterLines(state.letter) });
   sections.push({ heading: t('good.title'), lines: goodLines(state.good, sayDay) });

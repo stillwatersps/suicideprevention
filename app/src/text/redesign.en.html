@@ -74,6 +74,12 @@
             <button type="button" class="tl-tile tl-tile-seafoam" id="tl-home-reset" data-tl-quick="reset"><span class="tl-tile-icon" data-tl-icon="wind"></span><span class="tl-tile-label">1-min reset</span></button>
             <a class="tl-tile tl-tile-shell" href="#support"><span class="tl-tile-icon" data-tl-icon="lifebuoy"></span><span class="tl-tile-label">Get help</span></a>
           </div>
+          <div class="tl-card tl-step-card tl-toolkit-card" id="tl-home-toolkit">
+            <span class="tl-card-icon" data-tl-icon="box"></span>
+            <span class="tl-card-text"><span class="tl-eyebrow">My toolkit</span> <span class="tl-card-sub" id="tl-home-toolkit-empty">Pin the tools you reach for most, and they will be here.</span></span>
+            <span class="tl-row tl-toolkit-row" id="tl-home-toolkit-list" role="group" aria-label="My toolkit" hidden></span>
+            <span class="tl-row tl-step-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="toolkit" id="tl-home-toolkit-edit">Choose tools</button></span>
+          </div>
           <div id="tl-home-setup" hidden>
             <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
               <span class="tl-card-text"><span class="tl-card-title">Finish setting up</span> <span class="tl-card-sub" id="tl-setup-count"></span><span class="tl-progress-label" id="tl-setup-ring-label" aria-hidden="true"></span><span class="tl-progress" id="tl-setup-ring" aria-hidden="true"><span></span></span></span>
@@ -1188,6 +1194,16 @@
           <p class="tl-sub">These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
         </section>
 
+        <section class="tl-screen" id="tl-toolkit" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-toolkit-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-toolkit-title">My toolkit</h2>
+          <p>Pick up to four tools to keep on Home, one tap away.</p>
+          <p class="tl-sub">Your picks are saved on this phone only. Call 988, Text 988, and Call 911 are always at the top of every screen, whatever you pin.</p>
+          <p class="tl-status" id="tl-toolkit-status" role="status" hidden>You can pin up to four. Unpin one to pin another.</p>
+          <div class="tl-panel" id="tl-toolkit-list" role="group" aria-labelledby="tl-toolkit-title"></div>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
@@ -1310,7 +1326,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>What stays on this phone</h3>
-            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, the steps you ticked in A first week, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
+            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, the steps you ticked in A first week, the tools you pinned to Home, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
             <p>Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.</p>
             <h3>What Tidelight doesn't do</h3>
             <ul>
@@ -1550,6 +1566,21 @@
         <span data-word="helps.meditation">A meditation</span>
         <span data-word="helps.journal">A journal entry</span>
         <span data-word="course.title">A first week</span>
+        <span data-word="toolkit.title">My toolkit</span>
+        <span data-word="tool.reset">1-minute reset</span>
+        <span data-word="tool.ground">Grounding</span>
+        <span data-word="tool.ride">Ten minutes at a time</span>
+        <span data-word="tool.plan">My safety plan</span>
+        <span data-word="tool.letter">A letter to myself</span>
+        <span data-word="tool.hope">Hope box</span>
+        <span data-word="tool.good">Three good things</span>
+        <span data-word="tool.reframe">Another way to see it</span>
+        <span data-word="tool.kind">Being kind to yourself</span>
+        <span data-word="tool.journal">Journal</span>
+        <span data-word="tool.wind">Wind down for sleep</span>
+        <span data-word="tool.helps">What tends to help</span>
+        <span data-word="tool.course">A first week</span>
+        <span data-word="tool.nearby">Care near me</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>

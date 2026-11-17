@@ -474,7 +474,7 @@
   "This is not a privacy policy.": "Esto no es una política de privacidad.",
   "It is a plain description of what the app does today, written by an AI assistant from the app's own code. No lawyer has written or read it. Tidelight does not have a privacy policy yet.": "Es una descripción sencilla de lo que la app hace hoy, escrita por un asistente de IA a partir del propio código de la app. Ningún abogado la ha escrito ni leído. Tidelight todavía no tiene una política de privacidad.",
   "What stays on this phone": "Lo que se queda en este teléfono",
-  "What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, the steps you ticked in A first week, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.": "Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, los pasos que marcaste en Una primera semana, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.",
+  "What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, the steps you ticked in A first week, the tools you pinned to Home, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.": "Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, los pasos que marcaste en Una primera semana, las herramientas que fijaste en Inicio, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.",
   "Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.": "Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.",
   "What Tidelight doesn't do": "Lo que Tidelight no hace",
   "It shows no advertising.": "No muestra publicidad.",
@@ -689,6 +689,12 @@
   "Box: 4, 4, 4, 4": "Cuadrada: 4, 4, 4, 4",
   "4-7-8": "4-7-8",
   "If you feel dizzy or short of breath, stop and breathe the way you usually do.": "Si sientes mareo o te falta el aire, para y respira como lo haces normalmente.",
-  "Breathing": "Respiración"
+  "Breathing": "Respiración",
+  "My toolkit": "Mis herramientas",
+  "Pin the tools you reach for most, and they will be here.": "Fija las herramientas que más usas, y estarán aquí.",
+  "Choose tools": "Elegir herramientas",
+  "Pick up to four tools to keep on Home, one tap away.": "Elige hasta cuatro herramientas para tenerlas en Inicio, a un toque.",
+  "Your picks are saved on this phone only. Call 988, Text 988, and Call 911 are always at the top of every screen, whatever you pin.": "Lo que eliges se guarda solo en este teléfono. Llamar al 988, enviar un mensaje de texto al 988 y llamar al 911 están siempre en la parte de arriba de cada pantalla, fijes lo que fijes.",
+  "You can pin up to four. Unpin one to pin another.": "Puedes fijar hasta cuatro. Quita una para fijar otra."
  }
 }
