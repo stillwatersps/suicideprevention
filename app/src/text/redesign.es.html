@@ -145,6 +145,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Diez minutos a la vez</span> <span class="tl-card-sub">Cinco pasos pequeños, uno tras otro</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="nearby" id="tl-checkin-nearby">
+              <span class="tl-card-icon" data-tl-icon="pin"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Atención cerca de mí</span> <span class="tl-card-sub">Salas de emergencias, en los mapas de tu teléfono</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="helps" id="tl-checkin-helps">
               <span class="tl-card-icon" data-tl-icon="sliders"></span>
               <span class="tl-card-text"><span class="tl-card-title">Lo que suele ayudar</span> <span class="tl-card-sub">De tus propios registros</span></span>
@@ -237,6 +242,11 @@
               <li><button type="button" class="tl-card tl-card-action" data-tl-push="ride" data-tl-over>
                 <span class="tl-card-icon" data-tl-icon="clock"></span>
                 <span class="tl-card-text"><span class="tl-card-title">Diez minutos a la vez</span> <span class="tl-card-sub">Cinco pasos pequeños, uno tras otro</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="nearby" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="pin"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Atención cerca de mí</span> <span class="tl-card-sub">Salas de emergencias, en los mapas de tu teléfono</span></span>
                 <span class="tl-card-go" data-tl-icon="next"></span>
               </button></li>
             </ul>
@@ -928,6 +938,25 @@
             <p id="tl-ride-easier-note" tabindex="-1" hidden>Pasaste diez minutos. Puedes volver a esto cuando quieras.</p>
             <p id="tl-ride-hard-note" tabindex="-1" hidden><strong>No tienes que cargar con esto a solas.</strong> Puedes hablar con alguien ahora mismo, con los botones que están justo abajo.</p>
             <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" id="tl-ride-again">Empezar de nuevo</button></p>
+          </div>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Enviar AYUDA al 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">Si hay peligro inmediato, llama al 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-nearby" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-nearby-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-nearby-title">Atención cerca de mí</h2>
+          <p>Los mapas de tu teléfono pueden mostrarte las salas de emergencias cerca de donde estás. Una sala de emergencias está abierta de día y de noche.</p>
+          <p><strong>No tienes que ir a ningún lado para recibir ayuda.</strong> Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla, y al final de esta.</p>
+          <p class="tl-sub" id="tl-nearby-privacy">El botón de abajo sale de Tidelight y abre los mapas de tu teléfono. Tidelight no se entera de dónde estás ni de lo que buscas. La app de mapas usa tu ubicación según sus propias reglas de privacidad, y puede guardar la búsqueda en su historial.</p>
+          <p><a class="tl-btn tl-btn-secondary tl-btn-wide" id="tl-nearby-er" href="https://maps.apple.com/?q=sala+de+emergencias" data-android-href="geo:0,0?q=sala+de+emergencias" rel="noreferrer noopener">Salas de emergencias cerca de mí, en Mapas</a></p>
+          <div class="tl-panel">
+            <p class="tl-sub">Para atención que no es una emergencia, como un consejero, una clínica o una línea de apoyo, hay una lista en esta app.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="ways" data-tl-over>Otras maneras de comunicarte con alguien</button></p>
           </div>
           <ul class="tl-support-actions">
             <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Llamar al 988 y marcar 2</a></li>

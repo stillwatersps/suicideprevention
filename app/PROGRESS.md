@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-16 (forty features, feature 6)
+Last updated: 2026-11-17 (forty features, feature 9)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -26,7 +26,7 @@ In a hard moment
 - [x] 6 — Darker at night: `src/logic/night.js`, `src/ui/night.js`, `tools/night-css.mjs`, `test/unit/night.test.mjs`, `test/unit/night-css.test.mjs`, `test/night-test.mjs`; a switch in Settings (`settings.nightMode`, off by default): between bed time and wake time the app uses its dark colors on a phone set to light; the build makes a night copy of every dark rule; the website's pages inside the app follow through a session-only note of when tonight ends; at night everything, the crisis strip included, looks as it does on a phone set to dark
 - [x] 7 — "Make my space safer" (already built: part 6 of the safety plan)
 - [x] 8 — Crisis lines by need (already built: "Other ways to reach someone")
-- [ ] 9 — Find nearby help: opens the phone's maps at "emergency room", saying first what leaves the phone
+- [x] 9 — Care near me: `src/ui/nearby.js`, `test/unit/nearby.test.mjs`, `test/nearby-test.mjs`; one link that opens the phone's own maps at a search for emergency rooms (the address is markup, with nothing about the person in it; the app reads no location), on the Check-in tab and the support step; "Other ways to reach someone" is one tap away
 - [ ] 10 — Calm sounds on their own: rain, ocean, white and brown noise without a guided session
 
 Day to day

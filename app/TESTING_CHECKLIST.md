@@ -75,6 +75,11 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Care near me:
+- [ ] The button opens the Maps app (not a web page) with emergency rooms near you, on an iPhone and on an
+      Android phone. Coming back, the app is where you left it.
+- [ ] A phone set to Spanish searches in Spanish and still finds emergency rooms.
+
 Darker at night:
 - [ ] Phone set to light, "Darker at night" on, bed time set to a minute from now: within a minute the app
       turns dark, the crisis strip is easy to read, and Get help (from the menu) is dark too.

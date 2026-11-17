@@ -98,6 +98,10 @@ lock if it is on.
 
 ## When data leaves the phone
 
+"Care near me" (November 17, 2026): a link opens the phone's maps app at a search for emergency rooms. The
+app sends nothing and reads no location; the address is the same for everyone. From there the maps app, not
+Tidelight, uses the person's location under its own privacy policy, and may keep the search.
+
 | How | What goes | To whom | Who starts it |
 | --- | --- | --- | --- |
 | A text message from "Places that are hard for me" | The person's own message and, if they choose, where they are | The people they chose, through the phone's Messages screen; the person still taps Send | The person |

@@ -306,6 +306,15 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## Care near me (November 17, 2026, a draft)
+
+- **`#tl-nearby` holds one outside link**, to the phone's maps at a search for emergency rooms. The address is
+  markup (`maps.apple.com/?q=…`, with a `geo:` form for Android swapped in by `src/ui/nearby.js`). **It carries
+  no place and nothing about the person, and the app reads no location for it;** `test/unit/nearby.test.mjs`
+  fails on a coordinate in the address, a second outside link, or a location call in the script.
+- The screen says first that nobody has to go anywhere to get help, and says in view that the link leaves
+  Tidelight. Never add a list of hospitals or a "nearest" result: the app keeps no list of places.
+
 ## Darker at night (November 16, 2026, a draft)
 
 - **Rule in `src/logic/night.js`, switch in `src/ui/night.js`, `settings.nightMode` (off by default).** Between

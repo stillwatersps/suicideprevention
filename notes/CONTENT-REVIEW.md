@@ -1398,6 +1398,21 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 9: care near me (November 17, 2026)
+
+A new screen on the Check-in tab and on the support step (under the crisis buttons). It has one outside link,
+"Emergency rooms near me, in Maps", which opens the phone's maps at a search for "emergency room" (Spanish:
+"sala de emergencias"). All of its wording is new, in both languages.
+
+- The reviewer: is pointing someone in crisis at an emergency room right, and is "An emergency room is open
+  day and night" enough? The screen says first: "You don't have to go anywhere to get help."
+- Should it say anything about not traveling alone, or about calling 911 instead of driving? It says neither.
+- A map search can return closed or unsuitable places. The app can't check the results.
+- A lawyer: the link hands the person to the maps app, which uses their location and may keep the search. The
+  screen says so. Is that enough notice, and does it need to be in the privacy policy?
+- The link is Apple's maps address. On an Android phone the app swaps in a `geo:` address; neither has been
+  tried on a real phone.
+
 ### Forty features, 6: darker at night (November 16, 2026)
 
 A switch in Settings, "Darker at night", off until turned on. Between the bed time and wake time the person
