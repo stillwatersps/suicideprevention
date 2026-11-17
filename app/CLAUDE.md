@@ -306,6 +306,16 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## A letter to myself (November 16, 2026, a draft)
+
+- **Rules in `src/logic/letter.js`, screen in `src/ui/letter.js`, the limit in `CONFIG.letter`.** One letter, in
+  the person's own words. **The app writes none of it:** no starting words, no placeholder, no prompts. A unit
+  test reads the script and the field for them.
+- Whatever is stored comes back whole or empty (`cleanLetter`), because it is read in a hard moment.
+- "Read my letter" shows on the support step only once there is a letter, and always below the crisis buttons
+  and the plan. Removing the letter asks first. "Delete everything" removes it; the app lock covers it; "a copy
+  of my data" includes it; the privacy screen names it. `test/letter-test.mjs` checks each.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

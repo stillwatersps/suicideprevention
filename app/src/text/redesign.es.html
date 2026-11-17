@@ -130,6 +130,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Mi plan de seguridad</span> <span class="tl-card-sub">Qué hacer cuando las cosas se ponen difíciles</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="letter" id="tl-checkin-letter">
+              <span class="tl-card-icon" data-tl-icon="edit"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Una carta para mí</span> <span class="tl-card-sub">Para un día difícil, desde uno más tranquilo</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" id="tl-checkin-ground">
               <span class="tl-card-icon" data-tl-icon="stone"></span>
               <span class="tl-card-text"><span class="tl-card-title">Volver al presente</span> <span class="tl-card-sub">Maneras breves de recuperar la calma</span></span>
@@ -204,6 +209,7 @@
             <div class="tl-row tl-row-center">
               <a class="tl-btn tl-btn-secondary" href="#support">Más formas de recibir apoyo</a>
               <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="plan" data-tl-over data-plan-open hidden>Abrir mi plan de seguridad</button>
+              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="letter" data-tl-over data-letter-open hidden>Leer mi carta</button>
               <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Volver a Inicio</button>
             </div>
             <ul class="tl-list tl-support-more">
@@ -829,6 +835,31 @@
           </div>
         </section>
 
+        <section class="tl-screen" id="tl-letter" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-letter-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-letter-title">Una carta para mí</h2>
+          <p>Palabras tuyas, escritas en un día más tranquilo, para leer en uno difícil. Lo que diga depende de ti.</p>
+          <p><strong>No tienes que leer ni escribir nada antes de pedir ayuda.</strong> Los botones para llamar o escribir al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.</p>
+          <p class="tl-sub" id="tl-letter-privacy">Tu carta se guarda solo en este teléfono. Tidelight nunca la recibe. Cualquier persona que pueda desbloquear este teléfono puede leerla, a menos que actives el bloqueo de la app en Ajustes. Borrar todo, en Tu camino, la elimina.</p>
+          <p class="tl-status" id="tl-letter-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel" id="tl-letter-read" hidden>
+            <h3 class="tl-headline" id="tl-letter-read-title">De mí, para mí</h3>
+            <p class="tl-letter-words" id="tl-letter-words"></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-letter-change">Cambiar mi carta</button></p>
+          </div>
+          <div class="tl-panel" id="tl-letter-write">
+            <p class="tl-field"><label for="tl-letter-text">Mi carta</label><textarea class="tl-input tl-letter-field" id="tl-letter-text" rows="8" maxlength="2000" autocomplete="off"></textarea></p>
+            <p class="tl-sub">Hasta 2,000 caracteres. No hay una forma correcta de escribirla.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-letter-save">Guardar mi carta</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-letter-cancel" hidden>Cancelar</button></p>
+          </div>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" id="tl-letter-remove" hidden>Quitar mi carta</button></p>
+          <div class="tl-panel" id="tl-letter-confirm" hidden>
+            <p>¿Quitar tu carta? No se puede recuperar.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-letter-remove-yes">Sí, quitar mi carta</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-letter-remove-no">Conservar mi carta</button></p>
+          </div>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -947,7 +978,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>Lo que se queda en este teléfono</h3>
-            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
+            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
             <p>Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.</p>
             <h3>Lo que Tidelight no hace</h3>
             <ul>
@@ -1174,6 +1205,9 @@
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>
         <span data-word="plan.removed">Quitado.</span>
+        <span data-word="letter.title">Una carta para mí</span>
+        <span data-word="letter.saved">Tu carta está guardada en este teléfono.</span>
+        <span data-word="letter.removed">Tu carta se quitó.</span>
         <span data-word="plan.remove">Quitar</span>
         <span data-word="plan.removeNamed">Quitar: {text}</span>
         <span data-word="plan.call">Llamar a {name}</span>

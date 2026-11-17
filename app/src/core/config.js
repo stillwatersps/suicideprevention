@@ -90,4 +90,6 @@ export const CONFIG = deepFreeze({
   health: { minSeconds: 60 },
   // The safety plan: a short list, so each part stays short enough to read in a hard moment.
   plan: { maxItems: 8, maxLength: 120 },
+  // A letter to myself: long enough for a real letter, short enough to read in a hard moment.
+  letter: { maxLength: 2000 },
 });

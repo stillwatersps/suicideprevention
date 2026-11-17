@@ -8,6 +8,7 @@ import { profileFor } from '../logic/style-profile.js';
 import { dateKey } from '../logic/streaks.js';
 import { isQuietDay } from '../logic/safety.js';
 import { emptyPlan, cleanPlan } from '../logic/plan.js';
+import { emptyLetter, cleanLetter } from '../logic/letter.js';
 import { CONFIG } from '../core/config.js';
 
 export const state = {
@@ -20,6 +21,7 @@ export const state = {
   sessions: [],
   presets: [],
   plan: emptyPlan(), // the safety plan (src/logic/plan.js)
+  letter: emptyLetter(), // a letter to myself (src/logic/letter.js)
 };
 
 const DEFAULTS = {
@@ -32,6 +34,7 @@ const DEFAULTS = {
   sessions: () => [],
   presets: () => [],
   plan: () => emptyPlan(),
+  letter: () => emptyLetter(),
 };
 const listeners = [];
 
@@ -42,6 +45,7 @@ export async function loadState() {
   for (const name of Object.keys(DEFAULTS)) state[name] = await store.get(KEYS[name], DEFAULTS[name]());
   // The plan is read in a hard moment: whatever was stored, it comes back whole or empty, never broken.
   state.plan = cleanPlan(state.plan, CONFIG.plan);
+  state.letter = cleanLetter(state.letter, CONFIG.letter); // the same care: it is read in a hard moment too
   applyStyle();
 }
 // save('settings', { checkInsPerDay: 4 }) lays the change over what's there; arrays and null replace.

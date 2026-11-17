@@ -1,8 +1,82 @@
 # Tidelight Build Progress
-Last updated: 2026-11-16 (a full check before forty more features)
-Current branch: app/next-features (cut from app/privacy-package, the top of the app's stack on November 15)
-Current phase: Next features: a founder's list of twenty, built one at a time with a full check after each
-Current step: Next features: all 20 are built on `app/next-features` (7, 11, 12, and 14 were already built by pull requests 30 and 31), each with a full run of the suite before the next. Draft pull request 32 into `app/privacy-package`; the handoff is `notes/worklogs/2026-11-15-claude-app-next-features.md`. Next: a founder reads the draft pull request and `notes/CONTENT-REVIEW.md` ("Questions about the app's next features"); nothing here has been reviewed or run on a real phone, iPad, or watch.
+Last updated: 2026-11-16 (forty features, feature 2)
+Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
+Current phase: Forty features: a founder's second list, built one at a time with a full check after each
+Current step: Forty features: see the list just below. The first unticked line is the next one to build.
+
+## Forty features — in progress
+
+One founder asked Claude for forty features (November 16, 2026), then for all of them, **one at a time, with a
+full check after each before the next**: `npm test` in `app/`, then the four checks at the repository root.
+The other founder hasn't seen the list. Each feature is its own commit on `app/forty-features`. A founder's
+standing instruction: check the plan's usage at each feature; stop with everything committed and pushed before
+5% is left, and pick up here when it resets.
+
+Already in the app before this list, so not built again (checked that each is reachable and tested): the Hope
+box (1), "Making my space safer" in the safety plan (7), crisis lines by need on "Other ways to reach someone"
+(8), the journal with prompts (11), feeling words in the Daily check-in (12), "Suggested for you" on Home by
+time of day and place (23), My circle (27).
+
+In a hard moment
+- [x] 1 — Hope box (already built)
+- [x] 2 — A letter to myself: `src/logic/letter.js`, `src/ui/letter.js`, `test/unit/letter.test.mjs`, `test/letter-test.mjs` (69 checks); one letter in the person's own words, on the Check-in tab and, once written, on the support step under the crisis buttons; in the crisis inventory, the data copy, Delete everything, the privacy screen, and behind the app lock
+- [ ] 3 — Reach my person: from the support step, a ready message to someone in My circle (the person sends it)
+- [ ] 4 — Ride it out: ten minutes, one small step at a time, with 988 and 911 on the screen and support at once if things are still hard
+- [ ] 5 — Quick body skills: add "Tense and release" to Grounding
+- [ ] 6 — Night mode: a darker, quieter app during hours the person sets
+- [x] 7 — "Make my space safer" (already built: part 6 of the safety plan)
+- [x] 8 — Crisis lines by need (already built: "Other ways to reach someone")
+- [ ] 9 — Find nearby help: opens the phone's maps at "emergency room", saying first what leaves the phone
+- [ ] 10 — Calm sounds on their own: rain, ocean, white and brown noise without a guided session
+
+Day to day
+- [x] 11 — Journal with prompts (already built)
+- [x] 12 — Feeling words (already built: the Daily check-in)
+- [ ] 13 — Sleep wind-down: a short routine before the Sleep session
+- [ ] 14 — Three good things
+- [ ] 15 — Tiny steps: one small thing a day, from the person's own "things to try"
+- [ ] 16 — Thought reframing, step by step
+- [ ] 17 — Body scan and muscle relaxation sessions
+- [ ] 18 — Self-compassion exercises
+- [ ] 19 — A walking session
+- [ ] 20 — Multi-day courses
+- [ ] 21 — A choice of breathing patterns
+- [ ] 22 — My toolkit: tools pinned to Home
+- [x] 23 — Home adapts (already built: "Suggested for you")
+- [ ] 24 — Reminders in the person's own words
+- [ ] 25 — A weekly reflection in words, never a score
+- [ ] 26 — A searchable list of every tool
+
+With other people
+- [x] 27 — My circle (already built)
+- [ ] 28 — Words for telling someone "I'm struggling"
+- [ ] 29 — The safety plan as a page to print or save as a PDF
+- [ ] 30 — For supporters: a private reminder to check in on someone
+- [ ] 31 — Therapy companion: things to bring up, and appointment reminders
+- [ ] 32 — Links to low-cost care
+
+For specific people
+- [ ] 33 — Teen wording (the For teens page and the age groups exist; a way in from the app's own screens)
+- [ ] 34 — A guide for parents and caregivers
+- [ ] 35 — Pages for veterans, LGBTQ+ people, and new parents
+- [ ] 36 — After a crisis
+- [ ] 37 — For people who lost someone to suicide (the website's page, shown in the app)
+
+The phone itself
+- [ ] 38 — An interactive widget and a Live Activity for a breathing minute
+- [ ] 39 — Restore from "a copy of my data"
+- [ ] 40 — Comfort settings: appearance, easier reading, read aloud
+
+### Resume instructions (forty features)
+
+Work in the worktree on `app/forty-features`. Build the first unticked feature above. Before its commit: `npm
+test` in `app/` (shut the Simulator down first: it makes the long run flaky), then `tools/check_site.py`,
+`tools/test_browser.py`, `tools/test_webkit.py`, and `tools/make_review_packet.py` from the root. A new screen
+goes in `test/app-screens.mjs` and the crisis inventory is re-recorded for it (`node test/crisis-test.mjs
+--record`), with every existing entry compared and unchanged. New words: `npm run words:es`, then
+`node app/tools/strings.mjs snapshot app/redesign-dev` from the root (the reviewed count must stay 1997), and a
+question in `notes/CONTENT-REVIEW.md`. Tick the line here, commit, push, go on. At the end: a draft pull request
+into `app/next-features`, a handoff in `notes/worklogs/`, and the status, task, and decision notes.
 
 ## A full check before forty more features — November 16, 2026
 

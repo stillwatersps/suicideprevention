@@ -8,6 +8,7 @@ import { store } from '../core/device-storage.js';
 import { KEYS } from '../core/storage.js';
 import { buildExport, oneLine, listOf } from '../logic/export.js';
 import { PARTS, planLines } from '../logic/plan.js';
+import { letterLines } from '../logic/letter.js';
 import { t, lang } from './words.js';
 import { state } from './state.js';
 import { devLog } from '../core/dev.js';
@@ -56,6 +57,7 @@ export async function exportText(ctx) {
 
   const plan = planLines(state.plan, Object.fromEntries(PARTS.map((part) => [part, heading('#tl-plan-' + part + '-title')])));
   sections.push({ heading: t('plan.title'), lines: plan });
+  sections.push({ heading: t('letter.title'), lines: letterLines(state.letter) });
 
   const circle = (await stored(KEYS.circle)) || {};
   const person = (p) => '- ' + [oneLine(p.name), oneLine(p.phone)].filter(Boolean).join(', ');

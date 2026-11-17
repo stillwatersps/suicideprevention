@@ -73,6 +73,14 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
+
+A letter to myself:
+- [ ] Check-in tab, "A letter to myself": write a few lines with the phone's keyboard, with line breaks. Save.
+      It reads back the same, and is still there after the app is closed and opened.
+- [ ] A very low quick check-in: "Read my letter" is under the crisis buttons, and Back returns to them.
+- [ ] VoiceOver reads the letter, and says when it was saved or removed.
+
 ## 1i. Faults fixed on November 16, 2026 (seen in the Simulator only)
 
 - [ ] Reminders on, app open: "Send a test notification" shows a banner within a few seconds.

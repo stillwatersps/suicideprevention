@@ -440,6 +440,11 @@ html.tl-locked #app-age { display: none !important; }
 
 /* The safety plan: each entry is a line of the person's own words, with what can be done to it
    beside it or, when there isn't room, under it. */
+/* A letter to myself: the person's own line breaks are kept, and a long word wraps. */
+.tl-letter-words { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.tl-letter-field { display: block; min-height: calc(var(--tl-tap-lg) * 4); resize: vertical; overflow-wrap: anywhere; }
+#tl-letter .tl-row { flex-wrap: wrap; }
+html.tl #tl-letter .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 .tl-plan-list { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0; padding: 0; list-style: none; }
 .tl-plan-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tl-space-sm); padding: var(--tl-space-sm) 0; border-top: var(--tl-border) solid var(--tl-line); }
 .tl-plan-text { flex: 1 1 50%; min-width: 0; overflow-wrap: anywhere; }

@@ -80,6 +80,7 @@ export const SCREENS = [
   } },
   // Added November 15, 2026, at the end, so the screens above keep their numbers.
   { id: 'plan', name: 'My safety plan', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); } },
+  { id: 'letter', name: 'A letter to myself', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-letter'); } },
   { id: 'helping', name: 'Helping someone you\'re worried about', go: async (page) => { await root(page, 'friends'); await page.click('#tl-friends-helping'); } },
   { id: 'summary', name: 'A summary for an appointment', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-summary'); } },
   { id: 'helps', name: 'What tends to help', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-helps'); } },

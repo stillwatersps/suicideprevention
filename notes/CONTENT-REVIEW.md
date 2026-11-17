@@ -1398,6 +1398,19 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 2: a letter to myself (November 16, 2026)
+
+A new screen on the Check-in tab. The person writes one letter, on a steadier day, to read on a hard one. The
+app writes none of it. Once there is a letter, the support step after a very low check-in shows "Read my
+letter" under Call 988, Text 988, Call 911, and the plan. All of its wording is new, in both languages.
+
+- The reviewer: is offering a person their own letter on the support step safe? A letter written on a good day
+  could read as a reproach on a bad one ("you promised").
+- Should the screen say anything about what to write? It says only "There is no right way to write it."
+- The screen says first that nothing has to be read or written before asking for help. Is that the right line?
+- The letter can be up to 2,000 characters. It is stored as the person wrote it and is in "a copy of my data".
+- The Spanish is an AI translation ("Una carta para mí") no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,
