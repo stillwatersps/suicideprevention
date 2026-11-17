@@ -1398,6 +1398,18 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 15: one small thing for today (November 17, 2026)
+
+A card on Home: "One small thing for today", with one line from the person's own list of "Things you'd like
+to try" (which they write under Rediscover), a different one each day, and "Another one". With nothing on the
+list it says: "Things you'd like to try can show here, one a day. The list is yours to write." The app adds no
+suggestion of its own, and the card is not shown on a day with a very low check-in.
+
+- The reviewer: is a daily nudge from the person's own list helpful, or pressure? It never asks whether the
+  thing was done.
+- Should the app offer a few starter ideas for an empty list? It offers none: every line is the person's.
+- The Spanish ("Una cosa pequeña para hoy") is an AI translation no fluent reader has checked.
+
 ### Forty features, 14: three good things (November 17, 2026)
 
 A new screen on the Check-in tab: each day, up to three short lines about things that went all right, in the

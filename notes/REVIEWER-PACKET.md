@@ -651,7 +651,7 @@ Picture: `app/design/after-launch-pass/reviewer/19-daily-result.png`
 
 ### Part 3. Streaks and rewards
 
-Where the app counts days or marks something as done. 3 screens, about 85 lines of the app's words.
+Where the app counts days or marks something as done. 3 screens, about 88 lines of the app's words.
 
 #### 10. Home
 
@@ -666,9 +666,12 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > At 9:30 AM  
 > Start  
 > Suggested for you  
-> Sleep  
-> Winding down  
+> Silent  
+> Silent and ready anywhere  
 > Start  
+> One small thing for today  
+> Things you'd like to try can show here, one a day. The list is yours to write.  
+> My list  
 > 0  
 > day streak  
 > This week: 0 done, 0 frozen, 0 rest days.  
@@ -761,7 +764,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 35 screens, about 781 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 35 screens, about 784 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -920,9 +923,12 @@ Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 > At 9:30 AM  
 > Start  
 > Suggested for you  
-> Sleep  
-> Winding down  
+> Silent  
+> Silent and ready anywhere  
 > Start  
+> One small thing for today  
+> Things you'd like to try can show here, one a day. The list is yours to write.  
+> My list  
 > 0  
 > day streak  
 > This week: 0 done, 0 frozen, 0 rest days.  
@@ -1207,9 +1213,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 3:03 AM: feeling: Good.  
+> Before bed, 4:02 AM: feeling: Good.  
 > Remove  
-> Before bed, 3:03 AM: feeling: Okay.  
+> Before bed, 4:03 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1238,8 +1244,8 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > Draft for review  
 > Meditate  
 > Suggested for you  
-> Sleep  
-> Winding down  
+> Silent  
+> Silent and ready anywhere  
 > Start  
 > Silent · anywhere  
 > 3 min  
@@ -1795,10 +1801,10 @@ Picture: `app/design/after-launch-pass/reviewer/50-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Tuesday, November 17  
-> - Before bed, 3:03 AM: feeling: Good.  
-> - Before bed, 3:03 AM: feeling: Okay.  
-> - Before bed, 3:03 AM: feeling: Very low.  
-> - Before bed, 3:03 AM: feeling: Sad.  
+> - Before bed, 4:02 AM: feeling: Good.  
+> - Before bed, 4:03 AM: feeling: Okay.  
+> - Before bed, 4:03 AM: feeling: Very low.  
+> - Before bed, 4:03 AM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

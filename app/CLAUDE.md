@@ -306,6 +306,14 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## One small thing for today (November 17, 2026, a draft)
+
+- **A card on Home** (`src/logic/step.js`, `src/ui/step.js`) that shows one line a day from the person's own
+  "Things you'd like to try", which the older check-in page keeps (`explore` in `tidelight.checkin.v1`). It
+  reads that list and never writes it.
+- **The app adds no line of its own**, stores nothing, counts nothing, and never asks whether the thing was
+  done. It is hidden on a quiet day. A unit test reads the script for each of those.
+
 ## Three good things (November 17, 2026, a draft)
 
 - **Rules in `src/logic/good.js`, screen in `src/ui/good.js`, numbers in `CONFIG.good`.** Up to three short lines

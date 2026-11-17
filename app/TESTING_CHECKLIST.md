@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+One small thing for today:
+- [ ] Add three things under Rediscover, "Things you'd like to try". Home shows one; "Another one" goes
+      through all three; tomorrow it may start on a different one.
+
 Three good things:
 - [ ] Check-in tab, "Three good things": write two lines with the phone's keyboard, save, close the app, open
       it. They are there. The next day they are under "Earlier days" and today is empty.

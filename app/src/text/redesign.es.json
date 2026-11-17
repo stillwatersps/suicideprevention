@@ -607,6 +607,10 @@
   "Earlier days": "Días anteriores",
   "That day was removed.": "Ese día se quitó.",
   "Remove this day": "Quitar este día",
-  "Remove {day}": "Quitar {day}"
+  "Remove {day}": "Quitar {day}",
+  "One small thing for today": "Una cosa pequeña para hoy",
+  "Things you'd like to try can show here, one a day. The list is yours to write.": "Aquí pueden aparecer cosas que te gustaría probar, una por día. La lista la escribes tú.",
+  "Another one": "Otra",
+  "My list": "Mi lista"
  }
 }

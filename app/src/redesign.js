@@ -23,6 +23,7 @@ import { initGood, renderGood } from './ui/good.js';
 import { initRide } from './ui/ride.js';
 import { initNearby } from './ui/nearby.js';
 import { initWind } from './ui/wind.js';
+import { initStep } from './ui/step.js';
 import { initNight } from './ui/night.js';
 import { initHelps } from './ui/helps.js';
 import { initSummary } from './ui/summary.js';
@@ -102,6 +103,8 @@ export async function initRedesign(context) {
   initRide(shell);
   initNearby();
   initWind(shell);
+  // The person's own "things you'd like to try", as the older check-in page holds them now.
+  initStep(shell, () => (context.api && context.api.getState ? context.api.getState().explore : []));
   initNight(shell);
   initHelps(shell, ctx);
   initSummary(shell, ctx);
