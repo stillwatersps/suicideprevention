@@ -447,6 +447,11 @@
                 </div>
               </div>
             </div>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="wind" id="tl-meditate-wind">
+              <span class="tl-card-icon" data-tl-icon="moon"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Wind down for sleep</span> <span class="tl-card-sub">Four small steps, then the Sleep session</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
             <h3 class="tl-section-title">Your presets</h3>
             <div id="tl-presets">
               <p class="tl-sub" id="tl-presets-empty">None yet. Build one below.</p>
@@ -977,6 +982,21 @@
             <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
             <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
           </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-wind" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-wind-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-wind-title">Wind down for sleep</h2>
+          <p>Four small things to do before bed, one at a time. Do the ones that suit you and skip the rest. Nothing here is kept.</p>
+          <div class="tl-panel" id="tl-wind-steps">
+            <label class="tl-switch" data-wind-step><span>Dim the lights, or turn off the brightest one.</span><input type="checkbox"></label>
+            <label class="tl-switch" data-wind-step><span>Write down what is on your mind for tomorrow, a line each, and leave it there.</span><input type="checkbox"></label>
+            <label class="tl-switch" data-wind-step><span>Turn on Do Not Disturb, if you'd like a quiet phone.</span><input type="checkbox"></label>
+            <label class="tl-switch" data-wind-step><span>Get comfortable. Let your shoulders and your jaw go loose.</span><input type="checkbox"></label>
+          </div>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-wind-start">Start the Sleep session</button></p>
+          <p class="tl-sub">If the night feels like too much, you don't have to wait for morning. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
         </section>
 
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>

@@ -1398,6 +1398,19 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 13: wind down for sleep (November 17, 2026)
+
+A new screen on the Meditate tab: four small steps to tick off before bed (dim the lights; write down what is
+on your mind for tomorrow; Do Not Disturb; get comfortable), then a button that starts the Sleep session. The
+ticks are not kept. All of its wording is new, in both languages.
+
+- The reviewer: are these four the right ones, and is any of them wrong for someone whose nights are the
+  hardest time? "Write down what is on your mind for tomorrow" could invite rumination.
+- The last line is "If the night feels like too much, you don't have to wait for morning", with where 988 and
+  911 are. Is that the right thing to say on a sleep screen?
+- Turning on Do Not Disturb could silence a call back from a crisis line or a friend. Should that step go?
+- The Spanish ("Prepararse para dormir") is an AI translation no fluent reader has checked.
+
 ### Forty features, 10: just sound (November 17, 2026)
 
 A fifth kind of session on the Meditate tab, "Just sound": rain, ocean, white noise, or brown noise for 5, 15,

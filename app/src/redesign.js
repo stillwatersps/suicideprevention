@@ -21,6 +21,7 @@ import { initLetter, renderLetter } from './ui/letter.js';
 import { initReach, renderReach } from './ui/reach.js';
 import { initRide } from './ui/ride.js';
 import { initNearby } from './ui/nearby.js';
+import { initWind } from './ui/wind.js';
 import { initNight } from './ui/night.js';
 import { initHelps } from './ui/helps.js';
 import { initSummary } from './ui/summary.js';
@@ -98,6 +99,7 @@ export async function initRedesign(context) {
   initReach(shell);
   initRide(shell);
   initNearby();
+  initWind(shell);
   initNight(shell);
   initHelps(shell, ctx);
   initSummary(shell, ctx);

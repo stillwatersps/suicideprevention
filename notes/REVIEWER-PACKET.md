@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 303 lines of the app's words. 12 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 38, 42, 43, 44, 45, 46, 47); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 303 lines of the app's words. 13 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 38, 42, 43, 44, 45, 46, 47, 48); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -340,13 +340,13 @@ Picture: `app/design/after-launch-pass/reviewer/41-plan.png`
 > The reasons you keep going are in your Hope box.  
 > Open my Hope box
 
-#### 52. What happens when you reach out to 988
+#### 53. What happens when you reach out to 988
 
 The Get Help page's own section on calling, texting, and chatting with 988, shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/52-expect.png`
+Picture: `app/design/after-launch-pass/reviewer/53-expect.png`
 
 > Draft for review  
 > Back  
@@ -374,13 +374,13 @@ Picture: `app/design/after-launch-pass/reviewer/52-expect.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 50. Other ways to reach someone
+#### 51. Other ways to reach someone
 
 The Get Help page's own list of other services (Spanish, Deaf or hard of hearing, veterans, LGBTQ+ youth, text lines, 911), shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/50-ways.png`
+Picture: `app/design/after-launch-pass/reviewer/51-ways.png`
 
 > Draft for review  
 > Back  
@@ -423,13 +423,13 @@ Picture: `app/design/after-launch-pass/reviewer/50-ways.png`
 > Call 911  
 > The 988 Lifeline, the Veterans Crisis Line, The Trevor Project, and Crisis Text Line keep conversations confidential, with limits. Each says it may contact emergency services or other authorities in some situations. Their websites explain when.
 
-#### 51. Grounding
+#### 52. Grounding
 
 Four short grounding exercises, offered on the support screen and the Check-in tab. New wording.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/51-ground.png`
+Picture: `app/design/after-launch-pass/reviewer/52-ground.png`
 
 > Draft for review  
 > Back  
@@ -759,7 +759,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 33 screens, about 758 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 34 screens, about 770 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -1205,9 +1205,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 1:00 AM: feeling: Good.  
+> Before bed, 2:00 AM: feeling: Good.  
 > Remove  
-> Before bed, 1:00 AM: feeling: Okay.  
+> Before bed, 2:00 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1265,6 +1265,8 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > 30 min  
 > Start  
 > Options  
+> Wind down for sleep  
+> Four small steps, then the Sleep session  
 > Your presets  
 > Suggested  
 > Bus ride  
@@ -1612,13 +1614,32 @@ Picture: `app/design/after-launch-pass/reviewer/44-ride-step.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 45. Care near me
+#### 45. Wind down for sleep
 
 
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/45-nearby.png`
+Picture: `app/design/after-launch-pass/reviewer/45-wind.png`
+
+> Draft for review  
+> Back  
+> Wind down for sleep  
+> Four small things to do before bed, one at a time. Do the ones that suit you and skip the rest. Nothing here is kept.  
+> Dim the lights, or turn off the brightest one.  
+> Write down what is on your mind for tomorrow, a line each, and leave it there.  
+> Turn on Do Not Disturb, if you'd like a quiet phone.  
+> Get comfortable. Let your shoulders and your jaw go loose.  
+> Start the Sleep session  
+> If the night feels like too much, you don't have to wait for morning. The buttons to call or text 988 and to call 911 are at the top of every screen.
+
+#### 46. Care near me
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/46-nearby.png`
 
 > Draft for review  
 > Back  
@@ -1633,13 +1654,13 @@ Picture: `app/design/after-launch-pass/reviewer/45-nearby.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 46. Reach someone I trust
+#### 47. Reach someone I trust
 
 
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/46-reach.png`
+Picture: `app/design/after-launch-pass/reviewer/47-reach.png`
 
 > Draft for review  
 > Back  
@@ -1654,13 +1675,13 @@ Picture: `app/design/after-launch-pass/reviewer/46-reach.png`
 > There is nobody in your circle yet. You can add people you trust on the Friends tab.  
 > Go to Friends
 
-#### 47. Helping someone you're worried about
+#### 48. Helping someone you're worried about
 
 The Help Someone page's own opening and six sections, shown inside the app word for word, on the Friends tab.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/47-helping.png`
+Picture: `app/design/after-launch-pass/reviewer/48-helping.png`
 
 > Draft for review  
 > Back  
@@ -1728,11 +1749,11 @@ Picture: `app/design/after-launch-pass/reviewer/47-helping.png`
 > Look after yourself too  
 > Supporting someone through a hard time can bring up difficult emotions of your own, and the responsibility doesn't have to be yours alone. The 988 Lifeline encourages helpers to reach out for support themselves. You can call or text 988 for yourself, even if you're not the one in crisis.
 
-#### 48. A summary for an appointment
+#### 49. A summary for an appointment
 
 A short page of the person's own records for an appointment. They tick what goes on it and see every word before sharing. Nothing is kept. New wording.
 
-Picture: `app/design/after-launch-pass/reviewer/48-summary.png`
+Picture: `app/design/after-launch-pass/reviewer/49-summary.png`
 
 > Draft for review  
 > Back  
@@ -1754,18 +1775,18 @@ Picture: `app/design/after-launch-pass/reviewer/48-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Tuesday, November 17  
-> - Before bed, 1:00 AM: feeling: Good.  
-> - Before bed, 1:00 AM: feeling: Okay.  
-> - Before bed, 1:00 AM: feeling: Very low.  
-> - Before bed, 1:00 AM: feeling: Sad.  
+> - Before bed, 2:00 AM: feeling: Good.  
+> - Before bed, 2:00 AM: feeling: Okay.  
+> - Before bed, 2:01 AM: feeling: Very low.  
+> - Before bed, 2:01 AM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 
-#### 49. What tends to help
+#### 50. What tends to help
 
 What else the person recorded on days they chose Good or Great, counted from their own check-ins. Shown here with too little to count. New wording.
 
-Picture: `app/design/after-launch-pass/reviewer/49-helps.png`
+Picture: `app/design/after-launch-pass/reviewer/50-helps.png`
 
 > Draft for review  
 > Back  

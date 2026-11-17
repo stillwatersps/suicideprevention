@@ -306,6 +306,12 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## Wind down for sleep (November 17, 2026, a draft)
+
+- **`#tl-wind`, on the Meditate tab, with `src/ui/wind.js`.** Four tick boxes and a button that starts the
+  Sleep session. **The ticks are never stored** and are cleared each time the screen opens; nothing is counted.
+  It names nothing to take (no medicine, no drink); a unit test reads the words for that.
+
 ## Just sound (November 17, 2026, a draft)
 
 - **A fifth built-in type, `sound`** (`TYPES` and `builtIn` in `src/logic/meditations.js`,

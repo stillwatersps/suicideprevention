@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 10)
+Last updated: 2026-11-17 (forty features, feature 13)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -32,7 +32,7 @@ In a hard moment
 Day to day
 - [x] 11 — Journal with prompts (already built)
 - [x] 12 — Feeling words (already built: the Daily check-in)
-- [ ] 13 — Sleep wind-down: a short routine before the Sleep session
+- [x] 13 — Wind down for sleep: `#tl-wind` on the Meditate tab, `src/ui/wind.js`, `test/unit/wind.test.mjs`, `test/wind-test.mjs`; four small steps to tick off (never stored, cleared each time), then "Start the Sleep session"; says help does not have to wait for morning
 - [ ] 14 — Three good things
 - [ ] 15 — Tiny steps: one small thing a day, from the person's own "things to try"
 - [ ] 16 — Thought reframing, step by step

@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Wind down for sleep:
+- [ ] Meditate tab, "Wind down for sleep": tick two steps, start the Sleep session, end it. The app is back
+      on the Meditate tab; open the screen again, and nothing is ticked.
+
 Just sound:
 - [ ] Each of the four sounds plays through the speaker and through headphones, loops without a click, and
       stops when the session ends or the sound switch is turned off.
