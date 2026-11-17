@@ -560,3 +560,6 @@ textarea.tl-input { width: 100%; resize: vertical; font: inherit; }
 .tl-course-day { display: flex; flex-wrap: wrap; gap: var(--tl-space-sm); margin: 0; color: var(--tl-text-secondary); font-size: var(--tl-font-label); }
 .tl-course-next { color: var(--tl-text); font-weight: 600; }
 html.tl #tl-course .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* Breathe in a pattern: the pattern chips and the note wrap inside the card. */
+.tl-type [data-type-pattern] { flex-wrap: wrap; }
+.tl-type-note { display: block; min-width: 0; overflow-wrap: anywhere; }

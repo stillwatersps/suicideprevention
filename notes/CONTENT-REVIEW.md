@@ -1603,6 +1603,18 @@ My safety plan. Each has a button that opens it and a tick the person makes them
 - Only one course was built. Others (sleep, worry, grief) would each need their own list and a reviewer's read.
 - The Spanish ("Una primera semana") is an AI translation no fluent reader has checked.
 
+### Forty features, 21: a choice of breathing patterns (November 17, 2026)
+
+A new card on the Meditate tab, "Breathe in a pattern": the person picks Calm (in 4, out 6), Box (4, 4, 4, 4),
+or 4-7-8, and 1, 3 or 5 minutes, and breathes with the circle. Nothing is spoken. The three patterns were
+already in the app (the 1-minute reset uses box; "stressed" sessions use 4-7-8); what is new is choosing one.
+
+- The reviewer: is 4-7-8 safe to offer by name to anyone, for up to five minutes? The card says: "If you feel
+  dizzy or short of breath, stop and breathe the way you usually do." Is that enough, and should it also name
+  pregnancy, heart or lung conditions, or panic?
+- For some people, attention to the breath makes panic worse. Should the card say so?
+- The Spanish ("Respirar con un patrón") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

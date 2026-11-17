@@ -112,7 +112,7 @@ async function savePreset(name) {
   return true;
 }
 function startPreset(preset) {
-  if (preset.builtIn) return startType(preset.builtIn.type, { minutes: preset.builtIn.minutes, world: preset.builtIn.world, sound: preset.builtIn.sound });
+  if (preset.builtIn) return startType(preset.builtIn.type, { minutes: preset.builtIn.minutes, world: preset.builtIn.world, sound: preset.builtIn.sound, pattern: preset.builtIn.pattern });
   const c = cleanChoices(preset.choices);
   return playMeditation(build(c, preset.name), { key: 'preset-' + preset.id, name: preset.name, presetId: preset.id });
 }

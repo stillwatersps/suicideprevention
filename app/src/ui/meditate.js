@@ -60,6 +60,7 @@ function optionsFor(type, over) {
   const options = { minutes: card ? Number(card.length.get()) : undefined, style: style() };
   if (card && card.world.get()) options.world = card.world.get();
   if (card && card.sound && card.sound.get()) options.sound = card.sound.get();
+  if (card && card.pattern && card.pattern.get()) options.pattern = card.pattern.get();
   if (prefs.voice === false) options.voice = false;
   if (prefs.hapticBreathing === false) options.haptics = false;
   return Object.assign(options, over || {});
@@ -69,7 +70,9 @@ export function startType(type, over) {
   const meditation = builtIn(type, options);
   const minutes = meditation.totalSeconds / 60;
   meditation.title = t('med.withLength', { name: typeName(type), minutes });
-  return playMeditation(meditation, { key: type + '-' + minutes, name: meditation.title, builtIn: { type, minutes, world: meditation.world, sound: meditation.backgroundSound } });
+  const again = { type, minutes, world: meditation.world, sound: meditation.backgroundSound };
+  if (meditation.pattern) again.pattern = meditation.pattern; // a Breathing session saved as a favorite keeps its pattern
+  return playMeditation(meditation, { key: type + '-' + minutes + (meditation.pattern ? '-' + meditation.pattern : ''), name: meditation.title, builtIn: again });
 }
 
 export async function renderSuggestion() {
@@ -147,6 +150,7 @@ export function initMeditate(shell) {
       length: choiceGroup($('[data-type-length]', card), { onChange: () => labelStart(card) }),
       world: choiceGroup($('[data-type-world]', card), {}),
       sound: $('[data-type-sound]', card) ? choiceGroup($('[data-type-sound]', card), {}) : null,
+      pattern: $('[data-type-pattern]', card) ? choiceGroup($('[data-type-pattern]', card), {}) : null,
     };
     const defaults = builtIn(type, {});
     cards[type].world.set(defaults.world);

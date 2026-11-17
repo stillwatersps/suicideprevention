@@ -6,7 +6,9 @@
 import { CONFIG } from '../core/config.js';
 import { cycleLength, totalSeconds } from './timeline.js';
 
-export const TYPES = ['silent', 'quick', 'deep', 'sleep', 'sound', 'scan', 'walk'];
+export const TYPES = ['silent', 'quick', 'deep', 'sleep', 'sound', 'scan', 'walk', 'breathe'];
+// The patterns a person can pick for a Breathing session, by the name on its chip.
+export const BREATHE = ['calm', 'box', 'stressed'];
 export const WORLDS = ['ocean', 'forest', 'nightSky'];
 export const SOUNDS = ['none', 'rain', 'ocean', 'whiteNoise', 'brownNoise'];
 
@@ -109,6 +111,15 @@ export function builtIn(type, options = {}) {
     const half = Math.round((T - intro - outro) / 2);
     m.segments = [seg('intro', intro, spoken('intro.walk')), seg('silence', half, spoken('walk.steps')),
       seg('silence', T - intro - outro - half, spoken('walk.around')), seg('outro', outro, spoken('outro.walk'))];
+  } else if (type === 'breathe') {
+    // Breathing only, in the pattern the person picked: a word on the screen, whole breaths with
+    // the circle, a word on the screen. No voice. An unknown pattern is the calm one.
+    const p = PATTERNS[BREATHE.indexOf(options.pattern) !== -1 ? options.pattern : 'calm'];
+    m = base(type, minutes, style, { world: 'ocean', hapticBreathing: true });
+    m.id = type + '-' + minutes + '-' + p.name;
+    m.pattern = p.name;
+    const body = breaths(p, T - 20);
+    m.segments = [seg('intro', 10, { screenTextId: 'intro.silent' }), ...body.segments, seg('outro', 10 + body.left, { screenTextId: 'outro.silent' })];
   } else if (type === 'sound') {
     // Just sound: rain, ocean, or steady noise for the whole time, and nothing else. No voice, no
     // breathing to follow, no taps: one quiet stretch with two words on the screen.

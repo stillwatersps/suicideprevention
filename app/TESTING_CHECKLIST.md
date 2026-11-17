@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Breathe in a pattern:
+- [ ] Meditate tab, "Breathe in a pattern", Box, 1 minute: the circle holds after the breath in and after the
+      breath out, and the taps (if on) follow it. Then 4-7-8: the hold is seven counts.
+
 A first week:
 - [ ] Meditate tab, "A first week": tick day 1, close the app from the app switcher, open it again: the tick is
       still there. Day 5's button starts the walk; day 7's opens the safety plan, and Back from it goes to the

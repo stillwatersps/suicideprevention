@@ -431,6 +431,14 @@ each covers and what only a real phone can show.
 - A new course is a new list of steps and its own words, each step a thing that exists; it is not a place to
   write new exercises.
 
+## Breathe in a pattern (November 17, 2026, a draft)
+
+- **An eighth built-in type, `breathe`**, with `options.pattern` one of `BREATHE` (`calm`, `box`, `stressed`, which
+  is 4-7-8). Whole breaths only, nothing spoken. Its id and its favorite carry the pattern
+  (`breathe-3-box`), so a saved one plays the same pattern again.
+- **The card's line about dizziness stays.** A new pattern needs a reviewer's read first: long holds are not
+  safe for everyone. A unit test fails if the warning goes.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the
