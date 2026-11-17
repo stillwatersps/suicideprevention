@@ -421,6 +421,16 @@ each covers and what only a real phone can show.
 - Its lines are new, so `notes/VOICE-RECORDING-SHEET.md` gained eight rows per language. With the voice guide
   off in Settings the session is silent with words on the screen only.
 
+## A first week (November 17, 2026, a draft)
+
+- **`#tl-course`, on the Meditate tab; `src/logic/course.js`, `src/ui/course.js`; kept as `tidelight.course.v1`.**
+  Seven steps that open things the app already has (`STEPS`). **Only the step numbers ticked are kept**: no
+  dates, no count of days, no streak, and a session finishing never ticks a step by itself.
+- The closing line is plain and is hidden on a quiet day (`isQuiet()`). Never add a count, a badge, or a
+  reminder to "keep going" to it.
+- A new course is a new list of steps and its own words, each step a thing that exists; it is not a place to
+  write new exercises.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

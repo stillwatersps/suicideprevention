@@ -8,6 +8,7 @@ import { store } from '../core/device-storage.js';
 import { KEYS } from '../core/storage.js';
 import { buildExport, oneLine, listOf } from '../logic/export.js';
 import { PARTS, planLines } from '../logic/plan.js';
+import { courseLines } from '../logic/course.js';
 import { letterLines } from '../logic/letter.js';
 import { goodLines } from '../logic/good.js';
 import { sayDay } from './good.js';
@@ -59,6 +60,7 @@ export async function exportText(ctx) {
 
   const plan = planLines(state.plan, Object.fromEntries(PARTS.map((part) => [part, heading('#tl-plan-' + part + '-title')])));
   sections.push({ heading: t('plan.title'), lines: plan });
+  sections.push({ heading: t('course.title'), lines: courseLines(state.course, Array.from(document.querySelectorAll('#tl-course [data-course-step] h3')).map((h) => h.textContent.trim())) });
   sections.push({ heading: t('letter.title'), lines: letterLines(state.letter) });
   sections.push({ heading: t('good.title'), lines: goodLines(state.good, sayDay) });
   sections.push({ heading: t('reach.title'), lines: state.reach && state.reach.message ? state.reach.message.split('\n') : [] });

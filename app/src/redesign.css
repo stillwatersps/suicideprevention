@@ -554,4 +554,9 @@ textarea.tl-input { width: 100%; resize: vertical; font: inherit; }
 .tl-privacy-body p { margin: 0; overflow-wrap: anywhere; }
 .tl-privacy-body ul { margin: 0; padding: 0 0 0 var(--tl-space-lg); list-style: disc; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-xs); }
 .tl-privacy-body li { overflow-wrap: anywhere; }
-
+/* A first week: seven steps in a column; the day and "Up next" share a line and wrap. */
+.tl-course-steps { display: grid; gap: var(--tl-space-md); margin: 0; padding: 0; list-style: none; }
+.tl-course-step { display: grid; gap: var(--tl-space-xs); min-width: 0; }
+.tl-course-day { display: flex; flex-wrap: wrap; gap: var(--tl-space-sm); margin: 0; color: var(--tl-text-secondary); font-size: var(--tl-font-label); }
+.tl-course-next { color: var(--tl-text); font-weight: 600; }
+html.tl #tl-course .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }

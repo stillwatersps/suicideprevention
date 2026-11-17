@@ -493,6 +493,11 @@
                 </div>
               </div>
             </div>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="course" id="tl-meditate-course">
+              <span class="tl-card-icon" data-tl-icon="check"></span>
+              <span class="tl-card-text"><span class="tl-card-title">A first week</span> <span class="tl-card-sub">Seven small things, one a day or slower</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
             <button type="button" class="tl-card tl-card-action" data-tl-push="wind" id="tl-meditate-wind">
               <span class="tl-card-icon" data-tl-icon="moon"></span>
               <span class="tl-card-text"><span class="tl-card-title">Wind down for sleep</span> <span class="tl-card-sub">Four small steps, then the Sleep session</span></span>
@@ -1108,6 +1113,68 @@
           </ul>
         </section>
 
+        <section class="tl-screen" id="tl-course" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-course-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-course-title" tabindex="-1">A first week</h2>
+          <p>Seven small things that are already in the app, in an order to try them. One a day, or slower. Skip any that don't suit you.</p>
+          <p class="tl-sub">Nothing is lost if you miss a day, and nothing here is counted. Your ticks are saved on this phone only. Delete everything, in Your journey, removes them.</p>
+          <ol class="tl-course-steps" id="tl-course-steps">
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 1</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">One minute of breathing</h3>
+              <p class="tl-sub">Follow the circle for one minute. That is all of it.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Start the 1-minute reset</button></p>
+              <label class="tl-switch"><span>I tried day 1</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 2</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">Grounding</h3>
+              <p class="tl-sub">A few ways to come back to the room when your mind is racing.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Open Grounding</button></p>
+              <label class="tl-switch"><span>I tried day 2</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 3</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">Body scan</h3>
+              <p class="tl-sub">Five minutes of attention moving slowly up the body.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Start the Body scan</button></p>
+              <label class="tl-switch"><span>I tried day 3</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 4</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">Three good things</h3>
+              <p class="tl-sub">Up to three things that went all right today. Small ones count.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Open Three good things</button></p>
+              <label class="tl-switch"><span>I tried day 4</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 5</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">A mindful walk</h3>
+              <p class="tl-sub">Five minutes of walking, with the phone in a pocket.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Start A mindful walk</button></p>
+              <label class="tl-switch"><span>I tried day 5</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 6</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">Being kind to yourself</h3>
+              <p class="tl-sub">Three short ways to be on your own side.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Open Being kind to yourself</button></p>
+              <label class="tl-switch"><span>I tried day 6</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 7</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">My safety plan</h3>
+              <p class="tl-sub">Six short lists for a hard moment, in your own words. A good one to write while things are calm.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Open My safety plan</button></p>
+              <label class="tl-switch"><span>I tried day 7</span><input type="checkbox"></label>
+            </li>
+          </ol>
+          <p class="tl-status" id="tl-course-all" role="status" hidden>That's all seven. They are still here whenever you want them.</p>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" id="tl-course-again" hidden>Clear my ticks</button></p>
+          <p class="tl-sub">These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
@@ -1230,7 +1297,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>What stays on this phone</h3>
-            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
+            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, the steps you ticked in A first week, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
             <p>Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.</p>
             <h3>What Tidelight doesn't do</h3>
             <ul>
@@ -1468,6 +1535,7 @@
         <span data-word="helps.item">{name}: {count} of {days} days</span>
         <span data-word="helps.meditation">A meditation</span>
         <span data-word="helps.journal">A journal entry</span>
+        <span data-word="course.title">A first week</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>

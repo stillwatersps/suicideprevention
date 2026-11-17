@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 19)
+Last updated: 2026-11-17 (forty features, feature 20)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -39,7 +39,7 @@ Day to day
 - [x] 17 — Body scan: a sixth built-in type, `scan` (`TYPES`, `builtIn`, `CONFIG.meditation.lengths.scan`), 5 or 10 minutes, with its card on the Meditate tab; every line is one the Deep session already says (`intro.deep`, `bodyScan`, `outro.deep`), so the voice recording sheet is unchanged; `test/scan-test.mjs`. Muscle relaxation is "Tense and release" in Grounding (feature 5): a spoken version would need new script lines and recordings, and was not written
 - [x] 18 — Being kind to yourself: `#tl-kind` on the Check-in tab (markup only, no script): three short self-compassion exercises in plain words, with 988 and 911 at its end; nothing to type, nothing kept; `test/unit/kind.test.mjs`, `test/kind-test.mjs`
 - [x] 19 — A mindful walk: a seventh built-in type, `walk` (5, 10 or 15 minutes), with its card on the Meditate tab; four new spoken lines in two styles and two languages (`intro.walk`, `walk.steps`, `walk.around`, `outro.walk`), which are in the voice recording sheet; no breathing circle and no taps, and its first line says to put the phone in a pocket and watch where you're going; `test/unit/walk.test.mjs`, `test/walk-test.mjs`
-- [ ] 20 — Multi-day courses
+- [x] 20 — A first week: `#tl-course` on the Meditate tab, `src/logic/course.js`, `src/ui/course.js`, `tidelight.course.v1` (step numbers only, no dates); seven steps, each one something the app already has (1-minute reset, Grounding, Body scan, Three good things, A mindful walk, Being kind to yourself, My safety plan); a tick is the person's own and can be taken back; nothing is counted, and the closing line is hidden on a quiet day; in the copy of my data, the erase, and the privacy screen; `test/unit/course.test.mjs`, `test/course-test.mjs`
 - [ ] 21 — A choice of breathing patterns
 - [ ] 22 — My toolkit: tools pinned to Home
 - [x] 23 — Home adapts (already built: "Suggested for you")

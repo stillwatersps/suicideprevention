@@ -492,6 +492,11 @@
                 </div>
               </div>
             </div>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="course" id="tl-meditate-course">
+              <span class="tl-card-icon" data-tl-icon="check"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Una primera semana</span> <span class="tl-card-sub">Siete cosas pequeñas, una al día o más despacio</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
             <button type="button" class="tl-card tl-card-action" data-tl-push="wind" id="tl-meditate-wind">
               <span class="tl-card-icon" data-tl-icon="moon"></span>
               <span class="tl-card-text"><span class="tl-card-title">Prepararse para dormir</span> <span class="tl-card-sub">Cuatro pasos pequeños, y luego la sesión para dormir</span></span>
@@ -1107,6 +1112,68 @@
           </ul>
         </section>
 
+        <section class="tl-screen" id="tl-course" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-course-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-course-title" tabindex="-1">Una primera semana</h2>
+          <p>Siete cosas pequeñas que ya están en la app, en un orden para probarlas. Una al día, o más despacio. Sáltate las que no te sirvan.</p>
+          <p class="tl-sub">No se pierde nada si te saltas un día, y aquí no se cuenta nada. Tus marcas se guardan solo en este teléfono. Borrar todo, en Tu camino, las elimina.</p>
+          <ol class="tl-course-steps" id="tl-course-steps">
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Día 1</span> <span class="tl-course-next" data-course-next hidden>Sigue esta</span></p>
+              <h3 class="tl-headline">Un minuto de respiración</h3>
+              <p class="tl-sub">Sigue el círculo durante un minuto. Eso es todo.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Empezar la pausa de 1 minuto</button></p>
+              <label class="tl-switch"><span>Probé el día 1</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Día 2</span> <span class="tl-course-next" data-course-next hidden>Sigue esta</span></p>
+              <h3 class="tl-headline">Volver al presente</h3>
+              <p class="tl-sub">Algunas maneras de volver al lugar donde estás cuando tu mente va muy rápido.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Abrir Volver al presente</button></p>
+              <label class="tl-switch"><span>Probé el día 2</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Día 3</span> <span class="tl-course-next" data-course-next hidden>Sigue esta</span></p>
+              <h3 class="tl-headline">Recorrido del cuerpo</h3>
+              <p class="tl-sub">Cinco minutos de atención que sube despacio por el cuerpo.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Empezar el Recorrido del cuerpo</button></p>
+              <label class="tl-switch"><span>Probé el día 3</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Día 4</span> <span class="tl-course-next" data-course-next hidden>Sigue esta</span></p>
+              <h3 class="tl-headline">Tres cosas buenas</h3>
+              <p class="tl-sub">Hasta tres cosas que salieron bien hoy. Las pequeñas cuentan.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Abrir Tres cosas buenas</button></p>
+              <label class="tl-switch"><span>Probé el día 4</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Día 5</span> <span class="tl-course-next" data-course-next hidden>Sigue esta</span></p>
+              <h3 class="tl-headline">Una caminata consciente</h3>
+              <p class="tl-sub">Cinco minutos de caminata, con el teléfono en un bolsillo.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Empezar Una caminata consciente</button></p>
+              <label class="tl-switch"><span>Probé el día 5</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Día 6</span> <span class="tl-course-next" data-course-next hidden>Sigue esta</span></p>
+              <h3 class="tl-headline">Tratarte con amabilidad</h3>
+              <p class="tl-sub">Tres maneras breves de estar de tu lado.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Abrir Tratarte con amabilidad</button></p>
+              <label class="tl-switch"><span>Probé el día 6</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Día 7</span> <span class="tl-course-next" data-course-next hidden>Sigue esta</span></p>
+              <h3 class="tl-headline">Mi plan de seguridad</h3>
+              <p class="tl-sub">Seis listas cortas para un momento difícil, con tus propias palabras. Conviene escribirlo cuando las cosas están en calma.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Abrir Mi plan de seguridad</button></p>
+              <label class="tl-switch"><span>Probé el día 7</span><input type="checkbox"></label>
+            </li>
+          </ol>
+          <p class="tl-status" id="tl-course-all" role="status" hidden>Esas son las siete. Siguen aquí para cuando las quieras.</p>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" id="tl-course-again" hidden>Quitar mis marcas</button></p>
+          <p class="tl-sub">Esto no reemplaza la ayuda de una persona. Los botones para llamar o enviar un mensaje de texto al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.</p>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -1229,7 +1296,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>Lo que se queda en este teléfono</h3>
-            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
+            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, los pasos que marcaste en Una primera semana, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
             <p>Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.</p>
             <h3>Lo que Tidelight no hace</h3>
             <ul>
@@ -1467,6 +1534,7 @@
         <span data-word="helps.item">{name}: {count} de {days} días</span>
         <span data-word="helps.meditation">Una meditación</span>
         <span data-word="helps.journal">Una entrada de diario</span>
+        <span data-word="course.title">Una primera semana</span>
         <span data-word="plan.title">Mi plan de seguridad</span>
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>

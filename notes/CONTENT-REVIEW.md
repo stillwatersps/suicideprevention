@@ -1588,6 +1588,21 @@ you're going. You can stop at any time."), notice your steps, notice what is aro
 - The opening line assumes the person is somewhere safe to walk. Should it say so?
 - The Spanish ("Una caminata consciente") is an AI translation no fluent reader has checked.
 
+### Forty features, 20: a first week (November 17, 2026)
+
+A new screen on the Meditate tab: seven small things already in the app, in an order to try them, "one a day, or
+slower": the 1-minute reset, Grounding, Body scan, Three good things, A mindful walk, Being kind to yourself, and
+My safety plan. Each has a button that opens it and a tick the person makes themselves.
+
+- The reviewer: is this the right seven, in the right order? Is the safety plan the right last step, or should
+  it come first?
+- "Nothing is lost if you miss a day, and nothing here is counted." Is a course of days a pressure in itself for
+  someone who is struggling?
+- Its closing line: "That's all seven. They are still here whenever you want them." It is hidden on a day with
+  a very low check-in.
+- Only one course was built. Others (sleep, worry, grief) would each need their own list and a reviewer's read.
+- The Spanish ("Una primera semana") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

@@ -75,6 +75,11 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+A first week:
+- [ ] Meditate tab, "A first week": tick day 1, close the app from the app switcher, open it again: the tick is
+      still there. Day 5's button starts the walk; day 7's opens the safety plan, and Back from it goes to the
+      Check-in tab (the plan's own tab), not back to the week.
+
 A mindful walk:
 - [ ] Meditate tab, "A mindful walk", 5 minutes, sound on, phone in a pocket, walking: four lines are heard, at
       the start, after about 30 seconds, about half way, and at the end. The screen can be locked without the
