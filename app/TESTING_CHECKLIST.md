@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Being kind to yourself:
+- [ ] Check-in tab, "Being kind to yourself": the three exercises read well at the phone's largest text, and
+      Call 988 at the end is full size.
+
 Body scan:
 - [ ] Meditate tab, "Body scan", 5 minutes, with sound on: three lines are spoken (settle, the scan, come
       back) and the long quiet between them does not feel like the app has stopped.

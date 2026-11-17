@@ -1550,7 +1550,7 @@ each with an empty field. Nothing typed is kept. All of its wording is new, in b
 
 A sixth kind of session on the Meditate tab, "Body scan", for 5 or 10 minutes. It says only lines the Deep
 session already says (the opening, the body scan, the closing), with a long quiet after the scan. Its name is
-the only new wording.
+the one the Build your own screen already uses, so there is no new wording.
 
 - The reviewer: the body scan line is said once and then there is quiet for several minutes. Is one pass
   enough, or should the scan be written out part by part? That would be new script lines and new recordings.
@@ -1558,7 +1558,19 @@ the only new wording.
   ("Tense and release", in Grounding). Should a spoken one be written, and by whom?
 - For some people attention to the body is distressing. The opening line says "If anything feels like too
   much, you can stop at any time." Is that enough?
-- The Spanish name ("Recorrido por el cuerpo") is an AI translation no fluent reader has checked.
+- The Spanish name is "Recorrido del cuerpo", the words the Build your own screen already used for its body scan switch: an AI translation no fluent reader has checked.
+
+### Forty features, 18: being kind to yourself (November 17, 2026)
+
+A new screen on the Check-in tab with three short exercises: a hand on your chest for three slow breaths; what
+you would say to a friend who felt this way; and saying to yourself "this is hard right now. Other people feel
+this too. I can go gently with myself while it lasts." All of its wording is new, in both languages.
+
+- The reviewer: are these three safe and well put for someone who is suicidal? Self-compassion exercises can
+  bring up strong feeling in people who are very self-critical.
+- "Other people feel this too" is meant as common humanity. Could it read as "so it's nothing special"?
+- It is not offered on the support step. Should it be?
+- The Spanish ("Tratarte con amabilidad") is an AI translation no fluent reader has checked.
 
 ### Changes from the check on November 16, 2026
 

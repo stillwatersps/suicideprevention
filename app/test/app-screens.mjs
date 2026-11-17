@@ -79,6 +79,7 @@ export const SCREENS = [
     if (await page.isChecked('#tl-set-lock')) await page.click('#tl-set-lock');
   } },
   // Added November 15, 2026, at the end, so the screens above keep their numbers.
+  { id: 'kind', name: 'Being kind to yourself', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-kind'); } },
   { id: 'plan', name: 'My safety plan', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); } },
   { id: 'letter', name: 'A letter to myself', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-letter'); } },
   { id: 'ride', name: 'Ten minutes at a time', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-ride'); } },

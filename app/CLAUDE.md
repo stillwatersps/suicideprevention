@@ -407,6 +407,12 @@ each covers and what only a real phone can show.
   nothing new to record. A new spoken line means new entries in `notes/VOICE-RECORDING-SHEET.md`
   (`node tools/voice-sheet.mjs`) and a reviewer's read; none was added.
 
+## Being kind to yourself (November 17, 2026, a draft)
+
+- **`#tl-kind`, on the Check-in tab, is words only**: three short exercises, the grounding screen's layout, and
+  the three crisis lines at its end. No script, nothing to type, nothing kept. Its words never blame, promise
+  a result, or tell the person what they should feel; a unit test reads them for that.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the
