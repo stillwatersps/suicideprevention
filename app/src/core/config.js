@@ -55,7 +55,7 @@ export const CONFIG = deepFreeze({
     voicePitch: 0.9,
     ambientVolume: 0.5,
     maxSessionsKept: 400,
-    lengths: { silent: [3, 5], quick: [1], deep: [10, 15, 20], sleep: [10, 20] },
+    lengths: { silent: [3, 5], quick: [1], deep: [10, 15, 20], sleep: [10, 20], sound: [5, 15, 30] },
     homeRadiusMeters: 150,
     sleepHours: { from: '21:30', to: '04:00' },
     particles: 14,

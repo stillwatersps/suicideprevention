@@ -6,7 +6,7 @@
 import { CONFIG } from '../core/config.js';
 import { cycleLength, totalSeconds } from './timeline.js';
 
-export const TYPES = ['silent', 'quick', 'deep', 'sleep'];
+export const TYPES = ['silent', 'quick', 'deep', 'sleep', 'sound'];
 export const WORLDS = ['ocean', 'forest', 'nightSky'];
 export const SOUNDS = ['none', 'rain', 'ocean', 'whiteNoise', 'brownNoise'];
 
@@ -91,6 +91,11 @@ export function builtIn(type, options = {}) {
     const second = breaths(PATTERNS.calm, bodyTime - scan - silence - first.used);
     m.segments = [seg('intro', intro, spoken('intro.deep')), ...first.segments, seg('bodyScan', scan, spoken('bodyScan')),
       seg('silence', silence + second.left, { screenTextId: 'silence' }), ...second.segments, seg('outro', outro, spoken('outro.deep'))];
+  } else if (type === 'sound') {
+    // Just sound: rain, ocean, or steady noise for the whole time, and nothing else. No voice, no
+    // breathing to follow, no taps: one quiet stretch with two words on the screen.
+    m = base(type, minutes, style, { world: 'nightSky', backgroundSound: 'rain', voiceEnabled: false, hapticBreathing: false });
+    m.segments = [seg('silence', T, { screenTextId: 'silence' })];
   } else {
     // Sleep: breaths that slow, a body scan, then a long quiet. The sound fades over the last
     // three minutes, the screen dims, and there is no completion screen: it just goes dark.
@@ -105,7 +110,7 @@ export function builtIn(type, options = {}) {
   }
   if (WORLDS.indexOf(options.world) !== -1) m.world = options.world;
   if (SOUNDS.indexOf(options.sound) !== -1) m.backgroundSound = options.sound;
-  if (typeof options.voice === 'boolean') m.voiceEnabled = options.voice && type !== 'silent';
+  if (typeof options.voice === 'boolean') m.voiceEnabled = options.voice && type !== 'silent' && type !== 'sound';
   if (typeof options.haptics === 'boolean') m.hapticBreathing = options.haptics;
   return enforce(m);
 }

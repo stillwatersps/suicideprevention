@@ -1398,6 +1398,17 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 10: just sound (November 17, 2026)
+
+A fifth kind of session on the Meditate tab, "Just sound": rain, ocean, white noise, or brown noise for 5, 15,
+or 30 minutes, with no voice and no breathing guide. The screen shows the existing words "Just rest".
+
+- The reviewer: at the end it shows the same "Well done" screen as a meditation and asks "How do you feel
+  now?". Is that right for someone who only listened to rain?
+- It counts toward the day like a meditation, and, if the person turned on Apple Health, it is added there as
+  mindful minutes. Should listening to a sound count as either?
+- The Spanish name ("Solo sonido") is an AI translation no fluent reader has checked.
+
 ### Forty features, 9: care near me (November 17, 2026)
 
 A new screen on the Check-in tab and on the support step (under the crisis buttons). It has one outside link,

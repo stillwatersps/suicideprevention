@@ -306,6 +306,13 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## Just sound (November 17, 2026, a draft)
+
+- **A fifth built-in type, `sound`** (`TYPES` and `builtIn` in `src/logic/meditations.js`,
+  `CONFIG.meditation.lengths.sound`): one quiet stretch with a background sound for the whole time. Never a
+  voice, a breathing guide, or haptic breathing; `test/sound-test.mjs` checks each. It has no script lines,
+  so the voice recording sheet does not change. Its card on the Meditate tab is a copy of the other cards.
+
 ## Care near me (November 17, 2026, a draft)
 
 - **`#tl-nearby` holds one outside link**, to the phone's maps at a search for emergency rooms. The address is

@@ -888,7 +888,7 @@ async function typesTests(browser, lang) {
   let { context, page, errors, outside } = await newPage(browser, lang, { hooks: { clockRate: 120 }, storage: { 'tidelight.settings': oneADay } });
   await tab(page, 'meditate');
   check(await page.isVisible('#tl-suggest-card') && (await page.textContent('#tl-suggest-card [data-suggest-title]')).trim().length > 2 && (await page.textContent('#tl-suggest-card [data-suggest-reason]')).trim().length > 5, 'Meditate opens with a suggestion and its one-line reason');
-  check((await page.locator('#tl-types .tl-type').count()) === 4, 'then the four types');
+  check((await page.locator('#tl-types .tl-type').count()) === 5, 'then the five types');
   const labels = await page.$$eval('#tl-types [data-type-start]', (els) => els.map((e) => e.getAttribute('aria-label')));
   check(labels.every((l) => /\d/.test(l) && l.length > 12), 'each Start says what it starts: ' + labels[0]);
   check(await page.isVisible('#tl-build-card') && await page.isVisible('#tl-history-card') && await page.isVisible('#tl-presets'), 'then presets, Build your own, and History');

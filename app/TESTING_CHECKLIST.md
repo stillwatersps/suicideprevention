@@ -75,6 +75,11 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Just sound:
+- [ ] Each of the four sounds plays through the speaker and through headphones, loops without a click, and
+      stops when the session ends or the sound switch is turned off.
+- [ ] It keeps playing with the screen locked, and a phone call or another app's audio interrupts it cleanly.
+
 Care near me:
 - [ ] The button opens the Maps app (not a web page) with emergency rooms near you, on an iPhone and on an
       Android phone. Coming back, the app is where you left it.
