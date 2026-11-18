@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+For teens:
+- [ ] Check-in tab, the teens row: the screen reads the same as the For teens page on the website, and its
+      Trevor Project and Crisis Text Line buttons open the dial or message screen (do not call or send).
+
 Support over time:
 - [ ] Check-in tab, "Support over time": the FindTreatment.gov link opens outside the app, and the two phone
       numbers open the dial screen (do not place the call).

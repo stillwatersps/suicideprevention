@@ -510,6 +510,12 @@ each covers and what only a real phone can show.
 - **`#tl-care`, "Support over time"**, on the Check-in tab, is the first: the Get Help page's section of that
   name. The row's second line is the only wording written for the app.
 
+## For teens (November 17, 2026)
+
+- **`#tl-teens`, on the Check-in tab, is the For teens page's own words** (`SITE_SCREENS.teens`): its opening and
+  four sections. The row shows for every age group, on purpose: a teen who picked another group still finds
+  it. Nothing about the person's age is used or kept to show it.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

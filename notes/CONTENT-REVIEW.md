@@ -1740,6 +1740,19 @@ from the page when the app is built, so it says exactly what the page says and c
   finder; it does not name sliding-scale or free clinics. Should it? That is a change to the page, and its
   sources, not to the app.
 
+### Forty features, 33: a way in for teens (November 17, 2026)
+
+A row on the Check-in tab, "If you're a teen and things feel hard", opens a screen with the For teens page's own opening and four sections:
+reaching out yourself, telling an adult you trust, what stays private, and a friend you're worried about. It is
+copied from the page when the app is built.
+
+- The row shows to everyone, adults included. Should it show only when a teen age group was picked, or is
+  "everyone" safer (a teen may have picked "adult")?
+- The only wording written for the app is the row's second line, "Reaching out, trusted adults, and what stays
+  private", in English and Spanish (an AI translation no fluent reader has checked).
+- The app's own screens (check-in prompts, meditation words) are not reworded for teens. That would be new
+  wording for a reviewer who works with young people to write or read.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

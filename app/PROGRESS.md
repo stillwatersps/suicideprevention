@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 32)
+Last updated: 2026-11-17 (forty features, feature 33)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -56,7 +56,7 @@ With other people
 - [x] 32 — Links to low-cost care: `#tl-care` on the Check-in tab shows the Get Help page's own section "Support over time" (talk to a health care provider, FindTreatment.gov, SAMHSA's National Helpline), word for word; `tools/site-screens.mjs` is the one place that says which screens show which page's sections (`SITE_SCREENS`, `<!-- SITE:name -->` in the markup), and `test/site-test.mjs` compares every such screen with its page
 
 For specific people
-- [ ] 33 — Teen wording (the For teens page and the age groups exist; a way in from the app's own screens)
+- [x] 33 — Teen wording: `#tl-teens` on the Check-in tab shows the For teens page's own opening and four sections (reaching out yourself, telling an adult you trust, what stays private, a friend you're worried about), word for word, through `SITE_SCREENS`; the row is shown to everyone, whatever age group was picked
 - [ ] 34 — A guide for parents and caregivers
 - [ ] 35 — Pages for veterans, LGBTQ+ people, and new parents
 - [ ] 36 — After a crisis
