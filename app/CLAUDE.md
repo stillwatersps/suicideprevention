@@ -554,6 +554,17 @@ each covers and what only a real phone can show.
   every `clean…` rule and migration runs on what was restored. Never write restored values into `state`
   directly.
 
+## Comfort settings (November 17, 2026, a draft)
+
+- **Three switches in Settings, off by default: `settings.alwaysDark`, `easyRead`, `readAloud`; `src/ui/comfort.js`.**
+  Always dark goes through `applyNight()` (`src/ui/night.js`), so it uses the same copied dark rules and the
+  crisis strip's own dark colors. Easier reading is the class `tl-easy` (spacing and underlines only).
+- **Read aloud** is a button put in each screen's Back row only while the switch is on; with it off no screen
+  has the button at all, shown or hidden (the privacy screen's test counts its controls). It reads `screenWords(screen)` with the phone's
+  own voice, only on a tap. **It never reads a field, and it stops on leaving the screen, leaving the app, or
+  Quick exit.** A unit test reads the file for that. Under automated runs it is recorded, never spoken.
+- There is no "always light": the app has no light colors to use on a phone set to dark.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

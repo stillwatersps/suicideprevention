@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 39)
+Last updated: 2026-11-17 (forty features, feature 40)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -65,7 +65,7 @@ For specific people
 The phone itself
 - [ ] 38 — An interactive widget and a Live Activity for a breathing minute
 - [x] 39 — Restore from a copy: Settings has "A backup file" (`#tl-set-backup-box`): `src/logic/backup.js`, `src/ui/backup.js`; "Make a backup file" hands one JSON file (everything the app stores, as stored, no photos, not locked) to the share sheet; "Restore from a backup file" reads one back after asking, in place of what is on the phone; anything that isn't a backup, or is from a newer app, is refused and nothing changes; reminder times are cleared on restore; the text "copy of my data" is for reading and can't be restored from; `test/unit/backup.test.mjs`, `test/backup-test.mjs`
-- [ ] 40 — Comfort settings: appearance, easier reading, read aloud
+- [x] 40 — Comfort settings: three switches in Settings, all off until turned on (`settings.alwaysDark`, `easyRead`, `readAloud`), `src/ui/comfort.js`; always use the dark colors (through the "Darker at night" colors, on the website's pages inside the app too); easier reading (more space between lines, letters, and words, and links underlined, on the app's own screens); a "Read aloud" button on screens with a Back button, which uses the phone's own voice on a tap, never reads a field, and stops on leaving the screen or the app; there is no "always light": the app has no light colors for a dark phone; `test/unit/comfort.test.mjs`, `test/comfort-test.mjs`
 
 ### Resume instructions (forty features)
 

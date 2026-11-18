@@ -141,7 +141,8 @@ html.tl .tl-chip[aria-pressed="true"]::before { content: "\2713"; }
 .tl-badge { display: inline-flex; align-items: center; gap: var(--tl-space-xs); padding: var(--tl-space-xs) var(--tl-space-sm); border-radius: var(--tl-radius-full); background: var(--tl-secondary-soft); color: var(--tl-text-primary); font-size: var(--tl-font-caption); font-weight: var(--tl-weight-strong); }
 
 /* Stepper */
-.tl-stepper { display: inline-flex; align-items: center; gap: var(--tl-space-md); }
+/* On a small phone at large text the two buttons and the number can't sit side by side, so they wrap. */
+.tl-stepper { display: inline-flex; flex-wrap: wrap; max-width: 100%; align-items: center; gap: var(--tl-space-md); }
 .tl-stepper-value { min-width: var(--tl-tap-lg); text-align: center; font-size: var(--tl-font-huge); line-height: var(--tl-line-tight); font-weight: var(--tl-weight-strong); font-variant-numeric: tabular-nums; }
 html.tl .tl-stepper .tl-icon-btn { width: var(--tl-tap-lg); height: var(--tl-tap-lg); font-size: var(--tl-font-title); }
 
@@ -255,7 +256,7 @@ html.tl .tl-result-support { margin: var(--tl-space-md) 0; display: grid; gap: v
 .tl-setup-list .tl-input { min-width: 0; }
 #tl-setup-ring { width: var(--tl-tap-lg); height: var(--tl-tap-lg); }
 #tl-settings-sections { margin: 0; }
-html.tl #tl-version { justify-self: start; }
+html.tl #tl-version { justify-self: start; max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: start; }
 
 @media (prefers-reduced-motion: reduce) {
   .tl-breath .tl-breath-dot, .tl-style-preview.is-playing .tl-breath-dot, .tl-ob-page, .tl-flow-more { animation: none; }
@@ -614,3 +615,12 @@ html.tl #tl-after .tl-btn { max-width: 100%; white-space: normal; overflow-wrap:
 #tl-set-backup-box input[type="file"] { min-width: 0; max-width: 100%; height: auto; padding-block: var(--tl-space-sm); }
 html.tl #tl-set-backup-box .tl-row { flex-wrap: wrap; }
 html.tl #tl-set-backup-box .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* Easier reading (Settings): more room in the app's own screens, and links underlined. */
+html.tl-easy .tl-screen { line-height: 1.8; letter-spacing: 0.03em; word-spacing: 0.1em; }
+html.tl-easy .tl-screen p, html.tl-easy .tl-screen li, html.tl-easy .tl-screen label, html.tl-easy .tl-card-sub { line-height: 1.8; }
+html.tl-easy .tl-screen :is(p, li) a:not(.tl-btn):not(.pill) { text-decoration: underline !important; }
+html.tl-easy .tl-screen em, html.tl-easy .tl-screen i { font-style: normal; }
+/* Read aloud (Settings): its button sits at the end of the Back row, and wraps under it when there is no room. */
+html.tl-reads .tl-legacy-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tl-space-sm); }
+.tl-read { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+html .tl-legacy-head .tl-read[hidden] { display: none !important; }

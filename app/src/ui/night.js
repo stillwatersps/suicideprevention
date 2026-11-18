@@ -14,10 +14,13 @@ const MARK = 'tidelight.night-until';
 export function applyNight(now) {
   const moment = now || new Date();
   const s = state.settings;
-  const on = Boolean(s.nightMode) && isNight(moment, s.sleepTime, s.wakeTime);
+  const always = Boolean(s.alwaysDark); // Settings, "Always use the dark colors"
+  const on = always || (Boolean(s.nightMode) && isNight(moment, s.sleepTime, s.wakeTime));
   root.classList.toggle('tl-night', on);
   try {
-    const end = on ? nightEnd(moment, s.wakeTime) : null;
+    // Always dark: the website's pages inside the app are told "until this time tomorrow", and told
+    // again every half minute while the app is open.
+    const end = always ? new Date(moment.getTime() + 86400000) : on ? nightEnd(moment, s.wakeTime) : null;
     if (end) window.sessionStorage.setItem(MARK, String(end.getTime())); else window.sessionStorage.removeItem(MARK);
   } catch (e) { /* no session storage: the app's own screens are still right */ }
   return on;

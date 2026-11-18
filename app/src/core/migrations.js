@@ -22,6 +22,9 @@ export function defaultSettings() {
     appLock: false, // ask the phone to confirm who it is before showing anything saved
     health: false, // add finished meditations to Apple Health as mindful minutes (iPhone)
     nightMode: false, // dark colors between bed time and wake time, whatever the phone is set to
+    alwaysDark: false, // dark colors all the time, whatever the phone is set to
+    easyRead: false, // more space between lines, letters, and words; links underlined
+    readAloud: false, // a "Read aloud" button on screens with a Back button
     meditation: {
       defaultMinutes: CONFIG.meditation.defaultMinutes,
       defaultSound: CONFIG.meditation.defaultSound,

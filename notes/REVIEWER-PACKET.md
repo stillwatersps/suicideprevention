@@ -678,7 +678,7 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good morning  
+> Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
 > At 2:30 PM  
@@ -786,7 +786,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 51 screens, about 1203 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 51 screens, about 1208 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -939,7 +939,7 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good morning  
+> Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
 > At 2:30 PM  
@@ -998,6 +998,11 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > At night  
 > Darker at night  
 > Between the time you go to bed and the time you wake up, Tidelight uses its dark colors, whatever the phone is set to. Both times are yours to set, above.  
+> Always use the dark colors  
+> Easier reading  
+> More space between lines, letters, and words, and every link underlined, on the app's own screens.  
+> Read aloud button  
+> Adds "Read aloud" to screens that have a Back button. This phone's own voice reads the screen out loud, so anyone nearby can hear it. Tap it again to stop. It never reads what you are typing.  
 > Notifications  
 > Check-in reminders  
 > The phone shows them itself. A reminder only says "A moment to check in, if you'd like." Nothing about you is in it, and nothing is sent anywhere.  
@@ -1247,9 +1252,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Midday, 11:32 AM: feeling: Good.  
+> Midday, 1:23 PM: feeling: Good.  
 > Remove  
-> Midday, 11:32 AM: feeling: Okay.  
+> Midday, 1:23 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1748,10 +1753,10 @@ Picture: `app/design/after-launch-pass/reviewer/44-week.png`
 > You took some time to breathe or meditate.  
 > What you recorded  
 > Wednesday, November 18  
-> Midday, 11:32 AM: feeling: Good.  
-> Midday, 11:32 AM: feeling: Okay.  
-> Midday, 11:32 AM: feeling: Very low.  
-> Midday, 11:33 AM: feeling: Sad.  
+> Midday, 1:23 PM: feeling: Good.  
+> Midday, 1:23 PM: feeling: Okay.  
+> Midday, 1:23 PM: feeling: Very low.  
+> Midday, 1:23 PM: feeling: Sad.  
 > However the week went, you don't have to carry it alone.  
 > Call 988  
 > Text 988  
@@ -2382,10 +2387,10 @@ Picture: `app/design/after-launch-pass/reviewer/66-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Wednesday, November 18  
-> - Midday, 11:32 AM: feeling: Good.  
-> - Midday, 11:32 AM: feeling: Okay.  
-> - Midday, 11:32 AM: feeling: Very low.  
-> - Midday, 11:33 AM: feeling: Sad.  
+> - Midday, 1:23 PM: feeling: Good.  
+> - Midday, 1:23 PM: feeling: Okay.  
+> - Midday, 1:23 PM: feeling: Very low.  
+> - Midday, 1:23 PM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

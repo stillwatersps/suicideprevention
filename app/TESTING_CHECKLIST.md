@@ -75,6 +75,13 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Comfort settings:
+- [ ] Settings, "Always use the dark colors" at midday with the phone in light mode: the app turns dark at
+      once, and so does the Get Help page opened from it.
+- [ ] "Read aloud button" on, then Grounding, "Read aloud", with the volume up: the phone reads the screen in
+      the app's language. Tap again: it stops at once. Start it again and press the side button to lock the
+      phone, then use Quick exit: it stops both times.
+
 A backup file:
 - [ ] Settings, "Make a backup file": the share sheet opens with a .json file; save it to Files.
 - [ ] "Restore from a backup file": the phone's file picker opens; choose that file; the question appears;

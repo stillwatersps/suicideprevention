@@ -1843,6 +1843,23 @@ in place of what is on the phone, after a question that says it can't be undone.
   share sheet. The privacy inventory has a new row.
 - The Spanish ("Un archivo de respaldo") is an AI translation no fluent reader has checked.
 
+### Forty features, 40: comfort settings (November 17, 2026)
+
+Three new switches in Settings, all off until turned on: "Always use the dark colors", "Easier reading" (more
+space between lines, letters, and words, and links underlined), and "Read aloud button", which adds a button to
+screens that have a Back button; this phone's own voice then reads the screen out loud.
+
+- **Read aloud speaks private things out loud**: a person's safety plan, their letter, their check-in lines,
+  if that is the screen. The switch says: "This phone's own voice reads the screen out loud, so anyone nearby
+  can hear it." Is that warning enough, or should the screens that hold a person's own words not have the
+  button?
+- It reads the whole screen from the top, in the phone's default voice for the language. It is not a
+  replacement for VoiceOver or TalkBack, and the app's first five tabs' own first screens don't have it.
+- "Easier reading" is an AI assistant's guess at what helps (spacing and underlines). It is not a dyslexia
+  font and no person who would use it has tried it.
+- There is no "always light" setting: the app has no light colors to use on a phone set to dark.
+- The Spanish is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,
