@@ -1765,6 +1765,23 @@ already part of "Helping someone you're worried about"; this row is a direct way
 - The only wording written for the app is the row's second line, "For parents, caregivers, and school staff",
   in English and Spanish (an AI translation no fluent reader has checked).
 
+### Forty features, 35: for veterans, and for LGBTQ+ young people (November 17, 2026)
+
+Two rows on the Check-in tab open two short screens. Each has a title and one line written for the app, then
+the Get Help page's own entry for the service: the Veterans Crisis Line on one; "LGBTQ+ youth, through 988" and
+The Trevor Project on the other. The entries are copied from the page.
+
+- **No screen for new parents was built.** The website names no service for pregnant or new parents, and the
+  app doesn't add a crisis resource the website hasn't verified. If one is verified and added to the Get Help
+  page, a screen for it is a few lines.
+- The same is true for other groups the list might have meant (older adults, Native communities, people who
+  are deaf or hard of hearing, who are on the "Other ways" screen already).
+- The page's entries are for LGBTQ+ youth and people under 25. There is nothing for LGBTQ+ adults beyond 988
+  itself. The title says "young people" for that reason.
+- The lines written for the app: "This is the Veterans Crisis Line as the Get Help page describes it. It is a
+  separate service from Tidelight. 988 and 911, at the top of every screen, are for anyone." and the same for
+  the other screen. The Spanish is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

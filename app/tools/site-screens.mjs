@@ -5,6 +5,9 @@
 //   sections: the ids of the page's sections to show, in order
 //   title:    'section' (the first section's heading is the screen's title) or 'page' (the page's
 //             own title is; its opening line comes first and every heading moves down one level)
+//   services: for a section that is a list of services, only the ones with these headings, in
+//             each language; the screen then has its own title, written in the app's words
+//             (title: 'own'), and the copy is the services alone
 //   tab, row: the tab the screen is on and the id of the row that opens it (for the tests)
 // The markup has `<!-- SITE:name -->` where the copy goes (src/text/redesign.en.html).
 import { readFileSync } from 'node:fs';
@@ -14,6 +17,8 @@ export const SITE_SCREENS = {
   care: { page: { en: 'get-help/index.html', es: 'es/obtener-ayuda/index.html' }, sections: ['over-time'], title: 'section', tab: 'checkin', row: 'tl-checkin-care' },
   teens: { page: { en: 'teens/index.html', es: 'es/adolescentes/index.html' }, sections: ['reach-out', 'trusted-adult', 'privacy', 'friend'], title: 'page', tab: 'checkin', row: 'tl-checkin-teens' },
   parents: { page: { en: 'help-someone/index.html', es: 'es/ayudar-a-alguien/index.html' }, sections: ['child-or-teen'], title: 'section', tab: 'friends', row: 'tl-friends-parents' },
+  vets: { page: { en: 'get-help/index.html', es: 'es/obtener-ayuda/index.html' }, sections: ['other-ways'], services: { en: ["Veterans Crisis Line"], es: ["Línea de Crisis para Veteranos"] }, title: 'own', tab: 'checkin', row: 'tl-checkin-vets' },
+  lgbtq: { page: { en: 'get-help/index.html', es: 'es/obtener-ayuda/index.html' }, sections: ['other-ways'], services: { en: ["LGBTQ+ youth, through 988", "The Trevor Project"], es: ["Jóvenes LGBTQ+, a través de la 988", "The Trevor Project"] }, title: 'own', tab: 'checkin', row: 'tl-checkin-lgbtq' },
 };
 
 // What a screen is made from, as the page has it: { file, title, pieces } (pieces of HTML, in order).
@@ -36,6 +41,14 @@ export function siteSource(www, lang, name) {
       title = need(body.match(/<h2[^>]*>([\s\S]*?)<\/h2>/), 'heading in section ' + id)[1].trim();
       body = body.replace(/<h2[^>]*>[\s\S]*?<\/h2>/, '');
     }
+    if (spec.services) {
+      // Only the named services, each whole, in the page's order.
+      const heading = (block) => ((block.match(/<h3[^>]*>([\s\S]*?)<\/h3>/) || [])[1] || '').trim();
+      const blocks = body.match(/<li class="service">[\s\S]*?<\/li>/g) || [];
+      const kept = blocks.filter((block) => spec.services[lang].includes(heading(block)));
+      if (kept.length !== spec.services[lang].length) throw new Error(`site screen ${name}: ${file} doesn't have every service it names (${spec.services[lang].join(', ')})`);
+      body = '<ul class="service-list">\n' + kept.join('\n') + '\n</ul>';
+    }
     pieces.push(body);
   });
   return { file, title, pieces, folder: file.split('/').slice(-2, -1)[0] };
@@ -51,5 +64,7 @@ export function siteScreen(www, lang, name) {
     if (SITE_SCREENS[name].title === 'page') part = part.replace(/<(\/?)h3\b/g, '<$1h4').replace(/<(\/?)h2\b/g, '<$1h3');
     return part.replace(/ (?:id|aria-labelledby)="[^"]*"/g, '').trim();
   }).join('\n          ').replace(/href="#/g, `href="../${folder}/#`);
-  return `<h2 class="tl-title" id="tl-${name}-title">${title}</h2>\n          <div class="tl-helping-body tl-site-body">${body}\n          </div>`;
+  const copy = `<div class="tl-helping-body tl-site-body">${body}\n          </div>`;
+  // With a title of the app's own, the markup has the title; only the copy goes in.
+  return SITE_SCREENS[name].title === 'own' ? copy : `<h2 class="tl-title" id="tl-${name}-title">${title}</h2>\n          ` + copy;
 }

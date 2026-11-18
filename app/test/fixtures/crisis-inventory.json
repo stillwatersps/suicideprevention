@@ -4290,6 +4290,226 @@
      }
     ]
    },
+   "vets": {
+    "name": "For veterans and service members",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-vets|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988, then press 1",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-vets|sms:838255|1",
+      "href": "sms:838255",
+      "text": "Text 838255",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "lgbtq": {
+    "name": "For LGBTQ+ young people",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-lgbtq|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988, then press 3",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-lgbtq|sms:988|1",
+      "href": "sms:988",
+      "text": "Text PRIDE to 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-lgbtq|tel:+18664887386|1",
+      "href": "tel:+18664887386",
+      "text": "Call 1-866-488-7386",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-lgbtq|sms:678678|1",
+      "href": "sms:678678",
+      "text": "Text START to 678-678",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
    "plan": {
     "name": "My safety plan",
     "controls": [
@@ -10128,6 +10348,226 @@
       "text": "Obtén apoyo ahora",
       "fullTarget": true,
       "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "vets": {
+    "name": "For veterans and service members",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-vets|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 1",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-vets|sms:838255|1",
+      "href": "sms:838255",
+      "text": "Texto al 838255",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "lgbtq": {
+    "name": "For LGBTQ+ young people",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-lgbtq|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 3",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-lgbtq|sms:988|1",
+      "href": "sms:988",
+      "text": "Enviar PRIDE al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-lgbtq|tel:+18664887386|1",
+      "href": "tel:+18664887386",
+      "text": "Llamar al 1-866-488-7386",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-lgbtq|sms:678678|1",
+      "href": "sms:678678",
+      "text": "Enviar START al 678-678",
+      "fullTarget": true,
+      "aboveFold": false
      },
      {
       "key": "support|tel:988|1",

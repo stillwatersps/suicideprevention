@@ -202,6 +202,16 @@
               <span class="tl-card-text"><span class="tl-card-title">If you're a teen and things feel hard</span> <span class="tl-card-sub">Reaching out, trusted adults, and what stays private</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="vets" id="tl-checkin-vets">
+              <span class="tl-card-icon" data-tl-icon="lifebuoy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">For veterans and service members</span> <span class="tl-card-sub">The Veterans Crisis Line</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="lgbtq" id="tl-checkin-lgbtq">
+              <span class="tl-card-icon" data-tl-icon="lifebuoy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">For LGBTQ+ young people</span> <span class="tl-card-sub">Two services, by phone, text, or chat</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
               <span class="tl-card-icon" data-tl-icon="copy"></span>
               <span class="tl-card-text"><span class="tl-card-title">A summary for an appointment</span> <span class="tl-card-sub">You choose what goes on it</span></span>
@@ -1385,6 +1395,24 @@
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
           <!-- SITE:parents -->
+        </section>
+
+        <section class="tl-screen" id="tl-vets" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-vets-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-vets-title">For veterans and service members</h2>
+          <p class="tl-sub">This is the Veterans Crisis Line as the Get Help page describes it. It is a separate service from Tidelight. 988 and 911, at the top of every screen, are for anyone.</p>
+          <!-- SITE:vets -->
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="ways">Other ways to reach someone</button></p>
+        </section>
+
+        <section class="tl-screen" id="tl-lgbtq" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-lgbtq-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-lgbtq-title">For LGBTQ+ young people</h2>
+          <p class="tl-sub">These are the two services the Get Help page names for LGBTQ+ young people. They are separate services from Tidelight. 988 and 911, at the top of every screen, are for anyone.</p>
+          <!-- SITE:lgbtq -->
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="ways">Other ways to reach someone</button></p>
         </section>
 
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>

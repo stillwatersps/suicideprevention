@@ -58,13 +58,14 @@ for (const name of Object.keys(SITE_SCREENS)) {
   const spec = SITE_SCREENS[name];
   for (const lang of ['en', 'es']) {
     const source = fromPage(lang, name);
-    console.log(`\n"${source.title}" (${name}), ${langName(lang)}`);
+    console.log(`\n"${source.title || name}" (${name}), ${langName(lang)}`);
     check(source.lines.length >= 3, `the page has it: ${source.lines.length} headings, paragraphs, and list items, and ${source.links.length} links, from ${spec.page[lang]}`);
     const { context, page, errors, outside } = await newPage(browser, lang);
     await tab(page, spec.tab);
     if (!(await page.isVisible('#tl-' + spec.tab))) await tab(page, spec.tab);
     const way = await page.evaluate((id) => { const row = document.getElementById(id); if (!row) return null; const r = row.getBoundingClientRect(); const title = row.querySelector('.tl-card-title'); return { title: (title || row).textContent.replace(/\s+/g, ' ').trim(), h: r.height }; }, spec.row);
-    check(way && way.title === source.title && way.h >= 44, `its tab offers it, under the page's own words: "${way && way.title}"`);
+    const own = spec.title === 'own'; // the screen's title is the app's own words; the copy under it is the page's
+    check(way && (own ? way.title.length > 5 : way.title === source.title) && way.h >= 44, `its tab offers it${own ? '' : ", under the page's own words"}: "${way && way.title}"`);
     await openIt(page, name);
     check((await safetyFrame(page)).length === 0, 'the whole safety frame is on screen with it open');
     const seen = await page.evaluate((sel) => {
@@ -75,7 +76,7 @@ for (const name of Object.keys(SITE_SCREENS)) {
         folded: screen.querySelectorAll('details, summary').length, draft: Boolean(screen.querySelector('.tl-draft-tag')), fuss: Boolean(screen.querySelector('[class*="streak"], .tl-horizon')),
         ids: Array.from(body.querySelectorAll('[id]')).length, fields: screen.querySelectorAll('input, textarea, select').length };
     }, '#tl-' + name);
-    check(seen.title === source.title, 'its title is the page\'s own');
+    check(seen.title === (own ? way.title : source.title), own ? 'its title is the row\'s own words' : 'its title is the page\'s own');
     const firstDiff = source.lines.findIndex((line, i) => line !== seen.lines[i]);
     check(JSON.stringify(seen.lines) === JSON.stringify(source.lines), `every heading, paragraph, and list item is the page's own, in order, word for word (${seen.lines.length})` + (firstDiff >= 0 ? `: differs at ${firstDiff}: "${(source.lines[firstDiff] || '').slice(0, 60)}" / "${(seen.lines[firstDiff] || '').slice(0, 60)}"` : ''));
     check(JSON.stringify(seen.hrefs) === JSON.stringify(source.links), `its ${seen.hrefs.length} links are the page's own, in order, and no others`);

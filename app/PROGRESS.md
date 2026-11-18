@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 34)
+Last updated: 2026-11-17 (forty features, feature 35)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -58,7 +58,7 @@ With other people
 For specific people
 - [x] 33 — Teen wording: `#tl-teens` on the Check-in tab shows the For teens page's own opening and four sections (reaching out yourself, telling an adult you trust, what stays private, a friend you're worried about), word for word, through `SITE_SCREENS`; the row is shown to everyone, whatever age group was picked
 - [x] 34 — A guide for parents and caregivers: `#tl-parents` on the Friends tab shows the Help Someone page's own section "If it's a child or teen" (a parent or caregiver, at school, a young person worried about a friend), word for word, through `SITE_SCREENS`; no new guide was written: a fuller one is for a clinician to write on the website, and the app will show it
-- [ ] 35 — Pages for veterans, LGBTQ+ people, and new parents
+- [x] 35 — Pages for veterans and for LGBTQ+ young people: `#tl-vets` and `#tl-lgbtq` on the Check-in tab, each a title and one line of the app's own and then the Get Help page's own entries for those services (the Veterans Crisis Line; LGBTQ+ youth through 988, and The Trevor Project), word for word, through `SITE_SCREENS` (`services`); **no page for new parents was built**: the website names no service for them, and a crisis resource is not added to the app before it is verified on the website
 - [ ] 36 — After a crisis
 - [ ] 37 — For people who lost someone to suicide (the website's page, shown in the app)
 

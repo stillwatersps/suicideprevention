@@ -522,6 +522,14 @@ each covers and what only a real phone can show.
   (`SITE_SCREENS.parents`). The same section is also part of "Helping someone you're worried about"; this is a
   direct way in. A fuller guide belongs on the website page first.
 
+## For veterans, and for LGBTQ+ young people (November 17, 2026)
+
+- **`#tl-vets` and `#tl-lgbtq`, on the Check-in tab.** Each has a title and one line written for the app, then the
+  Get Help page's own entries for the services it names (`SITE_SCREENS.vets`, `.lgbtq`, with `services` and
+  `title: 'own'`). If the page renames or drops one, the build stops and says so.
+- **A service is never added to the app before the website names it** (and its notes verify it). That is why
+  there is no screen for new parents, or for any other group, yet.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the
