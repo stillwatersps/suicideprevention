@@ -486,6 +486,14 @@ each covers and what only a real phone can show.
   and `handFile()` hands it to the phone's share sheet. **988 and 911 are always its last lines**, whatever the
   plan holds. It is a text file, not a PDF; the share sheet's Print can make one.
 
+## A reminder to check in on someone (November 17, 2026, a draft)
+
+- **`#tl-follow`, on the Friends tab; `src/ui/follow.js`; kept as `tidelight.follow.v1`** (`{ who, at }`). One
+  reminder, notification id 298 (`CONFIG.reminders.followId`), set through `src/ui/once.js`.
+- **The phone is given only "Tidelight" and "A reminder you set."** The name is shown inside the app only. Never
+  pass `who`, or anything else the person typed, to a notification; a unit test reads `once.js` for that.
+- A tap on it opens the app the way a check-in reminder does (the check-in), not this screen. Not changed.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

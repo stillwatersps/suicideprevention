@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+A reminder to check in on someone:
+- [ ] Friends tab, the reminder row: set a time two minutes ahead with a made-up name, lock the phone. The
+      notification says "Tidelight" and "A reminder you set." and no name. The date and time picker is usable.
+
 The safety plan as a page:
 - [ ] Safety plan with a few lines in it, "Make the page": the share sheet opens with a text file. Choose
       Print: the preview shows the whole plan and the 988 and 911 lines. Cancel without printing.

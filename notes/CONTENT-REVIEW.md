@@ -1701,6 +1701,19 @@ in it, under the screen's own headings, and ends with "If I need help right now"
   PDF from it, but the app doesn't make one itself.
 - The Spanish is an AI translation no fluent reader has checked.
 
+### Forty features, 30: a reminder to check in on someone (November 17, 2026)
+
+A new screen on the Friends tab for someone supporting another person: a name (optional, shown only in the app)
+and a time, and the phone reminds them once. The notification says only "A reminder you set."
+
+- The reviewer: "If you're supporting someone, checking in again matters." Is that the right way to say it, and
+  should the screen suggest when (the day after, a week after)?
+- "If you think they are in danger right now, don't wait for a reminder."
+- A tap on the notification opens the app at the check-in, like the app's other reminders, not at this
+  screen. Is that confusing enough to change?
+- It is one reminder at a time, once. A repeating one was not built.
+- The Spanish is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

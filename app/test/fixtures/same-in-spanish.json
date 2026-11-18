@@ -21,7 +21,8 @@
     "{title}. {breaths}",
     "{name} 2",
     "5, 4, 3, 2, 1",
-    "4-7-8"
+    "4-7-8",
+    "{who}: {when}"
   ],
   "englishOnPurpose": []
 }

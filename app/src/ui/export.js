@@ -14,6 +14,7 @@ import { goodLines } from '../logic/good.js';
 import { sayDay } from './good.js';
 import { t, lang } from './words.js';
 import { state } from './state.js';
+import { sayWhen } from './once.js';
 import { devLog } from '../core/dev.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
@@ -60,6 +61,7 @@ export async function exportText(ctx) {
 
   const plan = planLines(state.plan, Object.fromEntries(PARTS.map((part) => [part, heading('#tl-plan-' + part + '-title')])));
   sections.push({ heading: t('plan.title'), lines: plan });
+  sections.push({ heading: t('follow.title'), lines: state.follow.at || state.follow.who ? [t('follow.export', { who: oneLine(state.follow.who) || '-', when: state.follow.at ? sayWhen(state.follow.at) : '-' })] : [] });
   sections.push({ heading: t('toolkit.title'), lines: state.toolkit.pinned.map((id) => '- ' + t('tool.' + id)) });
   sections.push({ heading: t('course.title'), lines: courseLines(state.course, Array.from(document.querySelectorAll('#tl-course [data-course-step] h3')).map((h) => h.textContent.trim())) });
   sections.push({ heading: t('letter.title'), lines: letterLines(state.letter) });

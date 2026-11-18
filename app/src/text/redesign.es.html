@@ -727,6 +727,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Palabras para contárselo a alguien</span> <span class="tl-card-sub">Maneras de empezar, con palabras sencillas</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="follow" id="tl-friends-follow">
+              <span class="tl-card-icon" data-tl-icon="bell"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Un recordatorio para saber cómo está alguien</span> <span class="tl-card-sub">Privado. Nunca muestra un nombre</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
           <button type="button" class="tl-card tl-card-action" data-tl-push="helping" id="tl-friends-helping">
             <span class="tl-card-icon" data-tl-icon="people"></span>
             <span class="tl-card-text"><span class="tl-card-title">Cómo ayudar a alguien que te preocupa</span></span>
@@ -1303,6 +1308,23 @@
           </ul>
         </section>
 
+        <section class="tl-screen" id="tl-follow" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-follow-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-follow-title">Un recordatorio para saber cómo está alguien</h2>
+          <p>Si estás apoyando a alguien, volver a preguntar cómo está es importante. Ponte un recordatorio para hacerlo.</p>
+          <p class="tl-sub" id="tl-follow-discreet">Este teléfono muestra el recordatorio por sí mismo. Solo dice "<span data-once-sample></span>" Nunca muestra un nombre, ni nada sobre esa persona ni sobre ti.</p>
+          <div class="tl-panel">
+            <p class="tl-field"><label for="tl-follow-who">De quién se trata (opcional, y solo se muestra aquí)</label><input class="tl-input" id="tl-follow-who" type="text" maxlength="40" autocomplete="off"></p>
+            <p class="tl-field"><label for="tl-follow-when">Cuándo recordármelo</label><input class="tl-input" id="tl-follow-when" type="datetime-local"></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-follow-set">Poner el recordatorio</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-follow-remove" hidden>Quitar el recordatorio</button></p>
+            <p class="tl-status" id="tl-follow-status" role="status" tabindex="-1" hidden></p>
+          </div>
+          <p class="tl-sub" id="tl-follow-privacy">El nombre y la hora se guardan solo en este teléfono. Tidelight nunca los recibe. Borrar todo, en Tu camino, los elimina junto con el recordatorio.</p>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="helping">Cómo ayudar a alguien que te preocupa</button></p>
+          <p class="tl-sub">Si crees que está en peligro ahora mismo, no esperes a un recordatorio. Los botones para llamar o enviar un mensaje de texto al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.</p>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -1425,7 +1447,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>Lo que se queda en este teléfono</h3>
-            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, los pasos que marcaste en Una primera semana, las herramientas que fijaste en Inicio, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
+            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, los pasos que marcaste en Una primera semana, el recordatorio que pusiste para saber cómo está alguien, las herramientas que fijaste en Inicio, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
             <p>Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.</p>
             <h3>Lo que Tidelight no hace</h3>
             <ul>
@@ -1733,6 +1755,14 @@
         <span data-word="plan.page.call911">En peligro inmediato, llamar al 911.</span>
         <span data-word="plan.page.done">La página se entregó a tu teléfono. Tidelight no guarda ningún registro de adónde fue.</span>
         <span data-word="plan.page.failed">No se pudo crear la página. Nada salió de la app.</span>
+        <span data-word="follow.title">Un recordatorio para saber cómo está alguien</span>
+        <span data-word="once.body">Un recordatorio que pusiste.</span>
+        <span data-word="once.set">Puesto para el {when}.</span>
+        <span data-word="once.passed">Esa hora ya pasó. Puedes poner otro.</span>
+        <span data-word="once.past">Elige una hora que todavía no haya pasado, dentro del próximo año.</span>
+        <span data-word="once.removed">El recordatorio se quitó.</span>
+        <span data-word="once.denied">Este teléfono no deja que Tidelight muestre notificaciones, así que no se puede poner ningún recordatorio. Puedes cambiarlo en los ajustes del teléfono.</span>
+        <span data-word="follow.export">{who}: {when}</span>
         <span data-word="plan.title">Mi plan de seguridad</span>
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>

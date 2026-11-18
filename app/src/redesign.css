@@ -587,3 +587,7 @@ html.tl #tl-course .tl-btn { max-width: 100%; white-space: normal; overflow-wrap
 html.tl #tl-tell .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 /* The safety plan as a page: its button wraps at the largest text. */
 html.tl #tl-plan-page-box .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* A reminder to check in on someone: the buttons wrap; the date field fits a small phone. */
+html.tl #tl-follow .tl-row { flex-wrap: wrap; }
+html.tl #tl-follow .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+#tl-follow input[type="datetime-local"] { min-width: 0; max-width: 100%; }
