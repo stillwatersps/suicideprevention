@@ -516,6 +516,12 @@ each covers and what only a real phone can show.
   four sections. The row shows for every age group, on purpose: a teen who picked another group still finds
   it. Nothing about the person's age is used or kept to show it.
 
+## For parents and caregivers (November 17, 2026)
+
+- **`#tl-parents`, on the Friends tab, is the Help Someone page's own section "If it's a child or teen"**
+  (`SITE_SCREENS.parents`). The same section is also part of "Helping someone you're worried about"; this is a
+  direct way in. A fuller guide belongs on the website page first.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

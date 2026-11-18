@@ -13,6 +13,7 @@ import { join } from 'node:path';
 export const SITE_SCREENS = {
   care: { page: { en: 'get-help/index.html', es: 'es/obtener-ayuda/index.html' }, sections: ['over-time'], title: 'section', tab: 'checkin', row: 'tl-checkin-care' },
   teens: { page: { en: 'teens/index.html', es: 'es/adolescentes/index.html' }, sections: ['reach-out', 'trusted-adult', 'privacy', 'friend'], title: 'page', tab: 'checkin', row: 'tl-checkin-teens' },
+  parents: { page: { en: 'help-someone/index.html', es: 'es/ayudar-a-alguien/index.html' }, sections: ['child-or-teen'], title: 'section', tab: 'friends', row: 'tl-friends-parents' },
 };
 
 // What a screen is made from, as the page has it: { file, title, pieces } (pieces of HTML, in order).

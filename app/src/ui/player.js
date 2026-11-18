@@ -300,7 +300,8 @@ export function initPlayer(shell, context) {
     showControls(true);
     $('#tl-end-yes').focus();
   });
-  $('#tl-end-no').addEventListener('click', () => { $('#tl-end-confirm').hidden = true; showControls(true); });
+  // "Keep going" hands focus back to the button that opened the question, so it is never left on a hidden button.
+  $('#tl-end-no').addEventListener('click', () => { $('#tl-end-confirm').hidden = true; showControls(true); $('#tl-player-end').focus(); });
   $('#tl-end-yes').addEventListener('click', () => endSession(true));
   // Each layer has its own switch, and each works in the middle of a session.
   const toggles = { '#tl-toggle-sound': 'sound', '#tl-toggle-voice': 'voice', '#tl-toggle-haptics': 'haptics' };

@@ -1753,6 +1753,18 @@ copied from the page when the app is built.
 - The app's own screens (check-in prompts, meditation words) are not reworded for teens. That would be new
   wording for a reviewer who works with young people to write or read.
 
+### Forty features, 34: for parents and caregivers (November 17, 2026)
+
+A row on the Friends tab, "If it's a child or teen", opens the Help Someone page's own section of that name: what a parent or
+caregiver can do, what happens at school, and a young person worried about a friend. The same section is
+already part of "Helping someone you're worried about"; this row is a direct way to it.
+
+- **No new guide was written.** A guide for parents and caregivers (what to say, making a home safer, what to
+  expect from an emergency room or a school) is clinical wording for a person qualified to write it. If it is
+  added to the Help Someone page, the app shows it with no further change.
+- The only wording written for the app is the row's second line, "For parents, caregivers, and school staff",
+  in English and Spanish (an AI translation no fluent reader has checked).
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+For parents and caregivers:
+- [ ] Friends tab, "If it's a child or teen": the screen reads the same as that section of the Help Someone
+      page, and Back returns to the Friends tab.
+
 For teens:
 - [ ] Check-in tab, the teens row: the screen reads the same as the For teens page on the website, and its
       Trevor Project and Crisis Text Line buttons open the dial or message screen (do not call or send).

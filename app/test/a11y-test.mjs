@@ -132,7 +132,9 @@ for (const lang of ['en', 'es']) {
   const where = await focused();
   check(Boolean(where) && where.tag !== 'BODY', 'focus is never trapped or lost with it open: Tab keeps moving through the page' + (where ? '' : ' (nothing is focused)'));
   await page.click('#tl-end-no');
-  check(!(await page.isVisible('#tl-end-confirm')) && (await focusIn('#tl-stage') || await focusIn('#tl-player')), 'and "Keep going" puts focus back on the player');
+  // Wait, so the browser has moved focus off anything now hidden; then it must be on a control that can be seen.
+  await page.waitForTimeout(300);
+  check(!(await page.isVisible('#tl-end-confirm')) && (await focusIn('#tl-stage') || await focusIn('#tl-player')) && (await page.evaluate(() => document.activeElement.getClientRects().length > 0)), 'and "Keep going" puts focus back on the player');
   await page.click('#tl-stage', { position: { x: 150, y: 300 } }).catch(() => {});
   if (await page.isVisible('#tl-player-end')) { await page.click('#tl-player-end'); await page.click('#tl-end-yes'); }
   // The site menu.
