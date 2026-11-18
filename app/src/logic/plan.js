@@ -79,3 +79,17 @@ export function planLines(plan, headings) {
   }
   return out;
 }
+
+// The plan as one plain page to print or keep: its title, when it was made, each part that has
+// something in it, and always, at the end, the crisis lines. words: { title, made, note, now,
+// call988, call911 }. The crisis lines are on the page even if the plan is empty.
+export function planPage(plan, headings, words) {
+  const out = [String(words.title).toUpperCase(), words.made, words.note];
+  for (const part of PARTS) {
+    if (!plan[part].length) continue;
+    out.push('', headings[part]);
+    for (const item of plan[part]) out.push('- ' + (typeof item === 'string' ? item : [item.name, item.phone].filter(Boolean).join(', ')));
+  }
+  out.push('', String(words.now).toUpperCase(), words.call988, words.call911);
+  return out.join('\n') + '\n';
+}

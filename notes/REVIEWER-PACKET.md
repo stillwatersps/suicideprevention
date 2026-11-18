@@ -1230,9 +1230,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 6:14 PM: feeling: Good.  
+> Before bed, 7:26 PM: feeling: Good.  
 > Remove  
-> Before bed, 6:14 PM: feeling: Okay.  
+> Before bed, 7:26 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1725,10 +1725,10 @@ Picture: `app/design/after-launch-pass/reviewer/44-week.png`
 > You took some time to breathe or meditate.  
 > What you recorded  
 > Tuesday, November 17  
-> Before bed, 6:14 PM: feeling: Good.  
-> Before bed, 6:14 PM: feeling: Okay.  
-> Before bed, 6:14 PM: feeling: Very low.  
-> Before bed, 6:14 PM: feeling: Sad.  
+> Before bed, 7:26 PM: feeling: Good.  
+> Before bed, 7:26 PM: feeling: Okay.  
+> Before bed, 7:26 PM: feeling: Very low.  
+> Before bed, 7:26 PM: feeling: Sad.  
 > However the week went, you don't have to carry it alone.  
 > Call 988  
 > Text 988  
@@ -2086,10 +2086,10 @@ Picture: `app/design/after-launch-pass/reviewer/57-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Tuesday, November 17  
-> - Before bed, 6:14 PM: feeling: Good.  
-> - Before bed, 6:14 PM: feeling: Okay.  
-> - Before bed, 6:14 PM: feeling: Very low.  
-> - Before bed, 6:14 PM: feeling: Sad.  
+> - Before bed, 7:26 PM: feeling: Good.  
+> - Before bed, 7:26 PM: feeling: Okay.  
+> - Before bed, 7:26 PM: feeling: Very low.  
+> - Before bed, 7:26 PM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

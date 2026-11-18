@@ -1687,6 +1687,20 @@ struggling, each with a Copy button. All of the wording is new, in both language
   screen doesn't say any of that. Should it point there?
 - The Spanish ("Palabras para contárselo a alguien") is an AI translation no fluent reader has checked.
 
+### Forty features, 29: the safety plan as a page to print or keep (November 17, 2026)
+
+Under "Share my plan", a new button makes the plan into one plain page and hands it to the phone's share sheet,
+where a person can print it or save it to their files. The page has each part of the plan that has something
+in it, under the screen's own headings, and ends with "If I need help right now", 988, and 911.
+
+- The reviewer: a printed plan can be found by someone else. The screen says "Anyone who has the page can read
+  it, so keep it somewhere you feel safe." Is that enough, especially for a young person at home?
+- The page's own words: "These are my own words. This page is not a medical record." and "Call or text 988,
+  the 988 Suicide and Crisis Lifeline, any time."
+- It is a text file. The feature was listed as "print or save as a PDF"; the phone's Print screen can save a
+  PDF from it, but the app doesn't make one itself.
+- The Spanish is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

@@ -3,10 +3,11 @@
 // saves it. Call 988, Text 988, and Call 911 are part of the screen itself (part 5) and are never
 // entries a person can remove. A draft: no licensed reviewer has seen it.
 import { CONFIG } from '../core/config.js';
-import { PARTS, PEOPLE_PARTS, addEntry, removeEntry, isFull, isEmpty, planLines, dialable } from '../logic/plan.js';
+import { PARTS, PEOPLE_PARTS, addEntry, removeEntry, isFull, isEmpty, planLines, planPage, dialable } from '../logic/plan.js';
 import { Tidelight } from '../native.js';
 import { state, replace } from './state.js';
-import { t } from './words.js';
+import { t, lang } from './words.js';
+import { handFile } from './export.js';
 import { el } from './components.js';
 import { haptic } from './haptics.js';
 import { devLog } from '../core/dev.js';
@@ -22,6 +23,13 @@ const headings = () => Object.fromEntries(PARTS.map((part) => [part, $('#tl-plan
 export function planText() {
   const lines = planLines(state.plan, headings());
   return lines.length ? [t('plan.title'), ...lines].join('\n') : '';
+}
+
+// The plan as a page to print or keep. Exported for the tests.
+export function planPageText() {
+  let date = '';
+  try { date = new Date().toLocaleDateString(lang(), { year: 'numeric', month: 'long', day: 'numeric' }); } catch (e) { date = new Date().toISOString().slice(0, 10); }
+  return planPage(state.plan, headings(), { title: t('plan.title'), made: t('plan.page.made', { date }), note: t('plan.page.note'), now: t('plan.page.now'), call988: t('plan.page.call988'), call911: t('plan.page.call911') });
 }
 
 function say(key) {
@@ -68,6 +76,7 @@ export function renderPlan() {
   // Sharing, and the way in from the support screen, appear once there is something in the plan.
   const empty = isEmpty(state.plan);
   $('#tl-plan-share-box').hidden = empty;
+  $('#tl-plan-page-box').hidden = empty;
   $$('[data-plan-open]').forEach((button) => { button.hidden = empty; });
 }
 
@@ -136,6 +145,20 @@ export function initPlan(shell, ctx) {
     if (text && ctx.share) ctx.share(text, event.currentTarget);
   });
 
-  shell.onShow('plan', () => { $('#tl-plan-status').hidden = true; renderPlan(); });
+  // The plan as a page: handed to the phone's share sheet as a plain file, to print or keep.
+  // Nothing is sent by the app, and where the page goes is not recorded.
+  $('#tl-plan-page').addEventListener('click', async () => {
+    const note = $('#tl-plan-page-note');
+    note.hidden = true;
+    const text = planPageText();
+    let outcome = 'failed';
+    try { outcome = await handFile(t('plan.page.fileName'), text); } catch (e) { devLog('plan page', e); }
+    if (outcome === 'cancelled') return; // the sheet was closed: nothing happened, so nothing to say
+    note.textContent = t(outcome === 'done' ? 'plan.page.done' : 'plan.page.failed');
+    note.hidden = false;
+    note.focus({ preventScroll: true });
+  });
+
+  shell.onShow('plan', () => { $('#tl-plan-status').hidden = true; $('#tl-plan-page-note').hidden = true; renderPlan(); });
   renderPlan();
 }

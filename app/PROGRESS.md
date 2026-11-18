@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 28)
+Last updated: 2026-11-17 (forty features, feature 29)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -50,7 +50,7 @@ Day to day
 With other people
 - [x] 27 — My circle (already built)
 - [x] 28 — Words for telling someone: `#tl-tell` on the Friends tab, `src/ui/tell.js`; eight ways to start in four groups (starting the conversation, in writing, thoughts of suicide, what to ask for), each with a Copy button that puts the words on the phone's clipboard and nothing else; the three crisis lines are on the screen; nothing kept, nothing sent; `test/unit/tell.test.mjs`, `test/tell-test.mjs`
-- [ ] 29 — The safety plan as a page to print or save as a PDF
+- [x] 29 — The safety plan as a page to print or keep: "A page to print or keep" on the plan screen (`#tl-plan-page`), `planPage()` in `src/logic/plan.js`; one plain text file handed to the phone's share sheet (from there: Print, or Save to Files), with every part that has something in it and always 988 and 911 at the end; nothing is kept about where it went; it is a text file, not a PDF: a real PDF needs native code that was not written; `test/unit/plan-page.test.mjs`, `test/plan-page-test.mjs`
 - [ ] 30 — For supporters: a private reminder to check in on someone
 - [ ] 31 — Therapy companion: things to bring up, and appointment reminders
 - [ ] 32 — Links to low-cost care

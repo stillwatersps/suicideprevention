@@ -480,6 +480,12 @@ each covers and what only a real phone can show.
 - One line names suicide plainly, on purpose. No line describes a method, says goodbye, or calls the person a
   burden; a unit test reads them for that. New lines are for a reviewer to write.
 
+## The safety plan as a page (November 17, 2026, a draft)
+
+- **"A page to print or keep"** (`#tl-plan-page`, under Share my plan): `planPage()` makes one plain text page
+  and `handFile()` hands it to the phone's share sheet. **988 and 911 are always its last lines**, whatever the
+  plan holds. It is a text file, not a PDF; the share sheet's Print can make one.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

@@ -968,6 +968,12 @@
             <p class="tl-sub">With someone you choose, such as the person you made it with. You'll see the words first and can change them.</p>
             <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-share">Share my plan</button></p>
           </div>
+          <div class="tl-panel" id="tl-plan-page-box" hidden>
+            <h3 class="tl-headline">A page to print or keep</h3>
+            <p class="tl-sub">Your plan as one plain page, handed to this phone's share sheet. From there you can print it or save it to your files. Anyone who has the page can read it, so keep it somewhere you feel safe.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-page">Make the page</button></p>
+            <p class="tl-status" id="tl-plan-page-note" role="status" tabindex="-1" hidden></p>
+          </div>
         </section>
 
         <section class="tl-screen" id="tl-letter" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-letter-title" hidden>
@@ -1720,6 +1726,14 @@
         <span data-word="tell.copied">Copied. Paste it where you want to send it.</span>
         <span data-word="tell.failed">That couldn't be copied. Press and hold the words to copy them yourself.</span>
         <span data-word="tell.copyLabel">Copy: {words}</span>
+        <span data-word="plan.page.fileName">tidelight-safety-plan.txt</span>
+        <span data-word="plan.page.made">Made on {date}, in the Tidelight app.</span>
+        <span data-word="plan.page.note">These are my own words. This page is not a medical record.</span>
+        <span data-word="plan.page.now">If I need help right now</span>
+        <span data-word="plan.page.call988">Call or text 988, the 988 Suicide and Crisis Lifeline, any time.</span>
+        <span data-word="plan.page.call911">In immediate danger, call 911.</span>
+        <span data-word="plan.page.done">The page was handed to your phone. Tidelight keeps no record of where it went.</span>
+        <span data-word="plan.page.failed">The page couldn't be made. Nothing left the app.</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>

@@ -585,3 +585,5 @@ html.tl #tl-course .tl-btn { max-width: 100%; white-space: normal; overflow-wrap
 /* At the largest text on a small phone a line and its button stay inside the panel: both wrap. */
 .tl-tell-list, .tl-tell-line { grid-template-columns: minmax(0, 1fr); }
 html.tl #tl-tell .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* The safety plan as a page: its button wraps at the largest text. */
+html.tl #tl-plan-page-box .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }

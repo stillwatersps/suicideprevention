@@ -744,6 +744,17 @@
   "If the first person doesn't respond the way you hoped, that isn't a reason to stop. Try another person, or call or text 988. Someone there will listen.": "Si la primera persona no responde como esperabas, eso no es motivo para dejar de intentarlo. Prueba con otra persona, o llama o envía un mensaje de texto al 988. Alguien allí te escuchará.",
   "Copied. Paste it where you want to send it.": "Copiado. Pégalo donde quieras enviarlo.",
   "That couldn't be copied. Press and hold the words to copy them yourself.": "No se pudo copiar. Mantén presionadas las palabras para copiarlas tú.",
-  "Copy: {words}": "Copiar: {words}"
+  "Copy: {words}": "Copiar: {words}",
+  "A page to print or keep": "Una página para imprimir o guardar",
+  "Your plan as one plain page, handed to this phone's share sheet. From there you can print it or save it to your files. Anyone who has the page can read it, so keep it somewhere you feel safe.": "Tu plan en una sola página sencilla, que se entrega al menú para compartir de este teléfono. Desde allí puedes imprimirla o guardarla en tus archivos. Cualquier persona que tenga la página puede leerla, así que guárdala donde te sientas a salvo.",
+  "Make the page": "Crear la página",
+  "tidelight-safety-plan.txt": "tidelight-plan-de-seguridad.txt",
+  "Made on {date}, in the Tidelight app.": "Creada el {date}, en la app Tidelight.",
+  "These are my own words. This page is not a medical record.": "Estas son mis propias palabras. Esta página no es un expediente médico.",
+  "If I need help right now": "Si necesito ayuda ahora mismo",
+  "Call or text 988, the 988 Suicide and Crisis Lifeline, any time.": "Llamar o enviar un mensaje de texto al 988, la Línea 988 de Prevención del Suicidio y Crisis, a cualquier hora.",
+  "In immediate danger, call 911.": "En peligro inmediato, llamar al 911.",
+  "The page was handed to your phone. Tidelight keeps no record of where it went.": "La página se entregó a tu teléfono. Tidelight no guarda ningún registro de adónde fue.",
+  "The page couldn't be made. Nothing left the app.": "No se pudo crear la página. Nada salió de la app."
  }
 }

@@ -967,6 +967,12 @@
             <p class="tl-sub">Con alguien que tú elijas, como la persona con quien lo hiciste. Primero verás el texto y podrás cambiarlo.</p>
             <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-share">Compartir mi plan</button></p>
           </div>
+          <div class="tl-panel" id="tl-plan-page-box" hidden>
+            <h3 class="tl-headline">Una página para imprimir o guardar</h3>
+            <p class="tl-sub">Tu plan en una sola página sencilla, que se entrega al menú para compartir de este teléfono. Desde allí puedes imprimirla o guardarla en tus archivos. Cualquier persona que tenga la página puede leerla, así que guárdala donde te sientas a salvo.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-page">Crear la página</button></p>
+            <p class="tl-status" id="tl-plan-page-note" role="status" tabindex="-1" hidden></p>
+          </div>
         </section>
 
         <section class="tl-screen" id="tl-letter" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-letter-title" hidden>
@@ -1719,6 +1725,14 @@
         <span data-word="tell.copied">Copiado. Pégalo donde quieras enviarlo.</span>
         <span data-word="tell.failed">No se pudo copiar. Mantén presionadas las palabras para copiarlas tú.</span>
         <span data-word="tell.copyLabel">Copiar: {words}</span>
+        <span data-word="plan.page.fileName">tidelight-plan-de-seguridad.txt</span>
+        <span data-word="plan.page.made">Creada el {date}, en la app Tidelight.</span>
+        <span data-word="plan.page.note">Estas son mis propias palabras. Esta página no es un expediente médico.</span>
+        <span data-word="plan.page.now">Si necesito ayuda ahora mismo</span>
+        <span data-word="plan.page.call988">Llamar o enviar un mensaje de texto al 988, la Línea 988 de Prevención del Suicidio y Crisis, a cualquier hora.</span>
+        <span data-word="plan.page.call911">En peligro inmediato, llamar al 911.</span>
+        <span data-word="plan.page.done">La página se entregó a tu teléfono. Tidelight no guarda ningún registro de adónde fue.</span>
+        <span data-word="plan.page.failed">No se pudo crear la página. Nada salió de la app.</span>
         <span data-word="plan.title">Mi plan de seguridad</span>
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>

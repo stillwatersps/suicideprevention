@@ -75,6 +75,11 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+The safety plan as a page:
+- [ ] Safety plan with a few lines in it, "Make the page": the share sheet opens with a text file. Choose
+      Print: the preview shows the whole plan and the 988 and 911 lines. Cancel without printing.
+- [ ] Choose "Save to Files" instead, then open the file in Files: it reads the same.
+
 Words for telling someone:
 - [ ] Friends tab, "Words for telling someone": tap Copy on a line, open Messages, paste: the words are there
       and nothing was sent. Press and hold a line: the phone offers to copy it.
