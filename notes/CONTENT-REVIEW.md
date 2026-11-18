@@ -1714,6 +1714,20 @@ and a time, and the phone reminds them once. The notification says only "A remin
 - It is one reminder at a time, once. A repeating one was not built.
 - The Spanish is an AI translation no fluent reader has checked.
 
+### Forty features, 31: for my next appointment (November 17, 2026)
+
+A new screen on the Check-in tab: a short list of things a person wants to bring up with a doctor, therapist,
+or counselor, and one reminder for the appointment. The notification says only "A reminder you set."
+
+- The reviewer: is "Things I want to bring up" the right prompt, and should the screen suggest what kinds of
+  things (sleep, medication questions, thoughts of suicide)? It suggests nothing now.
+- "If things get hard before the appointment, you don't have to wait for it."
+- The app keeps nothing about the appointment itself: not who it is with, where, or what for. A person who
+  wants that writes it as a line.
+- The feature was listed as a "therapy companion". This is the whole of it; mood tracking for a clinician,
+  homework, and between-session exercises were not built and would each need a clinician's design.
+- The Spanish ("Para mi próxima cita") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

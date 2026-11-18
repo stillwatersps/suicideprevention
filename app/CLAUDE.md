@@ -494,6 +494,13 @@ each covers and what only a real phone can show.
   pass `who`, or anything else the person typed, to a notification; a unit test reads `once.js` for that.
 - A tap on it opens the app the way a check-in reminder does (the check-in), not this screen. Not changed.
 
+## For my next appointment (November 17, 2026, a draft)
+
+- **`#tl-visit`, on the Check-in tab; `src/ui/visit.js`; kept as `tidelight.visit.v1`** (`{ notes, at }`). Up to eight
+  lines in the person's own words, and one reminder, notification id 297 (`CONFIG.reminders.visitId`), through
+  `src/ui/once.js`: **the phone is given only "Tidelight" and "A reminder you set."**
+- It records nothing about the appointment itself (who with, where, what for), on purpose.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

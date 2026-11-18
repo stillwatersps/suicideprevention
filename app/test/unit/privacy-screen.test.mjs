@@ -22,6 +22,7 @@ const COVERED = {
   checkin: 'your journal',
   log: 'your check-ins',
   plan: 'your safety plan',
+  visit: 'your notes for an appointment',
   follow: 'the reminder you set to check in on someone',
   toolkit: 'the tools you pinned to Home',
   course: 'the steps you ticked in A first week',

@@ -187,6 +187,11 @@
               <span class="tl-card-text"><span class="tl-card-title">My week, in words</span> <span class="tl-card-sub">A few plain sentences. No scores</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="visit" id="tl-checkin-visit">
+              <span class="tl-card-icon" data-tl-icon="edit"></span>
+              <span class="tl-card-text"><span class="tl-card-title">For my next appointment</span> <span class="tl-card-sub">Things to bring up, and a reminder</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
               <span class="tl-card-icon" data-tl-icon="copy"></span>
               <span class="tl-card-text"><span class="tl-card-title">A summary for an appointment</span> <span class="tl-card-sub">You choose what goes on it</span></span>
@@ -1326,6 +1331,29 @@
           <p class="tl-sub">If you think they are in danger right now, don't wait for a reminder. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
         </section>
 
+        <section class="tl-screen" id="tl-visit" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-visit-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-visit-title">For my next appointment</h2>
+          <p>Things you want to bring up with a doctor, a therapist, or a counselor, written down as they come to you, so they are there when you're in the room.</p>
+          <p class="tl-sub" id="tl-visit-privacy">What you write and the time are saved on this phone only. Tidelight never receives them. Anyone who can unlock this phone can read them, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes them.</p>
+          <p class="tl-status" id="tl-visit-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel">
+            <h3 class="tl-headline" id="tl-visit-notes-title">Things I want to bring up</h3>
+            <ul class="tl-list tl-plan-list" id="tl-visit-notes" aria-labelledby="tl-visit-notes-title"></ul>
+            <p class="tl-field"><label for="tl-visit-new">Add something to bring up</label><span class="tl-row"><input class="tl-input" id="tl-visit-new" type="text" maxlength="140" autocomplete="off"><button type="button" class="tl-btn tl-btn-secondary" id="tl-visit-add">Add</button></span></p>
+            <p class="tl-sub" id="tl-visit-full" hidden></p>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">A reminder for the appointment</h3>
+            <p class="tl-sub" id="tl-visit-discreet">This phone shows the reminder itself. It says only "<span data-once-sample></span>" Nothing about the appointment is in it.</p>
+            <p class="tl-field"><label for="tl-visit-when">When to remind me</label><input class="tl-input" id="tl-visit-when" type="datetime-local"></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-visit-set">Set the reminder</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-visit-remove" hidden>Remove the reminder</button></p>
+          </div>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="summary">A summary for an appointment</button></p>
+          <p class="tl-sub">If things get hard before the appointment, you don't have to wait for it. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
@@ -1448,7 +1476,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>What stays on this phone</h3>
-            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, the steps you ticked in A first week, the tools you pinned to Home, the reminder you set to check in on someone, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
+            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, the steps you ticked in A first week, the tools you pinned to Home, the reminder you set to check in on someone, your notes for an appointment, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
             <p>Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.</p>
             <h3>What Tidelight doesn't do</h3>
             <ul>
@@ -1764,6 +1792,8 @@
         <span data-word="once.removed">The reminder was removed.</span>
         <span data-word="once.denied">This phone isn't letting Tidelight show notifications, so no reminder can be set. You can change that in the phone's settings.</span>
         <span data-word="follow.export">{who}: {when}</span>
+        <span data-word="visit.title">For my next appointment</span>
+        <span data-word="visit.when">Reminder: {when}</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>

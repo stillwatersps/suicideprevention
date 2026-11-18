@@ -591,3 +591,10 @@ html.tl #tl-plan-page-box .tl-btn { max-width: 100%; white-space: normal; overfl
 html.tl #tl-follow .tl-row { flex-wrap: wrap; }
 html.tl #tl-follow .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 #tl-follow input[type="datetime-local"] { min-width: 0; max-width: 100%; }
+/* For my next appointment: buttons wrap; the date field fits a small phone. */
+html.tl #tl-visit .tl-row { flex-wrap: wrap; }
+html.tl #tl-visit .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+#tl-visit input[type="datetime-local"] { min-width: 0; max-width: 100%; }
+#tl-visit .tl-plan-text { overflow-wrap: anywhere; min-width: 0; }
+#tl-visit .tl-field .tl-row > * { min-width: 0; max-width: 100%; }
+#tl-visit .tl-field .tl-row > .tl-input { flex: 1 1 100%; }

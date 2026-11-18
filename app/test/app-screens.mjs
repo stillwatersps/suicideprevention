@@ -86,6 +86,7 @@ export const SCREENS = [
   { id: 'tools', name: 'All tools', go: async (page) => { await root(page, 'home'); await page.click('#tl-home-tools'); } },
   { id: 'tell', name: 'Words for telling someone', go: async (page) => { await root(page, 'friends'); await page.click('#tl-friends-tell'); } },
   { id: 'follow', name: 'A reminder to check in on someone', go: async (page) => { await root(page, 'friends'); await page.click('#tl-friends-follow'); } },
+  { id: 'visit', name: 'For my next appointment', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-visit'); } },
   { id: 'plan', name: 'My safety plan', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); } },
   { id: 'letter', name: 'A letter to myself', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-letter'); } },
   { id: 'ride', name: 'Ten minutes at a time', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-ride'); } },

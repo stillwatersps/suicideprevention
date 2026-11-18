@@ -75,6 +75,11 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+For my next appointment:
+- [ ] Check-in tab, "For my next appointment": add two lines with the phone's keyboard (Return adds one),
+      remove one, set a reminder two minutes ahead, lock the phone: the notification says "A reminder you set."
+      and nothing about an appointment.
+
 A reminder to check in on someone:
 - [ ] Friends tab, the reminder row: set a time two minutes ahead with a made-up name, lock the phone. The
       notification says "Tidelight" and "A reminder you set." and no name. The date and time picker is usable.

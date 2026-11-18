@@ -132,7 +132,7 @@ async function dataTests(browser, lang) {
   check(!/undefined|\[object|NaN|null/.test(text), 'nothing reads as "undefined", "null", or an object');
   const headings = text.split('\n').filter((line) => line && line === line.toUpperCase() && /[A-ZÁÉÍÓÚÑ]{3}/.test(line));
   // Sixteen since November 17, 2026: the letter, three good things, and the message for a hard moment each have a section.
-  check(headings.length === 19 && new Set(headings).size === 19, 'nineteen sections, each under its own heading: ' + headings.length);
+  check(headings.length === 20 && new Set(headings).size === 20, 'twenty sections, each under its own heading: ' + headings.length);
   check(/\S/.test(await page.textContent('#tl-set-export-note')), 'the page says the copy was made');
   check(outside.length === 0, 'making the copy sent nothing anywhere');
   check(JSON.stringify(await stored(page, 'tidelight.log.v1')) === JSON.stringify(LOG), 'and changed nothing that is saved');

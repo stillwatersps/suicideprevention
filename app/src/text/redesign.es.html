@@ -186,6 +186,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Mi semana, en palabras</span> <span class="tl-card-sub">Unas frases sencillas. Sin puntajes</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="visit" id="tl-checkin-visit">
+              <span class="tl-card-icon" data-tl-icon="edit"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Para mi próxima cita</span> <span class="tl-card-sub">Cosas que quiero mencionar, y un recordatorio</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
               <span class="tl-card-icon" data-tl-icon="copy"></span>
               <span class="tl-card-text"><span class="tl-card-title">Un resumen para una cita</span> <span class="tl-card-sub">Tú eliges qué incluye</span></span>
@@ -1325,6 +1330,29 @@
           <p class="tl-sub">Si crees que está en peligro ahora mismo, no esperes a un recordatorio. Los botones para llamar o enviar un mensaje de texto al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.</p>
         </section>
 
+        <section class="tl-screen" id="tl-visit" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-visit-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <h2 class="tl-title" id="tl-visit-title">Para mi próxima cita</h2>
+          <p>Cosas que quieres mencionarle a un médico, un terapeuta o un consejero, anotadas a medida que se te ocurren, para tenerlas a mano cuando estés en la consulta.</p>
+          <p class="tl-sub" id="tl-visit-privacy">Lo que escribes y la hora se guardan solo en este teléfono. Tidelight nunca los recibe. Cualquier persona que pueda desbloquear este teléfono puede leerlos, a menos que actives el bloqueo de la app en Ajustes. Borrar todo, en Tu camino, los elimina.</p>
+          <p class="tl-status" id="tl-visit-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel">
+            <h3 class="tl-headline" id="tl-visit-notes-title">Cosas que quiero mencionar</h3>
+            <ul class="tl-list tl-plan-list" id="tl-visit-notes" aria-labelledby="tl-visit-notes-title"></ul>
+            <p class="tl-field"><label for="tl-visit-new">Agregar algo que quiero mencionar</label><span class="tl-row"><input class="tl-input" id="tl-visit-new" type="text" maxlength="140" autocomplete="off"><button type="button" class="tl-btn tl-btn-secondary" id="tl-visit-add">Agregar</button></span></p>
+            <p class="tl-sub" id="tl-visit-full" hidden></p>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">Un recordatorio para la cita</h3>
+            <p class="tl-sub" id="tl-visit-discreet">Este teléfono muestra el recordatorio por sí mismo. Solo dice "<span data-once-sample></span>" No contiene nada sobre la cita.</p>
+            <p class="tl-field"><label for="tl-visit-when">Cuándo recordármelo</label><input class="tl-input" id="tl-visit-when" type="datetime-local"></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-visit-set">Poner el recordatorio</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-visit-remove" hidden>Quitar el recordatorio</button></p>
+          </div>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="summary">Un resumen para una cita</button></p>
+          <p class="tl-sub">Si las cosas se ponen difíciles antes de la cita, no tienes que esperar hasta entonces. Los botones para llamar o enviar un mensaje de texto al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.</p>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
@@ -1447,7 +1475,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>Lo que se queda en este teléfono</h3>
-            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, los pasos que marcaste en Una primera semana, el recordatorio que pusiste para saber cómo está alguien, las herramientas que fijaste en Inicio, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
+            <p>Lo que eliges y escribes en Tidelight se guarda solo en este teléfono: tus registros, tu diario, tu plan de seguridad, tu carta para ti, tu mensaje para un momento difícil, tus tres cosas buenas, los pasos que marcaste en Una primera semana, el recordatorio que pusiste para saber cómo está alguien, tus notas para una cita, las herramientas que fijaste en Inicio, tu Caja de esperanza, las personas y los lugares que agregas, tu historial de meditación, tu racha, tu nombre, tu grupo de edad y tu lugar de casa si los diste, y tus ajustes.</p>
             <p>Tidelight no tiene cuentas ni servidor. Tidelight nunca recibe lo que escribes, ni lo lee, ni lo analiza.</p>
             <h3>Lo que Tidelight no hace</h3>
             <ul>
@@ -1763,6 +1791,8 @@
         <span data-word="once.removed">El recordatorio se quitó.</span>
         <span data-word="once.denied">Este teléfono no deja que Tidelight muestre notificaciones, así que no se puede poner ningún recordatorio. Puedes cambiarlo en los ajustes del teléfono.</span>
         <span data-word="follow.export">{who}: {when}</span>
+        <span data-word="visit.title">Para mi próxima cita</span>
+        <span data-word="visit.when">Recordatorio: {when}</span>
         <span data-word="plan.title">Mi plan de seguridad</span>
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>

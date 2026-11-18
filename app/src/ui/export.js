@@ -61,6 +61,7 @@ export async function exportText(ctx) {
 
   const plan = planLines(state.plan, Object.fromEntries(PARTS.map((part) => [part, heading('#tl-plan-' + part + '-title')])));
   sections.push({ heading: t('plan.title'), lines: plan });
+  sections.push({ heading: t('visit.title'), lines: state.visit.notes.map((note) => '- ' + oneLine(note)).concat(state.visit.at ? [t('visit.when', { when: sayWhen(state.visit.at) })] : []) });
   sections.push({ heading: t('follow.title'), lines: state.follow.at || state.follow.who ? [t('follow.export', { who: oneLine(state.follow.who) || '-', when: state.follow.at ? sayWhen(state.follow.at) : '-' })] : [] });
   sections.push({ heading: t('toolkit.title'), lines: state.toolkit.pinned.map((id) => '- ' + t('tool.' + id)) });
   sections.push({ heading: t('course.title'), lines: courseLines(state.course, Array.from(document.querySelectorAll('#tl-course [data-course-step] h3')).map((h) => h.textContent.trim())) });

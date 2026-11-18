@@ -33,6 +33,7 @@ export const CONFIG = deepFreeze({
     testId: 299,
     ownMaxLength: 60, // the person's own words for a reminder
     followId: 298, // the one reminder to check in on someone
+    visitId: 297, // the one reminder for an appointment
   },
   streak: {
     enabledDefault: true,
@@ -92,6 +93,8 @@ export const CONFIG = deepFreeze({
   health: { minSeconds: 60 },
   // The safety plan: a short list, so each part stays short enough to read in a hard moment.
   plan: { maxItems: 8, maxLength: 120 },
+  // For my next appointment: a few short lines, and a reminder time within the next year.
+  visit: { maxItems: 8, maxLength: 140, maxDays: 366 },
   // A reminder to check in on someone: a short name (optional), and a time within the next year.
   follow: { maxLength: 40, maxDays: 366 },
   // My week, in words: the last seven days, and at most this many of the person's own lines.
