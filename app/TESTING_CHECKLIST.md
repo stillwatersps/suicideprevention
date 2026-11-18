@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Words for telling someone:
+- [ ] Friends tab, "Words for telling someone": tap Copy on a line, open Messages, paste: the words are there
+      and nothing was sent. Press and hold a line: the phone offers to copy it.
+
 All tools:
 - [ ] Home, "All tools": type "sleep" with the phone's keyboard: one row is left, and the keyboard's Search key
       closes the keyboard. Type "help": Call 988 shows above the results and is not under the keyboard.

@@ -472,6 +472,14 @@ each covers and what only a real phone can show.
   test reads the file for that. **`asksForHelp()` decides when the crisis lines show above the results.** Add
   words to it freely; never remove one without a reviewer.
 
+## Words for telling someone (November 17, 2026, a draft)
+
+- **`#tl-tell`, on the Friends tab; `src/ui/tell.js`.** Eight first-person lines a person can use to tell someone
+  they are struggling. **Copy only writes to the clipboard**: the app sends nothing, keeps nothing, and opens no
+  message. A unit test reads the file for that.
+- One line names suicide plainly, on purpose. No line describes a method, says goodbye, or calls the person a
+  burden; a unit test reads them for that. New lines are for a reviewer to write.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

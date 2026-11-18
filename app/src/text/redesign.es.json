@@ -723,6 +723,27 @@
   "What you type here is not kept or sent anywhere.": "Lo que escribes aquí no se guarda ni se envía a ningún lugar.",
   "If you are thinking about suicide, or you are in crisis, you can reach a person now.": "Si estás pensando en el suicidio, o estás en crisis, puedes hablar con una persona ahora.",
   "Nothing matches that. Try another word, or clear the search to see every tool.": "Nada coincide con eso. Prueba con otra palabra, o borra la búsqueda para ver todas las herramientas.",
-  "Showing the tools that match.": "Se muestran las herramientas que coinciden."
+  "Showing the tools that match.": "Se muestran las herramientas que coinciden.",
+  "Words for telling someone": "Palabras para contárselo a alguien",
+  "Ways to start, in plain words": "Maneras de empezar, con palabras sencillas",
+  "Telling someone you're having a hard time can be the hardest part. Here are some ways to start. Use one as it is, or change it until it sounds like you.": "Contarle a alguien que lo estás pasando mal puede ser la parte más difícil. Aquí hay algunas maneras de empezar. Usa una tal como está, o cámbiala hasta que suene como tú.",
+  "Nothing here is sent by the app. Copy puts the words on this phone's clipboard, for you to paste where you choose.": "La app no envía nada de esto. Copiar pone las palabras en el portapapeles de este teléfono, para que las pegues donde tú elijas.",
+  "To start the conversation": "Para empezar la conversación",
+  "I've been having a hard time lately, and I don't want to carry it alone.": "Últimamente lo estoy pasando mal, y no quiero cargar con esto a solas.",
+  "I'm not okay, and I don't know how to talk about it. Can we talk?": "No estoy bien, y no sé cómo hablar de ello. ¿Podemos hablar?",
+  "Something has been weighing on me. Do you have a few minutes?": "Hay algo que me está pesando. ¿Tienes unos minutos?",
+  "If writing is easier than saying it": "Si escribirlo es más fácil que decirlo",
+  "I've been struggling and I wanted you to know. You don't have to fix it. I just don't want to be alone with it.": "Lo he estado pasando mal y quería que lo supieras. No tienes que arreglarlo. Solo no quiero estar a solas con esto.",
+  "If you're having thoughts of suicide": "Si estás teniendo pensamientos de suicidio",
+  "I've been having thoughts of suicide, and I need help staying safe.": "He estado teniendo pensamientos de suicidio, y necesito ayuda para mantenerme a salvo.",
+  "What you can ask for": "Lo que puedes pedir",
+  "Could you just listen to me for a few minutes?": "¿Podrías solo escucharme unos minutos?",
+  "Could you stay with me for a while?": "¿Podrías quedarte conmigo un rato?",
+  "Could you help me make a call?": "¿Podrías ayudarme a hacer una llamada?",
+  "Copy": "Copiar",
+  "If the first person doesn't respond the way you hoped, that isn't a reason to stop. Try another person, or call or text 988. Someone there will listen.": "Si la primera persona no responde como esperabas, eso no es motivo para dejar de intentarlo. Prueba con otra persona, o llama o envía un mensaje de texto al 988. Alguien allí te escuchará.",
+  "Copied. Paste it where you want to send it.": "Copiado. Pégalo donde quieras enviarlo.",
+  "That couldn't be copied. Press and hold the words to copy them yourself.": "No se pudo copiar. Mantén presionadas las palabras para copiarlas tú.",
+  "Copy: {words}": "Copiar: {words}"
  }
 }

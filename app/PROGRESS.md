@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 26)
+Last updated: 2026-11-17 (forty features, feature 28)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -49,7 +49,7 @@ Day to day
 
 With other people
 - [x] 27 — My circle (already built)
-- [ ] 28 — Words for telling someone "I'm struggling"
+- [x] 28 — Words for telling someone: `#tl-tell` on the Friends tab, `src/ui/tell.js`; eight ways to start in four groups (starting the conversation, in writing, thoughts of suicide, what to ask for), each with a Copy button that puts the words on the phone's clipboard and nothing else; the three crisis lines are on the screen; nothing kept, nothing sent; `test/unit/tell.test.mjs`, `test/tell-test.mjs`
 - [ ] 29 — The safety plan as a page to print or save as a PDF
 - [ ] 30 — For supporters: a private reminder to check in on someone
 - [ ] 31 — Therapy companion: things to bring up, and appointment reminders

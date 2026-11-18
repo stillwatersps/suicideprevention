@@ -577,3 +577,11 @@ html.tl #tl-course .tl-btn { max-width: 100%; white-space: normal; overflow-wrap
 /* All tools: a hidden row takes no space, and long names wrap. */
 #tl-tools-list [hidden] { display: none; }
 #tl-tools-list .tl-card-text { min-width: 0; overflow-wrap: anywhere; }
+/* Words for telling someone: each line with its Copy button; the words can be selected. */
+.tl-tell-list { display: grid; gap: var(--tl-space-md); margin: 0; padding: 0; list-style: none; }
+.tl-tell-line { display: grid; gap: var(--tl-space-xs); min-width: 0; }
+.tl-tell-words { overflow-wrap: anywhere; -webkit-user-select: text; user-select: text; }
+.tl-tell-line .tl-btn { justify-self: start; }
+/* At the largest text on a small phone a line and its button stay inside the panel: both wrap. */
+.tl-tell-list, .tl-tell-line { grid-template-columns: minmax(0, 1fr); }
+html.tl #tl-tell .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }

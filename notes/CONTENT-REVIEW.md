@@ -1671,6 +1671,22 @@ field. Most names and lines are ones the app already had. What is typed is not k
   purpose. Is that the right side to err on?
 - The Spanish is an AI translation no fluent reader has checked.
 
+### Forty features, 28: words for telling someone (November 17, 2026)
+
+A new screen on the Friends tab with eight short things a person can say or send to tell someone they are
+struggling, each with a Copy button. All of the wording is new, in both languages.
+
+- The reviewer: are these the right lines? In particular: "I've been having thoughts of suicide, and I need
+  help staying safe." It names suicide plainly, on purpose. Is it safe to hand someone that sentence, and is
+  "staying safe" the right ask?
+- "You don't have to fix it. I just don't want to be alone with it." Could that discourage the other person
+  from getting help for them?
+- The closing: "If the first person doesn't respond the way you hoped, that isn't a reason to stop. Try another
+  person, or call or text 988. Someone there will listen."
+- The For teens page has "Telling an adult you trust", with what a school counselor has to pass on. This
+  screen doesn't say any of that. Should it point there?
+- The Spanish ("Palabras para contárselo a alguien") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

@@ -17,6 +17,7 @@ import { initSections } from './ui/sections.js';
 import { initLock, isLocked } from './ui/lock.js';
 import { Tidelight } from './native.js';
 import { initPlan, renderPlan } from './ui/plan.js';
+import { initTell } from './ui/tell.js';
 import { initToolsList } from './ui/tools-list.js';
 import { initWeek } from './ui/week.js';
 import { initReminderWords } from './ui/reminder-words.js';
@@ -103,6 +104,7 @@ export async function initRedesign(context) {
   initSettings(shell, ctx);
   initStreaks(shell, ctx);
   initPlan(shell, ctx);
+  initTell(shell);
   initToolsList(shell);
   initWeek(shell, ctx);
   initReminderWords(shell, ctx);

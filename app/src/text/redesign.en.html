@@ -723,6 +723,11 @@
             <span class="tl-card-text"><span class="tl-card-title">Reach someone I trust</span> <span class="tl-card-sub">A message ready for a hard moment</span></span>
             <span class="tl-card-go" data-tl-icon="next"></span>
           </button>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="tell" id="tl-friends-tell">
+              <span class="tl-card-icon" data-tl-icon="edit"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Words for telling someone</span> <span class="tl-card-sub">Ways to start, in plain words</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
           <button type="button" class="tl-card tl-card-action" data-tl-push="helping" id="tl-friends-helping">
             <span class="tl-card-icon" data-tl-icon="people"></span>
             <span class="tl-card-text"><span class="tl-card-title">Helping someone you're worried about</span></span>
@@ -1250,6 +1255,49 @@
           <ul class="tl-list" id="tl-tools-list" aria-labelledby="tl-tools-title"></ul>
         </section>
 
+        <section class="tl-screen" id="tl-tell" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-tell-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-tell-title">Words for telling someone</h2>
+          <p>Telling someone you're having a hard time can be the hardest part. Here are some ways to start. Use one as it is, or change it until it sounds like you.</p>
+          <p class="tl-sub">Nothing here is sent by the app. Copy puts the words on this phone's clipboard, for you to paste where you choose.</p>
+          <p class="tl-status" id="tl-tell-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel">
+            <h3 class="tl-headline">To start the conversation</h3>
+            <ul class="tl-tell-list">
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>I've been having a hard time lately, and I don't want to carry it alone.</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>I'm not okay, and I don't know how to talk about it. Can we talk?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>Something has been weighing on me. Do you have a few minutes?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+            </ul>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">If writing is easier than saying it</h3>
+            <ul class="tl-tell-list">
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>I've been struggling and I wanted you to know. You don't have to fix it. I just don't want to be alone with it.</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+            </ul>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">If you're having thoughts of suicide</h3>
+            <ul class="tl-tell-list">
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>I've been having thoughts of suicide, and I need help staying safe.</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+            </ul>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">What you can ask for</h3>
+            <ul class="tl-tell-list">
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>Could you just listen to me for a few minutes?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>Could you stay with me for a while?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>Could you help me make a call?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+            </ul>
+          </div>
+          <p>If the first person doesn't respond the way you hoped, that isn't a reason to stop. Try another person, or call or text 988. Someone there will listen.</p>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
@@ -1669,6 +1717,9 @@
         <span data-word="tool.journey.about">What you've kept</span>
         <span data-word="tools.none">Nothing matches that. Try another word, or clear the search to see every tool.</span>
         <span data-word="tools.some">Showing the tools that match.</span>
+        <span data-word="tell.copied">Copied. Paste it where you want to send it.</span>
+        <span data-word="tell.failed">That couldn't be copied. Press and hold the words to copy them yourself.</span>
+        <span data-word="tell.copyLabel">Copy: {words}</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>
