@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 37)
+Last updated: 2026-11-17 (forty features, feature 39)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -64,7 +64,7 @@ For specific people
 
 The phone itself
 - [ ] 38 — An interactive widget and a Live Activity for a breathing minute
-- [ ] 39 — Restore from "a copy of my data"
+- [x] 39 — Restore from a copy: Settings has "A backup file" (`#tl-set-backup-box`): `src/logic/backup.js`, `src/ui/backup.js`; "Make a backup file" hands one JSON file (everything the app stores, as stored, no photos, not locked) to the share sheet; "Restore from a backup file" reads one back after asking, in place of what is on the phone; anything that isn't a backup, or is from a newer app, is refused and nothing changes; reminder times are cleared on restore; the text "copy of my data" is for reading and can't be restored from; `test/unit/backup.test.mjs`, `test/backup-test.mjs`
 - [ ] 40 — Comfort settings: appearance, easier reading, read aloud
 
 ### Resume instructions (forty features)

@@ -616,3 +616,11 @@ Built by Claude as feature 24 of the forty, on the unmerged branch `app/forty-fe
 short line for their check-in reminders to say. The app refuses words about mood, crisis, or getting help. The
 founder's rule is that notifications are discreet; whether a person's own words, inside that list, are within
 the rule is for the founders to decide. Until then this stays a draft on its branch.
+
+## November 17, 2026: an unlocked backup file (a proposal, not agreed)
+
+Built by Claude as feature 39 of the forty, on the unmerged branch `app/forty-features`. Settings can make one
+file with everything the app has saved (no photos) and read one back. The file is not locked: anyone who gets
+it can read all of it, and the screen says so. Whether an unlocked backup is acceptable, or a backup must be
+locked with a passphrase first, is for the founders (and a lawyer) to decide. Until then this stays a draft on
+its branch.

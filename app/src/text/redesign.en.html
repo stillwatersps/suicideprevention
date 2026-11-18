@@ -902,6 +902,19 @@
             <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-export">Make a copy of my data</button>
             <p class="tl-status" id="tl-set-export-note" role="status" hidden></p>
           </div>
+          <div class="tl-panel" id="tl-set-backup-box">
+            <span class="tl-label">A backup file</span>
+            <p class="tl-sub">A backup file holds what Tidelight has saved on this phone, except photos, in a form Tidelight can read back. Use it to move to another phone, or to put things back after Delete everything.</p>
+            <p class="tl-sub">The backup file isn't locked. Anyone who gets it can read all of it, and Tidelight can't take it back. You choose where it goes.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-backup-make">Make a backup file</button>
+            <p class="tl-status" id="tl-set-backup-note" role="status" hidden></p>
+            <p class="tl-field"><label for="tl-set-restore-file">Restore from a backup file</label><input class="tl-input" id="tl-set-restore-file" type="file" accept=".json,application/json"></p>
+            <div class="tl-stack" id="tl-set-restore-ask" hidden>
+              <p><strong>Restoring replaces what Tidelight has saved on this phone with what is in the file.</strong> It can't be undone. Photos in the Hope box stay as they are, and reminders set for a time need setting again.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-set-restore-yes">Replace what is on this phone</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-set-restore-no">Keep what is on this phone</button></p>
+            </div>
+            <p class="tl-status" id="tl-set-restore-note" role="status" tabindex="-1" hidden></p>
+          </div>
           <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey" id="tl-settings-erase">
             <span class="tl-card-icon" data-tl-icon="trash"></span>
             <span class="tl-card-text"><span class="tl-card-title">Delete everything</span> <span class="tl-card-sub">In Your journey</span></span>
@@ -1594,7 +1607,7 @@
             <p>Only when you start it, or through your phone's own backup:</p>
             <ul>
               <li>A text message you send from your phone's Messages screen, to people you chose.</li>
-              <li>Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, or a copy of your data.</li>
+              <li>Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, a copy of your data, or a backup file.</li>
               <li>Your phone's iCloud or Google backup, if that's on. It goes to your own account with Apple or Google.</li>
             </ul>
             <p>Once something is sent or shared, Tidelight can't take it back.</p>
@@ -1900,6 +1913,14 @@
         <span data-word="follow.export">{who}: {when}</span>
         <span data-word="visit.title">For my next appointment</span>
         <span data-word="visit.when">Reminder: {when}</span>
+        <span data-word="backup.fileName">tidelight-backup.json</span>
+        <span data-word="backup.done">The backup file was handed to your phone. Tidelight keeps no record of where it went.</span>
+        <span data-word="backup.failed">The backup file couldn't be made. Nothing left the app.</span>
+        <span data-word="backup.notOne">That isn't a Tidelight backup file, or it can't be read. Nothing on this phone was changed.</span>
+        <span data-word="backup.newer">That backup file was made by a newer version of Tidelight. Update the app, then try again. Nothing on this phone was changed.</span>
+        <span data-word="backup.kept">Nothing was changed.</span>
+        <span data-word="backup.restored">Restored from the backup file.</span>
+        <span data-word="backup.problem">The backup file couldn't be restored. Check what is here, and try again.</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>

@@ -1824,6 +1824,25 @@ copied from the page when the app is built.
 - The only wording written for the app is the row's second line, "Grief, finding support, and talking with
   others", in English and Spanish (an AI translation no fluent reader has checked).
 
+### Forty features, 39: a backup file, and restoring from it (November 17, 2026)
+
+Settings has a new box, "A backup file". "Make a backup file" hands the phone's share sheet one file holding
+everything Tidelight has saved on the phone, except photos. "Restore from a backup file" reads such a file back
+in place of what is on the phone, after a question that says it can't be undone.
+
+- **A founder's decision, and a lawyer's read.** The file holds the most private things in the app (check-ins,
+  journal, the safety plan, people's names and numbers) and it is not locked. The screen says: "The backup
+  file isn't locked. Anyone who gets it can read all of it, and Tidelight can't take it back." Is an unlocked
+  file acceptable at all, or must a backup be locked with a passphrase before this ships? Locking was not
+  built: it needs a design for what happens when the passphrase is forgotten.
+- A young person's parent could restore the child's file on another phone and read everything. Should the
+  app say so?
+- The feature was listed as restoring from "a copy of my data". That copy is plain text for reading and can't
+  be read back reliably, so the backup is a second, separate file. Two files may confuse people.
+- The privacy screen now says "a copy of your data, or a backup file" where it lists what leaves through the
+  share sheet. The privacy inventory has a new row.
+- The Spanish ("Un archivo de respaldo") is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

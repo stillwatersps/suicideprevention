@@ -786,7 +786,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 51 screens, about 1198 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 51 screens, about 1203 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -1048,6 +1048,11 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Makes one text file with what Tidelight has saved on this phone: your check-ins, journal, reflections, Hope box words, people, places, and meditation history. Photos are not in the file.  
 > The file isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Make a copy of my data  
+> A backup file  
+> A backup file holds what Tidelight has saved on this phone, except photos, in a form Tidelight can read back. Use it to move to another phone, or to put things back after Delete everything.  
+> The backup file isn't locked. Anyone who gets it can read all of it, and Tidelight can't take it back. You choose where it goes.  
+> Make a backup file  
+> Restore from a backup file  
 > Delete everything  
 > In Your journey  
 > About  
@@ -1242,9 +1247,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Morning, 9:47 AM: feeling: Good.  
+> Midday, 11:32 AM: feeling: Good.  
 > Remove  
-> Morning, 9:47 AM: feeling: Okay.  
+> Midday, 11:32 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1546,7 +1551,7 @@ Picture: `app/design/after-launch-pass/reviewer/38-privacy.png`
 > When something leaves this phone  
 > Only when you start it, or through your phone's own backup:  
 > A text message you send from your phone's Messages screen, to people you chose.  
-> Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, or a copy of your data.  
+> Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, a copy of your data, or a backup file.  
 > Your phone's iCloud or Google backup, if that's on. It goes to your own account with Apple or Google.  
 > Once something is sent or shared, Tidelight can't take it back.  
 > Calls, texts, and links  
@@ -1743,10 +1748,10 @@ Picture: `app/design/after-launch-pass/reviewer/44-week.png`
 > You took some time to breathe or meditate.  
 > What you recorded  
 > Wednesday, November 18  
-> Morning, 9:47 AM: feeling: Good.  
-> Morning, 9:47 AM: feeling: Okay.  
-> Morning, 9:47 AM: feeling: Very low.  
-> Morning, 9:47 AM: feeling: Sad.  
+> Midday, 11:32 AM: feeling: Good.  
+> Midday, 11:32 AM: feeling: Okay.  
+> Midday, 11:32 AM: feeling: Very low.  
+> Midday, 11:33 AM: feeling: Sad.  
 > However the week went, you don't have to carry it alone.  
 > Call 988  
 > Text 988  
@@ -2377,10 +2382,10 @@ Picture: `app/design/after-launch-pass/reviewer/66-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Wednesday, November 18  
-> - Morning, 9:47 AM: feeling: Good.  
-> - Morning, 9:47 AM: feeling: Okay.  
-> - Morning, 9:47 AM: feeling: Very low.  
-> - Morning, 9:47 AM: feeling: Sad.  
+> - Midday, 11:32 AM: feeling: Good.  
+> - Midday, 11:32 AM: feeling: Okay.  
+> - Midday, 11:32 AM: feeling: Very low.  
+> - Midday, 11:33 AM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

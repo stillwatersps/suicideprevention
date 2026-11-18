@@ -901,6 +901,19 @@
             <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-export">Crear una copia de mis datos</button>
             <p class="tl-status" id="tl-set-export-note" role="status" hidden></p>
           </div>
+          <div class="tl-panel" id="tl-set-backup-box">
+            <span class="tl-label">Un archivo de respaldo</span>
+            <p class="tl-sub">Un archivo de respaldo contiene lo que Tidelight ha guardado en este teléfono, excepto las fotos, en una forma que Tidelight puede volver a leer. Úsalo para pasarte a otro teléfono, o para recuperar las cosas después de Borrar todo.</p>
+            <p class="tl-sub">El archivo de respaldo no está bloqueado. Quien lo reciba puede leerlo todo, y Tidelight no puede recuperarlo. Tú eliges adónde va.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-backup-make">Crear un archivo de respaldo</button>
+            <p class="tl-status" id="tl-set-backup-note" role="status" hidden></p>
+            <p class="tl-field"><label for="tl-set-restore-file">Restaurar desde un archivo de respaldo</label><input class="tl-input" id="tl-set-restore-file" type="file" accept=".json,application/json"></p>
+            <div class="tl-stack" id="tl-set-restore-ask" hidden>
+              <p><strong>Restaurar reemplaza lo que Tidelight ha guardado en este teléfono por lo que hay en el archivo.</strong> No se puede deshacer. Las fotos de la Caja de esperanza se quedan como están, y los recordatorios puestos para una hora hay que volver a ponerlos.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-set-restore-yes">Reemplazar lo que hay en este teléfono</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-set-restore-no">Conservar lo que hay en este teléfono</button></p>
+            </div>
+            <p class="tl-status" id="tl-set-restore-note" role="status" tabindex="-1" hidden></p>
+          </div>
           <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey" id="tl-settings-erase">
             <span class="tl-card-icon" data-tl-icon="trash"></span>
             <span class="tl-card-text"><span class="tl-card-title">Borrar todo</span> <span class="tl-card-sub">En Tu camino</span></span>
@@ -1593,7 +1606,7 @@
             <p>Solo cuando tú lo inicias, o a través de la copia de seguridad de tu teléfono:</p>
             <ul>
               <li>Un mensaje de texto que envías desde la pantalla de Mensajes de tu teléfono, a personas que tú elegiste.</li>
-              <li>Algo que compartes desde el menú para compartir de tu teléfono: una entrada, tu plan de seguridad, un resumen para una cita o una copia de tus datos.</li>
+              <li>Algo que compartes desde el menú para compartir de tu teléfono: una entrada, tu plan de seguridad, un resumen para una cita, una copia de tus datos o un archivo de respaldo.</li>
               <li>La copia de seguridad de iCloud o de Google de tu teléfono, si está activada. Va a tu propia cuenta de Apple o de Google.</li>
             </ul>
             <p>Una vez que algo se envía o se comparte, Tidelight no puede recuperarlo.</p>
@@ -1899,6 +1912,14 @@
         <span data-word="follow.export">{who}: {when}</span>
         <span data-word="visit.title">Para mi próxima cita</span>
         <span data-word="visit.when">Recordatorio: {when}</span>
+        <span data-word="backup.fileName">tidelight-respaldo.json</span>
+        <span data-word="backup.done">El archivo de respaldo se entregó a tu teléfono. Tidelight no guarda ningún registro de adónde fue.</span>
+        <span data-word="backup.failed">No se pudo crear el archivo de respaldo. Nada salió de la app.</span>
+        <span data-word="backup.notOne">Ese no es un archivo de respaldo de Tidelight, o no se puede leer. No se cambió nada en este teléfono.</span>
+        <span data-word="backup.newer">Ese archivo de respaldo se creó con una versión más nueva de Tidelight. Actualiza la app y vuelve a intentarlo. No se cambió nada en este teléfono.</span>
+        <span data-word="backup.kept">No se cambió nada.</span>
+        <span data-word="backup.restored">Restaurado desde el archivo de respaldo.</span>
+        <span data-word="backup.problem">No se pudo restaurar el archivo de respaldo. Revisa lo que hay aquí y vuelve a intentarlo.</span>
         <span data-word="plan.title">Mi plan de seguridad</span>
         <span data-word="plan.full">Puedes guardar hasta {count} aquí. Quita uno para agregar otro.</span>
         <span data-word="plan.saved">Guardado en este teléfono.</span>

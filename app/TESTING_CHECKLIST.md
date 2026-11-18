@@ -75,6 +75,14 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+A backup file:
+- [ ] Settings, "Make a backup file": the share sheet opens with a .json file; save it to Files.
+- [ ] "Restore from a backup file": the phone's file picker opens; choose that file; the question appears;
+      "Replace what is on this phone" restarts the app with the same things in it. Hope box photos are still
+      there.
+- [ ] On a second phone or simulator with the app freshly installed: restore the file there, and check the
+      safety plan, journal, and settings came across.
+
 After a loss:
 - [ ] Friends tab, the loss row: the screen reads the same as the After a loss page on the website. It is long;
       scroll to the end and back, and check the crisis strip stays at the top the whole way.

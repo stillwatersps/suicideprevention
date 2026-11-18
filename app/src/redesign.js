@@ -17,6 +17,7 @@ import { initSections } from './ui/sections.js';
 import { initLock, isLocked } from './ui/lock.js';
 import { Tidelight } from './native.js';
 import { initPlan, renderPlan } from './ui/plan.js';
+import { initBackup } from './ui/backup.js';
 import { initVisit, renderVisit } from './ui/visit.js';
 import { initFollow, renderFollow } from './ui/follow.js';
 import { initTell } from './ui/tell.js';
@@ -106,6 +107,7 @@ export async function initRedesign(context) {
   initSettings(shell, ctx);
   initStreaks(shell, ctx);
   initPlan(shell, ctx);
+  initBackup();
   initVisit(shell);
   initFollow(shell);
   initTell(shell);

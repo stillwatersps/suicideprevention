@@ -544,6 +544,16 @@ each covers and what only a real phone can show.
   seven sections. The support services it names are allowed on that screen because the page names them.
   Nothing on it celebrates, counts, or asks the person to record anything.
 
+## A backup file (November 17, 2026, a draft)
+
+- **Settings, "A backup file"; `src/logic/backup.js`, `src/ui/backup.js`.** The file is JSON: every `KEYS` value as
+  stored (not `oldReminders`), the schema version, and when it was made. **It is not locked, and the screen
+  says so.** No photos. A new stored key is in it with no further change.
+- **Restore replaces; it never merges.** A key the file lacks is removed. It asks first, refuses anything that
+  isn't a backup or is from a newer schema, clears reminder times (`withoutTimes`), then reloads the app so
+  every `clean…` rule and migration runs on what was restored. Never write restored values into `state`
+  directly.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

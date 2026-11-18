@@ -93,6 +93,8 @@ export const CONFIG = deepFreeze({
   health: { minSeconds: 60 },
   // The safety plan: a short list, so each part stays short enough to read in a hard moment.
   plan: { maxItems: 8, maxLength: 120 },
+  // A backup file: no larger than this in all, and no one stored thing larger than this.
+  backup: { maxBytes: 8000000, maxValue: 4000000 },
   // For my next appointment: a few short lines, and a reminder time within the next year.
   visit: { maxItems: 8, maxLength: 140, maxDays: 366 },
   // A reminder to check in on someone: a short name (optional), and a time within the next year.

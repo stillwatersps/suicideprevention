@@ -610,3 +610,7 @@ html.tl #tl-vets .tl-btn, html.tl #tl-lgbtq .tl-btn { max-width: 100%; white-spa
 .tl-after-step { display: grid; gap: var(--tl-space-xs); min-width: 0; overflow-wrap: anywhere; }
 .tl-after-links { display: grid; gap: var(--tl-space-sm); }
 html.tl #tl-after .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* A backup file: the file field and the two answers fit a small phone. */
+#tl-set-backup-box input[type="file"] { min-width: 0; max-width: 100%; height: auto; padding-block: var(--tl-space-sm); }
+html.tl #tl-set-backup-box .tl-row { flex-wrap: wrap; }
+html.tl #tl-set-backup-box .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
