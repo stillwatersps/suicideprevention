@@ -93,6 +93,7 @@ export const SCREENS = [
   { id: 'vets', name: "For veterans and service members", go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-vets'); } },
   { id: 'lgbtq', name: "For LGBTQ+ young people", go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-lgbtq'); } },
   { id: 'after', name: 'After a crisis', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-after'); } },
+  { id: 'loss', name: "If you've lost someone to suicide", go: async (page) => { await root(page, 'friends'); await page.click('#tl-friends-loss'); } },
   { id: 'plan', name: 'My safety plan', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-plan'); } },
   { id: 'letter', name: 'A letter to myself', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-letter'); } },
   { id: 'ride', name: 'Ten minutes at a time', go: async (page) => { await root(page, 'checkin'); await page.click('#tl-checkin-ride'); } },

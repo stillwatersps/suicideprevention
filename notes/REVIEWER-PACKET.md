@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 303 lines of the app's words. 26 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 38, 41, 42, 43, 44, 46, 47, 48, 50, 51, 52, 53, 54, 56, 57, 58, 59, 60, 62, 63, 64); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 303 lines of the app's words. 27 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 38, 41, 42, 43, 44, 46, 47, 48, 50, 51, 52, 53, 54, 55, 57, 58, 59, 60, 61, 63, 64, 65); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -289,13 +289,13 @@ Picture: `app/design/after-launch-pass/reviewer/18-daily-needs.png`
 > Back  
 > See every suggestion this page can show
 
-#### 55. My safety plan
+#### 56. My safety plan
 
 The person's own safety plan: six short lists they write ahead of time, with 988 and 911 built into part 5. Shown empty here.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/55-plan.png`
+Picture: `app/design/after-launch-pass/reviewer/56-plan.png`
 
 > Draft for review  
 > Back  
@@ -340,13 +340,13 @@ Picture: `app/design/after-launch-pass/reviewer/55-plan.png`
 > The reasons you keep going are in your Hope box.  
 > Open my Hope box
 
-#### 69. What happens when you reach out to 988
+#### 70. What happens when you reach out to 988
 
 The Get Help page's own section on calling, texting, and chatting with 988, shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/69-expect.png`
+Picture: `app/design/after-launch-pass/reviewer/70-expect.png`
 
 > Draft for review  
 > Back  
@@ -374,13 +374,13 @@ Picture: `app/design/after-launch-pass/reviewer/69-expect.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 67. Other ways to reach someone
+#### 68. Other ways to reach someone
 
 The Get Help page's own list of other services (Spanish, Deaf or hard of hearing, veterans, LGBTQ+ youth, text lines, 911), shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/67-ways.png`
+Picture: `app/design/after-launch-pass/reviewer/68-ways.png`
 
 > Draft for review  
 > Back  
@@ -423,13 +423,13 @@ Picture: `app/design/after-launch-pass/reviewer/67-ways.png`
 > Call 911  
 > The 988 Lifeline, the Veterans Crisis Line, The Trevor Project, and Crisis Text Line keep conversations confidential, with limits. Each says it may contact emergency services or other authorities in some situations. Their websites explain when.
 
-#### 68. Grounding
+#### 69. Grounding
 
 Four short grounding exercises, offered on the support screen and the Check-in tab. New wording.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/68-ground.png`
+Picture: `app/design/after-launch-pass/reviewer/69-ground.png`
 
 > Draft for review  
 > Back  
@@ -681,7 +681,7 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > Good morning  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 9:30 AM  
+> At 2:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -786,7 +786,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 50 screens, about 1131 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 51 screens, about 1198 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -942,7 +942,7 @@ Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 > Good morning  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 9:30 AM  
+> At 2:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -1242,9 +1242,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Morning, 8:18 AM: feeling: Good.  
+> Morning, 9:47 AM: feeling: Good.  
 > Remove  
-> Morning, 8:18 AM: feeling: Okay.  
+> Morning, 9:47 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1517,6 +1517,8 @@ Picture: `app/design/after-launch-pass/reviewer/35-friends.png`
 > Private. It never shows a name  
 > If it's a child or teen  
 > For parents, caregivers, and school staff  
+> If you've lost someone to suicide  
+> Grief, finding support, and talking with others  
 > Helping someone you're worried about  
 > Share check-ins  
 > Today or 7 days, in Your journey
@@ -1741,10 +1743,10 @@ Picture: `app/design/after-launch-pass/reviewer/44-week.png`
 > You took some time to breathe or meditate.  
 > What you recorded  
 > Wednesday, November 18  
-> Morning, 8:18 AM: feeling: Good.  
-> Morning, 8:18 AM: feeling: Okay.  
-> Morning, 8:18 AM: feeling: Very low.  
-> Morning, 8:18 AM: feeling: Sad.  
+> Morning, 9:47 AM: feeling: Good.  
+> Morning, 9:47 AM: feeling: Okay.  
+> Morning, 9:47 AM: feeling: Very low.  
+> Morning, 9:47 AM: feeling: Sad.  
 > However the week went, you don't have to carry it alone.  
 > Call 988  
 > Text 988  
@@ -2043,13 +2045,87 @@ Picture: `app/design/after-launch-pass/reviewer/54-after.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 56. A letter to myself
+#### 55. If you've lost someone to suicide
 
 
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/56-letter.png`
+Picture: `app/design/after-launch-pass/reviewer/55-loss.png`
+
+> Draft for review  
+> Back  
+> If you've lost someone to suicide  
+> There is no right way to grieve, and you don't have to go through this alone. Here is what groups that support people after a suicide loss say, and where to find people who understand.  
+> It's not your fault  
+> Many people keep asking why, and whether they could have done something. The CDC says suicide doesn't have just one cause. The Tragedy Assistance Program for Survivors (TAPS), which supports people after a military suicide loss, says it plainly: it's not your fault.  
+> What you may feel  
+> The American Foundation for Suicide Prevention (AFSP) says everyone experiences a suicide loss in their own way, so no list will fit exactly. It says many people feel some mix of these:  
+> Shock and disbelief  
+> Grief, and yearning for the person  
+> Anger  
+> Guilt and blame  
+> Confusion  
+> Relief  
+> Feeling rejected, abandoned, or betrayed  
+> Shame and isolation  
+> Depression and sadness  
+> Thoughts of suicide  
+> AFSP says that if you saw what happened or found the person, you are likely to have trauma symptoms as well as grief. This can also happen if you weren't there. It may be hard to concentrate because of images that stay with you. You may feel anxious or confused, or have physical symptoms such as stomach problems or trouble sleeping.  
+> AFSP says these are normal responses to trauma. Even if it doesn't feel like it now, they will likely ease in the weeks and months to come. If they don't, it suggests seeing a mental health professional with experience in trauma or loss. AFSP also says each person grieves at their own pace, and there is no set timeline for healing.  
+> Birthdays, holidays, and other meaningful dates can be hard. AFSP says that waiting for the day can be harder than the day itself.  
+> Taking care of yourself  
+> Suicide Awareness Voices of Education (SAVE) says healing from a suicide loss is deeply personal, and no one approach works best for everyone. AFSP says you shouldn't have to cope with your loss alone. It suggests being kind and patient with yourself, and being open to letting people help.  
+> Each year, on the Saturday before U.S. Thanksgiving, AFSP sponsors and hosts events for International Survivors of Suicide Loss Day. There are local events, where AFSP says you decide how much to take part. There are also online events you can watch without signing up, including one in Spanish.  
+> TAPS says the intense pain will not always feel the way it does right now, and that it can ease and soften with support and with time.  
+> Where to find support  
+> These are separate organizations with their own rules. Tidelight does not run them, and has not checked each group they list. This is a short list. AFSP's resource list and SAVE's What's next page list more options. They include a 24/7 online forum, a site for people who lost a sibling, and an online grief group for LGBTQ+ people.  
+> Talk with someone who has been there  
+> AFSP's Healing Conversations is a one-time visit, by phone, online, or in person, with a trained volunteer who has also lost someone to suicide. You ask for one through an online form linked from AFSP's page. The form is on monday.com, a service from another company. It asks for details such as your name, email, phone number, and where you live. It also asks for the first name of the person who died and the date of death. The form says your answers are shared with people in the program, including chapter staff, AFSP national staff, coordinators, and the volunteer.  
+> AFSP Healing Conversations  
+> Support groups  
+> AFSP lists suicide loss support groups, in person and online, in the U.S. and elsewhere. It says it doesn't run, recommend, endorse, or fund the groups it lists, and that groups are in English unless stated. SAVE says it doesn't verify groups in outside lists. Its team also offers to help you find support, by email or phone. SAVE says it doesn't provide emergency or crisis help. It's okay to ask how a group works before you join.  
+> AFSP support group list  
+> SAVE: help finding support  
+> A therapist or counselor  
+> AFSP keeps a list of clinicians who completed its former training or say they have relevant experience with suicide loss. It says being listed is not an endorsement or referral. You can also ask a health care provider for a referral, or search for care near you.  
+> AFSP clinician list  
+> FindTreatment.gov  
+> After a military loss  
+> TAPS supports anyone who has lost a family member, loved one, colleague, friend, or battle buddy to suicide, during or after their service. Its services include peer mentors who have also lost someone to suicide. TAPS says you can call it 24/7 at 1-800-959-8277.  
+> TAPS suicide loss support  
+> After the death of a child, grandchild, or sibling  
+> The Compassionate Friends supports families after the death of a child of any age, from any cause, with local chapters and online groups. It isn't only for suicide loss.  
+> The Compassionate Friends  
+> En español  
+> AFSP tiene una guía sobre cómo sobrellevar una pérdida por suicidio. Algunos datos de crisis en la guía son antiguos. Hoy, la Línea 988 ofrece apoyo en español: marca 988 y luego presiona 2, o envía AYUDA al 988. Las guías de la AFSP se abren en un visor de páginas que puede no funcionar con un lector de pantalla.  
+> Sobreviviendo una pérdida por suicidio  
+> Esta página en español  
+> AFSP also has a longer guide, Surviving a Suicide Loss, and answers to practical questions about the first few days. AFSP's guides open in a page-flip viewer that may not work with a screen reader. Its page of practical questions is an ordinary web page.  
+> Talking to others about what happened  
+> You may not want to tell people that the person died by suicide, and that's your choice. AFSP says it can't decide what is right for you, and that it is up to you how much you share. It also says that, in the long run, most people who have lost someone this way are glad they were honest about it. It says one of the most important reasons is that being honest gives friends and family the chance to support you.  
+> Talking with children and teens  
+> AFSP says it is up to parents and guardians whether to tell a child the truth, and points out that children may overhear adults talking. When you do talk with a child or teen, it suggests that you:  
+> Tell the truth in short, simple sentences that fit their age, without going into graphic detail or talking at length about the specific method. Encourage questions, and offer loving reassurance.  
+> Reassure them that they are not responsible, and that nothing they said or did caused it.  
+> Be ready to talk about it many times, in the first weeks and later in their life.  
+> Consider a children's grief support group if they are having a hard time. The Dougy Center has a worldwide directory of grief programs. It isn't only for suicide loss.  
+> The Dougy Center: after a suicide death  
+> Children, Teens and Suicide Loss (AFSP booklet)  
+> If you're a teen who has lost someone, The Dougy Center has resources for you. It can also help to tell an adult you trust. If things feel too hard, you can call or text 988 yourself. More for teens.  
+> Schools, workplaces, and communities  
+> Support after a suicide is sometimes called postvention. These guides are for people responding to a death in a school, workplace, or community:  
+> After a Suicide: A Toolkit for Schools, from AFSP and the Suicide Prevention Resource Center  
+> After a Suicide: Postvention Toolkit for Workplaces, listed by AFSP  
+> Responding to Grief, Trauma, and Distress After a Suicide: U.S. National Guidelines, from the National Action Alliance for Suicide Prevention
+
+#### 57. A letter to myself
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/57-letter.png`
 
 > Draft for review  
 > Back  
@@ -2061,13 +2137,13 @@ Picture: `app/design/after-launch-pass/reviewer/56-letter.png`
 > Up to 2,000 characters. There is no right way to write it.  
 > Save my letter
 
-#### 57. Ten minutes at a time
+#### 58. Ten minutes at a time
 
 
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/57-ride.png`
+Picture: `app/design/after-launch-pass/reviewer/58-ride.png`
 
 > Draft for review  
 > Back  
@@ -2079,13 +2155,13 @@ Picture: `app/design/after-launch-pass/reviewer/57-ride.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 58. Ten minutes at a time, a step
+#### 59. Ten minutes at a time, a step
 
 
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/58-ride-step.png`
+Picture: `app/design/after-launch-pass/reviewer/59-ride-step.png`
 
 > Draft for review  
 > Back  
@@ -2101,13 +2177,13 @@ Picture: `app/design/after-launch-pass/reviewer/58-ride-step.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 59. Wind down for sleep
+#### 60. Wind down for sleep
 
 
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/59-wind.png`
+Picture: `app/design/after-launch-pass/reviewer/60-wind.png`
 
 > Draft for review  
 > Back  
@@ -2120,13 +2196,13 @@ Picture: `app/design/after-launch-pass/reviewer/59-wind.png`
 > Start the Sleep session  
 > If the night feels like too much, you don't have to wait for morning. The buttons to call or text 988 and to call 911 are at the top of every screen.
 
-#### 60. Another way to see it
+#### 61. Another way to see it
 
 
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/60-reframe.png`
+Picture: `app/design/after-launch-pass/reviewer/61-reframe.png`
 
 > Draft for review  
 > Back  
@@ -2141,11 +2217,11 @@ Picture: `app/design/after-launch-pass/reviewer/60-reframe.png`
 > Clear what I wrote  
 > If the thought is still heavy afterwards, that doesn't mean you did this wrong. Some thoughts need another person.
 
-#### 61. Three good things
+#### 62. Three good things
 
 
 
-Picture: `app/design/after-launch-pass/reviewer/61-good.png`
+Picture: `app/design/after-launch-pass/reviewer/62-good.png`
 
 > Draft for review  
 > Back  
@@ -2159,13 +2235,13 @@ Picture: `app/design/after-launch-pass/reviewer/61-good.png`
 > And one more  
 > Save today's
 
-#### 62. Care near me
+#### 63. Care near me
 
 
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/62-nearby.png`
+Picture: `app/design/after-launch-pass/reviewer/63-nearby.png`
 
 > Draft for review  
 > Back  
@@ -2180,13 +2256,13 @@ Picture: `app/design/after-launch-pass/reviewer/62-nearby.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 63. Reach someone I trust
+#### 64. Reach someone I trust
 
 
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/63-reach.png`
+Picture: `app/design/after-launch-pass/reviewer/64-reach.png`
 
 > Draft for review  
 > Back  
@@ -2201,13 +2277,13 @@ Picture: `app/design/after-launch-pass/reviewer/63-reach.png`
 > There is nobody in your circle yet. You can add people you trust on the Friends tab.  
 > Go to Friends
 
-#### 64. Helping someone you're worried about
+#### 65. Helping someone you're worried about
 
 The Help Someone page's own opening and six sections, shown inside the app word for word, on the Friends tab.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/64-helping.png`
+Picture: `app/design/after-launch-pass/reviewer/65-helping.png`
 
 > Draft for review  
 > Back  
@@ -2275,11 +2351,11 @@ Picture: `app/design/after-launch-pass/reviewer/64-helping.png`
 > Look after yourself too  
 > Supporting someone through a hard time can bring up difficult emotions of your own, and the responsibility doesn't have to be yours alone. The 988 Lifeline encourages helpers to reach out for support themselves. You can call or text 988 for yourself, even if you're not the one in crisis.
 
-#### 65. A summary for an appointment
+#### 66. A summary for an appointment
 
 A short page of the person's own records for an appointment. They tick what goes on it and see every word before sharing. Nothing is kept. New wording.
 
-Picture: `app/design/after-launch-pass/reviewer/65-summary.png`
+Picture: `app/design/after-launch-pass/reviewer/66-summary.png`
 
 > Draft for review  
 > Back  
@@ -2301,18 +2377,18 @@ Picture: `app/design/after-launch-pass/reviewer/65-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Wednesday, November 18  
-> - Morning, 8:18 AM: feeling: Good.  
-> - Morning, 8:18 AM: feeling: Okay.  
-> - Morning, 8:18 AM: feeling: Very low.  
-> - Morning, 8:18 AM: feeling: Sad.  
+> - Morning, 9:47 AM: feeling: Good.  
+> - Morning, 9:47 AM: feeling: Okay.  
+> - Morning, 9:47 AM: feeling: Very low.  
+> - Morning, 9:47 AM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 
-#### 66. What tends to help
+#### 67. What tends to help
 
 What else the person recorded on days they chose Good or Great, counted from their own check-ins. Shown here with too little to count. New wording.
 
-Picture: `app/design/after-launch-pass/reviewer/66-helps.png`
+Picture: `app/design/after-launch-pass/reviewer/67-helps.png`
 
 > Draft for review  
 > Back  

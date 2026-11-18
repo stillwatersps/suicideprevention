@@ -538,6 +538,12 @@ each covers and what only a real phone can show.
 - A unit test fails if it names a method or an attempt, promises anything, blames, celebrates, or loses its
   line that defers to the people treating the person.
 
+## After a loss (November 17, 2026)
+
+- **`#tl-loss`, on the Friends tab, is the After a loss page's own words** (`SITE_SCREENS.loss`): its opening and
+  seven sections. The support services it names are allowed on that screen because the page names them.
+  Nothing on it celebrates, counts, or asks the person to record anything.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

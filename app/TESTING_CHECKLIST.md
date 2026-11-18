@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+After a loss:
+- [ ] Friends tab, the loss row: the screen reads the same as the After a loss page on the website. It is long;
+      scroll to the end and back, and check the crisis strip stays at the top the whole way.
+
 After a crisis:
 - [ ] Check-in tab, "After a crisis": read it through once, slowly, as someone just home from a hospital would.
       Write down anything that lands wrong. (This is for a founder, and then a clinician.)

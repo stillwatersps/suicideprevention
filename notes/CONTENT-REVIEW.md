@@ -1811,6 +1811,19 @@ follow them."; and Call 988, Text 988, Call 911.
   reviewer accepts, ideally as a section of the Get Help page that the app then shows word for word.
 - The Spanish is an AI translation no fluent reader has checked.
 
+### Forty features, 37: after a loss (November 17, 2026)
+
+A row on the Friends tab, "If you've lost someone to suicide", opens a screen with the After a loss page's own opening and seven sections,
+copied from the page when the app is built.
+
+- The row sits on the Friends tab next to "Helping someone you're worried about". Is that the right place for
+  someone who is grieving to find it, or should it be on the Check-in tab or Home?
+- A person bereaved by suicide is at higher risk themselves. The screen has the app's crisis strip and Get
+  Support Now like every screen. Should the app do anything more for them, for example a gentler set of
+  check-in prompts? That would be new wording.
+- The only wording written for the app is the row's second line, "Grief, finding support, and talking with
+  others", in English and Spanish (an AI translation no fluent reader has checked).
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

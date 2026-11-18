@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 36)
+Last updated: 2026-11-17 (forty features, feature 37)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -60,7 +60,7 @@ For specific people
 - [x] 34 — A guide for parents and caregivers: `#tl-parents` on the Friends tab shows the Help Someone page's own section "If it's a child or teen" (a parent or caregiver, at school, a young person worried about a friend), word for word, through `SITE_SCREENS`; no new guide was written: a fuller one is for a clinician to write on the website, and the app will show it
 - [x] 35 — Pages for veterans and for LGBTQ+ young people: `#tl-vets` and `#tl-lgbtq` on the Check-in tab, each a title and one line of the app's own and then the Get Help page's own entries for those services (the Veterans Crisis Line; LGBTQ+ youth through 988, and The Trevor Project), word for word, through `SITE_SCREENS` (`services`); **no page for new parents was built**: the website names no service for them, and a crisis resource is not added to the app before it is verified on the website
 - [x] 36 — After a crisis: `#tl-after` on the Check-in tab (markup only, no script): five small steps for the days after a crisis, an emergency room visit, or a hospital stay (the follow-up appointment, telling one person, the safety plan, a safer space, going gently), ways on to four tools the app has, and the three crisis lines; it says first that the thoughts coming back is not failure; it names no method and defers to the people treating the person, by a unit test; never on a support step; **the highest-risk new wording of the forty, and the first thing a clinician should read**; `test/unit/after.test.mjs`, `test/after-test.mjs`
-- [ ] 37 — For people who lost someone to suicide (the website's page, shown in the app)
+- [x] 37 — For people who lost someone to suicide: `#tl-loss` on the Friends tab shows the After a loss page's own opening and seven sections (it's not your fault, what you may feel, taking care of yourself, where to find support, talking to others, children and teens, schools and workplaces), word for word, through `SITE_SCREENS`
 
 The phone itself
 - [ ] 38 — An interactive widget and a Live Activity for a breathing minute

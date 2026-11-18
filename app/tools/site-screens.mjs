@@ -19,6 +19,7 @@ export const SITE_SCREENS = {
   parents: { page: { en: 'help-someone/index.html', es: 'es/ayudar-a-alguien/index.html' }, sections: ['child-or-teen'], title: 'section', tab: 'friends', row: 'tl-friends-parents' },
   vets: { page: { en: 'get-help/index.html', es: 'es/obtener-ayuda/index.html' }, sections: ['other-ways'], services: { en: ["Veterans Crisis Line"], es: ["Línea de Crisis para Veteranos"] }, title: 'own', tab: 'checkin', row: 'tl-checkin-vets' },
   lgbtq: { page: { en: 'get-help/index.html', es: 'es/obtener-ayuda/index.html' }, sections: ['other-ways'], services: { en: ["LGBTQ+ youth, through 988", "The Trevor Project"], es: ["Jóvenes LGBTQ+, a través de la 988", "The Trevor Project"] }, title: 'own', tab: 'checkin', row: 'tl-checkin-lgbtq' },
+  loss: { page: { en: 'after-a-loss/index.html', es: 'es/despues-de-una-perdida/index.html' }, sections: ['not-your-fault', 'feelings', 'taking-care', 'find-support', 'telling-others', 'children', 'community'], title: 'page', tab: 'friends', row: 'tl-friends-loss' },
 };
 
 // What a screen is made from, as the page has it: { file, title, pieces } (pieces of HTML, in order).
