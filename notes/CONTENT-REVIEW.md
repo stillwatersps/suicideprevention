@@ -1782,6 +1782,35 @@ The Trevor Project on the other. The entries are copied from the page.
   separate service from Tidelight. 988 and 911, at the top of every screen, are for anyone." and the same for
   the other screen. The Spanish is an AI translation no fluent reader has checked.
 
+### Forty features, 36: after a crisis (November 17, 2026). **Read this one first.**
+
+A new screen on the Check-in tab for the days after a crisis, an emergency room visit, or a hospital stay. An AI
+assistant wrote every word of it, and it is aimed at the people at highest risk the app will meet: the weeks
+after discharge are a period of sharply raised risk. If a reviewer can read only one thing from the forty
+features, it should be this, and it should not ship unread.
+
+What it says: the days after can feel strange; "If the thoughts come back, that doesn't mean you failed, and
+you don't have to wait."; then five steps:
+
+1. "Keep the follow-up appointment. If you were given one, go, even if you feel better. If you weren't, ask the
+   place that saw you, or a doctor you know, for one."
+2. "Let one person know how you really are."
+3. "Go over your safety plan, or make one. It helps most when you do it with someone."
+4. "Make your space safer. Put distance between you and anything you could use to hurt yourself. Someone you
+   trust can hold on to it for now."
+5. "Go gently. Rest, eat, and sleep as regularly as you can. Big decisions can wait."
+
+Then buttons to My safety plan, For my next appointment, Reach someone I trust, and Support over time; "This
+page is general information from an app. It is not advice from the people treating you; where the two differ,
+follow them."; and Call 988, Text 988, Call 911.
+
+- Is any of this unsafe, wrong, or missing? In particular step 4 (it names no method, on purpose), and
+  whether "an emergency room visit, or a hospital stay" should be said at all.
+- It does not use the word "attempt". Should it?
+- It has no sources. The website's pages cite theirs; this screen should be rewritten from sources a
+  reviewer accepts, ideally as a section of the Get Help page that the app then shows word for word.
+- The Spanish is an AI translation no fluent reader has checked.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

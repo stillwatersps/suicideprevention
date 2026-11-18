@@ -605,3 +605,8 @@ html.tl #tl-visit .tl-btn { max-width: 100%; white-space: normal; overflow-wrap:
 .tl-site-body .pill { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tl-tap); min-width: var(--tl-tap); max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 /* For veterans, and for LGBTQ+ young people: the button under the services wraps at the largest text. */
 html.tl #tl-vets .tl-btn, html.tl #tl-lgbtq .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* After a crisis: five short steps, then ways on to the app's own tools. */
+.tl-after-steps { display: grid; gap: var(--tl-space-md); margin: 0; padding: 0; list-style: none; }
+.tl-after-step { display: grid; gap: var(--tl-space-xs); min-width: 0; overflow-wrap: anywhere; }
+.tl-after-links { display: grid; gap: var(--tl-space-sm); }
+html.tl #tl-after .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }

@@ -184,6 +184,12 @@ export const TEXT_AYUDA = 'sms:988?&amp;body=AYUDA';
 export function fillInAyuda(html) {
   return html.replace(/<a\b[^>]*\bhref="sms:988"[^>]*>[\s\S]*?<\/a>/g, (link) => (/\bAYUDA\b/.test(link.replace(/<[^>]+>/g, ' ')) ? link.replace('href="sms:988"', `href="${TEXT_AYUDA}"`) : link));
 }
+// The app's own page holds every screen, and a tenth of it was the spaces that indent its lines. They are
+// left out of the page the phone loads (test/budget-test.mjs has the size limit). Each line keeps its line
+// break, so words never run together; scripts, styles, and typed-in text are left exactly as they are.
+export function unindent(html) {
+  return html.split(/(<(script|style|textarea|pre)\b[\s\S]*?<\/\2>)/).map((part, i) => (i % 3 === 0 ? part.replace(/^[ \t]+/gm, '') : i % 3 === 1 ? part : '')).join('');
+}
 const appPages = PAGES.map((page) => join(www, page.file));
 for (const page of everyPage(www, 0)) {
   let html = readFileSync(page.path, 'utf8');
@@ -200,6 +206,7 @@ for (const page of everyPage(www, 0)) {
   html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/app-safe-area.css">\n</head>`, 'safe-area stylesheet in ' + page.path);
   // After Quick exit, coming back to the app must show the page again (src/app-return.js says why).
   html = once(html, '</head>', `  <script src="${page.up}assets/app-return.js"></script>\n</head>`, 'return-from-exit script in ' + page.path);
+  if (appPages.includes(page.path)) html = unindent(html);
   writeFileSync(page.path, html);
 }
 mkdirSync(join(www, 'assets'), { recursive: true });

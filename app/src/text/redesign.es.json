@@ -10,7 +10,8 @@
   "<p class=\"tl-sub\">The phone shows them itself. A reminder only says \"<span class=\"tl-rem-sample\"></span>\" Nothing about you is in it, and nothing is sent anywhere.</p>": "<p class=\"tl-sub\">El teléfono los muestra por sí mismo. Un recordatorio solo dice \"<span class=\"tl-rem-sample\"></span>\" No incluye nada sobre ti, y no se envía nada a ningún lugar.</p>",
   "<p><a class=\"tl-btn tl-btn-secondary tl-btn-wide\" id=\"tl-nearby-er\" href=\"https://maps.apple.com/?q=emergency+room\" data-android-href=\"geo:0,0?q=emergency+room\" rel=\"noreferrer noopener\">Emergency rooms near me, in Maps</a></p>": "<p><a class=\"tl-btn tl-btn-secondary tl-btn-wide\" id=\"tl-nearby-er\" href=\"https://maps.apple.com/?q=sala+de+emergencias\" data-android-href=\"geo:0,0?q=sala+de+emergencias\" rel=\"noreferrer noopener\">Salas de emergencias cerca de mí, en Mapas</a></p>",
   "<p class=\"tl-sub\" id=\"tl-follow-discreet\">This phone shows the reminder itself. It says only \"<span data-once-sample></span>\" It never shows a name, or anything about them or about you.</p>": "<p class=\"tl-sub\" id=\"tl-follow-discreet\">Este teléfono muestra el recordatorio por sí mismo. Solo dice \"<span data-once-sample></span>\" Nunca muestra un nombre, ni nada sobre esa persona ni sobre ti.</p>",
-  "<p class=\"tl-sub\" id=\"tl-visit-discreet\">This phone shows the reminder itself. It says only \"<span data-once-sample></span>\" Nothing about the appointment is in it.</p>": "<p class=\"tl-sub\" id=\"tl-visit-discreet\">Este teléfono muestra el recordatorio por sí mismo. Solo dice \"<span data-once-sample></span>\" No contiene nada sobre la cita.</p>"
+  "<p class=\"tl-sub\" id=\"tl-visit-discreet\">This phone shows the reminder itself. It says only \"<span data-once-sample></span>\" Nothing about the appointment is in it.</p>": "<p class=\"tl-sub\" id=\"tl-visit-discreet\">Este teléfono muestra el recordatorio por sí mismo. Solo dice \"<span data-once-sample></span>\" No contiene nada sobre la cita.</p>",
+  "<p><strong>If the thoughts come back, that doesn't mean you failed, and you don't have to wait.</strong> The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.</p>": "<p><strong>Si los pensamientos vuelven, eso no significa que hayas fracasado, y no tienes que esperar.</strong> Los botones para llamar o enviar un mensaje de texto al 988 y para llamar al 911 están en la parte de arriba de cada pantalla, y al final de esta.</p>"
  },
  "words": {
   "Review status of the app's new words": "Estado de la revisión de los textos nuevos de la app",
@@ -792,6 +793,20 @@
   "For LGBTQ+ young people": "Para jóvenes LGBTQ+",
   "Two services, by phone, text, or chat": "Dos servicios, por teléfono, mensaje de texto o chat",
   "This is the Veterans Crisis Line as the Get Help page describes it. It is a separate service from Tidelight. 988 and 911, at the top of every screen, are for anyone.": "Esta es la Línea de Crisis para Veteranos tal como la describe la página Obtener ayuda. Es un servicio independiente de Tidelight. El 988 y el 911, en la parte de arriba de cada pantalla, son para cualquier persona.",
-  "These are the two services the Get Help page names for LGBTQ+ young people. They are separate services from Tidelight. 988 and 911, at the top of every screen, are for anyone.": "Estos son los dos servicios que la página Obtener ayuda nombra para jóvenes LGBTQ+. Son servicios independientes de Tidelight. El 988 y el 911, en la parte de arriba de cada pantalla, son para cualquier persona."
+  "These are the two services the Get Help page names for LGBTQ+ young people. They are separate services from Tidelight. 988 and 911, at the top of every screen, are for anyone.": "Estos son los dos servicios que la página Obtener ayuda nombra para jóvenes LGBTQ+. Son servicios independientes de Tidelight. El 988 y el 911, en la parte de arriba de cada pantalla, son para cualquier persona.",
+  "After a crisis": "Después de una crisis",
+  "The days after, one small step at a time": "Los días siguientes, un paso pequeño a la vez",
+  "The days after a crisis, an emergency room visit, or a hospital stay can feel strange: tired, raw, relieved, embarrassed, or nothing much at all. However it feels, this is a time to go gently, and not to be alone with it.": "Los días después de una crisis, de una visita a la sala de emergencias o de una estancia en el hospital pueden sentirse extraños: con cansancio, con todo a flor de piel, con alivio, con vergüenza, o sin sentir gran cosa. Se sienta como se sienta, es un momento para ir con calma, y para no estar a solas con esto.",
+  "Keep the follow-up appointment": "Ve a la cita de seguimiento",
+  "If you were given one, go, even if you feel better. If you weren't, ask the place that saw you, or a doctor you know, for one.": "Si te dieron una, ve, aunque te sientas mejor. Si no te dieron ninguna, pídela en el lugar donde te atendieron, o a un médico que conozcas.",
+  "Let one person know how you really are": "Cuéntale a una persona cómo estás de verdad",
+  "Someone you trust, in whatever words you have. You don't have to explain everything.": "Alguien de tu confianza, con las palabras que tengas. No tienes que explicarlo todo.",
+  "Go over your safety plan, or make one": "Repasa tu plan de seguridad, o haz uno",
+  "It helps most when you do it with someone: the person treating you, or someone close to you.": "Ayuda más cuando lo haces con alguien: la persona que te atiende, o alguien cercano.",
+  "Make your space safer": "Haz tu espacio más seguro",
+  "Put distance between you and anything you could use to hurt yourself. Someone you trust can hold on to it for now.": "Pon distancia entre tú y cualquier cosa que podrías usar para hacerte daño. Alguien de tu confianza puede guardarla por ahora.",
+  "Go gently": "Ve con calma",
+  "Rest, eat, and sleep as regularly as you can. Big decisions can wait.": "Descansa, come y duerme con la mayor regularidad que puedas. Las decisiones grandes pueden esperar.",
+  "This page is general information from an app. It is not advice from the people treating you; where the two differ, follow them.": "Esta página es información general de una app. No es un consejo de las personas que te atienden; donde no coincidan, haz caso a ellas."
  }
 }

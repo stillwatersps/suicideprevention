@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+After a crisis:
+- [ ] Check-in tab, "After a crisis": read it through once, slowly, as someone just home from a hospital would.
+      Write down anything that lands wrong. (This is for a founder, and then a clinician.)
+
 For veterans, and for LGBTQ+ young people:
 - [ ] Check-in tab, each of the two rows: the screen shows the same words as that service's entry on the Get
       Help page, and its buttons open the dial or message screen (do not call or send).

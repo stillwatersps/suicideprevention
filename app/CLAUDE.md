@@ -530,6 +530,14 @@ each covers and what only a real phone can show.
 - **A service is never added to the app before the website names it** (and its notes verify it). That is why
   there is no screen for new parents, or for any other group, yet.
 
+## After a crisis (November 17, 2026, a draft; read by nobody qualified)
+
+- **`#tl-after`, on the Check-in tab, is words only.** It is for the days after a crisis, an emergency room visit,
+  or a hospital stay. **Its wording is the highest-risk in the app that no clinician has read.** Do not extend
+  it, reword it, or link to it from anywhere new (never from a support step) without a reviewer.
+- A unit test fails if it names a method or an attempt, promises anything, blames, celebrates, or loses its
+  line that defers to the people treating the person.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the
