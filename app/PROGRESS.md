@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 31)
+Last updated: 2026-11-17 (forty features, feature 32)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -53,7 +53,7 @@ With other people
 - [x] 29 — The safety plan as a page to print or keep: "A page to print or keep" on the plan screen (`#tl-plan-page`), `planPage()` in `src/logic/plan.js`; one plain text file handed to the phone's share sheet (from there: Print, or Save to Files), with every part that has something in it and always 988 and 911 at the end; nothing is kept about where it went; it is a text file, not a PDF: a real PDF needs native code that was not written; `test/unit/plan-page.test.mjs`, `test/plan-page-test.mjs`
 - [x] 30 — For supporters, a private reminder to check in on someone: `#tl-follow` on the Friends tab, `src/logic/once.js`, `src/ui/once.js`, `src/ui/follow.js`, `tidelight.follow.v1` (a name the person may type, and a time); the phone's notification (id 298) says only "A reminder you set." and never the name; in the copy of my data, the erase (which also cancels the notification), and the privacy screen; `test/unit/once.test.mjs`, `test/follow-test.mjs`
 - [x] 31 — Therapy companion: `#tl-visit`, "For my next appointment", on the Check-in tab; `src/logic/visit.js`, `src/ui/visit.js`, `tidelight.visit.v1`; up to eight things to bring up, in the person's own words, and one reminder (notification id 297) that says only "A reminder you set."; leads on to "A summary for an appointment"; in the copy of my data, the erase (which also cancels the notification), and the privacy screen; `test/unit/visit.test.mjs`, `test/visit-test.mjs`
-- [ ] 32 — Links to low-cost care
+- [x] 32 — Links to low-cost care: `#tl-care` on the Check-in tab shows the Get Help page's own section "Support over time" (talk to a health care provider, FindTreatment.gov, SAMHSA's National Helpline), word for word; `tools/site-screens.mjs` is the one place that says which screens show which page's sections (`SITE_SCREENS`, `<!-- SITE:name -->` in the markup), and `test/site-test.mjs` compares every such screen with its page
 
 For specific people
 - [ ] 33 — Teen wording (the For teens page and the age groups exist; a way in from the app's own screens)

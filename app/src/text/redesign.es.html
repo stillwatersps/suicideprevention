@@ -191,6 +191,11 @@
               <span class="tl-card-text"><span class="tl-card-title">Para mi próxima cita</span> <span class="tl-card-sub">Cosas que quiero mencionar, y un recordatorio</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="care" id="tl-checkin-care">
+              <span class="tl-card-icon" data-tl-icon="people"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Apoyo a largo plazo</span> <span class="tl-card-sub">Atención a largo plazo, y maneras de encontrarla</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
               <span class="tl-card-icon" data-tl-icon="copy"></span>
               <span class="tl-card-text"><span class="tl-card-title">Un resumen para una cita</span> <span class="tl-card-sub">Tú eliges qué incluye</span></span>
@@ -1351,6 +1356,12 @@
           </div>
           <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="summary">Un resumen para una cita</button></p>
           <p class="tl-sub">Si las cosas se ponen difíciles antes de la cita, no tienes que esperar hasta entonces. Los botones para llamar o enviar un mensaje de texto al 988 y para llamar al 911 están en la parte de arriba de cada pantalla.</p>
+        </section>
+
+        <section class="tl-screen" id="tl-care" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-care-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Borrador para revisión</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Atrás</button></div>
+          <!-- SITE:care -->
         </section>
 
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>

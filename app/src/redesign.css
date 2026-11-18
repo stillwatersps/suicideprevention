@@ -598,3 +598,8 @@ html.tl #tl-visit .tl-btn { max-width: 100%; white-space: normal; overflow-wrap:
 #tl-visit .tl-plan-text { overflow-wrap: anywhere; min-width: 0; }
 #tl-visit .tl-field .tl-row > * { min-width: 0; max-width: 100%; }
 #tl-visit .tl-field .tl-row > .tl-input { flex: 1 1 100%; }
+/* A screen that shows a website page's own sections: its lists and buttons fit a phone. */
+.tl-site-body a { overflow-wrap: anywhere; }
+.tl-site-body .service-list, .tl-site-body .steps { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-sm); }
+.tl-site-body .service { min-width: 0; }
+.tl-site-body .pill { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tl-tap); min-width: var(--tl-tap); max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }

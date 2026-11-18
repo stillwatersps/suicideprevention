@@ -192,6 +192,11 @@
               <span class="tl-card-text"><span class="tl-card-title">For my next appointment</span> <span class="tl-card-sub">Things to bring up, and a reminder</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="care" id="tl-checkin-care">
+              <span class="tl-card-icon" data-tl-icon="people"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Support over time</span> <span class="tl-card-sub">Longer-term care, and ways to find it</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
               <span class="tl-card-icon" data-tl-icon="copy"></span>
               <span class="tl-card-text"><span class="tl-card-title">A summary for an appointment</span> <span class="tl-card-sub">You choose what goes on it</span></span>
@@ -1352,6 +1357,12 @@
           </div>
           <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="summary">A summary for an appointment</button></p>
           <p class="tl-sub">If things get hard before the appointment, you don't have to wait for it. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+        </section>
+
+        <section class="tl-screen" id="tl-care" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-care-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <!-- SITE:care -->
         </section>
 
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>

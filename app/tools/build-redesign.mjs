@@ -8,6 +8,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { ICONS, TABS } from '../src/ui/icons.js';
+import { siteScreen } from './site-screens.mjs';
 
 const appDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const www = join(appDir, 'www');
@@ -136,7 +137,7 @@ for (const page of PAGES) {
   // The new screens go above the page's own review notice; the notice for the new words goes
   // right under it. Both notices stay on every screen.
   html = once(html, /( {6}<aside class="page-status review-note"[\s\S]*?<\/aside>\n)/,
-    (all) => once(once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses'), '          <!-- EXPECT -->\n', '          ' + expectSection(page.lang) + '\n', '988 section').replace('          <!-- WAYS -->\n', '          ' + waysSection(page.lang) + '\n').replace('          <!-- HELPING -->\n', '          ' + helpingPage(page.lang) + '\n') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
+    (all) => once(once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses'), '          <!-- EXPECT -->\n', '          ' + expectSection(page.lang) + '\n', '988 section').replace('          <!-- WAYS -->\n', '          ' + waysSection(page.lang) + '\n').replace('          <!-- HELPING -->\n', '          ' + helpingPage(page.lang) + '\n').replace(/ {10}<!-- SITE:([\w-]+) -->\n/g, (marker, name) => '          ' + siteScreen(www, page.lang, name) + '\n') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
   // A heavy feeling in the five-question check-in shows support at the top of its results.
   html = once(html, '          <div class="ci-talk-first">', b['result-support'] + '          <div class="ci-talk-first">', 'result support');
   html = once(html, '  <footer class="site-footer"', b.tabbar + (b.overlays || '') + '  <footer class="site-footer"', 'tab bar');

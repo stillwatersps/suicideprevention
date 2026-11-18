@@ -1728,6 +1728,18 @@ or counselor, and one reminder for the appointment. The notification says only "
   homework, and between-session exercises were not built and would each need a clinician's design.
 - The Spanish ("Para mi próxima cita") is an AI translation no fluent reader has checked.
 
+### Forty features, 32: support over time (November 17, 2026)
+
+A new screen on the Check-in tab shows the Get Help page's own section "Support over time": what longer-term
+care is, talking to a health care provider, FindTreatment.gov, and SAMHSA's National Helpline. It is copied
+from the page when the app is built, so it says exactly what the page says and changes when the page does.
+
+- The only wording written for the app is the row's second line, "Longer-term care, and ways to find it"
+  ("Atención a largo plazo, y maneras de encontrarla"; an AI translation no fluent reader has checked).
+- The feature was listed as "links to low-cost care". The page names free referral lines and a treatment
+  finder; it does not name sliding-scale or free clinics. Should it? That is a change to the page, and its
+  sources, not to the app.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

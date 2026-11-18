@@ -75,6 +75,10 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+Support over time:
+- [ ] Check-in tab, "Support over time": the FindTreatment.gov link opens outside the app, and the two phone
+      numbers open the dial screen (do not place the call).
+
 For my next appointment:
 - [ ] Check-in tab, "For my next appointment": add two lines with the phone's keyboard (Return adds one),
       remove one, set a reminder two minutes ahead, lock the phone: the notification says "A reminder you set."

@@ -501,6 +501,15 @@ each covers and what only a real phone can show.
   `src/ui/once.js`: **the phone is given only "Tidelight" and "A reminder you set."**
 - It records nothing about the appointment itself (who with, where, what for), on purpose.
 
+## Screens that show a website page's own sections (November 17, 2026)
+
+- **`tools/site-screens.mjs` (`SITE_SCREENS`)** says which screens show which sections of which page. The build
+  copies them where the markup has `<!-- SITE:name -->`; **nothing in such a screen is typed into the app.** To
+  change its words, change the page. `test/site-test.mjs` compares every one with its page, in both languages,
+  and `test/crisis-test.mjs` allows the services those sections name on those screens only.
+- **`#tl-care`, "Support over time"**, on the Check-in tab, is the first: the Get Help page's section of that
+  name. The row's second line is the only wording written for the app.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the
