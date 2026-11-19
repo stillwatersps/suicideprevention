@@ -103,6 +103,7 @@ for (const lang of ['en', 'es']) {
   await page.click('#tl-ride-easier');
   const easier = await page.evaluate(() => ({ easier: !document.getElementById('tl-ride-easier-note').hidden, hard: !document.getElementById('tl-ride-hard-note').hidden }));
   check(easier.easier && !easier.hard, '"A little easier" says a plain line, with no celebration');
+  check(await page.evaluate(() => document.getElementById('tl-ride-easier-whole').getClientRects().length > 0), 'after the whole ten minutes, that line says so');
 
   // ---- stopping early, and starting again ----
   await page.click('#tl-ride-again');
@@ -112,6 +113,9 @@ for (const lang of ['en', 'es']) {
   await page.click('#tl-ride-stop');
   const stopped = await page.evaluate(() => ({ end: !document.getElementById('tl-ride-end-box').hidden, passed: !document.getElementById('tl-ride-passed').hidden }));
   check(stopped.end && !stopped.passed, '"Stop here" asks how things are, without saying ten minutes passed');
+  await page.click('#tl-ride-easier');
+  const early = await page.evaluate(() => ({ note: document.getElementById('tl-ride-easier-note').innerText.trim(), whole: document.getElementById('tl-ride-easier-whole').getClientRects().length > 0 }));
+  check(!early.whole && early.note.length > 10 && !/ten minutes|diez minutos/i.test(early.note), `stopped early, "A little easier" doesn't say ten minutes were got through (found in the Simulator): "${early.note}"`);
   await page.click('#tl-ride [data-tl-back]');
   await openRide(page);
   check((await faces(page)).start, 'leaving the screen and coming back starts from the beginning');

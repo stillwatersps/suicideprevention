@@ -74,6 +74,12 @@ for (const lang of ['en', 'es']) {
   check((await page.inputValue('#tl-tools-search')) === '' && (await shown(page)).length === 22 && !(await state(page)).crisis, 'leaving the screen clears the search');
   await page.click('#tl-tools-list [data-tool-open="ground"]');
   check(await page.isVisible('#tl-ground'), 'a row opens its tool (Grounding)');
+  await page.click('#tl-ground [data-tl-back]');
+  await page.waitForTimeout(200);
+  check(await page.isVisible('#tl-tools') && (await page.getAttribute('#tl-tabbar [data-tl-tab-btn="home"]', 'aria-current')) === 'page', 'Back from it returns to this list, on Home (found in the Simulator: it went to the Check-in tab)');
+  await page.click('#tl-tools-list [data-tool-open="ground"]');
+  await tab(page, 'checkin');
+  check(await page.isVisible('#tl-checkin') && !(await page.isVisible('#tl-tools')), 'opened again, a tap on its tab goes to that tab\'s first screen as before');
   await openIt(page);
   await page.click('#tl-tools-list [data-tool-open="meditate"]');
   check(await page.isVisible('#tl-meditate'), 'a row for a tab opens the tab (Meditate)');

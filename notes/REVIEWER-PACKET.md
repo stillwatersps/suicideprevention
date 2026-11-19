@@ -678,14 +678,14 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good afternoon  
+> Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 7:30 PM  
+> At 9:30 AM  
 > Start  
 > Suggested for you  
-> Silent  
-> Silent and ready anywhere  
+> Sleep  
+> Winding down  
 > Start  
 > One small thing for today  
 > Things you'd like to try can show here, one a day. The list is yours to write.  
@@ -939,14 +939,14 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good afternoon  
+> Good night  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 7:30 PM  
+> At 9:30 AM  
 > Start  
 > Suggested for you  
-> Silent  
-> Silent and ready anywhere  
+> Sleep  
+> Winding down  
 > Start  
 > One small thing for today  
 > Things you'd like to try can show here, one a day. The list is yours to write.  
@@ -1252,9 +1252,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> After school, 2:49 PM: feeling: Good.  
+> Before bed, 2:17 AM: feeling: Good.  
 > Remove  
-> After school, 2:49 PM: feeling: Okay.  
+> Before bed, 2:17 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1283,8 +1283,8 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > Draft for review  
 > Meditate  
 > Suggested for you  
-> Silent  
-> Silent and ready anywhere  
+> Sleep  
+> Winding down  
 > Start  
 > Silent · anywhere  
 > 3 min  
@@ -1752,11 +1752,11 @@ Picture: `app/design/after-launch-pass/reviewer/44-week.png`
 > You checked in on a day or two.  
 > You took some time to breathe or meditate.  
 > What you recorded  
-> Wednesday, November 18  
-> After school, 2:49 PM: feeling: Good.  
-> After school, 2:49 PM: feeling: Okay.  
-> After school, 2:49 PM: feeling: Very low.  
-> After school, 2:49 PM: feeling: Sad.  
+> Thursday, November 19  
+> Before bed, 2:17 AM: feeling: Good.  
+> Before bed, 2:17 AM: feeling: Okay.  
+> Before bed, 2:17 AM: feeling: Very low.  
+> Before bed, 2:17 AM: feeling: Sad.  
 > However the week went, you don't have to carry it alone.  
 > Call 988  
 > Text 988  
@@ -2383,14 +2383,14 @@ Picture: `app/design/after-launch-pass/reviewer/66-summary.png`
 > What it will say  
 > This is the whole page, word for word.  
 > A summary for my appointment  
-> Made on November 18, 2026, from what I recorded in the Tidelight app over the last 14 days.  
+> Made on November 19, 2026, from what I recorded in the Tidelight app over the last 14 days.  
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
-> Wednesday, November 18  
-> - After school, 2:49 PM: feeling: Good.  
-> - After school, 2:49 PM: feeling: Okay.  
-> - After school, 2:49 PM: feeling: Very low.  
-> - After school, 2:49 PM: feeling: Sad.  
+> Thursday, November 19  
+> - Before bed, 2:17 AM: feeling: Good.  
+> - Before bed, 2:17 AM: feeling: Okay.  
+> - Before bed, 2:17 AM: feeling: Very low.  
+> - Before bed, 2:17 AM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

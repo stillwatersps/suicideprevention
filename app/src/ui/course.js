@@ -32,7 +32,7 @@ export function initCourse(shell) {
       await save('course', setDone(state.course, i, event.target.checked, CONFIG.course));
       renderCourse();
     });
-    $('[data-course-open]', item).addEventListener('click', () => { const id = STEPS[i]; if (SESSIONS[id]) SESSIONS[id](); else shell.push(id); });
+    $('[data-course-open]', item).addEventListener('click', () => { const id = STEPS[i]; if (SESSIONS[id]) SESSIONS[id](); else shell.pushFrom(id); }); // Back from the step returns to this list
   });
   $('#tl-course-again').addEventListener('click', async () => {
     await save('course', emptyCourse());

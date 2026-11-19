@@ -19,6 +19,7 @@ import './extras.js'; // Hope box and My circle, in their own file
 import { initRedesign } from './redesign.js'; // tabs, onboarding, streaks, meditation
 import { store } from './core/device-storage.js';
 import { devLog } from './core/dev.js';
+import { stayPut } from './ui/components.js';
 import { fill, MAX_PLACES, MAX_PEOPLE, DWELL_CHOICES, defaultPlacesConfig, newId, joinNames } from './logic.js';
 
 const STATE_KEY = 'tidelight.checkin.v1';
@@ -103,9 +104,9 @@ function start() {
   // Larger text: on by default for 65 and over, and anyone can change it.
   let largeText = false;
   function applyText() { document.documentElement.classList.toggle('app-large-text', largeText); }
-  $('.app-text-toggle').addEventListener('click', async () => {
+  $('.app-text-toggle').addEventListener('click', async (event) => {
     largeText = !largeText;
-    applyText();
+    stayPut(event.currentTarget, applyText);
     await save(TEXT_KEY, largeText ? 'large' : 'regular');
   });
 

@@ -17,7 +17,7 @@ export function openTool(shell, id) {
   if (tool.session) startType(tool.session, { minutes: tool.minutes });
   else if (tool.legacy) shell.openLegacy(tool.legacy);
   else if (tool.go) shell.go(tool.go);
-  else shell.push(tool.push);
+  else shell.pushFrom(tool.push);
 }
 
 export function renderToolkit() {

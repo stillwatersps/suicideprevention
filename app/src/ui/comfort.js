@@ -4,7 +4,7 @@
 // tapped, and reads what is on the screen: never what is in a field being typed in.
 import { state, save } from './state.js';
 import { t, lang } from './words.js';
-import { el } from './components.js';
+import { el, stayPut } from './components.js';
 import { applyNight } from './night.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
@@ -71,7 +71,7 @@ export function initComfort(shell) {
   Object.keys(switches).forEach((sel) => {
     $(sel).addEventListener('change', async (event) => {
       await save('settings', { [switches[sel]]: event.target.checked });
-      applyComfort();
+      stayPut(event.target.closest('label') || event.target, applyComfort);
       applyNight();
     });
   });

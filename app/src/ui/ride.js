@@ -38,6 +38,7 @@ function finish(whole) {
   stopClock();
   face('end');
   $('#tl-ride-passed').hidden = !whole;
+  $('#tl-ride-easier-whole').hidden = !whole; // stopped early, the app doesn't say ten minutes were got through
   $('#tl-ride-easier-note').hidden = true;
   $('#tl-ride-hard-note').hidden = true;
   $('#tl-ride-end-title').focus({ preventScroll: true });

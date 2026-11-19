@@ -578,6 +578,22 @@ each covers and what only a real phone can show.
 - `BreathingAttributes.swift` is built into both the app and the widget (`tools/add-live-activity.rb`). The widget
   is now a `WidgetBundle`.
 
+## Rules from the rundown in the iPhone Simulator (November 19, 2026)
+
+- **A screen is put in place at once, never with a slow scroll.** The website's pages scroll smoothly
+  (`scroll-behavior: smooth`), and on a phone a touch stops a smooth scroll part-way. Use `toTop()` from
+  `src/ui/components.js`, or `behavior: 'instant'`. The support step after a very low check-in depends on it.
+- **The player is placed against the crisis strip itself** (`startSession` in `src/ui/player.js`), not with
+  `scrollIntoView`: an iPhone also leaves room for its status bar, which the strip already covers, and the
+  stage's bottom ended up off the screen. A desktop browser can't show this; look in the Simulator.
+- **An iPhone doesn't hold the page still when what is above grows.** A control that changes the size of the
+  page (text size, "Easier reading") makes its change through `stayPut(el, change)`.
+- **A screen opened from a list on another tab uses `shell.pushFrom(name)`**, so Back returns to the list
+  ("All tools", "My toolkit", "A first week"). A plain `push` is for a tab's own screens.
+- **A finished flow takes itself out of its tab's stack** (`shell.forget`), or the tab opens on it next time.
+- A date and time field needs `appearance: none` like a time field, or it runs past its card on an iPhone.
+- `test/faults-test.mjs` holds each of these, with the faults from the check on November 16.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

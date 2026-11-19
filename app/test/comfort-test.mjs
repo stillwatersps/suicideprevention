@@ -73,7 +73,13 @@ for (const lang of ['en', 'es']) {
 
   // ---- easier reading ----
   const tight = await spacing(page);
+  // An iPhone doesn't hold the page in place when what is above grows; this browser does, so that is turned off here.
+  const place = () => page.evaluate(() => Math.round(document.getElementById('tl-set-easy').closest('label').getBoundingClientRect().top));
+  await page.evaluate(() => { document.documentElement.style.overflowAnchor = 'none'; document.body.style.overflowAnchor = 'none'; document.getElementById('tl-set-easy').closest('label').scrollIntoView({ block: 'center', behavior: 'instant' }); });
+  const was = await place();
   await flip(page, 'tl-set-easy');
+  check(Math.abs((await place()) - was) <= 2, 'the switch stays where it was on the screen when the page above it grows');
+  await page.evaluate(() => { document.documentElement.style.overflowAnchor = ''; document.body.style.overflowAnchor = ''; });
   const loose = await spacing(page);
   const links = await page.evaluate(() => Array.from(document.querySelectorAll('.tl-screen p a:not(.tl-btn):not(.pill)')).slice(0, 8).every((a) => getComputedStyle(a).textDecorationLine.includes('underline')));
   check((await classes(page)).easy && (isNaN(tight) || loose > tight) && loose >= 1.75 && links, `"Easier reading" gives lines more room (${isNaN(tight) ? 'the usual' : tight.toFixed(2)} to ${loose.toFixed(2)}) and underlines links in the text`);

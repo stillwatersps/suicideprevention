@@ -1,10 +1,10 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 38)
+Last updated: 2026-11-19 (forty features: all built, draft pull request 33 open)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
-Current step: Forty features: see the list just below. The first unticked line is the next one to build.
+Current step: Forty features: all built and committed. Draft pull request 33 into app/next-features. The handoff is notes/worklogs/2026-11-18-claude-app-forty-features.md
 
-## Forty features — in progress
+## Forty features — all built (November 19, 2026)
 
 One founder asked Claude for forty features (November 16, 2026), then for all of them, **one at a time, with a
 full check after each before the next**: `npm test` in `app/`, then the four checks at the repository root.

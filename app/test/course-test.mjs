@@ -68,6 +68,9 @@ for (const lang of ['en', 'es']) {
 
   await page.click(step(2) + ' [data-course-open]');
   check(await page.isVisible('#tl-ground'), 'day 2\'s button opens Grounding');
+  await page.click('#tl-ground [data-tl-back]');
+  await page.waitForTimeout(200);
+  check(await page.isVisible('#tl-course'), 'and Back from it returns to this list (found in the Simulator: it went to the Check-in tab)');
   await openIt(page);
   await page.click(step(7) + ' [data-course-open]');
   check(await page.isVisible('#tl-plan'), 'day 7\'s button opens the safety plan');

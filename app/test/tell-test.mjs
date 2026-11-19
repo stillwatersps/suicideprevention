@@ -61,6 +61,9 @@ for (const lang of ['en', 'es']) {
   await page.waitForTimeout(150);
   const copied = await page.evaluate(() => window.__tidelight.copied);
   check(copied.length === 1 && copied[0] === seen.lines[0].words && (await status(page)).length > 10, `Copy puts exactly those words on the clipboard, and says so: "${await status(page)}"`);
+  // Found in the Simulator: the line was at the top of the screen, out of sight of the button that was tapped.
+  const under = await page.evaluate(() => { const s = document.getElementById('tl-tell-status'); const line = document.querySelector('#tl-tell .tl-tell-line'); const button = line.querySelector('[data-tell-copy]').getBoundingClientRect(); const r = s.getBoundingClientRect(); return line.contains(s) && r.height > 0 && r.top >= button.bottom - 1 && r.top - button.bottom < 40; });
+  check(under, 'and it says so just under the button that was tapped');
   check((await keys(page)) === before && outside.length === 0, 'nothing is stored and nothing is sent');
   await page.waitForTimeout(600); // a screen fades in; colors are measured once it has
   await page.evaluate(axeSource);

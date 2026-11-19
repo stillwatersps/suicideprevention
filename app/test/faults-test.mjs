@@ -180,6 +180,46 @@ console.log('\nMeditations');
   check(opened.errors.length === 0, 'no script errors' + (opened.errors.length ? ': ' + opened.errors[0] : ''));
   await opened.context.close();
 
+  // The player is in place at once, and "End session?" is on the screen wherever the page was scrolled to
+  // (found in the iPhone Simulator: a touch stopped the slow scroll, and the question opened off the screen).
+  opened = await open();
+  page = opened.page;
+  await page.waitForSelector('html.app-ready');
+  const placed = await page.evaluate(() => { document.getElementById('tl-home-reset').click(); const r = document.getElementById('tl-stage').getBoundingClientRect(); const strip = document.querySelector('.crisis-bar').getBoundingClientRect().bottom; return { top: Math.round(r.top - strip), bottom: Math.round(r.bottom), screen: window.innerHeight }; });
+  check(placed.top >= 0 && placed.top <= 2 && placed.bottom <= placed.screen,`the player is under the crisis strip and on the screen the moment it starts (${placed.top} below the strip)`);
+  await page.evaluate(() => { window.scrollTo({ top: 0, behavior: 'instant' }); document.getElementById('tl-player-end').click(); });
+  await page.waitForTimeout(100);
+  const asked = await page.evaluate(() => { const strip = document.querySelector('.crisis-bar').getBoundingClientRect().bottom; return ['tl-end-title', 'tl-end-yes', 'tl-end-no'].map((id) => { const r = document.getElementById(id).getBoundingClientRect(); return r.height > 0 && r.top >= strip - 1 && r.bottom <= window.innerHeight + 1; }); });
+  check(asked.every(Boolean), 'with the page scrolled back to its top, "End session?" and both its answers are on the screen');
+  check(opened.errors.length === 0, 'no script errors' + (opened.errors.length ? ': ' + opened.errors[0] : ''));
+  await opened.context.close();
+
+  // A new screen starts at its top at once (found in the iPhone Simulator: a tab tapped while Home was
+  // scrolled down opened part-way down its own page).
+  opened = await open();
+  page = opened.page;
+  await page.waitForSelector('html.app-ready');
+  const jump = await page.evaluate(() => { window.scrollTo({ top: 600, behavior: 'instant' }); const before = window.scrollY; document.querySelector('#tl-tabbar [data-tl-tab-btn="meditate"]').click(); return { before, after: window.scrollY }; });
+  check(jump.before > 300 && jump.after === 0, `a tab tapped while the page is scrolled down opens at its top at once (from ${jump.before} to ${jump.after})`);
+  await opened.context.close();
+
+  // A finished check-in is closed (found in the iPhone Simulator: the Check-in tab opened on a new check-in).
+  opened = await open();
+  page = opened.page;
+  await page.waitForSelector('html.app-ready');
+  await page.click('#tl-tabbar [data-tl-tab-btn="home"]');
+  await page.click('#tl-home [data-tl-quick="checkin"]');
+  if (await page.isVisible('#tl-flow-skip')) await page.click('#tl-flow-skip');
+  await page.click('#tl-flow-faces [data-value="4"]');
+  await page.click('#tl-flow-done');
+  await page.waitForSelector('#tl-flow [data-flow="done"]:not([hidden])');
+  await page.click('#tl-flow [data-flow="done"] [data-tl-go="home"]');
+  await page.click('#tl-tabbar [data-tl-tab-btn="checkin"]');
+  await page.waitForTimeout(200);
+  check(await showing(page, '#tl-checkin') && !(await showing(page, '#tl-flow')), 'after a finished check-in and "Back to home", the Check-in tab opens on its own first screen');
+  check(opened.errors.length === 0, 'no script errors' + (opened.errors.length ? ': ' + opened.errors[0] : ''));
+  await opened.context.close();
+
   // A full list of saved meditations.
   const presets = Array.from({ length: 20 }, (_, i) => ({ id: 'p-' + i, name: 'Mine ' + (i + 1), choices: { lengthMinutes: 5, situation: 'breathe', sound: 'none', world: 'ocean', voice: false, haptics: true, bodyScan: false, style: 'calm' } }));
   opened = await open({ hooks: { clockRate: 40 }, storage: { 'tidelight.presets': JSON.stringify(presets) } });

@@ -6,7 +6,7 @@ import { spreadTimes } from '../logic/spread.js';
 import { profileFor } from '../logic/style-profile.js';
 import { t, clockText } from './words.js';
 import { state, save, applyStyle } from './state.js';
-import { stepper, choiceGroup, el } from './components.js';
+import { stepper, choiceGroup, el, toTop } from './components.js';
 import { haptic } from './haptics.js';
 import { locationPermission, requestLocationPermission, currentPosition, requestNotificationPermission } from './device.js';
 import { syncReminders } from './reminders.js';
@@ -51,7 +51,7 @@ function show(i, focus) {
   $('#tl-ob-step').textContent = ageOnly ? '' : t('ob.step', { step: index + 1, total: pages.length });
   if (name === 'location') refreshLocation();
   if (focus !== false) {
-    window.scrollTo(0, 0);
+    toTop();
     const heading = $('h2, h3', pageEl(name));
     if (heading) { heading.setAttribute('tabindex', '-1'); heading.focus({ preventScroll: true }); }
   }

@@ -254,7 +254,9 @@ html.tl .tl-result-support { margin: var(--tl-space-md) 0; display: grid; gap: v
 .tl-setup-list li { display: grid; gap: var(--tl-space-xs); padding: var(--tl-space-sm) var(--tl-space-md); border: var(--tl-border) solid var(--tl-line); border-radius: var(--tl-radius-md); background: var(--tl-surface); }
 .tl-setup-list .tl-row { flex-wrap: nowrap; }
 .tl-setup-list .tl-input { min-width: 0; }
-#tl-setup-ring { width: var(--tl-tap-lg); height: var(--tl-tap-lg); }
+/* A line under the card's words. It shares its class with the player's bar, which is pinned to the stage's
+   bottom edge; unpinned here, or it sat on top of the card's second line. */
+#tl-setup-ring { position: relative !important; }
 #tl-settings-sections { margin: 0; }
 html.tl #tl-version { justify-self: start; max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: start; }
 
@@ -329,6 +331,7 @@ html.tl .tl-scene-btn:disabled { opacity: 0.3; }
 .tl-guide-count { font-variant-numeric: tabular-nums; opacity: 0.8; }
 .tl-screen-text { position: absolute !important; top: calc(var(--tl-tap) + var(--tl-space-xl)); left: var(--tl-space-md); right: var(--tl-space-md); margin: 0; text-align: center; font-family: var(--tl-font); font-size: var(--tl-font-display); line-height: var(--tl-line-tight); font-weight: var(--tl-weight-strong); opacity: 0; transition: opacity var(--tl-slow) var(--tl-ease); }
 .tl-screen-text.is-on { opacity: 1; }
+.tl-stage.has-controls .tl-screen-text { top: calc(var(--tl-tap) * 2 + var(--tl-space-xl) * 2); }
 .tl-stage-hint { position: absolute !important; bottom: var(--tl-space-lg); left: 0; right: 0; margin: 0; text-align: center; font-size: var(--tl-font-caption); opacity: 0.7; }
 .tl-controls { position: absolute !important; inset: 0; z-index: 2; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; padding: calc(var(--tl-tap) + var(--tl-space-lg)) var(--tl-space-md) var(--tl-space-xl); background: var(--tl-scene-shade); animation: tl-fade var(--tl-fast) var(--tl-ease); }
 .tl-controls[hidden] { display: none; }
@@ -402,7 +405,7 @@ html.tl .tl-ob-top .tl-btn { min-width: var(--tl-tap); padding-left: var(--tl-sp
 .tl-input { min-width: 0; max-width: 100%; box-sizing: border-box; }
 /* On an iPhone a time or date field keeps the phone's own width unless its native look is turned
    off, and two of them side by side ran past the edge of their panel. */
-.tl-input[type="time"], .tl-input[type="date"] { -webkit-appearance: none; appearance: none; }
+.tl-input[type="time"], .tl-input[type="date"], .tl-input[type="datetime-local"] { -webkit-appearance: none; appearance: none; }
 .tl-input::-webkit-date-and-time-value { min-width: 0; text-align: start; }
 .tl-times-edit { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--tl-col)), 1fr)); }
 .tl-streak-line { flex-wrap: wrap; }

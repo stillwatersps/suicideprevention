@@ -25,6 +25,7 @@ export function initTell(shell) {
     button.addEventListener('click', async () => {
       const done = await copy(words);
       status.textContent = t(done ? 'tell.copied' : 'tell.failed');
+      line.appendChild(status); // under the line that was tapped, where the person is looking
       status.hidden = false;
       status.focus({ preventScroll: true });
     });
