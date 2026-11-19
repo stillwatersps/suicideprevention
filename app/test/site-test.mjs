@@ -86,6 +86,9 @@ for (const name of Object.keys(SITE_SCREENS)) {
     check(broken.length === 0, 'every link that isn\'t a call, a text, or another service\'s own site leads to a page inside the app' + (broken.length ? ': not ' + broken.join(', ') : ''));
     const small = await page.$$eval(`#tl-${name} .tl-site-body .pill`, (els) => els.filter((el) => el.getBoundingClientRect().height < 44).length);
     check(small === 0, 'every button in it is full size');
+    // Found in the iPhone Simulator, in Spanish: "EnviarPRIDEal 988". A word in another language inside a button keeps a space each side.
+    const tight = await page.$$eval(`#tl-${name} .tl-site-body .pill > span[lang]`, (els) => els.filter((el) => { const cs = getComputedStyle(el); return parseFloat(cs.marginLeft) < 3 || parseFloat(cs.marginRight) < 3; }).length);
+    check(tight === 0, 'a word in another language inside a button has a space each side of it');
     check(await noSideways(page), 'no sideways scrolling');
     const found = await audit(page, name);
     check(found.length === 0, 'the automated accessibility audit finds nothing serious' + (found.length ? ': ' + found.join('; ') : ''));

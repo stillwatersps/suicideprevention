@@ -678,14 +678,14 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good night  
+> Good morning  
 > You don't have to have everything figured out.  
 > Next check-in  
 > At 9:30 AM  
 > Start  
 > Suggested for you  
-> Sleep  
-> Winding down  
+> Silent  
+> Silent and ready anywhere  
 > Start  
 > One small thing for today  
 > Things you'd like to try can show here, one a day. The list is yours to write.  
@@ -939,14 +939,14 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good night  
+> Good morning  
 > You don't have to have everything figured out.  
 > Next check-in  
 > At 9:30 AM  
 > Start  
 > Suggested for you  
-> Sleep  
-> Winding down  
+> Silent  
+> Silent and ready anywhere  
 > Start  
 > One small thing for today  
 > Things you'd like to try can show here, one a day. The list is yours to write.  
@@ -1252,9 +1252,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 2:17 AM: feeling: Good.  
+> Morning, 5:27 AM: feeling: Good.  
 > Remove  
-> Before bed, 2:17 AM: feeling: Okay.  
+> Morning, 5:27 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1283,8 +1283,8 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > Draft for review  
 > Meditate  
 > Suggested for you  
-> Sleep  
-> Winding down  
+> Silent  
+> Silent and ready anywhere  
 > Start  
 > Silent · anywhere  
 > 3 min  
@@ -1753,10 +1753,10 @@ Picture: `app/design/after-launch-pass/reviewer/44-week.png`
 > You took some time to breathe or meditate.  
 > What you recorded  
 > Thursday, November 19  
-> Before bed, 2:17 AM: feeling: Good.  
-> Before bed, 2:17 AM: feeling: Okay.  
-> Before bed, 2:17 AM: feeling: Very low.  
-> Before bed, 2:17 AM: feeling: Sad.  
+> Morning, 5:27 AM: feeling: Good.  
+> Morning, 5:27 AM: feeling: Okay.  
+> Morning, 5:28 AM: feeling: Very low.  
+> Morning, 5:28 AM: feeling: Sad.  
 > However the week went, you don't have to carry it alone.  
 > Call 988  
 > Text 988  
@@ -2387,10 +2387,10 @@ Picture: `app/design/after-launch-pass/reviewer/66-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Thursday, November 19  
-> - Before bed, 2:17 AM: feeling: Good.  
-> - Before bed, 2:17 AM: feeling: Okay.  
-> - Before bed, 2:17 AM: feeling: Very low.  
-> - Before bed, 2:17 AM: feeling: Sad.  
+> - Morning, 5:27 AM: feeling: Good.  
+> - Morning, 5:27 AM: feeling: Okay.  
+> - Morning, 5:28 AM: feeling: Very low.  
+> - Morning, 5:28 AM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 

@@ -1877,6 +1877,29 @@ The widget gained a button, "Start here". It runs a breathing minute on the widg
   word and no time) until the app is next opened or the phone removes it. Is that acceptable?
 - Neither has run on a real phone.
 
+### From the walk through the whole app in the Simulator (November 19, 2026)
+
+Found while every tab was walked in the iPhone Simulator, in English and Spanish. Nothing here was changed
+without a question, except the first.
+
+- [ ] **"Ten minutes at a time", the line after "A little easier".** The line was "You got through ten minutes.
+  You can come back to this any time." It was said even after "Stop here" at ten seconds. The same two
+  sentences are now separate: the first is only said after the whole ten minutes. Stopped early, the person
+  reads only "You can come back to this any time." Is that the right thing to say to someone who stopped early
+  and said things are a little easier?
+- [ ] **Spanish: "1 días seguidos".** A streak of one day reads with the plural. The Spanish for it is locked
+  with the other streak wording, so it was left. A fluent reader chooses the singular ("1 día seguido"?).
+- [ ] **Spanish: "Mensajes se abre con tus palabras"** on the Friends tab reads oddly. A fluent reader's call.
+- [ ] **The quick check-in on an iPhone shows only "Very low" and "Low" before scrolling.** The other three
+  moods are below the bottom of the screen. Does the order, or what is in view first, matter clinically?
+- [ ] **On the support step after a very low check-in**, the safety plan, the letter, and "Message someone I
+  trust" show only when the person has made them. With none of them made, the step holds the three crisis
+  buttons, then "What happens when you reach out to 988", "Other ways to reach someone", Grounding, "Ten
+  minutes at a time", and "Care near me". Is that the right set, in the right order?
+- [ ] **A streak card is still on Home on a "quiet" day** (after a very low check-in). It says the number of
+  days and nothing else; nothing celebrates. The founder's rule is that no streak appears in or near a crisis
+  or support screen. Is Home, later the same day, near enough that the card should go too?
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

@@ -222,6 +222,8 @@ export function initBuilder(shell) {
     input.value = (editing ? editing.name : titleOf(choices)).slice(0, CONFIG.builder.presetNameMax);
     input.focus();
     input.select();
+    // The name field opens below the buttons. On a phone nothing seemed to happen until the person scrolled down to it.
+    $('#tl-builder-name-box').scrollIntoView({ block: 'center', behavior: 'instant' });
   });
   $('#tl-builder-name-cancel').addEventListener('click', () => { $('#tl-builder-name-box').hidden = true; });
   $('#tl-builder-name-save').addEventListener('click', async () => {

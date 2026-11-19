@@ -592,6 +592,10 @@ each covers and what only a real phone can show.
   ("All tools", "My toolkit", "A first week"). A plain `push` is for a tab's own screens.
 - **A finished flow takes itself out of its tab's stack** (`shell.forget`), or the tab opens on it next time.
 - A date and time field needs `appearance: none` like a time field, or it runs past its card on an iPhone.
+- **A button with a word in another language inside it** (`Enviar <span lang="en">PRIDE</span> al 988`) loses
+  the spaces round that word, because the website lays a button out as a row. `src/app-safe-area.css` gives
+  them back on every page inside the app (`.pill > span[lang]`). The website's own pages still have the fault.
+- A field that opens below the button that asked for it is scrolled into view (the preset's name).
 - `test/faults-test.mjs` holds each of these, with the faults from the check on November 16.
 
 ## The safety plan (November 15, 2026, a draft)

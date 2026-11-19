@@ -84,6 +84,10 @@ walk through every screen in the iPhone Simulator (muted, `npm run sim:launch`; 
 text), in English and Spanish, with the result written up screen by screen in the handoff, faults fixed or listed.
 The founder is away while this runs: keep going without asking, one feature after another.
 
+**The rundown is done (November 19, 2026).** Five walks in the Simulator, about 200 screens and states in English
+and Spanish. The faults it found were fixed, each with a check; what was seen and left is listed in the handoff,
+`notes/worklogs/2026-11-18-claude-app-forty-features.md`, with what was not tried.
+
 ## A full check before forty more features — November 16, 2026
 
 A founder asked for forty more features and, first, a full check of the app and its code. Two independent

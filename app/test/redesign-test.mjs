@@ -1071,6 +1071,9 @@ async function builderTests(browser, lang) {
   // Save preset.
   await page.click('#tl-builder-save');
   check(await page.isVisible('#tl-builder-name') && (await page.evaluate(() => document.activeElement.id)) === 'tl-builder-name', 'Save preset asks for a name, with the keyboard ready');
+  // Found in the iPhone Simulator: the name field opened below the screen, and nothing seemed to have happened.
+  const named = await page.evaluate(() => { const r = document.getElementById('tl-builder-name-box').getBoundingClientRect(); const strip = document.querySelector('.crisis-bar').getBoundingClientRect().bottom; return r.height > 0 && r.top >= strip - 1 && r.bottom <= window.innerHeight + 1; });
+  check(named, 'and the name field, with its Save and Cancel, is on the screen');
   const suggested = await page.inputValue('#tl-builder-name');
   check(suggested.length > 3 && suggested.length <= 24 && (await page.getAttribute('#tl-builder-name', 'maxlength')) === '24', 'a name is already filled in, 24 characters at most: ' + suggested);
   await page.fill('#tl-builder-name', 'A made-up preset');

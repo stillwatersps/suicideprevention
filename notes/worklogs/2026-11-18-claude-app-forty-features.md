@@ -75,15 +75,18 @@ meant to do.
 
 **How it was done.** The full suite passed on the last feature's commit. Then the finished app was walked in
 the iPhone 17 Simulator, muted, in four parts: Home and Settings; the Check-in tab; Meditate, Location, and
-Friends; and Spanish (**the Spanish walk had not been done when this was written**). Each walk was done by a Claude helper driving the Simulator with taps and screenshots,
+Friends; and Spanish. Each walk was done by a Claude helper driving the Simulator with taps and screenshots,
 writing a line for each screen. Claude then looked again at every fault a walk reported before fixing or
 listing it; two reported faults turned out not to be faults (Pause in the player works; Exit does reach the
-weather page). About 140 screens and states were walked in English. **A Simulator is not a phone**, and none
+weather page). About 140 screens and states were walked in English and about 60 in Spanish. After the fixes,
+the app was built again and each fix was looked at in the Simulator, except the last two: the Spanish
+buttons (looked at in a desktop browser) and the tab's name in one Spanish line. **A Simulator is not a phone**, and none
 of this was seen by a person.
 
 **One slip.** During the Check-in walk a tap landed on "Text 988" in the safety plan while the page was still
 moving. Messages opened with nothing typed; nothing was sent, and it was closed. Later walks kept every tap
-well away from those buttons. No call was placed and no message was sent at any point.
+well away from those buttons. No call was placed and no message was sent at any point. Twice a tap on a
+moving page started a saved meditation by mistake; each was ended at once.
 
 ### What worked, by tab
 
@@ -113,11 +116,21 @@ well away from those buttons. No call was placed and no message was sent at any 
   don't need location worked; the map opened and Cancel saved nothing.
 - **Friends:** My circle (a sample contact added and removed), Reach someone I trust (read; its message
   edited), Words for telling someone, a reminder to check in on someone (set, shown, removed), After a loss
-  and Helping someone you're worried about (read).
+  and Helping someone you're worried about (read), the row for a child or teen.
+- **In Spanish:** all five tabs, Settings, every row of the Check-in and Friends tabs, the list of every tool,
+  and a Silent session. Every screen had its Spanish title, the crisis strip in Spanish ("Llama al 988 y marca
+  2, o envía AYUDA al 988"), and "Borrador para revisión"; nothing was cut off, and no screen showed a missing
+  word. Words the person typed earlier in English stay as typed.
+- **A very low check-in, in Spanish, done last:** the support step came at once, at the top of the screen, with
+  no celebration, no streak, and no decoration: one kind line, then call 988, text 988, and call 911 (none
+  tapped), then "What happens when you reach out to 988", "Other ways to reach someone", Grounding, "Ten
+  minutes at a time", and "Care near me". The safety plan, the letter, and "Message someone I trust" were not
+  there because none had been made. Back from "Ten minutes at a time" returned to the same support step, not
+  to a new check-in. Home afterwards celebrated nothing.
 
 ### Faults found and fixed
 
-All but the last four are older than the forty features. Each has a check that holds it.
+Most are older than the forty features. Each has a check that holds it.
 
 - **The meditation player sat low on an iPhone**, with its bottom edge, the time left, and "End session?" below
   the screen. It was put in place with a slow scroll that a touch stopped part-way, and an iPhone also leaves
@@ -137,6 +150,12 @@ All but the last four are older than the forty features. Each has a check that h
 - **"Ten minutes at a time" said "You got through ten minutes"** after "Stop here" at ten seconds (feature 4).
   The same words, split: the first sentence is only said after the whole ten minutes.
 - **"Copied" was shown at the top of "Words for telling someone"**, out of sight of the button (feature 28).
+- **In Spanish, three service buttons read "EnviarPRIDEal 988" and "EnviarHOMEal 741741"**, with no spaces, on
+  the teen and LGBTQ+ screens. The website lays a button out as a row, which drops the spaces around a word
+  marked as English. Fixed on every page inside the app. **The website's own Spanish pages have the same
+  fault** (Get Help and For Teens, on the draft website branch): a small fix there, not made here.
+- **"Save preset" in "Build your own" opened its name field below the screen**, so nothing seemed to happen.
+- **Spanish: "la pestaña Amigos"** in "Reach someone I trust"; the tab is called "Amistades".
 
 ### Seen and left as it is, for the founders
 
@@ -153,6 +172,12 @@ All but the last four are older than the forty features. Each has a check that h
 - Location's "Home spot" row opens Settings, on the Home tab.
 - The contacts picker and the map took three or four seconds to open in the Simulator.
 - "Finish setting up" says its count twice ("Setup 4/8" and "4/8").
+- In the Sleep and "Just sound" players, while the controls show, the moon sits behind the last letters of
+  the heading. It can still be read.
+- "Build your own" names the situation and the world in its summary line, not the sound.
+- A streak card is still on Home later on a day that had a very low check-in. Nothing celebrates. Whether it
+  should go too is a question in [[CONTENT-REVIEW]], with the Spanish "1 días seguidos" (locked wording) and
+  two other Spanish lines a fluent reader should look at.
 
 ### Not tried
 
