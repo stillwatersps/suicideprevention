@@ -1,0 +1,6 @@
+{
+  "appId": "org.tidelight.app",
+  "appName": "Tidelight",
+  "webDir": "www",
+  "server": { "androidScheme": "https" }
+}

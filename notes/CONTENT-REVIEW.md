@@ -792,6 +792,25 @@ Built November 9, 2026, at one founder's request, from their written spec. Wordi
   next to it, so people know who will see it and that it isn't a way to get urgent help?
   See [[IDEAS]].
 
+## Questions about the phone app
+
+Built November 9, 2026, at one founder's request, on branch `app/first-build`. Every word it adds is in
+`app/src/text/en.html` and `app/src/text/es.html`. Not in the review packets yet.
+
+- **Age setup.** Is asking a date of birth before the check-in right, given that 988 and 911 stay on
+  screen and the question says help doesn't need it? What should a child under 13 see?
+- **For your age.** Five short cards, one per age group, drawn from [[AGE-STRATEGIES]]. Are they safe
+  and accurate? The teen card says to make a plan with a trusted adult, because a 2025 review found
+  no benefit from safety plans alone for teens.
+- **Accuracy and accommodations.** The age question now says an accurate date matters, and a
+  check step shows the age group and its accommodations before anything is kept. Is the accuracy
+  wording right, and could it pressure a child to lie, or to give up? Are the five "top of Today"
+  boxes in `app/src/text/` safe and accurate, especially the one for the grown-up with a child?
+- **Sharing.** Is the notice before sharing clear enough about who sees it and that it isn't a way to
+  get urgent help?
+- **Saving.** Is the privacy wording about the phone, its backups, and Delete everything accurate and
+  plain? A lawyer should read it too.
+
 ## Human-only checklist
 
 - [ ] Founders decide what the public site shows until review. See [[DECISIONS]].

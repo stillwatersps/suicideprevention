@@ -18,6 +18,10 @@ Our shared notebook for building a suicide prevention website.
 > work.
 > Details: [[IDEAS]], at the top. Reviewer question: [[CONTENT-REVIEW]], at the top.
 
+> [!important] Important: the app suggestions from the age research
+> Marked by one founder on November 9, 2026, to come back to, not to build yet. They're at the end
+> of [[AGE-STRATEGIES]], and the reviewer sees them first.
+
 ## Project map
 
 | Open | What it contains |
@@ -25,6 +29,7 @@ Our shared notebook for building a suicide prevention website.
 | [[PROJECT\|Project brief]] | What we know and the questions still to decide |
 | [[FIRST-VERSION\|First version]] | What the first version is and isn't, and its main journeys. A proposal for both founders |
 | [[STATUS\|Current status]] | Where we stand and the next useful step |
+| [[CODE-MAP\|Code map]] | Where every file is, what to edit, and which checks to run |
 | [[TASKS\|Task board]] | Completed work and tasks to choose from |
 | [[DECISIONS\|Decisions]] | What we agreed, what is proposed, and what is still open |
 | [[DESIGN\|Homepage design]] | The supplied design and a preview |
@@ -32,6 +37,7 @@ Our shared notebook for building a suicide prevention website.
 | [[CONTENT-REVIEW\|Content review]] | What each control does and what a reviewer needs to check |
 | [[RESEARCH-BRIEF\|Research brief]] | Research and website copy, awaiting therapist review |
 | [[IDEAS\|Ideas]] | Improvement ideas and which ones are approved |
+| [[AGE-STRATEGIES\|Help by age]] | Research on what helps at which age, for the phone app's age groups |
 | [[CHECK-IN-BACKEND\|Saving the check-in]] | Ways to save, and the phone app plan |
 | [[USER-TEST\|User test plan]] | A small, safe test with made-up situations |
 | [[FOUNDER-BRIEF\|Founder brief]] | Decisions needed from both founders, with recommendations |
