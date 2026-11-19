@@ -120,6 +120,7 @@ Tidelight, uses the person's location under its own privacy policy, and may keep
 | Quick exit | Nothing from the app. The phone's browser opens weather.gov, which sees a visit like any other | weather.gov | The person |
 | Call 988, Text 988, Call 911, Chat Online | Nothing from the app. The phone's own dialer, Messages, or browser opens | 988 or 911 | The person |
 | "Make a backup file" (Settings, on `app/forty-features`) | One file with everything the app stores under its `tidelight.` keys, as stored: check-ins, journal, safety plan, letter, lists, people, places, settings, and the rest. No photos. Not locked | Wherever the person sends or saves it, through the phone's share sheet | The person, each time. The app keeps no record of where it went |
+| A breathing session on the Lock Screen (a Live Activity; Settings, off until turned on; on `app/forty-features`) | Nothing leaves. The phone is told how long the session is, and shows "Tidelight", "Breathing", and the time left on the Lock Screen | Anyone who can see the phone | The person, by turning it on; the app takes it down when the session ends or is paused |
 | Local notifications | Nothing leaves. They are scheduled on the phone | Nobody | The app, if reminders or Places are on |
 
 ## How long it is kept, and how it is deleted

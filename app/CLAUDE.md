@@ -565,6 +565,19 @@ each covers and what only a real phone can show.
   Quick exit.** A unit test reads the file for that. Under automated runs it is recorded, never spoken.
 - There is no "always light": the app has no light colors to use on a phone set to dark.
 
+## The interactive widget, and a breathing session on the Lock Screen (November 17, 2026, a draft)
+
+- **The widget's "Start here" button (`StartBreathingIntent`) runs a breathing minute on the widget itself.** It
+  keeps one number in the widget's own storage (when that minute ends), which the app can't read. The widget
+  still has no shared container and reads nothing the person saved; `test/unit/widget.test.mjs` allows that
+  one number and nothing else.
+- **A Live Activity, off until turned on (`settings.lockScreenBreathing`, iPhone only).** `src/ui/live.js` asks for it
+  when a `quick` or `breathe` session starts and takes it down when the session ends, is paused, or Get Support
+  Now is tapped; the plugin also takes down any leftover when the app opens. The phone is told one thing: how
+  many seconds. **It shows "Tidelight", "Breathing", and the time left: never anything about the person.**
+- `BreathingAttributes.swift` is built into both the app and the widget (`tools/add-live-activity.rb`). The widget
+  is now a `WidgetBundle`.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

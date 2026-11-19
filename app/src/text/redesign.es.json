@@ -13,7 +13,8 @@
   "<p class=\"tl-sub\" id=\"tl-visit-discreet\">This phone shows the reminder itself. It says only \"<span data-once-sample></span>\" Nothing about the appointment is in it.</p>": "<p class=\"tl-sub\" id=\"tl-visit-discreet\">Este teléfono muestra el recordatorio por sí mismo. Solo dice \"<span data-once-sample></span>\" No contiene nada sobre la cita.</p>",
   "<p><strong>If the thoughts come back, that doesn't mean you failed, and you don't have to wait.</strong> The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.</p>": "<p><strong>Si los pensamientos vuelven, eso no significa que hayas fracasado, y no tienes que esperar.</strong> Los botones para llamar o enviar un mensaje de texto al 988 y para llamar al 911 están en la parte de arriba de cada pantalla, y al final de esta.</p>",
   "<p><strong>Restoring replaces what Tidelight has saved on this phone with what is in the file.</strong> It can't be undone. Photos in the Hope box stay as they are, and reminders set for a time need setting again.</p>": "<p><strong>Restaurar reemplaza lo que Tidelight ha guardado en este teléfono por lo que hay en el archivo.</strong> No se puede deshacer. Las fotos de la Caja de esperanza se quedan como están, y los recordatorios puestos para una hora hay que volver a ponerlos.</p>",
-  "<p class=\"tl-sub\">Adds \"Read aloud\" to screens that have a Back button. This phone's own voice reads the screen out loud, so anyone nearby can hear it. Tap it again to stop. It never reads what you are typing.</p>": "<p class=\"tl-sub\">Agrega \"Leer en voz alta\" a las pantallas que tienen un botón Atrás. La voz de este teléfono lee la pantalla en voz alta, así que cualquier persona cerca puede oírla. Tócalo otra vez para detenerla. Nunca lee lo que estás escribiendo.</p>"
+  "<p class=\"tl-sub\">Adds \"Read aloud\" to screens that have a Back button. This phone's own voice reads the screen out loud, so anyone nearby can hear it. Tap it again to stop. It never reads what you are typing.</p>": "<p class=\"tl-sub\">Agrega \"Leer en voz alta\" a las pantallas que tienen un botón Atrás. La voz de este teléfono lee la pantalla en voz alta, así que cualquier persona cerca puede oírla. Tócalo otra vez para detenerla. Nunca lee lo que estás escribiendo.</p>",
+  "<p class=\"tl-sub\">While a 1-minute reset or a \"Breathe in a pattern\" session runs, the Lock Screen shows \"Tidelight\", the word \"Breathing\", and the time left, so you can lock the phone and keep going. Anyone who sees the phone can see it. It goes away when the session ends or is paused.</p>": "<p class=\"tl-sub\">Mientras dura una pausa de 1 minuto o una sesión de \"Respirar con un patrón\", la pantalla de bloqueo muestra \"Tidelight\", la palabra \"Respirando\" y el tiempo que queda, para que puedas bloquear el teléfono y seguir. Cualquier persona que vea el teléfono puede verlo. Desaparece cuando la sesión termina o se pone en pausa.</p>"
  },
  "words": {
   "Review status of the app's new words": "Estado de la revisión de los textos nuevos de la app",
@@ -833,6 +834,7 @@
   "Read aloud button": "Botón de leer en voz alta",
   "Read aloud": "Leer en voz alta",
   "Stop reading": "Dejar de leer",
-  "This phone can't read aloud here.": "Este teléfono no puede leer en voz alta aquí."
+  "This phone can't read aloud here.": "Este teléfono no puede leer en voz alta aquí.",
+  "Show a breathing session on the Lock Screen": "Mostrar una sesión de respiración en la pantalla de bloqueo"
  }
 }

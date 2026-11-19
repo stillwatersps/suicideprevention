@@ -13,6 +13,7 @@ import { haptic, breathHaptic } from './haptics.js';
 import { createWorld } from './worlds.js';
 import { createAudio } from './audio.js';
 import { keepAwake } from './device.js';
+import { liveStart, liveEnd } from './live.js';
 import { isLowMood } from './checkin.js';
 import { devLog } from '../core/dev.js';
 
@@ -143,6 +144,7 @@ async function startSession(meditation, source) {
   };
   session.timeline = createTimeline(meditation, clock());
   if (hooks().onSession) hooks().onSession({ id: meditation.id, type: meditation.type, total: meditation.totalSeconds });
+  liveStart(meditation); // the Lock Screen, if the person turned that on (live.js)
   renderToggles();
   $('#tl-complete').hidden = true;
   stage.hidden = false;
@@ -210,6 +212,7 @@ function stopLayers() {
   session.haptics.clear();
   if (session.audio) session.audio.close();
   keepAwake(false);
+  liveEnd();
 }
 
 // The timeline reached its end.
@@ -289,7 +292,7 @@ export function initPlayer(shell, context) {
   $('#tl-player-pause').addEventListener('click', () => {
     if (!session || session.over) return;
     haptic('tap');
-    if (session.timeline.playing()) { session.timeline.pause(); session.haptics.clear(); if (session.audio) session.audio.pause(); keepAwake(false); } else { session.timeline.resume(); if (session.audio) session.audio.resume(); keepAwake(true); }
+    if (session.timeline.playing()) { session.timeline.pause(); session.haptics.clear(); if (session.audio) session.audio.pause(); keepAwake(false); liveEnd(); } else { session.timeline.resume(); if (session.audio) session.audio.resume(); keepAwake(true); }
     renderToggles();
     showControls(true);
   });
@@ -320,7 +323,7 @@ export function initPlayer(shell, context) {
   }));
   // "Get Support Now" on the stage: pause, then go to the 988 panel in the page below.
   $('.tl-player-support').addEventListener('click', () => {
-    if (session && !session.over && session.timeline.playing()) { session.timeline.pause(); session.haptics.clear(); if (session.audio) session.audio.pause(); renderToggles(); }
+    if (session && !session.over && session.timeline.playing()) { session.timeline.pause(); session.haptics.clear(); if (session.audio) session.audio.pause(); liveEnd(); renderToggles(); }
   });
 
   // The completion screen.

@@ -1,5 +1,5 @@
 # Tidelight Build Progress
-Last updated: 2026-11-17 (forty features, feature 40)
+Last updated: 2026-11-17 (forty features, feature 38)
 Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
 Current phase: Forty features: a founder's second list, built one at a time with a full check after each
 Current step: Forty features: see the list just below. The first unticked line is the next one to build.
@@ -63,7 +63,7 @@ For specific people
 - [x] 37 — For people who lost someone to suicide: `#tl-loss` on the Friends tab shows the After a loss page's own opening and seven sections (it's not your fault, what you may feel, taking care of yourself, where to find support, talking to others, children and teens, schools and workplaces), word for word, through `SITE_SCREENS`
 
 The phone itself
-- [ ] 38 — An interactive widget and a Live Activity for a breathing minute
+- [x] 38 — An interactive widget and a Live Activity: the widget's "Start here" button runs a breathing minute on the widget itself (a pace in words and the time left; the app is not opened; the widget keeps one number of its own, when that minute ends); and, only if "Show a breathing session on the Lock Screen" is turned on in Settings, a 1-minute reset or "Breathe in a pattern" session shows "Tidelight", "Breathing", and the time left on the Lock Screen (`src/ui/live.js`, `TidelightBreathing.swift`, `TidelightWidget/BreathingLive.swift`, `BreathingAttributes.swift`, `tools/add-live-activity.rb`); taken down when the session ends or is paused, and when the app next opens; `test/unit/live.test.mjs`, `test/live-test.mjs`; **built for the Simulator; never run on a real phone**
 - [x] 39 — Restore from a copy: Settings has "A backup file" (`#tl-set-backup-box`): `src/logic/backup.js`, `src/ui/backup.js`; "Make a backup file" hands one JSON file (everything the app stores, as stored, no photos, not locked) to the share sheet; "Restore from a backup file" reads one back after asking, in place of what is on the phone; anything that isn't a backup, or is from a newer app, is refused and nothing changes; reminder times are cleared on restore; the text "copy of my data" is for reading and can't be restored from; `test/unit/backup.test.mjs`, `test/backup-test.mjs`
 - [x] 40 — Comfort settings: three switches in Settings, all off until turned on (`settings.alwaysDark`, `easyRead`, `readAloud`), `src/ui/comfort.js`; always use the dark colors (through the "Darker at night" colors, on the website's pages inside the app too); easier reading (more space between lines, letters, and words, and links underlined, on the app's own screens); a "Read aloud" button on screens with a Back button, which uses the phone's own voice on a tap, never reads a field, and stops on leaving the screen or the app; there is no "always light": the app has no light colors for a dark phone; `test/unit/comfort.test.mjs`, `test/comfort-test.mjs`
 

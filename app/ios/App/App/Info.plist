@@ -71,6 +71,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Only if you turn on "Lock the app": to check it's you before Tidelight shows anything you've saved. The check happens on this phone and nothing about it is sent anywhere.</string>
 	<key>NSHealthUpdateUsageDescription</key>

@@ -1860,6 +1860,23 @@ screens that have a Back button; this phone's own voice then reads the screen ou
 - There is no "always light" setting: the app has no light colors to use on a phone set to dark.
 - The Spanish is an AI translation no fluent reader has checked.
 
+### Forty features, 38: the interactive widget, and a breathing session on the Lock Screen (November 17, 2026)
+
+Two things outside the app, both on screens anyone can see.
+
+The widget gained a button, "Start here". It runs a breathing minute on the widget itself: "In for 4, out for
+6" and the time left, without opening the app. The Lock Screen can show a breathing session while it runs
+("Tidelight", "Breathing", the time left), only if the person turns that on in Settings.
+
+- **A founder's decision.** The rule is that anything outside the app is discreet. "Breathing" and a timer on
+  the Lock Screen tell someone looking at the phone that its owner is doing a breathing exercise. It is off
+  until turned on, and the switch says "Anyone who sees the phone can see it." Is that within the rule?
+- The widget's new words: "Start here", "In for 4, out for 6"; the Lock Screen's: "Breathing". Spanish:
+  "Empezar aquí", "Inhala 4, exhala 6", "Respirando" (an AI translation no fluent reader has checked).
+- If the app is closed by force during a session, the Lock Screen keeps showing "Tidelight" (alone, with no
+  word and no time) until the app is next opened or the phone removes it. Is that acceptable?
+- Neither has run on a real phone.
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

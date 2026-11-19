@@ -21,6 +21,7 @@ export function defaultSettings() {
     reduceMotion: false,
     appLock: false, // ask the phone to confirm who it is before showing anything saved
     health: false, // add finished meditations to Apple Health as mindful minutes (iPhone)
+    lockScreenBreathing: false, // show a breathing session on the Lock Screen while it runs (iPhone)
     nightMode: false, // dark colors between bed time and wake time, whatever the phone is set to
     alwaysDark: false, // dark colors all the time, whatever the phone is set to
     easyRead: false, // more space between lines, letters, and words; links underlined

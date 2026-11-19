@@ -75,6 +75,15 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 
 ## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
 
+The interactive widget, and the Lock Screen:
+- [ ] Add the Tidelight widget (small, then medium) to the Home Screen. Tap "Start here": the widget shows "In
+      for 4, out for 6" and a countdown from 1:00, the app does not open, and after a minute it goes back.
+- [ ] Settings, "Show a breathing session on the Lock Screen" on. Home, 1-min reset, then lock the phone: the
+      Lock Screen shows "Tidelight", "Breathing", and the time left. When the minute ends it goes away.
+- [ ] Start it again, pause the session: it goes away. Start it again, close the app from the app switcher:
+      note what the Lock Screen shows, then open the app: it goes away.
+- [ ] On an iPhone with a Dynamic Island: a small wind picture and the time left, and nothing else.
+
 Comfort settings:
 - [ ] Settings, "Always use the dark colors" at midday with the phone in light mode: the app turns dark at
       once, and so does the Get Help page opened from it.

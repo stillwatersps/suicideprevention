@@ -624,3 +624,11 @@ file with everything the app has saved (no photos) and read one back. The file i
 it can read all of it, and the screen says so. Whether an unlocked backup is acceptable, or a backup must be
 locked with a passphrase first, is for the founders (and a lawyer) to decide. Until then this stays a draft on
 its branch.
+
+## November 17, 2026: a breathing session on the Lock Screen (a proposal, not agreed)
+
+Built by Claude as feature 38 of the forty, on the unmerged branch `app/forty-features`. If a person turns it on,
+the Lock Screen shows "Tidelight", "Breathing", and the time left while a breathing session runs; and the
+widget has a button that runs a breathing minute on the widget itself. The founders' rule is that anything
+outside the app is discreet. Whether these are within it is for the founders to decide. Until then this stays
+a draft on its branch.

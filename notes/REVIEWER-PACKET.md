@@ -681,7 +681,7 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 2:30 PM  
+> At 7:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -942,7 +942,7 @@ Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 > Good afternoon  
 > You don't have to have everything figured out.  
 > Next check-in  
-> At 2:30 PM  
+> At 7:30 PM  
 > Start  
 > Suggested for you  
 > Silent  
@@ -1252,9 +1252,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Midday, 1:23 PM: feeling: Good.  
+> After school, 2:49 PM: feeling: Good.  
 > Remove  
-> Midday, 1:23 PM: feeling: Okay.  
+> After school, 2:49 PM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1753,10 +1753,10 @@ Picture: `app/design/after-launch-pass/reviewer/44-week.png`
 > You took some time to breathe or meditate.  
 > What you recorded  
 > Wednesday, November 18  
-> Midday, 1:23 PM: feeling: Good.  
-> Midday, 1:23 PM: feeling: Okay.  
-> Midday, 1:23 PM: feeling: Very low.  
-> Midday, 1:23 PM: feeling: Sad.  
+> After school, 2:49 PM: feeling: Good.  
+> After school, 2:49 PM: feeling: Okay.  
+> After school, 2:49 PM: feeling: Very low.  
+> After school, 2:49 PM: feeling: Sad.  
 > However the week went, you don't have to carry it alone.  
 > Call 988  
 > Text 988  
@@ -2387,10 +2387,10 @@ Picture: `app/design/after-launch-pass/reviewer/66-summary.png`
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
 > Wednesday, November 18  
-> - Midday, 1:23 PM: feeling: Good.  
-> - Midday, 1:23 PM: feeling: Okay.  
-> - Midday, 1:23 PM: feeling: Very low.  
-> - Midday, 1:23 PM: feeling: Sad.  
+> - After school, 2:49 PM: feeling: Good.  
+> - After school, 2:49 PM: feeling: Okay.  
+> - After school, 2:49 PM: feeling: Very low.  
+> - After school, 2:49 PM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 
