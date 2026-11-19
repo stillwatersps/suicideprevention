@@ -8,6 +8,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { ICONS, TABS } from '../src/ui/icons.js';
+import { siteScreen } from './site-screens.mjs';
 
 const appDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const www = join(appDir, 'www');
@@ -136,7 +137,7 @@ for (const page of PAGES) {
   // The new screens go above the page's own review notice; the notice for the new words goes
   // right under it. Both notices stay on every screen.
   html = once(html, /( {6}<aside class="page-status review-note"[\s\S]*?<\/aside>\n)/,
-    (all) => once(once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses'), '          <!-- EXPECT -->\n', '          ' + expectSection(page.lang) + '\n', '988 section').replace('          <!-- WAYS -->\n', '          ' + waysSection(page.lang) + '\n').replace('          <!-- HELPING -->\n', '          ' + helpingPage(page.lang) + '\n') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
+    (all) => once(once(b.app, '          <!-- LICENSES -->\n', licenses, 'licenses'), '          <!-- EXPECT -->\n', '          ' + expectSection(page.lang) + '\n', '988 section').replace('          <!-- WAYS -->\n', '          ' + waysSection(page.lang) + '\n').replace('          <!-- HELPING -->\n', '          ' + helpingPage(page.lang) + '\n').replace(/ {10}<!-- SITE:([\w-]+) -->\n/g, (marker, name) => '          ' + siteScreen(www, page.lang, name) + '\n') + b.words.replace('<div class="tl-words" hidden>', `<div class="tl-words" hidden data-phase="${phase}" data-audio='${JSON.stringify(manifest)}'>`) + all + b.review, 'screens and review notice');
   // A heavy feeling in the five-question check-in shows support at the top of its results.
   html = once(html, '          <div class="ci-talk-first">', b['result-support'] + '          <div class="ci-talk-first">', 'result support');
   html = once(html, '  <footer class="site-footer"', b.tabbar + (b.overlays || '') + '  <footer class="site-footer"', 'tab bar');
@@ -183,6 +184,12 @@ export const TEXT_AYUDA = 'sms:988?&amp;body=AYUDA';
 export function fillInAyuda(html) {
   return html.replace(/<a\b[^>]*\bhref="sms:988"[^>]*>[\s\S]*?<\/a>/g, (link) => (/\bAYUDA\b/.test(link.replace(/<[^>]+>/g, ' ')) ? link.replace('href="sms:988"', `href="${TEXT_AYUDA}"`) : link));
 }
+// The app's own page holds every screen, and a tenth of it was the spaces that indent its lines. They are
+// left out of the page the phone loads (test/budget-test.mjs has the size limit). Each line keeps its line
+// break, so words never run together; scripts, styles, and typed-in text are left exactly as they are.
+export function unindent(html) {
+  return html.split(/(<(script|style|textarea|pre)\b[\s\S]*?<\/\2>)/).map((part, i) => (i % 3 === 0 ? part.replace(/^[ \t]+/gm, '') : i % 3 === 1 ? part : '')).join('');
+}
 const appPages = PAGES.map((page) => join(www, page.file));
 for (const page of everyPage(www, 0)) {
   let html = readFileSync(page.path, 'utf8');
@@ -199,6 +206,7 @@ for (const page of everyPage(www, 0)) {
   html = once(html, '</head>', `  <link rel="stylesheet" href="${page.up}assets/app-safe-area.css">\n</head>`, 'safe-area stylesheet in ' + page.path);
   // After Quick exit, coming back to the app must show the page again (src/app-return.js says why).
   html = once(html, '</head>', `  <script src="${page.up}assets/app-return.js"></script>\n</head>`, 'return-from-exit script in ' + page.path);
+  if (appPages.includes(page.path)) html = unindent(html);
   writeFileSync(page.path, html);
 }
 mkdirSync(join(www, 'assets'), { recursive: true });

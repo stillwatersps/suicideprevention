@@ -141,7 +141,8 @@ html.tl .tl-chip[aria-pressed="true"]::before { content: "\2713"; }
 .tl-badge { display: inline-flex; align-items: center; gap: var(--tl-space-xs); padding: var(--tl-space-xs) var(--tl-space-sm); border-radius: var(--tl-radius-full); background: var(--tl-secondary-soft); color: var(--tl-text-primary); font-size: var(--tl-font-caption); font-weight: var(--tl-weight-strong); }
 
 /* Stepper */
-.tl-stepper { display: inline-flex; align-items: center; gap: var(--tl-space-md); }
+/* On a small phone at large text the two buttons and the number can't sit side by side, so they wrap. */
+.tl-stepper { display: inline-flex; flex-wrap: wrap; max-width: 100%; align-items: center; gap: var(--tl-space-md); }
 .tl-stepper-value { min-width: var(--tl-tap-lg); text-align: center; font-size: var(--tl-font-huge); line-height: var(--tl-line-tight); font-weight: var(--tl-weight-strong); font-variant-numeric: tabular-nums; }
 html.tl .tl-stepper .tl-icon-btn { width: var(--tl-tap-lg); height: var(--tl-tap-lg); font-size: var(--tl-font-title); }
 
@@ -253,9 +254,11 @@ html.tl .tl-result-support { margin: var(--tl-space-md) 0; display: grid; gap: v
 .tl-setup-list li { display: grid; gap: var(--tl-space-xs); padding: var(--tl-space-sm) var(--tl-space-md); border: var(--tl-border) solid var(--tl-line); border-radius: var(--tl-radius-md); background: var(--tl-surface); }
 .tl-setup-list .tl-row { flex-wrap: nowrap; }
 .tl-setup-list .tl-input { min-width: 0; }
-#tl-setup-ring { width: var(--tl-tap-lg); height: var(--tl-tap-lg); }
+/* A line under the card's words. It shares its class with the player's bar, which is pinned to the stage's
+   bottom edge; unpinned here, or it sat on top of the card's second line. */
+#tl-setup-ring { position: relative !important; }
 #tl-settings-sections { margin: 0; }
-html.tl #tl-version { justify-self: start; }
+html.tl #tl-version { justify-self: start; max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: start; }
 
 @media (prefers-reduced-motion: reduce) {
   .tl-breath .tl-breath-dot, .tl-style-preview.is-playing .tl-breath-dot, .tl-ob-page, .tl-flow-more { animation: none; }
@@ -328,6 +331,7 @@ html.tl .tl-scene-btn:disabled { opacity: 0.3; }
 .tl-guide-count { font-variant-numeric: tabular-nums; opacity: 0.8; }
 .tl-screen-text { position: absolute !important; top: calc(var(--tl-tap) + var(--tl-space-xl)); left: var(--tl-space-md); right: var(--tl-space-md); margin: 0; text-align: center; font-family: var(--tl-font); font-size: var(--tl-font-display); line-height: var(--tl-line-tight); font-weight: var(--tl-weight-strong); opacity: 0; transition: opacity var(--tl-slow) var(--tl-ease); }
 .tl-screen-text.is-on { opacity: 1; }
+.tl-stage.has-controls .tl-screen-text { top: calc(var(--tl-tap) * 2 + var(--tl-space-xl) * 2); }
 .tl-stage-hint { position: absolute !important; bottom: var(--tl-space-lg); left: 0; right: 0; margin: 0; text-align: center; font-size: var(--tl-font-caption); opacity: 0.7; }
 .tl-controls { position: absolute !important; inset: 0; z-index: 2; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; padding: calc(var(--tl-tap) + var(--tl-space-lg)) var(--tl-space-md) var(--tl-space-xl); background: var(--tl-scene-shade); animation: tl-fade var(--tl-fast) var(--tl-ease); }
 .tl-controls[hidden] { display: none; }
@@ -401,7 +405,7 @@ html.tl .tl-ob-top .tl-btn { min-width: var(--tl-tap); padding-left: var(--tl-sp
 .tl-input { min-width: 0; max-width: 100%; box-sizing: border-box; }
 /* On an iPhone a time or date field keeps the phone's own width unless its native look is turned
    off, and two of them side by side ran past the edge of their panel. */
-.tl-input[type="time"], .tl-input[type="date"] { -webkit-appearance: none; appearance: none; }
+.tl-input[type="time"], .tl-input[type="date"], .tl-input[type="datetime-local"] { -webkit-appearance: none; appearance: none; }
 .tl-input::-webkit-date-and-time-value { min-width: 0; text-align: start; }
 .tl-times-edit { grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--tl-col)), 1fr)); }
 .tl-streak-line { flex-wrap: wrap; }
@@ -440,6 +444,33 @@ html.tl-locked #app-age { display: none !important; }
 
 /* The safety plan: each entry is a line of the person's own words, with what can be done to it
    beside it or, when there isn't room, under it. */
+/* A letter to myself: the person's own line breaks are kept, and a long word wraps. */
+.tl-letter-words { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.tl-letter-field { display: block; min-height: calc(var(--tl-tap-lg) * 4); resize: vertical; overflow-wrap: anywhere; }
+#tl-letter .tl-row { flex-wrap: wrap; }
+#tl-nearby .tl-row { flex-wrap: wrap; }
+#tl-reframe .tl-letter-field { min-height: calc(var(--tl-tap-lg) * 1.5); }
+html.tl #tl-reframe .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* One small thing for today: the line is the person's own and may be long; the buttons sit under it. */
+.tl-step-card { flex-wrap: wrap; }
+.tl-step-card .tl-card-text { min-width: 0; overflow-wrap: anywhere; }
+.tl-step-row { flex: 1 1 100%; flex-wrap: wrap; justify-content: flex-end; }
+/* Three good things: each earlier day is a small block; long words wrap. */
+.tl-good-days { display: grid; gap: var(--tl-space-md); margin: 0; padding: 0; list-style: none; }
+.tl-good-day { display: grid; gap: var(--tl-space-xs); padding-top: var(--tl-space-sm); border-top: var(--tl-border) solid var(--tl-line); min-width: 0; }
+.tl-good-things { margin: 0; padding-left: var(--tl-space-lg); overflow-wrap: anywhere; }
+.tl-good-day .tl-btn { justify-self: start; }
+html.tl #tl-good .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+#tl-wind-steps { display: grid; gap: var(--tl-space-sm); }
+html.tl #tl-wind .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+html.tl #tl-nearby .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* Ten minutes at a time: the clock is large and still, and long words wrap. */
+.tl-ride-time { font-variant-numeric: tabular-nums; }
+#tl-ride .tl-row { flex-wrap: wrap; }
+#tl-ride .tl-headline { overflow-wrap: anywhere; }
+html.tl #tl-ride .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+#tl-reach .tl-letter-field { min-height: calc(var(--tl-tap-lg) * 2); }
+html.tl #tl-letter .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
 .tl-plan-list { display: grid; grid-template-columns: minmax(0, 1fr); margin: 0; padding: 0; list-style: none; }
 .tl-plan-item { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tl-space-sm); padding: var(--tl-space-sm) 0; border-top: var(--tl-border) solid var(--tl-line); }
 .tl-plan-text { flex: 1 1 50%; min-width: 0; overflow-wrap: anywhere; }
@@ -527,4 +558,72 @@ textarea.tl-input { width: 100%; resize: vertical; font: inherit; }
 .tl-privacy-body p { margin: 0; overflow-wrap: anywhere; }
 .tl-privacy-body ul { margin: 0; padding: 0 0 0 var(--tl-space-lg); list-style: disc; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-xs); }
 .tl-privacy-body li { overflow-wrap: anywhere; }
-
+/* A first week: seven steps in a column; the day and "Up next" share a line and wrap. */
+.tl-course-steps { display: grid; gap: var(--tl-space-md); margin: 0; padding: 0; list-style: none; }
+.tl-course-step { display: grid; gap: var(--tl-space-xs); min-width: 0; }
+.tl-course-day { display: flex; flex-wrap: wrap; gap: var(--tl-space-sm); margin: 0; color: var(--tl-text-secondary); font-size: var(--tl-font-label); }
+.tl-course-next { color: var(--tl-text); font-weight: 600; }
+html.tl #tl-course .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* Breathe in a pattern: the pattern chips and the note wrap inside the card. */
+.tl-type [data-type-pattern] { flex-wrap: wrap; }
+.tl-type-note { display: block; min-width: 0; overflow-wrap: anywhere; }
+/* My toolkit: the pinned tools are buttons that wrap under the card's words. */
+.tl-toolkit-row { flex: 1 1 100%; flex-wrap: wrap; gap: var(--tl-space-sm); }
+.tl-toolkit-row .tl-btn { display: inline-flex; align-items: center; gap: var(--tl-space-xs); max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: left; }
+#tl-toolkit-list { display: grid; gap: var(--tl-space-sm); }
+/* A field never pushes wider than its panel. At the largest text a long word in a label (Spanish,
+   especially) used to widen the whole field past the screen; now the word breaks instead. */
+.tl-field { grid-template-columns: minmax(0, 1fr); }
+.tl-field > label { min-width: 0; overflow-wrap: anywhere; }
+/* My week, in words: sentences and the person's own lines, as plain lists that wrap. */
+.tl-week-lines, .tl-week-own { display: grid; gap: var(--tl-space-sm); margin: 0; padding: 0; list-style: none; overflow-wrap: anywhere; }
+.tl-week-day { color: var(--tl-text-secondary); font-size: var(--tl-font-label); margin-top: var(--tl-space-xs); }
+/* All tools: a hidden row takes no space, and long names wrap. */
+#tl-tools-list [hidden] { display: none; }
+#tl-tools-list .tl-card-text { min-width: 0; overflow-wrap: anywhere; }
+/* Words for telling someone: each line with its Copy button; the words can be selected. */
+.tl-tell-list { display: grid; gap: var(--tl-space-md); margin: 0; padding: 0; list-style: none; }
+.tl-tell-line { display: grid; gap: var(--tl-space-xs); min-width: 0; }
+.tl-tell-words { overflow-wrap: anywhere; -webkit-user-select: text; user-select: text; }
+.tl-tell-line .tl-btn { justify-self: start; }
+/* At the largest text on a small phone a line and its button stay inside the panel: both wrap. */
+.tl-tell-list, .tl-tell-line { grid-template-columns: minmax(0, 1fr); }
+html.tl #tl-tell .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* The safety plan as a page: its button wraps at the largest text. */
+html.tl #tl-plan-page-box .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* A reminder to check in on someone: the buttons wrap; the date field fits a small phone. */
+html.tl #tl-follow .tl-row { flex-wrap: wrap; }
+html.tl #tl-follow .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+#tl-follow input[type="datetime-local"] { min-width: 0; max-width: 100%; }
+/* For my next appointment: buttons wrap; the date field fits a small phone. */
+html.tl #tl-visit .tl-row { flex-wrap: wrap; }
+html.tl #tl-visit .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+#tl-visit input[type="datetime-local"] { min-width: 0; max-width: 100%; }
+#tl-visit .tl-plan-text { overflow-wrap: anywhere; min-width: 0; }
+#tl-visit .tl-field .tl-row > * { min-width: 0; max-width: 100%; }
+#tl-visit .tl-field .tl-row > .tl-input { flex: 1 1 100%; }
+/* A screen that shows a website page's own sections: its lists and buttons fit a phone. */
+.tl-site-body a { overflow-wrap: anywhere; }
+.tl-site-body .service-list, .tl-site-body .steps { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tl-space-sm); }
+.tl-site-body .service { min-width: 0; }
+.tl-site-body .pill { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tl-tap); min-width: var(--tl-tap); max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* For veterans, and for LGBTQ+ young people: the button under the services wraps at the largest text. */
+html.tl #tl-vets .tl-btn, html.tl #tl-lgbtq .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* After a crisis: five short steps, then ways on to the app's own tools. */
+.tl-after-steps { display: grid; gap: var(--tl-space-md); margin: 0; padding: 0; list-style: none; }
+.tl-after-step { display: grid; gap: var(--tl-space-xs); min-width: 0; overflow-wrap: anywhere; }
+.tl-after-links { display: grid; gap: var(--tl-space-sm); }
+html.tl #tl-after .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* A backup file: the file field and the two answers fit a small phone. */
+#tl-set-backup-box input[type="file"] { min-width: 0; max-width: 100%; height: auto; padding-block: var(--tl-space-sm); }
+html.tl #tl-set-backup-box .tl-row { flex-wrap: wrap; }
+html.tl #tl-set-backup-box .tl-btn { max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: center; }
+/* Easier reading (Settings): more room in the app's own screens, and links underlined. */
+html.tl-easy .tl-screen { line-height: 1.8; letter-spacing: 0.03em; word-spacing: 0.1em; }
+html.tl-easy .tl-screen p, html.tl-easy .tl-screen li, html.tl-easy .tl-screen label, html.tl-easy .tl-card-sub { line-height: 1.8; }
+html.tl-easy .tl-screen :is(p, li) a:not(.tl-btn):not(.pill) { text-decoration: underline !important; }
+html.tl-easy .tl-screen em, html.tl-easy .tl-screen i { font-style: normal; }
+/* Read aloud (Settings): its button sits at the end of the Back row, and wraps under it when there is no room. */
+html.tl-reads .tl-legacy-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tl-space-sm); }
+.tl-read { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+html .tl-legacy-head .tl-read[hidden] { display: none !important; }

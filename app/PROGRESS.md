@@ -1,8 +1,92 @@
 # Tidelight Build Progress
-Last updated: 2026-11-16 (a full check before forty more features)
-Current branch: app/next-features (cut from app/privacy-package, the top of the app's stack on November 15)
-Current phase: Next features: a founder's list of twenty, built one at a time with a full check after each
-Current step: Next features: all 20 are built on `app/next-features` (7, 11, 12, and 14 were already built by pull requests 30 and 31), each with a full run of the suite before the next. Draft pull request 32 into `app/privacy-package`; the handoff is `notes/worklogs/2026-11-15-claude-app-next-features.md`. Next: a founder reads the draft pull request and `notes/CONTENT-REVIEW.md` ("Questions about the app's next features"); nothing here has been reviewed or run on a real phone, iPad, or watch.
+Last updated: 2026-11-19 (forty features: all built, draft pull request 33 open)
+Current branch: app/forty-features (cut from app/next-features, pull request 32, on November 16)
+Current phase: Forty features: a founder's second list, built one at a time with a full check after each
+Current step: Forty features: all built and committed. Draft pull request 33 into app/next-features. The handoff is notes/worklogs/2026-11-18-claude-app-forty-features.md
+
+## Forty features — all built (November 19, 2026)
+
+One founder asked Claude for forty features (November 16, 2026), then for all of them, **one at a time, with a
+full check after each before the next**: `npm test` in `app/`, then the four checks at the repository root.
+The other founder hasn't seen the list. Each feature is its own commit on `app/forty-features`. A founder's
+standing instruction: check the plan's usage at each feature; stop with everything committed and pushed before
+5% is left, and pick up here when it resets.
+
+Already in the app before this list, so not built again (checked that each is reachable and tested): the Hope
+box (1), "Making my space safer" in the safety plan (7), crisis lines by need on "Other ways to reach someone"
+(8), the journal with prompts (11), feeling words in the Daily check-in (12), "Suggested for you" on Home by
+time of day and place (23), My circle (27).
+
+In a hard moment
+- [x] 1 — Hope box (already built)
+- [x] 2 — A letter to myself: `src/logic/letter.js`, `src/ui/letter.js`, `test/unit/letter.test.mjs`, `test/letter-test.mjs` (69 checks); one letter in the person's own words, on the Check-in tab and, once written, on the support step under the crisis buttons; in the crisis inventory, the data copy, Delete everything, the privacy screen, and behind the app lock
+- [x] 3 — Reach someone I trust: `src/logic/reach.js`, `src/ui/reach.js`, `test/unit/reach.test.mjs`, `test/reach-test.mjs`; a short message ready ahead of time for one person in My circle, on the Friends tab and, when the circle has someone in it, on the support step under the crisis buttons; the phone's own messages open with the words filled in and the person sends it; the app sends nothing and keeps only words the person changed and saved
+- [x] 4 — Ten minutes at a time: `src/logic/ride.js`, `src/ui/ride.js`, `test/unit/ride.test.mjs`, `test/ride-test.mjs`; five small steps of two minutes, silent, storing nothing, on the Check-in tab and on the support step under the crisis buttons; Call 988, Text 988, and Call 911 are on the screen the whole time; at the end or on "Stop here" it asks how things are, and "Still hard" shows support at once and makes the day quiet
+- [x] 5 — Quick body skills: "Tense and release" is the fifth exercise in Grounding (`#tl-ground`), between "Feet on the floor" and "A slower breath"; "Something cold" and the paced breath were already there; `test/ground-test.mjs` now expects five
+- [x] 6 — Darker at night: `src/logic/night.js`, `src/ui/night.js`, `tools/night-css.mjs`, `test/unit/night.test.mjs`, `test/unit/night-css.test.mjs`, `test/night-test.mjs`; a switch in Settings (`settings.nightMode`, off by default): between bed time and wake time the app uses its dark colors on a phone set to light; the build makes a night copy of every dark rule; the website's pages inside the app follow through a session-only note of when tonight ends; at night everything, the crisis strip included, looks as it does on a phone set to dark
+- [x] 7 — "Make my space safer" (already built: part 6 of the safety plan)
+- [x] 8 — Crisis lines by need (already built: "Other ways to reach someone")
+- [x] 9 — Care near me: `src/ui/nearby.js`, `test/unit/nearby.test.mjs`, `test/nearby-test.mjs`; one link that opens the phone's own maps at a search for emergency rooms (the address is markup, with nothing about the person in it; the app reads no location), on the Check-in tab and the support step; "Other ways to reach someone" is one tap away
+- [x] 10 — Just sound: a fifth built-in type, `sound`, in `src/logic/meditations.js` (`TYPES`, `CONFIG.meditation.lengths.sound`), with its card on the Meditate tab: rain, ocean, white or brown noise for 5, 15, or 30 minutes, no voice, no breathing guide, no taps; `test/sound-test.mjs`
+
+Day to day
+- [x] 11 — Journal with prompts (already built)
+- [x] 12 — Feeling words (already built: the Daily check-in)
+- [x] 13 — Wind down for sleep: `#tl-wind` on the Meditate tab, `src/ui/wind.js`, `test/unit/wind.test.mjs`, `test/wind-test.mjs`; four small steps to tick off (never stored, cleared each time), then "Start the Sleep session"; says help does not have to wait for morning
+- [x] 14 — Three good things: `src/logic/good.js`, `src/ui/good.js`, `test/unit/good.test.mjs`, `test/good-test.mjs`; up to three short lines a day in the person's own words (`tidelight.good.v1`, newest 90 days kept, last 7 shown), on the Check-in tab; nothing counted or celebrated; never offered on the support step; in the data copy, Delete everything, the privacy screen, and behind the app lock
+- [x] 15 — One small thing for today: a card on Home (`#tl-home-step`, `src/logic/step.js`, `src/ui/step.js`, `test/unit/step.test.mjs`, `test/step-test.mjs`) showing one line a day from the person's own "Things you'd like to try" (the older page's list, read only); "Another one" and "My list"; the app adds no line, stores nothing, never asks whether it was done; hidden on a quiet day
+- [x] 16 — Another way to see it: `#tl-reframe` on the Check-in tab, `src/ui/reframe.js`, `test/unit/reframe.test.mjs`, `test/reframe-test.mjs`; four questions for a heavy thought, answered in the person's own words; nothing typed is kept (cleared on leaving, on Quick exit, and by its own button); says first that it isn't for thoughts of ending your life; never on the support step
+- [x] 17 — Body scan: a sixth built-in type, `scan` (`TYPES`, `builtIn`, `CONFIG.meditation.lengths.scan`), 5 or 10 minutes, with its card on the Meditate tab; every line is one the Deep session already says (`intro.deep`, `bodyScan`, `outro.deep`), so the voice recording sheet is unchanged; `test/scan-test.mjs`. Muscle relaxation is "Tense and release" in Grounding (feature 5): a spoken version would need new script lines and recordings, and was not written
+- [x] 18 — Being kind to yourself: `#tl-kind` on the Check-in tab (markup only, no script): three short self-compassion exercises in plain words, with 988 and 911 at its end; nothing to type, nothing kept; `test/unit/kind.test.mjs`, `test/kind-test.mjs`
+- [x] 19 — A mindful walk: a seventh built-in type, `walk` (5, 10 or 15 minutes), with its card on the Meditate tab; four new spoken lines in two styles and two languages (`intro.walk`, `walk.steps`, `walk.around`, `outro.walk`), which are in the voice recording sheet; no breathing circle and no taps, and its first line says to put the phone in a pocket and watch where you're going; `test/unit/walk.test.mjs`, `test/walk-test.mjs`
+- [x] 20 — A first week: `#tl-course` on the Meditate tab, `src/logic/course.js`, `src/ui/course.js`, `tidelight.course.v1` (step numbers only, no dates); seven steps, each one something the app already has (1-minute reset, Grounding, Body scan, Three good things, A mindful walk, Being kind to yourself, My safety plan); a tick is the person's own and can be taken back; nothing is counted, and the closing line is hidden on a quiet day; in the copy of my data, the erase, and the privacy screen; `test/unit/course.test.mjs`, `test/course-test.mjs`
+- [x] 21 — A choice of breathing patterns: an eighth built-in type, `breathe`, with a pattern picked on its card (`BREATHE`: calm 4-6, box 4-4-4-4, 4-7-8), for 1, 3 or 5 minutes; breathing only, nothing spoken; the card says to stop if it makes you dizzy; a favorite keeps its pattern; `test/unit/breathe.test.mjs`, `test/breathe-test.mjs`
+- [x] 22 — My toolkit: a card on Home (`#tl-home-toolkit`) with up to four tools the person pins, chosen on `#tl-toolkit`; `src/logic/tools.js` (the list of tools as data, `TOOLS`, which a list of every tool can reuse), `src/ui/toolkit.js`, `tidelight.toolkit.v1` (ids only); the crisis lines are not tools and can't be pinned or unpinned; in the copy of my data, the erase, and the privacy screen; `test/unit/toolkit.test.mjs`, `test/toolkit-test.mjs`
+- [x] 23 — Home adapts (already built: "Suggested for you")
+- [x] 24 — Reminders in the person's own words: a field in Settings, Notifications (`#tl-set-rem-words`), kept as `settings.reminderWords`; `src/logic/reminder-words.js` refuses words about mood, crisis, or getting help (English and Spanish), and a refused or missing line means the app's usual words; the screen warns that a reminder shows on the lock screen; in the copy of my data, and removed by Delete everything; `test/unit/reminder-words.test.mjs`, `test/reminder-words-test.mjs`
+- [x] 25 — My week, in words: `#tl-week` on the Check-in tab, `src/logic/week.js`, `src/ui/week.js`; a few plain sentences about the last seven days (check-ins, meditations, good things) and the person's own check-in lines; no numbers, scores, charts, or comparisons, by a unit test; put together each time and never kept; the three crisis lines are on the screen; `test/unit/week.test.mjs`, `test/week-test.mjs`
+- [x] 26 — A searchable list of every tool: `#tl-tools`, opened from Home's toolkit card ("All tools"), `src/ui/tools-list.js`; twenty-two tools from `EVERY` in `src/logic/tools.js` (the fourteen that can be pinned and eight that have a tab or row already), each a name and a line; search matches either, without capitals or accents; what is typed is never kept and is cleared on leaving; a search that reads like a need for urgent help shows the three crisis lines first (`asksForHelp`); `test/unit/tools-list.test.mjs`, `test/tools-test.mjs`
+
+With other people
+- [x] 27 — My circle (already built)
+- [x] 28 — Words for telling someone: `#tl-tell` on the Friends tab, `src/ui/tell.js`; eight ways to start in four groups (starting the conversation, in writing, thoughts of suicide, what to ask for), each with a Copy button that puts the words on the phone's clipboard and nothing else; the three crisis lines are on the screen; nothing kept, nothing sent; `test/unit/tell.test.mjs`, `test/tell-test.mjs`
+- [x] 29 — The safety plan as a page to print or keep: "A page to print or keep" on the plan screen (`#tl-plan-page`), `planPage()` in `src/logic/plan.js`; one plain text file handed to the phone's share sheet (from there: Print, or Save to Files), with every part that has something in it and always 988 and 911 at the end; nothing is kept about where it went; it is a text file, not a PDF: a real PDF needs native code that was not written; `test/unit/plan-page.test.mjs`, `test/plan-page-test.mjs`
+- [x] 30 — For supporters, a private reminder to check in on someone: `#tl-follow` on the Friends tab, `src/logic/once.js`, `src/ui/once.js`, `src/ui/follow.js`, `tidelight.follow.v1` (a name the person may type, and a time); the phone's notification (id 298) says only "A reminder you set." and never the name; in the copy of my data, the erase (which also cancels the notification), and the privacy screen; `test/unit/once.test.mjs`, `test/follow-test.mjs`
+- [x] 31 — Therapy companion: `#tl-visit`, "For my next appointment", on the Check-in tab; `src/logic/visit.js`, `src/ui/visit.js`, `tidelight.visit.v1`; up to eight things to bring up, in the person's own words, and one reminder (notification id 297) that says only "A reminder you set."; leads on to "A summary for an appointment"; in the copy of my data, the erase (which also cancels the notification), and the privacy screen; `test/unit/visit.test.mjs`, `test/visit-test.mjs`
+- [x] 32 — Links to low-cost care: `#tl-care` on the Check-in tab shows the Get Help page's own section "Support over time" (talk to a health care provider, FindTreatment.gov, SAMHSA's National Helpline), word for word; `tools/site-screens.mjs` is the one place that says which screens show which page's sections (`SITE_SCREENS`, `<!-- SITE:name -->` in the markup), and `test/site-test.mjs` compares every such screen with its page
+
+For specific people
+- [x] 33 — Teen wording: `#tl-teens` on the Check-in tab shows the For teens page's own opening and four sections (reaching out yourself, telling an adult you trust, what stays private, a friend you're worried about), word for word, through `SITE_SCREENS`; the row is shown to everyone, whatever age group was picked
+- [x] 34 — A guide for parents and caregivers: `#tl-parents` on the Friends tab shows the Help Someone page's own section "If it's a child or teen" (a parent or caregiver, at school, a young person worried about a friend), word for word, through `SITE_SCREENS`; no new guide was written: a fuller one is for a clinician to write on the website, and the app will show it
+- [x] 35 — Pages for veterans and for LGBTQ+ young people: `#tl-vets` and `#tl-lgbtq` on the Check-in tab, each a title and one line of the app's own and then the Get Help page's own entries for those services (the Veterans Crisis Line; LGBTQ+ youth through 988, and The Trevor Project), word for word, through `SITE_SCREENS` (`services`); **no page for new parents was built**: the website names no service for them, and a crisis resource is not added to the app before it is verified on the website
+- [x] 36 — After a crisis: `#tl-after` on the Check-in tab (markup only, no script): five small steps for the days after a crisis, an emergency room visit, or a hospital stay (the follow-up appointment, telling one person, the safety plan, a safer space, going gently), ways on to four tools the app has, and the three crisis lines; it says first that the thoughts coming back is not failure; it names no method and defers to the people treating the person, by a unit test; never on a support step; **the highest-risk new wording of the forty, and the first thing a clinician should read**; `test/unit/after.test.mjs`, `test/after-test.mjs`
+- [x] 37 — For people who lost someone to suicide: `#tl-loss` on the Friends tab shows the After a loss page's own opening and seven sections (it's not your fault, what you may feel, taking care of yourself, where to find support, talking to others, children and teens, schools and workplaces), word for word, through `SITE_SCREENS`
+
+The phone itself
+- [x] 38 — An interactive widget and a Live Activity: the widget's "Start here" button runs a breathing minute on the widget itself (a pace in words and the time left; the app is not opened; the widget keeps one number of its own, when that minute ends); and, only if "Show a breathing session on the Lock Screen" is turned on in Settings, a 1-minute reset or "Breathe in a pattern" session shows "Tidelight", "Breathing", and the time left on the Lock Screen (`src/ui/live.js`, `TidelightBreathing.swift`, `TidelightWidget/BreathingLive.swift`, `BreathingAttributes.swift`, `tools/add-live-activity.rb`); taken down when the session ends or is paused, and when the app next opens; `test/unit/live.test.mjs`, `test/live-test.mjs`; **built for the Simulator; never run on a real phone**
+- [x] 39 — Restore from a copy: Settings has "A backup file" (`#tl-set-backup-box`): `src/logic/backup.js`, `src/ui/backup.js`; "Make a backup file" hands one JSON file (everything the app stores, as stored, no photos, not locked) to the share sheet; "Restore from a backup file" reads one back after asking, in place of what is on the phone; anything that isn't a backup, or is from a newer app, is refused and nothing changes; reminder times are cleared on restore; the text "copy of my data" is for reading and can't be restored from; `test/unit/backup.test.mjs`, `test/backup-test.mjs`
+- [x] 40 — Comfort settings: three switches in Settings, all off until turned on (`settings.alwaysDark`, `easyRead`, `readAloud`), `src/ui/comfort.js`; always use the dark colors (through the "Darker at night" colors, on the website's pages inside the app too); easier reading (more space between lines, letters, and words, and links underlined, on the app's own screens); a "Read aloud" button on screens with a Back button, which uses the phone's own voice on a tap, never reads a field, and stops on leaving the screen or the app; there is no "always light": the app has no light colors for a dark phone; `test/unit/comfort.test.mjs`, `test/comfort-test.mjs`
+
+### Resume instructions (forty features)
+
+Work in the worktree on `app/forty-features`. Build the first unticked feature above. Before its commit: `npm
+test` in `app/` (shut the Simulator down first: it makes the long run flaky), then `tools/check_site.py`,
+`tools/test_browser.py`, `tools/test_webkit.py`, and `tools/make_review_packet.py` from the root. A new screen
+goes in `test/app-screens.mjs` and the crisis inventory is re-recorded for it (`node test/crisis-test.mjs
+--record`), with every existing entry compared and unchanged. New words: `npm run words:es`, then
+`node app/tools/strings.mjs snapshot app/redesign-dev` from the root (the reviewed count must stay 1997), and a
+question in `notes/CONTENT-REVIEW.md`. Tick the line here, commit, push, go on. At the end: a draft pull request
+into `app/next-features`, a handoff in `notes/worklogs/`, and the status, task, and decision notes.
+
+**After the last feature (a founder's instruction, November 16, 2026): a full rundown of the whole app.** Every
+feature and every button, old and new, checked that it does what it was planned to do: the full suite, then a
+walk through every screen in the iPhone Simulator (muted, `npm run sim:launch`; never complete a call or send a
+text), in English and Spanish, with the result written up screen by screen in the handoff, faults fixed or listed.
+The founder is away while this runs: keep going without asking, one feature after another.
+
+**The rundown is done (November 19, 2026).** Five walks in the Simulator, about 200 screens and states in English
+and Spanish. The faults it found were fixed, each with a check; what was seen and left is listed in the handoff,
+`notes/worklogs/2026-11-18-claude-app-forty-features.md`, with what was not tried.
 
 ## A full check before forty more features — November 16, 2026
 

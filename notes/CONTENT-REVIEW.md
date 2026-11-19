@@ -1398,6 +1398,508 @@ has seen its screens.
 - A founder: a watch app needs its own identifier in the developer account. No team or signing identity
   was chosen.
 
+### Forty features, 15: one small thing for today (November 17, 2026)
+
+A card on Home: "One small thing for today", with one line from the person's own list of "Things you'd like
+to try" (which they write under Rediscover), a different one each day, and "Another one". With nothing on the
+list it says: "Things you'd like to try can show here, one a day. The list is yours to write." The app adds no
+suggestion of its own, and the card is not shown on a day with a very low check-in.
+
+- The reviewer: is a daily nudge from the person's own list helpful, or pressure? It never asks whether the
+  thing was done.
+- Should the app offer a few starter ideas for an empty list? It offers none: every line is the person's.
+- The Spanish ("Una cosa pequeña para hoy") is an AI translation no fluent reader has checked.
+
+### Forty features, 14: three good things (November 17, 2026)
+
+A new screen on the Check-in tab: each day, up to three short lines about things that went all right, in the
+person's own words, with the last seven days shown underneath. Nothing is counted. It is never offered on the
+support step. All of its wording is new, in both languages.
+
+- The reviewer: is asking for "good things" safe for someone who is suicidal? On a bad day an empty list could
+  feel like proof. The screen says: "Some days there won't be any, and that is all right. Nothing here is
+  counted, and nobody is keeping score."
+- "A warm drink counts. So does getting out of bed." Is that the right register, or does it talk down?
+- Should earlier days be shown at all, or only today?
+- The Spanish ("Tres cosas buenas") is an AI translation no fluent reader has checked.
+
+### Forty features, 13: wind down for sleep (November 17, 2026)
+
+A new screen on the Meditate tab: four small steps to tick off before bed (dim the lights; write down what is
+on your mind for tomorrow; Do Not Disturb; get comfortable), then a button that starts the Sleep session. The
+ticks are not kept. All of its wording is new, in both languages.
+
+- The reviewer: are these four the right ones, and is any of them wrong for someone whose nights are the
+  hardest time? "Write down what is on your mind for tomorrow" could invite rumination.
+- The last line is "If the night feels like too much, you don't have to wait for morning", with where 988 and
+  911 are. Is that the right thing to say on a sleep screen?
+- Turning on Do Not Disturb could silence a call back from a crisis line or a friend. Should that step go?
+- The Spanish ("Prepararse para dormir") is an AI translation no fluent reader has checked.
+
+### Forty features, 10: just sound (November 17, 2026)
+
+A fifth kind of session on the Meditate tab, "Just sound": rain, ocean, white noise, or brown noise for 5, 15,
+or 30 minutes, with no voice and no breathing guide. The screen shows the existing words "Just rest".
+
+- The reviewer: at the end it shows the same "Well done" screen as a meditation and asks "How do you feel
+  now?". Is that right for someone who only listened to rain?
+- It counts toward the day like a meditation, and, if the person turned on Apple Health, it is added there as
+  mindful minutes. Should listening to a sound count as either?
+- The Spanish name ("Solo sonido") is an AI translation no fluent reader has checked.
+
+### Forty features, 9: care near me (November 17, 2026)
+
+A new screen on the Check-in tab and on the support step (under the crisis buttons). It has one outside link,
+"Emergency rooms near me, in Maps", which opens the phone's maps at a search for "emergency room" (Spanish:
+"sala de emergencias"). All of its wording is new, in both languages.
+
+- The reviewer: is pointing someone in crisis at an emergency room right, and is "An emergency room is open
+  day and night" enough? The screen says first: "You don't have to go anywhere to get help."
+- Should it say anything about not traveling alone, or about calling 911 instead of driving? It says neither.
+- A map search can return closed or unsuitable places. The app can't check the results.
+- A lawyer: the link hands the person to the maps app, which uses their location and may keep the search. The
+  screen says so. Is that enough notice, and does it need to be in the privacy policy?
+- The link is Apple's maps address. On an Android phone the app swaps in a `geo:` address; neither has been
+  tried on a real phone.
+
+### Forty features, 6: darker at night (November 16, 2026)
+
+A switch in Settings, "Darker at night", off until turned on. Between the bed time and wake time the person
+already set, the app uses its dark colors: exactly what a phone set to dark shows, crisis strip included.
+
+- The reviewer: nothing clinical was added. Is a darker screen at night enough, or should the app also say or
+  do something different at night (for example, put the Sleep session or the support options first)? Nothing
+  like that was built.
+- The Spanish ("Más oscura de noche") is an AI translation no fluent reader has checked.
+
+### Forty features, 5: tense and release (November 16, 2026)
+
+Grounding has a fifth exercise: "Make two fists and hold them tight while you count to five. Let go, and notice
+your hands soften. Then lift your shoulders toward your ears, hold, and let them drop. If tensing hurts, skip
+this one."
+
+- The reviewer: is tensing a fist safe to suggest to someone who may hurt themselves? It names only the hands
+  and shoulders, and gives a way out.
+- The Spanish ("Tensar y soltar") is an AI translation no fluent reader has checked.
+
+### Forty features, 4: ten minutes at a time (November 16, 2026)
+
+A new screen on the Check-in tab and on the support step (under the crisis buttons): five small steps, two
+minutes each, with a silent clock. It stores nothing. Call 988, Text 988, and Call 911 are on the screen the
+whole time. At the end it asks "How are things now?"; "Still hard" shows "You don't have to carry it alone"
+and brings Call 988 into view. All of its wording is new, in both languages.
+
+- The reviewer: the opening line is "Strong feelings rise and ease, even when it doesn't feel like they will."
+  Is that safe to say to someone in a crisis, and is it true enough to say?
+- **Does offering "ten minutes" risk someone waiting instead of calling?** The screen says first: "You don't
+  have to finish this before asking for help."
+- The five steps: feet on the floor and five things you can see; a longer breath out; a glass of water; move
+  to a different spot; think of one person you could be near or message. Are any of these wrong for someone
+  at high risk? Step 4 says "outside if you can".
+- "A little easier" answers: "You got through ten minutes. You can come back to this any time." Is that too
+  close to praise?
+- The Spanish is an AI translation ("Diez minutos a la vez") no fluent reader has checked.
+
+### Forty features, 3: reach someone I trust (November 16, 2026)
+
+A new screen on the Friends tab. It holds a short message, ready ahead of time, and lists the people in My
+circle; "Message (name)" opens the phone's own messages to that one person with the words filled in. The
+person taps Send there. When the circle has someone in it, the support step after a very low check-in shows
+"Message someone I trust" under Call 988, Text 988, and Call 911. All of its wording is new, in both languages.
+
+- The reviewer: the screen starts with these words, which the person can change: "I'm having a hard time right
+  now. Could you call or text me when you see this?" Is that the right thing to put in someone's mouth? It
+  names nothing and asks for a call back, not for rescue.
+- Is it safe to offer a message to a friend on the support step at all? The screen says first: "A message is
+  not a way to get urgent help. The person may not see it right away."
+- Each person also has "Call (name)". It is their own contact, as in the safety plan.
+- A teenager's circle "doesn't have to include a parent" (existing wording). Does a ready message to a friend
+  need any different wording for under-18s?
+- A lawyer: the message goes through the phone's own messages, so the app never has it. The privacy screen
+  now lists "your message for a hard moment" among what is kept (only words the person saved).
+
+### Forty features, 2: a letter to myself (November 16, 2026)
+
+A new screen on the Check-in tab. The person writes one letter, on a steadier day, to read on a hard one. The
+app writes none of it. Once there is a letter, the support step after a very low check-in shows "Read my
+letter" under Call 988, Text 988, Call 911, and the plan. All of its wording is new, in both languages.
+
+- The reviewer: is offering a person their own letter on the support step safe? A letter written on a good day
+  could read as a reproach on a bad one ("you promised").
+- Should the screen say anything about what to write? It says only "There is no right way to write it."
+- The screen says first that nothing has to be read or written before asking for help. Is that the right line?
+- The letter can be up to 2,000 characters. It is stored as the person wrote it and is in "a copy of my data".
+- The Spanish is an AI translation ("Una carta para mí") no fluent reader has checked.
+
+### Forty features, 16: another way to see it (November 17, 2026)
+
+A new screen on the Check-in tab: four questions for a thought that keeps coming back ("What happened?", "What
+went through my mind?", "What would I say to a friend who thought that?", "Is there another way to see it?"),
+each with an empty field. Nothing typed is kept. All of its wording is new, in both languages.
+
+- The reviewer: this is a thought record in plain words. Is it safe to offer without a clinician, and are
+  these the right four questions?
+- It says first: "This isn't for thoughts of ending your life. Those are for a person, not a worksheet." Is
+  that the right line, and could it read as turning someone away?
+- Its last line: "If the thought is still heavy afterwards, that doesn't mean you did this wrong. Some thoughts
+  need another person."
+- Nothing is saved, on purpose. Would a person be better served by keeping what they wrote?
+- The Spanish ("Otra manera de verlo") is an AI translation no fluent reader has checked.
+
+### Forty features, 17: body scan (November 17, 2026)
+
+A sixth kind of session on the Meditate tab, "Body scan", for 5 or 10 minutes. It says only lines the Deep
+session already says (the opening, the body scan, the closing), with a long quiet after the scan. Its name is
+the one the Build your own screen already uses, so there is no new wording.
+
+- The reviewer: the body scan line is said once and then there is quiet for several minutes. Is one pass
+  enough, or should the scan be written out part by part? That would be new script lines and new recordings.
+- A spoken muscle relaxation session was on the list. It was not written: the app has it only as words
+  ("Tense and release", in Grounding). Should a spoken one be written, and by whom?
+- For some people attention to the body is distressing. The opening line says "If anything feels like too
+  much, you can stop at any time." Is that enough?
+- The Spanish name is "Recorrido del cuerpo", the words the Build your own screen already used for its body scan switch: an AI translation no fluent reader has checked.
+
+### Forty features, 18: being kind to yourself (November 17, 2026)
+
+A new screen on the Check-in tab with three short exercises: a hand on your chest for three slow breaths; what
+you would say to a friend who felt this way; and saying to yourself "this is hard right now. Other people feel
+this too. I can go gently with myself while it lasts." All of its wording is new, in both languages.
+
+- The reviewer: are these three safe and well put for someone who is suicidal? Self-compassion exercises can
+  bring up strong feeling in people who are very self-critical.
+- "Other people feel this too" is meant as common humanity. Could it read as "so it's nothing special"?
+- It is not offered on the support step. Should it be?
+- The Spanish ("Tratarte con amabilidad") is an AI translation no fluent reader has checked.
+
+### Forty features, 19: a mindful walk (November 17, 2026)
+
+A seventh kind of session on the Meditate tab, "A mindful walk", for 5, 10 or 15 minutes. Four new spoken lines,
+each in the calm and the straightforward style: set off ("Put the phone in a pocket ... Keep your eyes on where
+you're going. You can stop at any time."), notice your steps, notice what is around you, slow to a stop.
+
+- The reviewer: these are new meditation lines, written by an AI assistant. They are in the voice recording
+  sheet and should not be recorded before a read.
+- The session is built for the voice. With the voice guide off, or the phone on silent, it is a timer with a
+  few words on the screen, which nobody should be reading while walking. Should it say so on its card, or
+  refuse to start without the voice?
+- "Walk" leaves out people who use a wheelchair or can't go out. The lines say "how you move" where they can.
+  Is there a better name?
+- The opening line assumes the person is somewhere safe to walk. Should it say so?
+- The Spanish ("Una caminata consciente") is an AI translation no fluent reader has checked.
+
+### Forty features, 20: a first week (November 17, 2026)
+
+A new screen on the Meditate tab: seven small things already in the app, in an order to try them, "one a day, or
+slower": the 1-minute reset, Grounding, Body scan, Three good things, A mindful walk, Being kind to yourself, and
+My safety plan. Each has a button that opens it and a tick the person makes themselves.
+
+- The reviewer: is this the right seven, in the right order? Is the safety plan the right last step, or should
+  it come first?
+- "Nothing is lost if you miss a day, and nothing here is counted." Is a course of days a pressure in itself for
+  someone who is struggling?
+- Its closing line: "That's all seven. They are still here whenever you want them." It is hidden on a day with
+  a very low check-in.
+- Only one course was built. Others (sleep, worry, grief) would each need their own list and a reviewer's read.
+- The Spanish ("Una primera semana") is an AI translation no fluent reader has checked.
+
+### Forty features, 21: a choice of breathing patterns (November 17, 2026)
+
+A new card on the Meditate tab, "Breathe in a pattern": the person picks Calm (in 4, out 6), Box (4, 4, 4, 4),
+or 4-7-8, and 1, 3 or 5 minutes, and breathes with the circle. Nothing is spoken. The three patterns were
+already in the app (the 1-minute reset uses box; "stressed" sessions use 4-7-8); what is new is choosing one.
+
+- The reviewer: is 4-7-8 safe to offer by name to anyone, for up to five minutes? The card says: "If you feel
+  dizzy or short of breath, stop and breathe the way you usually do." Is that enough, and should it also name
+  pregnancy, heart or lung conditions, or panic?
+- For some people, attention to the breath makes panic worse. Should the card say so?
+- The Spanish ("Respirar con un patrón") is an AI translation no fluent reader has checked.
+
+### Forty features, 22: my toolkit (November 17, 2026)
+
+A new card on Home, "My toolkit", where a person can pin up to four of the app's tools (Grounding, My safety
+plan, the 1-minute reset, the Hope box, and ten others) so they are one tap away. A new screen to choose them.
+
+- The reviewer: should anything be pinned for the person from the start, for example My safety plan, or is an
+  empty card with "Pin the tools you reach for most, and they will be here." right?
+- Call 988, Text 988, Call 911 and Get Support Now are not in the list, on purpose: they can't be unpinned.
+  The chooser says so. Is the sentence clear?
+- The Spanish ("Mis herramientas") is an AI translation no fluent reader has checked.
+
+### Forty features, 24: reminders in the person's own words (November 17, 2026)
+
+In Settings, Notifications, a person can write one short line (60 characters) for their check-in reminders to
+say instead of "A moment to check in, if you'd like." The app refuses words about mood, crisis, or getting
+help, in English and Spanish, and says why.
+
+- **A founder's decision is needed.** The rule is that notifications are discreet. This lets the person choose
+  the words, inside a list of words the app refuses. Is that within the rule, or should reminders only ever
+  say the app's own words? If the answer is no, the field comes out and nothing else changes.
+- Settings already says, in reviewed wording, "A reminder only says "…" Nothing about you is in it." With the
+  person's own words that sentence is only as true as what they wrote. Does it need to change?
+- The reviewer: the refused list (`src/logic/reminder-words.js`) is an AI assistant's guess: suicide, kill,
+  die, crisis, self-harm, hurt, cut, mood, feel, sad, depress, anxiety, panic, therapy, medication, pills,
+  mental, safety plan, hotline, 988, 911, the app's name, and Spanish forms of the same. What is missing?
+- A list can't catch everything ("you know what to do"). The warning on the screen is the other half: "A
+  reminder shows on the lock screen, where anyone near the phone can read it."
+- The Spanish is an AI translation no fluent reader has checked.
+
+### Forty features, 25: my week, in words (November 17, 2026)
+
+A new screen on the Check-in tab: one to three plain sentences about the last seven days ("You checked in on
+several days." "You took some time to breathe or meditate." "You wrote down some good things."), then the
+person's own check-in lines from those days, then "However the week went, you don't have to carry it alone." and
+the three crisis lines. No numbers, no chart, no comparison with last week.
+
+- The reviewer: is a look back at the week safe for someone whose week was very bad? The screen says nothing
+  about mood itself, but it does list their own check-in lines, low ones included.
+- With no check-ins it says: "No check-ins this week. That's all right. One is here whenever you want it." Could
+  that read as a nudge?
+- Should a week with a very low check-in show something different, for example the support step's words first?
+- The Spanish ("Mi semana, en palabras") is an AI translation no fluent reader has checked.
+
+### Forty features, 26: a list of every tool, with a search (November 17, 2026)
+
+A new screen, "All tools", opened from Home: twenty-two tools, each with its name and one line, and a search
+field. Most names and lines are ones the app already had. What is typed is not kept.
+
+- **When someone types words that read like a need for urgent help** ("suicide", "help", "kill", "die",
+  "crisis", "overdose", "hurt", and Spanish forms), the screen shows, above the results: "If you are thinking
+  about suicide, or you are in crisis, you can reach a person now." with Call 988, Text 988, and Call 911. The
+  reviewer: is that sentence right, and is the list of words (`asksForHelp` in `src/logic/tools.js`) missing any?
+- "help" also shows it for someone who only wanted the "What tends to help" tool. The list errs that way on
+  purpose. Is that the right side to err on?
+- The Spanish is an AI translation no fluent reader has checked.
+
+### Forty features, 28: words for telling someone (November 17, 2026)
+
+A new screen on the Friends tab with eight short things a person can say or send to tell someone they are
+struggling, each with a Copy button. All of the wording is new, in both languages.
+
+- The reviewer: are these the right lines? In particular: "I've been having thoughts of suicide, and I need
+  help staying safe." It names suicide plainly, on purpose. Is it safe to hand someone that sentence, and is
+  "staying safe" the right ask?
+- "You don't have to fix it. I just don't want to be alone with it." Could that discourage the other person
+  from getting help for them?
+- The closing: "If the first person doesn't respond the way you hoped, that isn't a reason to stop. Try another
+  person, or call or text 988. Someone there will listen."
+- The For teens page has "Telling an adult you trust", with what a school counselor has to pass on. This
+  screen doesn't say any of that. Should it point there?
+- The Spanish ("Palabras para contárselo a alguien") is an AI translation no fluent reader has checked.
+
+### Forty features, 29: the safety plan as a page to print or keep (November 17, 2026)
+
+Under "Share my plan", a new button makes the plan into one plain page and hands it to the phone's share sheet,
+where a person can print it or save it to their files. The page has each part of the plan that has something
+in it, under the screen's own headings, and ends with "If I need help right now", 988, and 911.
+
+- The reviewer: a printed plan can be found by someone else. The screen says "Anyone who has the page can read
+  it, so keep it somewhere you feel safe." Is that enough, especially for a young person at home?
+- The page's own words: "These are my own words. This page is not a medical record." and "Call or text 988,
+  the 988 Suicide and Crisis Lifeline, any time."
+- It is a text file. The feature was listed as "print or save as a PDF"; the phone's Print screen can save a
+  PDF from it, but the app doesn't make one itself.
+- The Spanish is an AI translation no fluent reader has checked.
+
+### Forty features, 30: a reminder to check in on someone (November 17, 2026)
+
+A new screen on the Friends tab for someone supporting another person: a name (optional, shown only in the app)
+and a time, and the phone reminds them once. The notification says only "A reminder you set."
+
+- The reviewer: "If you're supporting someone, checking in again matters." Is that the right way to say it, and
+  should the screen suggest when (the day after, a week after)?
+- "If you think they are in danger right now, don't wait for a reminder."
+- A tap on the notification opens the app at the check-in, like the app's other reminders, not at this
+  screen. Is that confusing enough to change?
+- It is one reminder at a time, once. A repeating one was not built.
+- The Spanish is an AI translation no fluent reader has checked.
+
+### Forty features, 31: for my next appointment (November 17, 2026)
+
+A new screen on the Check-in tab: a short list of things a person wants to bring up with a doctor, therapist,
+or counselor, and one reminder for the appointment. The notification says only "A reminder you set."
+
+- The reviewer: is "Things I want to bring up" the right prompt, and should the screen suggest what kinds of
+  things (sleep, medication questions, thoughts of suicide)? It suggests nothing now.
+- "If things get hard before the appointment, you don't have to wait for it."
+- The app keeps nothing about the appointment itself: not who it is with, where, or what for. A person who
+  wants that writes it as a line.
+- The feature was listed as a "therapy companion". This is the whole of it; mood tracking for a clinician,
+  homework, and between-session exercises were not built and would each need a clinician's design.
+- The Spanish ("Para mi próxima cita") is an AI translation no fluent reader has checked.
+
+### Forty features, 32: support over time (November 17, 2026)
+
+A new screen on the Check-in tab shows the Get Help page's own section "Support over time": what longer-term
+care is, talking to a health care provider, FindTreatment.gov, and SAMHSA's National Helpline. It is copied
+from the page when the app is built, so it says exactly what the page says and changes when the page does.
+
+- The only wording written for the app is the row's second line, "Longer-term care, and ways to find it"
+  ("Atención a largo plazo, y maneras de encontrarla"; an AI translation no fluent reader has checked).
+- The feature was listed as "links to low-cost care". The page names free referral lines and a treatment
+  finder; it does not name sliding-scale or free clinics. Should it? That is a change to the page, and its
+  sources, not to the app.
+
+### Forty features, 33: a way in for teens (November 17, 2026)
+
+A row on the Check-in tab, "If you're a teen and things feel hard", opens a screen with the For teens page's own opening and four sections:
+reaching out yourself, telling an adult you trust, what stays private, and a friend you're worried about. It is
+copied from the page when the app is built.
+
+- The row shows to everyone, adults included. Should it show only when a teen age group was picked, or is
+  "everyone" safer (a teen may have picked "adult")?
+- The only wording written for the app is the row's second line, "Reaching out, trusted adults, and what stays
+  private", in English and Spanish (an AI translation no fluent reader has checked).
+- The app's own screens (check-in prompts, meditation words) are not reworded for teens. That would be new
+  wording for a reviewer who works with young people to write or read.
+
+### Forty features, 34: for parents and caregivers (November 17, 2026)
+
+A row on the Friends tab, "If it's a child or teen", opens the Help Someone page's own section of that name: what a parent or
+caregiver can do, what happens at school, and a young person worried about a friend. The same section is
+already part of "Helping someone you're worried about"; this row is a direct way to it.
+
+- **No new guide was written.** A guide for parents and caregivers (what to say, making a home safer, what to
+  expect from an emergency room or a school) is clinical wording for a person qualified to write it. If it is
+  added to the Help Someone page, the app shows it with no further change.
+- The only wording written for the app is the row's second line, "For parents, caregivers, and school staff",
+  in English and Spanish (an AI translation no fluent reader has checked).
+
+### Forty features, 35: for veterans, and for LGBTQ+ young people (November 17, 2026)
+
+Two rows on the Check-in tab open two short screens. Each has a title and one line written for the app, then
+the Get Help page's own entry for the service: the Veterans Crisis Line on one; "LGBTQ+ youth, through 988" and
+The Trevor Project on the other. The entries are copied from the page.
+
+- **No screen for new parents was built.** The website names no service for pregnant or new parents, and the
+  app doesn't add a crisis resource the website hasn't verified. If one is verified and added to the Get Help
+  page, a screen for it is a few lines.
+- The same is true for other groups the list might have meant (older adults, Native communities, people who
+  are deaf or hard of hearing, who are on the "Other ways" screen already).
+- The page's entries are for LGBTQ+ youth and people under 25. There is nothing for LGBTQ+ adults beyond 988
+  itself. The title says "young people" for that reason.
+- The lines written for the app: "This is the Veterans Crisis Line as the Get Help page describes it. It is a
+  separate service from Tidelight. 988 and 911, at the top of every screen, are for anyone." and the same for
+  the other screen. The Spanish is an AI translation no fluent reader has checked.
+
+### Forty features, 36: after a crisis (November 17, 2026). **Read this one first.**
+
+A new screen on the Check-in tab for the days after a crisis, an emergency room visit, or a hospital stay. An AI
+assistant wrote every word of it, and it is aimed at the people at highest risk the app will meet: the weeks
+after discharge are a period of sharply raised risk. If a reviewer can read only one thing from the forty
+features, it should be this, and it should not ship unread.
+
+What it says: the days after can feel strange; "If the thoughts come back, that doesn't mean you failed, and
+you don't have to wait."; then five steps:
+
+1. "Keep the follow-up appointment. If you were given one, go, even if you feel better. If you weren't, ask the
+   place that saw you, or a doctor you know, for one."
+2. "Let one person know how you really are."
+3. "Go over your safety plan, or make one. It helps most when you do it with someone."
+4. "Make your space safer. Put distance between you and anything you could use to hurt yourself. Someone you
+   trust can hold on to it for now."
+5. "Go gently. Rest, eat, and sleep as regularly as you can. Big decisions can wait."
+
+Then buttons to My safety plan, For my next appointment, Reach someone I trust, and Support over time; "This
+page is general information from an app. It is not advice from the people treating you; where the two differ,
+follow them."; and Call 988, Text 988, Call 911.
+
+- Is any of this unsafe, wrong, or missing? In particular step 4 (it names no method, on purpose), and
+  whether "an emergency room visit, or a hospital stay" should be said at all.
+- It does not use the word "attempt". Should it?
+- It has no sources. The website's pages cite theirs; this screen should be rewritten from sources a
+  reviewer accepts, ideally as a section of the Get Help page that the app then shows word for word.
+- The Spanish is an AI translation no fluent reader has checked.
+
+### Forty features, 37: after a loss (November 17, 2026)
+
+A row on the Friends tab, "If you've lost someone to suicide", opens a screen with the After a loss page's own opening and seven sections,
+copied from the page when the app is built.
+
+- The row sits on the Friends tab next to "Helping someone you're worried about". Is that the right place for
+  someone who is grieving to find it, or should it be on the Check-in tab or Home?
+- A person bereaved by suicide is at higher risk themselves. The screen has the app's crisis strip and Get
+  Support Now like every screen. Should the app do anything more for them, for example a gentler set of
+  check-in prompts? That would be new wording.
+- The only wording written for the app is the row's second line, "Grief, finding support, and talking with
+  others", in English and Spanish (an AI translation no fluent reader has checked).
+
+### Forty features, 39: a backup file, and restoring from it (November 17, 2026)
+
+Settings has a new box, "A backup file". "Make a backup file" hands the phone's share sheet one file holding
+everything Tidelight has saved on the phone, except photos. "Restore from a backup file" reads such a file back
+in place of what is on the phone, after a question that says it can't be undone.
+
+- **A founder's decision, and a lawyer's read.** The file holds the most private things in the app (check-ins,
+  journal, the safety plan, people's names and numbers) and it is not locked. The screen says: "The backup
+  file isn't locked. Anyone who gets it can read all of it, and Tidelight can't take it back." Is an unlocked
+  file acceptable at all, or must a backup be locked with a passphrase before this ships? Locking was not
+  built: it needs a design for what happens when the passphrase is forgotten.
+- A young person's parent could restore the child's file on another phone and read everything. Should the
+  app say so?
+- The feature was listed as restoring from "a copy of my data". That copy is plain text for reading and can't
+  be read back reliably, so the backup is a second, separate file. Two files may confuse people.
+- The privacy screen now says "a copy of your data, or a backup file" where it lists what leaves through the
+  share sheet. The privacy inventory has a new row.
+- The Spanish ("Un archivo de respaldo") is an AI translation no fluent reader has checked.
+
+### Forty features, 40: comfort settings (November 17, 2026)
+
+Three new switches in Settings, all off until turned on: "Always use the dark colors", "Easier reading" (more
+space between lines, letters, and words, and links underlined), and "Read aloud button", which adds a button to
+screens that have a Back button; this phone's own voice then reads the screen out loud.
+
+- **Read aloud speaks private things out loud**: a person's safety plan, their letter, their check-in lines,
+  if that is the screen. The switch says: "This phone's own voice reads the screen out loud, so anyone nearby
+  can hear it." Is that warning enough, or should the screens that hold a person's own words not have the
+  button?
+- It reads the whole screen from the top, in the phone's default voice for the language. It is not a
+  replacement for VoiceOver or TalkBack, and the app's first five tabs' own first screens don't have it.
+- "Easier reading" is an AI assistant's guess at what helps (spacing and underlines). It is not a dyslexia
+  font and no person who would use it has tried it.
+- There is no "always light" setting: the app has no light colors to use on a phone set to dark.
+- The Spanish is an AI translation no fluent reader has checked.
+
+### Forty features, 38: the interactive widget, and a breathing session on the Lock Screen (November 17, 2026)
+
+Two things outside the app, both on screens anyone can see.
+
+The widget gained a button, "Start here". It runs a breathing minute on the widget itself: "In for 4, out for
+6" and the time left, without opening the app. The Lock Screen can show a breathing session while it runs
+("Tidelight", "Breathing", the time left), only if the person turns that on in Settings.
+
+- **A founder's decision.** The rule is that anything outside the app is discreet. "Breathing" and a timer on
+  the Lock Screen tell someone looking at the phone that its owner is doing a breathing exercise. It is off
+  until turned on, and the switch says "Anyone who sees the phone can see it." Is that within the rule?
+- The widget's new words: "Start here", "In for 4, out for 6"; the Lock Screen's: "Breathing". Spanish:
+  "Empezar aquí", "Inhala 4, exhala 6", "Respirando" (an AI translation no fluent reader has checked).
+- If the app is closed by force during a session, the Lock Screen keeps showing "Tidelight" (alone, with no
+  word and no time) until the app is next opened or the phone removes it. Is that acceptable?
+- Neither has run on a real phone.
+
+### From the walk through the whole app in the Simulator (November 19, 2026)
+
+Found while every tab was walked in the iPhone Simulator, in English and Spanish. Nothing here was changed
+without a question, except the first.
+
+- [ ] **"Ten minutes at a time", the line after "A little easier".** The line was "You got through ten minutes.
+  You can come back to this any time." It was said even after "Stop here" at ten seconds. The same two
+  sentences are now separate: the first is only said after the whole ten minutes. Stopped early, the person
+  reads only "You can come back to this any time." Is that the right thing to say to someone who stopped early
+  and said things are a little easier?
+- [ ] **Spanish: "1 días seguidos".** A streak of one day reads with the plural. The Spanish for it is locked
+  with the other streak wording, so it was left. A fluent reader chooses the singular ("1 día seguido"?).
+- [ ] **Spanish: "Mensajes se abre con tus palabras"** on the Friends tab reads oddly. A fluent reader's call.
+- [ ] **The quick check-in on an iPhone shows only "Very low" and "Low" before scrolling.** The other three
+  moods are below the bottom of the screen. Does the order, or what is in view first, matter clinically?
+- [ ] **On the support step after a very low check-in**, the safety plan, the letter, and "Message someone I
+  trust" show only when the person has made them. With none of them made, the step holds the three crisis
+  buttons, then "What happens when you reach out to 988", "Other ways to reach someone", Grounding, "Ten
+  minutes at a time", and "Care near me". Is that the right set, in the right order?
+- [ ] **A streak card is still on Home on a "quiet" day** (after a very low check-in). It says the number of
+  days and nothing else; nothing celebrates. The founder's rule is that no streak appears in or near a crisis
+  or support screen. Is Home, later the same day, near enough that the card should go too?
+
 ### Changes from the check on November 16, 2026
 
 - **New Spanish wording nobody fluent has read:** the four reasons the phone gives when it asks for Face ID,

@@ -12,7 +12,7 @@ const { base, close } = await serve();
 const browser = await openBrowser();
 
 // Every key the app keeps (src/core/storage.js), and the plain-text ones.
-const KEYS = ['tidelight.plan.v1', 'tidelight.checkin.v1', 'tidelight.agegroup.v1', 'tidelight.textsize.v1', 'tidelight.log.v1', 'tidelight.reminders.v1', 'tidelight.places.v1', 'tidelight.hope.v1', 'tidelight.circle.v1',
+const KEYS = ['tidelight.plan.v1', 'tidelight.visit.v1', 'tidelight.follow.v1', 'tidelight.toolkit.v1', 'tidelight.course.v1', 'tidelight.letter.v1', 'tidelight.reach.v1', 'tidelight.good.v1', 'tidelight.checkin.v1', 'tidelight.agegroup.v1', 'tidelight.textsize.v1', 'tidelight.log.v1', 'tidelight.reminders.v1', 'tidelight.places.v1', 'tidelight.hope.v1', 'tidelight.circle.v1',
   'tidelight.settings', 'tidelight.profile', 'tidelight.onboarding', 'tidelight.home', 'tidelight.days', 'tidelight.streak', 'tidelight.sessions', 'tidelight.presets', 'tidelight.language', 'tidelight.schema'];
 // Ways a stored value can be wrong: cut off mid-save, the wrong kind of thing, the right kind with
 // wrong things inside, nonsense, and enormous.

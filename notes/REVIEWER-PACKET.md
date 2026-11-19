@@ -99,7 +99,7 @@ only in some states, is numbered in `notes/review-packet/tidelight-app-words.htm
 
 ### Part 1. Support and crisis screens
 
-What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 297 lines of the app's words. 7 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 38, 42); they are further down, each marked.
+What the app shows when someone says they are low, and the screens made for a hard moment. Please read these first. 11 screens, about 303 lines of the app's words. 27 more screens name 988 or 911 in a sentence (numbers 2, 13, 20, 33, 35, 38, 41, 42, 43, 44, 46, 47, 48, 50, 51, 52, 53, 54, 55, 57, 58, 59, 60, 61, 63, 64, 65); they are further down, each marked.
 
 #### 36. Quick check-in, support after a very low mood
 
@@ -123,7 +123,11 @@ Picture: `app/design/after-launch-pass/reviewer/36-flow-support.png`
 > What happens when you reach out to 988  
 > Other ways to reach someone  
 > Grounding  
-> Short ways to steady yourself
+> Short ways to steady yourself  
+> Ten minutes at a time  
+> Five small steps, one after another  
+> Care near me  
+> Emergency rooms, in your phone's maps
 
 #### 37. Daily check-in, result after a heavy feeling
 
@@ -285,13 +289,13 @@ Picture: `app/design/after-launch-pass/reviewer/18-daily-needs.png`
 > Back  
 > See every suggestion this page can show
 
-#### 41. My safety plan
+#### 56. My safety plan
 
 The person's own safety plan: six short lists they write ahead of time, with 988 and 911 built into part 5. Shown empty here.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/41-plan.png`
+Picture: `app/design/after-launch-pass/reviewer/56-plan.png`
 
 > Draft for review  
 > Back  
@@ -336,13 +340,13 @@ Picture: `app/design/after-launch-pass/reviewer/41-plan.png`
 > The reasons you keep going are in your Hope box.  
 > Open my Hope box
 
-#### 47. What happens when you reach out to 988
+#### 70. What happens when you reach out to 988
 
 The Get Help page's own section on calling, texting, and chatting with 988, shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/47-expect.png`
+Picture: `app/design/after-launch-pass/reviewer/70-expect.png`
 
 > Draft for review  
 > Back  
@@ -370,13 +374,13 @@ Picture: `app/design/after-launch-pass/reviewer/47-expect.png`
 > Text 988  
 > In immediate danger, call 911
 
-#### 45. Other ways to reach someone
+#### 68. Other ways to reach someone
 
 The Get Help page's own list of other services (Spanish, Deaf or hard of hearing, veterans, LGBTQ+ youth, text lines, 911), shown inside the app word for word.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/45-ways.png`
+Picture: `app/design/after-launch-pass/reviewer/68-ways.png`
 
 > Draft for review  
 > Back  
@@ -419,13 +423,13 @@ Picture: `app/design/after-launch-pass/reviewer/45-ways.png`
 > Call 911  
 > The 988 Lifeline, the Veterans Crisis Line, The Trevor Project, and Crisis Text Line keep conversations confidential, with limits. Each says it may contact emergency services or other authorities in some situations. Their websites explain when.
 
-#### 46. Grounding
+#### 69. Grounding
 
 Four short grounding exercises, offered on the support screen and the Check-in tab. New wording.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/46-ground.png`
+Picture: `app/design/after-launch-pass/reviewer/69-ground.png`
 
 > Draft for review  
 > Back  
@@ -443,6 +447,8 @@ Picture: `app/design/after-launch-pass/reviewer/46-ground.png`
 > Hold something cold, or run cold water over your hands, for about half a minute. Notice how it feels.  
 > Feet on the floor  
 > Press your feet into the floor. Feel the chair or the ground holding you up. Open your hands and let your shoulders drop.  
+> Tense and release  
+> Make two fists and hold them tight while you count to five. Let go, and notice your hands soften. Then lift your shoulders toward your ears, hold, and let them drop. If tensing hurts, skip this one.  
 > A slower breath  
 > Breathe out for a little longer than you breathe in. A circle on the next screen can pace you for one minute, in silence.  
 > Breathe for a minute  
@@ -497,7 +503,7 @@ Picture: `app/design/after-launch-pass/reviewer/40-locked.png`
 
 ### Part 2. Check-in questions
 
-What the app asks, and what an ordinary answer leads to. 5 screens, about 101 lines of the app's words.
+What the app asks, and what an ordinary answer leads to. 5 screens, about 127 lines of the app's words.
 
 #### 14. Check-in tab
 
@@ -522,10 +528,36 @@ Picture: `app/design/after-launch-pass/reviewer/14-checkin.png`
 > Reasons, words, photos  
 > My safety plan  
 > What to do when things get hard  
+> A letter to myself  
+> For a hard day, from a steadier one  
 > Grounding  
 > Short ways to steady yourself  
+> Ten minutes at a time  
+> Five small steps, one after another  
+> Care near me  
+> Emergency rooms, in your phone's maps  
+> Three good things  
+> Small ones count  
+> Another way to see it  
+> Four questions for a heavy thought  
 > What tends to help  
 > From your own check-ins  
+> Being kind to yourself  
+> Three short ways to be on your own side  
+> My week, in words  
+> A few plain sentences. No scores  
+> For my next appointment  
+> Things to bring up, and a reminder  
+> Support over time  
+> Longer-term care, and ways to find it  
+> If you're a teen and things feel hard  
+> Reaching out, trusted adults, and what stays private  
+> For veterans and service members  
+> The Veterans Crisis Line  
+> For LGBTQ+ young people  
+> Two services, by phone, text, or chat  
+> After a crisis  
+> The days after, one small step at a time  
 > A summary for an appointment  
 > You choose what goes on it  
 > Your journey  
@@ -637,7 +669,7 @@ Picture: `app/design/after-launch-pass/reviewer/19-daily-result.png`
 
 ### Part 3. Streaks and rewards
 
-Where the app counts days or marks something as done. 3 screens, about 85 lines of the app's words.
+Where the app counts days or marks something as done. 3 screens, about 92 lines of the app's words.
 
 #### 10. Home
 
@@ -646,15 +678,18 @@ The first tab: a greeting, the next check-in, the streak, and four quick tools.
 Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 
 > Draft for review  
-> Good night  
+> Good morning  
 > You don't have to have everything figured out.  
 > Next check-in  
 > At 9:30 AM  
 > Start  
 > Suggested for you  
-> Sleep  
-> Winding down  
+> Silent  
+> Silent and ready anywhere  
 > Start  
+> One small thing for today  
+> Things you'd like to try can show here, one a day. The list is yours to write.  
+> My list  
 > 0  
 > day streak  
 > This week: 0 done, 0 frozen, 0 rest days.  
@@ -663,6 +698,10 @@ Picture: `app/design/after-launch-pass/reviewer/10-home.png`
 > Meditate  
 > 1-min reset  
 > Get help  
+> My toolkit  
+> Pin the tools you reach for most, and they will be here.  
+> Choose tools  
+> All tools  
 > Finish setting up  
 > Setup 1/8  
 > 1/8
@@ -747,7 +786,7 @@ Picture: `app/design/after-launch-pass/reviewer/30-complete.png`
 
 ### Part 4. Everything else
 
-In the order a person meets it. Skim this part; it is the longest. 28 screens, about 692 lines of the app's words.
+In the order a person meets it. Skim this part; it is the longest. 51 screens, about 1208 lines of the app's words.
 
 #### 1. First launch, onboarding: welcome
 
@@ -900,15 +939,18 @@ Home with the website's menu open (links to the site's other pages).
 Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 
 > Draft for review  
-> Good night  
+> Good morning  
 > You don't have to have everything figured out.  
 > Next check-in  
 > At 9:30 AM  
 > Start  
 > Suggested for you  
-> Sleep  
-> Winding down  
+> Silent  
+> Silent and ready anywhere  
 > Start  
+> One small thing for today  
+> Things you'd like to try can show here, one a day. The list is yours to write.  
+> My list  
 > 0  
 > day streak  
 > This week: 0 done, 0 frozen, 0 rest days.  
@@ -917,6 +959,10 @@ Picture: `app/design/after-launch-pass/reviewer/11-home-menu-open.png`
 > Meditate  
 > 1-min reset  
 > Get help  
+> My toolkit  
+> Pin the tools you reach for most, and they will be here.  
+> Choose tools  
+> All tools  
 > Finish setting up  
 > Setup 1/8  
 > 1/8
@@ -949,9 +995,20 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Gentle and slow  
 > Straightforward  
 > Quick and direct  
+> At night  
+> Darker at night  
+> Between the time you go to bed and the time you wake up, Tidelight uses its dark colors, whatever the phone is set to. Both times are yours to set, above.  
+> Always use the dark colors  
+> Easier reading  
+> More space between lines, letters, and words, and every link underlined, on the app's own screens.  
+> Read aloud button  
+> Adds "Read aloud" to screens that have a Back button. This phone's own voice reads the screen out loud, so anyone nearby can hear it. Tap it again to stop. It never reads what you are typing.  
 > Notifications  
 > Check-in reminders  
 > The phone shows them itself. A reminder only says "A moment to check in, if you'd like." Nothing about you is in it, and nothing is sent anywhere.  
+> Your own words for the reminder (optional)  
+> A reminder shows on the lock screen, where anyone near the phone can read it. Use words only you would understand, and nothing about how you are. Leave this empty for the usual words.  
+> Save my words  
 > Send a test notification  
 > Meditation  
 > Usual length  
@@ -996,6 +1053,11 @@ Picture: `app/design/after-launch-pass/reviewer/13-settings.png`
 > Makes one text file with what Tidelight has saved on this phone: your check-ins, journal, reflections, Hope box words, people, places, and meditation history. Photos are not in the file.  
 > The file isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Make a copy of my data  
+> A backup file  
+> A backup file holds what Tidelight has saved on this phone, except photos, in a form Tidelight can read back. Use it to move to another phone, or to put things back after Delete everything.  
+> The backup file isn't locked. Anyone who gets it can read all of it, and Tidelight can't take it back. You choose where it goes.  
+> Make a backup file  
+> Restore from a backup file  
 > Delete everything  
 > In Your journey  
 > About  
@@ -1190,9 +1252,9 @@ Picture: `app/design/after-launch-pass/reviewer/24-journey.png`
 > 29  
 > 30  
 > Today's check-ins  
-> Before bed, 12:01 AM: feeling: Good.  
+> Morning, 5:27 AM: feeling: Good.  
 > Remove  
-> Before bed, 12:01 AM: feeling: Okay.  
+> Morning, 5:27 AM: feeling: Okay.  
 > Remove  
 > You can share today's check-ins, or the last 7 days, with someone you choose: a parent or guardian, a doctor or therapist, or a friend. You'll see the words first and can change them. Nothing is shared unless you tap Share.  
 > Share today's check-ins  
@@ -1221,12 +1283,22 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > Draft for review  
 > Meditate  
 > Suggested for you  
-> Sleep  
-> Winding down  
+> Silent  
+> Silent and ready anywhere  
 > Start  
 > Silent · anywhere  
 > 3 min  
 > 5 min  
+> Start  
+> Options  
+> Breathe in a pattern  
+> Calm: in 4, out 6  
+> Box: 4, 4, 4, 4  
+> 4-7-8  
+> 1 min  
+> 3 min  
+> 5 min  
+> If you feel dizzy or short of breath, stop and breathe the way you usually do.  
 > Start  
 > Options  
 > 1-minute reset  
@@ -1244,6 +1316,27 @@ Picture: `app/design/after-launch-pass/reviewer/25-meditate.png`
 > 20 min  
 > Start  
 > Options  
+> Just sound  
+> 5 min  
+> 15 min  
+> 30 min  
+> Start  
+> Options  
+> Body scan  
+> 5 min  
+> 10 min  
+> Start  
+> Options  
+> A mindful walk  
+> 5 min  
+> 10 min  
+> 15 min  
+> Start  
+> Options  
+> A first week  
+> Seven small things, one a day or slower  
+> Wind down for sleep  
+> Four small steps, then the Sleep session  
 > Your presets  
 > Suggested  
 > Bus ride  
@@ -1426,6 +1519,16 @@ Picture: `app/design/after-launch-pass/reviewer/35-friends.png`
 > What I've shared with my circle  
 > A list for you, kept on this phone, of what you opened in Messages for your circle. The app can't tell whether you tapped Send.  
 > Nothing shared yet.  
+> Reach someone I trust  
+> A message ready for a hard moment  
+> Words for telling someone  
+> Ways to start, in plain words  
+> A reminder to check in on someone  
+> Private. It never shows a name  
+> If it's a child or teen  
+> For parents, caregivers, and school staff  
+> If you've lost someone to suicide  
+> Grief, finding support, and talking with others  
 > Helping someone you're worried about  
 > Share check-ins  
 > Today or 7 days, in Your journey
@@ -1444,7 +1547,7 @@ Picture: `app/design/after-launch-pass/reviewer/38-privacy.png`
 > This is not a privacy policy.  
 > It is a plain description of what the app does today, written by an AI assistant from the app's own code. No lawyer has written or read it. Tidelight does not have a privacy policy yet.  
 > What stays on this phone  
-> What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.  
+> What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, the steps you ticked in A first week, the tools you pinned to Home, the reminder you set to check in on someone, your notes for an appointment, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.  
 > Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.  
 > What Tidelight doesn't do  
 > It shows no advertising.  
@@ -1453,7 +1556,7 @@ Picture: `app/design/after-launch-pass/reviewer/38-privacy.png`
 > When something leaves this phone  
 > Only when you start it, or through your phone's own backup:  
 > A text message you send from your phone's Messages screen, to people you chose.  
-> Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, or a copy of your data.  
+> Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, a copy of your data, or a backup file.  
 > Your phone's iCloud or Google backup, if that's on. It goes to your own account with Apple or Google.  
 > Once something is sent or shared, Tidelight can't take it back.  
 > Calls, texts, and links  
@@ -1531,13 +1634,666 @@ Picture: `app/design/after-launch-pass/reviewer/39-licenses.png`
 > DISCLAIMER  
 > THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM OTHER DEALINGS IN THE FONT SOFTWARE.
 
-#### 42. Helping someone you're worried about
+#### 41. Being kind to yourself
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/41-kind.png`
+
+> Draft for review  
+> Back  
+> Being kind to yourself  
+> Three short ways to be on your own side when things are hard. Try one. If it doesn't sit right with you, leave it.  
+> These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.  
+> A hand on your chest  
+> Rest a hand on your chest, or hold your own arm. Notice its warmth and its weight. Stay for three slow breaths.  
+> What you would say to a friend  
+> Think of someone you care about feeling the way you feel now. What would you say to them? Say it to yourself, out loud or in your head.  
+> This is a hard moment  
+> Say to yourself, slowly: this is hard right now. Other people feel this too. I can go gently with myself while it lasts.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
+#### 42. A first week
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/42-course.png`
+
+> Draft for review  
+> Back  
+> A first week  
+> Seven small things that are already in the app, in an order to try them. One a day, or slower. Skip any that don't suit you.  
+> Nothing is lost if you miss a day, and nothing here is counted. Your ticks are saved on this phone only. Delete everything, in Your journey, removes them.  
+> Day 1  
+> Up next  
+> One minute of breathing  
+> Follow the circle for one minute. That is all of it.  
+> Start the 1-minute reset  
+> I tried day 1  
+> Day 2  
+> Grounding  
+> A few ways to come back to the room when your mind is racing.  
+> Open Grounding  
+> I tried day 2  
+> Day 3  
+> Body scan  
+> Five minutes of attention moving slowly up the body.  
+> Start the Body scan  
+> I tried day 3  
+> Day 4  
+> Three good things  
+> Up to three things that went all right today. Small ones count.  
+> Open Three good things  
+> I tried day 4  
+> Day 5  
+> A mindful walk  
+> Five minutes of walking, with the phone in a pocket.  
+> Start A mindful walk  
+> I tried day 5  
+> Day 6  
+> Being kind to yourself  
+> Three short ways to be on your own side.  
+> Open Being kind to yourself  
+> I tried day 6  
+> Day 7  
+> My safety plan  
+> Six short lists for a hard moment, in your own words. A good one to write while things are calm.  
+> Open My safety plan  
+> I tried day 7  
+> These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen.
+
+#### 43. My toolkit
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/43-toolkit.png`
+
+> Draft for review  
+> Back  
+> My toolkit  
+> Pick up to four tools to keep on Home, one tap away.  
+> Your picks are saved on this phone only. Call 988, Text 988, and Call 911 are always at the top of every screen, whatever you pin.  
+> 1-minute reset  
+> Grounding  
+> Ten minutes at a time  
+> My safety plan  
+> A letter to myself  
+> Hope box  
+> Three good things  
+> Another way to see it  
+> Being kind to yourself  
+> Journal  
+> Wind down for sleep  
+> What tends to help  
+> A first week  
+> Care near me
+
+#### 44. My week, in words
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/44-week.png`
+
+> Draft for review  
+> Back  
+> My week, in words  
+> A few plain sentences about the last seven days, from what you recorded here. Nothing is counted, scored, or compared.  
+> It is put together on this phone each time you open this page. Nothing here is kept or sent anywhere.  
+> You checked in on a day or two.  
+> You took some time to breathe or meditate.  
+> What you recorded  
+> Thursday, November 19  
+> Morning, 5:27 AM: feeling: Good.  
+> Morning, 5:27 AM: feeling: Okay.  
+> Morning, 5:28 AM: feeling: Very low.  
+> Morning, 5:28 AM: feeling: Sad.  
+> However the week went, you don't have to carry it alone.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
+#### 45. All tools
+
+
+
+Picture: `app/design/after-launch-pass/reviewer/45-tools.png`
+
+> Draft for review  
+> Back  
+> All tools  
+> Search the tools  
+> What you type here is not kept or sent anywhere.  
+> 1-minute reset  
+> One minute of breathing with the circle  
+> Grounding  
+> Short ways to steady yourself  
+> Ten minutes at a time  
+> Five small steps, one after another  
+> My safety plan  
+> What to do when things get hard  
+> A letter to myself  
+> For a hard day, from a steadier one  
+> Hope box  
+> Reasons, words, photos  
+> Three good things  
+> Small ones count  
+> Another way to see it  
+> Four questions for a heavy thought  
+> Being kind to yourself  
+> Three short ways to be on your own side  
+> Journal  
+> Write it out  
+> Wind down for sleep  
+> Four small steps, then the Sleep session  
+> What tends to help  
+> From your own check-ins  
+> A first week  
+> Seven small things, one a day or slower  
+> Care near me  
+> Emergency rooms, in your phone's maps  
+> Quick check-in  
+> One tap, how you are  
+> Meditate  
+> Sessions with or without sound  
+> My week, in words  
+> A few plain sentences. No scores  
+> A summary for an appointment  
+> You choose what goes on it  
+> Reach someone I trust  
+> A message ready for a hard moment  
+> Friends  
+> People you can reach out to  
+> Rediscover  
+> Find your way back  
+> Your journey  
+> What you've kept
+
+#### 46. Words for telling someone
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/46-tell.png`
+
+> Draft for review  
+> Back  
+> Words for telling someone  
+> Telling someone you're having a hard time can be the hardest part. Here are some ways to start. Use one as it is, or change it until it sounds like you.  
+> Nothing here is sent by the app. Copy puts the words on this phone's clipboard, for you to paste where you choose.  
+> To start the conversation  
+> I've been having a hard time lately, and I don't want to carry it alone.  
+> Copy  
+> I'm not okay, and I don't know how to talk about it. Can we talk?  
+> Copy  
+> Something has been weighing on me. Do you have a few minutes?  
+> Copy  
+> If writing is easier than saying it  
+> I've been struggling and I wanted you to know. You don't have to fix it. I just don't want to be alone with it.  
+> Copy  
+> If you're having thoughts of suicide  
+> I've been having thoughts of suicide, and I need help staying safe.  
+> Copy  
+> What you can ask for  
+> Could you just listen to me for a few minutes?  
+> Copy  
+> Could you stay with me for a while?  
+> Copy  
+> Could you help me make a call?  
+> Copy  
+> If the first person doesn't respond the way you hoped, that isn't a reason to stop. Try another person, or call or text 988. Someone there will listen.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
+#### 47. A reminder to check in on someone
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/47-follow.png`
+
+> Draft for review  
+> Back  
+> A reminder to check in on someone  
+> If you're supporting someone, checking in again matters. Set a reminder for yourself to do it.  
+> This phone shows the reminder itself. It says only "A reminder you set." It never shows a name, or anything about them or about you.  
+> Who it's about (optional, and only shown here)  
+> When to remind me  
+> Set the reminder  
+> The name and the time are saved on this phone only. Tidelight never receives them. Delete everything, in Your journey, removes them and the reminder.  
+> Helping someone you're worried about  
+> If you think they are in danger right now, don't wait for a reminder. The buttons to call or text 988 and to call 911 are at the top of every screen.
+
+#### 48. For my next appointment
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/48-visit.png`
+
+> Draft for review  
+> Back  
+> For my next appointment  
+> Things you want to bring up with a doctor, a therapist, or a counselor, written down as they come to you, so they are there when you're in the room.  
+> What you write and the time are saved on this phone only. Tidelight never receives them. Anyone who can unlock this phone can read them, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes them.  
+> Things I want to bring up  
+> Add something to bring up  
+> Add  
+> A reminder for the appointment  
+> This phone shows the reminder itself. It says only "A reminder you set." Nothing about the appointment is in it.  
+> When to remind me  
+> Set the reminder  
+> A summary for an appointment  
+> If things get hard before the appointment, you don't have to wait for it. The buttons to call or text 988 and to call 911 are at the top of every screen.
+
+#### 49. Support over time
+
+
+
+Picture: `app/design/after-launch-pass/reviewer/49-care.png`
+
+> Draft for review  
+> Back  
+> Support over time  
+> A crisis line can help with a hard moment. Longer-term care can help with what is behind it. The National Institute of Mental Health (NIMH) says effective treatments are available for people at risk of suicide. These include kinds of talk therapy, such as cognitive behavioral therapy and dialectical behavior therapy. The American Foundation for Suicide Prevention says recovery is possible with evidence-based treatment for depression and other mental health conditions.  
+> Talk to a health care provider. If you have a doctor or nurse you see, you can bring up your mental health yourself, and they can refer you to a specialist. NIMH has tips for that conversation.  
+> Search for care near you. SAMHSA describes FindTreatment.gov as a confidential and anonymous treatment finder.  
+> Call for a referral. SAMHSA's National Helpline, 1-800-662-4357, offers free treatment referrals and information, 24/7, in English and Spanish. It does not provide counseling and is not a crisis line. For Spanish, choose the option to speak with a national representative. TTY: 1-800-487-4889.
+
+#### 50. If you're a teen and things feel hard
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/50-teens.png`
+
+> Draft for review  
+> Back  
+> If you're a teen and things feel hard  
+> You can reach out for support yourself, any time, even if there is no adult you can tell. Here's how, and what stays private.  
+> You can reach out yourself  
+> You can call or text 988 yourself, even if there is no adult you can tell. Its rules don't set a minimum age, and you don't have to give your name or age to get support. It can help to save 988 in your phone now, in case you need it later.  
+> The Trevor Project  
+> For LGBTQ+ young people. Its terms describe the phone lifeline as for people under age 25. Trained counselors by phone, text, or chat, free and confidential, 24/7. Message and data rates may apply to texts. On a phone, The Trevor Project suggests calling or texting, and using chat from a computer. Its terms say phone calls offer access to interpreters, subject to availability. You can choose the language option on the keypad or ask the counselor for an interpreter.  
+> Call 1-866-488-7386  
+> Text START to 678-678  
+> Trevor Project chat and TTY  
+> LGBTQ+ youth, through 988  
+> The 988 Lifeline says its specialized service for LGBTQ+ youth has been restored. It is separate from The Trevor Project.  
+> Call 988, then press 3  
+> Text PRIDE to 988  
+> Crisis Text Line  
+> Trained volunteer crisis counselors by text, free and confidential, 24/7, anywhere in the United States. Crisis Text Line says your first message can say anything, and a word like HOME helps it know how you found it. Its FAQ says messages are free on AT&T, T-Mobile, Sprint, and Verizon. On other carriers, it says standard rates apply and 741741 will appear on the bill. Its terms say message and data rates may apply. Crisis Text Line says many T-Mobile prepaid plans don't allow numbers like 741741. It also says it isn't available yet on Google Voice or TextNow. If a text doesn't go through, it offers web chat and WhatsApp on its website. Its privacy policy says WhatsApp may also have access to your information. You can also call or text 988.  
+> Text HOME to 741741  
+> Crisis Text Line web chat or WhatsApp  
+> More options, including Spanish, ASL, and other languages, are on Get Help.  
+> If you text 988, automated messages come first. A counselor then says hello. See what happens when you call, text, or chat.  
+> Telling an adult you trust  
+> It can also help to tell an adult you trust, such as a parent or guardian, a relative, a teacher, a coach, a spiritual leader, or a doctor. It's okay to ask what they can keep private first.  
+> If you tell a school counselor you are thinking about suicide, expect them to tell a parent or guardian. Their national association treats this as required, even for students who are 18. The association makes one exception. If you say you are thinking about suicide because of a parent's or guardian's abuse or neglect, the counselor must contact child protective services. A federal factsheet says caseworkers may then talk with your parents and other people around you.  
+> Teachers and other school staff may have to pass it on too. A national model policy for school districts says all staff should report a student they believe is at risk. It says the school then tells a parent or guardian the same day or as soon as possible. The exception is when that would put the student at more risk. Rules differ by state and district.  
+> What stays private  
+> Crisis lines keep conversations confidential, with limits. The 988 Lifeline says it may share information without your permission in some situations. That information may go to 911, police, or a mobile crisis team (a crisis team that comes to you). For example, this can happen if someone is in danger of being hurt very soon. It can also happen if a young person is being abused or neglected, as state law defines it. The Trevor Project and Crisis Text Line have similar limits. The Trevor Project says it won't tell parents or guardians unless the law or a legal order requires it.  
+> The 988 Lifeline says conversations are confidential, but contacting it isn't anonymous. You don't have to give your name. But the counselor has your phone number if you call or text, or your IP address if you chat. In rare emergencies they must give this to 911.  
+> A small number of 988 centers bill insurance and may ask for your details. You can say no and still get support. If you give them and the center bills your insurance, a parent or guardian could get a statement from the insurance company.  
+> On a shared phone or computer, visits to this site can show up in browser history, and calls or texts can show up in phone logs. The 988 Lifeline says whether its number appears on a phone bill depends on the carrier. The Quick exit button hides this page at once and opens weather.gov, but it can't clear your history. See what it can and can't hide.  
+> On a school phone, laptop, or account, the school may be able to see what you search and read. Google says a school that manages your network may be able to see your activity, even in Chrome's Incognito mode. Some schools use software that looks for signs of suicide and alerts staff. If you think your activity is being monitored, use a device at a friend's house or a library if you can. If you need help right now, don't wait. Reach out any way you can.  
+> If you're worried about a friend  
+> You don't need to have the answers. Start with a caring question and listen. If you're worried about suicide, it's okay to ask directly: "Are you thinking about suicide?" Encourage your friend to talk to a trusted adult, such as a parent, coach, teacher, or school counselor, and talk to one yourself.  
+> If your friend talks about suicide or about hurting themselves, don't keep it a secret, even if they ask you to. Tell a trusted adult, or call or text 988 to ask what to do. You can contact 988 at any time, even if it's about a friend.  
+> If they say they are going to end their life, call 911 if it's an emergency. If you're with them and it is safe, stay with them. If they told you by text or online, keep talking if you can while you get an adult, or call or text 988. You don't have to handle this by yourself.  
+> More on this is on Help Someone.
+
+#### 51. If it's a child or teen
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/51-parents.png`
+
+> Draft for review  
+> Back  
+> If it's a child or teen  
+> If you're a parent or caregiver  
+> Take what they say seriously, even if they say they didn't mean it. Don't argue with their feelings. Tell them you care and that you will help them get help.  
+> If they have a suicide plan or can't stop thinking about ending their life, call or text 988 right away, and call 911 if they need immediate help. Stay close and don't leave them alone while you get help. Remove or safely store anything they could use to hurt themselves.  
+> Any child with suicidal thoughts or plans should be evaluated right away by a trained mental health professional. Call their pediatrician or a mental health provider now, even if it doesn't seem like a crisis. Their pediatrician can also help you make a safety plan.  
+> At school  
+> School counselors and school psychologists can help connect a family to support. School counselors are expected to tell a parent or guardian when a student has thoughts of suicide, even at 18. The exception is when a student says a parent's or guardian's abuse or neglect is the reason for those thoughts. Then the counselor must contact child protective services, and caseworkers may talk with the parents and other people around the student. So don't promise a young person that it will stay private.  
+> If you're a young person worried about a friend  
+> You don't need to have the answers. Start with a caring question and listen. If you're worried about suicide, it's okay to ask directly: "Are you thinking about suicide?" Encourage your friend to talk to a trusted adult, such as a parent, coach, teacher, or school counselor, and talk to one yourself.  
+> If your friend talks about suicide or about hurting themselves, don't keep it a secret, even if they ask you to. Tell a trusted adult, or call or text 988 to ask what to do. You can contact 988 at any time, even if it's about a friend.  
+> If they say they are going to end their life, call 911 if it's an emergency. If you're with them and it is safe, stay with them. If they told you by text or online, keep talking if you can while you get an adult, or call or text 988. You don't have to handle this by yourself.  
+> More for teens is on For Teens.
+
+#### 52. For veterans and service members
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/52-vets.png`
+
+> Draft for review  
+> Back  
+> For veterans and service members  
+> This is the Veterans Crisis Line as the Get Help page describes it. It is a separate service from Tidelight. 988 and 911, at the top of every screen, are for anyone.  
+> Veterans Crisis Line  
+> For veterans, service members, National Guard and Reserve members, and the people who support them. Free, confidential, and available 24/7. You don't need to be enrolled in VA benefits or health care.  
+> Call 988, then press 1  
+> Text 838255  
+> Veterans Crisis Line chat  
+> Other ways to reach someone
+
+#### 53. For LGBTQ+ young people
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/53-lgbtq.png`
+
+> Draft for review  
+> Back  
+> For LGBTQ+ young people  
+> These are the two services the Get Help page names for LGBTQ+ young people. They are separate services from Tidelight. 988 and 911, at the top of every screen, are for anyone.  
+> LGBTQ+ youth, through 988  
+> The 988 Lifeline says its specialized service for LGBTQ+ youth has been restored. It is separate from The Trevor Project.  
+> Call 988, then press 3  
+> Text PRIDE to 988  
+> The Trevor Project  
+> For LGBTQ+ young people. Its terms describe the phone lifeline as for people under age 25. Trained counselors by phone, text, or chat, free and confidential, 24/7. Message and data rates may apply to texts. On a phone, The Trevor Project suggests calling or texting, and using chat from a computer. Its terms say phone calls offer access to interpreters, subject to availability. You can choose the language option on the keypad or ask the counselor for an interpreter.  
+> Call 1-866-488-7386  
+> Text START to 678-678  
+> Trevor Project chat and TTY  
+> Other ways to reach someone
+
+#### 54. After a crisis
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/54-after.png`
+
+> Draft for review  
+> Back  
+> After a crisis  
+> The days after a crisis, an emergency room visit, or a hospital stay can feel strange: tired, raw, relieved, embarrassed, or nothing much at all. However it feels, this is a time to go gently, and not to be alone with it.  
+> If the thoughts come back, that doesn't mean you failed, and you don't have to wait. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.  
+> Keep the follow-up appointment  
+> If you were given one, go, even if you feel better. If you weren't, ask the place that saw you, or a doctor you know, for one.  
+> Let one person know how you really are  
+> Someone you trust, in whatever words you have. You don't have to explain everything.  
+> Go over your safety plan, or make one  
+> It helps most when you do it with someone: the person treating you, or someone close to you.  
+> Make your space safer  
+> Put distance between you and anything you could use to hurt yourself. Someone you trust can hold on to it for now.  
+> Go gently  
+> Rest, eat, and sleep as regularly as you can. Big decisions can wait.  
+> My safety plan  
+> For my next appointment  
+> Reach someone I trust  
+> Support over time  
+> This page is general information from an app. It is not advice from the people treating you; where the two differ, follow them.  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
+#### 55. If you've lost someone to suicide
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/55-loss.png`
+
+> Draft for review  
+> Back  
+> If you've lost someone to suicide  
+> There is no right way to grieve, and you don't have to go through this alone. Here is what groups that support people after a suicide loss say, and where to find people who understand.  
+> It's not your fault  
+> Many people keep asking why, and whether they could have done something. The CDC says suicide doesn't have just one cause. The Tragedy Assistance Program for Survivors (TAPS), which supports people after a military suicide loss, says it plainly: it's not your fault.  
+> What you may feel  
+> The American Foundation for Suicide Prevention (AFSP) says everyone experiences a suicide loss in their own way, so no list will fit exactly. It says many people feel some mix of these:  
+> Shock and disbelief  
+> Grief, and yearning for the person  
+> Anger  
+> Guilt and blame  
+> Confusion  
+> Relief  
+> Feeling rejected, abandoned, or betrayed  
+> Shame and isolation  
+> Depression and sadness  
+> Thoughts of suicide  
+> AFSP says that if you saw what happened or found the person, you are likely to have trauma symptoms as well as grief. This can also happen if you weren't there. It may be hard to concentrate because of images that stay with you. You may feel anxious or confused, or have physical symptoms such as stomach problems or trouble sleeping.  
+> AFSP says these are normal responses to trauma. Even if it doesn't feel like it now, they will likely ease in the weeks and months to come. If they don't, it suggests seeing a mental health professional with experience in trauma or loss. AFSP also says each person grieves at their own pace, and there is no set timeline for healing.  
+> Birthdays, holidays, and other meaningful dates can be hard. AFSP says that waiting for the day can be harder than the day itself.  
+> Taking care of yourself  
+> Suicide Awareness Voices of Education (SAVE) says healing from a suicide loss is deeply personal, and no one approach works best for everyone. AFSP says you shouldn't have to cope with your loss alone. It suggests being kind and patient with yourself, and being open to letting people help.  
+> Each year, on the Saturday before U.S. Thanksgiving, AFSP sponsors and hosts events for International Survivors of Suicide Loss Day. There are local events, where AFSP says you decide how much to take part. There are also online events you can watch without signing up, including one in Spanish.  
+> TAPS says the intense pain will not always feel the way it does right now, and that it can ease and soften with support and with time.  
+> Where to find support  
+> These are separate organizations with their own rules. Tidelight does not run them, and has not checked each group they list. This is a short list. AFSP's resource list and SAVE's What's next page list more options. They include a 24/7 online forum, a site for people who lost a sibling, and an online grief group for LGBTQ+ people.  
+> Talk with someone who has been there  
+> AFSP's Healing Conversations is a one-time visit, by phone, online, or in person, with a trained volunteer who has also lost someone to suicide. You ask for one through an online form linked from AFSP's page. The form is on monday.com, a service from another company. It asks for details such as your name, email, phone number, and where you live. It also asks for the first name of the person who died and the date of death. The form says your answers are shared with people in the program, including chapter staff, AFSP national staff, coordinators, and the volunteer.  
+> AFSP Healing Conversations  
+> Support groups  
+> AFSP lists suicide loss support groups, in person and online, in the U.S. and elsewhere. It says it doesn't run, recommend, endorse, or fund the groups it lists, and that groups are in English unless stated. SAVE says it doesn't verify groups in outside lists. Its team also offers to help you find support, by email or phone. SAVE says it doesn't provide emergency or crisis help. It's okay to ask how a group works before you join.  
+> AFSP support group list  
+> SAVE: help finding support  
+> A therapist or counselor  
+> AFSP keeps a list of clinicians who completed its former training or say they have relevant experience with suicide loss. It says being listed is not an endorsement or referral. You can also ask a health care provider for a referral, or search for care near you.  
+> AFSP clinician list  
+> FindTreatment.gov  
+> After a military loss  
+> TAPS supports anyone who has lost a family member, loved one, colleague, friend, or battle buddy to suicide, during or after their service. Its services include peer mentors who have also lost someone to suicide. TAPS says you can call it 24/7 at 1-800-959-8277.  
+> TAPS suicide loss support  
+> After the death of a child, grandchild, or sibling  
+> The Compassionate Friends supports families after the death of a child of any age, from any cause, with local chapters and online groups. It isn't only for suicide loss.  
+> The Compassionate Friends  
+> En español  
+> AFSP tiene una guía sobre cómo sobrellevar una pérdida por suicidio. Algunos datos de crisis en la guía son antiguos. Hoy, la Línea 988 ofrece apoyo en español: marca 988 y luego presiona 2, o envía AYUDA al 988. Las guías de la AFSP se abren en un visor de páginas que puede no funcionar con un lector de pantalla.  
+> Sobreviviendo una pérdida por suicidio  
+> Esta página en español  
+> AFSP also has a longer guide, Surviving a Suicide Loss, and answers to practical questions about the first few days. AFSP's guides open in a page-flip viewer that may not work with a screen reader. Its page of practical questions is an ordinary web page.  
+> Talking to others about what happened  
+> You may not want to tell people that the person died by suicide, and that's your choice. AFSP says it can't decide what is right for you, and that it is up to you how much you share. It also says that, in the long run, most people who have lost someone this way are glad they were honest about it. It says one of the most important reasons is that being honest gives friends and family the chance to support you.  
+> Talking with children and teens  
+> AFSP says it is up to parents and guardians whether to tell a child the truth, and points out that children may overhear adults talking. When you do talk with a child or teen, it suggests that you:  
+> Tell the truth in short, simple sentences that fit their age, without going into graphic detail or talking at length about the specific method. Encourage questions, and offer loving reassurance.  
+> Reassure them that they are not responsible, and that nothing they said or did caused it.  
+> Be ready to talk about it many times, in the first weeks and later in their life.  
+> Consider a children's grief support group if they are having a hard time. The Dougy Center has a worldwide directory of grief programs. It isn't only for suicide loss.  
+> The Dougy Center: after a suicide death  
+> Children, Teens and Suicide Loss (AFSP booklet)  
+> If you're a teen who has lost someone, The Dougy Center has resources for you. It can also help to tell an adult you trust. If things feel too hard, you can call or text 988 yourself. More for teens.  
+> Schools, workplaces, and communities  
+> Support after a suicide is sometimes called postvention. These guides are for people responding to a death in a school, workplace, or community:  
+> After a Suicide: A Toolkit for Schools, from AFSP and the Suicide Prevention Resource Center  
+> After a Suicide: Postvention Toolkit for Workplaces, listed by AFSP  
+> Responding to Grief, Trauma, and Distress After a Suicide: U.S. National Guidelines, from the National Action Alliance for Suicide Prevention
+
+#### 57. A letter to myself
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/57-letter.png`
+
+> Draft for review  
+> Back  
+> A letter to myself  
+> Words from you, written on a steadier day, to read on a hard one. What it says is up to you.  
+> You don't have to read or write anything before asking for help. The buttons to call or text 988 and to call 911 are at the top of every screen.  
+> Your letter is saved on this phone only. Tidelight never receives it. Anyone who can unlock this phone can read it, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes it.  
+> My letter  
+> Up to 2,000 characters. There is no right way to write it.  
+> Save my letter
+
+#### 58. Ten minutes at a time
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/58-ride.png`
+
+> Draft for review  
+> Back  
+> Ten minutes at a time  
+> Strong feelings rise and ease, even when it doesn't feel like they will. This is a way to get through the next ten minutes: five small steps, two minutes each. It is silent, and nothing about it is kept.  
+> You don't have to finish this before asking for help. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.  
+> Start the ten minutes  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
+#### 59. Ten minutes at a time, a step
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/59-ride-step.png`
+
+> Draft for review  
+> Back  
+> Ten minutes at a time  
+> Strong feelings rise and ease, even when it doesn't feel like they will. This is a way to get through the next ten minutes: five small steps, two minutes each. It is silent, and nothing about it is kept.  
+> You don't have to finish this before asking for help. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.  
+> Step 1 of 5  
+> Put both feet on the floor. Look around and name five things you can see.  
+> 1:59  
+> Next step  
+> Stop here  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
+#### 60. Wind down for sleep
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/60-wind.png`
+
+> Draft for review  
+> Back  
+> Wind down for sleep  
+> Four small things to do before bed, one at a time. Do the ones that suit you and skip the rest. Nothing here is kept.  
+> Dim the lights, or turn off the brightest one.  
+> Write down what is on your mind for tomorrow, a line each, and leave it there.  
+> Turn on Do Not Disturb, if you'd like a quiet phone.  
+> Get comfortable. Let your shoulders and your jaw go loose.  
+> Start the Sleep session  
+> If the night feels like too much, you don't have to wait for morning. The buttons to call or text 988 and to call 911 are at the top of every screen.
+
+#### 61. Another way to see it
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/61-reframe.png`
+
+> Draft for review  
+> Back  
+> Another way to see it  
+> Four questions for a thought that keeps coming back and weighs on you. There are no right answers. Answer the ones you want, in your own words.  
+> This isn't for thoughts of ending your life. Those are for a person, not a worksheet. The buttons to call or text 988 and to call 911 are at the top of every screen.  
+> This is a place to think, not a record: nothing you write here is kept. It is gone when you leave this screen.  
+> What happened?  
+> What went through my mind?  
+> What would I say to a friend who thought that?  
+> Is there another way to see it?  
+> Clear what I wrote  
+> If the thought is still heavy afterwards, that doesn't mean you did this wrong. Some thoughts need another person.
+
+#### 62. Three good things
+
+
+
+Picture: `app/design/after-launch-pass/reviewer/62-good.png`
+
+> Draft for review  
+> Back  
+> Three good things  
+> Each day, up to three things that went all right, however small. A warm drink counts. So does getting out of bed.  
+> Some days there won't be any, and that is all right. Nothing here is counted, and nobody is keeping score.  
+> What you write is saved on this phone only. Tidelight never receives it. Anyone who can unlock this phone can read it, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes it.  
+> Today  
+> One thing  
+> Another  
+> And one more  
+> Save today's
+
+#### 63. Care near me
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/63-nearby.png`
+
+> Draft for review  
+> Back  
+> Care near me  
+> Your phone's maps can show the emergency rooms near where you are. An emergency room is open day and night.  
+> You don't have to go anywhere to get help. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.  
+> The button below leaves Tidelight and opens your phone's maps. Tidelight doesn't learn where you are or what you look for. The maps app uses your location under its own privacy rules, and it may keep the search in its history.  
+> Emergency rooms near me, in Maps  
+> For care that isn't an emergency, such as a counselor, a clinic, or a support line, there is a list in this app.  
+> Other ways to reach someone  
+> Call 988  
+> Text 988  
+> In immediate danger, call 911
+
+#### 64. Reach someone I trust
+
+
+
+**This screen names 988 or 911 in its own words.**
+
+Picture: `app/design/after-launch-pass/reviewer/64-reach.png`
+
+> Draft for review  
+> Back  
+> Reach someone I trust  
+> A short message for someone in your circle, ready ahead of time. You choose who gets it, you can change the words, and you send it yourself from your phone's messages.  
+> A message is not a way to get urgent help. The person may not see it right away. The buttons to call or text 988 and to call 911 are at the top of every screen.  
+> Tidelight sends nothing and never sees your message or who gets it. Your phone's own messages send it, like any text, so the person you choose receives it and it can't be taken back. Words you save here stay on this phone. Delete everything, in Your journey, removes them.  
+> My message  
+> Up to 300 characters. These words are a start; change them to sound like you.  
+> Save my message  
+> Who to reach  
+> There is nobody in your circle yet. You can add people you trust on the Friends tab.  
+> Go to Friends
+
+#### 65. Helping someone you're worried about
 
 The Help Someone page's own opening and six sections, shown inside the app word for word, on the Friends tab.
 
 **This screen names 988 or 911 in its own words.**
 
-Picture: `app/design/after-launch-pass/reviewer/42-helping.png`
+Picture: `app/design/after-launch-pass/reviewer/65-helping.png`
 
 > Draft for review  
 > Back  
@@ -1605,11 +2361,11 @@ Picture: `app/design/after-launch-pass/reviewer/42-helping.png`
 > Look after yourself too  
 > Supporting someone through a hard time can bring up difficult emotions of your own, and the responsibility doesn't have to be yours alone. The 988 Lifeline encourages helpers to reach out for support themselves. You can call or text 988 for yourself, even if you're not the one in crisis.
 
-#### 43. A summary for an appointment
+#### 66. A summary for an appointment
 
 A short page of the person's own records for an appointment. They tick what goes on it and see every word before sharing. Nothing is kept. New wording.
 
-Picture: `app/design/after-launch-pass/reviewer/43-summary.png`
+Picture: `app/design/after-launch-pass/reviewer/66-summary.png`
 
 > Draft for review  
 > Back  
@@ -1627,22 +2383,22 @@ Picture: `app/design/after-launch-pass/reviewer/43-summary.png`
 > What it will say  
 > This is the whole page, word for word.  
 > A summary for my appointment  
-> Made on November 16, 2026, from what I recorded in the Tidelight app over the last 14 days.  
+> Made on November 19, 2026, from what I recorded in the Tidelight app over the last 14 days.  
 > These are my own notes. They are not a medical record or a diagnosis.  
 > CHECK-INS  
-> Monday, November 16  
-> - Before bed, 12:01 AM: feeling: Good.  
-> - Before bed, 12:01 AM: feeling: Okay.  
-> - Before bed, 12:01 AM: feeling: Very low.  
-> - Before bed, 12:02 AM: feeling: Sad.  
+> Thursday, November 19  
+> - Morning, 5:27 AM: feeling: Good.  
+> - Morning, 5:27 AM: feeling: Okay.  
+> - Morning, 5:28 AM: feeling: Very low.  
+> - Morning, 5:28 AM: feeling: Sad.  
 > The page isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.  
 > Share this summary
 
-#### 44. What tends to help
+#### 67. What tends to help
 
 What else the person recorded on days they chose Good or Great, counted from their own check-ins. Shown here with too little to count. New wording.
 
-Picture: `app/design/after-launch-pass/reviewer/44-helps.png`
+Picture: `app/design/after-launch-pass/reviewer/67-helps.png`
 
 > Draft for review  
 > Back  

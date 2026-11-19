@@ -29,7 +29,9 @@ const BUDGET = [
   // notes/LAUNCH-READINESS.md has the reason.
   ['the app\'s own script (assets/app.js)', [join(www, 'assets', 'app.js')], 260],
   ['every script the Daily check-in page loads', ['app.js', 'check-in.js', 'menu.js', 'app-return.js'].map((n) => join(www, 'assets', n)), 295],
-  ['every stylesheet', assets.filter((f) => extname(f) === '.css'), 175],
+  // Raised on purpose on November 16, 2026, from 175: "Darker at night" needs every dark rule a second
+  // time (about 12 KB), and the forty features' screens need styles too. notes/LAUNCH-READINESS.md has the reason.
+  ['every stylesheet', assets.filter((f) => extname(f) === '.css'), 230],
   ['the bundled font', assets.filter((f) => extname(f) === '.woff2'), 60],
   ['the whole app folder', files, 2100],
 ];

@@ -6,7 +6,9 @@
 import { CONFIG } from '../core/config.js';
 import { cycleLength, totalSeconds } from './timeline.js';
 
-export const TYPES = ['silent', 'quick', 'deep', 'sleep'];
+export const TYPES = ['silent', 'quick', 'deep', 'sleep', 'sound', 'scan', 'walk', 'breathe'];
+// The patterns a person can pick for a Breathing session, by the name on its chip.
+export const BREATHE = ['calm', 'box', 'stressed'];
 export const WORLDS = ['ocean', 'forest', 'nightSky'];
 export const SOUNDS = ['none', 'rain', 'ocean', 'whiteNoise', 'brownNoise'];
 
@@ -91,6 +93,38 @@ export function builtIn(type, options = {}) {
     const second = breaths(PATTERNS.calm, bodyTime - scan - silence - first.used);
     m.segments = [seg('intro', intro, spoken('intro.deep')), ...first.segments, seg('bodyScan', scan, spoken('bodyScan')),
       seg('silence', silence + second.left, { screenTextId: 'silence' }), ...second.segments, seg('outro', outro, spoken('outro.deep'))];
+  } else if (type === 'scan') {
+    // Body scan: settle, a few slow breaths, then attention moves up the body, and a long quiet to
+    // stay with it. Every line is one the Deep session already says, so nothing new is recorded.
+    m = base(type, minutes, style, { world: 'forest', voiceEnabled: true, hapticBreathing: false });
+    const [intro, outro] = [30, 30];
+    const first = breaths(PATTERNS.calm, 60);
+    const rest = T - intro - outro - first.used;
+    const scan = Math.round(rest * 0.5);
+    m.segments = [seg('intro', intro, spoken('intro.deep')), ...first.segments, seg('bodyScan', scan, spoken('bodyScan')),
+      seg('silence', rest - scan, { screenTextId: 'silence' }), seg('outro', outro, spoken('outro.deep'))];
+  } else if (type === 'walk') {
+    // A mindful walk: the phone stays in a pocket. Four spoken lines with quiet walking between
+    // them. No breathing to follow and no taps, so there is nothing to look at while moving.
+    m = base(type, minutes, style, { world: 'forest', voiceEnabled: true, hapticBreathing: false });
+    const [intro, outro] = [30, 30];
+    const half = Math.round((T - intro - outro) / 2);
+    m.segments = [seg('intro', intro, spoken('intro.walk')), seg('silence', half, spoken('walk.steps')),
+      seg('silence', T - intro - outro - half, spoken('walk.around')), seg('outro', outro, spoken('outro.walk'))];
+  } else if (type === 'breathe') {
+    // Breathing only, in the pattern the person picked: a word on the screen, whole breaths with
+    // the circle, a word on the screen. No voice. An unknown pattern is the calm one.
+    const p = PATTERNS[BREATHE.indexOf(options.pattern) !== -1 ? options.pattern : 'calm'];
+    m = base(type, minutes, style, { world: 'ocean', hapticBreathing: true });
+    m.id = type + '-' + minutes + '-' + p.name;
+    m.pattern = p.name;
+    const body = breaths(p, T - 20);
+    m.segments = [seg('intro', 10, { screenTextId: 'intro.silent' }), ...body.segments, seg('outro', 10 + body.left, { screenTextId: 'outro.silent' })];
+  } else if (type === 'sound') {
+    // Just sound: rain, ocean, or steady noise for the whole time, and nothing else. No voice, no
+    // breathing to follow, no taps: one quiet stretch with two words on the screen.
+    m = base(type, minutes, style, { world: 'nightSky', backgroundSound: 'rain', voiceEnabled: false, hapticBreathing: false });
+    m.segments = [seg('silence', T, { screenTextId: 'silence' })];
   } else {
     // Sleep: breaths that slow, a body scan, then a long quiet. The sound fades over the last
     // three minutes, the screen dims, and there is no completion screen: it just goes dark.
@@ -105,7 +139,7 @@ export function builtIn(type, options = {}) {
   }
   if (WORLDS.indexOf(options.world) !== -1) m.world = options.world;
   if (SOUNDS.indexOf(options.sound) !== -1) m.backgroundSound = options.sound;
-  if (typeof options.voice === 'boolean') m.voiceEnabled = options.voice && type !== 'silent';
+  if (typeof options.voice === 'boolean') m.voiceEnabled = options.voice && type !== 'silent' && type !== 'sound';
   if (typeof options.haptics === 'boolean') m.hapticBreathing = options.haptics;
   return enforce(m);
 }

@@ -42,9 +42,15 @@ test('nothing on the widget is about the person, a mood, or a crisis', () => {
 });
 
 test('the widget can read nothing the person saved, and asks for nothing', () => {
-  assert.ok(!/UserDefaults|FileManager|appGroup|suiteName|URLSession|CLLocation|Keychain|HealthKit|Contacts/.test(code), 'the widget reaches for storage, the network, or the phone\'s data');
+  assert.ok(!/FileManager|appGroup|suiteName|URLSession|CLLocation|Keychain|HealthKit|Contacts/.test(code), 'the widget reaches for shared storage, the network, or the phone\'s data');
+  // It keeps one number, in its own storage, which the app can't read: when a breathing minute
+  // started on the widget ends. Nothing else is ever written or read.
+  const uses = code.match(/UserDefaults[^\n]*/g) || [];
+  assert.equal(uses.length, 2, 'the widget uses its storage somewhere new');
+  assert.ok(uses.every((line) => /^UserDefaults\.standard\.(double|set)\(/.test(line) && line.includes('BreathingMinute.key')), uses.join(' | '));
   assert.ok(!existsSync(join(widget, 'TidelightWidget.entitlements')), 'the widget has entitlements (a shared container would let it read the app\'s data)');
-  assert.match(code, /policy: \.never/, 'the widget never refreshes: there is nothing for it to show that changes');
+  assert.match(code, /policy: \.never/, 'the widget never refreshes by itself: outside a breathing minute there is nothing on it that changes');
+  assert.ok(!/policy: \.(atEnd|after)/.test(code));
 });
 
 test('a tap opens the app at one of three named places, through the app\'s own address', () => {

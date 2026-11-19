@@ -31,6 +31,9 @@ export const CONFIG = deepFreeze({
     maxDays: 14,
     testDelayMs: 5000,
     testId: 299,
+    ownMaxLength: 60, // the person's own words for a reminder
+    followId: 298, // the one reminder to check in on someone
+    visitId: 297, // the one reminder for an appointment
   },
   streak: {
     enabledDefault: true,
@@ -55,7 +58,7 @@ export const CONFIG = deepFreeze({
     voicePitch: 0.9,
     ambientVolume: 0.5,
     maxSessionsKept: 400,
-    lengths: { silent: [3, 5], quick: [1], deep: [10, 15, 20], sleep: [10, 20] },
+    lengths: { silent: [3, 5], quick: [1], deep: [10, 15, 20], sleep: [10, 20], sound: [5, 15, 30], scan: [5, 10], walk: [5, 10, 15], breathe: [1, 3, 5] },
     homeRadiusMeters: 150,
     sleepHours: { from: '21:30', to: '04:00' },
     particles: 14,
@@ -90,4 +93,24 @@ export const CONFIG = deepFreeze({
   health: { minSeconds: 60 },
   // The safety plan: a short list, so each part stays short enough to read in a hard moment.
   plan: { maxItems: 8, maxLength: 120 },
+  // A backup file: no larger than this in all, and no one stored thing larger than this.
+  backup: { maxBytes: 8000000, maxValue: 4000000 },
+  // For my next appointment: a few short lines, and a reminder time within the next year.
+  visit: { maxItems: 8, maxLength: 140, maxDays: 366 },
+  // A reminder to check in on someone: a short name (optional), and a time within the next year.
+  follow: { maxLength: 40, maxDays: 366 },
+  // My week, in words: the last seven days, and at most this many of the person's own lines.
+  week: { days: 7, maxLines: 30 },
+  // My toolkit: at most four tools pinned to Home.
+  toolkit: { max: 4 },
+  // A first week: seven steps, each ticked or not.
+  course: { steps: 7 },
+  // A letter to myself: long enough for a real letter, short enough to read in a hard moment.
+  letter: { maxLength: 2000 },
+  // A message for a hard moment: short enough to be a text. As many people as My circle holds.
+  reach: { maxLength: 300, maxPeople: 5 },
+  // Three good things: three short lines a day; the newest 90 days are kept and the last 7 are shown.
+  good: { perDay: 3, maxLength: 140, keepDays: 90, showDays: 7 },
+  // Ten minutes at a time: five steps of two minutes. The screen's words say the same numbers.
+  ride: { steps: 5, stepSeconds: 120 },
 });

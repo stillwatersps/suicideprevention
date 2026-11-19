@@ -56,6 +56,19 @@ export function stepper(root, { min, max, value, onChange }) {
   return { set(v) { current = Math.max(min, Math.min(max, v)); show(); }, get: () => current };
 }
 
+// To the top of the page at once. As a slow scroll, a touch in its first moments stops it part-way on a phone.
+export const toTop = () => window.scrollTo({ top: 0, behavior: 'instant' });
+
+// Makes a change that resizes the page (larger text, more room between lines) and keeps the control
+// that was tapped where it was on the screen. An iPhone doesn't do that by itself: the page jumped,
+// and the next tap could land on another switch.
+export function stayPut(el, change) {
+  const before = el.getBoundingClientRect().top;
+  change();
+  const moved = el.getBoundingClientRect().top - before;
+  if (Math.abs(moved) > 1) window.scrollBy({ top: moved, behavior: 'instant' });
+}
+
 // A slim progress line. The markup is <span class="tl-progress"><span></span></span>.
 export function progressLine(root) {
   const bar = root.querySelector('span');

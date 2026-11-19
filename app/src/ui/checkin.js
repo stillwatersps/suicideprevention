@@ -4,7 +4,7 @@ import { CONFIG } from '../core/config.js';
 import { t } from './words.js';
 import { style, profile, isQuiet } from './state.js';
 import { devLog } from '../core/dev.js';
-import { choiceGroup } from './components.js';
+import { choiceGroup, toTop } from './components.js';
 import { haptic } from './haptics.js';
 import { isLowMood, isHeavyFeeling } from '../logic/safety.js';
 
@@ -74,7 +74,7 @@ async function finish() {
     onSupport = true;
     step('support');
     const box = $('#tl-flow-support');
-    window.scrollTo(0, 0);
+    toTop(); // at once: support is never left part-way down the page
     box.focus({ preventScroll: true });
     return;
   }
@@ -88,7 +88,9 @@ async function finish() {
   if (!quiet) { arrive(1); $('#tl-flow-horizon').classList.add('tl-horizon-complete'); }
   step('done');
   $('#tl-flow-horizon').hidden = quiet;
-  window.scrollTo(0, 0);
+  toTop();
+  // The check-in is finished: the Check-in tab opens on its own first screen next time, not on a new check-in.
+  if (shellRef) shellRef.forget('flow');
 }
 
 export function initCheckin(shell, context) {

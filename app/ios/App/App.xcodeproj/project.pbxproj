@@ -18,6 +18,7 @@
 		504EC3121FED79650016851F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 504EC3101FED79650016851F /* LaunchScreen.storyboard */; };
 		50B271D11FEDC1A000F3C39B /* public in Resources */ = {isa = PBXBuildFile; fileRef = 50B271D01FEDC1A000F3C39B /* public */; };
 		57049C7FCC7FE83194E6B12E /* TidelightShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B2423FA816E93F701FB3C0C /* TidelightShortcuts.swift */; };
+		6060E29E145972FDF23AC984 /* TidelightBreathing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1AB16C405BDEC60038D952A /* TidelightBreathing.swift */; };
 		6B4A6CF1FB2784768170E03F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEC16F111AB85880E16E8DB0 /* Foundation.framework */; };
 		70F2EE98FE6223EDE68300D5 /* AppShortcuts.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2966709438EA2AB8D9FD557C /* AppShortcuts.strings */; };
 		7A1D00010000000000000000 /* TidelightPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01010000000000000000 /* TidelightPlugin.swift */; };
@@ -27,10 +28,13 @@
 		7A1D00050000000000000000 /* DwellTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D01050000000000000000 /* DwellTracker.swift */; };
 		7A1D00070000000000000000 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7A1D01070000000000000000 /* PrivacyInfo.xcprivacy */; };
 		7A1D01060000000000000000 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A1D00060000000000000000 /* SceneDelegate.swift */; };
+		8ADFF5DC1C5A42B49B858E68 /* BreathingLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8651EC75B1D4B3284F6F496 /* BreathingLive.swift */; };
 		92E5ACB6173BD0422D23FADF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238AA0C7C73F34F2A156D08D /* Foundation.framework */; };
 		94EFEA4F4217D7E8A7A91E19 /* TidelightWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EEC88041F0BA6979F8D390B /* TidelightWidget.swift */; };
+		9FF0FDBC4BE865D221AB8185 /* BreathingAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273CDE9E88739FF842D1010 /* BreathingAttributes.swift */; };
 		A084ECDBA7D38E1E42DFC39D /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */; };
 		A138A1B5C108E1C20EE4B1C9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CA8B3100A8FEA0F8124E6D68 /* Localizable.strings */; };
+		A2FC68AE5F77519BC0DF7C53 /* BreathingAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C273CDE9E88739FF842D1010 /* BreathingAttributes.swift */; };
 		A506C8A87BB157DC4D6876A5 /* TidelightWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EBEB137D305EFC9550488066 /* TidelightWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		C1C34365B8DA158D87C83209 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B8C36A5C4683812CA031FB18 /* InfoPlist.strings */; };
 		C3E8E13E3D6BC275AA7A07AD /* TidelightHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4E94E95F681B8F598AE238 /* TidelightHealth.swift */; };
@@ -113,12 +117,15 @@
 		ACB68483EBB8C32AD663025F /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AF277DCFFFF123FFC6DF26C7 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF51FD2D460BCFE21FA515B2 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
+		B8651EC75B1D4B3284F6F496 /* BreathingLive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BreathingLive.swift; sourceTree = "<group>"; };
 		BEA75CDA7800DF30026B181C /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		BF96F3910C35001571E6D62B /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C273CDE9E88739FF842D1010 /* BreathingAttributes.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BreathingAttributes.swift; sourceTree = "<group>"; };
 		C40A2A6B73F093D6741885E9 /* es */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D5E4FAF39510539798C0DA38 /* TidelightWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TidelightWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBEB137D305EFC9550488066 /* TidelightWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TidelightWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC16F111AB85880E16E8DB0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		F1AB16C405BDEC60038D952A /* TidelightBreathing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TidelightBreathing.swift; sourceTree = "<group>"; };
 		F5E0F61614ACA6848662C07C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC68EB0AF532CFC21C3344DD /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,6 +225,7 @@
 				2966709438EA2AB8D9FD557C /* AppShortcuts.strings */,
 				174FA324245B9866BB7D71B1 /* App.entitlements */,
 				B8C36A5C4683812CA031FB18 /* InfoPlist.strings */,
+				F1AB16C405BDEC60038D952A /* TidelightBreathing.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -237,6 +245,8 @@
 				0EEC88041F0BA6979F8D390B /* TidelightWidget.swift */,
 				F5E0F61614ACA6848662C07C /* Info.plist */,
 				095FF357817B3B2E5867EC08 /* Localizable.strings */,
+				C273CDE9E88739FF842D1010 /* BreathingAttributes.swift */,
+				B8651EC75B1D4B3284F6F496 /* BreathingLive.swift */,
 			);
 			name = TidelightWidget;
 			path = TidelightWidget;
@@ -442,6 +452,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				94EFEA4F4217D7E8A7A91E19 /* TidelightWidget.swift in Sources */,
+				9FF0FDBC4BE865D221AB8185 /* BreathingAttributes.swift in Sources */,
+				8ADFF5DC1C5A42B49B858E68 /* BreathingLive.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +470,8 @@
 				7A1D00050000000000000000 /* DwellTracker.swift in Sources */,
 				57049C7FCC7FE83194E6B12E /* TidelightShortcuts.swift in Sources */,
 				C3E8E13E3D6BC275AA7A07AD /* TidelightHealth.swift in Sources */,
+				A2FC68AE5F77519BC0DF7C53 /* BreathingAttributes.swift in Sources */,
+				6060E29E145972FDF23AC984 /* TidelightBreathing.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

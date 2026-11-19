@@ -18,6 +18,7 @@ import { fileURLToPath } from 'node:url';
 import { serve, counter, pagePath, openPanel, SEEDED } from './helpers.mjs';
 import { walk as walkScreens, walkFirstLaunch as walkFirstPages, home, root, startFlow } from './app-screens.mjs';
 import { openBrowser } from './quiet.mjs';
+import { SITE_SCREENS } from '../tools/site-screens.mjs';
 
 const FIXTURE = fileURLToPath(new URL('./fixtures/crisis-inventory.json', import.meta.url));
 const mode = process.argv.includes('--record') ? 'record' : process.argv.includes('--table') ? 'table' : 'check';
@@ -259,6 +260,15 @@ console.log('\nThe inventory');
       for (const m of (section ? section[0] : '').matchAll(/<a\b[^>]*\bhref="((?:tel|sms|https):[^"]+)"/g)) allowed[m[1].replace(/&amp;/g, '&')] = 1;
     }
   }
+  // Screens that show a website page's own sections (tools/site-screens.mjs): the services those
+  // sections name are allowed on them for the same reason, read from the page.
+  for (const spec of Object.values(SITE_SCREENS)) for (const file of Object.values(spec.page)) {
+    const page = readFileSync(join(fileURLToPath(new URL('../www/', import.meta.url)), file), 'utf8');
+    for (const id of spec.sections) {
+      const section = page.match(new RegExp('<section id="' + id + '"[\\s\\S]*?<\\/section>'));
+      for (const m of (section ? section[0] : '').matchAll(/<a\b[^>]*\bhref="((?:tel|sms|https):[^"]+)"/g)) allowed[m[1].replace(/&amp;/g, '&')] = 1;
+    }
+  }
   for (const lang of ['en', 'es']) {
     const controls = Object.values(inventory.languages[lang]).flatMap((s) => s.controls);
     const odd = [...new Set(controls.map((c) => c.href))].filter((href) => !allowed[href]);
@@ -276,7 +286,7 @@ console.log('\nThe inventory');
   // "Other ways" screen is that page's list of services, which differs by language on the page itself
   // (English has a Spanish block; Spanish has SAMHSA's Spanish line), so it is compared with its
   // page, in test/ways-test.mjs, and not with the other language.
-  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.filter((c) => !c.key.startsWith('tl-expect|https://') && !c.key.startsWith('tl-ways|') && !c.key.startsWith('tl-helping|https://')).map((c) => c.key.replace(TEXT_AYUDA, 'sms:988').replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
+  const same = (lang) => Object.fromEntries(Object.entries(inventory.languages[lang]).map(([id, s]) => [id, s.controls.filter((c) => !c.key.startsWith('tl-expect|https://') && !c.key.startsWith('tl-ways|') && !c.key.startsWith('tl-helping|https://') && !Object.keys(SITE_SCREENS).some((name) => c.key.startsWith('tl-' + name + '|'))).map((c) => c.key.replace(TEXT_AYUDA, 'sms:988').replace('?lang=es', '').replace('support|https://988lifeline.org/|1', 'support|https://chat.988lifeline.org/|2')).sort().join(' ')]));
   const en = same('en');
   const es = same('es');
   const differs = Object.keys(en).filter((id) => en[id] !== es[id]);

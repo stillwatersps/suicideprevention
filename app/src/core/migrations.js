@@ -14,12 +14,18 @@ export function defaultSettings() {
     styleChosen: false, // true once the person picks a style themself
     countChosen: false, // true once the person picks how many check-ins a day
     remindersOn: false,
+    reminderWords: '', // the person's own words for a reminder; empty means the app's usual words
     customTimes: null, // null: spread evenly between wake and sleep
     streaksOn: CONFIG.streak.enabledDefault,
     haptics: true,
     reduceMotion: false,
     appLock: false, // ask the phone to confirm who it is before showing anything saved
     health: false, // add finished meditations to Apple Health as mindful minutes (iPhone)
+    lockScreenBreathing: false, // show a breathing session on the Lock Screen while it runs (iPhone)
+    nightMode: false, // dark colors between bed time and wake time, whatever the phone is set to
+    alwaysDark: false, // dark colors all the time, whatever the phone is set to
+    easyRead: false, // more space between lines, letters, and words; links underlined
+    readAloud: false, // a "Read aloud" button on screens with a Back button
     meditation: {
       defaultMinutes: CONFIG.meditation.defaultMinutes,
       defaultSound: CONFIG.meditation.defaultSound,

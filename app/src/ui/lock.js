@@ -8,6 +8,7 @@ import { t } from './words.js';
 import { state, save } from './state.js';
 import { Tidelight } from '../native.js';
 import { devLog } from '../core/dev.js';
+import { toTop } from './components.js';
 
 const root = document.documentElement;
 const $ = (sel) => document.querySelector(sel);
@@ -61,7 +62,7 @@ function cover() {
   root.classList.add('tl-locked');
   screen.hidden = false;
   $('#tl-lock-note').hidden = true;
-  window.scrollTo(0, 0);
+  toTop();
   screen.focus({ preventScroll: true });
 }
 function uncover() {

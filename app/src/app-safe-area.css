@@ -20,3 +20,7 @@ body { padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-are
   .crisis-bar p a { min-height: 44px; padding: 11px 0; line-height: 1.4; }
 }
 
+/* A button that holds a word in another language ("Enviar <span lang="en">PRIDE</span> al 988"). The
+   website lays a button out as a row, which drops the spaces around the inner word: on a phone it read
+   "EnviarPRIDEal 988". This gives the spaces back, on every page inside the app. */
+.pill > span[lang] { margin: 0 0.25em; }

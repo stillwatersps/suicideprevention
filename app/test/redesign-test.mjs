@@ -233,6 +233,9 @@ async function onboardingTests(browser, lang) {
   // Setup ring: worked out from real state.
   await page.waitForSelector('#tl-home-setup:not([hidden])');
   check(new RegExp('\\b6\\D+8\\b').test(await page.textContent('#tl-setup-count')), 'the setup line says 6 of 8: a first check-in and a first meditation are left');
+  // Found in the iPhone Simulator: the line was drawn as a circle on top of the card's words.
+  const line = await page.evaluate(() => { const box = (id) => document.getElementById(id).getBoundingClientRect(); const bar = box('tl-setup-ring'); const words = box('tl-setup-count'); const label = box('tl-setup-ring-label'); return { under: bar.top >= Math.max(words.bottom, label.bottom) - 1, slim: bar.height > 0 && bar.height <= 12, wide: bar.width > 100 }; });
+  check(line.under && line.slim && line.wide, 'its progress line is a slim line under the card\'s words, not on top of them');
   await page.click('#tl-setup-open');
   const left = await page.$$eval('#tl-setup-list li', (els) => els.filter((e) => !e.hidden).map((e) => e.getAttribute('data-setup')));
   check(JSON.stringify(left) === JSON.stringify(['firstCheckIn', 'firstMeditation']), 'tapping it lists what\'s left');
@@ -838,6 +841,9 @@ async function playerTests(browser, lang) {
   check(!(await page.isVisible('#tl-controls')), 'the controls start hidden');
   await page.click('#tl-stage', { position: { x: 180, y: 560 } });
   check(await page.isVisible('#tl-player-pause') && await page.isVisible('#tl-player-end') && await page.isVisible('#tl-toggle-sound') && await page.isVisible('#tl-toggle-voice') && await page.isVisible('#tl-toggle-haptics'), 'a tap shows Pause, End, and the three switches');
+  // Found in the iPhone Simulator: the words at the top of the stage showed through End and the sound buttons.
+  const clear = await page.evaluate(() => { const words = document.getElementById('tl-screen-text').getBoundingClientRect(); const row = document.querySelector('#tl-controls .tl-controls-top').getBoundingClientRect(); return words.top >= row.bottom - 1; });
+  check(clear, 'while the controls show, the words at the top sit below End and the switches');
   const order = await page.evaluate(() => { const end = document.querySelector('#tl-player-end').getBoundingClientRect(); const sw = document.querySelector('#tl-toggle-sound').getBoundingClientRect(); const stage = document.querySelector('#tl-stage').getBoundingClientRect(); return end.left < stage.left + stage.width / 2 && sw.left > stage.left + stage.width / 2 && end.top < stage.top + stage.height / 3; });
   check(order, 'End is top left and the switches top right');
   await page.waitForTimeout(3400);
@@ -888,7 +894,7 @@ async function typesTests(browser, lang) {
   let { context, page, errors, outside } = await newPage(browser, lang, { hooks: { clockRate: 120 }, storage: { 'tidelight.settings': oneADay } });
   await tab(page, 'meditate');
   check(await page.isVisible('#tl-suggest-card') && (await page.textContent('#tl-suggest-card [data-suggest-title]')).trim().length > 2 && (await page.textContent('#tl-suggest-card [data-suggest-reason]')).trim().length > 5, 'Meditate opens with a suggestion and its one-line reason');
-  check((await page.locator('#tl-types .tl-type').count()) === 4, 'then the four types');
+  check((await page.locator('#tl-types .tl-type').count()) === 8, 'then the eight types');
   const labels = await page.$$eval('#tl-types [data-type-start]', (els) => els.map((e) => e.getAttribute('aria-label')));
   check(labels.every((l) => /\d/.test(l) && l.length > 12), 'each Start says what it starts: ' + labels[0]);
   check(await page.isVisible('#tl-build-card') && await page.isVisible('#tl-history-card') && await page.isVisible('#tl-presets'), 'then presets, Build your own, and History');
@@ -1065,6 +1071,9 @@ async function builderTests(browser, lang) {
   // Save preset.
   await page.click('#tl-builder-save');
   check(await page.isVisible('#tl-builder-name') && (await page.evaluate(() => document.activeElement.id)) === 'tl-builder-name', 'Save preset asks for a name, with the keyboard ready');
+  // Found in the iPhone Simulator: the name field opened below the screen, and nothing seemed to have happened.
+  const named = await page.evaluate(() => { const r = document.getElementById('tl-builder-name-box').getBoundingClientRect(); const strip = document.querySelector('.crisis-bar').getBoundingClientRect().bottom; return r.height > 0 && r.top >= strip - 1 && r.bottom <= window.innerHeight + 1; });
+  check(named, 'and the name field, with its Save and Cancel, is on the screen');
   const suggested = await page.inputValue('#tl-builder-name');
   check(suggested.length > 3 && suggested.length <= 24 && (await page.getAttribute('#tl-builder-name', 'maxlength')) === '24', 'a name is already filled in, 24 characters at most: ' + suggested);
   await page.fill('#tl-builder-name', 'A made-up preset');

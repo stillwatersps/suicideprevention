@@ -73,6 +73,162 @@ these. **Never let a call connect or a message send: cancel at the phone's own s
 - [ ] With VoiceOver on, swipe from the top of Home. *Expected:* Quick exit, Call 988, Text 988,
   and Call 911 are the first things read.
 
+## 1j. Forty features (added from November 16, 2026; none seen on a real phone)
+
+The interactive widget, and the Lock Screen:
+- [ ] Add the Tidelight widget (small, then medium) to the Home Screen. Tap "Start here": the widget shows "In
+      for 4, out for 6" and a countdown from 1:00, the app does not open, and after a minute it goes back.
+- [ ] Settings, "Show a breathing session on the Lock Screen" on. Home, 1-min reset, then lock the phone: the
+      Lock Screen shows "Tidelight", "Breathing", and the time left. When the minute ends it goes away.
+- [ ] Start it again, pause the session: it goes away. Start it again, close the app from the app switcher:
+      note what the Lock Screen shows, then open the app: it goes away.
+- [ ] On an iPhone with a Dynamic Island: a small wind picture and the time left, and nothing else.
+
+Comfort settings:
+- [ ] Settings, "Always use the dark colors" at midday with the phone in light mode: the app turns dark at
+      once, and so does the Get Help page opened from it.
+- [ ] "Read aloud button" on, then Grounding, "Read aloud", with the volume up: the phone reads the screen in
+      the app's language. Tap again: it stops at once. Start it again and press the side button to lock the
+      phone, then use Quick exit: it stops both times.
+
+A backup file:
+- [ ] Settings, "Make a backup file": the share sheet opens with a .json file; save it to Files.
+- [ ] "Restore from a backup file": the phone's file picker opens; choose that file; the question appears;
+      "Replace what is on this phone" restarts the app with the same things in it. Hope box photos are still
+      there.
+- [ ] On a second phone or simulator with the app freshly installed: restore the file there, and check the
+      safety plan, journal, and settings came across.
+
+After a loss:
+- [ ] Friends tab, the loss row: the screen reads the same as the After a loss page on the website. It is long;
+      scroll to the end and back, and check the crisis strip stays at the top the whole way.
+
+After a crisis:
+- [ ] Check-in tab, "After a crisis": read it through once, slowly, as someone just home from a hospital would.
+      Write down anything that lands wrong. (This is for a founder, and then a clinician.)
+
+For veterans, and for LGBTQ+ young people:
+- [ ] Check-in tab, each of the two rows: the screen shows the same words as that service's entry on the Get
+      Help page, and its buttons open the dial or message screen (do not call or send).
+
+For parents and caregivers:
+- [ ] Friends tab, "If it's a child or teen": the screen reads the same as that section of the Help Someone
+      page, and Back returns to the Friends tab.
+
+For teens:
+- [ ] Check-in tab, the teens row: the screen reads the same as the For teens page on the website, and its
+      Trevor Project and Crisis Text Line buttons open the dial or message screen (do not call or send).
+
+Support over time:
+- [ ] Check-in tab, "Support over time": the FindTreatment.gov link opens outside the app, and the two phone
+      numbers open the dial screen (do not place the call).
+
+For my next appointment:
+- [ ] Check-in tab, "For my next appointment": add two lines with the phone's keyboard (Return adds one),
+      remove one, set a reminder two minutes ahead, lock the phone: the notification says "A reminder you set."
+      and nothing about an appointment.
+
+A reminder to check in on someone:
+- [ ] Friends tab, the reminder row: set a time two minutes ahead with a made-up name, lock the phone. The
+      notification says "Tidelight" and "A reminder you set." and no name. The date and time picker is usable.
+
+The safety plan as a page:
+- [ ] Safety plan with a few lines in it, "Make the page": the share sheet opens with a text file. Choose
+      Print: the preview shows the whole plan and the 988 and 911 lines. Cancel without printing.
+- [ ] Choose "Save to Files" instead, then open the file in Files: it reads the same.
+
+Words for telling someone:
+- [ ] Friends tab, "Words for telling someone": tap Copy on a line, open Messages, paste: the words are there
+      and nothing was sent. Press and hold a line: the phone offers to copy it.
+
+All tools:
+- [ ] Home, "All tools": type "sleep" with the phone's keyboard: one row is left, and the keyboard's Search key
+      closes the keyboard. Type "help": Call 988 shows above the results and is not under the keyboard.
+
+My week, in words:
+- [ ] Check-in tab, "My week, in words", after a few days of real use: the sentences fit what happened, the
+      days are in an order that makes sense, and nothing on it reads as a grade.
+
+Reminders in my own words:
+- [ ] Settings, Notifications: turn reminders on, write "Blue door", Save, then "Send a test notification" and
+      lock the phone. The notification says "Tidelight" and "Blue door" and nothing else.
+- [ ] Write "How is your mood?" and Save: it is refused and the test notification still says "Blue door".
+
+My toolkit:
+- [ ] Home, "Choose tools": pin Grounding and Hope box. Back on Home both are buttons; each opens its tool. At
+      the phone's largest text size the buttons wrap and none is cut off.
+
+Breathe in a pattern:
+- [ ] Meditate tab, "Breathe in a pattern", Box, 1 minute: the circle holds after the breath in and after the
+      breath out, and the taps (if on) follow it. Then 4-7-8: the hold is seven counts.
+
+A first week:
+- [ ] Meditate tab, "A first week": tick day 1, close the app from the app switcher, open it again: the tick is
+      still there. Day 5's button starts the walk; day 7's opens the safety plan, and Back from it goes to the
+      Check-in tab (the plan's own tab), not back to the week.
+
+A mindful walk:
+- [ ] Meditate tab, "A mindful walk", 5 minutes, sound on, phone in a pocket, walking: four lines are heard, at
+      the start, after about 30 seconds, about half way, and at the end. The screen can be locked without the
+      session stopping (if it stops, write that down: it has not been tried on a phone).
+
+Being kind to yourself:
+- [ ] Check-in tab, "Being kind to yourself": the three exercises read well at the phone's largest text, and
+      Call 988 at the end is full size.
+
+Body scan:
+- [ ] Meditate tab, "Body scan", 5 minutes, with sound on: three lines are spoken (settle, the scan, come
+      back) and the long quiet between them does not feel like the app has stopped.
+
+Another way to see it:
+- [ ] Check-in tab, "Another way to see it": type in two fields with the phone's keyboard; the keyboard does
+      not cover the field being typed in. Go to another tab and back: the fields are empty.
+
+One small thing for today:
+- [ ] Add three things under Rediscover, "Things you'd like to try". Home shows one; "Another one" goes
+      through all three; tomorrow it may start on a different one.
+
+Three good things:
+- [ ] Check-in tab, "Three good things": write two lines with the phone's keyboard, save, close the app, open
+      it. They are there. The next day they are under "Earlier days" and today is empty.
+
+Wind down for sleep:
+- [ ] Meditate tab, "Wind down for sleep": tick two steps, start the Sleep session, end it. The app is back
+      on the Meditate tab; open the screen again, and nothing is ticked.
+
+Just sound:
+- [ ] Each of the four sounds plays through the speaker and through headphones, loops without a click, and
+      stops when the session ends or the sound switch is turned off.
+- [ ] It keeps playing with the screen locked, and a phone call or another app's audio interrupts it cleanly.
+
+Care near me:
+- [ ] The button opens the Maps app (not a web page) with emergency rooms near you, on an iPhone and on an
+      Android phone. Coming back, the app is where you left it.
+- [ ] A phone set to Spanish searches in Spanish and still finds emergency rooms.
+
+Darker at night:
+- [ ] Phone set to light, "Darker at night" on, bed time set to a minute from now: within a minute the app
+      turns dark, the crisis strip is easy to read, and Get help (from the menu) is dark too.
+- [ ] Set the wake time to a minute from now: the app turns light again.
+
+Ten minutes at a time:
+- [ ] Start it and leave the phone alone for two minutes: the step changes by itself, with one soft tap, and
+      the screen stays awake.
+- [ ] Lock the phone for a minute during a step and unlock it: the clock has moved on by that minute.
+- [ ] VoiceOver reads each new step once and does not read the clock every second.
+
+Reach someone I trust (stop at the compose screen; never send):
+- [ ] Friends tab, with one person in My circle: "Message (name)" opens Messages addressed to that one person,
+      with the words filled in, and nothing is sent until Send. Cancel there returns to the app.
+- [ ] On an iPhone and on an Android phone: the recipient and the words are both filled in.
+- [ ] A very low quick check-in: "Message someone I trust" is under the crisis buttons.
+
+A letter to myself:
+- [ ] Check-in tab, "A letter to myself": write a few lines with the phone's keyboard, with line breaks. Save.
+      It reads back the same, and is still there after the app is closed and opened.
+- [ ] A very low quick check-in: "Read my letter" is under the crisis buttons, and Back returns to them.
+- [ ] VoiceOver reads the letter, and says when it was saved or removed.
+
 ## 1i. Faults fixed on November 16, 2026 (seen in the Simulator only)
 
 - [ ] Reminders on, app open: "Send a test notification" shows a banner within a few seconds.

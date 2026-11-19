@@ -610,3 +610,25 @@ haven't seen this.** The alternative is to leave the strip to fill a short scree
 Also proposed the same day: a check-in reminder now shows as a banner while the app is open (it showed nothing
 before). For about five seconds the banner covers the strip's first line, as any notification does.
 
+## November 17, 2026: reminders in the person's own words (a proposal, not agreed)
+
+Built by Claude as feature 24 of the forty, on the unmerged branch `app/forty-features`. A person can write one
+short line for their check-in reminders to say. The app refuses words about mood, crisis, or getting help. The
+founder's rule is that notifications are discreet; whether a person's own words, inside that list, are within
+the rule is for the founders to decide. Until then this stays a draft on its branch.
+
+## November 17, 2026: an unlocked backup file (a proposal, not agreed)
+
+Built by Claude as feature 39 of the forty, on the unmerged branch `app/forty-features`. Settings can make one
+file with everything the app has saved (no photos) and read one back. The file is not locked: anyone who gets
+it can read all of it, and the screen says so. Whether an unlocked backup is acceptable, or a backup must be
+locked with a passphrase first, is for the founders (and a lawyer) to decide. Until then this stays a draft on
+its branch.
+
+## November 17, 2026: a breathing session on the Lock Screen (a proposal, not agreed)
+
+Built by Claude as feature 38 of the forty, on the unmerged branch `app/forty-features`. If a person turns it on,
+the Lock Screen shows "Tidelight", "Breathing", and the time left while a breathing session runs; and the
+widget has a button that runs a breathing minute on the widget itself. The founders' rule is that anything
+outside the app is discreet. Whether these are within it is for the founders to decide. Until then this stays
+a draft on its branch.

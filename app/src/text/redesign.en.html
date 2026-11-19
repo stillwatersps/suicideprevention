@@ -42,6 +42,11 @@
             <span class="tl-card-text"><span class="tl-eyebrow">Suggested for you</span> <span class="tl-card-title" data-suggest-title></span> <span class="tl-card-sub" data-suggest-reason></span></span>
             <span class="tl-card-go">Start</span>
           </button>
+          <div class="tl-card tl-step-card" id="tl-home-step" hidden>
+            <span class="tl-card-icon" data-tl-icon="path"></span>
+            <span class="tl-card-text"><span class="tl-eyebrow">One small thing for today</span> <span class="tl-card-title" id="tl-home-step-line" hidden></span> <span class="tl-card-sub" id="tl-home-step-empty">Things you'd like to try can show here, one a day. The list is yours to write.</span></span>
+            <span class="tl-row tl-step-row"><button type="button" class="tl-btn tl-btn-quiet" id="tl-home-step-other" hidden>Another one</button> <button type="button" class="tl-btn tl-btn-quiet" data-tl-legacy="ci-rediscover" id="tl-home-step-list">My list</button></span>
+          </div>
           <div class="tl-card tl-card-warm" id="tl-milestone" role="status" hidden>
             <span class="tl-card-icon" data-tl-icon="star"></span>
             <span class="tl-card-text"><span class="tl-card-title" id="tl-milestone-line"></span></span>
@@ -68,6 +73,12 @@
             <button type="button" class="tl-tile tl-tile-sky" data-tl-go="meditate" data-tl-quick="meditate"><span class="tl-tile-icon" data-tl-icon="horizon"></span><span class="tl-tile-label">Meditate</span></button>
             <button type="button" class="tl-tile tl-tile-seafoam" id="tl-home-reset" data-tl-quick="reset"><span class="tl-tile-icon" data-tl-icon="wind"></span><span class="tl-tile-label">1-min reset</span></button>
             <a class="tl-tile tl-tile-shell" href="#support"><span class="tl-tile-icon" data-tl-icon="lifebuoy"></span><span class="tl-tile-label">Get help</span></a>
+          </div>
+          <div class="tl-card tl-step-card tl-toolkit-card" id="tl-home-toolkit">
+            <span class="tl-card-icon" data-tl-icon="box"></span>
+            <span class="tl-card-text"><span class="tl-eyebrow">My toolkit</span> <span class="tl-card-sub" id="tl-home-toolkit-empty">Pin the tools you reach for most, and they will be here.</span></span>
+            <span class="tl-row tl-toolkit-row" id="tl-home-toolkit-list" role="group" aria-label="My toolkit" hidden></span>
+            <span class="tl-row tl-step-row"><button type="button" class="tl-btn tl-btn-quiet" data-tl-push="toolkit" id="tl-home-toolkit-edit">Choose tools</button> <button type="button" class="tl-btn tl-btn-quiet" data-tl-push="tools" id="tl-home-tools">All tools</button></span>
           </div>
           <div id="tl-home-setup" hidden>
             <button type="button" class="tl-card tl-card-action" id="tl-setup-open" aria-expanded="false" aria-controls="tl-setup-list">
@@ -131,14 +142,79 @@
               <span class="tl-card-text"><span class="tl-card-title">My safety plan</span> <span class="tl-card-sub">What to do when things get hard</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="letter" id="tl-checkin-letter">
+              <span class="tl-card-icon" data-tl-icon="edit"></span>
+              <span class="tl-card-text"><span class="tl-card-title">A letter to myself</span> <span class="tl-card-sub">For a hard day, from a steadier one</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" id="tl-checkin-ground">
               <span class="tl-card-icon" data-tl-icon="stone"></span>
               <span class="tl-card-text"><span class="tl-card-title">Grounding</span> <span class="tl-card-sub">Short ways to steady yourself</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="ride" id="tl-checkin-ride">
+              <span class="tl-card-icon" data-tl-icon="clock"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Ten minutes at a time</span> <span class="tl-card-sub">Five small steps, one after another</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="nearby" id="tl-checkin-nearby">
+              <span class="tl-card-icon" data-tl-icon="pin"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Care near me</span> <span class="tl-card-sub">Emergency rooms, in your phone's maps</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="good" id="tl-checkin-good">
+              <span class="tl-card-icon" data-tl-icon="star"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Three good things</span> <span class="tl-card-sub">Small ones count</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="reframe" id="tl-checkin-reframe">
+              <span class="tl-card-icon" data-tl-icon="spark"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Another way to see it</span> <span class="tl-card-sub">Four questions for a heavy thought</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="helps" id="tl-checkin-helps">
               <span class="tl-card-icon" data-tl-icon="sliders"></span>
               <span class="tl-card-text"><span class="tl-card-title">What tends to help</span> <span class="tl-card-sub">From your own check-ins</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="kind" id="tl-checkin-kind">
+              <span class="tl-card-icon" data-tl-icon="heart"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Being kind to yourself</span> <span class="tl-card-sub">Three short ways to be on your own side</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="week" id="tl-checkin-week">
+              <span class="tl-card-icon" data-tl-icon="clock"></span>
+              <span class="tl-card-text"><span class="tl-card-title">My week, in words</span> <span class="tl-card-sub">A few plain sentences. No scores</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="visit" id="tl-checkin-visit">
+              <span class="tl-card-icon" data-tl-icon="edit"></span>
+              <span class="tl-card-text"><span class="tl-card-title">For my next appointment</span> <span class="tl-card-sub">Things to bring up, and a reminder</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="care" id="tl-checkin-care">
+              <span class="tl-card-icon" data-tl-icon="people"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Support over time</span> <span class="tl-card-sub">Longer-term care, and ways to find it</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="teens" id="tl-checkin-teens">
+              <span class="tl-card-icon" data-tl-icon="people"></span>
+              <span class="tl-card-text"><span class="tl-card-title">If you're a teen and things feel hard</span> <span class="tl-card-sub">Reaching out, trusted adults, and what stays private</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="vets" id="tl-checkin-vets">
+              <span class="tl-card-icon" data-tl-icon="lifebuoy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">For veterans and service members</span> <span class="tl-card-sub">The Veterans Crisis Line</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="lgbtq" id="tl-checkin-lgbtq">
+              <span class="tl-card-icon" data-tl-icon="lifebuoy"></span>
+              <span class="tl-card-text"><span class="tl-card-title">For LGBTQ+ young people</span> <span class="tl-card-sub">Two services, by phone, text, or chat</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button></li>
+            <li><button type="button" class="tl-card tl-card-action" data-tl-push="after" id="tl-checkin-after">
+              <span class="tl-card-icon" data-tl-icon="path"></span>
+              <span class="tl-card-text"><span class="tl-card-title">After a crisis</span> <span class="tl-card-sub">The days after, one small step at a time</span></span>
               <span class="tl-card-go" data-tl-icon="next"></span>
             </button></li>
             <li><button type="button" class="tl-card tl-card-action" data-tl-push="summary" id="tl-checkin-summary">
@@ -205,6 +281,8 @@
             <div class="tl-row tl-row-center">
               <a class="tl-btn tl-btn-secondary" href="#support">More ways to get support</a>
               <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="plan" data-tl-over data-plan-open hidden>Open my safety plan</button>
+              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="letter" data-tl-over data-letter-open hidden>Read my letter</button>
+              <button type="button" class="tl-btn tl-btn-secondary" data-tl-push="reach" data-tl-over data-reach-open hidden>Message someone I trust</button>
               <button type="button" class="tl-btn tl-btn-quiet" data-tl-go="home">Back to Home</button>
             </div>
             <ul class="tl-list tl-support-more">
@@ -221,6 +299,16 @@
               <li><button type="button" class="tl-card tl-card-action" data-tl-push="ground" data-tl-over>
                 <span class="tl-card-icon" data-tl-icon="stone"></span>
                 <span class="tl-card-text"><span class="tl-card-title">Grounding</span> <span class="tl-card-sub">Short ways to steady yourself</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="ride" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="clock"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Ten minutes at a time</span> <span class="tl-card-sub">Five small steps, one after another</span></span>
+                <span class="tl-card-go" data-tl-icon="next"></span>
+              </button></li>
+              <li><button type="button" class="tl-card tl-card-action" data-tl-push="nearby" data-tl-over>
+                <span class="tl-card-icon" data-tl-icon="pin"></span>
+                <span class="tl-card-text"><span class="tl-card-title">Care near me</span> <span class="tl-card-sub">Emergency rooms, in your phone's maps</span></span>
                 <span class="tl-card-go" data-tl-icon="next"></span>
               </button></li>
             </ul>
@@ -367,6 +455,19 @@
                   <span class="tl-row" data-type-world role="group" aria-label="World"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Forest</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Night sky</button></span>
                 </div>
               </div>
+              <div class="tl-type" data-type="breathe">
+                <span class="tl-choice-art" data-tl-icon="wind" data-tl-large></span>
+                <h3 class="tl-headline tl-type-name">Breathe in a pattern</h3>
+                <span class="tl-row" data-type-pattern role="group" aria-label="Pattern"><button type="button" class="tl-chip" data-value="calm" aria-pressed="true">Calm: in 4, out 6</button><button type="button" class="tl-chip" data-value="box" aria-pressed="false">Box: 4, 4, 4, 4</button><button type="button" class="tl-chip" data-value="stressed" aria-pressed="false">4-7-8</button></span>
+                <span class="tl-row" data-type-length role="group" aria-label="Length"><button type="button" class="tl-chip" data-value="1" aria-pressed="true">1 min</button><button type="button" class="tl-chip" data-value="3" aria-pressed="false">3 min</button><button type="button" class="tl-chip" data-value="5" aria-pressed="false">5 min</button></span>
+                <span class="tl-sub tl-type-note">If you feel dizzy or short of breath, stop and breathe the way you usually do.</span>
+                <button type="button" class="tl-btn tl-btn-primary" data-type-start>Start</button>
+                <button type="button" class="tl-btn tl-btn-quiet" data-type-options aria-expanded="false">Options</button>
+                <div class="tl-stack tl-type-more" hidden>
+                  <span class="tl-label">World</span>
+                  <span class="tl-row" data-type-world role="group" aria-label="World"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Forest</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Night sky</button></span>
+                </div>
+              </div>
               <div class="tl-type" data-type="quick">
                 <span class="tl-choice-art" data-tl-icon="bolt" data-tl-large></span>
                 <h3 class="tl-headline tl-type-name">1-minute reset</h3>
@@ -406,7 +507,56 @@
                   <span class="tl-row" data-type-sound role="group" aria-label="Sound"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">None</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Rain</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">White noise</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Brown noise</button></span>
                 </div>
               </div>
+              <div class="tl-type" data-type="sound">
+                <span class="tl-choice-art" data-tl-icon="sound" data-tl-large></span>
+                <h3 class="tl-headline tl-type-name">Just sound</h3>
+                <span class="tl-row" data-type-length role="group" aria-label="Length"><button type="button" class="tl-chip" data-value="5" aria-pressed="true">5 min</button><button type="button" class="tl-chip" data-value="15" aria-pressed="false">15 min</button><button type="button" class="tl-chip" data-value="30" aria-pressed="false">30 min</button></span>
+                <button type="button" class="tl-btn tl-btn-primary" data-type-start>Start</button>
+                <button type="button" class="tl-btn tl-btn-quiet" data-type-options aria-expanded="false">Options</button>
+                <div class="tl-stack tl-type-more" hidden>
+                  <span class="tl-label">World</span>
+                  <span class="tl-row" data-type-world role="group" aria-label="World"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Forest</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Night sky</button></span>
+                  <span class="tl-label">Sound</span>
+                  <span class="tl-row" data-type-sound role="group" aria-label="Sound"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">None</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Rain</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">White noise</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Brown noise</button></span>
+                </div>
+              </div>
+              <div class="tl-type" data-type="scan">
+                <span class="tl-choice-art" data-tl-icon="lotus" data-tl-large></span>
+                <h3 class="tl-headline tl-type-name">Body scan</h3>
+                <span class="tl-row" data-type-length role="group" aria-label="Length"><button type="button" class="tl-chip" data-value="5" aria-pressed="true">5 min</button><button type="button" class="tl-chip" data-value="10" aria-pressed="false">10 min</button></span>
+                <button type="button" class="tl-btn tl-btn-primary" data-type-start>Start</button>
+                <button type="button" class="tl-btn tl-btn-quiet" data-type-options aria-expanded="false">Options</button>
+                <div class="tl-stack tl-type-more" hidden>
+                  <span class="tl-label">World</span>
+                  <span class="tl-row" data-type-world role="group" aria-label="World"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Forest</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Night sky</button></span>
+                  <span class="tl-label">Sound</span>
+                  <span class="tl-row" data-type-sound role="group" aria-label="Sound"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">None</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Rain</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">White noise</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Brown noise</button></span>
+                </div>
+              </div>
+              <div class="tl-type" data-type="walk">
+                <span class="tl-choice-art" data-tl-icon="path" data-tl-large></span>
+                <h3 class="tl-headline tl-type-name">A mindful walk</h3>
+                <span class="tl-row" data-type-length role="group" aria-label="Length"><button type="button" class="tl-chip" data-value="5" aria-pressed="true">5 min</button><button type="button" class="tl-chip" data-value="10" aria-pressed="false">10 min</button><button type="button" class="tl-chip" data-value="15" aria-pressed="false">15 min</button></span>
+                <button type="button" class="tl-btn tl-btn-primary" data-type-start>Start</button>
+                <button type="button" class="tl-btn tl-btn-quiet" data-type-options aria-expanded="false">Options</button>
+                <div class="tl-stack tl-type-more" hidden>
+                  <span class="tl-label">World</span>
+                  <span class="tl-row" data-type-world role="group" aria-label="World"><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="forest" aria-pressed="false">Forest</button><button type="button" class="tl-chip" data-value="nightSky" aria-pressed="false">Night sky</button></span>
+                  <span class="tl-label">Sound</span>
+                  <span class="tl-row" data-type-sound role="group" aria-label="Sound"><button type="button" class="tl-chip" data-value="none" aria-pressed="false">None</button><button type="button" class="tl-chip" data-value="rain" aria-pressed="false">Rain</button><button type="button" class="tl-chip" data-value="ocean" aria-pressed="false">Ocean</button><button type="button" class="tl-chip" data-value="whiteNoise" aria-pressed="false">White noise</button><button type="button" class="tl-chip" data-value="brownNoise" aria-pressed="false">Brown noise</button></span>
+                </div>
+              </div>
             </div>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="course" id="tl-meditate-course">
+              <span class="tl-card-icon" data-tl-icon="check"></span>
+              <span class="tl-card-text"><span class="tl-card-title">A first week</span> <span class="tl-card-sub">Seven small things, one a day or slower</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="wind" id="tl-meditate-wind">
+              <span class="tl-card-icon" data-tl-icon="moon"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Wind down for sleep</span> <span class="tl-card-sub">Four small steps, then the Sleep session</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
             <h3 class="tl-section-title">Your presets</h3>
             <div id="tl-presets">
               <p class="tl-sub" id="tl-presets-empty">None yet. Build one below.</p>
@@ -598,6 +748,31 @@
           <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
           <h2 class="tl-title" id="tl-friends-title">Friends</h2>
           <div id="tl-friends-slot"></div>
+          <button type="button" class="tl-card tl-card-action" data-tl-push="reach" id="tl-friends-reach">
+            <span class="tl-card-icon" data-tl-icon="heart"></span>
+            <span class="tl-card-text"><span class="tl-card-title">Reach someone I trust</span> <span class="tl-card-sub">A message ready for a hard moment</span></span>
+            <span class="tl-card-go" data-tl-icon="next"></span>
+          </button>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="tell" id="tl-friends-tell">
+              <span class="tl-card-icon" data-tl-icon="edit"></span>
+              <span class="tl-card-text"><span class="tl-card-title">Words for telling someone</span> <span class="tl-card-sub">Ways to start, in plain words</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="follow" id="tl-friends-follow">
+              <span class="tl-card-icon" data-tl-icon="bell"></span>
+              <span class="tl-card-text"><span class="tl-card-title">A reminder to check in on someone</span> <span class="tl-card-sub">Private. It never shows a name</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="parents" id="tl-friends-parents">
+              <span class="tl-card-icon" data-tl-icon="heart"></span>
+              <span class="tl-card-text"><span class="tl-card-title">If it's a child or teen</span> <span class="tl-card-sub">For parents, caregivers, and school staff</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
+            <button type="button" class="tl-card tl-card-action" data-tl-push="loss" id="tl-friends-loss">
+              <span class="tl-card-icon" data-tl-icon="heart"></span>
+              <span class="tl-card-text"><span class="tl-card-title">If you've lost someone to suicide</span> <span class="tl-card-sub">Grief, finding support, and talking with others</span></span>
+              <span class="tl-card-go" data-tl-icon="next"></span>
+            </button>
           <button type="button" class="tl-card tl-card-action" data-tl-push="helping" id="tl-friends-helping">
             <span class="tl-card-icon" data-tl-icon="people"></span>
             <span class="tl-card-text"><span class="tl-card-title">Helping someone you're worried about</span></span>
@@ -640,10 +815,25 @@
               </div>
             </div>
 
+            <h3 class="tl-section-title" id="tl-set-night-title">At night</h3>
+            <div class="tl-panel" id="tl-set-night-box">
+              <label class="tl-switch"><span>Darker at night</span><input type="checkbox" id="tl-set-night"></label>
+              <p class="tl-sub">Between the time you go to bed and the time you wake up, Tidelight uses its dark colors, whatever the phone is set to. Both times are yours to set, above.</p>
+              <label class="tl-switch"><span>Always use the dark colors</span><input type="checkbox" id="tl-set-dark"></label>
+              <label class="tl-switch"><span>Easier reading</span><input type="checkbox" id="tl-set-easy"></label>
+              <p class="tl-sub">More space between lines, letters, and words, and every link underlined, on the app's own screens.</p>
+              <label class="tl-switch"><span>Read aloud button</span><input type="checkbox" id="tl-set-read"></label>
+              <p class="tl-sub">Adds "Read aloud" to screens that have a Back button. This phone's own voice reads the screen out loud, so anyone nearby can hear it. Tap it again to stop. It never reads what you are typing.</p>
+            </div>
+
             <h3 class="tl-section-title" id="tl-set-notifications">Notifications</h3>
             <div class="tl-panel">
               <label class="tl-switch"><span>Check-in reminders</span><input type="checkbox" id="tl-set-reminders"></label>
               <p class="tl-sub">The phone shows them itself. A reminder only says "<span class="tl-rem-sample"></span>" Nothing about you is in it, and nothing is sent anywhere.</p>
+              <p class="tl-field"><label for="tl-set-rem-words">Your own words for the reminder (optional)</label><input class="tl-input" id="tl-set-rem-words" type="text" maxlength="60" autocomplete="off" aria-describedby="tl-set-rem-words-note"></p>
+              <p class="tl-sub" id="tl-set-rem-words-note">A reminder shows on the lock screen, where anyone near the phone can read it. Use words only you would understand, and nothing about how you are. Leave this empty for the usual words.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-set-rem-words-save">Save my words</button></p>
+              <p class="tl-status" id="tl-set-rem-words-status" role="status" hidden></p>
               <p class="tl-status" id="tl-set-rem-web" role="status" hidden>Reminders work in the app on a phone. In a web browser, your choices are kept, but no reminder can be shown.</p>
               <p class="tl-status" id="tl-set-rem-denied" role="status" hidden>This phone isn't letting Tidelight show notifications, so no reminder can be set. You can change that in the phone's settings.</p>
               <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-test">Send a test notification</button>
@@ -710,12 +900,29 @@
             <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-health-remove">Remove Tidelight's entries from Health</button>
             <p class="tl-status" id="tl-set-health-note" role="status" hidden></p>
           </div>
+          <div class="tl-panel" id="tl-set-live-box" hidden>
+            <label class="tl-switch"><span>Show a breathing session on the Lock Screen</span><input type="checkbox" id="tl-set-live"></label>
+            <p class="tl-sub">While a 1-minute reset or a "Breathe in a pattern" session runs, the Lock Screen shows "Tidelight", the word "Breathing", and the time left, so you can lock the phone and keep going. Anyone who sees the phone can see it. It goes away when the session ends or is paused.</p>
+          </div>
           <div class="tl-panel" id="tl-set-export-box">
             <span class="tl-label">A copy of your data</span>
             <p class="tl-sub">Makes one text file with what Tidelight has saved on this phone: your check-ins, journal, reflections, Hope box words, people, places, and meditation history. Photos are not in the file.</p>
             <p class="tl-sub">The file isn't locked. Anyone who gets it can read it, and Tidelight can't take it back. You choose where it goes.</p>
             <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-export">Make a copy of my data</button>
             <p class="tl-status" id="tl-set-export-note" role="status" hidden></p>
+          </div>
+          <div class="tl-panel" id="tl-set-backup-box">
+            <span class="tl-label">A backup file</span>
+            <p class="tl-sub">A backup file holds what Tidelight has saved on this phone, except photos, in a form Tidelight can read back. Use it to move to another phone, or to put things back after Delete everything.</p>
+            <p class="tl-sub">The backup file isn't locked. Anyone who gets it can read all of it, and Tidelight can't take it back. You choose where it goes.</p>
+            <button type="button" class="tl-btn tl-btn-secondary" id="tl-set-backup-make">Make a backup file</button>
+            <p class="tl-status" id="tl-set-backup-note" role="status" hidden></p>
+            <p class="tl-field"><label for="tl-set-restore-file">Restore from a backup file</label><input class="tl-input" id="tl-set-restore-file" type="file" accept=".json,application/json"></p>
+            <div class="tl-stack" id="tl-set-restore-ask" hidden>
+              <p><strong>Restoring replaces what Tidelight has saved on this phone with what is in the file.</strong> It can't be undone. Photos in the Hope box stay as they are, and reminders set for a time need setting again.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-set-restore-yes">Replace what is on this phone</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-set-restore-no">Keep what is on this phone</button></p>
+            </div>
+            <p class="tl-status" id="tl-set-restore-note" role="status" tabindex="-1" hidden></p>
           </div>
           <button type="button" class="tl-card tl-card-action" data-tl-legacy="ci-journey" id="tl-settings-erase">
             <span class="tl-card-icon" data-tl-icon="trash"></span>
@@ -828,6 +1035,451 @@
             <p class="tl-sub">With someone you choose, such as the person you made it with. You'll see the words first and can change them.</p>
             <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-share">Share my plan</button></p>
           </div>
+          <div class="tl-panel" id="tl-plan-page-box" hidden>
+            <h3 class="tl-headline">A page to print or keep</h3>
+            <p class="tl-sub">Your plan as one plain page, handed to this phone's share sheet. From there you can print it or save it to your files. Anyone who has the page can read it, so keep it somewhere you feel safe.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-plan-page">Make the page</button></p>
+            <p class="tl-status" id="tl-plan-page-note" role="status" tabindex="-1" hidden></p>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-letter" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-letter-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-letter-title">A letter to myself</h2>
+          <p>Words from you, written on a steadier day, to read on a hard one. What it says is up to you.</p>
+          <p><strong>You don't have to read or write anything before asking for help.</strong> The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+          <p class="tl-sub" id="tl-letter-privacy">Your letter is saved on this phone only. Tidelight never receives it. Anyone who can unlock this phone can read it, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes it.</p>
+          <p class="tl-status" id="tl-letter-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel" id="tl-letter-read" hidden>
+            <h3 class="tl-headline" id="tl-letter-read-title">From me, to me</h3>
+            <p class="tl-letter-words" id="tl-letter-words"></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-letter-change">Change my letter</button></p>
+          </div>
+          <div class="tl-panel" id="tl-letter-write">
+            <p class="tl-field"><label for="tl-letter-text">My letter</label><textarea class="tl-input tl-letter-field" id="tl-letter-text" rows="8" maxlength="2000" autocomplete="off"></textarea></p>
+            <p class="tl-sub">Up to 2,000 characters. There is no right way to write it.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-letter-save">Save my letter</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-letter-cancel" hidden>Cancel</button></p>
+          </div>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" id="tl-letter-remove" hidden>Remove my letter</button></p>
+          <div class="tl-panel" id="tl-letter-confirm" hidden>
+            <p>Remove your letter? It can't be brought back.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-letter-remove-yes">Yes, remove my letter</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-letter-remove-no">Keep my letter</button></p>
+          </div>
+        </section>
+
+        <!-- No tab of its own: it opens in whichever tab it was asked for (Friends, or the support step), so Back returns there. -->
+        <section class="tl-screen" id="tl-reach" tabindex="-1" aria-labelledby="tl-reach-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-reach-title">Reach someone I trust</h2>
+          <p>A short message for someone in your circle, ready ahead of time. You choose who gets it, you can change the words, and you send it yourself from your phone's messages.</p>
+          <p><strong>A message is not a way to get urgent help.</strong> The person may not see it right away. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+          <p class="tl-sub" id="tl-reach-privacy">Tidelight sends nothing and never sees your message or who gets it. Your phone's own messages send it, like any text, so the person you choose receives it and it can't be taken back. Words you save here stay on this phone. Delete everything, in Your journey, removes them.</p>
+          <p class="tl-status" id="tl-reach-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel" id="tl-reach-words">
+            <p class="tl-field"><label for="tl-reach-text">My message</label><textarea class="tl-input tl-letter-field" id="tl-reach-text" rows="4" maxlength="300" autocomplete="off"></textarea></p>
+            <p class="tl-sub">Up to 300 characters. These words are a start; change them to sound like you.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-reach-save">Save my message</button></p>
+          </div>
+          <div class="tl-panel tl-plan-part" id="tl-reach-who">
+            <h3 class="tl-headline" id="tl-reach-who-title">Who to reach</h3>
+            <ul class="tl-list tl-plan-list" id="tl-reach-people" aria-labelledby="tl-reach-who-title"></ul>
+            <div id="tl-reach-nobody" hidden>
+              <p>There is nobody in your circle yet. You can add people you trust on the Friends tab.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-go="friends">Go to Friends</button></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-ride" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-ride-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-ride-title">Ten minutes at a time</h2>
+          <p>Strong feelings rise and ease, even when it doesn't feel like they will. This is a way to get through the next ten minutes: five small steps, two minutes each. It is silent, and nothing about it is kept.</p>
+          <p><strong>You don't have to finish this before asking for help.</strong> The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.</p>
+          <div class="tl-panel" id="tl-ride-start-box">
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-ride-start">Start the ten minutes</button></p>
+          </div>
+          <div class="tl-panel" id="tl-ride-step-box" hidden>
+            <p class="tl-sub" id="tl-ride-count"></p>
+            <h3 class="tl-headline" id="tl-ride-step" tabindex="-1"></h3>
+            <p class="tl-display tl-ride-time" id="tl-ride-time" aria-hidden="true"></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-ride-next"></button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-ride-stop">Stop here</button></p>
+          </div>
+          <div class="tl-panel" id="tl-ride-end-box" hidden>
+            <h3 class="tl-headline" id="tl-ride-end-title" tabindex="-1">How are things now?</h3>
+            <p class="tl-sub" id="tl-ride-passed" hidden>Ten minutes have passed.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-ride-easier">A little easier</button> <button type="button" class="tl-btn tl-btn-secondary" id="tl-ride-hard">Still hard</button></p>
+            <p id="tl-ride-easier-note" tabindex="-1" hidden><span id="tl-ride-easier-whole">You got through ten minutes.</span> <span>You can come back to this any time.</span></p>
+            <p id="tl-ride-hard-note" tabindex="-1" hidden><strong>You don't have to carry it alone.</strong> You can talk to someone right now, with the buttons just below.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" id="tl-ride-again">Start again</button></p>
+          </div>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-nearby" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-nearby-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-nearby-title">Care near me</h2>
+          <p>Your phone's maps can show the emergency rooms near where you are. An emergency room is open day and night.</p>
+          <p><strong>You don't have to go anywhere to get help.</strong> The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.</p>
+          <p class="tl-sub" id="tl-nearby-privacy">The button below leaves Tidelight and opens your phone's maps. Tidelight doesn't learn where you are or what you look for. The maps app uses your location under its own privacy rules, and it may keep the search in its history.</p>
+          <p><a class="tl-btn tl-btn-secondary tl-btn-wide" id="tl-nearby-er" href="https://maps.apple.com/?q=emergency+room" data-android-href="geo:0,0?q=emergency+room" rel="noreferrer noopener">Emergency rooms near me, in Maps</a></p>
+          <div class="tl-panel">
+            <p class="tl-sub">For care that isn't an emergency, such as a counselor, a clinic, or a support line, there is a list in this app.</p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="ways" data-tl-over>Other ways to reach someone</button></p>
+          </div>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-wind" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-wind-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-wind-title">Wind down for sleep</h2>
+          <p>Four small things to do before bed, one at a time. Do the ones that suit you and skip the rest. Nothing here is kept.</p>
+          <div class="tl-panel" id="tl-wind-steps">
+            <label class="tl-switch" data-wind-step><span>Dim the lights, or turn off the brightest one.</span><input type="checkbox"></label>
+            <label class="tl-switch" data-wind-step><span>Write down what is on your mind for tomorrow, a line each, and leave it there.</span><input type="checkbox"></label>
+            <label class="tl-switch" data-wind-step><span>Turn on Do Not Disturb, if you'd like a quiet phone.</span><input type="checkbox"></label>
+            <label class="tl-switch" data-wind-step><span>Get comfortable. Let your shoulders and your jaw go loose.</span><input type="checkbox"></label>
+          </div>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-wind-start">Start the Sleep session</button></p>
+          <p class="tl-sub">If the night feels like too much, you don't have to wait for morning. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+        </section>
+
+        <section class="tl-screen" id="tl-good" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-good-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-good-title">Three good things</h2>
+          <p>Each day, up to three things that went all right, however small. A warm drink counts. So does getting out of bed.</p>
+          <p class="tl-sub">Some days there won't be any, and that is all right. Nothing here is counted, and nobody is keeping score.</p>
+          <p class="tl-sub" id="tl-good-privacy">What you write is saved on this phone only. Tidelight never receives it. Anyone who can unlock this phone can read it, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes it.</p>
+          <p class="tl-status" id="tl-good-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel" id="tl-good-today">
+            <h3 class="tl-headline" id="tl-good-today-title">Today</h3>
+            <p class="tl-field"><label for="tl-good-1">One thing</label><input class="tl-input" id="tl-good-1" type="text" maxlength="140" autocomplete="off" data-good-thing></p>
+            <p class="tl-field"><label for="tl-good-2">Another</label><input class="tl-input" id="tl-good-2" type="text" maxlength="140" autocomplete="off" data-good-thing></p>
+            <p class="tl-field"><label for="tl-good-3">And one more</label><input class="tl-input" id="tl-good-3" type="text" maxlength="140" autocomplete="off" data-good-thing></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-good-save">Save today's</button></p>
+          </div>
+          <div class="tl-panel" id="tl-good-earlier-box" hidden>
+            <h3 class="tl-headline" id="tl-good-earlier-title">Earlier days</h3>
+            <ul class="tl-list tl-good-days" id="tl-good-earlier" aria-labelledby="tl-good-earlier-title"></ul>
+          </div>
+        </section>
+
+        <section class="tl-screen" id="tl-reframe" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-reframe-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-reframe-title">Another way to see it</h2>
+          <p>Four questions for a thought that keeps coming back and weighs on you. There are no right answers. Answer the ones you want, in your own words.</p>
+          <p><strong>This isn't for thoughts of ending your life.</strong> Those are for a person, not a worksheet. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+          <p class="tl-sub" id="tl-reframe-privacy">This is a place to think, not a record: nothing you write here is kept. It is gone when you leave this screen.</p>
+          <div class="tl-panel" id="tl-reframe-questions">
+            <p class="tl-field"><label for="tl-reframe-1">What happened?</label><textarea class="tl-input tl-letter-field" id="tl-reframe-1" rows="3" maxlength="500" autocomplete="off" data-reframe-answer></textarea></p>
+            <p class="tl-field"><label for="tl-reframe-2">What went through my mind?</label><textarea class="tl-input tl-letter-field" id="tl-reframe-2" rows="3" maxlength="500" autocomplete="off" data-reframe-answer></textarea></p>
+            <p class="tl-field"><label for="tl-reframe-3">What would I say to a friend who thought that?</label><textarea class="tl-input tl-letter-field" id="tl-reframe-3" rows="3" maxlength="500" autocomplete="off" data-reframe-answer></textarea></p>
+            <p class="tl-field"><label for="tl-reframe-4">Is there another way to see it?</label><textarea class="tl-input tl-letter-field" id="tl-reframe-4" rows="3" maxlength="500" autocomplete="off" data-reframe-answer></textarea></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" id="tl-reframe-clear">Clear what I wrote</button></p>
+          </div>
+          <p class="tl-sub">If the thought is still heavy afterwards, that doesn't mean you did this wrong. Some thoughts need another person.</p>
+        </section>
+
+        <section class="tl-screen" id="tl-kind" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-kind-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-kind-title">Being kind to yourself</h2>
+          <p>Three short ways to be on your own side when things are hard. Try one. If it doesn't sit right with you, leave it.</p>
+          <p class="tl-sub">These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.</p>
+          <div class="tl-panel tl-ground-part tl-kind-part">
+            <h3 class="tl-headline">A hand on your chest</h3>
+            <p class="tl-sub">Rest a hand on your chest, or hold your own arm. Notice its warmth and its weight. Stay for three slow breaths.</p>
+          </div>
+          <div class="tl-panel tl-ground-part tl-kind-part">
+            <h3 class="tl-headline">What you would say to a friend</h3>
+            <p class="tl-sub">Think of someone you care about feeling the way you feel now. What would you say to them? Say it to yourself, out loud or in your head.</p>
+          </div>
+          <div class="tl-panel tl-ground-part tl-kind-part">
+            <h3 class="tl-headline">This is a hard moment</h3>
+            <p class="tl-sub">Say to yourself, slowly: this is hard right now. Other people feel this too. I can go gently with myself while it lasts.</p>
+          </div>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-course" data-tl-tab="meditate" tabindex="-1" aria-labelledby="tl-course-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-course-title" tabindex="-1">A first week</h2>
+          <p>Seven small things that are already in the app, in an order to try them. One a day, or slower. Skip any that don't suit you.</p>
+          <p class="tl-sub">Nothing is lost if you miss a day, and nothing here is counted. Your ticks are saved on this phone only. Delete everything, in Your journey, removes them.</p>
+          <ol class="tl-course-steps" id="tl-course-steps">
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 1</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">One minute of breathing</h3>
+              <p class="tl-sub">Follow the circle for one minute. That is all of it.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Start the 1-minute reset</button></p>
+              <label class="tl-switch"><span>I tried day 1</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 2</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">Grounding</h3>
+              <p class="tl-sub">A few ways to come back to the room when your mind is racing.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Open Grounding</button></p>
+              <label class="tl-switch"><span>I tried day 2</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 3</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">Body scan</h3>
+              <p class="tl-sub">Five minutes of attention moving slowly up the body.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Start the Body scan</button></p>
+              <label class="tl-switch"><span>I tried day 3</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 4</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">Three good things</h3>
+              <p class="tl-sub">Up to three things that went all right today. Small ones count.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Open Three good things</button></p>
+              <label class="tl-switch"><span>I tried day 4</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 5</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">A mindful walk</h3>
+              <p class="tl-sub">Five minutes of walking, with the phone in a pocket.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Start A mindful walk</button></p>
+              <label class="tl-switch"><span>I tried day 5</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 6</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">Being kind to yourself</h3>
+              <p class="tl-sub">Three short ways to be on your own side.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Open Being kind to yourself</button></p>
+              <label class="tl-switch"><span>I tried day 6</span><input type="checkbox"></label>
+            </li>
+            <li class="tl-panel tl-course-step" data-course-step>
+              <p class="tl-course-day"><span>Day 7</span> <span class="tl-course-next" data-course-next hidden>Up next</span></p>
+              <h3 class="tl-headline">My safety plan</h3>
+              <p class="tl-sub">Six short lists for a hard moment, in your own words. A good one to write while things are calm.</p>
+              <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-course-open>Open My safety plan</button></p>
+              <label class="tl-switch"><span>I tried day 7</span><input type="checkbox"></label>
+            </li>
+          </ol>
+          <p class="tl-status" id="tl-course-all" role="status" hidden>That's all seven. They are still here whenever you want them.</p>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-quiet" id="tl-course-again" hidden>Clear my ticks</button></p>
+          <p class="tl-sub">These don't replace help from a person. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+        </section>
+
+        <section class="tl-screen" id="tl-toolkit" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-toolkit-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-toolkit-title">My toolkit</h2>
+          <p>Pick up to four tools to keep on Home, one tap away.</p>
+          <p class="tl-sub">Your picks are saved on this phone only. Call 988, Text 988, and Call 911 are always at the top of every screen, whatever you pin.</p>
+          <p class="tl-status" id="tl-toolkit-status" role="status" hidden>You can pin up to four. Unpin one to pin another.</p>
+          <div class="tl-panel" id="tl-toolkit-list" role="group" aria-labelledby="tl-toolkit-title"></div>
+        </section>
+
+        <section class="tl-screen" id="tl-week" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-week-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-week-title">My week, in words</h2>
+          <p>A few plain sentences about the last seven days, from what you recorded here. Nothing is counted, scored, or compared.</p>
+          <p class="tl-sub">It is put together on this phone each time you open this page. Nothing here is kept or sent anywhere.</p>
+          <div class="tl-panel"><ul class="tl-week-lines" id="tl-week-lines" aria-labelledby="tl-week-title"></ul></div>
+          <div class="tl-panel" id="tl-week-own-box" hidden>
+            <h3 class="tl-headline" id="tl-week-own-title">What you recorded</h3>
+            <ul class="tl-week-own" id="tl-week-own" aria-labelledby="tl-week-own-title"></ul>
+          </div>
+          <p>However the week went, you don't have to carry it alone.</p>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-tools" data-tl-tab="home" tabindex="-1" aria-labelledby="tl-tools-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-tools-title">All tools</h2>
+          <p class="tl-field"><label for="tl-tools-search">Search the tools</label><input class="tl-input" id="tl-tools-search" type="search" maxlength="40" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-describedby="tl-tools-kept"></p>
+          <p class="tl-sub" id="tl-tools-kept">What you type here is not kept or sent anywhere.</p>
+          <div class="tl-panel" id="tl-tools-crisis" hidden>
+            <p><strong>If you are thinking about suicide, or you are in crisis, you can reach a person now.</strong></p>
+            <ul class="tl-support-actions">
+              <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+              <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+            </ul>
+          </div>
+          <p class="tl-status" id="tl-tools-status" role="status" hidden></p>
+          <ul class="tl-list" id="tl-tools-list" aria-labelledby="tl-tools-title"></ul>
+        </section>
+
+        <section class="tl-screen" id="tl-tell" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-tell-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-tell-title">Words for telling someone</h2>
+          <p>Telling someone you're having a hard time can be the hardest part. Here are some ways to start. Use one as it is, or change it until it sounds like you.</p>
+          <p class="tl-sub">Nothing here is sent by the app. Copy puts the words on this phone's clipboard, for you to paste where you choose.</p>
+          <p class="tl-status" id="tl-tell-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel">
+            <h3 class="tl-headline">To start the conversation</h3>
+            <ul class="tl-tell-list">
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>I've been having a hard time lately, and I don't want to carry it alone.</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>I'm not okay, and I don't know how to talk about it. Can we talk?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>Something has been weighing on me. Do you have a few minutes?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+            </ul>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">If writing is easier than saying it</h3>
+            <ul class="tl-tell-list">
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>I've been struggling and I wanted you to know. You don't have to fix it. I just don't want to be alone with it.</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+            </ul>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">If you're having thoughts of suicide</h3>
+            <ul class="tl-tell-list">
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>I've been having thoughts of suicide, and I need help staying safe.</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+            </ul>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">What you can ask for</h3>
+            <ul class="tl-tell-list">
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>Could you just listen to me for a few minutes?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>Could you stay with me for a while?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+              <li class="tl-tell-line"><span class="tl-tell-words" data-tell-words>Could you help me make a call?</span> <button type="button" class="tl-btn tl-btn-secondary" data-tell-copy>Copy</button></li>
+            </ul>
+          </div>
+          <p>If the first person doesn't respond the way you hoped, that isn't a reason to stop. Try another person, or call or text 988. Someone there will listen.</p>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-follow" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-follow-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-follow-title">A reminder to check in on someone</h2>
+          <p>If you're supporting someone, checking in again matters. Set a reminder for yourself to do it.</p>
+          <p class="tl-sub" id="tl-follow-discreet">This phone shows the reminder itself. It says only "<span data-once-sample></span>" It never shows a name, or anything about them or about you.</p>
+          <div class="tl-panel">
+            <p class="tl-field"><label for="tl-follow-who">Who it's about (optional, and only shown here)</label><input class="tl-input" id="tl-follow-who" type="text" maxlength="40" autocomplete="off"></p>
+            <p class="tl-field"><label for="tl-follow-when">When to remind me</label><input class="tl-input" id="tl-follow-when" type="datetime-local"></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-follow-set">Set the reminder</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-follow-remove" hidden>Remove the reminder</button></p>
+            <p class="tl-status" id="tl-follow-status" role="status" tabindex="-1" hidden></p>
+          </div>
+          <p class="tl-sub" id="tl-follow-privacy">The name and the time are saved on this phone only. Tidelight never receives them. Delete everything, in Your journey, removes them and the reminder.</p>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="helping">Helping someone you're worried about</button></p>
+          <p class="tl-sub">If you think they are in danger right now, don't wait for a reminder. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+        </section>
+
+        <section class="tl-screen" id="tl-visit" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-visit-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-visit-title">For my next appointment</h2>
+          <p>Things you want to bring up with a doctor, a therapist, or a counselor, written down as they come to you, so they are there when you're in the room.</p>
+          <p class="tl-sub" id="tl-visit-privacy">What you write and the time are saved on this phone only. Tidelight never receives them. Anyone who can unlock this phone can read them, unless you turn on the app lock in Settings. Delete everything, in Your journey, removes them.</p>
+          <p class="tl-status" id="tl-visit-status" role="status" tabindex="-1" hidden></p>
+          <div class="tl-panel">
+            <h3 class="tl-headline" id="tl-visit-notes-title">Things I want to bring up</h3>
+            <ul class="tl-list tl-plan-list" id="tl-visit-notes" aria-labelledby="tl-visit-notes-title"></ul>
+            <p class="tl-field"><label for="tl-visit-new">Add something to bring up</label><span class="tl-row"><input class="tl-input" id="tl-visit-new" type="text" maxlength="140" autocomplete="off"><button type="button" class="tl-btn tl-btn-secondary" id="tl-visit-add">Add</button></span></p>
+            <p class="tl-sub" id="tl-visit-full" hidden></p>
+          </div>
+          <div class="tl-panel">
+            <h3 class="tl-headline">A reminder for the appointment</h3>
+            <p class="tl-sub" id="tl-visit-discreet">This phone shows the reminder itself. It says only "<span data-once-sample></span>" Nothing about the appointment is in it.</p>
+            <p class="tl-field"><label for="tl-visit-when">When to remind me</label><input class="tl-input" id="tl-visit-when" type="datetime-local"></p>
+            <p class="tl-row"><button type="button" class="tl-btn tl-btn-primary" id="tl-visit-set">Set the reminder</button> <button type="button" class="tl-btn tl-btn-quiet" id="tl-visit-remove" hidden>Remove the reminder</button></p>
+          </div>
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="summary">A summary for an appointment</button></p>
+          <p class="tl-sub">If things get hard before the appointment, you don't have to wait for it. The buttons to call or text 988 and to call 911 are at the top of every screen.</p>
+        </section>
+
+        <section class="tl-screen" id="tl-care" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-care-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <!-- SITE:care -->
+        </section>
+
+        <section class="tl-screen" id="tl-teens" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-teens-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <!-- SITE:teens -->
+        </section>
+
+        <section class="tl-screen" id="tl-parents" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-parents-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <!-- SITE:parents -->
+        </section>
+
+        <section class="tl-screen" id="tl-vets" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-vets-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-vets-title">For veterans and service members</h2>
+          <p class="tl-sub">This is the Veterans Crisis Line as the Get Help page describes it. It is a separate service from Tidelight. 988 and 911, at the top of every screen, are for anyone.</p>
+          <!-- SITE:vets -->
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="ways">Other ways to reach someone</button></p>
+        </section>
+
+        <section class="tl-screen" id="tl-lgbtq" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-lgbtq-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-lgbtq-title">For LGBTQ+ young people</h2>
+          <p class="tl-sub">These are the two services the Get Help page names for LGBTQ+ young people. They are separate services from Tidelight. 988 and 911, at the top of every screen, are for anyone.</p>
+          <!-- SITE:lgbtq -->
+          <p class="tl-row"><button type="button" class="tl-btn tl-btn-secondary" data-tl-push="ways">Other ways to reach someone</button></p>
+        </section>
+
+        <section class="tl-screen" id="tl-after" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-after-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <h2 class="tl-title" id="tl-after-title">After a crisis</h2>
+          <p>The days after a crisis, an emergency room visit, or a hospital stay can feel strange: tired, raw, relieved, embarrassed, or nothing much at all. However it feels, this is a time to go gently, and not to be alone with it.</p>
+          <p><strong>If the thoughts come back, that doesn't mean you failed, and you don't have to wait.</strong> The buttons to call or text 988 and to call 911 are at the top of every screen, and at the end of this one.</p>
+          <div class="tl-panel">
+            <ul class="tl-after-steps">
+            <li class="tl-after-step"><h3 class="tl-headline">Keep the follow-up appointment</h3><p class="tl-sub">If you were given one, go, even if you feel better. If you weren't, ask the place that saw you, or a doctor you know, for one.</p></li>
+            <li class="tl-after-step"><h3 class="tl-headline">Let one person know how you really are</h3><p class="tl-sub">Someone you trust, in whatever words you have. You don't have to explain everything.</p></li>
+            <li class="tl-after-step"><h3 class="tl-headline">Go over your safety plan, or make one</h3><p class="tl-sub">It helps most when you do it with someone: the person treating you, or someone close to you.</p></li>
+            <li class="tl-after-step"><h3 class="tl-headline">Make your space safer</h3><p class="tl-sub">Put distance between you and anything you could use to hurt yourself. Someone you trust can hold on to it for now.</p></li>
+            <li class="tl-after-step"><h3 class="tl-headline">Go gently</h3><p class="tl-sub">Rest, eat, and sleep as regularly as you can. Big decisions can wait.</p></li>
+            </ul>
+          </div>
+          <ul class="tl-list tl-after-links">
+            <li><button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" data-tl-push="plan">My safety plan</button></li>
+            <li><button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" data-tl-push="visit">For my next appointment</button></li>
+            <li><button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" data-tl-push="reach">Reach someone I trust</button></li>
+            <li><button type="button" class="tl-btn tl-btn-secondary tl-btn-wide" data-tl-push="care">Support over time</button></li>
+          </ul>
+          <p class="tl-sub">This page is general information from an app. It is not advice from the people treating you; where the two differ, follow them.</p>
+          <ul class="tl-support-actions">
+            <li><a class="tl-btn tl-btn-primary tl-btn-wide tel-link" href="tel:988">Call 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="sms:988">Text 988</a></li>
+            <li><a class="tl-btn tl-btn-secondary tl-btn-wide tel-link" href="tel:911">In immediate danger, call 911</a></li>
+          </ul>
+        </section>
+
+        <section class="tl-screen" id="tl-loss" data-tl-tab="friends" tabindex="-1" aria-labelledby="tl-loss-title" hidden>
+          <p class="tl-draft-tag"><a href="#tl-review">Draft for review</a></p>
+          <div class="tl-legacy-head"><button type="button" class="tl-btn tl-btn-quiet tl-back" data-tl-back><span data-tl-icon="back"></span>Back</button></div>
+          <!-- SITE:loss -->
         </section>
 
         <section class="tl-screen" id="tl-expect" data-tl-tab="checkin" tabindex="-1" aria-labelledby="tl-expect-title" hidden>
@@ -865,6 +1517,10 @@
           <div class="tl-panel tl-ground-part">
             <h3 class="tl-headline">Feet on the floor</h3>
             <p class="tl-sub">Press your feet into the floor. Feel the chair or the ground holding you up. Open your hands and let your shoulders drop.</p>
+          </div>
+          <div class="tl-panel tl-ground-part">
+            <h3 class="tl-headline">Tense and release</h3>
+            <p class="tl-sub">Make two fists and hold them tight while you count to five. Let go, and notice your hands soften. Then lift your shoulders toward your ears, hold, and let them drop. If tensing hurts, skip this one.</p>
           </div>
           <div class="tl-panel tl-ground-part">
             <h3 class="tl-headline">A slower breath</h3>
@@ -948,7 +1604,7 @@
           </div>
           <div class="tl-privacy-body">
             <h3>What stays on this phone</h3>
-            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
+            <p>What you choose and write in Tidelight is saved on this phone only: your check-ins, your journal, your safety plan, your letter to yourself, your message for a hard moment, your three good things, the steps you ticked in A first week, the tools you pinned to Home, the reminder you set to check in on someone, your notes for an appointment, your Hope box, the people and places you add, your meditation history, your streak, your name, your age group, and your home spot if you gave them, and your settings.</p>
             <p>Tidelight has no accounts and no server. Tidelight never receives what you enter, reads it, or analyzes it.</p>
             <h3>What Tidelight doesn't do</h3>
             <ul>
@@ -960,7 +1616,7 @@
             <p>Only when you start it, or through your phone's own backup:</p>
             <ul>
               <li>A text message you send from your phone's Messages screen, to people you chose.</li>
-              <li>Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, or a copy of your data.</li>
+              <li>Something you share through your phone's share sheet: an entry, your safety plan, a summary for an appointment, a copy of your data, or a backup file.</li>
               <li>Your phone's iCloud or Google backup, if that's on. It goes to your own account with Apple or Google.</li>
             </ul>
             <p>Once something is sent or shared, Tidelight can't take it back.</p>
@@ -1100,6 +1756,18 @@
         <span data-word="screen.silence.sleep">Rest</span>
         <span data-word="screen.intro.custom">Settle in</span>
         <span data-word="screen.outro.custom">Gently come back</span>
+        <span data-word="screen.intro.walk">A short walk</span>
+        <span data-word="screen.walk.steps">Notice your steps</span>
+        <span data-word="screen.walk.around">Notice what is around you</span>
+        <span data-word="screen.outro.walk">Slow to a stop</span>
+        <span data-word="script.intro.walk" data-style="calm">Let's walk for a few minutes. Put the phone in a pocket and go at any pace that's comfortable. Keep your eyes on where you're going. You can stop at any time.</span>
+        <span data-word="script.intro.walk" data-style="straightforward">A few minutes of walking. Phone in a pocket. Any pace. Watch where you're going. Stop any time you need to.</span>
+        <span data-word="script.walk.steps" data-style="calm">Notice your feet meeting the ground, one step and then the next. You don't have to change how you move. If your mind wanders, that's okay. Come back to your steps.</span>
+        <span data-word="script.walk.steps" data-style="straightforward">Notice your feet on the ground. One step, then the next. If your mind wanders, come back to your steps.</span>
+        <span data-word="script.walk.around" data-style="calm">Now notice what is around you. One thing you can see. One thing you can hear. The air on your skin. There is nowhere you need to get to.</span>
+        <span data-word="script.walk.around" data-style="straightforward">Notice what's around you. One thing you see. One thing you hear. The air on your skin.</span>
+        <span data-word="script.outro.walk" data-style="calm">Slow down, and stop when you're ready. Notice how you feel. Thank you for taking this time for yourself.</span>
+        <span data-word="script.outro.walk" data-style="straightforward">Slow down and stop when you're ready. Notice how you feel. Done.</span>
         <span data-word="script.intro.custom" data-style="calm">Let's begin. Find a comfortable position and follow the circle. You can stop at any time.</span>
         <span data-word="script.intro.custom" data-style="straightforward">Let's begin. Follow the circle. Stop any time you need to.</span>
         <span data-word="script.outro.custom" data-style="calm">Gently come back. Notice how you feel. Thank you for taking this time.</span>
@@ -1122,6 +1790,10 @@
         <span data-word="med.quick">1-minute reset</span>
         <span data-word="med.deep">Deep session</span>
         <span data-word="med.sleep">Sleep</span>
+        <span data-word="med.sound">Just sound</span>
+        <span data-word="med.scan">Body scan</span>
+        <span data-word="med.walk">A mindful walk</span>
+        <span data-word="med.breathe">Breathing</span>
         <span data-word="med.custom">Your own</span>
         <span data-word="med.startLabel">Start {minutes}-minute {name}</span>
         <span data-word="med.withLength">{name}, {minutes} min</span>
@@ -1171,10 +1843,121 @@
         <span data-word="helps.item">{name}: {count} of {days} days</span>
         <span data-word="helps.meditation">A meditation</span>
         <span data-word="helps.journal">A journal entry</span>
+        <span data-word="course.title">A first week</span>
+        <span data-word="toolkit.title">My toolkit</span>
+        <span data-word="tool.reset">1-minute reset</span>
+        <span data-word="tool.ground">Grounding</span>
+        <span data-word="tool.ride">Ten minutes at a time</span>
+        <span data-word="tool.plan">My safety plan</span>
+        <span data-word="tool.letter">A letter to myself</span>
+        <span data-word="tool.hope">Hope box</span>
+        <span data-word="tool.good">Three good things</span>
+        <span data-word="tool.reframe">Another way to see it</span>
+        <span data-word="tool.kind">Being kind to yourself</span>
+        <span data-word="tool.journal">Journal</span>
+        <span data-word="tool.wind">Wind down for sleep</span>
+        <span data-word="tool.helps">What tends to help</span>
+        <span data-word="tool.course">A first week</span>
+        <span data-word="tool.nearby">Care near me</span>
+        <span data-word="rem.ownSaved">Saved. Your reminders will say this.</span>
+        <span data-word="rem.ownCleared">Cleared. Your reminders will use the usual words.</span>
+        <span data-word="rem.ownRefused">A reminder can't say that. It shows on the lock screen, so it must not say anything about how you are or about getting help. Try other words.</span>
+        <span data-word="export.reminderWords">My reminder words: {words}</span>
+        <span data-word="week.checkins.none">No check-ins this week. That's all right. One is here whenever you want it.</span>
+        <span data-word="week.checkins.few">You checked in on a day or two.</span>
+        <span data-word="week.checkins.some">You checked in on several days.</span>
+        <span data-word="week.checkins.most">You checked in on most days.</span>
+        <span data-word="week.sessions">You took some time to breathe or meditate.</span>
+        <span data-word="week.good">You wrote down some good things.</span>
+        <span data-word="tool.reset.about">One minute of breathing with the circle</span>
+        <span data-word="tool.ground.about">Short ways to steady yourself</span>
+        <span data-word="tool.ride.about">Five small steps, one after another</span>
+        <span data-word="tool.plan.about">What to do when things get hard</span>
+        <span data-word="tool.letter.about">For a hard day, from a steadier one</span>
+        <span data-word="tool.hope.about">Reasons, words, photos</span>
+        <span data-word="tool.good.about">Small ones count</span>
+        <span data-word="tool.reframe.about">Four questions for a heavy thought</span>
+        <span data-word="tool.kind.about">Three short ways to be on your own side</span>
+        <span data-word="tool.journal.about">Write it out</span>
+        <span data-word="tool.wind.about">Four small steps, then the Sleep session</span>
+        <span data-word="tool.helps.about">From your own check-ins</span>
+        <span data-word="tool.course.about">Seven small things, one a day or slower</span>
+        <span data-word="tool.nearby.about">Emergency rooms, in your phone's maps</span>
+        <span data-word="tool.checkin">Quick check-in</span>
+        <span data-word="tool.checkin.about">One tap, how you are</span>
+        <span data-word="tool.meditate">Meditate</span>
+        <span data-word="tool.meditate.about">Sessions with or without sound</span>
+        <span data-word="tool.week">My week, in words</span>
+        <span data-word="tool.week.about">A few plain sentences. No scores</span>
+        <span data-word="tool.summary">A summary for an appointment</span>
+        <span data-word="tool.summary.about">You choose what goes on it</span>
+        <span data-word="tool.reach">Reach someone I trust</span>
+        <span data-word="tool.reach.about">A message ready for a hard moment</span>
+        <span data-word="tool.circle">Friends</span>
+        <span data-word="tool.circle.about">People you can reach out to</span>
+        <span data-word="tool.rediscover">Rediscover</span>
+        <span data-word="tool.rediscover.about">Find your way back</span>
+        <span data-word="tool.journey">Your journey</span>
+        <span data-word="tool.journey.about">What you've kept</span>
+        <span data-word="tools.none">Nothing matches that. Try another word, or clear the search to see every tool.</span>
+        <span data-word="tools.some">Showing the tools that match.</span>
+        <span data-word="tell.copied">Copied. Paste it where you want to send it.</span>
+        <span data-word="tell.failed">That couldn't be copied. Press and hold the words to copy them yourself.</span>
+        <span data-word="tell.copyLabel">Copy: {words}</span>
+        <span data-word="plan.page.fileName">tidelight-safety-plan.txt</span>
+        <span data-word="plan.page.made">Made on {date}, in the Tidelight app.</span>
+        <span data-word="plan.page.note">These are my own words. This page is not a medical record.</span>
+        <span data-word="plan.page.now">If I need help right now</span>
+        <span data-word="plan.page.call988">Call or text 988, the 988 Suicide and Crisis Lifeline, any time.</span>
+        <span data-word="plan.page.call911">In immediate danger, call 911.</span>
+        <span data-word="plan.page.done">The page was handed to your phone. Tidelight keeps no record of where it went.</span>
+        <span data-word="plan.page.failed">The page couldn't be made. Nothing left the app.</span>
+        <span data-word="follow.title">A reminder to check in on someone</span>
+        <span data-word="once.body">A reminder you set.</span>
+        <span data-word="once.set">Set for {when}.</span>
+        <span data-word="once.passed">That time has passed. You can set another.</span>
+        <span data-word="once.past">Choose a time that hasn't passed yet, within the next year.</span>
+        <span data-word="once.removed">The reminder was removed.</span>
+        <span data-word="once.denied">This phone isn't letting Tidelight show notifications, so no reminder can be set. You can change that in the phone's settings.</span>
+        <span data-word="follow.export">{who}: {when}</span>
+        <span data-word="visit.title">For my next appointment</span>
+        <span data-word="visit.when">Reminder: {when}</span>
+        <span data-word="backup.fileName">tidelight-backup.json</span>
+        <span data-word="backup.done">The backup file was handed to your phone. Tidelight keeps no record of where it went.</span>
+        <span data-word="backup.failed">The backup file couldn't be made. Nothing left the app.</span>
+        <span data-word="backup.notOne">That isn't a Tidelight backup file, or it can't be read. Nothing on this phone was changed.</span>
+        <span data-word="backup.newer">That backup file was made by a newer version of Tidelight. Update the app, then try again. Nothing on this phone was changed.</span>
+        <span data-word="backup.kept">Nothing was changed.</span>
+        <span data-word="backup.restored">Restored from the backup file.</span>
+        <span data-word="backup.problem">The backup file couldn't be restored. Check what is here, and try again.</span>
+        <span data-word="read.start">Read aloud</span>
+        <span data-word="read.stop">Stop reading</span>
+        <span data-word="read.none">This phone can't read aloud here.</span>
         <span data-word="plan.title">My safety plan</span>
         <span data-word="plan.full">You can keep up to {count} here. Remove one to add another.</span>
         <span data-word="plan.saved">Saved on this phone.</span>
         <span data-word="plan.removed">Removed.</span>
+        <span data-word="letter.title">A letter to myself</span>
+        <span data-word="letter.saved">Your letter is saved on this phone.</span>
+        <span data-word="letter.removed">Your letter was removed.</span>
+        <span data-word="ride.count">Step {step} of {total}</span>
+        <span data-word="ride.next">Next step</span>
+        <span data-word="ride.finish">Finish</span>
+        <span data-word="ride.step.1">Put both feet on the floor. Look around and name five things you can see.</span>
+        <span data-word="ride.step.2">Breathe out slowly, longer than you breathe in. Keep going until the time moves on.</span>
+        <span data-word="ride.step.3">Get a glass of water. Drink it slowly.</span>
+        <span data-word="ride.step.4">Move to a different spot: another room, a doorway, or outside if you can.</span>
+        <span data-word="ride.step.5">Think of one person you could be near, or could send a message to. You don't have to say why.</span>
+        <span data-word="good.title">Three good things</span>
+        <span data-word="good.saved">Saved on this phone.</span>
+        <span data-word="good.removed">That day was removed.</span>
+        <span data-word="good.remove">Remove this day</span>
+        <span data-word="good.removeDay">Remove {day}</span>
+        <span data-word="reach.title">A message for a hard moment</span>
+        <span data-word="reach.start">I'm having a hard time right now. Could you call or text me when you see this?</span>
+        <span data-word="reach.saved">Your message is saved on this phone.</span>
+        <span data-word="reach.message">Message {name}</span>
+        <span data-word="reach.opened">Your phone's messages opened with the words filled in. Nothing is sent until you tap Send there.</span>
         <span data-word="plan.remove">Remove</span>
         <span data-word="plan.removeNamed">Remove: {text}</span>
         <span data-word="plan.call">Call {name}</span>

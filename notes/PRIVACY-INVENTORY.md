@@ -39,6 +39,14 @@ key-value storage. Formats are JSON unless marked plain text. The stored format'
 | `tidelight.settings` | Check-ins per day, wake and bed times, check-in times, check-in style, reminders on or off, haptics, sound, reduce motion, streaks on or off, (on `app/privacy-package`) the app lock on or off, and (on `app/next-features`) Apple Health on or off | To run the app the way the person set it | The person | No |
 | `tidelight.textsize.v1` (plain text) | "large" or "regular" | Text size | The person | No |
 | `tidelight.language` (plain text) | "en" or "es" | To open in the chosen language | The person | No |
+| `tidelight.good.v1` | Three good things: up to three short lines a day in the person's own words, with the day; the newest 90 days | To read back | The app | No |
+| `tidelight.reach.v1` | A message for a hard moment, only if the person changed the screen's own words and saved them (up to 300 characters), and when | To fill in a text the person sends to someone in their circle | The app; the person they send it to, through the phone's own messages | Only when the person taps Send in the phone's messages |
+| `tidelight.letter.v1` | A letter to myself: one letter in the person's own words (up to 2,000 characters), and when it was last changed | To read on a hard day | The app, and anyone the person shows it to | No |
+| `tidelight.course.v1` | A first week: which of its seven steps the person ticked (step numbers only, no dates) | To show the ticks again | The app | No |
+| `tidelight.toolkit.v1` | My toolkit: the names of up to four of the app's tools the person pinned to Home | To show them on Home | The app | No |
+| `tidelight.settings` (one more field) | The person's own words for a check-in reminder, if they wrote any: one line, at most 60 characters. Refused if it names mood, crisis, or getting help | The phone shows it as the reminder, on the lock screen | The app; the phone's notification system | No. Anyone who sees the lock screen can read it |
+| `tidelight.follow.v1` | A reminder to check in on someone: a name the person may type (at most 40 characters) and the time they picked. The phone's notification shows neither: only "A reminder you set." | To show the reminder on this screen and set it on the phone | The app; the phone's notification system gets the time and the fixed words only | No |
+| `tidelight.visit.v1` | For my next appointment: up to eight short lines in the person's own words, and the time they asked to be reminded. The phone's notification shows only "A reminder you set." | To show them on this screen and set the reminder on the phone | The app; the phone's notification system gets the time and the fixed words only | No |
 | `tidelight.plan.v1` | The safety plan: six short lists in the person's own words (warning signs, things to do, people and places, people to ask for help and professionals, each with a name and an optional phone number, and ways to make their space safer), and when it was last changed | To read in a hard moment | The person | Only if they share it. "Delete everything" removes it, the app lock covers it, and it is in "a copy of my data" |
 | `tidelight.onboarding` | Whether setup is finished; the date of a day with a very low check-in (the "quiet day") | To skip onboarding next time; to keep that day free of celebration | The app | No |
 | `tidelight.log.v1` | Each check-in: the time, the part of the day, the mood or feeling chosen, needs chosen, tags, and an optional short note | "Today" and "Your journey"; the streak | The person | Only if they share it (below) |
@@ -53,6 +61,7 @@ key-value storage. Formats are JSON unless marked plain text. The stored format'
 | IndexedDB `tidelight-hope` | Hope box photos. On `app/pre-review-fixes` an iPhone uses the phone's own photo picker: the app sees only the photo chosen, asks for no access to the library, and never opens the camera. The app redraws the photo smaller, which leaves out where and when it was taken | The Hope box | The person, from their photo library | Only if they share one |
 | `tidelight.reminders.v1` | The four reminders of an older version | Read once when upgrading; kept unchanged | The older version | No |
 | `tidelight.schema` (plain text) | The stored format's version number | Upgrades | The app | No |
+| Session only: `tidelight.night-until` | The time tonight ends, while "Darker at night" is on and it is night | So every page in the app is dark at night | The app | No; gone when the app closes |
 | Session only: `tidelight.language.tapped` | "en" or "es", when the language link is tapped on a website page inside the app, until the Daily check-in page saves it as the language | Remembering the language | The app | No; gone when the app closes |
 | Session only: `tidelight.older-layout` | A mark that the newer screens failed to start, so the older layout is used until the app is closed | Reliability | The app | No; gone when the app closes |
 
@@ -95,6 +104,10 @@ lock if it is on.
 
 ## When data leaves the phone
 
+"Care near me" (November 17, 2026): a link opens the phone's maps app at a search for emergency rooms. The
+app sends nothing and reads no location; the address is the same for everyone. From there the maps app, not
+Tidelight, uses the person's location under its own privacy policy, and may keep the search.
+
 | How | What goes | To whom | Who starts it |
 | --- | --- | --- | --- |
 | A text message from "Places that are hard for me" | The person's own message and, if they choose, where they are | The people they chose, through the phone's Messages screen; the person still taps Send | The person |
@@ -106,6 +119,8 @@ lock if it is on.
 | The phone's backup | Everything in the table above | Apple (iCloud) or Google, under the person's own account, if backups are on | The phone, on its own schedule |
 | Quick exit | Nothing from the app. The phone's browser opens weather.gov, which sees a visit like any other | weather.gov | The person |
 | Call 988, Text 988, Call 911, Chat Online | Nothing from the app. The phone's own dialer, Messages, or browser opens | 988 or 911 | The person |
+| "Make a backup file" (Settings, on `app/forty-features`) | One file with everything the app stores under its `tidelight.` keys, as stored: check-ins, journal, safety plan, letter, lists, people, places, settings, and the rest. No photos. Not locked | Wherever the person sends or saves it, through the phone's share sheet | The person, each time. The app keeps no record of where it went |
+| A breathing session on the Lock Screen (a Live Activity; Settings, off until turned on; on `app/forty-features`) | Nothing leaves. The phone is told how long the session is, and shows "Tidelight", "Breathing", and the time left on the Lock Screen | Anyone who can see the phone | The person, by turning it on; the app takes it down when the session ends or is paused |
 | Local notifications | Nothing leaves. They are scheduled on the phone | Nobody | The app, if reminders or Places are on |
 
 ## How long it is kept, and how it is deleted

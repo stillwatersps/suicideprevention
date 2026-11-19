@@ -169,7 +169,7 @@ function start() {
 
   // ---- My circle.
   let circle = { people: [], log: [] };
-  const saveCircle = () => save(CIRCLE_KEY, JSON.stringify(circle));
+  const saveCircle = async () => { const done = await save(CIRCLE_KEY, JSON.stringify(circle)); document.dispatchEvent(new Event('tidelight-circle-changed')); return done; };
   const samePhone = (a, b) => String(a).replace(/\D/g, '') === String(b).replace(/\D/g, '');
   async function placesPeople() {
     const places = await loadJson(PLACES_KEY, null);

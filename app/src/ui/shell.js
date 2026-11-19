@@ -20,6 +20,7 @@ const hideHandlers = {};
 let active = 'home';
 let bar = null;
 let goingBack = false;
+let cameFrom = null; // { name, tab }: a screen opened from a list on another tab, and that tab
 
 const screenEl = (name) => document.getElementById('tl-' + name);
 const top = (tab) => stacks[tab][stacks[tab].length - 1];
@@ -45,7 +46,9 @@ function render(focus) {
   });
   (showHandlers[showing] || []).forEach((fn) => fn());
   if (focus) {
-    window.scrollTo(0, 0);
+    // A new screen starts at its top at once. As a slow scroll, a touch in its first moments stopped it
+    // part-way on a phone, and the new screen was left scrolled to wherever the last one had been.
+    window.scrollTo({ top: 0, behavior: 'instant' });
     const screen = screenEl(showing);
     if (screen) screen.focus({ preventScroll: true });
   }
@@ -58,6 +61,7 @@ export const shell = {
   // Tapping the tab you're on goes back to its first screen and scrolls to the top.
   go(tab) {
     if (!stacks[tab]) return;
+    cameFrom = null;
     if (tab === active) stacks[tab].length = 1;
     active = tab;
     render(true);
@@ -66,6 +70,7 @@ export const shell = {
     const screen = screenEl(name);
     if (!screen) return;
     const tab = screen.getAttribute('data-tl-tab') || active;
+    cameFrom = null;
     active = tab;
     if (name === tab) { stacks[tab].length = 1; render(true); return; }
     const at = stacks[tab].indexOf(name);
@@ -75,16 +80,27 @@ export const shell = {
   // Opens a screen on top of the one showing, even if it was already open further down this tab's
   // stack, so that Back returns to where the person was. The support step uses it: Back from the
   // safety plan must come back to Call 988, not to wherever the plan was last opened from.
+  // Opens a screen from a list on another tab (All tools, My toolkit). Back from it returns to that
+  // list, not to the first screen of the tab the tool lives on.
+  pushFrom(name) {
+    const from = active;
+    shell.push(name);
+    if (active !== from && stacks[active][stacks[active].length - 1] === name) cameFrom = { name, tab: from };
+  },
   pushOver(name) {
     const screen = screenEl(name);
     if (!screen) return;
+    cameFrom = null;
     const tab = screen.getAttribute('data-tl-tab') || active;
     active = tab;
     stacks[tab] = stacks[tab].filter((item) => item !== name).concat([name]);
     render(true);
   },
   back() {
+    const leaving = stacks[active][stacks[active].length - 1];
     if (stacks[active].length > 1) stacks[active].length -= 1;
+    if (cameFrom && cameFrom.name === leaving) active = cameFrom.tab;
+    cameFrom = null;
     goingBack = true;
     try { render(true); } finally { goingBack = false; }
   },
@@ -93,6 +109,7 @@ export const shell = {
   // Home's first screen, with every tab back at its own first screen. Used after Quick exit, so
   // nothing the person had open is the first thing on screen when the app is opened again.
   home() {
+    cameFrom = null;
     Object.keys(stacks).forEach((tab) => { stacks[tab].length = 1; });
     active = 'home';
     render(true);
@@ -213,7 +230,7 @@ export function initShell() {
     // once it shows, past the header.
     try { history.replaceState(null, '', location.pathname + location.search); } catch (e) { /* the address stays; the scroll below still runs */ }
     shell.go(hashTab.id);
-    const toTop = () => window.scrollTo(0, 0);
+    const toTop = () => window.scrollTo({ top: 0, behavior: 'instant' });
     requestAnimationFrame(toTop);
     window.addEventListener('load', toTop, { once: true });
   }

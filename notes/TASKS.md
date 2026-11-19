@@ -118,6 +118,13 @@ Nothing else has been claimed. Add an owner above when you start.
   read the questions in [[CONTENT-REVIEW]]; someone tries the lock on a real iPhone with section 9b of
   `app/TESTING_CHECKLIST.md`. Handoff: [[worklogs/2026-11-14-claude-app-privacy-package]].
 
+- [ ] Forty features for the phone app (seven were already there; thirty-three built, one commit each).
+  Owner: Claude, at one founder's request. Branch: `app/forty-features`, draft pull request 33 into
+  `app/next-features`. Both founders read the list in `app/PROGRESS.md` and decide which to keep, and decide
+  the three proposals in [[DECISIONS]]; a clinician reads the new words in [[CONTENT-REVIEW]], "After a
+  crisis" first; a fluent Spanish reader reads the Spanish; someone tries it on a real iPhone.
+  Handoff: [[worklogs/2026-11-18-claude-app-forty-features]].
+
 - [ ] Twenty more features for the phone app (a safety plan, grounding, a widget, a summary for an
   appointment, a privacy screen, Shortcuts, Apple Health, an iPad layout, an Apple Watch app, and others).
   Owner: Claude, at one founder's request. Branch: `app/next-features`, draft pull request 32 into

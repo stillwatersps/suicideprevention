@@ -13,6 +13,7 @@ import { haptic, breathHaptic } from './haptics.js';
 import { createWorld } from './worlds.js';
 import { createAudio } from './audio.js';
 import { keepAwake } from './device.js';
+import { liveStart, liveEnd } from './live.js';
 import { isLowMood } from './checkin.js';
 import { devLog } from '../core/dev.js';
 
@@ -92,10 +93,12 @@ function hapticLayer(switches) {
 
 function showControls(on) {
   const controls = $('#tl-controls');
-  controls.hidden = !on;
+  // While the controls show, the words at the top of the stage move down, out from under End and the sound buttons.
+  const set = (shown) => { controls.hidden = !shown; $('#tl-stage').classList.toggle('has-controls', shown); };
+  set(on);
   clearTimeout(showControls.timer);
   if (on && session && session.timeline.playing() && $('#tl-end-confirm').hidden) {
-    showControls.timer = setTimeout(() => { if (!controls.contains(document.activeElement) || !document.activeElement.matches(':focus-visible')) controls.hidden = true; }, CONFIG.meditation.controlsVisibleMs);
+    showControls.timer = setTimeout(() => { if (!controls.contains(document.activeElement) || !document.activeElement.matches(':focus-visible')) set(false); }, CONFIG.meditation.controlsVisibleMs);
   }
 }
 function renderToggles() {
@@ -143,16 +146,23 @@ async function startSession(meditation, source) {
   };
   session.timeline = createTimeline(meditation, clock());
   if (hooks().onSession) hooks().onSession({ id: meditation.id, type: meditation.type, total: meditation.totalSeconds });
+  liveStart(meditation); // the Lock Screen, if the person turned that on (live.js)
   renderToggles();
   $('#tl-complete').hidden = true;
   stage.hidden = false;
   $('#tl-end-confirm').hidden = true;
   $('#tl-screen-text').textContent = '';
+  $('#tl-player-time').textContent = ''; // never the last session's time left, even for a moment
   $('#tl-guide-word').textContent = '';
   stage.setAttribute('data-world', meditation.world);
   shellRef.setFull(true);
   shellRef.push('player');
-  stage.scrollIntoView({ block: 'start' });
+  // At once, not as a slow scroll: on a phone a touch in its first moments stops a slow scroll part-way,
+  // and the player was left low on the page with its bottom off the screen.
+  // And measured against the strip itself, not left to the browser: an iPhone also leaves room for its
+  // status bar, which the strip already covers, and the stage's bottom edge ended up below the screen.
+  const strip = document.querySelector('.crisis-bar');
+  window.scrollBy({ top: stage.getBoundingClientRect().top - (strip ? strip.getBoundingClientRect().bottom : 0), behavior: 'instant' });
 
   const world = createWorld($('#tl-world'), meditation.world, { reduced });
   session.world = world;
@@ -210,6 +220,7 @@ function stopLayers() {
   session.haptics.clear();
   if (session.audio) session.audio.close();
   keepAwake(false);
+  liveEnd();
 }
 
 // The timeline reached its end.
@@ -242,7 +253,7 @@ function showCompletion(entry) {
   $('#tl-complete-favorite').hidden = !session.source || Boolean(session.source.presetId);
   $('#tl-complete-favorite').disabled = false;
   $('#tl-complete-note').hidden = true;
-  window.scrollTo(0, 0);
+  window.scrollTo({ top: 0, behavior: 'instant' });
   $('#tl-complete-title').focus({ preventScroll: true });
   // The finish is the full dawn, slowly. After a very low check-in today there is no dawn and no
   // buzz: just the words and the way back.
@@ -289,7 +300,7 @@ export function initPlayer(shell, context) {
   $('#tl-player-pause').addEventListener('click', () => {
     if (!session || session.over) return;
     haptic('tap');
-    if (session.timeline.playing()) { session.timeline.pause(); session.haptics.clear(); if (session.audio) session.audio.pause(); keepAwake(false); } else { session.timeline.resume(); if (session.audio) session.audio.resume(); keepAwake(true); }
+    if (session.timeline.playing()) { session.timeline.pause(); session.haptics.clear(); if (session.audio) session.audio.pause(); keepAwake(false); liveEnd(); } else { session.timeline.resume(); if (session.audio) session.audio.resume(); keepAwake(true); }
     renderToggles();
     showControls(true);
   });
@@ -299,8 +310,14 @@ export function initPlayer(shell, context) {
     $('#tl-end-confirm').hidden = false;
     showControls(true);
     $('#tl-end-yes').focus();
+    // Wherever the page was scrolled to, the question and both its answers are on the screen.
+    // The page moves only if the question is below the screen, and only as far as it needs to: the
+    // player's own Get Support Now stays where it is.
+    const below = $('#tl-end-confirm').getBoundingClientRect().bottom - window.innerHeight;
+    if (below > 0) window.scrollBy({ top: below, behavior: 'instant' });
   });
-  $('#tl-end-no').addEventListener('click', () => { $('#tl-end-confirm').hidden = true; showControls(true); });
+  // "Keep going" hands focus back to the button that opened the question, so it is never left on a hidden button.
+  $('#tl-end-no').addEventListener('click', () => { $('#tl-end-confirm').hidden = true; showControls(true); $('#tl-player-end').focus(); });
   $('#tl-end-yes').addEventListener('click', () => endSession(true));
   // Each layer has its own switch, and each works in the middle of a session.
   const toggles = { '#tl-toggle-sound': 'sound', '#tl-toggle-voice': 'voice', '#tl-toggle-haptics': 'haptics' };
@@ -319,7 +336,7 @@ export function initPlayer(shell, context) {
   }));
   // "Get Support Now" on the stage: pause, then go to the 988 panel in the page below.
   $('.tl-player-support').addEventListener('click', () => {
-    if (session && !session.over && session.timeline.playing()) { session.timeline.pause(); session.haptics.clear(); if (session.audio) session.audio.pause(); renderToggles(); }
+    if (session && !session.over && session.timeline.playing()) { session.timeline.pause(); session.haptics.clear(); if (session.audio) session.audio.pause(); liveEnd(); renderToggles(); }
   });
 
   // The completion screen.

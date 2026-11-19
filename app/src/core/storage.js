@@ -28,6 +28,13 @@ export const KEYS = Object.freeze({
   presets: 'tidelight.presets',
   language: 'tidelight.language', // plain text
   plan: 'tidelight.plan.v1', // the safety plan: six short lists in the person's own words
+  visit: 'tidelight.visit.v1', // for my next appointment: things to bring up, in the person's own words, and a time to be reminded
+  follow: 'tidelight.follow.v1', // a reminder to check in on someone: a name the person may type, and the time
+  toolkit: 'tidelight.toolkit.v1', // my toolkit: which tools (up to four) the person pinned to Home
+  course: 'tidelight.course.v1', // a first week: which of its seven steps the person ticked
+  letter: 'tidelight.letter.v1', // a letter to myself: one letter in the person's own words
+  good: 'tidelight.good.v1', // three good things: up to three short lines a day, in the person's own words
+  reach: 'tidelight.reach.v1', // a message for a hard moment, if the person changed the words
 });
 
 export function memoryBackend(initial) {

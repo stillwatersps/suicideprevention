@@ -5,3 +5,6 @@
 "widget.breathe.long" = "Un minuto para respirar";
 "widget.breathe" = "Respirar";
 "widget.plan" = "Mi plan";
+"widget.start" = "Empezar aquí";
+"widget.pace" = "Inhala 4, exhala 6";
+"widget.breathing" = "Respirando";

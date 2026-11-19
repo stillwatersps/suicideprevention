@@ -3199,6 +3199,1523 @@
      }
     ]
    },
+   "kind": {
+    "name": "Being kind to yourself",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-kind|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-kind|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-kind|tel:911|1",
+      "href": "tel:911",
+      "text": "In immediate danger, call 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "course": {
+    "name": "A first week",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "toolkit": {
+    "name": "My toolkit",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "week": {
+    "name": "My week, in words",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-week|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-week|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-week|tel:911|1",
+      "href": "tel:911",
+      "text": "In immediate danger, call 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "tools": {
+    "name": "All tools",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "tell": {
+    "name": "Words for telling someone",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-tell|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-tell|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-tell|tel:911|1",
+      "href": "tel:911",
+      "text": "In immediate danger, call 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "follow": {
+    "name": "A reminder to check in on someone",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "visit": {
+    "name": "For my next appointment",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "care": {
+    "name": "Support over time",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-care|tel:+18006624357|1",
+      "href": "tel:+18006624357",
+      "text": "1-800-662-4357",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-care|tel:+18004874889|1",
+      "href": "tel:+18004874889",
+      "text": "1-800-487-4889",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "teens": {
+    "name": "If you're a teen and things feel hard",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-teens|tel:+18664887386|1",
+      "href": "tel:+18664887386",
+      "text": "Call 1-866-488-7386",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-teens|sms:678678|1",
+      "href": "sms:678678",
+      "text": "Text START to 678-678",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-teens|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988, then press 3",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-teens|sms:988|1",
+      "href": "sms:988",
+      "text": "Text PRIDE to 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-teens|sms:741741|1",
+      "href": "sms:741741",
+      "text": "Text HOME to 741741",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "parents": {
+    "name": "If it's a child or teen",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "vets": {
+    "name": "For veterans and service members",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-vets|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988, then press 1",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-vets|sms:838255|1",
+      "href": "sms:838255",
+      "text": "Text 838255",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "lgbtq": {
+    "name": "For LGBTQ+ young people",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-lgbtq|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988, then press 3",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-lgbtq|sms:988|1",
+      "href": "sms:988",
+      "text": "Text PRIDE to 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-lgbtq|tel:+18664887386|1",
+      "href": "tel:+18664887386",
+      "text": "Call 1-866-488-7386",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-lgbtq|sms:678678|1",
+      "href": "sms:678678",
+      "text": "Text START to 678-678",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "after": {
+    "name": "After a crisis",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-after|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-after|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-after|tel:911|1",
+      "href": "tel:911",
+      "text": "In immediate danger, call 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "loss": {
+    "name": "If you've lost someone to suicide",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-loss|tel:+18009598277|1",
+      "href": "tel:+18009598277",
+      "text": "1-800-959-8277",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
    "plan": {
     "name": "My safety plan",
     "controls": [
@@ -3257,6 +4774,781 @@
       "text": "In immediate danger, call 911",
       "fullTarget": true,
       "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "letter": {
+    "name": "A letter to myself",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "ride": {
+    "name": "Ten minutes at a time",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-ride|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-ride|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-ride|tel:911|1",
+      "href": "tel:911",
+      "text": "In immediate danger, call 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "ride-step": {
+    "name": "Ten minutes at a time, a step",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-ride|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-ride|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-ride|tel:911|1",
+      "href": "tel:911",
+      "text": "In immediate danger, call 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "wind": {
+    "name": "Wind down for sleep",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "reframe": {
+    "name": "Another way to see it",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "good": {
+    "name": "Three good things",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "nearby": {
+    "name": "Care near me",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-nearby|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-nearby|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-nearby|tel:911|1",
+      "href": "tel:911",
+      "text": "In immediate danger, call 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988Talk to a counselor",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988|1",
+      "href": "sms:988",
+      "text": "Text 988Send any message",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/|1",
+      "href": "https://chat.988lifeline.org/",
+      "text": "Chat OnlineWeb chat with 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://988lifeline.org/|1",
+      "href": "https://988lifeline.org/",
+      "text": "988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "call 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "reach": {
+    "name": "Reach someone I trust",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Quick exit",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Call 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988|1",
+      "href": "sms:988",
+      "text": "text 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "call 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Get Support Now",
+      "fullTarget": true,
+      "aboveFold": true
      },
      {
       "key": "support|tel:988|1",
@@ -7223,6 +9515,1523 @@
      }
     ]
    },
+   "kind": {
+    "name": "Being kind to yourself",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-kind|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 2",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-kind|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Enviar AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-kind|tel:911|1",
+      "href": "tel:911",
+      "text": "Si hay peligro inmediato, llama al 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "course": {
+    "name": "A first week",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "toolkit": {
+    "name": "My toolkit",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "week": {
+    "name": "My week, in words",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-week|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 2",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-week|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Enviar AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-week|tel:911|1",
+      "href": "tel:911",
+      "text": "Si hay peligro inmediato, llama al 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "tools": {
+    "name": "All tools",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "tell": {
+    "name": "Words for telling someone",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-tell|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 2",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-tell|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Enviar AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-tell|tel:911|1",
+      "href": "tel:911",
+      "text": "Si hay peligro inmediato, llama al 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "follow": {
+    "name": "A reminder to check in on someone",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "visit": {
+    "name": "For my next appointment",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "care": {
+    "name": "Support over time",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-care|tel:+18006624357|1",
+      "href": "tel:+18006624357",
+      "text": "1-800-662-4357",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-care|tel:+18004874889|1",
+      "href": "tel:+18004874889",
+      "text": "1-800-487-4889",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "teens": {
+    "name": "If you're a teen and things feel hard",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-teens|tel:+18664887386|1",
+      "href": "tel:+18664887386",
+      "text": "Llamar al 1-866-488-7386",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-teens|sms:678678|1",
+      "href": "sms:678678",
+      "text": "Enviar START al 678-678",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-teens|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 3",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-teens|sms:988|1",
+      "href": "sms:988",
+      "text": "Enviar PRIDE al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-teens|sms:741741|1",
+      "href": "sms:741741",
+      "text": "Enviar HOME al 741741",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "parents": {
+    "name": "If it's a child or teen",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "vets": {
+    "name": "For veterans and service members",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-vets|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 1",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-vets|sms:838255|1",
+      "href": "sms:838255",
+      "text": "Texto al 838255",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "lgbtq": {
+    "name": "For LGBTQ+ young people",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-lgbtq|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 3",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-lgbtq|sms:988|1",
+      "href": "sms:988",
+      "text": "Enviar PRIDE al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-lgbtq|tel:+18664887386|1",
+      "href": "tel:+18664887386",
+      "text": "Llamar al 1-866-488-7386",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-lgbtq|sms:678678|1",
+      "href": "sms:678678",
+      "text": "Enviar START al 678-678",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "after": {
+    "name": "After a crisis",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-after|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 2",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-after|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Enviar AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-after|tel:911|1",
+      "href": "tel:911",
+      "text": "Si hay peligro inmediato, llama al 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "loss": {
+    "name": "If you've lost someone to suicide",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-loss|tel:+18009598277|1",
+      "href": "tel:+18009598277",
+      "text": "1-800-959-8277",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
    "plan": {
     "name": "My safety plan",
     "controls": [
@@ -7281,6 +11090,781 @@
       "text": "Si hay peligro inmediato, llama al 911",
       "fullTarget": true,
       "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "letter": {
+    "name": "A letter to myself",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "ride": {
+    "name": "Ten minutes at a time",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-ride|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 2",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-ride|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Enviar AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-ride|tel:911|1",
+      "href": "tel:911",
+      "text": "Si hay peligro inmediato, llama al 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "ride-step": {
+    "name": "Ten minutes at a time, a step",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-ride|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 2",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-ride|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Enviar AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-ride|tel:911|1",
+      "href": "tel:911",
+      "text": "Si hay peligro inmediato, llama al 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "wind": {
+    "name": "Wind down for sleep",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "reframe": {
+    "name": "Another way to see it",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "good": {
+    "name": "Three good things",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "nearby": {
+    "name": "Care near me",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "tl-nearby|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988 y marcar 2",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-nearby|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Enviar AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "tl-nearby|tel:911|1",
+      "href": "tel:911",
+      "text": "Si hay peligro inmediato, llama al 911",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|tel:988|1",
+      "href": "tel:988",
+      "text": "Llamar al 988Marca 2 para español",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "Texto al 988Escribe AYUDA",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|1",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "Chatear en líneaChat en español con la 988",
+      "fullTarget": true,
+      "aboveFold": false
+     },
+     {
+      "key": "support|https://chat.988lifeline.org/?lang=es|2",
+      "href": "https://chat.988lifeline.org/?lang=es",
+      "text": "chat.988lifeline.org",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:988|1",
+      "href": "tel:988",
+      "text": "llamar al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "enviar AYUDA al 988",
+      "fullTarget": false,
+      "aboveFold": false
+     },
+     {
+      "key": "app-place-alert|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": false,
+      "aboveFold": false
+     }
+    ]
+   },
+   "reach": {
+    "name": "Reach someone I trust",
+    "controls": [
+     {
+      "key": "strip|https://www.weather.gov/|1",
+      "href": "https://www.weather.gov/",
+      "text": "Salida rápida",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:988|1",
+      "href": "tel:988",
+      "text": "Llama al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|sms:988?&body=AYUDA|1",
+      "href": "sms:988?&body=AYUDA",
+      "text": "envía AYUDA al 988",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "strip|tel:911|1",
+      "href": "tel:911",
+      "text": "llama al 911",
+      "fullTarget": true,
+      "aboveFold": true
+     },
+     {
+      "key": "header|#support|1",
+      "href": "#support",
+      "text": "Obtén apoyo ahora",
+      "fullTarget": true,
+      "aboveFold": true
      },
      {
       "key": "support|tel:988|1",

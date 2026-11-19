@@ -45,6 +45,8 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
         CAPPluginMethod(name: "healthAsk", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "healthWrite", returnType: CAPPluginReturnPromise),
         CAPPluginMethod(name: "healthRemoveAll", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "startBreathingActivity", returnType: CAPPluginReturnPromise),
+        CAPPluginMethod(name: "endBreathingActivity", returnType: CAPPluginReturnPromise),
     ]
 
     private var launchTarget: String?
@@ -68,6 +70,8 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
     private let notice = UINotificationFeedbackGenerator()
 
     override public func load() {
+        // A breathing session that was cut short (the app was closed) leaves nothing on the Lock Screen.
+        if #available(iOS 16.2, *) { TidelightBreathing.end {} }
         #if DEBUG && targetEnvironment(simulator)
         quietForAutomatedRuns()
         #endif
@@ -431,6 +435,25 @@ public class TidelightPlugin: CAPPlugin, CAPBridgedPlugin, NotificationHandlerPr
                 popover.permittedArrowDirections = []
             }
             host.present(sheet, animated: true)
+        }
+    }
+
+    // MARK: - A breathing session on the Lock Screen (only if the person turns it on)
+
+    @objc func startBreathingActivity(_ call: CAPPluginCall) {
+        let seconds = min(max(call.getDouble("seconds") ?? 60, 10), 3600)
+        if #available(iOS 16.2, *) {
+            TidelightBreathing.start(seconds: seconds) { started in call.resolve(["started": started]) }
+        } else {
+            call.resolve(["started": false])
+        }
+    }
+
+    @objc func endBreathingActivity(_ call: CAPPluginCall) {
+        if #available(iOS 16.2, *) {
+            TidelightBreathing.end { call.resolve() }
+        } else {
+            call.resolve()
         }
     }
 

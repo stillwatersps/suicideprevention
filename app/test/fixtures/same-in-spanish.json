@@ -12,6 +12,7 @@
     "10 min",
     "15 min",
     "20 min",
+    "30 min",
     "{minutes} min",
     "{greeting}, {name}",
     "{done}/{total}",
@@ -19,7 +20,9 @@
     "{name} · {minutes} min",
     "{title}. {breaths}",
     "{name} 2",
-    "5, 4, 3, 2, 1"
+    "5, 4, 3, 2, 1",
+    "4-7-8",
+    "{who}: {when}"
   ],
   "englishOnPurpose": []
 }

@@ -8,8 +8,13 @@ import { store } from '../core/device-storage.js';
 import { KEYS } from '../core/storage.js';
 import { buildExport, oneLine, listOf } from '../logic/export.js';
 import { PARTS, planLines } from '../logic/plan.js';
+import { courseLines } from '../logic/course.js';
+import { letterLines } from '../logic/letter.js';
+import { goodLines } from '../logic/good.js';
+import { sayDay } from './good.js';
 import { t, lang } from './words.js';
 import { state } from './state.js';
+import { sayWhen } from './once.js';
 import { devLog } from '../core/dev.js';
 
 const $ = (sel, scope) => (scope || document).querySelector(sel);
@@ -56,6 +61,13 @@ export async function exportText(ctx) {
 
   const plan = planLines(state.plan, Object.fromEntries(PARTS.map((part) => [part, heading('#tl-plan-' + part + '-title')])));
   sections.push({ heading: t('plan.title'), lines: plan });
+  sections.push({ heading: t('visit.title'), lines: state.visit.notes.map((note) => '- ' + oneLine(note)).concat(state.visit.at ? [t('visit.when', { when: sayWhen(state.visit.at) })] : []) });
+  sections.push({ heading: t('follow.title'), lines: state.follow.at || state.follow.who ? [t('follow.export', { who: oneLine(state.follow.who) || '-', when: state.follow.at ? sayWhen(state.follow.at) : '-' })] : [] });
+  sections.push({ heading: t('toolkit.title'), lines: state.toolkit.pinned.map((id) => '- ' + t('tool.' + id)) });
+  sections.push({ heading: t('course.title'), lines: courseLines(state.course, Array.from(document.querySelectorAll('#tl-course [data-course-step] h3')).map((h) => h.textContent.trim())) });
+  sections.push({ heading: t('letter.title'), lines: letterLines(state.letter) });
+  sections.push({ heading: t('good.title'), lines: goodLines(state.good, sayDay) });
+  sections.push({ heading: t('reach.title'), lines: state.reach && state.reach.message ? state.reach.message.split('\n') : [] });
 
   const circle = (await stored(KEYS.circle)) || {};
   const person = (p) => '- ' + [oneLine(p.name), oneLine(p.phone)].filter(Boolean).join(', ');
@@ -80,6 +92,7 @@ export async function exportText(ctx) {
 
   const me = [];
   if (state.profile.name) me.push(t('export.name', { name: oneLine(state.profile.name) }));
+  if (typeof state.settings.reminderWords === 'string' && state.settings.reminderWords.trim()) me.push(t('export.reminderWords', { words: oneLine(state.settings.reminderWords) }));
   const group = ctx.getGroup && ctx.getGroup();
   const groupName = group && $('.app-group-names [data-age-group="' + group + '"]');
   if (groupName) me.push(t('export.age', { group: groupName.textContent.trim() }));

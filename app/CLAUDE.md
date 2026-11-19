@@ -306,6 +306,298 @@ each covers and what only a real phone can show.
 - It has not been confirmed on a real phone that 988 shows as the recipient. Until it has, treat it
   as unproven on the crisis path.
 
+## One small thing for today (November 17, 2026, a draft)
+
+- **A card on Home** (`src/logic/step.js`, `src/ui/step.js`) that shows one line a day from the person's own
+  "Things you'd like to try", which the older check-in page keeps (`explore` in `tidelight.checkin.v1`). It
+  reads that list and never writes it.
+- **The app adds no line of its own**, stores nothing, counts nothing, and never asks whether the thing was
+  done. It is hidden on a quiet day. A unit test reads the script for each of those.
+
+## Three good things (November 17, 2026, a draft)
+
+- **Rules in `src/logic/good.js`, screen in `src/ui/good.js`, numbers in `CONFIG.good`.** Up to three short lines
+  a day, in the person's own words; the app writes none of them.
+- **Never a count of days, a streak, a score, or a comparison**, and a day with nothing is never remarked on.
+  A unit test reads the rules and the script for those words. No celebration on saving.
+- **It is never offered on a support step**: a hard moment is not the time to be asked for good things.
+  `test/good-test.mjs` checks that, and the rest.
+
+## Wind down for sleep (November 17, 2026, a draft)
+
+- **`#tl-wind`, on the Meditate tab, with `src/ui/wind.js`.** Four tick boxes and a button that starts the
+  Sleep session. **The ticks are never stored** and are cleared each time the screen opens; nothing is counted.
+  It names nothing to take (no medicine, no drink); a unit test reads the words for that.
+
+## Just sound (November 17, 2026, a draft)
+
+- **A fifth built-in type, `sound`** (`TYPES` and `builtIn` in `src/logic/meditations.js`,
+  `CONFIG.meditation.lengths.sound`): one quiet stretch with a background sound for the whole time. Never a
+  voice, a breathing guide, or haptic breathing; `test/sound-test.mjs` checks each. It has no script lines,
+  so the voice recording sheet does not change. Its card on the Meditate tab is a copy of the other cards.
+
+## Care near me (November 17, 2026, a draft)
+
+- **`#tl-nearby` holds one outside link**, to the phone's maps at a search for emergency rooms. The address is
+  markup (`maps.apple.com/?q=…`, with a `geo:` form for Android swapped in by `src/ui/nearby.js`). **It carries
+  no place and nothing about the person, and the app reads no location for it;** `test/unit/nearby.test.mjs`
+  fails on a coordinate in the address, a second outside link, or a location call in the script.
+- The screen says first that nobody has to go anywhere to get help, and says in view that the link leaves
+  Tidelight. Never add a list of hospitals or a "nearest" result: the app keeps no list of places.
+
+## Darker at night (November 16, 2026, a draft)
+
+- **Rule in `src/logic/night.js`, switch in `src/ui/night.js`, `settings.nightMode` (off by default).** Between
+  the bed time and the wake time in Settings the root element has the class `tl-night`.
+- **Never write a night color by hand.** Dark colors are written once, for a phone set to dark
+  (`@media (prefers-color-scheme: dark)`); `tools/night-css.mjs` copies every such rule for `html.tl-night` at
+  build time, in every stylesheet in `www/assets`. A new dark rule needs nothing more.
+- At night every part of the app, the crisis strip included, looks exactly as it does on a phone set to dark
+  (the strip's dark colors pass the same 7 to 1 test). `test/night-test.mjs` compares them, and checks contrast
+  on each tab at night on a phone set to light.
+- The website's pages inside the app can't read the settings. `src/ui/night.js` notes when tonight ends in
+  session storage (`tidelight.night-until`), and `src/app-return.js` reads it before the page is drawn.
+
+## Ten minutes at a time (November 16, 2026, a draft)
+
+- **Clock rules in `src/logic/ride.js`, screen in `src/ui/ride.js`, numbers in `CONFIG.ride`** (five steps of
+  two minutes). The screen's words say "ten minutes" and "five small steps, two minutes each"; a unit test
+  fails if they and the numbers disagree. The steps' words are `ride.step.1` to `ride.step.5`.
+- **It is silent, stores nothing, and celebrates nothing.** Call 988, Text 988, and Call 911 are the screen's
+  last lines the whole time. At the end, or on "Stop here", it asks how things are and chooses no answer;
+  **"Still hard" shows support at once and makes the day quiet** (`goQuiet`), like a very low check-in.
+- No step names a method or a way to get hurt; a unit test reads the words. Leaving the screen, or Quick
+  exit, ends the ten minutes. `test/ride-test.mjs` checks each.
+
+## Reach someone I trust (November 16, 2026, a draft)
+
+- **Rules in `src/logic/reach.js`, screen in `src/ui/reach.js`, limits in `CONFIG.reach`.** A short message for
+  one person in My circle. **The app sends nothing:** a tap opens the phone's own messages to that one person
+  with the words filled in, and the person taps Send there. Never to a crisis line, and never to more than the
+  one person tapped; a unit test reads the script for both.
+- The screen starts with its own short message (`reach.start`), which names no method and is not a call for
+  emergency help. Only words the person changed and saved are stored (`tidelight.reach.v1`).
+- It reads My circle (kept by `src/extras.js`) and never writes it. `src/extras.js` announces a change with
+  `tidelight-circle-changed`.
+- "Message someone I trust" shows on the support step only when the circle has someone in it, below the crisis
+  buttons. The screen says first that a message is not a way to get urgent help. `test/reach-test.mjs` checks each.
+
+## A letter to myself (November 16, 2026, a draft)
+
+- **Rules in `src/logic/letter.js`, screen in `src/ui/letter.js`, the limit in `CONFIG.letter`.** One letter, in
+  the person's own words. **The app writes none of it:** no starting words, no placeholder, no prompts. A unit
+  test reads the script and the field for them.
+- Whatever is stored comes back whole or empty (`cleanLetter`), because it is read in a hard moment.
+- "Read my letter" shows on the support step only once there is a letter, and always below the crisis buttons
+  and the plan. Removing the letter asks first. "Delete everything" removes it; the app lock covers it; "a copy
+  of my data" includes it; the privacy screen names it. `test/letter-test.mjs` checks each.
+
+## Another way to see it (November 17, 2026, a draft)
+
+- **`#tl-reframe`, on the Check-in tab, with `src/ui/reframe.js`.** Four questions and four empty fields. **Nothing
+  typed is kept anywhere**: it is cleared when the screen is left, on Quick exit, and by "Clear what I wrote".
+  Never add saving or sharing to it without a founder's decision; a unit test fails on either.
+- It says, before the questions, that it isn't for thoughts of ending your life, and it never tells the person
+  their thought is a mistake (no "distorted", "irrational", "negative thinking"). Never on a support step.
+
+## Body scan (November 17, 2026, a draft)
+
+- **A sixth built-in type, `scan`** (`src/logic/meditations.js`): settle, six slow breaths, the body scan, a long
+  quiet, come back. **It reuses the Deep session's lines** (`intro.deep`, `bodyScan`, `outro.deep`), so there is
+  nothing new to record. A new spoken line means new entries in `notes/VOICE-RECORDING-SHEET.md`
+  (`node tools/voice-sheet.mjs`) and a reviewer's read; none was added.
+
+## Being kind to yourself (November 17, 2026, a draft)
+
+- **`#tl-kind`, on the Check-in tab, is words only**: three short exercises, the grounding screen's layout, and
+  the three crisis lines at its end. No script, nothing to type, nothing kept. Its words never blame, promise
+  a result, or tell the person what they should feel; a unit test reads them for that.
+
+## A mindful walk (November 17, 2026, a draft)
+
+- **A seventh built-in type, `walk`** (`src/logic/meditations.js`): four spoken lines with quiet walking between
+  them. **Nothing to look at while moving**: no breathing segment, no taps, and the opening line says to put
+  the phone in a pocket and watch where you're going. A unit test fails if any of that is removed.
+- Its lines are new, so `notes/VOICE-RECORDING-SHEET.md` gained eight rows per language. With the voice guide
+  off in Settings the session is silent with words on the screen only.
+
+## A first week (November 17, 2026, a draft)
+
+- **`#tl-course`, on the Meditate tab; `src/logic/course.js`, `src/ui/course.js`; kept as `tidelight.course.v1`.**
+  Seven steps that open things the app already has (`STEPS`). **Only the step numbers ticked are kept**: no
+  dates, no count of days, no streak, and a session finishing never ticks a step by itself.
+- The closing line is plain and is hidden on a quiet day (`isQuiet()`). Never add a count, a badge, or a
+  reminder to "keep going" to it.
+- A new course is a new list of steps and its own words, each step a thing that exists; it is not a place to
+  write new exercises.
+
+## Breathe in a pattern (November 17, 2026, a draft)
+
+- **An eighth built-in type, `breathe`**, with `options.pattern` one of `BREATHE` (`calm`, `box`, `stressed`, which
+  is 4-7-8). Whole breaths only, nothing spoken. Its id and its favorite carry the pattern
+  (`breathe-3-box`), so a saved one plays the same pattern again.
+- **The card's line about dizziness stays.** A new pattern needs a reviewer's read first: long holds are not
+  safe for everyone. A unit test fails if the warning goes.
+
+## My toolkit (November 17, 2026, a draft)
+
+- **`src/logic/tools.js` is the list of tools as data** (`TOOLS`: an id, an icon, and one way to open: a screen,
+  an older section, or a session). A tool's name is the word `tool.<id>`. A new tool screen gets a line there.
+  **The crisis lines are never in it**: they are on every screen and can't be pinned, so they can't be unpinned.
+- **The card on Home (`#tl-home-toolkit`) sits below the quick actions** and shows up to four pinned tools
+  (`tidelight.toolkit.v1`, ids only). `openTool(shell, id)` in `src/ui/toolkit.js` opens any tool.
+
+## Reminders in the person's own words (November 17, 2026, a draft)
+
+- **`settings.reminderWords`, set in Settings, Notifications.** `reminderWords()` in `src/ui/reminders.js` uses
+  them only when `ownWords()` (`src/logic/reminder-words.js`) lets them through: one line, 60 characters, and
+  **nothing about mood, crisis, or getting help**, in English or Spanish. The title stays "Tidelight".
+- **The founder's rule about discreet notifications holds for the person's own words too.** Never loosen the
+  list without a founder's decision; add to it freely. Delete everything clears the words and sets the
+  reminders again.
+
+## My week, in words (November 17, 2026, a draft)
+
+- **`#tl-week`, on the Check-in tab; `src/logic/week.js`, `src/ui/week.js`.** Sentences chosen by `weekKeys()`, then
+  the person's own check-in lines from the last seven days. **No sentence has a number in it, and nothing is
+  scored, averaged, charted, or compared with another week**; a unit test reads every sentence for that.
+- It never interprets mood ("a good week", "a hard week"). Put together each time; nothing is kept.
+
+## All tools (November 17, 2026, a draft)
+
+- **`#tl-tools`, opened from Home; `src/ui/tools-list.js`.** The list is `EVERY` in `src/logic/tools.js`: `TOOLS`
+  (can be pinned) and `MORE` (can't: they have a tab, a tile, or a row already). A new tool gets a line in one
+  of them and the words `tool.<id>` and `tool.<id>.about`.
+- **What is typed in the search is never kept, logged, or sent**, and is cleared when the screen is left; a unit
+  test reads the file for that. **`asksForHelp()` decides when the crisis lines show above the results.** Add
+  words to it freely; never remove one without a reviewer.
+
+## Words for telling someone (November 17, 2026, a draft)
+
+- **`#tl-tell`, on the Friends tab; `src/ui/tell.js`.** Eight first-person lines a person can use to tell someone
+  they are struggling. **Copy only writes to the clipboard**: the app sends nothing, keeps nothing, and opens no
+  message. A unit test reads the file for that.
+- One line names suicide plainly, on purpose. No line describes a method, says goodbye, or calls the person a
+  burden; a unit test reads them for that. New lines are for a reviewer to write.
+
+## The safety plan as a page (November 17, 2026, a draft)
+
+- **"A page to print or keep"** (`#tl-plan-page`, under Share my plan): `planPage()` makes one plain text page
+  and `handFile()` hands it to the phone's share sheet. **988 and 911 are always its last lines**, whatever the
+  plan holds. It is a text file, not a PDF; the share sheet's Print can make one.
+
+## A reminder to check in on someone (November 17, 2026, a draft)
+
+- **`#tl-follow`, on the Friends tab; `src/ui/follow.js`; kept as `tidelight.follow.v1`** (`{ who, at }`). One
+  reminder, notification id 298 (`CONFIG.reminders.followId`), set through `src/ui/once.js`.
+- **The phone is given only "Tidelight" and "A reminder you set."** The name is shown inside the app only. Never
+  pass `who`, or anything else the person typed, to a notification; a unit test reads `once.js` for that.
+- A tap on it opens the app the way a check-in reminder does (the check-in), not this screen. Not changed.
+
+## For my next appointment (November 17, 2026, a draft)
+
+- **`#tl-visit`, on the Check-in tab; `src/ui/visit.js`; kept as `tidelight.visit.v1`** (`{ notes, at }`). Up to eight
+  lines in the person's own words, and one reminder, notification id 297 (`CONFIG.reminders.visitId`), through
+  `src/ui/once.js`: **the phone is given only "Tidelight" and "A reminder you set."**
+- It records nothing about the appointment itself (who with, where, what for), on purpose.
+
+## Screens that show a website page's own sections (November 17, 2026)
+
+- **`tools/site-screens.mjs` (`SITE_SCREENS`)** says which screens show which sections of which page. The build
+  copies them where the markup has `<!-- SITE:name -->`; **nothing in such a screen is typed into the app.** To
+  change its words, change the page. `test/site-test.mjs` compares every one with its page, in both languages,
+  and `test/crisis-test.mjs` allows the services those sections name on those screens only.
+- **`#tl-care`, "Support over time"**, on the Check-in tab, is the first: the Get Help page's section of that
+  name. The row's second line is the only wording written for the app.
+
+## For teens (November 17, 2026)
+
+- **`#tl-teens`, on the Check-in tab, is the For teens page's own words** (`SITE_SCREENS.teens`): its opening and
+  four sections. The row shows for every age group, on purpose: a teen who picked another group still finds
+  it. Nothing about the person's age is used or kept to show it.
+
+## For parents and caregivers (November 17, 2026)
+
+- **`#tl-parents`, on the Friends tab, is the Help Someone page's own section "If it's a child or teen"**
+  (`SITE_SCREENS.parents`). The same section is also part of "Helping someone you're worried about"; this is a
+  direct way in. A fuller guide belongs on the website page first.
+
+## For veterans, and for LGBTQ+ young people (November 17, 2026)
+
+- **`#tl-vets` and `#tl-lgbtq`, on the Check-in tab.** Each has a title and one line written for the app, then the
+  Get Help page's own entries for the services it names (`SITE_SCREENS.vets`, `.lgbtq`, with `services` and
+  `title: 'own'`). If the page renames or drops one, the build stops and says so.
+- **A service is never added to the app before the website names it** (and its notes verify it). That is why
+  there is no screen for new parents, or for any other group, yet.
+
+## After a crisis (November 17, 2026, a draft; read by nobody qualified)
+
+- **`#tl-after`, on the Check-in tab, is words only.** It is for the days after a crisis, an emergency room visit,
+  or a hospital stay. **Its wording is the highest-risk in the app that no clinician has read.** Do not extend
+  it, reword it, or link to it from anywhere new (never from a support step) without a reviewer.
+- A unit test fails if it names a method or an attempt, promises anything, blames, celebrates, or loses its
+  line that defers to the people treating the person.
+
+## After a loss (November 17, 2026)
+
+- **`#tl-loss`, on the Friends tab, is the After a loss page's own words** (`SITE_SCREENS.loss`): its opening and
+  seven sections. The support services it names are allowed on that screen because the page names them.
+  Nothing on it celebrates, counts, or asks the person to record anything.
+
+## A backup file (November 17, 2026, a draft)
+
+- **Settings, "A backup file"; `src/logic/backup.js`, `src/ui/backup.js`.** The file is JSON: every `KEYS` value as
+  stored (not `oldReminders`), the schema version, and when it was made. **It is not locked, and the screen
+  says so.** No photos. A new stored key is in it with no further change.
+- **Restore replaces; it never merges.** A key the file lacks is removed. It asks first, refuses anything that
+  isn't a backup or is from a newer schema, clears reminder times (`withoutTimes`), then reloads the app so
+  every `clean…` rule and migration runs on what was restored. Never write restored values into `state`
+  directly.
+
+## Comfort settings (November 17, 2026, a draft)
+
+- **Three switches in Settings, off by default: `settings.alwaysDark`, `easyRead`, `readAloud`; `src/ui/comfort.js`.**
+  Always dark goes through `applyNight()` (`src/ui/night.js`), so it uses the same copied dark rules and the
+  crisis strip's own dark colors. Easier reading is the class `tl-easy` (spacing and underlines only).
+- **Read aloud** is a button put in each screen's Back row only while the switch is on; with it off no screen
+  has the button at all, shown or hidden (the privacy screen's test counts its controls). It reads `screenWords(screen)` with the phone's
+  own voice, only on a tap. **It never reads a field, and it stops on leaving the screen, leaving the app, or
+  Quick exit.** A unit test reads the file for that. Under automated runs it is recorded, never spoken.
+- There is no "always light": the app has no light colors to use on a phone set to dark.
+
+## The interactive widget, and a breathing session on the Lock Screen (November 17, 2026, a draft)
+
+- **The widget's "Start here" button (`StartBreathingIntent`) runs a breathing minute on the widget itself.** It
+  keeps one number in the widget's own storage (when that minute ends), which the app can't read. The widget
+  still has no shared container and reads nothing the person saved; `test/unit/widget.test.mjs` allows that
+  one number and nothing else.
+- **A Live Activity, off until turned on (`settings.lockScreenBreathing`, iPhone only).** `src/ui/live.js` asks for it
+  when a `quick` or `breathe` session starts and takes it down when the session ends, is paused, or Get Support
+  Now is tapped; the plugin also takes down any leftover when the app opens. The phone is told one thing: how
+  many seconds. **It shows "Tidelight", "Breathing", and the time left: never anything about the person.**
+- `BreathingAttributes.swift` is built into both the app and the widget (`tools/add-live-activity.rb`). The widget
+  is now a `WidgetBundle`.
+
+## Rules from the rundown in the iPhone Simulator (November 19, 2026)
+
+- **A screen is put in place at once, never with a slow scroll.** The website's pages scroll smoothly
+  (`scroll-behavior: smooth`), and on a phone a touch stops a smooth scroll part-way. Use `toTop()` from
+  `src/ui/components.js`, or `behavior: 'instant'`. The support step after a very low check-in depends on it.
+- **The player is placed against the crisis strip itself** (`startSession` in `src/ui/player.js`), not with
+  `scrollIntoView`: an iPhone also leaves room for its status bar, which the strip already covers, and the
+  stage's bottom ended up off the screen. A desktop browser can't show this; look in the Simulator.
+- **An iPhone doesn't hold the page still when what is above grows.** A control that changes the size of the
+  page (text size, "Easier reading") makes its change through `stayPut(el, change)`.
+- **A screen opened from a list on another tab uses `shell.pushFrom(name)`**, so Back returns to the list
+  ("All tools", "My toolkit", "A first week"). A plain `push` is for a tab's own screens.
+- **A finished flow takes itself out of its tab's stack** (`shell.forget`), or the tab opens on it next time.
+- A date and time field needs `appearance: none` like a time field, or it runs past its card on an iPhone.
+- **A button with a word in another language inside it** (`Enviar <span lang="en">PRIDE</span> al 988`) loses
+  the spaces round that word, because the website lays a button out as a row. `src/app-safe-area.css` gives
+  them back on every page inside the app (`.pill > span[lang]`). The website's own pages still have the fault.
+- A field that opens below the button that asked for it is scrolled into view (the preset's name).
+- `test/faults-test.mjs` holds each of these, with the faults from the check on November 16.
+
 ## The safety plan (November 15, 2026, a draft)
 
 - **Rules in `src/logic/plan.js`, screen in `src/ui/plan.js`, limits in `CONFIG.plan`.** Six parts, in the

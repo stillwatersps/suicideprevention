@@ -97,6 +97,9 @@ const webStandIn = {
   },
   // Tests pretend the app was opened at a named place (a notification, or the widget).
   async takeLaunchTarget() { const target = hooks().launchTarget || ''; if (target) hooks().launchTarget = ''; return { target }; },
+  // A breathing session on the Lock Screen. Here a test records what would be asked; nothing is shown.
+  async startBreathingActivity(options) { if (hooks().onActivity) hooks().onActivity({ start: options }); return { started: Boolean(hooks().onActivity) }; },
+  async endBreathingActivity() { if (hooks().onActivity) hooks().onActivity({ end: true }); return {}; },
   async debugEnterPlace() { return { done: false }; },
   // The redesign: one location on request, haptics, keeping the screen awake, the audio route.
   // In a browser these are stand-ins; tests set window.__tidelight to pretend.
