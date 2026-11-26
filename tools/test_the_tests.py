@@ -171,6 +171,7 @@ BUGS = [
     ("overlapping controls", append_css(".lang-switch { margin-bottom: -40px; }"), "matrix", "get-help", "controls overlap"),
     ("a small tap target", append_css(".pill { min-height: 0; padding: 0 2px; font-size: 8px; }"), "matrix", "get-help", "tap target"),
     ("a link without an underline", append_css(".prose a:not([class]) { text-decoration: none; }"), "matrix", "get-help", "no underline"),
+    ("words in a button running together", append_css(".pill > span[lang] { margin: 0; }"), "matrix", "es/obtener-ayuda", "words run together"),
     ("breaking at larger text", append_css(".pill { white-space: nowrap; overflow-wrap: normal; }"), "textsize", "after-a-loss", "off the screen"),
     ("a focus ring removed", append_css(":focus-visible { outline: none; }"), "keyboard", "get-help", "no visible focus ring"),
     # On phones Quick exit sits in the strip, so only the floating desktop button can cover anything.

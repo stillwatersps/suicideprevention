@@ -40,7 +40,7 @@ AUDIT_KEYS = {
     "tinyTargets": "tap target under 24px", "stripTargets": "crisis strip tap target under 44px",
     "exitCovers": "Quick exit covers something", "colorOnlyLinks": "link in a sentence has no underline",
     "exitCoversTop": "Quick exit covers a crisis link at the top of the page", "deadCrisis": "a crisis link can't be tapped",
-    "stripHidden": "at the top of the page, the crisis strip's",
+    "stripHidden": "at the top of the page, the crisis strip's", "runTogether": "words run together",
 }
 # The sizes where the Chrome tests expect the crisis strip to stay pinned, and to be one short row.
 PINNED_SIZES = {(width, height) for label, width, height, _ in VIEWPORTS if label in MUST_PIN}

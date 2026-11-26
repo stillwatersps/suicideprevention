@@ -673,6 +673,9 @@ html:not(.js) .site-nav { position: static; box-shadow: none; border: 0; }
   overflow-wrap: anywhere;
 }
 .pill:hover { background: var(--green-soft); }
+/* A button lays its parts out in a row, which drops the spaces round a word marked as another
+   language, as in "Enviar PRIDE al 988". This gives the width of those spaces back. */
+.pill > span[lang] { margin: 0 0.25em; }
 .page-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 
 /* Numbered steps */
