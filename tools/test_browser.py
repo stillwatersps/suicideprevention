@@ -140,7 +140,7 @@ AUDIT_JS = r"""
   var out = {hscroll: null, offscreen: [], clipped: [], smallTargets: [], tinyTargets: [], overlaps: [],
              brokenImages: [], contrast: [], unnamed: [], pinned: null, exitCovers: [], colorOnlyLinks: [], stripTargets: [],
              deadCrisis: [], exitCoversTop: [], stripTop: false, stripBottom: false, headerBottom: false, stripHidden: [],
-             stripRows: 0, pinnedShare: 0, compact: false, exitFixed: false};
+             stripRows: 0, pinnedShare: 0, compact: false, exitFixed: false, runTogether: []};
   function shown(el) {
     var s = getComputedStyle(el);
     if (s.visibility === 'hidden' || s.display === 'none') return false;
@@ -223,6 +223,34 @@ AUDIT_JS = r"""
     if ((s.overflowY === 'hidden' || s.overflowY === 'clip') && el.scrollHeight > el.clientHeight + 3 && el.textContent.trim()) {
       out.clipped.push(name(el) + ' cuts off vertically: ' + el.scrollHeight + ' > ' + el.clientHeight);
     }
+  });
+
+  // Words run together. A flex or grid box lays its parts out side by side and drops the spaces between
+  // them, so "Enviar <span lang="en">PRIDE</span> al 988" in a button reads "EnviarPRIDEal 988" unless
+  // the stylesheet gives the gap back. Wherever the page's source has a space between a box's own words
+  // and a word in a tag beside them, there must be a gap on screen when they share a line.
+  all.forEach(function (el) {
+    if (!/flex|grid/.test(getComputedStyle(el).display) || hiddenOnPurpose(el) || !shown(el)) return;
+    Array.prototype.forEach.call(el.childNodes, function (node) {
+      if (node.nodeType !== 3 || !node.nodeValue.trim()) return;
+      var range = document.createRange();
+      range.selectNodeContents(node);
+      var lines = range.getClientRects();
+      if (!lines.length) return;
+      [[node.previousSibling, /^\s/, lines[0], true], [node.nextSibling, /\s$/, lines[lines.length - 1], false]].forEach(function (side) {
+        var other = side[0], line = side[2];
+        if (!other || other.nodeType !== 1 || !side[1].test(node.nodeValue)) return;
+        if (other.closest('svg') || !other.textContent.trim() || hiddenOnPurpose(other) || !shown(other)) return;
+        var r = other.getBoundingClientRect();
+        if (Math.min(r.bottom, line.bottom) - Math.max(r.top, line.top) < 2) return;  // on different lines
+        var gap = side[3] ? line.left - r.right : r.left - line.right;
+        var words = node.nodeValue.trim().split(/\s+/);
+        var pair = side[3] ? other.textContent.trim() + '" and "' + words[0] : words[words.length - 1] + '" and "' + other.textContent.trim();
+        if (gap < 0.12 * parseFloat(getComputedStyle(el).fontSize)) {
+          out.runTogether.push(name(el) + ' shows no space between "' + pair + '" (' + (Math.round(gap * 10) / 10) + 'px)');
+        }
+      });
+    });
   });
 
   // Tap targets. Links inside a sentence are exempt, as in WCAG 2.5.8.
@@ -708,7 +736,8 @@ def apply_audit(result, group, page, where, report, phone, one_row=False, target
         report.fail(group, page, f"scrolls sideways ({result['hscroll'][0]} > {result['hscroll'][1]})", where)
     for key, label in (("offscreen", "runs off the screen"), ("clipped", "text cut off"), ("overlaps", "controls overlap"),
                        ("brokenImages", "image did not load"), ("contrast", "low contrast"), ("unnamed", "control has no name"),
-                       ("colorOnlyLinks", "link in a sentence has no underline")):
+                       ("colorOnlyLinks", "link in a sentence has no underline"),
+                       ("runTogether", "words run together")):
         for item in result[key]:
             report.fail(group, page, f"{label}: {item}", where)
     for item in result["stripTargets"]:
